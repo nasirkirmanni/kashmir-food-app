@@ -13,10 +13,27 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://kashmir-food-app.vercel.app",
+  ...(process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+    : [])
+];
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000"
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true
   })
 );
 app.use(express.json());

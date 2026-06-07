@@ -1,4 +1,20 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const fallbackApiUrl = "http://localhost:5000";
+
+const resolveApiUrl = () => {
+  const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+
+  if (configuredUrl) {
+    return configuredUrl.replace(/\/+$/, "");
+  }
+
+  return fallbackApiUrl;
+};
+
+const buildApiUrl = (path) => {
+  const baseUrl = resolveApiUrl();
+  const apiPrefix = baseUrl.endsWith("/api") ? "" : "/api";
+  return `${baseUrl}${apiPrefix}${path}`;
+};
 
 export const getToken = () =>
   typeof window !== "undefined" ? localStorage.getItem("kff-token") : null;
@@ -14,7 +30,7 @@ export const request = async (path, options = {}) => {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     ...options,
     headers,
     cache: "no-store"
