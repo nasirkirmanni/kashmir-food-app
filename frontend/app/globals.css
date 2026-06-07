@@ -1,0 +1,505 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --saffron: #c8860a;
+  --saffron-light: #f5d08a;
+  --saffron-pale: #fdf5e0;
+  --crimson: #8b1a2e;
+  --crimson-light: #c0455a;
+  --walnut: #3a2a1a;
+  --walnut-mid: #6b4c2a;
+  --walnut-light: #b8895a;
+  --cream: #faf6ee;
+  --cream-dark: #efe8d5;
+  --smoke: #f7f3ec;
+  --charcoal: #1e1612;
+  --muted: #7a6555;
+  --border: rgba(58, 42, 26, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-snow text-slate-900;
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  @apply transition-colors;
+}
+
+.glass-panel {
+  @apply border border-white/40 bg-white/70 backdrop-blur;
+}
+
+.page-shell {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-space {
+  @apply py-14 sm:py-20;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.font-accent {
+  font-family: var(--font-accent), serif;
+}
+
+.wazwan-shell {
+  background: var(--cream);
+  color: var(--walnut);
+}
+
+.wazwan-section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.wazwan-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 0.85rem;
+}
+
+.wazwan-section-header h2 {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--walnut);
+}
+
+.wazwan-section-header p {
+  font-family: var(--font-accent), serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--muted);
+  max-width: 40rem;
+  margin: 0.8rem auto 0;
+  line-height: 1.7;
+}
+
+.wazwan-hero-grid {
+  position: relative;
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
+}
+
+.wazwan-hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(200, 134, 10, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(139, 26, 46, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.wazwan-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233A2A1A' fill-opacity='1'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.wazwan-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  border: 1px solid var(--saffron-light);
+  background: rgba(245, 208, 138, 0.15);
+  padding: 0.42rem 1.1rem;
+  border-radius: 999px;
+}
+
+.wazwan-hero-title {
+  font-family: var(--font-display), serif;
+  font-size: clamp(3.2rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--walnut);
+}
+
+.wazwan-hero-title em {
+  color: var(--crimson);
+  font-style: italic;
+}
+
+.wazwan-hero-sub {
+  font-family: var(--font-accent), serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 36rem;
+}
+
+.wazwan-btn-primary {
+  background: var(--crimson);
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.wazwan-btn-primary:hover {
+  background: var(--crimson-light);
+  transform: translateY(-1px);
+}
+
+.wazwan-btn-ghost {
+  color: var(--walnut-mid);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.wazwan-btn-ghost:hover {
+  color: var(--crimson);
+}
+
+.wazwan-intro-strip {
+  background: var(--crimson);
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+
+.wazwan-intro-strip p {
+  font-family: var(--font-accent), serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 50rem;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.wazwan-intro-strip strong {
+  color: var(--saffron-light);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.wazwan-dish-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.wazwan-dish-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(58, 42, 26, 0.1);
+}
+
+.wazwan-restaurant-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 2.2rem;
+  display: grid;
+  gap: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.wazwan-restaurant-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(58, 42, 26, 0.08);
+}
+
+.homepage-restaurant-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.homepage-restaurant-link:hover {
+  color: var(--crimson);
+}
+
+.wazwan-tip-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.wazwan-quote {
+  background: var(--walnut);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.wazwan-quote p {
+  font-family: var(--font-accent), serif;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 44rem;
+  margin: 0 auto 1.5rem;
+  line-height: 1.7;
+}
+
+.wazwan-quote span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--saffron);
+}
+
+.place-hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7rem 2rem 4rem;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: end;
+}
+
+.place-eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--saffron);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.place-hero h1 {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.place-hero p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 700px;
+}
+
+.jump-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.jump-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.2rem;
+  box-shadow: 0 18px 48px rgba(58, 42, 26, 0.08);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.jump-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 26, 46, 0.25);
+}
+
+.jump-card strong {
+  display: block;
+  font-family: var(--font-display), serif;
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.jump-card span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.places-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem 5rem;
+}
+
+.place-section {
+  padding: 2.25rem 0 2.8rem;
+  border-top: 1px solid var(--border);
+}
+
+.place-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.place-head h2 {
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.place-head p {
+  max-width: 520px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.restaurant-grid-luxury {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.restaurant-place-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.35rem;
+  box-shadow: 0 18px 48px rgba(58, 42, 26, 0.08);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.restaurant-cover {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+  background: var(--cream-dark);
+}
+
+.restaurant-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.place-badge {
+  background: var(--smoke);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  color: var(--walnut-mid);
+}
+
+.restaurant-place-card h3 {
+  font-family: var(--font-display), serif;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.restaurant-rating {
+  color: var(--crimson);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.restaurant-submeta,
+.restaurant-quote,
+.restaurant-desc,
+.restaurant-highlights li {
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.94rem;
+}
+
+.restaurant-quote {
+  font-style: italic;
+  color: var(--walnut-mid);
+}
+
+.restaurant-highlights {
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.restaurant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.restaurant-map-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(139, 26, 46, 0.2);
+  background: rgba(139, 26, 46, 0.06);
+  color: var(--crimson);
+  border-radius: 6px;
+  padding: 0.9rem 1.35rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.restaurant-map-link:hover {
+  background: rgba(139, 26, 46, 0.12);
+  color: var(--crimson);
+  transform: translateY(-1px);
+}
+
+@media (min-width: 1024px) {
+  .wazwan-hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+
+  .wazwan-restaurant-card {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .place-hero {
+    grid-template-columns: 1fr;
+    padding-top: 5.5rem;
+  }
+
+  .place-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .jump-grid {
+    grid-template-columns: 1fr;
+  }
+}
