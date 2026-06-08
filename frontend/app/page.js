@@ -178,6 +178,8 @@ export default function HomePage() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false);
   const [isRestaurantModalClosing, setIsRestaurantModalClosing] = useState(false);
+  const [isDishModalVisible, setIsDishModalVisible] = useState(false);
+  const [isDishModalClosing, setIsDishModalClosing] = useState(false);
 
   const locationTabs = ["Srinagar", "Pahalgam", "Gulmarg", "Sonamarg"];
 
@@ -197,13 +199,31 @@ export default function HomePage() {
 
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
-        setSelectedDish(null);
+        setIsDishModalClosing(true);
       }
     };
 
+    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [selectedDish]);
+
+  useEffect(() => {
+    if (!isDishModalClosing) {
+      return undefined;
+    }
+
+    const closeTimer = window.setTimeout(() => {
+      setIsDishModalVisible(false);
+      setIsDishModalClosing(false);
+      setSelectedDish(null);
+    }, 300);
+
+    return () => window.clearTimeout(closeTimer);
+  }, [isDishModalClosing]);
 
   useEffect(() => {
     if (!isRestaurantModalVisible) {
@@ -343,11 +363,15 @@ export default function HomePage() {
             <article
               key={dish._id}
               className="wazwan-dish-card cursor-pointer"
-              onClick={() => setSelectedDish(dish)}
+              onClick={() => {
+                setSelectedDish(dish);
+                setTimeout(() => setIsDishModalVisible(true), 10);
+              }}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
                   setSelectedDish(dish);
+                  setTimeout(() => setIsDishModalVisible(true), 10);
                 }
               }}
               role="button"
@@ -654,17 +678,25 @@ export default function HomePage() {
 
       {selectedDish ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(30,22,18,0.62)] px-4 py-8"
-          onClick={() => setSelectedDish(null)}
+          className={`fixed inset-0 z-50 flex items-center justify-center px-4 py-8 transition-all duration-300 ${
+            isDishModalVisible && !isDishModalClosing
+              ? "bg-[rgba(30,22,18,0.38)] backdrop-blur-md opacity-100"
+              : "bg-[rgba(30,22,18,0)] backdrop-blur-none opacity-0"
+          }`}
+          onClick={() => setIsDishModalClosing(true)}
         >
           <div
-            className="relative w-full max-w-2xl overflow-hidden rounded-[24px] border border-[var(--border)] bg-white shadow-2xl"
+            className={`relative w-full max-w-2xl overflow-hidden rounded-[24px] border border-[var(--border)] bg-white shadow-2xl transition-all duration-300 ${
+              isDishModalVisible && !isDishModalClosing
+                ? "scale-100 translate-y-0"
+                : "scale-95 translate-y-4"
+            }`}
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
-              onClick={() => setSelectedDish(null)}
-              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--walnut)]"
+              onClick={() => setIsDishModalClosing(true)}
+              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--walnut)] transition hover:border-[var(--saffron)] hover:text-[var(--crimson)]"
               aria-label="Close dish details"
             >
               X
@@ -673,7 +705,7 @@ export default function HomePage() {
             <img
               src={dishImageOverrides[selectedDish.name] || selectedDish.image}
               alt={selectedDish.name}
-              className="h-64 w-full object-cover"
+              className="h-64 w-full object-cover rounded-t-[24px]"
             />
 
             <div className="space-y-5 p-7 sm:p-8">
@@ -717,7 +749,7 @@ export default function HomePage() {
                 </Link>
                 <button
                   type="button"
-                  onClick={() => setSelectedDish(null)}
+                  onClick={() => setIsDishModalClosing(true)}
                   className="wazwan-btn-ghost"
                 >
                   Close

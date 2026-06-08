@@ -839,6 +839,30 @@ export const restaurants = [
     linkedDishNames: ["Gushtaba", "Rogan Josh", "Tabak Maaz", "Ruwangan Chaman"]
   },
   {
+    name: "1860 Restaurant",
+    location: "First Floor, 2739, Circular Road, Gulmarg, Nagbal, Jammu and Kashmir 193403",
+    city: "Gulmarg",
+    rating: 4.9,
+    priceLevel: "Mid-range",
+    tags: [
+      "Fine Dining",
+      "Luxury Hotel",
+      "Kashmiri Food",
+      "Indian Cuisine",
+      "Mountain View"
+    ],
+    image: "https://www.thevintage.in/images/wp-content/uploads/2016/02/Banner-Bistro1.gif",
+    description:
+      "Located inside The Vintage luxury hotel, 1860 is a premium restaurant named for the historic year official tourism began in Kashmir. It offers an intimate fine-dining setting with traditional Indian, authentic Kashmiri, Chinese, Continental, and breakfast buffet options.",
+    phoneNumber: "+91 97961 00555",
+    authentic: true,
+    overpriced: false,
+    touristTrapWarning: false,
+    touristTrapReason: "",
+    googleMapsQuery: "1860 Restaurant The Vintage Gulmarg",
+    linkedDishNames: ["Rogan Josh", "Gushtaba", "Rista", "Tabak Maaz", "Dum Aelve"]
+  },
+  {
     name: "Golden Chinar Dining",
     location: "Lal Chowk, Srinagar",
     city: "Srinagar",
