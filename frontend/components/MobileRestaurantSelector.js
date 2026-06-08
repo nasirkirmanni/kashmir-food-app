@@ -98,59 +98,69 @@ export default function MobileRestaurantSelector({
         <motion.button
           whileTap={{ scale: 0.98 }}
           onClick={() => setSelectorOpen((v) => !v)}
-          className={`relative w-full overflow-hidden rounded-3xl border text-left transition-all duration-300 ${
+          className={`relative w-full overflow-hidden rounded-[1.5rem] border transition-all duration-500 text-left ${
             selectorOpen
-              ? "border-[var(--saffron)] bg-[rgba(212,175,55,0.07)] shadow-[0_0_40px_rgba(212,175,55,0.2)]"
-              : "border-white/12 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+              ? "border-[rgba(212,175,55,0.6)] shadow-[0_0_30px_rgba(212,175,55,0.15)]"
+              : "border-white/10 hover:border-white/30"
           }`}
           aria-expanded={selectorOpen}
           aria-haspopup="listbox"
         >
-          {/* Subtle radial glow in top-left corner */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(212,175,55,0.06),transparent_60%)]" />
+          {/* Background Image & Overlay */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/wazwan-hero.png"
+              alt="Background"
+              className="w-full h-full object-cover object-center opacity-60 scale-105"
+            />
+            {/* Gradient fading to black on the left and bottom */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/90 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
+          </div>
 
-          {/* Gold shimmer line at bottom */}
-          <div className={`absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-[var(--saffron)] to-transparent transition-opacity duration-300 ${selectorOpen ? "opacity-50" : "opacity-20"}`} />
-
-          <div className="relative z-10 flex items-center justify-between gap-4 px-6 py-7">
-            <div className="flex items-center gap-5">
-              {/* Compass icon — larger */}
-              <div
-                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border transition-all duration-300 ${
-                  selectorOpen || selectedLocation
-                    ? "border-[var(--saffron)] bg-[var(--saffron)] text-black shadow-[0_0_20px_rgba(212,175,55,0.3)]"
-                    : "border-white/12 bg-black/40 text-white/50"
-                }`}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-7 w-7"
+          <div className="relative z-10 px-6 py-7">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                {/* Fork/Spoon icon in gold outline circle */}
+                <div
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--saffron)] text-[var(--saffron)] bg-[#0B0B0B]/50 backdrop-blur-sm"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2v20" />
+                    <path d="M17 2v20" />
+                    <path d="M22 2v20" />
+                    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                    <path d="M7 2v20" />
+                  </svg>
+                </div>
+
+                <div>
+                  <p className="font-display text-2xl font-normal text-white tracking-wide">
+                    {selectedLocation ?? "Explore Restaurants"}
+                  </p>
+                  <p className="mt-1 text-[0.75rem] font-normal leading-snug text-white/60 tracking-wide max-w-[180px]">
+                    {selectedLocation 
+                      ? `${locationCounts[selectedLocation] || 0} venues available` 
+                      : "Discover exceptional dining across Kashmir's finest locations"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Arrow in circle */}
+              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all ${selectorOpen ? "border-[var(--saffron)] text-[var(--saffron)]" : "border-white/20 text-white/80 bg-white/5"} backdrop-blur-sm`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`h-5 w-5 transition-transform duration-300 ${selectorOpen ? "rotate-90" : "rotate-0"}`} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="M12 5l7 7-7 7" />
                 </svg>
               </div>
-
-              <div>
-                <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[var(--saffron)]">
-                  {selectedLocation ? "Selected Destination" : "Where To Eat"}
-                </p>
-                <p className="mt-1.5 font-display text-2xl font-semibold text-white">
-                  {selectedLocation ?? "Explore Restaurants"}
-                </p>
-                {!selectedLocation && (
-                  <p className="mt-1 text-xs text-white/40 tracking-wide">
-                    Srinagar · Gulmarg · Pahalgam · Sonamarg
-                  </p>
-                )}
-              </div>
             </div>
-            <ChevronIcon open={selectorOpen} />
+
+            {/* Bottom locations row */}
+            <div className="mt-5 pt-4 border-t border-white/10 w-full text-center">
+               <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">
+                 Srinagar • Gulmarg • Pahalgam • Sonamarg
+               </p>
+            </div>
           </div>
         </motion.button>
 

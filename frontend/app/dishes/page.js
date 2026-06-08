@@ -10,16 +10,12 @@ function DishesPageContent() {
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
-    category: searchParams.get("category") || "",
-    foodType: searchParams.get("foodType") || "",
-    budget: searchParams.get("budget") || ""
+    searchQuery: searchParams.get("search") || "",
   });
 
   useEffect(() => {
     setFilters({
-      category: searchParams.get("category") || "",
-      foodType: searchParams.get("foodType") || "",
-      budget: searchParams.get("budget") || ""
+      searchQuery: searchParams.get("search") || "",
     });
   }, [searchParams]);
 
@@ -27,10 +23,7 @@ function DishesPageContent() {
     const params = new URLSearchParams();
     const search = searchParams.get("search");
 
-    if (search) params.set("search", search);
-    if (filters.category) params.set("category", filters.category);
-    if (filters.foodType) params.set("foodType", filters.foodType);
-    if (filters.budget) params.set("budget", filters.budget);
+    if (filters.searchQuery) params.set("search", filters.searchQuery);
 
     setLoading(true);
     request(endpoints.dishes(`?${params.toString()}`))
@@ -53,12 +46,8 @@ function DishesPageContent() {
 
         <div className="jump-grid">
           <div className="jump-card">
-            <strong>Filter by Category</strong>
-            <span>Use Wazwan, Street Food, Budget Eats, or Luxury Dining to narrow the list.</span>
-          </div>
-          <div className="jump-card">
             <strong>Search by Name</strong>
-            <span>Type a dish name in the URL search query to jump directly to a favorite.</span>
+            <span>Type a dish name in the search bar below to jump directly to a favorite.</span>
           </div>
           <div className="jump-card">
             <strong>Spot the Classics</strong>
@@ -76,38 +65,16 @@ function DishesPageContent() {
           <div className="place-head">
             <div>
               <span className="place-eyebrow">Browse Dishes</span>
-              <h2>Filter the Wazwan spread</h2>
+              <h2>Search your favourite wazwan dishes</h2>
             </div>
-            <p>Choose a category, food type, or budget keyword to refine the list below.</p>
           </div>
 
-          <div className="grid gap-4 rounded-[20px] border border-[var(--border)] bg-white/90 p-5 shadow-card md:grid-cols-3">
-            <select
-              value={filters.category}
-              onChange={(event) => setFilters({ ...filters, category: event.target.value })}
-              className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm outline-none"
-            >
-              <option value="">All categories</option>
-              <option value="Wazwan">Wazwan</option>
-              <option value="Street Food">Street Food</option>
-              <option value="Cafes">Cafes</option>
-              <option value="Budget Eats">Budget Eats</option>
-              <option value="Luxury Dining">Luxury Dining</option>
-            </select>
-            <select
-              value={filters.foodType}
-              onChange={(event) => setFilters({ ...filters, foodType: event.target.value })}
-              className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm outline-none"
-            >
-              <option value="">All food types</option>
-              <option value="Veg">Veg</option>
-              <option value="Non-veg">Non-veg</option>
-            </select>
+          <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
             <input
-              value={filters.budget}
-              onChange={(event) => setFilters({ ...filters, budget: event.target.value })}
-              placeholder="Budget keyword, e.g. 450 or INR"
-              className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm outline-none"
+              value={filters.searchQuery}
+              onChange={(event) => setFilters({ searchQuery: event.target.value })}
+              placeholder="Search dishes..."
+              className="w-full rounded-xl border border-white/10 bg-black/40 text-white/90 placeholder-white/30 px-4 py-3 text-sm outline-none focus:border-[var(--saffron)] transition-colors"
             />
           </div>
 

@@ -389,8 +389,7 @@ export const restaurants = [
     rating: 4.7,
     priceLevel: "Mid-range",
     tags: ["Traditional", "Heritage", "Wazwan"],
-    image:
-      "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/restaurants/ahdoos-new.jpg",
     description:
       "A heritage favorite for travelers looking to experience classic Kashmiri food in a legacy setting.",
     phoneNumber: "+91 194 247 2593",
