@@ -16,8 +16,8 @@ module.exports = {
         mist: "#dce7e1"
       },
       fontFamily: {
-        display: ["Georgia", "serif"],
-        body: ["Trebuchet MS", "sans-serif"]
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body: ["var(--font-body)", "Inter", "sans-serif"]
       },
       boxShadow: {
         card: "0 18px 50px rgba(30, 41, 59, 0.12)"

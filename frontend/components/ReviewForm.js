@@ -39,14 +39,14 @@ export default function ReviewForm({ restaurantId, onSuccess }) {
   };
 
   return (
-    <form onSubmit={submit} className="rounded-[20px] border border-[var(--border)] bg-white p-6 shadow-card">
+    <form onSubmit={submit} className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 shadow-2xl">
       <span className="place-eyebrow">Share Your Experience</span>
-      <h3 className="font-display text-3xl text-[var(--walnut)]">Leave a review</h3>
+      <h3 className="font-display text-3xl text-white tracking-tight">Leave a review</h3>
       <div className="mt-5 space-y-4">
         <select
           value={form.rating}
           onChange={(event) => setForm({ ...form, rating: event.target.value })}
-          className="w-full rounded-md border border-[var(--border)] px-4 py-3"
+          className="w-full rounded-md border border-white/20 bg-black/40 text-white px-4 py-3 focus:outline-none focus:border-[var(--saffron)] transition-colors"
         >
           <option value="5">5 - Excellent</option>
           <option value="4">4 - Very good</option>
@@ -58,7 +58,7 @@ export default function ReviewForm({ restaurantId, onSuccess }) {
           value={form.comment}
           onChange={(event) => setForm({ ...form, comment: event.target.value })}
           placeholder="Share a practical tip for future tourists"
-          className="w-full rounded-md border border-[var(--border)] px-4 py-3"
+          className="w-full rounded-md border border-white/20 bg-black/40 text-white px-4 py-3 focus:outline-none focus:border-[var(--saffron)] transition-colors"
           rows={4}
           required
         />
@@ -66,7 +66,7 @@ export default function ReviewForm({ restaurantId, onSuccess }) {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-[var(--crimson)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white disabled:opacity-60"
+          className="rounded-md bg-white/10 border border-white/20 hover:border-[var(--saffron)] hover:text-[var(--saffron)] transition-colors text-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white disabled:opacity-60"
         >
           {loading ? "Submitting..." : "Post review"}
         </button>

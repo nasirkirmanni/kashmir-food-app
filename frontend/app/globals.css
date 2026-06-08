@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  --saffron: #c8860a;
-  --saffron-light: #f5d08a;
-  --saffron-pale: #fdf5e0;
-  --crimson: #8b1a2e;
-  --crimson-light: #c0455a;
-  --walnut: #3a2a1a;
-  --walnut-mid: #6b4c2a;
-  --walnut-light: #b8895a;
-  --cream: #faf6ee;
-  --cream-dark: #efe8d5;
-  --smoke: #f7f3ec;
-  --charcoal: #1e1612;
-  --muted: #7a6555;
-  --border: rgba(58, 42, 26, 0.12);
+  color-scheme: dark;
+  --saffron: #D4AF37;
+  --saffron-light: #E6C875;
+  --saffron-pale: rgba(212, 175, 55, 0.1);
+  --crimson: #7A1025;
+  --crimson-light: #9B1B34;
+  --walnut: #FFFFFF;
+  --walnut-mid: #B3B3B3;
+  --walnut-light: #808080;
+  --cream: #0B0B0B;
+  --cream-dark: #111111;
+  --smoke: #111111;
+  --charcoal: #FFFFFF;
+  --muted: #B3B3B3;
+  --border: rgba(255, 255, 255, 0.08);
 }
 
 html {
@@ -25,16 +25,20 @@ html {
 }
 
 body {
-  @apply bg-snow text-slate-900;
+  background-color: #0B0B0B;
+  color: #FFFFFF;
   font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
 }
 
 a {
-  @apply transition-colors;
+  @apply transition-colors duration-300;
 }
 
 .glass-panel {
-  @apply border border-white/40 bg-white/70 backdrop-blur;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .page-shell {
@@ -208,31 +212,35 @@ a {
 }
 
 .wazwan-dish-card {
-  background: #fff;
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .wazwan-dish-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(58, 42, 26, 0.1);
+  box-shadow: 0 16px 48px rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
 }
 
 .wazwan-restaurant-card {
-  background: #fff;
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 2rem 2.2rem;
   display: grid;
   gap: 1.5rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 .wazwan-restaurant-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(58, 42, 26, 0.08);
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
 }
 
 .homepage-restaurant-link {
@@ -241,12 +249,13 @@ a {
 }
 
 .homepage-restaurant-link:hover {
-  color: var(--crimson);
+  color: var(--saffron);
 }
 
 .wazwan-tip-card {
-  background: #fff;
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 2rem;
 }
@@ -317,19 +326,21 @@ a {
 }
 
 .jump-card {
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
   padding: 1.2rem;
-  box-shadow: 0 18px 48px rgba(58, 42, 26, 0.08);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .jump-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(139, 26, 46, 0.25);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 18px 48px rgba(212, 175, 55, 0.1);
 }
 
 .jump-card strong {
@@ -337,6 +348,7 @@ a {
   font-family: var(--font-display), serif;
   font-size: 1.15rem;
   margin-bottom: 0.35rem;
+  color: #FFFFFF;
 }
 
 .jump-card span {
@@ -382,13 +394,21 @@ a {
 }
 
 .restaurant-place-card {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 1.35rem;
-  box-shadow: 0 18px 48px rgba(58, 42, 26, 0.08);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
   display: grid;
   gap: 0.9rem;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.restaurant-place-card:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 48px rgba(212, 175, 55, 0.1);
 }
 
 .restaurant-cover {
@@ -397,7 +417,7 @@ a {
   object-fit: cover;
   border-radius: 14px;
   display: block;
-  background: var(--cream-dark);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .restaurant-meta {
@@ -407,22 +427,23 @@ a {
 }
 
 .place-badge {
-  background: var(--smoke);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
   font-size: 0.78rem;
-  color: var(--walnut-mid);
+  color: #FFFFFF;
 }
 
 .restaurant-place-card h3 {
   font-family: var(--font-display), serif;
   font-size: 1.35rem;
   line-height: 1.2;
+  color: #FFFFFF;
 }
 
 .restaurant-rating {
-  color: var(--crimson);
+  color: var(--saffron);
   font-weight: 700;
   font-size: 0.92rem;
 }
@@ -438,7 +459,7 @@ a {
 
 .restaurant-quote {
   font-style: italic;
-  color: var(--walnut-mid);
+  color: var(--muted);
 }
 
 .restaurant-highlights {

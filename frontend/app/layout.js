@@ -1,24 +1,19 @@
 import "./globals.css";
-import { Cormorant_Garamond, DM_Sans, Playfair_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 
-const playfair = Playfair_Display({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-display"
+  variable: "--font-body"
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-accent",
-  weight: ["300", "400", "500", "600", "700"]
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-body"
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700"]
 });
 
 export const metadata = {
@@ -28,10 +23,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${playfair.variable} ${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased`}>
         <AuthProvider>
-          <div className="min-h-screen bg-snow">
+          <div className="min-h-screen">
             <SplashScreen />
             <Navbar />
             <main>{children}</main>
