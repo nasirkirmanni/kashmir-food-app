@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LandingCanvas from "@/components/LandingCanvas";
 import { endpoints, request } from "@/lib/api";
+import DesktopRestaurantTabs from "@/components/DesktopRestaurantTabs";
+import MobileRestaurantSelector from "@/components/MobileRestaurantSelector";
 
 const locationTabMeta = {
   Srinagar: {
@@ -160,11 +162,74 @@ export default function HomePage() {
 
   return (
     <div className="bg-[#0B0B0B] text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen">
-      {/* 1. HERO SECTION */}
-      <section className="relative flex min-h-screen items-center justify-center pt-20">
+      {/* ═══════════════════════════════════════════════════════
+          MOBILE HERO — image on top, content below (no text over image)
+          ═══════════════════════════════════════════════════════ */}
+      <div className="block md:hidden">
+        {/* Hero image — large, immersive, full-width, NO text over it */}
+        <div className="relative w-full overflow-hidden" style={{ height: "56vh" }}>
+          <img
+            src="/wazwan-hero.png"
+            alt="Kashmiri Wazwan feast"
+            className="h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0B0B0B]/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,rgba(212,175,55,0.06),transparent_60%)]" />
+        </div>
+
+        {/* Content — below image on pure dark background */}
+        <div className="bg-[#0B0B0B] px-5 pb-10 -mt-2">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="inline-block rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[var(--saffron)] backdrop-blur-xl">
+              Welcome to the Royal Cuisine of Kashmir
+            </div>
+            <h1 className="mt-5 font-display text-[2.6rem] font-medium leading-[1.02] tracking-tight text-white">
+              The <em className="text-[var(--saffron)] not-italic">Royal</em> Table
+              <br />
+              of Kashmir
+            </h1>
+            <p className="mt-4 text-sm leading-relaxed text-white/60">
+              Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes.
+            </p>
+            <div className="mt-7 flex flex-col gap-3">
+              <Link
+                href="/restaurants"
+                className="w-full text-center rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-bold tracking-wide text-black shadow-[0_0_30px_rgba(212,175,55,0.25)] active:scale-[0.98] transition-transform"
+              >
+                Explore Restaurants
+              </Link>
+              <Link
+                href="/#dishes"
+                className="w-full text-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-semibold tracking-wide text-white backdrop-blur-md active:scale-[0.98] transition-transform"
+              >
+                Discover the Dishes &rarr;
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════
+          DESKTOP HERO — immersive full-screen (unchanged)
+          ═══════════════════════════════════════════════════════ */}
+      <section className="relative hidden md:flex min-h-screen items-center justify-center pt-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/wazwan-hero.png"
+            alt="Kashmiri Wazwan feast"
+            className="h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_50%,transparent_15%,rgba(11,11,11,0.6)_70%,rgba(11,11,11,0.95)_100%)]" />
+          <div className="absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-[#0B0B0B] via-[rgba(11,11,11,0.6)] to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(212,175,55,0.08),transparent_55%)]" />
+        </div>
         <LandingCanvas />
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.1),transparent_50%),radial-gradient(circle_at_bottom_left,rgba(122,16,37,0.15),transparent_50%)]" />
-        
         <div className="page-shell relative z-10 mx-auto max-w-5xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -174,25 +239,24 @@ export default function HomePage() {
             <div className="inline-block rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--saffron)] backdrop-blur-xl">
               Welcome to the Royal Cuisine of Kashmir
             </div>
-            <h1 className="mt-10 font-display text-5xl md:text-7xl lg:text-[8rem] font-medium leading-[0.95] tracking-tight text-white drop-shadow-2xl">
+            <h1 className="mt-10 font-display text-7xl lg:text-[8rem] font-medium leading-[0.95] tracking-tight text-white drop-shadow-2xl">
               The <em className="text-[var(--saffron)] not-italic">Royal</em> Table
               <br />
               of Kashmir
             </h1>
-            <p className="mx-auto mt-8 max-w-2xl font-body text-lg leading-relaxed text-white/70">
+            <p className="mx-auto mt-8 max-w-2xl font-body text-lg leading-relaxed text-white/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
               Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes carried from the kitchens of Kashmir to the traveler&apos;s table.
             </p>
-            
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-6">
+            <div className="mt-12 flex items-center justify-center gap-6">
               <Link
                 href="/restaurants"
-                className="w-full md:w-auto text-center rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-semibold tracking-wide text-black shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-transform duration-300 hover:scale-105"
+                className="text-center rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-semibold tracking-wide text-black shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-transform duration-300 hover:scale-105"
               >
                 Explore Restaurants
               </Link>
               <Link
                 href="/#dishes"
-                className="w-full md:w-auto text-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-semibold tracking-wide text-white backdrop-blur-md transition duration-300 hover:bg-white/10 hover:border-white/30"
+                className="text-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-semibold tracking-wide text-white backdrop-blur-md transition duration-300 hover:bg-white/10 hover:border-white/30"
               >
                 Discover the Dishes &rarr;
               </Link>
@@ -200,64 +264,40 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
-
-      {/* INTRO STRIP */}
-      <div className="bg-[var(--crimson)] py-20 text-center relative z-10 border-y border-white/10 shadow-[0_0_60px_rgba(122,16,37,0.4)]">
-        <p className="mx-auto max-w-4xl px-4 font-display text-2xl md:text-3xl lg:text-4xl font-normal leading-relaxed text-white/90 italic tracking-wide">
-          Prepared by the <strong className="font-semibold text-[var(--saffron)] not-italic">Waza</strong>, Kashmir&apos;s master chefs, the Wazwan feast can span <strong className="font-semibold text-[var(--saffron)] not-italic">dozens of dishes</strong> cooked with patience, ceremony, saffron, dry ginger, and the soul of the valley.
-        </p>
-      </div>
-
       {/* 2. RESTAURANTS SECTION */}
-      <section id="restaurants" className="relative py-32 z-10">
+      <section id="restaurants" className="relative pt-10 pb-24 md:py-32 z-10">
         <div className="page-shell">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
-            className="mb-24 text-center"
+            className="mb-8 md:mb-24 text-center"
           >
             <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Where To Eat</span>
             <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">The Finest Destinations</h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">Curated from Residency Road, Dal Lake, and Srinagar&apos;s most prestigious dining rooms.</p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {locationTabs.map((location, i) => {
-              const isActive = selectedLocation === location;
-              const count = locationCounts[location] || 0;
-              const icon = locationTabMeta[location]?.icon;
+          {/* ── DESKTOP: 4-tab grid (md and above) ─────────────── */}
+          <div className="hidden md:block">
+            <DesktopRestaurantTabs
+              locationTabs={locationTabs}
+              locationTabMeta={locationTabMeta}
+              locationCounts={locationCounts}
+              selectedLocation={selectedLocation}
+              onSelectLocation={(location) => {
+                setSelectedLocation(location);
+                setIsRestaurantModalVisible(true);
+              }}
+            />
+          </div>
 
-              return (
-                <motion.button
-                  key={location}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  onClick={() => {
-                    setSelectedLocation(location);
-                    setIsRestaurantModalVisible(true);
-                  }}
-                  className={`group relative flex min-h-[120px] w-full flex-col justify-center overflow-hidden rounded-[24px] border border-white/10 p-6 text-left transition-all duration-300 ${
-                    isActive
-                      ? "bg-white/15 shadow-[0_0_40px_rgba(212,175,55,0.15)] border-white/30"
-                      : "bg-white/5 backdrop-blur-xl hover:bg-white/10 hover:border-white/20 hover:shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
-                  }`}
-                >
-                  <div className="relative z-10 flex items-center gap-5">
-                    <div className={`flex h-16 w-16 items-center justify-center rounded-[18px] border transition-colors duration-300 ${isActive ? "border-[var(--saffron)] bg-[var(--saffron)] text-black" : "border-white/10 bg-black/40 text-white/70 group-hover:border-[var(--saffron)] group-hover:text-[var(--saffron)]"}`}>
-                      {icon}
-                    </div>
-                    <div>
-                      <p className="font-display text-2xl font-semibold text-white">{location}</p>
-                      <p className="mt-1 flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[var(--saffron)]">
-                        {count} Locations
-                      </p>
-                    </div>
-                  </div>
-                </motion.button>
-              );
-            })}
+          {/* ── MOBILE: compact selector with inline results (below md) */}
+          <div className="block md:hidden">
+            <MobileRestaurantSelector
+              locationTabs={locationTabs}
+              locationTabMeta={locationTabMeta}
+              locationCounts={locationCounts}
+              restaurants={restaurants}
+            />
           </div>
         </div>
       </section>

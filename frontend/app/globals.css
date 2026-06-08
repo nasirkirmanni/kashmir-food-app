@@ -524,3 +524,58 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   HERO IMAGE FLOAT / LEVITATION ANIMATIONS
+   Three independent layers combine to feel like each dish
+   floats independently — sine ease-in-out, GPU-accelerated
+   ═══════════════════════════════════════════════════════ */
+
+/* Layer 1 — Container sway: slow rotation 1.2deg, 7s */
+@keyframes heroSway {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(1.2deg); }
+  50%  { transform: rotate(0deg); }
+  80%  { transform: rotate(-1.2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Layer 2 — Main float: 0 to -8px bob with scale breath, 5s */
+@keyframes heroFloat {
+  0%   { transform: translateY(0px)  scale(1.04); }
+  25%  { transform: translateY(-8px) scale(1.07); }
+  50%  { transform: translateY(-3px) scale(1.05); }
+  75%  { transform: translateY(-7px) scale(1.065); }
+  100% { transform: translateY(0px)  scale(1.04); }
+}
+
+/* Layer 3 — Inner orbit: faster + phase offset, 3.2s */
+@keyframes heroOrbit {
+  0%   { transform: translateY(0px)  translateX(0px); }
+  30%  { transform: translateY(-5px) translateX(2px); }
+  60%  { transform: translateY(-4px) translateX(-2px); }
+  100% { transform: translateY(0px)  translateX(0px); }
+}
+
+.hero-sway {
+  animation: heroSway 7s ease-in-out infinite;
+  transform-origin: 50% 58%;
+  will-change: transform;
+}
+
+.hero-float {
+  animation: heroFloat 5s ease-in-out infinite;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.hero-orbit {
+  animation: heroOrbit 3.2s ease-in-out infinite;
+  animation-delay: 0.8s;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sway, .hero-float, .hero-orbit { animation: none; }
+}
