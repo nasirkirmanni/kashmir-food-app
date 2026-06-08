@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import LandingCanvas from "@/components/LandingCanvas";
+import { motion } from "framer-motion";
 import { endpoints, request } from "@/lib/api";
 
 const locationTabMeta = {
@@ -262,6 +263,10 @@ export default function HomePage() {
   const featuredDishes = dishes.filter(
     (dish) => dish.category === "Wazwan" || dish.name === "Gushtaba"
   );
+  const targetCuratedNames = ["Ahdoos", "Mughal Darbar", "Kareema Restaurant"];
+  const curatedRestaurants = restaurants
+    .filter((r) => targetCuratedNames.includes(r.name))
+    .sort((a, b) => targetCuratedNames.indexOf(a.name) - targetCuratedNames.indexOf(b.name));
   const locationCounts = locationTabs.reduce((counts, location) => {
     counts[location] = restaurants.filter(
       (restaurant) => (restaurant.city || "Srinagar") === location
@@ -348,61 +353,6 @@ export default function HomePage() {
           ginger, and the soul of the valley.
         </p>
       </div>
-
-      <section id="dishes" className="page-shell py-24">
-        <div className="wazwan-section-header">
-          <span className="wazwan-tag">The Courses</span>
-          <h2>Signature Wazwan Dishes</h2>
-          <p>
-            A journey through the dishes that define Kashmir&apos;s grandest culinary tradition.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {featuredDishes.map((dish) => (
-            <article
-              key={dish._id}
-              className="wazwan-dish-card cursor-pointer"
-              onClick={() => {
-                setSelectedDish(dish);
-                setTimeout(() => setIsDishModalVisible(true), 10);
-              }}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  setSelectedDish(dish);
-                  setTimeout(() => setIsDishModalVisible(true), 10);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={`Open details for ${dish.name}`}
-            >
-              <img
-                src={dishImageOverrides[dish.name] || dish.image}
-                alt={dish.name}
-                className="h-48 w-full object-cover"
-              />
-              <div className="p-6">
-                <p className="text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
-                  {dish.category}
-                </p>
-                <h3 className="font-display mt-2 text-2xl text-[var(--walnut)]">{dish.name}</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{dish.description}</p>
-                <span className="mt-4 inline-block rounded-full bg-[var(--cream-dark)] px-3 py-1 text-xs font-medium text-[var(--walnut-mid)]">
-                  {dish.foodType} - {dish.spiceLevel}
-                </span>
-                <div className="mt-5">
-                  <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.08em] text-[var(--crimson)]">
-                    Tap for dish details
-                    <span aria-hidden="true">-&gt;</span>
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
 
       <section id="restaurants" className="bg-[var(--smoke)] py-24">
         <div className="page-shell">
@@ -499,6 +449,146 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+
+      {/* Curated Selection */}
+      <section className="relative overflow-hidden bg-[var(--walnut)] py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,134,10,0.15),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(139,26,46,0.15),transparent_40%)]" />
+        
+        <div className="page-shell relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mb-16 text-center lg:text-left"
+          >
+            <span className="wazwan-tag border-white/20 bg-white/5 text-[var(--saffron-light)] backdrop-blur-md">Editor&apos;s Choice</span>
+            <h2 className="mt-4 font-display text-4xl text-white sm:text-5xl">Curated Selection</h2>
+            <p className="mt-4 text-lg text-white/70 lg:max-w-xl">
+              Handpicked dining experiences representing the finest flavors of Kashmir.
+            </p>
+          </motion.div>
+
+          <div className="flex snap-x snap-mandatory overflow-x-auto pb-8 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0 gap-6">
+            {curatedRestaurants.map((restaurant, i) => (
+              <motion.div
+                key={restaurant._id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="group relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl sm:w-auto"
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <div className="absolute inset-0 bg-black/20 transition duration-500 z-10 group-hover:bg-transparent" />
+                  <img
+                    src={restaurant.image}
+                    alt={restaurant.name}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute right-4 top-4 z-20 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-xs font-semibold text-[var(--saffron)] backdrop-blur-md">
+                    {restaurant.rating} / 5
+                  </div>
+                </div>
+                
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-xs font-medium uppercase tracking-widest text-[var(--saffron-light)]">
+                    {restaurant.location.split(",")[0]}
+                  </p>
+                  <h3 className="mt-2 font-display text-3xl text-white">
+                    <Link href={`/restaurants/${restaurant._id}`} className="transition hover:text-[var(--saffron)]">
+                      {restaurant.name}
+                    </Link>
+                  </h3>
+                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-white/60">
+                    {restaurant.description}
+                  </p>
+                  
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {(restaurant.linkedDishes || []).slice(0, 3).map((dish) => (
+                      <span
+                        key={dish._id}
+                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-white/70"
+                      >
+                        {dish.name}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-white/10 flex-1 flex items-end">
+                    <Link
+                      href={`/restaurants/${restaurant._id}`}
+                      className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--saffron)] transition group-hover:text-[var(--saffron-light)]"
+                    >
+                      View Restaurant
+                      <span aria-hidden="true" className="transition group-hover:translate-x-1">-&gt;</span>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="dishes" className="page-shell py-24">
+        <div className="wazwan-section-header">
+          <span className="wazwan-tag">The Courses</span>
+          <h2>Signature Wazwan Dishes</h2>
+          <p>
+            A journey through the dishes that define Kashmir&apos;s grandest culinary tradition.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {featuredDishes.map((dish) => (
+            <article
+              key={dish._id}
+              className="wazwan-dish-card cursor-pointer"
+              onClick={() => {
+                setSelectedDish(dish);
+                setTimeout(() => setIsDishModalVisible(true), 10);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setSelectedDish(dish);
+                  setTimeout(() => setIsDishModalVisible(true), 10);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Open details for ${dish.name}`}
+            >
+              <img
+                src={dishImageOverrides[dish.name] || dish.image}
+                alt={dish.name}
+                className="h-48 w-full object-cover"
+              />
+              <div className="p-6">
+                <p className="text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
+                  {dish.category}
+                </p>
+                <h3 className="font-display mt-2 text-2xl text-[var(--walnut)]">{dish.name}</h3>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{dish.description}</p>
+                <span className="mt-4 inline-block rounded-full bg-[var(--cream-dark)] px-3 py-1 text-xs font-medium text-[var(--walnut-mid)]">
+                  {dish.foodType} - {dish.spiceLevel}
+                </span>
+                <div className="mt-5">
+                  <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.08em] text-[var(--crimson)]">
+                    Tap for dish details
+                    <span aria-hidden="true">-&gt;</span>
+                  </span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+
 
       <div className="wazwan-quote">
         <p>
