@@ -58,6 +58,9 @@ export default function Navbar() {
           {user ? (
             <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white">
               <span>{user.name}</span>
+              <Link href="/profile" className="text-white/80 hover:text-[#D4AF37] transition-colors">
+                Profile
+              </Link>
               {user.role === "admin" && (
                 <Link href="/admin" className="text-[#D4AF37] hover:text-white transition-colors">
                   Dashboard
