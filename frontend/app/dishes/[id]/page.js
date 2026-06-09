@@ -6,12 +6,17 @@ import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import MapPreview from "@/components/MapPreview";
 import { endpoints, request } from "@/lib/api";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DishDetailPage() {
+  const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
   const [dish, setDish] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
   const [recipeLoading, setRecipeLoading] = useState(false);
@@ -53,11 +58,42 @@ export default function DishDetailPage() {
     }
   };
 
+  const handleToggleFavorite = async () => {
+    if (!user) {
+      router.push("/auth/login");
+      return;
+    }
+    
+    setIsSaving(true);
+    try {
+      await request(endpoints.favorites, {
+        method: isFavorite ? "DELETE" : "POST",
+        body: JSON.stringify({ itemId: dish._id, itemType: "dish" })
+      });
+      setIsFavorite(!isFavorite);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update saved dishes.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   useEffect(() => {
     request(endpoints.dish(params.id))
       .then((data) => setDish(data))
       .finally(() => setLoading(false));
   }, [params.id]);
+
+  useEffect(() => {
+    if (user && dish) {
+      request(endpoints.favorites)
+        .then((favs) => {
+          setIsFavorite(favs.some((f) => f.item?._id === dish._id || f.item === dish._id));
+        })
+        .catch(console.error);
+    }
+  }, [user, dish]);
 
   if (loading) {
     return <div className="places-wrap py-24 text-[var(--muted)]">Loading dish...</div>;
@@ -90,12 +126,19 @@ export default function DishDetailPage() {
             <span className="place-badge">{dish.popularityRating} / 5 popularity</span>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-4">
             <button
               onClick={handleExploreRecipe}
               className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95"
             >
               Explore Recipe
+            </button>
+            <button
+              onClick={handleToggleFavorite}
+              disabled={isSaving}
+              className={`rounded-full px-8 py-3 text-sm font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95 border ${isFavorite ? 'border-[var(--saffron)] text-[var(--saffron)]' : 'border-white/20 text-white hover:border-white/50'}`}
+            >
+              {isSaving ? "Saving..." : (isFavorite ? "✓ Saved Dish" : "+ Add to Saved Dishes")}
             </button>
           </div>
         </div>
