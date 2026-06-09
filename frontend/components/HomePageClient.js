@@ -347,7 +347,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               
               <Link
                 href="/dishes"
-                className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/5 pl-1 pr-3 py-1 text-[0.65rem] font-semibold tracking-wide text-white backdrop-blur-md transition duration-300 hover:bg-white/10 hover:border-white/40"
+                className="hidden md:flex group items-center gap-2 rounded-full border border-white/20 bg-white/5 pl-1 pr-3 py-1 text-[0.65rem] font-semibold tracking-wide text-white backdrop-blur-md transition duration-300 hover:bg-white/10 hover:border-white/40"
               >
                 <div className="flex h-6 w-6 items-center justify-center rounded-full border border-[var(--saffron)] text-[var(--saffron)]">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3 h-3"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
@@ -403,7 +403,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* 3. CURATED SELECTION */}
-      <section className="relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32">
+      <section className="hidden md:block relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32">
         
         <div className="page-shell relative z-10">
           <motion.div
