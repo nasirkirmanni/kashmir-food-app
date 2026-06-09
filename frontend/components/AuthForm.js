@@ -135,7 +135,14 @@ export default function AuthForm({ mode = "login" }) {
         </label>
 
         <label className="block">
-          <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Password</span>
+          <span className="mb-2 flex justify-between items-center text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">
+            <span>Password</span>
+            {mode === "login" && (
+              <a href="/forgot-password" className="text-white/40 hover:text-white transition-colors normal-case tracking-normal font-normal">
+                Forgot password?
+              </a>
+            )}
+          </span>
           <input
             type="password"
             value={form.password}

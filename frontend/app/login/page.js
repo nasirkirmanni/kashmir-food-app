@@ -1,9 +1,16 @@
 import AuthForm from "@/components/AuthForm";
 
-export default function LoginPage() {
+export default function LoginPage({ searchParams }) {
+  const isResetSuccess = searchParams?.reset === "success";
+
   return (
     <div className="wazwan-shell min-h-screen flex items-center justify-center pt-20 pb-16">
       <section className="w-full max-w-md px-4">
+        {isResetSuccess && (
+          <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm text-center">
+            Your password has been successfully reset. Please log in with your new password.
+          </div>
+        )}
         <div className="text-center mb-8">
           <span className="place-eyebrow mb-3 block">Welcome Back</span>
           <h1 className="font-display text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">Log in to your account</h1>

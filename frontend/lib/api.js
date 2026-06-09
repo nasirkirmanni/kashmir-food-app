@@ -60,6 +60,8 @@ export const endpoints = {
   login: "/auth/login",
   signup: "/auth/signup",
   verify: "/auth/verify",
+  forgotPassword: "/auth/forgot-password",
+  resetPassword: "/auth/reset-password",
   me: "/auth/me",
   favorites: "/users/favorites",
   reviews: "/reviews",

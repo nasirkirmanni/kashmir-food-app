@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User.js";
 import { createToken } from "../utils/createToken.js";
 import { protect } from "../middleware/auth.js";
-import { sendOtpEmail } from "../utils/sendEmail.js";
+import { sendOtpEmail, sendPasswordResetEmail } from "../utils/sendEmail.js";
 
 const router = express.Router();
 
@@ -140,6 +140,59 @@ router.get(
   protect,
   asyncHandler(async (req, res) => {
     res.json({ user: req.user });
+  })
+);
+
+router.post(
+  "/forgot-password",
+  asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      // Return success even if not found to prevent email enumeration
+      return res.status(200).json({ message: "If that email is in our system, a reset code has been sent." });
+    }
+
+    const otp = generateOtp();
+    user.otp = otp;
+    user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+    await user.save();
+
+    sendPasswordResetEmail(user.email, otp).catch(console.error);
+
+    res.status(200).json({ message: "If that email is in our system, a reset code has been sent." });
+  })
+);
+
+router.post(
+  "/reset-password",
+  asyncHandler(async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({ 
+        message: "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character." 
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user || user.otp !== otp || user.otpExpiresAt < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    user.password = newPassword;
+    user.otp = undefined;
+    user.otpExpiresAt = undefined;
+    
+    // Automatically verify user if they were unverified but successfully proved email ownership
+    user.isVerified = true;
+    
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successful" });
   })
 );
 
