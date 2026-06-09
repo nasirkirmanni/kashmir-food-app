@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import MapPreview from "@/components/MapPreview";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewList from "@/components/ReviewList";
@@ -9,6 +9,7 @@ import { endpoints, request } from "@/lib/api";
 
 export default function RestaurantDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +32,15 @@ export default function RestaurantDetailPage() {
     <div className="wazwan-shell">
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1.2fr_0.8fr]">
         <div>
+          <button 
+            onClick={() => router.back()} 
+            className="mb-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back
+          </button>
           <span className="place-eyebrow">{restaurant.city}</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl">{restaurant.name}</h1>
           <p>{restaurant.description}</p>
