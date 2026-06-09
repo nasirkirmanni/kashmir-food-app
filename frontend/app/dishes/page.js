@@ -61,8 +61,14 @@ function DishesPageContent() {
     return () => clearInterval(interval);
   }, [isExpanded, filters.searchQuery, dishes.length]);
 
-  const singleDish = dishes.length > 0 ? [dishes[currentIndex]] : [];
-  const dishesToShow = filters.searchQuery ? dishes : singleDish;
+  const carouselDishes = [];
+  if (dishes.length > 0) {
+    const numToShow = Math.min(3, dishes.length);
+    for (let i = 0; i < numToShow; i++) {
+      carouselDishes.push(dishes[(currentIndex + i) % dishes.length]);
+    }
+  }
+  const dishesToShow = filters.searchQuery ? dishes : carouselDishes;
 
   return (
     <div className="wazwan-shell">
@@ -100,14 +106,17 @@ function DishesPageContent() {
               <p className="text-[var(--muted)]">No dishes found matching your search.</p>
             ) : (
               <AnimatePresence mode="popLayout">
-                {dishesToShow.map((dish) => (
+                {dishesToShow.map((dish, idx) => {
+                  const isCarousel = !filters.searchQuery;
+                  const displayClass = isCarousel && idx > 0 ? "hidden md:flex flex-col" : "flex flex-col";
+                  return (
                   <motion.article 
                     key={dish._id} 
                     initial={{ opacity: 0, scale: 0.95, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -10 }}
                     transition={{ duration: 0.5 }}
-                    className="wazwan-dish-card"
+                    className={`wazwan-dish-card ${displayClass}`}
                   >
                     <img src={dish.image} alt={dish.name} className="h-56 w-full object-cover" />
                     <div className="p-6">
@@ -128,7 +137,8 @@ function DishesPageContent() {
                       </div>
                     </div>
                   </motion.article>
-                ))}
+                  );
+                })}
               </AnimatePresence>
             )}
           </div>
