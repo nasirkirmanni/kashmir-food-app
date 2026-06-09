@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
+import OtpInput from "./OtpInput";
 
-export default function AuthForm({ mode = "login" }) {
+export default function AuthForm({ mode: initialMode = "login" }) {
   const router = useRouter();
   const { login } = useAuth();
   
@@ -81,17 +82,9 @@ export default function AuthForm({ mode = "login" }) {
             We sent a 6-digit verification code to <span className="text-[var(--saffron)]">{form.email}</span>
           </p>
 
-          <label className="block text-left">
-            <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Verification Code</span>
-            <input
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder="_ _ _ _ _ _"
-              className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-xl tracking-[0.5em] text-white outline-none focus:border-[var(--saffron)] transition-colors"
-              required
-              maxLength={6}
-            />
+          <label className="block text-left mb-6">
+            <span className="mb-3 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] text-center">Verification Code</span>
+            <OtpInput value={otp} onChange={setOtp} />
           </label>
 
           {error && <p className="text-sm text-red-400 p-3 bg-red-400/10 border border-red-400/20 rounded-lg text-left">{error}</p>}
