@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 
@@ -39,8 +40,28 @@ function DishesPageContent() {
       .finally(() => setLoading(false));
   }, [filters, searchParams]);
 
-  const roganJosh = dishes.filter(d => d.name.toLowerCase().includes("rogan josh"));
-  const singleDish = roganJosh.length > 0 ? roganJosh : dishes.slice(0, 1);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (dishes.length > 0) {
+      const rjIndex = dishes.findIndex(d => d.name.toLowerCase().includes("rogan josh"));
+      if (rjIndex !== -1) {
+        setCurrentIndex(rjIndex);
+      }
+    }
+  }, [dishes]);
+
+  useEffect(() => {
+    if (isExpanded || filters.searchQuery || dishes.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % dishes.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isExpanded, filters.searchQuery, dishes.length]);
+
+  const singleDish = dishes.length > 0 ? [dishes[currentIndex]] : [];
   const dishesToShow = (filters.searchQuery || isExpanded) ? dishes : singleDish;
 
   return (
@@ -78,28 +99,37 @@ function DishesPageContent() {
             ) : dishesToShow.length === 0 ? (
               <p className="text-[var(--muted)]">No dishes found matching your search.</p>
             ) : (
-              dishesToShow.map((dish) => (
-                <article key={dish._id} className="wazwan-dish-card">
-                  <img src={dish.image} alt={dish.name} className="h-56 w-full object-cover" />
-                  <div className="p-6">
-                    <p className="text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
-                      {dish.category}
-                    </p>
-                    <h3 className="font-display mt-2 text-2xl text-[var(--walnut)]">{dish.name}</h3>
-                    <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{dish.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.spiceLevel}</span>
-                      <span className="place-badge">{dish.priceRange}</span>
+              <AnimatePresence mode="popLayout">
+                {dishesToShow.map((dish) => (
+                  <motion.article 
+                    key={dish._id} 
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                    className="wazwan-dish-card"
+                  >
+                    <img src={dish.image} alt={dish.name} className="h-56 w-full object-cover" />
+                    <div className="p-6">
+                      <p className="text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
+                        {dish.category}
+                      </p>
+                      <h3 className="font-display mt-2 text-2xl text-[var(--walnut)]">{dish.name}</h3>
+                      <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{dish.description}</p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <span className="place-badge">{dish.foodType}</span>
+                        <span className="place-badge">{dish.spiceLevel}</span>
+                        <span className="place-badge">{dish.priceRange}</span>
+                      </div>
+                      <div className="mt-6">
+                        <Link href={`/dishes/${dish._id}`} className="wazwan-btn-primary inline-flex">
+                          View dish
+                        </Link>
+                      </div>
                     </div>
-                    <div className="mt-6">
-                      <Link href={`/dishes/${dish._id}`} className="wazwan-btn-primary inline-flex">
-                        View dish
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))
+                  </motion.article>
+                ))}
+              </AnimatePresence>
             )}
           </div>
           
