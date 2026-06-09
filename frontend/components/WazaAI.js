@@ -206,10 +206,13 @@ export default function WazaAI() {
               
               {isLoading && (
                 <div className="flex w-full justify-start">
-                  <div className="max-w-[85%] rounded-2xl rounded-bl-none bg-white/10 px-4 py-3 border border-white/5 flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "0ms" }}></span>
-                    <span className="h-2 w-2 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "150ms" }}></span>
-                    <span className="h-2 w-2 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                  <div className="max-w-[85%] rounded-2xl rounded-bl-none bg-white/10 px-4 py-3 border border-white/5 flex items-center gap-2 text-sm text-white/70 italic">
+                    Waza is thinking
+                    <span className="flex gap-1 ml-1 items-end h-full pb-1">
+                      <span className="h-1 w-1 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "0ms" }}></span>
+                      <span className="h-1 w-1 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "150ms" }}></span>
+                      <span className="h-1 w-1 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                    </span>
                   </div>
                 </div>
               )}
