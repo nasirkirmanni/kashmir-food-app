@@ -140,6 +140,14 @@ function DishesPageContent() {
               </button>
             </div>
           )}
+
+          {!filters.searchQuery && isExpanded && dishes.length > 1 && (
+            <div className="mt-12 flex justify-center">
+              <button onClick={() => setIsExpanded(false)} className="rounded-full border border-white/20 bg-white/5 px-8 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all hover:bg-white/10 hover:border-white/40 active:scale-95">
+                Close List
+              </button>
+            </div>
+          )}
           
           <div className="jump-grid mt-16 pt-8 border-t border-white/10">
             <div className="jump-card">
