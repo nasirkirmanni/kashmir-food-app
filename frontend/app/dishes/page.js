@@ -13,6 +13,8 @@ function DishesPageContent() {
     searchQuery: searchParams.get("search") || "",
   });
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     setFilters({
       searchQuery: searchParams.get("search") || "",
@@ -26,8 +28,13 @@ function DishesPageContent() {
     if (filters.searchQuery) params.set("search", filters.searchQuery);
 
     setLoading(true);
+    setError(null);
     request(endpoints.dishes(`?${params.toString()}`))
       .then((data) => setDishes(data))
+      .catch((err) => {
+        console.error("Failed to fetch dishes:", err);
+        setError("Failed to load dishes. Please check your connection or try again later.");
+      })
       .finally(() => setLoading(false));
   }, [filters, searchParams]);
 
@@ -81,6 +88,10 @@ function DishesPageContent() {
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {loading ? (
               <p className="text-[var(--muted)]">Loading dishes...</p>
+            ) : error ? (
+              <p className="text-red-400">{error}</p>
+            ) : dishes.length === 0 ? (
+              <p className="text-[var(--muted)]">No dishes found matching your search.</p>
             ) : (
               dishes.map((dish) => (
                 <article key={dish._id} className="wazwan-dish-card">

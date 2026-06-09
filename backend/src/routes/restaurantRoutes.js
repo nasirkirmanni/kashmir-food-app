@@ -15,10 +15,12 @@ router.get(
     const query = {};
 
     if (search) {
+      // Escape special regex characters to prevent query crashes
+      const safeSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       query.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { location: { $regex: search, $options: "i" } },
-        { tags: { $in: [new RegExp(search, "i")] } }
+        { name: { $regex: safeSearch, $options: "i" } },
+        { location: { $regex: safeSearch, $options: "i" } },
+        { tags: { $in: [new RegExp(safeSearch, "i")] } }
       ];
     }
 

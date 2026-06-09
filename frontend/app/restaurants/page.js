@@ -38,9 +38,15 @@ const placeOrder = ["Srinagar", "Gulmarg", "Pahalgam", "Sonamarg"];
 export default function RestaurantsPage() {
   const [restaurants, setRestaurants] = useState([]);
   const [activeLocation, setActiveLocation] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    request(endpoints.restaurants()).then((data) => setRestaurants(data)).catch(() => null);
+    request(endpoints.restaurants())
+      .then((data) => setRestaurants(data))
+      .catch((err) => {
+        console.error("Failed to fetch restaurants:", err);
+        setError("Failed to load restaurants. Please check your connection or try again later.");
+      });
   }, []);
 
   // Lock body scroll when modal is open
@@ -147,7 +153,11 @@ export default function RestaurantsPage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
-                  {grouped[activeLocation]?.length > 0 ? (
+                  {error ? (
+                    <div className="col-span-full py-16 text-center px-4">
+                      <p className="text-red-400 text-sm max-w-md mx-auto leading-relaxed">{error}</p>
+                    </div>
+                  ) : grouped[activeLocation]?.length > 0 ? (
                     grouped[activeLocation].map((restaurant) => (
                       <Link href={`/restaurants/${restaurant._id}`} key={restaurant._id} passHref>
                         <motion.a
