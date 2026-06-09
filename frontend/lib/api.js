@@ -30,11 +30,17 @@ export const request = async (path, options = {}) => {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(buildApiUrl(path), {
+  const fetchOptions = {
+    cache: "no-store",
     ...options,
-    headers,
-    cache: "no-store"
-  });
+    headers
+  };
+
+  if (options.next) {
+    delete fetchOptions.cache;
+  }
+
+  const response = await fetch(buildApiUrl(path), fetchOptions);
 
   const data = await response.json().catch(() => ({}));
 

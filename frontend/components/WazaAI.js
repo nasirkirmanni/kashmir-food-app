@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function WazaAI() {
   const [isOpen, setIsOpen] = useState(false);
@@ -123,10 +124,11 @@ export default function WazaAI() {
                   transition={{ duration: 0.8 }}
                   className="absolute inset-0 z-10 bg-black flex flex-col items-center justify-center"
                 >
-                  <img 
+                  <Image 
+                    fill
                     src="/waza-profile.jpg" 
                     alt="Waza AI Profile" 
-                    className="w-full h-full object-cover opacity-80"
+                    className="object-cover opacity-80"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end items-center pb-12">
                      <p className="font-display text-2xl font-medium tracking-wide text-white mb-2">I am your Waza.</p>
