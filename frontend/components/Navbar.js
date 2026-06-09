@@ -111,7 +111,7 @@ export default function Navbar() {
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
         }}
         transition={{ duration: 0.3 }}
-        className="w-full flex items-center justify-center px-6 py-4"
+        className="w-full flex items-center justify-between px-6 py-4"
       >
         <Link
           href="/"
