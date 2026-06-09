@@ -19,7 +19,6 @@ export default function MobileRestaurantExplorerModal({
   locationCounts,
   restaurants,
 }) {
-  const [isGridOpen, setIsGridOpen] = useState(false);
   const [activeLocation, setActiveLocation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,82 +44,10 @@ export default function MobileRestaurantExplorerModal({
     : [];
 
   return (
-    <div className="space-y-4 relative">
-      {/* ── Trigger Button ────────────────── */}
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        onClick={() => setIsGridOpen(!isGridOpen)}
-        className={`relative w-full overflow-hidden rounded-[1.5rem] border transition-all duration-500 text-left ${
-          isGridOpen
-            ? "border-[rgba(212,175,55,0.6)] shadow-[0_0_30px_rgba(212,175,55,0.15)]"
-            : "border-white/10 hover:border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-        }`}
-      >
-        {/* Background Image & Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/wazwan-hero.png"
-            alt="Background"
-            className="w-full h-full object-cover object-center opacity-60 scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/90 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
-        </div>
-
-        <div className="relative z-10 px-6 py-7">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              {/* Fork/Spoon icon in gold outline circle */}
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--saffron)] text-[var(--saffron)] bg-[#0B0B0B]/50 backdrop-blur-sm">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2v20" />
-                  <path d="M17 2v20" />
-                  <path d="M22 2v20" />
-                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-                  <path d="M7 2v20" />
-                </svg>
-              </div>
-
-              <div>
-                <p className="font-display text-2xl font-normal text-white tracking-wide">
-                  Explore Restaurants
-                </p>
-                <p className="mt-1 text-[0.75rem] font-normal leading-snug text-white/60 tracking-wide max-w-[180px]">
-                  Discover exceptional dining across Kashmir&apos;s finest locations
-                </p>
-              </div>
-            </div>
-
-            {/* Right Arrow (rotates when open) */}
-            <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all ${isGridOpen ? "border-[var(--saffron)] text-[var(--saffron)] rotate-90" : "border-white/20 text-white/80 bg-white/5"} backdrop-blur-sm`}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14" />
-                <path d="M12 5l7 7-7 7" />
-              </svg>
-            </div>
-          </div>
-
-          {/* Bottom locations row */}
-          <div className="mt-5 pt-4 border-t border-white/10 w-full text-center">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">
-              Srinagar • Gulmarg • Pahalgam • Sonamarg
-            </p>
-          </div>
-        </div>
-      </motion.button>
-
+    <div className="space-y-4 relative px-2">
       {/* ── Inline 2x2 Location Grid ─────────────────────────────── */}
-      <AnimatePresence>
-        {isGridOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="grid grid-cols-2 gap-3 pt-2 pb-4">
-              {locationTabs.map((location, i) => {
+      <div className="grid grid-cols-2 gap-3 pb-4">
+        {locationTabs.map((location, i) => {
                 const count = locationCounts[location] || 0;
                 return (
                   <motion.button
@@ -149,10 +76,7 @@ export default function MobileRestaurantExplorerModal({
                   </motion.button>
                 );
               })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
 
       {/* ── Fullscreen Restaurant Modal ──────────────────────────── */}
       <AnimatePresence>

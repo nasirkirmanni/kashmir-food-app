@@ -3,4 +3,7 @@ node_modules/
 dist/
 coverage/
 frontend/.env.local
+frontend/wazaai.env.local
 backend/.env
+*.env
+*.env.local

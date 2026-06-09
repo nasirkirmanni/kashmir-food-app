@@ -52,6 +52,12 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
+            className="transition-colors text-[#D4AF37] hover:text-white"
+          >
+            WAZA AI
+          </button>
         </div>
 
         <div className="flex items-center gap-6">
@@ -88,60 +94,52 @@ export default function Navbar() {
     </nav>
   );
 
-  /* ── Mobile Liquid Glass Pill ── */
   const mobileNav = (
-    <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-start justify-center pt-3 px-4 pointer-events-none">
+    <div className="md:hidden fixed top-0 left-0 right-0 z-50">
       <motion.div
         initial={false}
         animate={{
           background: scrolled
-            ? "rgba(10, 10, 10, 0.72)"
-            : "rgba(15, 15, 15, 0.45)",
+            ? "rgba(10, 10, 10, 0.85)"
+            : "transparent",
           backdropFilter: scrolled
-            ? "blur(32px) saturate(200%)"
-            : "blur(24px) saturate(180%)",
-          boxShadow: scrolled
-            ? "0 12px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)"
-            : "0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
+            ? "blur(24px) saturate(180%)"
+            : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
         }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-        className="pointer-events-auto w-full flex items-center justify-between px-5 py-3 rounded-[20px] border border-white/[0.08]"
-        style={{
-          WebkitBackdropFilter: scrolled
-            ? "blur(32px) saturate(200%)"
-            : "blur(24px) saturate(180%)",
-        }}
+        transition={{ duration: 0.3 }}
+        className="w-full flex items-center justify-between px-6 py-4"
       >
         {/* Logo */}
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
-          className="font-display text-[1.35rem] font-medium uppercase leading-[0.88] tracking-[0.14em] text-white"
+          className="font-display text-[1.4rem] font-medium uppercase leading-[0.9] tracking-[0.15em] text-white"
         >
           <span className="block">Wazwan</span>
-          <span className="block text-[#D4AF37] text-[0.95rem]">Way</span>
+          <span className="block text-[#D4AF37] text-[1rem]">Way</span>
         </Link>
 
         {/* Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
-          className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-[12px] border border-white/10 bg-white/5 active:bg-white/10 transition-colors"
+          className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-[12px] bg-black/40 border border-white/5 backdrop-blur-md active:bg-black/60 transition-colors"
         >
           <motion.span
             animate={mobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="block h-[1.5px] w-5 rounded-full bg-white origin-center"
+            className="block h-[1.5px] w-5 rounded-full bg-white/80 origin-center"
           />
           <motion.span
             animate={mobileMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.2 }}
-            className="block h-[1.5px] w-5 rounded-full bg-white"
+            className="block h-[1.5px] w-5 rounded-full bg-white/80"
           />
           <motion.span
             animate={mobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="block h-[1.5px] w-5 rounded-full bg-white origin-center"
+            className="block h-[1.5px] w-5 rounded-full bg-white/80 origin-center"
           />
         </button>
       </motion.div>

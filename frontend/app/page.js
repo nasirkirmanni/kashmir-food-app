@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import LandingCanvas from "@/components/LandingCanvas";
 import { endpoints, request } from "@/lib/api";
 import DesktopRestaurantTabs from "@/components/DesktopRestaurantTabs";
@@ -84,6 +84,8 @@ const dishResearchSummaries = {
 };
 
 export default function HomePage() {
+  const { scrollY } = useScroll();
+  const scrollOpacity = useTransform(scrollY, [0, 100], [1, 0]);
   const [dishes, setDishes] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedDish, setSelectedDish] = useState(null);
@@ -195,91 +197,96 @@ export default function HomePage() {
   );
 
   return (
-    <div className="bg-[#0B0B0B] text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen">
+    <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
+      <style>{`
+        @media (min-width: 768px) {
+          html {
+            font-size: 95% !important;
+          }
+        }
+        @keyframes stripe-scroll {
+          0% { background-position: 0 0; }
+          100% { background-position: 40px 40px; }
+        }
+      `}</style>
       
+      {/* Global background is now handled by layout.js */}
+
       {/* ═══════════════════════════════════════════════════════
           MOBILE HERO (below md)
           ═══════════════════════════════════════════════════════ */}
-      <div className="block md:hidden bg-[#0B0B0B] pt-28 pb-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center px-5"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)]/30 bg-white/5 px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[var(--saffron)]">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
-              <path d="M12 2C12 2 8 6 8 12C8 18 12 22 12 22C12 22 16 18 16 12C16 6 12 2 12 2Z" />
-              <path d="M12 22C12 22 4 18 4 12C4 6 12 2 12 2" fillOpacity="0.5"/>
-              <path d="M12 22C12 22 20 18 20 12C20 6 12 2 12 2" fillOpacity="0.5"/>
-            </svg>
-            Welcome to the Royal Cuisine of Kashmir
-          </div>
-          <h1 className="mt-6 font-display text-5xl font-medium leading-[1.05] tracking-tight text-white">
-            The <em className="text-[var(--saffron)] not-italic">Royal</em> Table
-            <br />
-            of Kashmir
-          </h1>
-          
-          <div className="flex justify-center mt-4">
-            <svg width="40" height="10" viewBox="0 0 40 10" fill="none" className="text-[var(--saffron)]">
-              <path d="M20 0L23.5 5L20 10L16.5 5L20 0Z" fill="currentColor"/>
-              <path d="M0 5H14" stroke="currentColor" strokeWidth="0.5"/>
-              <path d="M26 5H40" stroke="currentColor" strokeWidth="0.5"/>
-            </svg>
-          </div>
+      <div className="relative block md:hidden pt-28 pb-10 min-h-[100svh] flex flex-col">
+        <div className="relative z-10 flex-1 flex flex-col">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center px-5"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)] bg-[#0B0B0B]/80 backdrop-blur-md px-5 py-2 text-[0.55rem] font-bold uppercase tracking-[0.22em] text-[var(--saffron)] shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+              <span className="text-xs">❖</span>
+              Welcome to the Royal Cuisine of Kashmir
+            </div>
+            <h1 className="mt-6 font-display text-5xl font-medium leading-[1.05] tracking-tight text-white drop-shadow-lg">
+              The <em className="text-[var(--saffron)] not-italic">Royal</em> Table
+              <br />
+              of Kashmir
+            </h1>
+            
+            <div className="flex justify-center mt-4">
+              <div className="flex items-center gap-3 text-[var(--saffron)] drop-shadow-md">
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[var(--saffron)]/60"></div>
+                <span className="text-xs">❖</span>
+                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[var(--saffron)]/60"></div>
+              </div>
+            </div>
 
-          <p className="mt-4 text-sm leading-relaxed text-white/60 mx-auto max-w-sm">
-            Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes from the kitchens of Kashmir to the traveler&apos;s table.
-          </p>
-        </motion.div>
-
-        {/* Full-width image bleeding to the edges */}
-        <div className="relative mt-8 w-full h-[22rem] overflow-hidden">
-          <img src="/wazwan-hero.png" alt="Wazwan feast" className="h-full w-full object-cover scale-110" />
-          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0B0B0B] to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
-        </div>
+            <p className="mt-5 text-[0.85rem] leading-relaxed text-[#D1D5DB] mx-auto max-w-sm drop-shadow-md px-2">
+              Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes from the kitchens of Kashmir to the traveler&apos;s table.
+            </p>
+          </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6 flex flex-col gap-3 px-5"
+          className="mt-16 grid grid-cols-2 gap-4 px-5 z-20 relative"
         >
-          <Link href="/restaurants" className="group flex items-center justify-between rounded-[20px] bg-[#D4AF37] p-5 text-black transition-transform active:scale-95">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111111] text-[#D4AF37]">
+          <Link href="/restaurants" className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-white/5 backdrop-blur-sm aspect-square transition-all active:scale-95 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
+            <div className="relative z-10 p-4 flex flex-col items-start text-left">
+              <div className="flex items-center mb-1 text-[#D4AF37]">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
               </div>
-              <div className="text-left">
-                <div className="text-[1.05rem] font-bold text-black">Explore Restaurants</div>
-                <div className="text-[0.7rem] font-medium text-black/70 mt-0.5">Find the finest dining across Kashmir</div>
-              </div>
-            </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black/10 transition-transform group-hover:translate-x-1">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+              <div className="font-display text-[1.2rem] font-medium text-[#D4AF37] leading-tight drop-shadow-md">Explore<br/>Restaurants</div>
             </div>
           </Link>
           
-          <Link href="/dishes" className="group flex items-center justify-between rounded-[20px] border border-white/10 bg-[#111111] p-5 text-white transition-all active:scale-95">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center text-[var(--saffron)]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-9 h-9"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+          <Link href="/dishes" className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-white/5 backdrop-blur-sm aspect-square transition-all active:scale-95 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
+            <div className="relative z-10 p-4 flex flex-col items-start text-left">
+              <div className="flex items-center mb-1 text-white/70">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V21h12v-7.5m-12 0a3 3 0 01-3-3c0-1.66 1.34-3 3-3 .22 0 .44.02.65.07A4.49 4.49 0 0110.5 3c2 0 3.7 1.3 4.28 3.12.28-.08.57-.12.87-.12 2.07 0 3.75 1.68 3.75 3.75 0 1.66-1.34 3-3 3m-12 0h12" /></svg>
               </div>
-              <div className="text-left">
-                <div className="text-[1.05rem] font-bold">Discover the Dishes</div>
-                <div className="text-[0.7rem] font-medium text-white/50 mt-0.5">Explore the royal Wazwan experience</div>
-              </div>
-            </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-transform group-hover:translate-x-1">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-white"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+              <div className="font-display text-[1.2rem] font-medium text-white leading-tight drop-shadow-md">Discover<br/>the Dishes</div>
             </div>
           </Link>
         </motion.div>
+        
+        <motion.div 
+          style={{ opacity: scrollOpacity }}
+          className="mt-10 flex flex-col items-center justify-center text-white/50 pb-6 z-20 relative"
+        >
+          <span className="text-[0.65rem] uppercase tracking-[0.2em] font-medium mb-2">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 5, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </motion.div>
+        </motion.div>
 
-        <div className="mt-6 mx-5 rounded-[20px] border border-white/10 bg-[#111111] py-4">
+        <div className="hidden">
           {featureIconsGrid}
+        </div>
         </div>
       </div>
 
@@ -288,12 +295,12 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════════ */}
       <section className="relative hidden md:flex min-h-screen items-center justify-start pt-20 overflow-hidden bg-[#0B0B0B]">
         <div className="absolute inset-0 z-0 flex justify-end">
-          <div className="relative w-[60%] h-full">
-            <img src="/wazwan-hero.png" alt="Kashmiri Wazwan feast" className="h-full w-full object-cover object-left" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/80 to-transparent" />
-            <div className="absolute inset-y-0 left-0 w-64 bg-gradient-to-r from-[#0B0B0B] to-transparent" />
+          <div className="relative w-full h-full">
+            <img src="/wazwan-hero.jpg" alt="Kashmiri Wazwan feast" className="h-full w-full object-cover object-right lg:object-center" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
+            <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#0B0B0B] to-transparent" />
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgba(212,175,55,0.05),transparent_55%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_55%,rgba(212,175,55,0.05),transparent_55%)]" />
           </div>
         </div>
         
@@ -306,8 +313,8 @@ export default function HomePage() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl text-left"
           >
-            <div className="inline-flex items-center gap-3 rounded-full border border-[var(--saffron)]/40 bg-black/40 px-5 py-2 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] backdrop-blur-xl">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--saffron)]/40 bg-black/40 px-4 py-1.5 text-[0.55rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] backdrop-blur-xl">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
                 <path d="M12 2C12 2 8 6 8 12C8 18 12 22 12 22C12 22 16 18 16 12C16 6 12 2 12 2Z" />
                 <path d="M12 22C12 22 4 18 4 12C4 6 12 2 12 2" fillOpacity="0.5"/>
                 <path d="M12 22C12 22 20 18 20 12C20 6 12 2 12 2" fillOpacity="0.5"/>
@@ -333,13 +340,13 @@ export default function HomePage() {
               Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes carried from the kitchens of Kashmir to the traveler&apos;s table.
             </p>
             
-            <div className="mt-12 flex flex-wrap items-center gap-5">
+            <div className="mt-2 flex flex-wrap items-center gap-3">
               <Link
                 href="/restaurants"
-                className="group flex items-center gap-4 rounded-full bg-[var(--saffron)] pl-2 pr-6 py-2 text-sm font-bold tracking-wide text-black shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-transform duration-300 hover:scale-105"
+                className="group flex items-center gap-2 rounded-full border border-[var(--saffron)]/40 bg-black/20 pl-1 pr-3 py-1 text-[0.65rem] font-bold tracking-wide text-[var(--saffron)] backdrop-blur-xl shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-all duration-300 hover:bg-black/40 hover:scale-105"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-[var(--saffron)]">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--saffron)]/20 text-[var(--saffron)] backdrop-blur-md">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                 </div>
                 Explore Restaurants
                 <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
@@ -347,22 +354,24 @@ export default function HomePage() {
               
               <Link
                 href="/dishes"
-                className="group flex items-center gap-4 rounded-full border border-white/20 bg-white/5 pl-2 pr-6 py-2 text-sm font-semibold tracking-wide text-white backdrop-blur-md transition duration-300 hover:bg-white/10 hover:border-white/40"
+                className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/5 pl-1 pr-3 py-1 text-[0.65rem] font-semibold tracking-wide text-white backdrop-blur-md transition duration-300 hover:bg-white/10 hover:border-white/40"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--saffron)] text-[var(--saffron)]">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                <div className="flex h-6 w-6 items-center justify-center rounded-full border border-[var(--saffron)] text-[var(--saffron)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3 h-3"><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
                 </div>
                 Discover the Dishes
                 <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
               </Link>
             </div>
             
-            {featureIconsGrid}
+            <div className="mt-16">
+              {featureIconsGrid}
+            </div>
           </motion.div>
         </div>
       </section>
       {/* 2. RESTAURANTS SECTION */}
-      <section id="restaurants" className="relative pt-10 pb-24 md:py-32 z-10">
+      <section id="restaurants" className="relative pt-12 md:pt-32 pb-24 z-10 mt-8">
         <div className="page-shell">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
@@ -370,7 +379,7 @@ export default function HomePage() {
           >
             <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Where To Eat</span>
             <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">The Finest Destinations</h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">Curated from Residency Road, Dal Lake, and Srinagar&apos;s most prestigious dining rooms.</p>
+            <p className="mx-auto mt-4 px-6 max-w-sm md:max-w-2xl text-sm md:text-lg text-white/60">Curated from Residency Road, Dal Lake, and Srinagar&apos;s most prestigious dining rooms.</p>
           </motion.div>
 
           {/* ── DESKTOP: 4-tab grid (md and above) ─────────────── */}
@@ -401,8 +410,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. CURATED SELECTION */}
-      <section className="relative overflow-hidden border-y border-white/10 bg-[#111111] py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.1),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(122,16,37,0.1),transparent_40%)]" />
+      <section className="relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32">
         
         <div className="page-shell relative z-10">
           <motion.div
@@ -421,66 +429,45 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="flex snap-x snap-mandatory overflow-x-auto pb-10 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0 gap-8">
-            {curatedRestaurants.map((restaurant, i) => (
-              <motion.div
-                key={restaurant._id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
-                whileHover={{ y: -10 }}
-                className="group relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white/5 shadow-2xl backdrop-blur-2xl transition-all sm:w-auto hover:border-[var(--saffron)] hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)]"
-              >
-                <div className="relative h-72 overflow-hidden">
-                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-70" />
-                  <img
-                    src={restaurant.image}
-                    alt={restaurant.name}
-                    className="h-full w-full object-cover transition duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 rounded-full border border-[var(--saffron)] bg-black/60 px-3 py-1.5 text-xs font-bold text-[var(--saffron)] backdrop-blur-md">
-                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                    {restaurant.rating}
-                  </div>
-                </div>
-                
-                <div className="flex flex-1 flex-col p-8">
-                  <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">
-                    {restaurant.location.split(",")[0]}
-                  </p>
-                  <h3 className="mt-3 font-display text-3xl font-medium tracking-tight text-white">
-                    <Link href={`/restaurants/${restaurant._id}`} className="transition-colors hover:text-[var(--saffron)]">
-                      {restaurant.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-white/60">
-                    {restaurant.description}
-                  </p>
-                  
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {(restaurant.linkedDishes || []).slice(0, 3).map((dish) => (
-                      <span
-                        key={dish._id}
-                        className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-widest text-white/80"
-                      >
-                        {dish.name}
-                      </span>
-                    ))}
-                  </div>
+          <div className="flex flex-col max-w-4xl lg:mx-0">
+            {curatedRestaurants.map((restaurant, i) => {
+              let label = "Trending";
+              if (i === 0) label = "Most Famous";
+              else if (i === 1) label = "High Demand";
+              else if (i === 2) label = "Editor's Pick";
 
-                  <div className="mt-10 mt-auto border-t border-white/10 pt-6">
-                    <Link
-                      href={`/restaurants/${restaurant._id}`}
-                      className="inline-flex w-full items-center justify-between rounded-full bg-white/5 px-6 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all group-hover:bg-[var(--saffron)] group-hover:text-black"
-                    >
-                      View Experience
-                      <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">&rarr;</span>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+              return (
+                <Link href={`/restaurants/${restaurant._id}`} key={restaurant._id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="group flex flex-row items-center justify-between border-b border-white/10 py-6 transition-all hover:border-[var(--saffron)]"
+                  >
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-3 md:gap-4">
+                        <h3 className="font-display text-2xl md:text-4xl font-medium text-white group-hover:text-[var(--saffron)] transition-colors">
+                          {restaurant.name}
+                        </h3>
+                        <span className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-2.5 py-0.5 text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-wider text-white/70">
+                          {restaurant.location.split(",")[0]}
+                        </span>
+                      </div>
+                      <p className="mt-1 md:mt-2 text-xs md:text-sm text-white/50">{restaurant.cuisineType || "Premium Kashmiri Cuisine"}</p>
+                    </div>
+                    <div className="text-right flex flex-col items-end justify-center">
+                      <span className="text-[0.6rem] md:text-xs font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">
+                        {label}
+                      </span>
+                      <div className="mt-3 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all group-hover:bg-[var(--saffron)] group-hover:text-black group-hover:border-[var(--saffron)]">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 md:w-5 md:h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

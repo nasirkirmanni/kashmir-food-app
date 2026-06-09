@@ -58,7 +58,7 @@ a {
 }
 
 .wazwan-shell {
-  background: var(--cream);
+  background: transparent;
   color: var(--walnut);
 }
 
