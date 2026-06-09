@@ -17,6 +17,8 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   "https://kashmir-food-app.vercel.app",
+  "https://wazwanway.com",
+  "https://www.wazwanway.com",
   ...(process.env.CLIENT_URL
     ? process.env.CLIENT_URL.split(",")
         .map((origin) => origin.trim())
