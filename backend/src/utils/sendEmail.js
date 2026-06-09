@@ -16,6 +16,8 @@ export const sendOtpEmail = async (to, otp) => {
       host: process.env.EMAIL_HOST || "smtp.gmail.com",
       port: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) : 465,
       secure: process.env.EMAIL_PORT == 465 ? true : false,
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,

@@ -26,7 +26,9 @@ router.post(
         existingUser.password = password; // update password just in case
         existingUser.name = name;
         await existingUser.save();
-        await sendOtpEmail(email, otp);
+        
+        // Do not await email sending to prevent hanging the HTTP response
+        sendOtpEmail(email, otp).catch(console.error);
         return res.status(201).json({ message: "OTP sent to email", requiresOtp: true });
       }
     }
@@ -41,7 +43,8 @@ router.post(
       otpExpiresAt: Date.now() + 10 * 60 * 1000 
     });
 
-    await sendOtpEmail(email, otp);
+    // Do not await email sending to prevent hanging the HTTP response
+    sendOtpEmail(email, otp).catch(console.error);
 
     res.status(201).json({
       message: "OTP sent to email",
@@ -103,7 +106,9 @@ router.post(
       user.otp = otp;
       user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
       await user.save();
-      await sendOtpEmail(email, otp);
+      
+      // Do not await email sending to prevent hanging the HTTP response
+      sendOtpEmail(email, otp).catch(console.error);
       return res.status(403).json({ message: "Please verify your email first", requiresOtp: true });
     }
 
