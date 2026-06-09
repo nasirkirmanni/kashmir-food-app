@@ -237,7 +237,7 @@ export default function DishDetailPage() {
                 )}
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
