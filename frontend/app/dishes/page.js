@@ -62,7 +62,7 @@ function DishesPageContent() {
   }, [isExpanded, filters.searchQuery, dishes.length]);
 
   const singleDish = dishes.length > 0 ? [dishes[currentIndex]] : [];
-  const dishesToShow = (filters.searchQuery || isExpanded) ? dishes : singleDish;
+  const dishesToShow = filters.searchQuery ? dishes : singleDish;
 
   return (
     <div className="wazwan-shell">
@@ -133,18 +133,10 @@ function DishesPageContent() {
             )}
           </div>
           
-          {!filters.searchQuery && !isExpanded && dishes.length > 1 && (
+          {!filters.searchQuery && dishes.length > 1 && (
             <div className="mt-12 flex justify-center">
               <button onClick={() => setIsExpanded(true)} className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 active:scale-95">
                 Explore Dishes
-              </button>
-            </div>
-          )}
-
-          {!filters.searchQuery && isExpanded && dishes.length > 1 && (
-            <div className="mt-12 flex justify-center">
-              <button onClick={() => setIsExpanded(false)} className="rounded-full border border-white/20 bg-white/5 px-8 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all hover:bg-white/10 hover:border-white/40 active:scale-95">
-                Close List
               </button>
             </div>
           )}
@@ -161,6 +153,61 @@ function DishesPageContent() {
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {isExpanded && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-3xl bg-[#111] border border-white/10 shadow-2xl flex flex-col"
+            >
+              <div className="flex items-center justify-between p-6 md:px-10 border-b border-white/10 bg-black/40">
+                <div>
+                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">The Wazwan</span>
+                  <h2 className="mt-1 text-2xl md:text-3xl font-display text-white">All Signature Dishes</h2>
+                </div>
+                <button
+                  onClick={() => setIsExpanded(false)}
+                  className="rounded-full p-3 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all hover:rotate-90 active:scale-90"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="p-6 md:p-10 overflow-y-auto flex-1">
+                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                  {dishes.map((dish) => (
+                    <article key={dish._id} className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col">
+                      <div className="relative h-40 shrink-0 overflow-hidden">
+                        <img src={dish.image} alt={dish.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+                      </div>
+                      <div className="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                          <p className="text-[0.6rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
+                            {dish.category}
+                          </p>
+                          <h3 className="font-display mt-2 text-xl text-white">{dish.name}</h3>
+                          <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-3">{dish.description}</p>
+                        </div>
+                        <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
+                          <Link href={`/dishes/${dish._id}`} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
+                            View details &rarr;
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
