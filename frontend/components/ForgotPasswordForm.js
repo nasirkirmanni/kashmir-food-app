@@ -147,7 +147,7 @@ export default function ForgotPasswordForm() {
               type="text"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              placeholder="123456"
+              placeholder="_ _ _ _ _ _"
               className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-center text-xl tracking-[0.5em] text-white outline-none focus:border-[var(--saffron)] transition-colors"
               required
               maxLength={6}
