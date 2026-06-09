@@ -27,20 +27,36 @@ const BowlFoodIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   </svg>
 );
 
+const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Chef Hat Outline */}
+    <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+    <path d="M6 17h12" />
+    {/* 'AI' text inside the lower part of the hat */}
+    <path d="M9 14.5l1.5-3.5l1.5 3.5" />
+    <path d="M9.8 13.5h1.4" />
+    <path d="M14 11v3.5" />
+  </svg>
+);
+
 export default function MobileNav() {
   const pathname = usePathname();
   const { user } = useAuth();
 
   const isProfileIncomplete = user && (!user.phoneNumber || !user.address);
 
-  const links = [
-    { href: "/", icon: Home, label: "Home" },
-    { href: "/restaurants", icon: MapPin, label: "Restaurants" },
-    { href: "/dishes", icon: BowlFoodIcon, label: "Dishes" },
-  ];
-
   return (
-    <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[400px]">
+    <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[420px]">
       <div 
         className="flex items-center justify-between px-6 py-4 rounded-[32px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
         style={{
@@ -49,17 +65,30 @@ export default function MobileNav() {
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
         }}
       >
-        {links.map((link) => {
-          const isActive = pathname === link.href;
-          const Icon = link.icon;
-          return (
-            <Link key={link.href} href={link.href} className="relative group">
-              <div className={`p-2 transition-colors ${isActive ? "text-white" : "text-white/40 hover:text-white/80"}`}>
-                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-              </div>
-            </Link>
-          );
-        })}
+        <Link href="/" className="relative group">
+          <div className={`p-2 transition-colors ${pathname === "/" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+            <Home size={24} strokeWidth={pathname === "/" ? 2.5 : 2} />
+          </div>
+        </Link>
+
+        <Link href="/restaurants" className="relative group">
+          <div className={`p-2 transition-colors ${pathname === "/restaurants" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+            <MapPin size={24} strokeWidth={pathname === "/restaurants" ? 2.5 : 2} />
+          </div>
+        </Link>
+
+        <button 
+          onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
+          className="relative group p-2 text-[var(--saffron)] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] transition-transform active:scale-95"
+        >
+          <ChefAIIcon size={28} strokeWidth={2.5} />
+        </button>
+
+        <Link href="/dishes" className="relative group">
+          <div className={`p-2 transition-colors ${pathname === "/dishes" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+            <BowlFoodIcon size={24} strokeWidth={pathname === "/dishes" ? 2.5 : 2} />
+          </div>
+        </Link>
 
         <Link href={user ? "/profile" : "/login"} className="relative group">
           <div className={`p-2 transition-colors ${pathname === "/profile" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
