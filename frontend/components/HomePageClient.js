@@ -466,7 +466,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* 4. WAZWAN DISHES */}
-      <section id="dishes" className="page-shell py-32">
+      <section id="dishes" className="hidden md:block page-shell py-32">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           className="mb-24 text-center"
