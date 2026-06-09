@@ -93,7 +93,9 @@ router.post(
         id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
       }
     });
   })
@@ -129,7 +131,9 @@ router.post(
         id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
       }
     });
   })

@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
+import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 import GlobalBackground from "@/components/GlobalBackground";
@@ -29,12 +30,13 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
         <GlobalBackground />
         <AuthProvider>
-          <div className="min-h-screen relative z-10">
+          <div className="min-h-screen relative z-10 pb-24 md:pb-0">
             <SplashScreen />
             <Navbar />
             <main>{children}</main>
             <Footer />
             <WazaAI />
+            <MobileNav />
           </div>
         </AuthProvider>
       </body>

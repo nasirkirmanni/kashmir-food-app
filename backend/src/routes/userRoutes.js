@@ -56,4 +56,32 @@ router.delete(
   })
 );
 
+router.put(
+  "/profile",
+  protect,
+  asyncHandler(async (req, res) => {
+    const { name, phoneNumber, address } = req.body;
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.name = name || user.name;
+    user.phoneNumber = phoneNumber || user.phoneNumber;
+    user.address = address || user.address;
+
+    await user.save();
+
+    res.json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      phoneNumber: user.phoneNumber,
+      address: user.address,
+    });
+  })
+);
+
 export default router;

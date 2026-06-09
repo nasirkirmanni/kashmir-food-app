@@ -67,5 +67,6 @@ export const endpoints = {
   favorites: "/users/favorites",
   reviews: "/reviews",
   restaurantReviews: (id) => `/reviews/restaurant/${id}`,
-  stats: "/stats/overview"
+  stats: "/stats/overview",
+  profile: "/users/profile"
 };
