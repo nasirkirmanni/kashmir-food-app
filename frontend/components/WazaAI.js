@@ -107,14 +107,25 @@ export default function WazaAI() {
       {/* Chat Window / Intro Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-1/2 -translate-y-1/2 right-4 z-50 flex h-[400px] max-h-[75vh] w-[320px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 bg-black/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:top-auto md:bottom-8 md:translate-y-0 md:h-[500px] md:w-[360px]"
-          >
-            <AnimatePresence mode="wait">
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            {/* Blurred Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleClose}
+              className="absolute inset-0 bg-black/40 backdrop-blur-md"
+            />
+            
+            {/* Centered Modal */}
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 flex h-[450px] max-h-[80vh] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 bg-black/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)] md:h-[600px] md:w-[420px]"
+            >
+              <AnimatePresence mode="wait">
               {isIntroMode ? (
                 <motion.div
                   key="intro"
@@ -242,6 +253,7 @@ export default function WazaAI() {
               )}
             </AnimatePresence>
           </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
