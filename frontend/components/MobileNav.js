@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, MapPin, User } from "lucide-react";
+import { Home, Utensils, MapPin, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 export default function MobileNav() {
@@ -14,7 +14,7 @@ export default function MobileNav() {
   const links = [
     { href: "/", icon: Home, label: "Home" },
     { href: "/restaurants", icon: MapPin, label: "Restaurants" },
-    { href: "/dishes", icon: Search, label: "Dishes" },
+    { href: "/dishes", icon: Utensils, label: "Dishes" },
   ];
 
   return (
