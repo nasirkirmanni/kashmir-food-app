@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const sendOtpEmail = async (to, otp) => {
   // We'll log it for local dev since credentials might not be set up yet
   console.log(`\n============================`);
@@ -14,6 +12,7 @@ export const sendOtpEmail = async (to, otp) => {
   }
 
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
       from: "Wazwan Way <nasirkirmani@wazwanway.com>", // Make sure to use your verified domain
       to: [to],
