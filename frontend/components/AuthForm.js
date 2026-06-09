@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
 import OtpInput from "./OtpInput";
 
-export default function AuthForm({ mode: initialMode = "login" }) {
+export default function AuthForm({ mode = "login" }) {
   const router = useRouter();
   const { login } = useAuth();
   
