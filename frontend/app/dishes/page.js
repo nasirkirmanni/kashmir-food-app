@@ -9,6 +9,7 @@ function DishesPageContent() {
   const searchParams = useSearchParams();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [filters, setFilters] = useState({
     searchQuery: searchParams.get("search") || "",
   });
@@ -37,6 +38,10 @@ function DishesPageContent() {
       })
       .finally(() => setLoading(false));
   }, [filters, searchParams]);
+
+  const roganJosh = dishes.filter(d => d.name.toLowerCase().includes("rogan josh"));
+  const singleDish = roganJosh.length > 0 ? roganJosh : dishes.slice(0, 1);
+  const dishesToShow = (filters.searchQuery || isExpanded) ? dishes : singleDish;
 
   return (
     <div className="wazwan-shell">
@@ -70,10 +75,10 @@ function DishesPageContent() {
               <p className="text-[var(--muted)]">Loading dishes...</p>
             ) : error ? (
               <p className="text-red-400">{error}</p>
-            ) : dishes.length === 0 ? (
+            ) : dishesToShow.length === 0 ? (
               <p className="text-[var(--muted)]">No dishes found matching your search.</p>
             ) : (
-              dishes.map((dish) => (
+              dishesToShow.map((dish) => (
                 <article key={dish._id} className="wazwan-dish-card">
                   <img src={dish.image} alt={dish.name} className="h-56 w-full object-cover" />
                   <div className="p-6">
@@ -97,6 +102,14 @@ function DishesPageContent() {
               ))
             )}
           </div>
+          
+          {!filters.searchQuery && !isExpanded && dishes.length > 1 && (
+            <div className="mt-12 flex justify-center">
+              <button onClick={() => setIsExpanded(true)} className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 active:scale-95">
+                Explore Dishes
+              </button>
+            </div>
+          )}
           
           <div className="jump-grid mt-16 pt-8 border-t border-white/10">
             <div className="jump-card">
