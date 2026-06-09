@@ -112,7 +112,7 @@ export default function WazaAI() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-[100px] right-4 z-50 flex h-[400px] max-h-[75vh] w-[320px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 bg-black/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:bottom-8 md:right-8 md:h-[500px] md:w-[360px]"
+            className="fixed top-1/2 -translate-y-1/2 right-4 z-50 flex h-[400px] max-h-[75vh] w-[320px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 bg-black/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:top-auto md:bottom-8 md:translate-y-0 md:h-[500px] md:w-[360px]"
           >
             <AnimatePresence mode="wait">
               {isIntroMode ? (
