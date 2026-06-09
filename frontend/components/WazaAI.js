@@ -11,16 +11,19 @@ const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth={strokeWidth}
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
   >
-    <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
-    <path d="M6 17h12" />
-    <path d="M9 14.5l1.5-3.5l1.5 3.5" />
-    <path d="M9.8 13.5h1.4" />
-    <path d="M14 11v3.5" />
+    <g strokeWidth={strokeWidth}>
+      <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+      <path d="M6 17h12" />
+    </g>
+    <g strokeWidth={Math.max(1, strokeWidth - 0.5)}>
+      <path d="M8.5 15l1.5-3.5l1.5 3.5" />
+      <path d="M9.2 13.5h1.6" />
+      <path d="M13.5 11.5v3.5" />
+    </g>
   </svg>
 );
 
@@ -80,24 +83,13 @@ export default function WazaAI() {
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text }),
       });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
       const data = await response.json();
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch (error) {
-      console.error("Error sending message:", error);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "Apologies, I'm having trouble connecting to the kitchen right now. Please try again later." }
-      ]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting right now." }]);
     } finally {
       setIsLoading(false);
     }
@@ -105,7 +97,7 @@ export default function WazaAI() {
 
   return (
     <>
-      {/* Floating Action Button */}
+      {/* Floating Button */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
@@ -115,9 +107,9 @@ export default function WazaAI() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleOpenIntro}
-            className="hidden md:flex fixed bottom-8 right-8 z-50 h-14 w-14 items-center justify-center rounded-full bg-[var(--saffron)] text-black shadow-[0_8px_32px_rgba(212,175,55,0.4)] transition-colors hover:bg-[var(--saffron-light)]"
+            className="hidden md:flex fixed bottom-10 right-10 z-50 h-[72px] w-[72px] items-center justify-center rounded-full bg-[var(--saffron)] text-black shadow-[0_8px_32px_rgba(212,175,55,0.4)] transition-colors hover:bg-[var(--saffron-light)]"
           >
-            <ChefAIIcon size={28} strokeWidth={2.5} />
+            <ChefAIIcon size={36} strokeWidth={2} />
           </motion.button>
         )}
       </AnimatePresence>
