@@ -695,18 +695,18 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.95, y: 20, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-3xl overflow-hidden rounded-[32px] border border-white/20 bg-[#111111] shadow-[0_0_80px_rgba(0,0,0,0.8)]"
+              className="relative w-full max-w-md overflow-hidden rounded-[24px] border border-white/20 bg-[#111111] shadow-[0_0_50px_rgba(0,0,0,0.8)]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
                 onClick={() => setIsDishModalVisible(false)}
-                className="absolute right-6 top-6 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl text-white backdrop-blur-md transition hover:bg-[var(--saffron)] hover:text-black hover:border-[var(--saffron)]"
+                className="absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/40 text-lg text-white backdrop-blur-md transition hover:bg-[var(--saffron)] hover:text-black hover:border-[var(--saffron)]"
               >
                 &times;
               </button>
 
-              <div className="relative h-80 w-full overflow-hidden">
+              <div className="relative h-48 w-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent z-10" />
                 <img
                   src={dishImageOverrides[selectedDish.name] || selectedDish.image}
@@ -715,34 +715,27 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 />
               </div>
 
-              <div className="relative z-20 -mt-20 p-10">
-                <div className="flex flex-wrap gap-3">
-                  <span className="rounded-full border border-[var(--saffron)] bg-black/60 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-widest text-[var(--saffron)] backdrop-blur-md">
+              <div className="relative z-20 -mt-12 p-6 md:p-8">
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full border border-[var(--saffron)] bg-black/60 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)] backdrop-blur-md">
                     {selectedDish.category}
                   </span>
-                  <span className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-widest text-white backdrop-blur-md">
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-white backdrop-blur-md">
                     {selectedDish.foodType}
                   </span>
                 </div>
 
-                <h3 className="mt-6 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">{selectedDish.name}</h3>
-                <p className="mt-6 text-lg leading-relaxed text-white/70">
+                <h3 className="mt-4 font-display text-2xl md:text-3xl font-medium tracking-tight text-white">{selectedDish.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/70">
                   {dishResearchSummaries[selectedDish.name] || selectedDish.fullDescription || selectedDish.description}
                 </p>
 
-                <div className="mt-10 grid gap-8 border-t border-white/10 pt-8 sm:grid-cols-2">
+                <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between border-t border-white/10 pt-6 gap-4">
                   <div>
-                    <p className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Profile</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/60">{selectedDish.description}</p>
+                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Pricing</p>
+                    <p className="mt-1 text-xs text-white/60">{selectedDish.priceRange}</p>
                   </div>
-                  <div>
-                    <p className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Pricing</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/60">{selectedDish.priceRange}</p>
-                  </div>
-                </div>
-
-                <div className="mt-10 flex gap-4">
-                  <Link href="/dishes" className="rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-black transition hover:scale-105 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                  <Link href="/dishes" className="rounded-full bg-[var(--saffron)] px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-black transition hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.2)] text-center">
                     Explore Menu
                   </Link>
                 </div>
