@@ -5,7 +5,7 @@ export const dishes = [
     fullDescription:
       "Rogan Josh is one of the most celebrated dishes from Kashmir, known for its vivid red color, tender meat, and deeply fragrant gravy built with fennel, dry ginger, and Kashmiri chilies.",
     history:
-      "The dish traces influences from Persian cuisine and became a central part of Kashmiri Muslim culinary traditions, especially in ceremonial feasts.",
+      `The origins of Rogan Josh can be traced back to Persian and Mughal influences, brought to the Kashmir Valley by the Mughals who appreciated its cool climate. The name itself is derived from Persian, where 'rogan' means clarified butter or oil, and 'josh' means passion, heat, or fire—referring to the intense red color imparted by the Kashmiri chilies and ratan jot. Over centuries, it evolved into a signature dish of the Kashmiri Muslim Wazwan and the Kashmiri Pandit cuisine, symbolizing festivity, celebration, and the rich cultural synthesis of the region.`,
     touristTip:
       "Try this at a traditional Wazwan restaurant around lunchtime for the freshest batch, and ask for steamed rice on the side.",
     category: "Wazwan",
@@ -23,7 +23,7 @@ export const dishes = [
     fullDescription:
       "Gushtaba consists of finely pounded mutton meatballs cooked in a rich, creamy yogurt-based gravy. The texture is incredibly soft, almost melt-in-your-mouth, because the meat is traditionally hand-pounded rather than minced. Prepared with mutton, yogurt, ghee, cardamom, fennel powder, dry ginger, and often a hint of saffron, it is one of the grandest dishes in a Kashmiri Wazwan.",
     history:
-      "Gushtaba is known as the dish of kings and holds a deeply ceremonial place in Kashmir's historic Wazwan tradition. The preparation style traces back to Central Asian culinary influences brought into the valley centuries ago by master chefs known as Wazas. Before modern tools, fresh mutton was pounded by hand on stone using heavy wooden mallets until it became a smooth, velvety paste. In Kashmiri culture, Gushtaba is traditionally served as the final savory course of a Wazwan, and its arrival signals the grand finale of the feast.",
+      `Gushtaba is widely known as the 'Dish of Kings' and historically holds a deeply ceremonial place in Kashmir's Wazwan tradition. The preparation technique traces back to Central Asian culinary practices brought into the valley by master chefs known as Wazas. Before modern tools, fresh mutton was pounded by hand on a stone block using heavy wooden mallets until it became a smooth, velvety paste. In Kashmiri culture, Gushtaba is traditionally served as the final savory course of a Wazwan, and its arrival signals the grand finale of the feast, ensuring guests leave fully satisfied.`,
     touristTip:
       "For the best experience, enjoy Gushtaba as part of a full Wazwan meal and never ask for it at the beginning because it is traditionally the finale. In Srinagar, Ahdoos and Mughal Darbar are among the best-known places to try an authentic version.",
     category: "Luxury Dining",
@@ -40,7 +40,7 @@ export const dishes = [
     fullDescription:
       "Rista brings together carefully pounded meatballs and a saffron-tinted, chili-forward gravy that stands out for its elegant texture and bright appearance.",
     history:
-      "It has long been a ceremonial dish in the Wazwan repertoire and remains a symbol of refinement in Kashmiri feasting culture.",
+      `Rista has long been a centerpiece ceremonial dish in the Wazwan repertoire, remaining a true symbol of refinement and culinary mastery in Kashmiri feasting culture. Creating Rista requires exceptional skill; the meat is painstakingly hand-pounded to achieve a silky, spongy texture that absorbs the intensely flavored, saffron-tinted red gravy. Historically, the vibrant red color of the dish was a marker of luxury, signifying the use of premium local ingredients like Kashmiri chilies and cockscomb flower extract (mawal). It remains a dish reserved for special occasions and grand celebrations.`,
     touristTip:
       "This is ideal for tourists who want a classic Wazwan dish with more visual drama and a punchier flavor profile than Gushtaba.",
     category: "Wazwan",
@@ -57,7 +57,7 @@ export const dishes = [
     fullDescription:
       "Tabak Maaz is prepared by simmering ribs in milk and spices before shallow frying them until the exterior turns deeply golden and crisp.",
     history:
-      "The dish is a prized appetizer in Kashmiri feasts and is admired for balancing delicacy with richness.",
+      `Tabak Maaz traces its roots back to Central Asian and Persian culinary techniques, adapting them to the local ingredients of the Kashmir valley. The process of slow-simmering the lamb ribs in a bath of milk and aromatic spices before flash-frying them to a crisp golden brown was historically a way to tenderize tougher cuts while ensuring a rich, decadent finish. It became a prized appetizer in royal Kashmiri feasts, admired for perfectly balancing the delicacy of the tender inner meat with the rich, smoky crispness of the exterior.`,
     touristTip:
       "Best enjoyed hot as a shared starter. Pair it with noon chai or order it before a larger Wazwan meal.",
     category: "Street Food",
@@ -74,7 +74,7 @@ export const dishes = [
     fullDescription:
       "Nadru Yakhni is a comforting vegetarian Kashmiri dish built on lotus stem slices, yogurt, fennel, and warming spices that create a balanced, aromatic gravy.",
     history:
-      "Lotus stem has been a staple in Kashmiri cooking for generations, especially in Pandit and home-style cuisines.",
+      `The lotus stem, or Nadru, has been an integral part of the Kashmiri diet for centuries, deeply intertwined with the region's abundant lakes. Nadru Yakhni represents a harmonious blend of local agriculture and traditional cooking techniques. The yogurt-based Yakhni gravy itself has ancient origins in the valley, originally used to preserve and flavor meats and vegetables during harsh winters. Over generations, this comforting, fennel-scented vegetarian dish has become a beloved staple in both Kashmiri Pandit and Muslim households, celebrating the unique aquatic bounty of the valley.`,
     touristTip:
       "A great pick for vegetarians seeking something authentically local rather than generic North Indian options.",
     category: "Budget Eats",
@@ -91,7 +91,7 @@ export const dishes = [
     fullDescription:
       "Methi Maaz is one of the early ceremonial meat dishes served in Wazwan, known for its deep savory character and distinct fenugreek aroma. It brings a more rustic, traditional edge to the feast and is especially appreciated by diners who enjoy strong Kashmiri flavors.",
     history:
-      "Wikipedia lists Methi Maaz among the main Wazwan dishes, and it is also described in the banquet sequence as a key early meat preparation flavored with dried fenugreek leaves.",
+      `Methi Maaz serves as one of the most vital introductory courses in a traditional Wazwan, establishing the complex flavor profile of the feast early on. Historically, this dish was developed to utilize every part of the sheep, transforming the tripe and intestines into a delicacy through the masterful use of dried fenugreek leaves (methi) and intense spices. The distinct, earthy bitterness of the fenugreek cuts through the richness of the meat, making it an essential palate-awakening dish that has been passed down through generations of Wazas.`,
     touristTip:
       "This is a more traditional and intense dish than the best-known Wazwan staples, so try it if you want to taste something closer to the deeper ceremonial roots of the feast.",
     category: "Wazwan",
@@ -108,7 +108,7 @@ export const dishes = [
     fullDescription:
       "Waza Kokur is a ceremonial chicken course in Wazwan, often served as halves or as whole birds cooked in the elaborate style of the master Waza. It adds variety to the broader meat-heavy progression of the feast.",
     history:
-      "The Wazwan article lists Waze Kokur among the main dishes and also references chicken-based ceremonial courses in the traditional banquet sequence.",
+      `While lamb and mutton heavily dominate the Wazwan feast, Waza Kokur was introduced to add variety and a lighter protein option to the elaborate sequence of courses. The traditional preparation of this chicken dish involves cooking whole halves of the bird in a delicately spiced, saffron-infused gravy, a technique perfected by the master Wazas over centuries. It highlights the adaptability of Kashmiri feast cooking, ensuring that even within a rigid, historic culinary structure, there is a balanced progression of flavors and textures for the guests.`,
     touristTip:
       "A good choice if you want something more approachable than lamb-heavy dishes while still staying within the structure of a true Wazwan meal.",
     category: "Wazwan",
@@ -125,7 +125,7 @@ export const dishes = [
     fullDescription:
       "Dani Phol centers on a prized drumstick cut of mutton and is valued for its depth, marrow richness, and slow-cooked texture. It is one of the dishes that gives Wazwan its reputation for layered meat craftsmanship.",
     history:
-      "Wikipedia includes Dani Phol in the list of main Wazwan dishes, identifying it as a mutton drumstick preparation.",
+      `Dani Phol is a testament to the Kashmiri appreciation for specific, prized cuts of meat. Centered around the mutton drumstick or shin, this dish was historically favored for its depth of flavor and the richness of the marrow, which slowly renders into the surrounding gravy during the long cooking process. It is a prime example of the slow-cooking traditions that define Wazwan, where time and precise temperature control are just as important as the spices used, resulting in a dish that commands respect at any grand banquet.`,
     touristTip:
       "Best for diners who enjoy richer cuts of meat and want to move beyond the most famous Wazwan dishes into the deeper feast repertoire.",
     category: "Wazwan",
@@ -143,7 +143,7 @@ export const dishes = [
     fullDescription:
       "Daniwal Korma is a refined Wazwan meat course made with mutton, yogurt, spices, and coriander. It is gentler than the fiercer red gravies and brings freshness through its coriander finish.",
     history:
-      "The Wazwan article identifies Daniwal Korme as one of the essential courses in the feast and lists it among the seven must-have dishes for ceremonial occasions.",
+      `Daniwal Korma represents the refined, aromatic side of Kashmiri meat preparations, offering a gentler counterpoint to the fiery red gravies of the feast. The extensive use of fresh coriander (daniwal) and yogurt creates a light, fragrant curry that historical texts and oral traditions identify as one of the essential seven courses of a classic Wazwan. Its evolution showcases the influence of milder, herb-forward Central Asian cooking styles, beautifully adapted by local chefs to create a dish that is both rich and surprisingly refreshing.`,
     touristTip:
       "Try this if you want something fragrant and balanced rather than fiery. It pairs especially well with rice in the middle of a larger Wazwan meal.",
     category: "Wazwan",
@@ -160,7 +160,7 @@ export const dishes = [
     fullDescription:
       "Waza Palak brings spinach into the Wazwan repertoire, offering a softer green note within an otherwise meat-forward feast. It serves as a balancing course with earthy character and gentle seasoning.",
     history:
-      "Wikipedia groups Waze Palak with other greens prepared by a Waza, showing that leafy preparations also have a place in the traditional spread.",
+      `Waza Palak brings a crucial touch of vibrant green and earthy flavor to the predominantly meat-heavy Wazwan spread. Historically, leafy greens have always played a significant role in the Kashmiri diet due to the region's agricultural cycles, and integrating them into the grand feast was a way to provide balance and aid digestion. Prepared with a gentle hand and subtle spices, this dish demonstrates the Waza's ability to elevate humble, everyday vegetables into a course worthy of a celebratory banquet.`,
     touristTip:
       "A smart choice if you want a lighter, greener dish between richer meat courses or if your table wants more balance in the feast.",
     category: "Wazwan",
@@ -177,7 +177,7 @@ export const dishes = [
     fullDescription:
       "Waza Haak highlights the earthy flavor of collard greens and offers a vegetal counterpoint to the heavier meat dishes in Wazwan. Its simplicity is part of its appeal.",
     history:
-      "The Wazwan list on Wikipedia includes Waze Hak among the greens cooked by a Waza, underscoring how the banquet also uses greens to balance the feast.",
+      `Haak, or collard greens, is arguably the most fundamental vegetable in the Kashmiri diet, consumed across all seasons and communities. Waza Haak is the elevated, ceremonial version of this daily staple, prepared simply but with incredible skill to preserve its bright color and distinct, mustard-like pungency. Its inclusion in the Wazwan underscores the deep cultural respect for local, resilient crops, ensuring that even amidst the most luxurious meats, the humble essence of the Kashmiri land is represented on the dining cloth.`,
     touristTip:
       "Order this if you want to experience the quieter side of Kashmiri cuisine rather than only the richer meat specialties.",
     category: "Wazwan",
@@ -194,7 +194,7 @@ export const dishes = [
     fullDescription:
       "Wazwaan Mushroom is a rarer mushroom-centered dish within the broader Wazwan repertoire. It brings an earthy texture and a change of pace from the dominant meat courses.",
     history:
-      "Wikipedia lists Waze Header alongside Waze Palak and Waze Hak as part of the greens and mushroom dishes prepared by a Waza.",
+      `Mushrooms, particularly wild varieties foraged from the surrounding forests, have a special, seasonal place in Kashmiri culinary history. Wazwaan Mushroom is a relatively rare but highly esteemed dish within the traditional feast, offering a meaty, umami-rich texture that appeals to both vegetarians and meat-eaters alike. The preparation mirrors the careful, slow-cooked techniques used for premium meats, highlighting how traditional Wazas have adapted their historic spice blends to complement the earthy, delicate nature of local fungi.`,
     touristTip:
       "This is worth trying if you want a vegetarian Wazwan dish that feels more unusual and less commonly seen than standard paneer or potato options.",
     category: "Wazwan",
@@ -211,7 +211,7 @@ export const dishes = [
     fullDescription:
       "Aab Gosh is a graceful Wazwan lamb dish known for its pale gravy and softer profile. It relies on milk, fennel, and cardamom rather than the fiery red gravies more tourists usually expect.",
     history:
-      "Wikipedia names Aab Gosh as one of the must-have Wazwan dishes and describes it as lamb cooked in a sweet milk curry.",
+      `Aab Gosh stands out in the Kashmiri culinary landscape for its distinctly sweet and mild profile, relying heavily on milk and subtle aromatics like cardamom and fennel. The dish has strong historical ties to Persian and Central Asian trade routes, where milk-based curries were prized for their cooling properties and luxurious mouthfeel. It traditionally serves as a palate cleanser and a gentle, soothing course within the intense progression of the Wazwan, offering diners a moment of creamy, fragrant respite before the final heavy dishes.`,
     touristTip:
       "Perfect for diners who want to try a Kashmiri meat dish that is aromatic and rich without leaning heavily on chili heat.",
     category: "Wazwan",
@@ -229,7 +229,7 @@ export const dishes = [
     fullDescription:
       "Marchwangan Korma is among the fiercer dishes in the Wazwan family, associated with deep heat, browned onion notes, and a darker, sharper gravy profile.",
     history:
-      "The Wazwan article includes Marcxewagan Korme in the main dish list and also references Marchhwangan Korma among the essential ceremonial dishes.",
+      `Marchwangan Korma is a testament to the Kashmiri love for intense, complex heat, deriving its name directly from 'marchwangan' (Kashmiri for red chilies). Historically, this dish was created for those who favored a fiery, dark, and robust flavor profile, standing in stark contrast to the milder yogurt and milk-based curries. The deep browning of the onions and the liberal use of sharp spices make it one of the boldest preparations in the Wazwan, showcasing the impressive dynamic range of the traditional master chefs.`,
     touristTip:
       "Best for travelers who enjoy assertive spice. If you are sensitive to heat, try Daniwal Korma or Aab Gosh first.",
     category: "Wazwan",
@@ -246,7 +246,7 @@ export const dishes = [
     fullDescription:
       "Kabab in the Wazwan tradition uses minced meat shaped on skewers and roasted over coals. It often appears among the opening ceremonial bites and adds smokiness to the spread.",
     history:
-      "Wikipedia lists Kabab among the main Wazwan dishes and the banquet sequence also mentions seekh kababs arriving early on the traem.",
+      `The tradition of roasting minced meat over open coals is ancient, and the Kashmiri Seekh Kabab is a quintessential opening act of the Wazwan feast. Historically, these kababs were molded around flat iron skewers and grilled over embers of fruitwood, imparting a distinct, sweet smokiness. They represent the nomadic, fire-cooked origins of Central Asian cuisine, refined over centuries in the Kashmir valley to include a specific, highly guarded blend of local spices, making them an irresistible and atmospheric start to the banquet.`,
     touristTip:
       "A great starting dish for first-time Wazwan diners because the smoky flavor is familiar while still feeling deeply tied to the feast.",
     category: "Wazwan",
@@ -263,7 +263,7 @@ export const dishes = [
     fullDescription:
       "Yakhin is a yogurt-based gravy associated with several Kashmiri preparations and also appears in Wazwan as a notable part of the feast structure. Its flavor is soothing, aromatic, and gently spiced.",
     history:
-      "Wikipedia includes Yakhin in the main Wazwan list and notes that it is typically prepared with Goshtab, while also appearing with other dishes.",
+      `Yakhin, a delicate and deeply aromatic yogurt-based gravy, has ancient roots in Kashmir, predating many of the tomato- and chili-heavy dishes that arrived later. Historically, boiling meat or vegetables in yogurt with whole spices like fennel and cardamom was a sophisticated preservation method that also tenderized the ingredients. It remains one of the most elegant and soothing preparations in the region, reflecting a culinary philosophy that values subtle, floral aromatics over overwhelming heat, and serves as a foundational technique in both Pandit and Muslim cooking.`,
     touristTip:
       "If you enjoy milder gravies, Yakhin is one of the most approachable and elegant flavors in the Wazwan spread.",
     category: "Wazwan",
@@ -280,7 +280,7 @@ export const dishes = [
     fullDescription:
       "Ruwangan Chaman is one of the recognizable vegetarian dishes that enters the broader Wazwan world, using fried paneer and a bright tomato gravy to add color and contrast.",
     history:
-      "Wikipedia includes Ruwangan Chaman in the list of main dishes as paneer fried and then cooked with tomato gravy.",
+      `Ruwangan Chaman highlights the beautiful synergy between fresh paneer (chaman) and tangy tomatoes (ruwangan), a relatively recent but immensely popular addition to the Kashmiri culinary canon. Tomatoes were introduced to the valley much later than ancient staples like lotus stem and greens, but they were quickly embraced for the vibrant color and acidity they brought to gravies. This dish has become a festive vegetarian staple, showcasing how Kashmiri chefs successfully integrated new ingredients while maintaining the region's signature slow-cooked, spice-infused techniques.`,
     touristTip:
       "A useful dish for mixed groups where some diners want a vegetarian Wazwan-style option without stepping too far from classic Kashmiri flavors.",
     category: "Wazwan",
@@ -297,7 +297,7 @@ export const dishes = [
     fullDescription:
       "Dum Aelve, also known as Dum Aloo in broader Indian culinary language, is a potato preparation in Wazwan that relies on yogurt gravy and slow seasoning rather than sheer heat.",
     history:
-      "Wikipedia lists Dum Aelve among the main dishes and notes it as potatoes cooked in yogurt gravy, while also calling it rare.",
+      `Dum Aelve, or Kashmiri Dum Aloo, is a masterclass in transforming the humble potato into a luxurious, feast-worthy dish. Historically an essential part of Kashmiri Pandit cuisine, the dish involves deep-frying whole baby potatoes, piercing them so they can absorb flavors, and then slow-cooking (dum) them in a rich, fennel and ginger-laced yogurt gravy. The technique of sealing the pot with dough to trap the steam ensures the potatoes become meltingly soft and deeply infused with spice, cementing its place as one of the most famous vegetarian dishes from the valley.`,
     touristTip:
       "A great pick for vegetarians and for travelers who want a familiar ingredient prepared in a distinctly Kashmiri way.",
     category: "Wazwan",
@@ -314,7 +314,7 @@ export const dishes = [
     fullDescription:
       "Gande Tsitin acts as a palate-awakening condiment in the Wazwan experience, using chopped onion, chili, yogurt, and spice to create brightness and contrast.",
     history:
-      "Wikipedia lists Gande Tsitin in the main dish section as onion chutney mixed with chilies, salt, yogurt, and spices.",
+      `In the heavy, meat-laden progression of a Wazwan, condiments play a vital historical role in balancing the palate and aiding digestion. Gande Tsitin, a sharp and pungent onion chutney, was developed precisely for this purpose. The crisp bite of the onions, combined with the heat of chilies and the cooling tang of yogurt, cuts through the rich animal fats of the main courses. It is a testament to the holistic design of the traditional feast, ensuring that the heavy richness is always countered by bright, acidic freshness.`,
     touristTip:
       "Treat this as a supporting flavor rather than a standalone dish. It works best in small amounts between heavier bites of meat.",
     category: "Wazwan",
@@ -331,7 +331,7 @@ export const dishes = [
     fullDescription:
       "Muji Chetin is a classic Kashmiri accompaniment made with radish and walnut, prized for the freshness and texture it brings next to richer Wazwan gravies.",
     history:
-      "Wikipedia lists Muji Chetin in the Wazwan main dish section as radish and walnut chutney.",
+      `Muji Chetin is a beloved, traditional Kashmiri accompaniment that pairs the sharp, peppery bite of raw radish with the earthy richness of local walnuts. Walnuts have grown abundantly in Kashmir for millennia and are deeply woven into the local diet. This chutney was historically crafted to provide a necessary textural crunch and a cleansing pungency alongside the soft, slow-cooked meats of the Wazwan. The interplay of the bitter radish, creamy walnut, and tangy yogurt reflects the sophisticated flavor-balancing techniques inherent in historic Kashmiri cooking.`,
     touristTip:
       "Try a little with richer meat dishes to understand how condiments balance the structure of a Kashmiri feast.",
     category: "Wazwan",
