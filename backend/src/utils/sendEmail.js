@@ -1,4 +1,6 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOtpEmail = async (to, otp) => {
   // We'll log it for local dev since credentials might not be set up yet
@@ -6,27 +8,15 @@ export const sendOtpEmail = async (to, otp) => {
   console.log(`[DEV MODE] OTP generated for ${to}: ${otp}`);
   console.log(`============================\n`);
 
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.warn("EMAIL_USER or EMAIL_PASS not set in .env. Skipping actual email send.");
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not set in .env. Skipping actual email send.");
     return;
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || "smtp.gmail.com",
-      port: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) : 465,
-      secure: process.env.EMAIL_PORT == 465 ? true : false,
-      connectionTimeout: 5000,
-      greetingTimeout: 5000,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    const mailOptions = {
-      from: `"Wazwan Way" <${process.env.EMAIL_USER}>`,
-      to,
+    const { data, error } = await resend.emails.send({
+      from: "Wazwan Way <nasirkirmani@wazwanway.com>", // Make sure to use your verified domain
+      to: [to],
       subject: "Verify Your Wazwan Way Account",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -40,11 +30,14 @@ export const sendOtpEmail = async (to, otp) => {
           <p>If you did not request this, you can safely ignore this email.</p>
         </div>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error("Resend API Error:", error);
+    } else {
+      console.log("Email sent successfully via Resend:", data);
+    }
   } catch (error) {
     console.error("Error sending OTP email:", error);
-    // Don't throw so that the API call doesn't completely fail if email sending fails.
   }
 };
