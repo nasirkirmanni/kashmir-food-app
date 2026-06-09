@@ -61,6 +61,7 @@ export const endpoints = {
   signup: "/auth/signup",
   verify: "/auth/verify",
   forgotPassword: "/auth/forgot-password",
+  verifyResetOtp: "/auth/verify-reset-otp",
   resetPassword: "/auth/reset-password",
   me: "/auth/me",
   favorites: "/users/favorites",

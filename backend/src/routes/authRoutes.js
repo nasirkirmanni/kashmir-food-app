@@ -166,6 +166,20 @@ router.post(
 );
 
 router.post(
+  "/verify-reset-otp",
+  asyncHandler(async (req, res) => {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user || user.otp !== otp || user.otpExpiresAt < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired reset code." });
+    }
+
+    res.status(200).json({ message: "Reset code verified." });
+  })
+);
+
+router.post(
   "/reset-password",
   asyncHandler(async (req, res) => {
     const { email, otp, newPassword } = req.body;
