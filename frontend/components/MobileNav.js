@@ -2,8 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Utensils, MapPin, User } from "lucide-react";
+import { Home, MapPin, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+
+const BowlFoodIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Bowl */}
+    <path d="M2 12h20a10 10 0 0 1-20 0Z" />
+    {/* Food piled inside */}
+    <path d="M5 12a7 7 0 0 1 14 0" />
+    <path d="M12 6v2" />
+    <path d="M8.5 7.5l1.5 1.5" />
+    <path d="M15.5 7.5l-1.5 1.5" />
+  </svg>
+);
 
 export default function MobileNav() {
   const pathname = usePathname();
@@ -14,7 +36,7 @@ export default function MobileNav() {
   const links = [
     { href: "/", icon: Home, label: "Home" },
     { href: "/restaurants", icon: MapPin, label: "Restaurants" },
-    { href: "/dishes", icon: Utensils, label: "Dishes" },
+    { href: "/dishes", icon: BowlFoodIcon, label: "Dishes" },
   ];
 
   return (
