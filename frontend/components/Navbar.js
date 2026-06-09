@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import HamburgerMenu from "./HamburgerMenu";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -55,6 +56,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
+          <HamburgerMenu />
           {user ? (
             <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white">
               <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#D4AF37]">
@@ -118,6 +120,7 @@ export default function Navbar() {
           <span>Wazwan</span>
           <span className="text-[#D4AF37] text-[1rem]">Way</span>
         </Link>
+        <HamburgerMenu />
       </motion.div>
     </div>
   );
