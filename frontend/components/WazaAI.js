@@ -84,7 +84,7 @@ export default function WazaAI() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
       const data = await response.json();
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
