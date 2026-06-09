@@ -107,7 +107,7 @@ export default function DishDetailPage() {
 
       <section className="places-wrap pt-0">
         <div className="grid gap-8 lg:grid-cols-[0.95fr,1.05fr]">
-          <article className="restaurant-place-card">
+          <article className="restaurant-place-card self-start">
             <span className="place-eyebrow">History</span>
             <h3>{dish.name} in Kashmiri tradition</h3>
             <p className="restaurant-desc whitespace-pre-wrap text-justify">{dish.history}</p>
