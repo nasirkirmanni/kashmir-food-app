@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import MapPreview from "@/components/MapPreview";
 import { endpoints, request } from "@/lib/api";
 
@@ -11,6 +12,46 @@ export default function DishDetailPage() {
   const router = useRouter();
   const [dish, setDish] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [recipeModalOpen, setRecipeModalOpen] = useState(false);
+  const [recipeLoading, setRecipeLoading] = useState(false);
+  const [recipeResult, setRecipeResult] = useState(null);
+  const [recipeError, setRecipeError] = useState(null);
+
+  const handleExploreRecipe = async () => {
+    setRecipeModalOpen(true);
+    setRecipeLoading(true);
+    setRecipeResult(null);
+    setRecipeError(null);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "user",
+              content: `Please provide a minimal, precise, and step-wise guided recipe for ${dish.name}. No introductory or concluding remarks, just the recipe steps and minimal ingredients list.`
+            }
+          ]
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to generate recipe.");
+      }
+
+      setRecipeResult(data.reply);
+    } catch (err) {
+      console.error(err);
+      setRecipeError("Failed to fetch the secret recipe. Please try again.");
+    } finally {
+      setRecipeLoading(false);
+    }
+  };
 
   useEffect(() => {
     request(endpoints.dish(params.id))
@@ -47,6 +88,15 @@ export default function DishDetailPage() {
             <span className="place-badge">{dish.spiceLevel}</span>
             <span className="place-badge">{dish.priceRange}</span>
             <span className="place-badge">{dish.popularityRating} / 5 popularity</span>
+          </div>
+
+          <div className="mt-8">
+            <button
+              onClick={handleExploreRecipe}
+              className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95"
+            >
+              Explore Recipe
+            </button>
           </div>
         </div>
 
@@ -102,6 +152,50 @@ export default function DishDetailPage() {
           </div>
         </div>
       </section>
+
+      {/* Recipe Modal */}
+      <AnimatePresence>
+        {recipeModalOpen && dish && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl bg-[#0f0f0f] border border-white/10 shadow-2xl flex flex-col"
+            >
+              <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
+                <div>
+                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">Secret Recipe</span>
+                  <h2 className="mt-1 text-2xl font-display text-white">{dish.name}</h2>
+                </div>
+                <button
+                  onClick={() => setRecipeModalOpen(false)}
+                  className="rounded-full p-2 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all active:scale-90"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="p-6 md:p-8 overflow-y-auto flex-1 text-white/80 whitespace-pre-wrap font-mono text-sm leading-relaxed">
+                {recipeLoading ? (
+                  <div className="flex flex-col items-center justify-center py-20 opacity-70">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--saffron)] mb-4"></div>
+                    <p className="animate-pulse tracking-widest uppercase text-xs font-bold text-[var(--saffron)]">
+                      finding the best secret recipe...
+                    </p>
+                  </div>
+                ) : recipeError ? (
+                  <p className="text-red-400 text-center py-10">{recipeError}</p>
+                ) : (
+                  recipeResult
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
