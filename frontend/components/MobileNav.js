@@ -41,7 +41,14 @@ export default function MobileNav() {
 
   return (
     <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[400px]">
-      <div className="flex items-center justify-between px-6 py-4 rounded-[32px] bg-[#1A1A1A]/90 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+      <div 
+        className="flex items-center justify-between px-6 py-4 rounded-[32px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+        style={{
+          background: "rgba(20, 20, 20, 0.4)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+        }}
+      >
         {links.map((link) => {
           const isActive = pathname === link.href;
           const Icon = link.icon;
@@ -58,7 +65,7 @@ export default function MobileNav() {
           <div className={`p-2 transition-colors ${pathname === "/profile" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
             <User size={24} strokeWidth={pathname === "/profile" ? 2.5 : 2} />
             {isProfileIncomplete && (
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#1A1A1A]"></span>
+              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-black/40"></span>
             )}
           </div>
         </Link>
