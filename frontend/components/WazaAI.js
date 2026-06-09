@@ -113,7 +113,7 @@ export default function WazaAI() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={handleClose}
+              onClick={() => setIsOpen(false)}
               className="absolute inset-0 bg-black/40 backdrop-blur-md"
             />
             
