@@ -57,9 +57,13 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           {user ? (
             <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white">
-              <span>{user.name}</span>
-              <Link href="/profile" className="text-white/80 hover:text-[#D4AF37] transition-colors">
-                Profile
+              <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#D4AF37]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#D4AF37] transition-colors overflow-hidden shrink-0">
+                  <svg className="w-4 h-4 text-white/70 group-hover:text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <span>{user.name}</span>
               </Link>
               {user.role === "admin" && (
                 <Link href="/admin" className="text-[#D4AF37] hover:text-white transition-colors">
