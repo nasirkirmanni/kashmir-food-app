@@ -44,11 +44,6 @@ function DishesPageContent() {
         <div>
           <span className="place-eyebrow">The Wazwan</span>
           <h1>Signature dishes from Kashmir&apos;s ceremonial table.</h1>
-          <p>
-            Explore the core dishes of Wazwan, from iconic meat courses to rich gravies and
-            celebratory classics, all presented in the same editorial style as your reference
-            designs.
-          </p>
         </div>
 
         <div className="jump-grid">
@@ -56,27 +51,12 @@ function DishesPageContent() {
             <strong>Search by Name</strong>
             <span>Type a dish name in the search bar below to jump directly to a favorite.</span>
           </div>
-          <div className="jump-card">
-            <strong>Spot the Classics</strong>
-            <span>Rogan Josh, Gushtaba, Rista, and Tabak Maaz are your essential starting points.</span>
-          </div>
-          <div className="jump-card">
-            <strong>Match Your Taste</strong>
-            <span>Look for food type, spice level, and price range before planning the meal.</span>
-          </div>
         </div>
       </section>
 
-      <section className="places-wrap pt-0">
+      <section className="places-wrap pt-0 md:-mt-8">
         <div className="place-section border-t-0 pt-0">
-          <div className="place-head">
-            <div>
-              <span className="place-eyebrow">Browse Dishes</span>
-              <h2>Search your favourite wazwan dishes</h2>
-            </div>
-          </div>
-
-          <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+          <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-10">
             <input
               value={filters.searchQuery}
               onChange={(event) => setFilters({ searchQuery: event.target.value })}
@@ -85,7 +65,7 @@ function DishesPageContent() {
             />
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {loading ? (
               <p className="text-[var(--muted)]">Loading dishes...</p>
             ) : error ? (
@@ -116,6 +96,17 @@ function DishesPageContent() {
                 </article>
               ))
             )}
+          </div>
+          
+          <div className="jump-grid mt-16 pt-8 border-t border-white/10">
+            <div className="jump-card">
+              <strong>Spot the Classics</strong>
+              <span>Rogan Josh, Gushtaba, Rista, and Tabak Maaz are your essential starting points.</span>
+            </div>
+            <div className="jump-card">
+              <strong>Match Your Taste</strong>
+              <span>Look for food type, spice level, and price range before planning the meal.</span>
+            </div>
           </div>
         </div>
       </section>
