@@ -110,12 +110,12 @@ export default function DishDetailPage() {
           <article className="restaurant-place-card">
             <span className="place-eyebrow">History</span>
             <h3>{dish.name} in Kashmiri tradition</h3>
-            <p className="restaurant-desc">{dish.history}</p>
+            <p className="restaurant-desc whitespace-pre-wrap text-justify">{dish.history}</p>
             <div className="rounded-[16px] bg-[var(--saffron-pale)] p-5">
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
                 Tourist Tip
               </p>
-              <p className="restaurant-desc mt-3">{dish.touristTip}</p>
+              <p className="restaurant-desc mt-3 whitespace-pre-wrap text-justify">{dish.touristTip}</p>
             </div>
           </article>
 
