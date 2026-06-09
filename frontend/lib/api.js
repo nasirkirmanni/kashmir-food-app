@@ -59,6 +59,7 @@ export const endpoints = {
   restaurant: (id) => `/restaurants/${id}`,
   login: "/auth/login",
   signup: "/auth/signup",
+  verify: "/auth/verify",
   me: "/auth/me",
   favorites: "/users/favorites",
   reviews: "/reviews",
