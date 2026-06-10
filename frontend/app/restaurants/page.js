@@ -152,7 +152,7 @@ export default function RestaurantsPage() {
                   <p className="text-white/60 mt-4 max-w-2xl text-sm md:text-base mx-auto md:mx-0">{placeMeta[activeLocation].description}</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
+                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 pb-20">
                   {error ? (
                     <div className="col-span-full py-16 text-center px-4">
                       <p className="text-red-400 text-sm max-w-md mx-auto leading-relaxed">{error}</p>
@@ -166,7 +166,7 @@ export default function RestaurantsPage() {
                           whileHover={{ y: -5 }}
                           className="block h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5 flex flex-col shadow-lg transition-colors hover:border-[var(--saffron)] group"
                         >
-                          <div className="relative h-48 w-full overflow-hidden bg-black/50">
+                          <div className="relative h-32 sm:h-48 w-full overflow-hidden bg-black/50">
                             {restaurant.image ? (
                               <img
                                 src={restaurant.image}
@@ -181,27 +181,27 @@ export default function RestaurantsPage() {
                               </div>
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                            <div className="absolute bottom-3 left-3 flex items-center gap-1 rounded-md bg-black/60 px-2 py-1 text-[0.7rem] font-bold text-[var(--saffron)] backdrop-blur-md">
-                              <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                              </svg>
-                              {restaurant.rating}
-                            </div>
+                              <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 sm:px-2 sm:py-1 text-[0.6rem] sm:text-[0.7rem] font-bold text-[var(--saffron)] backdrop-blur-md">
+                                <svg className="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                {restaurant.rating}
+                              </div>
                             {restaurant.authentic && (
-                              <div className="absolute top-3 right-3 rounded-full border border-[var(--saffron)] bg-black/40 px-2.5 py-1 text-[0.6rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
+                              <div className="absolute top-2 right-2 sm:top-3 sm:right-3 rounded-full border border-[var(--saffron)] bg-black/40 px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[0.5rem] sm:text-[0.6rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
                                 Authentic Pick
                               </div>
                             )}
                           </div>
                           
-                          <div className="flex flex-1 flex-col p-5">
-                            <h3 className="font-display text-xl font-medium text-white group-hover:text-[var(--saffron)] transition-colors line-clamp-1">
+                          <div className="flex flex-1 flex-col p-3 sm:p-5">
+                            <h3 className="font-display text-sm sm:text-xl font-medium text-white group-hover:text-[var(--saffron)] transition-colors line-clamp-1">
                               {restaurant.name}
                             </h3>
-                            <p className="mt-1 text-[0.65rem] font-bold uppercase tracking-wider text-white/50">
+                            <p className="mt-1 text-[0.55rem] sm:text-[0.65rem] font-bold uppercase tracking-wider text-white/50 truncate">
                               {restaurant.priceLevel} • {restaurant.location}
                             </p>
-                            <p className="mt-3 text-sm text-white/60 line-clamp-2 leading-relaxed">
+                            <p className="mt-2 sm:mt-3 text-[0.65rem] sm:text-sm text-white/60 line-clamp-2 leading-relaxed">
                               {restaurant.description}
                             </p>
                           </div>
