@@ -9,11 +9,29 @@ router.get(
   "/favorites",
   protect,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id)
-      .populate("favorites.item")
-      .select("favorites");
+    const user = await User.findById(req.user._id).lean();
+    if (!user) return res.json([]);
 
-    res.json(user?.favorites || []);
+    const mongoose = (await import("mongoose")).default;
+    const Dish = mongoose.model("Dish");
+    const Restaurant = mongoose.model("Restaurant");
+
+    const populatedFavorites = [];
+    for (let fav of user.favorites || []) {
+      let populatedItem = null;
+      if (fav.itemType === "dish") {
+        populatedItem = await Dish.findById(fav.item).lean();
+      } else if (fav.itemType === "restaurant") {
+        populatedItem = await Restaurant.findById(fav.item).lean();
+      }
+      
+      if (populatedItem) {
+        fav.item = populatedItem;
+        populatedFavorites.push(fav);
+      }
+    }
+
+    res.json(populatedFavorites);
   })
 );
 
