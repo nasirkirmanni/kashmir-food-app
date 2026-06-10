@@ -104,11 +104,11 @@ export default function Navbar() {
         animate={{
           background: scrolled
             ? "rgba(10, 10, 10, 0.85)"
-            : "transparent",
+            : "rgba(10, 10, 10, 0)",
           backdropFilter: scrolled
             ? "blur(24px) saturate(180%)"
             : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(255,255,255,0)",
         }}
         transition={{ duration: 0.3 }}
         className="w-full flex items-center justify-between px-6 py-4"
