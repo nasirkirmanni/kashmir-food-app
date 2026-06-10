@@ -188,6 +188,17 @@ export default function ForgotPasswordForm() {
           <p className="text-sm text-white/60 mb-6">
             We sent a password reset code to your registered email:{" "}
             <span className="text-[var(--saffron)]">{email}</span>
+            <button
+              type="button"
+              onClick={() => {
+                setCurrentView("input");
+                setError("");
+                setSuccess("");
+              }}
+              className="mt-2 block mx-auto text-xs font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors underline"
+            >
+              Edit Email
+            </button>
           </p>
 
           <label className="block text-left mb-6">
