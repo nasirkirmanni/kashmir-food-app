@@ -46,13 +46,28 @@ export default function FavoritesPage() {
 
       <section className="places-wrap pt-0">
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {favorites.length === 0 ? (
-            <p className="text-[var(--muted)] col-span-full">You haven't saved any dishes or restaurants yet.</p>
+          {favorites.filter(fav => fav.item != null).length === 0 ? (
+            <div className="col-span-full flex flex-col items-center text-center py-20 px-6 bg-[#050505]/40 backdrop-blur-[24px] border border-white/10 rounded-[32px] shadow-2xl">
+              <div className="mb-6 text-white/20">
+                <svg className="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-display text-white mb-3">No dishes saved</h2>
+              <p className="text-sm text-white/50 mb-10 max-w-sm leading-relaxed">
+                You haven't saved any dishes to your trail yet. Explore Kashmir's greatest culinary heritage and bookmark your favorites.
+              </p>
+              <Link 
+                href="/dishes" 
+                className="rounded-full bg-[var(--saffron)] px-10 py-4 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_25px_rgba(212,175,55,0.25)] transition-transform hover:scale-105 active:scale-95"
+              >
+                Explore Dishes
+              </Link>
+            </div>
           ) : (
-            favorites.map((favorite, index) => {
+            favorites.filter(fav => fav.item != null).map((favorite, index) => {
               const isDish = favorite.itemType === 'dish';
               const item = favorite.item;
-              if (!item) return null;
               
               const linkHref = isDish ? `/dishes/${item._id}` : `/restaurants/${item._id}`;
 
