@@ -370,6 +370,7 @@ export const restaurants = [
     rating: 3.7,
     priceLevel: "Mid-range",
     tags: ["Traditional", "Wazwan", "Local Favorite"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A long-running Srinagar favorite for classic Kashmiri Wazwan, known especially for Rogan Josh, Gushtaba, and other traditional meat dishes.",
     phoneNumber: "+91 60060 74803",
@@ -405,6 +406,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Mid-range",
     tags: ["Wazwan", "Local Favorite", "Traditional"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A well-regarded local spot for authentic Kashmiri Wazwan, especially popular with diners looking for strong traditional flavors rather than a tourist-focused presentation.",
     phoneNumber: "+91 194 247 5959",
@@ -422,6 +424,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Budget",
     tags: ["Budget Eats", "Casual", "Local Favorite"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A casual stop for tourists wanting affordable local meals without sacrificing regional flavor.",
     phoneNumber: "+91 194 250 0517",
@@ -458,6 +461,7 @@ export const restaurants = [
     rating: 4.2,
     priceLevel: "Mid-range",
     tags: ["Traditional", "Wazwan", "City Dining"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A central Srinagar dining option near Lal Chowk serving classic Kashmiri dishes and familiar Wazwan staples in a busy city setting.",
     phoneNumber: "",
@@ -475,6 +479,7 @@ export const restaurants = [
     rating: 4.0,
     priceLevel: "Mid-range",
     tags: ["Local Favorite", "City Dining", "Traditional"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A long-known Srinagar city stop around Lal Chowk where travelers can break for Kashmiri flavors in a familiar downtown setting.",
     phoneNumber: "",
@@ -492,6 +497,7 @@ export const restaurants = [
     rating: 4.3,
     priceLevel: "Mid-range",
     tags: ["Boulevard", "Tourist Friendly", "Lake View"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A well-known Boulevard Road restaurant offering a comfortable lakeside stop for tourists looking for Kashmiri and North Indian dining.",
     phoneNumber: "",
@@ -509,6 +515,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Mid-range",
     tags: ["Boulevard", "Casual Dining", "Kashmiri Food"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A casual Boulevard-side restaurant near Khayam Chowk with a traveler-friendly menu and strong access to Kashmiri classics.",
     phoneNumber: "",
@@ -526,6 +533,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Budget",
     tags: ["BBQ", "Casual", "Street Food"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A casual Khayam Chowk stop popular for grilled bites, hearty portions, and accessible food for evening visitors around the Boulevard side.",
     phoneNumber: "",
@@ -543,6 +551,7 @@ export const restaurants = [
     rating: 4.0,
     priceLevel: "Budget",
     tags: ["Cafe", "Casual", "Popular Spot"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A lively city stop near Budshah Chowk known more for casual crowd appeal, quick bites, and an easygoing atmosphere than formal Wazwan dining.",
     phoneNumber: "",
@@ -560,6 +569,7 @@ export const restaurants = [
     rating: 4.0,
     priceLevel: "Mid-range",
     tags: ["Traditional", "City Dining", "Kashmiri Food"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A Srinagar city restaurant in the Lal Chowk area that works well for travelers wanting a central stop for Kashmiri dishes.",
     phoneNumber: "",
@@ -577,6 +587,7 @@ export const restaurants = [
     rating: 4.2,
     priceLevel: "Mid-range",
     tags: ["Cafe", "Boulevard", "Tourist Friendly"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A modern cafe-style stop on Boulevard Road for travelers looking for a lighter atmosphere alongside scenic Srinagar dining.",
     phoneNumber: "",
@@ -594,6 +605,7 @@ export const restaurants = [
     rating: 4.2,
     priceLevel: "Luxury",
     tags: ["Boulevard", "Lake View", "Fine Dining"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A polished Boulevard Road dining option for visitors who want a more elevated setting close to the lake and tourist circuit.",
     phoneNumber: "",
@@ -611,6 +623,7 @@ export const restaurants = [
     rating: 4.5,
     priceLevel: "Mid-range",
     tags: ["Cafe", "Books", "Dal Lake"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "An atmospheric Dal Lake cafe-bookstore hybrid, ideal for a slower cultural stop rather than a purely Wazwan-heavy restaurant meal.",
     phoneNumber: "",
@@ -628,6 +641,7 @@ export const restaurants = [
     rating: 4.5,
     priceLevel: "Mid-range",
     tags: ["Cafe", "Tea House", "Heritage"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A well-loved tea house on Residency Road known for ambience, Kashmiri warmth, and a softer cafe-style alternative to heavier dining rooms.",
     phoneNumber: "",
@@ -645,6 +659,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Mid-range",
     tags: ["Kashmiri Food", "Dalgate", "Local Favorite"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A practical Dalgate stop for visitors who want a menu centered more directly around Kashmiri food while staying close to tourist routes.",
     phoneNumber: "",
@@ -662,6 +677,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Luxury",
     tags: ["Fine Dining", "Dalgate", "Tourist Friendly"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A more polished Dalgate dining option for travelers who want an upscale setting while staying close to Dal Lake and central movement routes.",
     phoneNumber: "",
@@ -679,6 +695,7 @@ export const restaurants = [
     rating: 4.0,
     priceLevel: "Budget",
     tags: ["Local Favorite", "Casual", "Kashmiri Food"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A neighborhood-style Srinagar restaurant in Karan Nagar that suits travelers looking for more local, less polished dining energy.",
     phoneNumber: "",
@@ -696,6 +713,7 @@ export const restaurants = [
     rating: 4.2,
     priceLevel: "Mid-range",
     tags: ["Traditional", "Wazwan", "Family Dining"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A larger-format Mughal Darbar-style dining option in Sanat Nagar for travelers or families who want a broader Wazwan menu away from the busiest tourist core.",
     phoneNumber: "",
@@ -713,6 +731,7 @@ export const restaurants = [
     rating: 4.0,
     priceLevel: "Mid-range",
     tags: ["Bypass", "Casual Dining", "Family Spot"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A Hyderpora-side family dining stop useful for travelers staying outside the lakefront but still wanting access to Kashmiri dishes.",
     phoneNumber: "",
@@ -730,6 +749,7 @@ export const restaurants = [
     rating: 4.1,
     priceLevel: "Budget",
     tags: ["Wazwan", "Hazratbal", "Local Favorite"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A Hazratbal-area stop focused more tightly on Wazwan-style dining for visitors wanting direct access to the feast tradition.",
     phoneNumber: "",
@@ -747,6 +767,7 @@ export const restaurants = [
     rating: 4.3,
     priceLevel: "Budget",
     tags: ["Old City", "Authentic", "Wazwan"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A label for the more traditional Wazwan houses around downtown Srinagar, best suited to travelers chasing old-city authenticity over formal restaurant polish.",
     phoneNumber: "",
@@ -764,6 +785,7 @@ export const restaurants = [
     rating: 4.2,
     priceLevel: "Luxury",
     tags: ["Cafe", "Fine Dine", "Saddar Bal"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "A polished Saddar Bal venue mixing cafe energy with a fine-dining approach for travelers who want a more contemporary Srinagar meal.",
     phoneNumber: "",
@@ -781,6 +803,7 @@ export const restaurants = [
     rating: 4.6,
     priceLevel: "Luxury",
     tags: ["Luxury", "Hotel Dining", "Heritage"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "The signature fine-dining venue at The Lalit Grand Palace, suited to travelers seeking a polished heritage hotel setting for Kashmiri and premium dining.",
     phoneNumber: "",
@@ -822,6 +845,7 @@ export const restaurants = [
     rating: 3.6,
     priceLevel: "Mid-range",
     tags: ["Popular Spot", "Central", "Tourist Area"],
+    image: "/images/restaurants/restaurant-art.png",
     description:
       "Conveniently located but known for inconsistent portions and pricing during peak tourist season.",
     phoneNumber: "+91 84939 74198",
