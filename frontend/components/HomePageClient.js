@@ -84,6 +84,41 @@ const dishResearchSummaries = {
   "Muji Chetin": "Muji Chetin is a radish-and-walnut chutney that brings crunch, pungency, and freshness alongside the richer gravies of Kashmiri cuisine."
 };
 
+const AuroraBackground = ({ colors }) => (
+  <div className="absolute inset-0 z-0 opacity-40">
+    <motion.div
+      animate={{
+        scale: [1, 1.2, 1],
+        x: [0, 20, 0],
+        y: [0, 30, 0],
+      }}
+      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute -top-[20%] -left-[20%] w-[70%] h-[70%] rounded-full blur-2xl mix-blend-screen"
+      style={{ backgroundColor: colors[0] }}
+    />
+    <motion.div
+      animate={{
+        scale: [1, 1.3, 1],
+        x: [0, -30, 0],
+        y: [0, -20, 0],
+      }}
+      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      className="absolute top-[30%] -right-[20%] w-[80%] h-[80%] rounded-full blur-2xl mix-blend-screen"
+      style={{ backgroundColor: colors[1] }}
+    />
+    <motion.div
+      animate={{
+        scale: [1, 1.1, 1],
+        x: [0, 20, 0],
+        y: [0, -30, 0],
+      }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      className="absolute -bottom-[20%] left-[10%] w-[60%] h-[60%] rounded-full blur-2xl mix-blend-screen"
+      style={{ backgroundColor: colors[2] }}
+    />
+  </div>
+);
+
 export default function HomePageClient({ initialDishes = [], initialRestaurants = [] }) {
   const { scrollY } = useScroll();
   const scrollOpacity = useTransform(scrollY, [0, 100], [1, 0]);
@@ -249,8 +284,9 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         >
           <Link 
             href="/restaurants" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/50 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-[#141414] aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
+            <AuroraBackground colors={["#D4AF37", "#E65100", "#C92A2A"]} />
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
               <div className="flex items-center mb-1 text-[#D4AF37]">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -261,8 +297,9 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           
           <Link 
             href="/dishes" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-[#141414]/50 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-[#141414] aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
+            <AuroraBackground colors={["#C92A2A", "#FF8F00", "#D4AF37"]} />
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
               <div className="flex items-center mb-1 text-white/70">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V21h12v-7.5m-12 0a3 3 0 01-3-3c0-1.66 1.34-3 3-3 .22 0 .44.02.65.07A4.49 4.49 0 0110.5 3c2 0 3.7 1.3 4.28 3.12.28-.08.57-.12.87-.12 2.07 0 3.75 1.68 3.75 3.75 0 1.66-1.34 3-3 3m-12 0h12" /></svg>
