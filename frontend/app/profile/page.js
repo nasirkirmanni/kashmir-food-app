@@ -12,6 +12,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [savedCount, setSavedCount] = useState(0);
   
   const [formData, setFormData] = useState({
     name: "",
@@ -29,6 +30,11 @@ export default function ProfilePage() {
         phoneNumber: user.phoneNumber || "",
         address: user.address || ""
       });
+      
+      // Fetch saved dishes count
+      request(endpoints.favorites)
+        .then((data) => setSavedCount(data.length || 0))
+        .catch((err) => console.error("Failed to load favorites count", err));
     }
   }, [user, router]);
 
@@ -46,15 +52,13 @@ export default function ProfilePage() {
     setError("");
 
     try {
-      const updatedUser = await request(endpoints.profile, {
+      await request(endpoints.profile, {
         method: "PUT",
         body: JSON.stringify(formData)
       });
       
       setSuccess("Profile updated successfully!");
       
-      // Update local storage and context if necessary, 
-      // but reloading is an easy way to refresh context for now
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -66,15 +70,35 @@ export default function ProfilePage() {
     }
   };
 
-  if (!user) return null; // or a loader
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
+
+  if (!user) return null;
+
+  // Generate initials for Avatar
+  const initials = (user.name || "User").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
 
   return (
     <div className="min-h-screen pt-28 pb-32 px-6 page-shell flex flex-col items-center">
       <div className="w-full max-w-md">
-        <h1 className="font-display text-4xl text-white mb-2 text-center">My Profile</h1>
-        <p className="text-sm text-white/60 text-center mb-8">
-          Manage your personal details and contact information.
-        </p>
+        
+        {/* PROFILE HEADER & AVATAR */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-[var(--saffron)] to-amber-700 flex items-center justify-center text-3xl font-display font-medium text-black shadow-[0_0_40px_rgba(212,175,55,0.3)] mb-4 border-2 border-black">
+            {initials}
+          </div>
+          <h1 className="font-display text-3xl text-white mb-1">{user.name || "Guest User"}</h1>
+          <p className="text-sm text-white/50">{user.email}</p>
+          
+          <div className="mt-4 flex gap-4">
+            <div className="bg-white/5 border border-white/10 rounded-2xl px-5 py-3 flex flex-col items-center min-w-[120px]">
+              <span className="text-[1.5rem] font-display text-[var(--saffron)]">{savedCount}</span>
+              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-white/40">Saved Dishes</span>
+            </div>
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[24px] p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
           <div className="space-y-4">
@@ -103,7 +127,6 @@ export default function ProfilePage() {
             <label className="block text-left">
               <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] flex justify-between">
                 <span>Phone Number</span>
-                {!user.phoneNumber && <span className="text-red-400 normal-case tracking-normal font-normal">*Required for orders</span>}
               </span>
               <input
                 type="tel"
@@ -118,7 +141,6 @@ export default function ProfilePage() {
             <label className="block text-left">
               <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] flex justify-between">
                 <span>Delivery Address</span>
-                {!user.address && <span className="text-red-400 normal-case tracking-normal font-normal">*Required for orders</span>}
               </span>
               <textarea
                 name="address"
@@ -143,25 +165,27 @@ export default function ProfilePage() {
           </button>
         </form>
 
-        <Link
-          href="/favorites"
-          className="mt-6 flex w-full items-center justify-center gap-3 rounded-full border border-[var(--saffron)]/30 bg-[var(--saffron)]/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-[var(--saffron)] transition-all hover:bg-[var(--saffron)]/20 active:scale-95"
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-          View Saved Dishes
-        </Link>
-
-        <button
-          onClick={() => {
-            logout();
-            router.push("/login");
-          }}
-          className="mt-8 w-full rounded-full border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-red-400 transition-colors hover:bg-red-500/20 active:bg-red-500/30"
-        >
-          Log Out
-        </button>
+        <div className="mt-6 flex flex-col gap-3">
+          <Link
+            href="/favorites"
+            className="flex w-full items-center justify-center gap-3 rounded-full border border-[var(--saffron)]/30 bg-[var(--saffron)]/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-[var(--saffron)] transition-all hover:bg-[var(--saffron)]/20 active:scale-95"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            View Saved Dishes
+          </Link>
+          
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center justify-center gap-3 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Log Out
+          </button>
+        </div>
       </div>
     </div>
   );
