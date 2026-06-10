@@ -284,7 +284,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         >
           <Link 
             href="/restaurants" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-[#141414] aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/30 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
             <AuroraBackground colors={["#D4AF37", "#E65100", "#C92A2A"]} />
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
@@ -297,7 +297,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           
           <Link 
             href="/dishes" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-[#141414] aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-[#141414]/30 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
             <AuroraBackground colors={["#C92A2A", "#FF8F00", "#D4AF37"]} />
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
