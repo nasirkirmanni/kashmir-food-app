@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { request, endpoints } from "@/lib/api";
+import ReactMarkdown from "react-markdown";
 
 const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   <svg
@@ -198,7 +199,26 @@ export default function WazaAI() {
                         : "bg-white/10 text-white/90 border border-white/5 rounded-bl-none"
                     }`}
                   >
-                    {msg.content}
+                    {msg.role === "user" ? (
+                      msg.content
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          h1: ({ node, ...props }) => <h1 className="font-display text-lg font-bold text-[var(--saffron)] mt-3 mb-1.5" {...props} />,
+                          h2: ({ node, ...props }) => <h2 className="font-display text-base font-bold text-[var(--saffron)] mt-2.5 mb-1.5" {...props} />,
+                          h3: ({ node, ...props }) => <h3 className="font-display text-sm font-bold text-[var(--saffron)] mt-2 mb-1" {...props} />,
+                          p: ({ node, ...props }) => <p className="font-body text-xs text-white/90 leading-relaxed mb-2.5 last:mb-0" {...props} />,
+                          ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2.5 space-y-1 text-xs text-white/80" {...props} />,
+                          ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2.5 space-y-1 text-xs text-white/80" {...props} />,
+                          li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                          strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
+                          code: ({ node, ...props }) => <code className="bg-white/10 px-1 py-0.5 rounded font-mono text-[10px] text-[var(--saffron)]" {...props} />,
+                          blockquote: ({ node, ...props }) => <blockquote className="border-l border-[var(--saffron)] pl-2 italic text-white/60 my-2.5" {...props} />,
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               ))}

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { request, endpoints } from "@/lib/api";
+import ReactMarkdown from "react-markdown";
 
 const ArrowLeftIcon = ({ size = 24, className = "" }) => (
   <svg
@@ -167,7 +168,26 @@ export default function MobileWazaAI() {
                   : "bg-white/5 border border-white/10 text-white/90 rounded-bl-none"
               }`}
             >
-              {msg.content}
+              {msg.role === "user" ? (
+                msg.content
+              ) : (
+                <ReactMarkdown
+                  components={{
+                    h1: ({ node, ...props }) => <h1 className="font-display text-xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
+                    h2: ({ node, ...props }) => <h2 className="font-display text-lg font-bold text-[var(--saffron)] mt-3 mb-2" {...props} />,
+                    h3: ({ node, ...props }) => <h3 className="font-display text-base font-bold text-[var(--saffron)] mt-2.5 mb-1.5" {...props} />,
+                    p: ({ node, ...props }) => <p className="font-body text-sm text-white/90 leading-relaxed mb-3 last:mb-0" {...props} />,
+                    ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-3 space-y-1 text-sm text-white/80" {...props} />,
+                    ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-3 space-y-1 text-sm text-white/80" {...props} />,
+                    li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                    strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
+                    code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
+                    blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
+                  }}
+                >
+                  {msg.content}
+                </ReactMarkdown>
+              )}
             </div>
           </div>
         ))}

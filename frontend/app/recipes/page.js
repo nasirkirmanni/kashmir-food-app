@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 export default function RecipesPage() {
   const [dishes, setDishes] = useState([]);
@@ -132,7 +133,7 @@ export default function RecipesPage() {
                 </button>
               </div>
 
-              <div className="p-6 md:p-8 overflow-y-auto flex-1 text-white/80 whitespace-pre-wrap font-mono text-sm leading-relaxed">
+              <div className="p-6 md:p-8 overflow-y-auto flex-1 text-white/90 leading-relaxed">
                 {recipeLoading ? (
                   <div className="flex flex-col items-center justify-center py-20 opacity-70">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--saffron)] mb-4"></div>
@@ -143,7 +144,22 @@ export default function RecipesPage() {
                 ) : recipeError ? (
                   <p className="text-red-400 text-center py-10">{recipeError}</p>
                 ) : (
-                  recipeResult
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ node, ...props }) => <h1 className="font-display text-2xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
+                      h2: ({ node, ...props }) => <h2 className="font-display text-xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
+                      h3: ({ node, ...props }) => <h3 className="font-display text-lg font-bold text-[var(--saffron)] mt-3 mb-1.5" {...props} />,
+                      p: ({ node, ...props }) => <p className="font-body text-sm text-white/90 leading-relaxed mb-3 last:mb-0" {...props} />,
+                      ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
+                      ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
+                      li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                      strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
+                      code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
+                      blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
+                    }}
+                  >
+                    {recipeResult}
+                  </ReactMarkdown>
                 )}
               </div>
             </motion.div>
