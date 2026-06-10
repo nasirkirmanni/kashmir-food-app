@@ -20,7 +20,14 @@ router.post(
       });
     }
 
+    const currentDateTime = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "full",
+      timeStyle: "medium"
+    });
+
     const systemPrompt = `You are Waza AI, the official AI guide of Wazwan Way.
+The current date and time is ${currentDateTime} (Indian Standard Time).
 
 Your expertise includes:
 
