@@ -120,7 +120,7 @@ export default function RestaurantsPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-50 flex flex-col bg-[#0B0B0B] overflow-hidden"
+            className="fixed inset-0 z-[60] flex flex-col bg-[#0B0B0B] overflow-hidden"
           >
             {/* Dark glassmorphic background elements */}
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
