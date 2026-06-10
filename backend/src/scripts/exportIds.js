@@ -19,21 +19,24 @@ async function run() {
   
   // Set up Restaurant model dynamically
   const Restaurant = mongoose.models.Restaurant || mongoose.model("Restaurant", new mongoose.Schema({}));
-  const restaurants = await Restaurant.find({}, "_id").lean();
+  const restaurants = await Restaurant.find({}, "_id slug").lean();
   const restaurantIds = restaurants.map((r) => ({
-    id: r._id.toString()
+    id: r._id.toString(),
+    slug: r.slug
   }));
   fs.writeFileSync(restaurantsPath, JSON.stringify(restaurantIds, null, 2));
-  console.log(`Successfully exported ${restaurantIds.length} restaurant IDs to ${restaurantsPath}`);
+  console.log(`Successfully exported ${restaurantIds.length} restaurant IDs & Slugs to ${restaurantsPath}`);
 
   // Set up Dish model dynamically
   const Dish = mongoose.models.Dish || mongoose.model("Dish", new mongoose.Schema({}));
-  const dishes = await Dish.find({}, "_id").lean();
+  const dishes = await Dish.find({}, "_id slug").lean();
   const dishIds = dishes.map((d) => ({
-    id: d._id.toString()
+    id: d._id.toString(),
+    slug: d.slug
   }));
   fs.writeFileSync(dishesPath, JSON.stringify(dishIds, null, 2));
-  console.log(`Successfully exported ${dishIds.length} dish IDs to ${dishesPath}`);
+  console.log(`Successfully exported ${dishIds.length} dish IDs & Slugs to ${dishesPath}`);
+
   
   await mongoose.disconnect();
 }

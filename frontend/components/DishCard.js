@@ -48,7 +48,7 @@ export default function DishCard({ dish, onFavorite }) {
 
         <div className="flex gap-3">
           <Link
-            href={`/dishes/${dish._id}`}
+            href={`/dishes/${dish.slug || dish._id}`}
             className="flex-1 rounded-full bg-pine px-4 py-3 text-center text-sm font-semibold text-white hover:bg-cedar"
           >
             View details

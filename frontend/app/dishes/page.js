@@ -140,7 +140,7 @@ function DishesPageContent() {
                         <span className="place-badge">{dish.priceRange}</span>
                       </div>
                       <div className="mt-6">
-                        <Link href={`/dishes/${dish._id}`} className="wazwan-btn-primary inline-flex">
+                        <Link href={`/dishes/${dish.slug || dish._id}`} className="wazwan-btn-primary inline-flex">
                           View dish
                         </Link>
                       </div>
@@ -221,7 +221,7 @@ function DishesPageContent() {
                           <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-3">{dish.description}</p>
                         </div>
                         <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
-                          <Link href={`/dishes/${dish._id}`} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
+                          <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
                             View details &rarr;
                           </Link>
                         </div>

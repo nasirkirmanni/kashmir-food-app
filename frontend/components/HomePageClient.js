@@ -530,7 +530,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               else if (i === 2) label = "Editor's Pick";
 
               return (
-                <Link href={`/restaurants/${restaurant._id}`} key={restaurant._id}>
+                <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} key={restaurant._id}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -743,7 +743,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                       <article key={restaurant._id} className="flex flex-col justify-between rounded-[24px] border border-white/10 bg-white/5 p-8 backdrop-blur transition hover:border-white/30">
                         <div>
                           <h3 className="font-display text-3xl font-medium tracking-tight text-white">
-                            <Link href={`/restaurants/${restaurant._id}`} className="transition-colors hover:text-[var(--saffron)]">
+                            <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="transition-colors hover:text-[var(--saffron)]">
                               {restaurant.name}
                             </Link>
                           </h3>
@@ -762,7 +762,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                             </span>
                             <span className="text-xs font-bold uppercase tracking-widest text-white/60">{restaurant.priceLevel}</span>
                           </div>
-                          <Link href={`/restaurants/${restaurant._id}`} className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] hover:text-white transition-colors">
+                          <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] hover:text-white transition-colors">
                             View Details &rarr;
                           </Link>
                         </div>

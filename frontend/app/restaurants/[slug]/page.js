@@ -9,7 +9,13 @@ export async function generateStaticParams() {
     const jsonPath = path.join(process.cwd(), "restaurants-static-ids.json");
     if (fs.existsSync(jsonPath)) {
       const content = fs.readFileSync(jsonPath, "utf-8");
-      return JSON.parse(content);
+      const list = JSON.parse(content);
+      const paths = [];
+      for (const item of list) {
+        if (item.slug) paths.push({ slug: item.slug });
+        if (item.id) paths.push({ slug: item.id });
+      }
+      return paths;
     }
   } catch (err) {
     console.error("Failed to read static IDs in generateStaticParams:", err);
@@ -19,7 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await fetch(`${BASE_URL}/api/restaurants/${params.id}`, {
+    const res = await fetch(`${BASE_URL}/api/restaurants/${params.slug}`, {
       cache: "force-cache",
     });
     if (!res.ok) throw new Error("Not found");
@@ -30,15 +36,17 @@ export async function generateMetadata({ params }) {
       restaurant.description ||
       `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`;
 
+    const canonicalUrl = `${BASE_URL}/restaurants/${restaurant.slug}`;
+
     return {
       title,
       description,
       alternates: {
-        canonical: `${BASE_URL}/restaurants/${params.id}`,
+        canonical: canonicalUrl,
       },
       openGraph: {
         type: "article",
-        url: `${BASE_URL}/restaurants/${params.id}`,
+        url: canonicalUrl,
         title,
         description,
         images: restaurant.image
@@ -64,3 +72,4 @@ export async function generateMetadata({ params }) {
 export default function RestaurantDetailPage() {
   return <RestaurantDetailClient />;
 }
+

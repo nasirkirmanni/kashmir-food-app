@@ -121,7 +121,7 @@ export default function MobileRestaurantExplorerModal({
             <div className="relative z-10 flex-1 overflow-y-auto px-2 sm:px-5 py-6 no-scrollbar">
               <div className="grid grid-cols-3 gap-2 pb-10">
                 {filteredRestaurants.map((restaurant, i) => (
-                  <Link href={`/restaurants/${restaurant._id}`} key={restaurant._id} passHref legacyBehavior>
+                  <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} key={restaurant._id} passHref legacyBehavior>
                     <motion.a
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}

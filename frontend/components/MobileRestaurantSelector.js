@@ -345,7 +345,7 @@ export default function MobileRestaurantSelector({
                           {restaurant.priceLevel}
                         </span>
                         <Link
-                          href={`/restaurants/${restaurant._id}`}
+                          href={`/restaurants/${restaurant.slug || restaurant._id}`}
                           className="inline-flex items-center gap-1.5 rounded-full bg-[var(--saffron)] px-5 py-2 text-xs font-bold uppercase tracking-widest text-black transition-transform active:scale-95"
                         >
                           View

@@ -91,7 +91,9 @@ export default function FavoritesPage() {
                 const isDish = favorite.itemType === 'dish';
                 const item = favorite.item;
                 
-                const linkHref = isDish ? `/dishes/${item._id}` : `/restaurants/${item._id}`;
+                const linkHref = isDish 
+                  ? `/dishes/${item.slug || item._id}` 
+                  : `/restaurants/${item.slug || item._id}`;
 
                 return (
                   <motion.article 

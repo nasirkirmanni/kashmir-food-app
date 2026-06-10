@@ -22,8 +22,27 @@ const dishSchema = new mongoose.Schema(
     popularityRating: { type: Number, default: 4.5, min: 0, max: 5 },
     spiceLevel: { type: String, default: "Medium" },
     tags: [{ type: String }],
+    slug: { type: String, unique: true, sparse: true },
   },
   { timestamps: true }
 );
 
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-");
+}
+
+dishSchema.pre("save", function (next) {
+  if (this.isModified("name") || !this.slug) {
+    this.slug = slugify(this.name);
+  }
+  next();
+});
+
 export const Dish = mongoose.model("Dish", dishSchema);
+

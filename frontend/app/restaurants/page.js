@@ -160,7 +160,7 @@ export default function RestaurantsPage() {
                     </div>
                   ) : grouped[activeLocation]?.length > 0 ? (
                     grouped[activeLocation].map((restaurant) => (
-                      <Link href={`/restaurants/${restaurant._id}`} key={restaurant._id} passHref legacyBehavior>
+                      <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} key={restaurant._id} passHref legacyBehavior>
                         <motion.a
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}

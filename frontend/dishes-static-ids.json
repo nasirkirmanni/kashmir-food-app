@@ -1,62 +1,82 @@
 [
   {
-    "id": "6a281eaca131360af1aab309"
+    "id": "6a281eaca131360af1aab30a",
+    "slug": "gushtaba"
   },
   {
-    "id": "6a281eaca131360af1aab30a"
+    "id": "6a281eaca131360af1aab312",
+    "slug": "waza-palak"
   },
   {
-    "id": "6a281eaca131360af1aab30b"
+    "id": "6a281eaca131360af1aab309",
+    "slug": "rogan-josh"
   },
   {
-    "id": "6a281eaca131360af1aab30c"
+    "id": "6a281eaca131360af1aab30b",
+    "slug": "rista"
   },
   {
-    "id": "6a281eaca131360af1aab30d"
+    "id": "6a281eaca131360af1aab30f",
+    "slug": "waza-kokur"
   },
   {
-    "id": "6a281eaca131360af1aab30e"
+    "id": "6a281eaca131360af1aab310",
+    "slug": "dani-phol"
   },
   {
-    "id": "6a281eaca131360af1aab30f"
+    "id": "6a281eaca131360af1aab31b",
+    "slug": "gande-tsitin"
   },
   {
-    "id": "6a281eaca131360af1aab310"
+    "id": "6a281eaca131360af1aab31a",
+    "slug": "dum-aelve"
   },
   {
-    "id": "6a281eaca131360af1aab311"
+    "id": "6a281eaca131360af1aab316",
+    "slug": "marchwangan-korma"
   },
   {
-    "id": "6a281eaca131360af1aab312"
+    "id": "6a281eaca131360af1aab314",
+    "slug": "wazwaan-mushroom"
   },
   {
-    "id": "6a281eaca131360af1aab313"
+    "id": "6a281eaca131360af1aab317",
+    "slug": "kabab"
   },
   {
-    "id": "6a281eaca131360af1aab314"
+    "id": "6a281eaca131360af1aab318",
+    "slug": "yakhin"
   },
   {
-    "id": "6a281eaca131360af1aab315"
+    "id": "6a281eaca131360af1aab30d",
+    "slug": "nadru-yakhni"
   },
   {
-    "id": "6a281eaca131360af1aab316"
+    "id": "6a281eaca131360af1aab30e",
+    "slug": "methi-maaz"
   },
   {
-    "id": "6a281eaca131360af1aab317"
+    "id": "6a281eaca131360af1aab311",
+    "slug": "daniwal-korma"
   },
   {
-    "id": "6a281eaca131360af1aab318"
+    "id": "6a281eaca131360af1aab319",
+    "slug": "ruwangan-chaman"
   },
   {
-    "id": "6a281eaca131360af1aab319"
+    "id": "6a281eaca131360af1aab30c",
+    "slug": "tabak-maaz"
   },
   {
-    "id": "6a281eaca131360af1aab31a"
+    "id": "6a281eaca131360af1aab313",
+    "slug": "waza-haak"
   },
   {
-    "id": "6a281eaca131360af1aab31b"
+    "id": "6a281eaca131360af1aab315",
+    "slug": "aab-gosh"
   },
   {
-    "id": "6a281eaca131360af1aab31c"
+    "id": "6a281eaca131360af1aab31c",
+    "slug": "muji-chetin"
   }
 ]

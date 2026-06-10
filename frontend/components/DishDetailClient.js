@@ -77,14 +77,22 @@ export default function DishDetailClient() {
   };
 
   useEffect(() => {
-    request(endpoints.dish(params.id))
-      .then((data) => setDish(data))
-      .catch((err) => {
-        console.error("Failed to fetch dish:", err);
-        setDish(null);
-      })
-      .finally(() => setLoading(false));
-  }, [params.id]);
+    if (params.slug) {
+      request(endpoints.dish(params.slug))
+        .then((data) => {
+          setDish(data);
+          // Redirect if parameter is a raw MongoDB ObjectID
+          if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
+            router.replace(`/dishes/${data.slug}`);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch dish:", err);
+          setDish(null);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [params.slug, router]);
 
   useEffect(() => {
     if (user && dish) {
@@ -114,7 +122,7 @@ export default function DishDetailClient() {
           <Breadcrumbs items={[
             { name: "Home", href: "/" },
             { name: "Dishes", href: "/dishes" },
-            { name: dish.name, href: `/dishes/${dish._id}` },
+            { name: dish.name, href: `/dishes/${dish.slug}` },
           ]} />
           <button 
             onClick={() => router.back()} 
@@ -209,7 +217,7 @@ export default function DishDetailClient() {
                       {restaurant.touristTrapWarning ? <span className="place-badge">Warning</span> : null}
                     </div>
                     <div className="mt-4">
-                      <Link href={`/restaurants/${restaurant._id}`} className="wazwan-btn-ghost">
+                      <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost">
                         View restaurant -&gt;
                       </Link>
                     </div>

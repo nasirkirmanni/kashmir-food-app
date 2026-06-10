@@ -54,7 +54,7 @@ export function buildRestaurantSchema(restaurant) {
     "@type": "Restaurant",
     name: restaurant.name,
     description: restaurant.description || `${restaurant.name} — authentic Kashmiri restaurant`,
-    url: `https://wazwanway.com/restaurants/${restaurant._id}`,
+    url: `https://wazwanway.com/restaurants/${restaurant.slug || restaurant._id}`,
     image: restaurant.image || "https://wazwanway.com/wazwan-hero.jpg",
     servesCuisine: "Kashmiri",
     priceRange: restaurant.priceLevel || "$$",
@@ -90,7 +90,7 @@ export function buildRecipeSchema(dish) {
     recipeCategory: dish.category || "Kashmiri Cuisine",
     recipeCuisine: "Kashmiri",
     keywords: `${dish.name}, Kashmiri food, Wazwan, ${dish.category}`,
-    url: `https://wazwanway.com/dishes/${dish._id}`,
+    url: `https://wazwanway.com/dishes/${dish.slug || dish._id}`,
     ...(dish.prepTime && { prepTime: dish.prepTime }),
     ...(dish.cookTime && { cookTime: dish.cookTime }),
   };

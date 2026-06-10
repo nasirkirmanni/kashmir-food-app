@@ -46,12 +46,25 @@ router.get(
 );
 
 router.get(
-  "/:id",
+  "/:idOrSlug",
   asyncHandler(async (req, res) => {
-    const restaurant = await Restaurant.findById(req.params.id).populate(
-      "linkedDishes",
-      "name category image"
-    );
+    let restaurant;
+    
+    // Check if parameter is a valid MongoDB ObjectID
+    if (req.params.idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
+      restaurant = await Restaurant.findById(req.params.idOrSlug).populate(
+        "linkedDishes",
+        "name category image slug"
+      );
+    }
+    
+    // Fall back to slug lookup
+    if (!restaurant) {
+      restaurant = await Restaurant.findOne({ slug: req.params.idOrSlug }).populate(
+        "linkedDishes",
+        "name category image slug"
+      );
+    }
 
     if (!restaurant) {
       return res.status(404).json({ message: "Restaurant not found" });
@@ -64,6 +77,7 @@ router.get(
     res.json({ ...restaurant.toObject(), reviews });
   })
 );
+
 
 router.post(
   "/",

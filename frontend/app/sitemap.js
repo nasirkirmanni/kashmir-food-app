@@ -3,19 +3,19 @@ import path from "path";
 
 const BASE_URL = "https://wazwanway.com";
 
-function loadIds(filename) {
+function loadSlugs(filename) {
   try {
     const jsonPath = path.join(process.cwd(), filename);
     if (fs.existsSync(jsonPath)) {
-      return JSON.parse(fs.readFileSync(jsonPath, "utf-8")).map((item) => item.id);
+      return JSON.parse(fs.readFileSync(jsonPath, "utf-8")).map((item) => item.slug || item.id);
     }
   } catch {}
   return [];
 }
 
 export default function sitemap() {
-  const dishIds = loadIds("dishes-static-ids.json");
-  const restaurantIds = loadIds("restaurants-static-ids.json");
+  const dishSlugs = loadSlugs("dishes-static-ids.json");
+  const restaurantSlugs = loadSlugs("restaurants-static-ids.json");
 
   const staticPages = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
@@ -29,15 +29,15 @@ export default function sitemap() {
     { url: `${BASE_URL}/signup`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const dishPages = dishIds.map((id) => ({
-    url: `${BASE_URL}/dishes/${id}`,
+  const dishPages = dishSlugs.map((slug) => ({
+    url: `${BASE_URL}/dishes/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
-  const restaurantPages = restaurantIds.map((id) => ({
-    url: `${BASE_URL}/restaurants/${id}`,
+  const restaurantPages = restaurantSlugs.map((slug) => ({
+    url: `${BASE_URL}/restaurants/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,

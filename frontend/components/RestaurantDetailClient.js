@@ -15,12 +15,20 @@ export default function RestaurantDetailClient() {
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const loadRestaurant = () =>
-    request(endpoints.restaurant(params.id)).then((data) => setRestaurant(data));
+  const loadRestaurant = () => {
+    if (!params.slug) return Promise.resolve();
+    return request(endpoints.restaurant(params.slug)).then((data) => {
+      setRestaurant(data);
+      // Redirect if parameter is a raw MongoDB ObjectID
+      if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
+        router.replace(`/restaurants/${data.slug}`);
+      }
+    });
+  };
 
   useEffect(() => {
     loadRestaurant().finally(() => setLoading(false));
-  }, [params.id]);
+  }, [params.slug]);
 
   if (loading) {
     return <div className="places-wrap py-24 text-[var(--muted)]">Loading restaurant...</div>;
@@ -40,7 +48,7 @@ export default function RestaurantDetailClient() {
           <Breadcrumbs items={[
             { name: "Home", href: "/" },
             { name: "Restaurants", href: "/restaurants" },
-            { name: restaurant.name, href: `/restaurants/${restaurant._id}` },
+            { name: restaurant.name, href: `/restaurants/${restaurant.slug}` },
           ]} />
           <button 
             onClick={() => router.back()} 

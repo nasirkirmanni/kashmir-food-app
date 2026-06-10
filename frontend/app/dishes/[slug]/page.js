@@ -9,7 +9,13 @@ export async function generateStaticParams() {
     const jsonPath = path.join(process.cwd(), "dishes-static-ids.json");
     if (fs.existsSync(jsonPath)) {
       const content = fs.readFileSync(jsonPath, "utf-8");
-      return JSON.parse(content);
+      const list = JSON.parse(content);
+      const paths = [];
+      for (const item of list) {
+        if (item.slug) paths.push({ slug: item.slug });
+        if (item.id) paths.push({ slug: item.id });
+      }
+      return paths;
     }
   } catch (err) {
     console.error("Failed to read static IDs in generateStaticParams:", err);
@@ -19,7 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await fetch(`${BASE_URL}/api/dishes/${params.id}`, {
+    const res = await fetch(`${BASE_URL}/api/dishes/${params.slug}`, {
       cache: "force-cache",
     });
     if (!res.ok) throw new Error("Not found");
@@ -30,15 +36,17 @@ export async function generateMetadata({ params }) {
       dish.description ||
       `Discover ${dish.name}, a classic Kashmiri ${dish.category} dish. Learn its history, ingredients, and where to try it in Kashmir.`;
 
+    const canonicalUrl = `${BASE_URL}/dishes/${dish.slug}`;
+
     return {
       title,
       description,
       alternates: {
-        canonical: `${BASE_URL}/dishes/${params.id}`,
+        canonical: canonicalUrl,
       },
       openGraph: {
         type: "article",
-        url: `${BASE_URL}/dishes/${params.id}`,
+        url: canonicalUrl,
         title,
         description,
         images: dish.image
@@ -64,3 +72,4 @@ export async function generateMetadata({ params }) {
 export default function DishDetailPage() {
   return <DishDetailClient />;
 }
+

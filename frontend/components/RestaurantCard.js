@@ -56,7 +56,7 @@ export default function RestaurantCard({ restaurant, compact = false, onFavorite
 
         <div className="flex gap-3">
           <Link
-            href={`/restaurants/${restaurant._id}`}
+            href={`/restaurants/${restaurant.slug || restaurant._id}`}
             className="rounded-full border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700 hover:border-saffron hover:text-saffron"
           >
             Details

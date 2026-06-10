@@ -49,24 +49,32 @@ router.get(
 );
 
 router.get(
-  "/:id",
+  "/:idOrSlug",
   asyncHandler(async (req, res) => {
-    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-      return res.status(404).json({ message: "Dish not found" });
+    let dish;
+    
+    // Check if parameter is a valid MongoDB ObjectID
+    if (req.params.idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
+      dish = await Dish.findById(req.params.idOrSlug);
     }
-    const dish = await Dish.findById(req.params.id);
+    
+    // Fall back to slug lookup
+    if (!dish) {
+      dish = await Dish.findOne({ slug: req.params.idOrSlug });
+    }
 
     if (!dish) {
       return res.status(404).json({ message: "Dish not found" });
     }
 
     const restaurants = await Restaurant.find({ linkedDishes: dish._id }).select(
-      "name location rating priceLevel authentic touristTrapWarning"
+      "name location rating priceLevel authentic touristTrapWarning slug"
     );
 
     res.json({ ...dish.toObject(), restaurants });
   })
 );
+
 
 router.post(
   "/",

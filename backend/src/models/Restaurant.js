@@ -23,8 +23,27 @@ const restaurantSchema = new mongoose.Schema(
     touristTrapWarning: { type: Boolean, default: false },
     touristTrapReason: { type: String, default: "" },
     googleMapsQuery: { type: String, required: true },
+    slug: { type: String, unique: true, sparse: true },
   },
   { timestamps: true }
 );
 
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-");
+}
+
+restaurantSchema.pre("save", function (next) {
+  if (this.isModified("name") || !this.slug) {
+    this.slug = slugify(this.name);
+  }
+  next();
+});
+
 export const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+
