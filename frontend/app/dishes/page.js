@@ -105,17 +105,17 @@ function DishesPageContent() {
             ) : dishesToShow.length === 0 ? (
               <p className="text-[var(--muted)]">No dishes found matching your search.</p>
             ) : (
-              <AnimatePresence mode="popLayout">
+              <AnimatePresence mode="wait">
                 {dishesToShow.map((dish, idx) => {
                   const isCarousel = !filters.searchQuery;
                   const displayClass = isCarousel && idx > 0 ? "hidden md:flex flex-col" : "flex flex-col";
                   return (
                   <motion.article 
                     key={dish._id} 
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0, filter: "blur(8px)", scale: 0.98 }}
+                    animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+                    exit={{ opacity: 0, filter: "blur(8px)", scale: 0.98 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
                     className={`wazwan-dish-card ${displayClass}`}
                   >
                     <img src={dish.image} alt={dish.name} className="h-56 w-full object-cover" />
