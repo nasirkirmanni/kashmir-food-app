@@ -83,6 +83,10 @@ export default function DishDetailPage() {
   useEffect(() => {
     request(endpoints.dish(params.id))
       .then((data) => setDish(data))
+      .catch((err) => {
+        console.error("Failed to fetch dish:", err);
+        setDish(null);
+      })
       .finally(() => setLoading(false));
   }, [params.id]);
 
