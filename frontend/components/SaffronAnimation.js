@@ -80,9 +80,9 @@ export default function SaffronAnimation() {
       ref={containerRef} 
       className="absolute inset-0 pointer-events-none"
     >
-      {/* Warm haze rising from the bottom */}
-      <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#D4AF37]/10 via-[#E65100]/5 to-transparent mix-blend-overlay animate-pulse" style={{ animationDuration: '8s', zIndex: 5 }} />
-      <div className="absolute inset-x-0 bottom-0 h-[80%] bg-gradient-to-t from-black/60 via-transparent to-transparent" style={{ zIndex: 5 }} />
+      {/* Warm haze that fades out smoothly at both top and bottom */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent mix-blend-overlay animate-pulse" style={{ animationDuration: '8s', zIndex: 5 }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-transparent" style={{ zIndex: 5 }} />
 
       {/* Particles */}
       <motion.div style={{ y: yMiddle }} className="absolute inset-0" style={{ zIndex: 15 }}>
