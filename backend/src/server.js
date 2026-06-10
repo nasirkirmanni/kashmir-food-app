@@ -8,6 +8,7 @@ import restaurantRoutes from "./routes/restaurantRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 
@@ -19,6 +20,9 @@ const allowedOrigins = [
   "https://kashmir-food-app.vercel.app",
   "https://wazwanway.com",
   "https://www.wazwanway.com",
+  "http://localhost",
+  "https://localhost",
+  "capacitor://localhost",
   ...(process.env.CLIENT_URL
     ? process.env.CLIENT_URL.split(",")
         .map((origin) => origin.trim())
@@ -40,6 +44,11 @@ app.use(
 );
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log(`[REQUEST] ${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+  next();
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
 });
@@ -50,6 +59,7 @@ app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/stats", statsRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);

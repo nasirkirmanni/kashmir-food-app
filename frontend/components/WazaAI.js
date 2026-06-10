@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { request, endpoints } from "@/lib/api";
 
 const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   <svg
@@ -81,12 +82,10 @@ export default function WazaAI() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const data = await request(endpoints.chat, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
-      const data = await response.json();
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch (error) {
       setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting right now." }]);

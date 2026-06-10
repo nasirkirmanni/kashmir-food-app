@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Wazwan Way</string>
+    <string name="title_activity_main">Wazwan Way</string>
+    <string name="package_name">com.wazwanway.app</string>
+    <string name="custom_url_scheme">com.wazwanway.app</string>
+</resources>

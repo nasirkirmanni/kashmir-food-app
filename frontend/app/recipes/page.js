@@ -36,9 +36,8 @@ export default function RecipesPage() {
     setRecipeError(null);
 
     try {
-      const response = await fetch("/api/chat", {
+      const data = await request(endpoints.chat, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [
             {
@@ -48,12 +47,6 @@ export default function RecipesPage() {
           ]
         }),
       });
-
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to generate recipe.");
-      }
 
       setRecipeResult(data.reply);
     } catch (err) {

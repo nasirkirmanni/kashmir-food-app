@@ -69,5 +69,6 @@ export const endpoints = {
   reviews: "/reviews",
   restaurantReviews: (id) => `/reviews/restaurant/${id}`,
   stats: "/stats/overview",
-  profile: "/users/profile"
+  profile: "/users/profile",
+  chat: "/chat"
 };

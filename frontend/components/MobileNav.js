@@ -81,12 +81,12 @@ export default function MobileNav() {
           </div>
         </Link>
 
-        <button 
-          onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
+        <Link 
+          href="/waza-ai"
           className="relative group p-2 text-[var(--saffron)] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] transition-transform active:scale-95"
         >
           <ChefAIIcon size={28} strokeWidth={2.5} />
-        </button>
+        </Link>
 
         <Link href="/dishes" className="relative group">
           <div className={`p-2 transition-colors ${pathname === "/dishes" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>

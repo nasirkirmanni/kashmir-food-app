@@ -1,0 +1,83 @@
+import express from "express";
+import { asyncHandler } from "../utils/asyncHandler.js";
+
+const router = express.Router();
+
+router.post(
+  "/",
+  asyncHandler(async (req, res) => {
+    const { messages } = req.body;
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: "Invalid messages array" });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      return res.json({
+        reply: "I am missing my GEMINI_API_KEY on the server. Please ensure it is set in your backend .env file."
+      });
+    }
+
+    const systemPrompt = `You are Waza AI, the official AI guide of Wazwan Way.
+
+Your expertise includes:
+
+* Kashmiri Wazwan dishes
+* Kashmiri cuisine
+* Ingredients
+* Restaurant recommendations
+* Kashmiri culinary traditions
+
+You should answer naturally and conversationally.
+
+If information about restaurants or dishes is provided in the request context, prioritize that information over general knowledge.
+
+Do not invent restaurant data.`;
+
+    // Map the messages to the format Gemini expects
+    const geminiMessages = messages.map(msg => ({
+      role: msg.role === "assistant" ? "model" : msg.role,
+      parts: [{ text: msg.content }]
+    }));
+
+    // Calling Gemini Flash Lite
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        systemInstruction: {
+          parts: [{ text: systemPrompt }]
+        },
+        contents: geminiMessages,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 500,
+        }
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("Gemini API Error:", errorData);
+      
+      if (response.status === 429) {
+         return res.json({ reply: "I am experiencing high traffic right now and hit a rate limit. Please try again in a moment." });
+      } else if (response.status === 503) {
+         return res.json({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." });
+      }
+      
+      return res.status(500).json({ error: "Failed to communicate with Gemini" });
+    }
+
+    const data = await response.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, I could not process that request.";
+
+    return res.json({ reply });
+  })
+);
+
+export default router;

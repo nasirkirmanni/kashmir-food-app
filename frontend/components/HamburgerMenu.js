@@ -184,8 +184,9 @@ export default function HamburgerMenu() {
 
                 {/* 6. Waza AI */}
                 <motion.div variants={itemVars}>
-                  <button 
-                    onClick={handleWazaAI}
+                  <Link 
+                    href="/waza-ai"
+                    onClick={() => setIsOpen(false)}
                     className="w-full flex items-center gap-4 p-4 rounded-2xl border border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-500/40 transition-all text-left text-white group"
                   >
                     <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-400 group-hover:scale-110 group-hover:bg-purple-500/30 transition-all">
@@ -200,7 +201,7 @@ export default function HamburgerMenu() {
                       </h3>
                       <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">Your personal guide</p>
                     </div>
-                  </button>
+                  </Link>
                 </motion.div>
 
               </motion.div>

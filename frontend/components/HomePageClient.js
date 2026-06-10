@@ -9,6 +9,7 @@ import Image from "next/image";
 import DesktopRestaurantTabs from "@/components/DesktopRestaurantTabs";
 import MobileRestaurantExplorerModal from "@/components/MobileRestaurantExplorerModal";
 import SaffronAnimation from "@/components/SaffronAnimation";
+import { endpoints, request } from "@/lib/api";
 
 const locationTabMeta = {
   Srinagar: {
@@ -132,7 +133,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
   const locationTabs = ["Srinagar", "Pahalgam", "Gulmarg", "Sonamarg"];
 
-  // Client-side fetching is now handled by SSR in app/page.js
+  useEffect(() => {
+    request(endpoints.dishes())
+      .then((data) => setDishes(data))
+      .catch((err) => console.error("Failed to fetch dishes:", err));
+    request(endpoints.restaurants())
+      .then((data) => setRestaurants(data))
+      .catch((err) => console.error("Failed to fetch restaurants:", err));
+  }, []);
 
   useEffect(() => {
     if (!selectedDish) return undefined;

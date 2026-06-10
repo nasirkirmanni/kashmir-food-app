@@ -4,6 +4,7 @@ dist/
 coverage/
 frontend/.env.local
 frontend/wazaai.env.local
-backend/.env
+frontend/out/
+app-debug.apk
 *.env
 *.env.local

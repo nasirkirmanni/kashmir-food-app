@@ -1,0 +1,8 @@
+{
+  "appId": "com.wazwanway.app",
+  "appName": "Wazwan Way",
+  "webDir": "out",
+  "server": {
+    "androidScheme": "http"
+  }
+}
