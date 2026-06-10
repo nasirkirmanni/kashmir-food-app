@@ -8,6 +8,8 @@ import MapPreview from "@/components/MapPreview";
 import { endpoints, request } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import ReactMarkdown from "react-markdown";
+import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function DishDetailClient() {
   const { user } = useAuth();
@@ -104,8 +106,16 @@ export default function DishDetailClient() {
 
   return (
     <div className="wazwan-shell">
+      {/* JSON-LD Structured Data */}
+      <JsonLd data={buildRecipeSchema(dish)} />
+
       <section className="place-hero">
         <div>
+          <Breadcrumbs items={[
+            { name: "Home", href: "/" },
+            { name: "Dishes", href: "/dishes" },
+            { name: dish.name, href: `/dishes/${dish._id}` },
+          ]} />
           <button 
             onClick={() => router.back()} 
             className="mb-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"

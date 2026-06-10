@@ -6,6 +6,8 @@ import MapPreview from "@/components/MapPreview";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewList from "@/components/ReviewList";
 import { endpoints, request } from "@/lib/api";
+import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function RestaurantDetailClient() {
   const params = useParams();
@@ -30,8 +32,16 @@ export default function RestaurantDetailClient() {
 
   return (
     <div className="wazwan-shell">
+      {/* JSON-LD Structured Data */}
+      <JsonLd data={buildRestaurantSchema(restaurant)} />
+
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1.2fr_0.8fr]">
         <div>
+          <Breadcrumbs items={[
+            { name: "Home", href: "/" },
+            { name: "Restaurants", href: "/restaurants" },
+            { name: restaurant.name, href: `/restaurants/${restaurant._id}` },
+          ]} />
           <button 
             onClick={() => router.back()} 
             className="mb-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
