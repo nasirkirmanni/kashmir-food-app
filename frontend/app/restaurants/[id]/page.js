@@ -87,7 +87,15 @@ export default function RestaurantDetailPage() {
         </div>
 
         <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-md p-4 shadow-2xl mt-8 md:mt-0">
-          <img src={restaurant.image} alt={restaurant.name} className="restaurant-cover h-[250px] md:h-[320px] object-cover" />
+          {restaurant.image ? (
+            <img src={restaurant.image} alt={restaurant.name} className="restaurant-cover h-[250px] md:h-[320px] object-cover" />
+          ) : (
+            <div className="restaurant-cover h-[250px] md:h-[320px] flex items-center justify-center bg-white/5 rounded-[12px]">
+              <svg className="w-24 h-24 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+              </svg>
+            </div>
+          )}
         </div>
       </section>
 

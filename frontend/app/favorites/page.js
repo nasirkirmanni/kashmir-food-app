@@ -103,17 +103,21 @@ export default function FavoritesPage() {
                     key={`${favorite.itemType}-${item._id || index}`} 
                     className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col relative"
                   >
-                    {item.image && (
+                    {item.image ? (
                       <div className="relative h-48 shrink-0 overflow-hidden">
                         <img src={item.image} alt={item.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
                         <div className="absolute top-4 left-4">
                           <span className="place-badge shadow-md bg-black/60 backdrop-blur-md border border-white/20 text-white">{favorite.itemType}</span>
                         </div>
                       </div>
-                    )}
-                    {!item.image && (
-                      <div className="restaurant-meta p-5 pb-0">
-                        <span className="place-badge">{favorite.itemType}</span>
+                    ) : (
+                      <div className="relative h-48 shrink-0 flex items-center justify-center bg-white/5 transition duration-700 group-hover:bg-white/10">
+                        <svg className="w-20 h-20 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                        </svg>
+                        <div className="absolute top-4 left-4">
+                          <span className="place-badge shadow-md bg-black/60 backdrop-blur-md border border-white/20 text-white">{favorite.itemType}</span>
+                        </div>
                       </div>
                     )}
                     
