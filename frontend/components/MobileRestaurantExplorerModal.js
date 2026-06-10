@@ -34,6 +34,13 @@ export default function MobileRestaurantExplorerModal({
     };
   }, [isModalOpen]);
 
+  // Close modal when navigating via MobileNav (e.g., Home button)
+  useEffect(() => {
+    const handleCloseAll = () => setIsModalOpen(false);
+    window.addEventListener('close-all-modals', handleCloseAll);
+    return () => window.removeEventListener('close-all-modals', handleCloseAll);
+  }, []);
+
   const handleLocationClick = (location) => {
     setActiveLocation(location);
     setIsModalOpen(true);

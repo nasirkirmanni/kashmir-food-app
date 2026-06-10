@@ -65,7 +65,11 @@ export default function MobileNav() {
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
         }}
       >
-        <Link href="/" className="relative group">
+        <Link 
+          href="/" 
+          className="relative group"
+          onClick={() => window.dispatchEvent(new Event('close-all-modals'))}
+        >
           <div className={`p-2 transition-colors ${pathname === "/" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
             <Home size={24} strokeWidth={pathname === "/" ? 2.5 : 2} />
           </div>
