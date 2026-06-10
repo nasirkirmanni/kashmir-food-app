@@ -131,20 +131,31 @@ export default function DishDetailPage() {
             <span className="place-badge">{dish.popularityRating} / 5 popularity</span>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-wrap gap-4 items-center">
             <button
               onClick={handleExploreRecipe}
               className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95"
             >
               Explore Recipe
             </button>
-            <button
-              onClick={handleToggleFavorite}
-              disabled={isSaving}
-              className={`rounded-full px-8 py-3 text-sm font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95 border ${isFavorite ? 'border-[var(--saffron)] text-[var(--saffron)]' : 'border-white/20 text-white hover:border-white/50'}`}
-            >
-              {isSaving ? "Saving..." : (isFavorite ? "✓ Saved Dish" : "+ Add to Saved Dishes")}
-            </button>
+            <div className="flex flex-wrap gap-3 items-center">
+              <button
+                onClick={handleToggleFavorite}
+                disabled={isSaving}
+                className={`rounded-full px-8 py-3 text-sm font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95 border ${isFavorite ? 'border-[var(--saffron)] text-[var(--saffron)]' : 'border-white/20 text-white hover:border-white/50'}`}
+              >
+                {isSaving ? "Saving..." : (isFavorite ? "✓ Saved Dish" : "+ Add to Saved Dishes")}
+              </button>
+              
+              {isFavorite && (
+                <Link
+                  href="/favorites"
+                  className="rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-white/10 hover:border-white/30 hover:text-[var(--saffron)]"
+                >
+                  View Saved Dishes &rarr;
+                </Link>
+              )}
+            </div>
           </div>
         </div>
 
