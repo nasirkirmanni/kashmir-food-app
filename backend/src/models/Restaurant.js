@@ -16,6 +16,8 @@ const restaurantSchema = new mongoose.Schema(
     image: { type: String, required: true },
     description: { type: String, required: true },
     phoneNumber: { type: String, default: "" },
+    openingHours: { type: String, default: "" },
+    website: { type: String, default: "" },
     authentic: { type: Boolean, default: false },
     overpriced: { type: Boolean, default: false },
     touristTrapWarning: { type: Boolean, default: false },
