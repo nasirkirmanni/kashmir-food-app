@@ -86,32 +86,33 @@ export default function MobileRestaurantExplorerModal({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-50 flex flex-col bg-[#0B0B0B] overflow-hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-[#0B0B0B] pt-[72px] md:pt-20 overflow-hidden"
           >
             {/* Dark glassmorphic background elements */}
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
 
             {/* Header */}
-            <div className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
-              <div className="h-10 w-10" /> {/* Spacer for centering */}
-
-              <h2 className="font-display text-xl font-medium tracking-wide text-white">
-                {activeLocation} Restaurants
-              </h2>
-
+            <div className="relative z-10 flex items-center px-4 md:px-6 py-4 border-b border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="flex items-center justify-center h-10 w-10 rounded-full border border-white/15 bg-white/5 text-white active:scale-95 transition-transform"
+                className="flex items-center gap-2 text-white/80 hover:text-[var(--saffron)] transition-colors relative z-20"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] mt-0.5">Back</span>
               </button>
+
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <h2 className="font-display text-lg font-medium tracking-wide text-white">
+                  {activeLocation} Restaurants
+                </h2>
+              </div>
             </div>
 
-            {/* Content Area - 2 Column Grid */}
-            <div className="relative z-10 flex-1 overflow-y-auto px-5 py-6 no-scrollbar">
-              <div className="grid grid-cols-2 gap-4 pb-10">
+            {/* Content Area - 3 Column Grid */}
+            <div className="relative z-10 flex-1 overflow-y-auto px-2 sm:px-5 py-6 no-scrollbar">
+              <div className="grid grid-cols-3 gap-2 pb-10">
                 {filteredRestaurants.map((restaurant, i) => (
                   <Link href={`/restaurants/${restaurant._id}`} key={restaurant._id} passHref>
                     <motion.a
@@ -119,9 +120,9 @@ export default function MobileRestaurantExplorerModal({
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05, duration: 0.4 }}
                       whileTap={{ scale: 0.96 }}
-                      className="block h-full overflow-hidden rounded-[1.2rem] border border-white/10 bg-white/5 flex flex-col shadow-lg"
+                      className="block h-full overflow-hidden rounded-xl border border-white/10 bg-white/5 flex flex-col shadow-lg"
                     >
-                      <div className="relative h-32 w-full overflow-hidden bg-black/50">
+                      <div className="relative h-24 w-full overflow-hidden bg-black/50">
                         {restaurant.image && (
                           <img
                             src={restaurant.image}
@@ -130,17 +131,17 @@ export default function MobileRestaurantExplorerModal({
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                        <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-[0.65rem] font-bold text-[var(--saffron)] backdrop-blur-md">
+                        <div className="absolute bottom-1.5 left-1.5 flex items-center gap-0.5 rounded bg-black/80 px-1 py-0.5 text-[0.55rem] font-bold text-[var(--saffron)] backdrop-blur-md">
                           <StarIcon />
                           {restaurant.rating}
                         </div>
                       </div>
                       
-                      <div className="flex flex-1 flex-col p-3">
-                        <h3 className="font-display text-sm font-medium text-white line-clamp-1">
+                      <div className="flex flex-1 flex-col p-2">
+                        <h3 className="font-display text-xs font-medium text-white line-clamp-1 truncate">
                           {restaurant.name}
                         </h3>
-                        <p className="mt-1 text-[0.6rem] font-medium uppercase tracking-wider text-white/50">
+                        <p className="mt-0.5 text-[0.45rem] font-medium uppercase tracking-wider text-white/50 truncate">
                           {restaurant.cuisineType || "Kashmiri Cuisine"}
                         </p>
                       </div>
@@ -148,7 +149,7 @@ export default function MobileRestaurantExplorerModal({
                   </Link>
                 ))}
                 {filteredRestaurants.length === 0 && (
-                  <div className="col-span-2 py-10 text-center text-white/50 text-sm">
+                  <div className="col-span-3 py-10 text-center text-white/50 text-sm">
                     No venues available in this location yet.
                   </div>
                 )}
