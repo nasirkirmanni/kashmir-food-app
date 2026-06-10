@@ -202,7 +202,7 @@ export default function RestaurantsPage() {
                               {restaurant.location}
                             </p>
                             
-                            {(restaurant.phoneNumber || restaurant.openingHours) && (
+                            {(restaurant.phoneNumber || restaurant.openingHours || restaurant.website) && (
                               <div className="mt-2 flex flex-col gap-1 text-[0.55rem] sm:text-xs text-white/70">
                                 {restaurant.phoneNumber && (
                                   <div className="flex items-center gap-1.5">
@@ -218,6 +218,14 @@ export default function RestaurantsPage() {
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span className="truncate">{restaurant.openingHours}</span>
+                                  </div>
+                                )}
+                                {restaurant.website && (
+                                  <div className="flex items-center gap-1.5">
+                                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                    </svg>
+                                    <span className="truncate">{restaurant.website}</span>
                                   </div>
                                 )}
                               </div>
