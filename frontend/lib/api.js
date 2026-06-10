@@ -64,6 +64,7 @@ export const endpoints = {
   verifyResetOtp: "/auth/verify-reset-otp",
   resetPassword: "/auth/reset-password",
   me: "/auth/me",
+  resendOtp: "/auth/resend-otp",
   favorites: "/users/favorites",
   reviews: "/reviews",
   restaurantReviews: (id) => `/reviews/restaurant/${id}`,

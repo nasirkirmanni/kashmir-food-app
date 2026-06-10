@@ -21,7 +21,12 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata = {
   title: "WazwanWay",
-  description: "Discover authentic Kashmiri dishes, local restaurants, and trusted travel food tips."
+  description: "Discover authentic Kashmiri dishes, local restaurants, and trusted travel food tips.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {

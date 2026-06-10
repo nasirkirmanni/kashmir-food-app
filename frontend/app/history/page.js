@@ -28,7 +28,7 @@ export default function HistoryPage() {
             src="/wazwan-hero.jpg" 
             alt="Kashmiri Wazwan Feast" 
             fill 
-            className="object-cover opacity-40 brightness-50"
+            className="hidden md:block object-cover opacity-40 brightness-50"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-[#0B0B0B]/80" />
@@ -73,14 +73,14 @@ export default function HistoryPage() {
                 These master chefs, known as <em>Wazas</em>, passed down their recipes and techniques through generations, giving birth to what we now know as the royal Wazwan.
               </p>
             </div>
-            <div className="order-1 md:order-2 relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+            <div className="hidden md:block order-1 md:order-2 relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
               <Image src="/images/restaurants/shamyana-restaurant.jpg" alt="Historical Cooking" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
             </div>
           </motion.div>
 
           {/* Section 2 */}
           <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-[var(--saffron)]/20 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
+            <div className="hidden md:block relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-[var(--saffron)]/20 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
               <Image src="/wazwan-hero.png" alt="The Traami" fill className="object-cover" />
             </div>
             <div className="space-y-6">

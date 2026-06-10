@@ -12,7 +12,11 @@ const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString()
 router.post(
   "/signup",
   asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, phoneNumber, password } = req.body;
+
+    if (!name || !email || !phoneNumber || !password) {
+      return res.status(400).json({ message: "All fields (name, email, phoneNumber, password) are required" });
+    }
 
     // Password Validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -22,42 +26,61 @@ router.post(
       });
     }
 
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      if (existingUser.isVerified) {
+    // Check existing email
+    const existingByEmail = await User.findOne({ email });
+    if (existingByEmail) {
+      if (existingByEmail.isVerified) {
         return res.status(400).json({ message: "Email already exists" });
-      } else {
-        // If unverified, we can update their OTP and resend
-        const otp = generateOtp();
-        existingUser.otp = otp;
-        existingUser.otpExpiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
-        existingUser.password = password; // update password just in case
-        existingUser.name = name;
-        await existingUser.save();
-        
-        // Do not await email sending to prevent hanging the HTTP response
-        sendOtpEmail(email, otp).catch(console.error);
-        return res.status(201).json({ message: "OTP sent to email", requiresOtp: true });
       }
+      // If unverified, update their details and re-send Email OTP
+      const otp = generateOtp();
+      existingByEmail.name = name;
+      existingByEmail.password = password;
+      existingByEmail.phoneNumber = phoneNumber;
+      existingByEmail.otp = otp;
+      existingByEmail.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+      await existingByEmail.save();
+
+      sendOtpEmail(email, otp).catch(console.error);
+      return res.status(201).json({ message: "OTP sent to email", requiresOtp: true, email });
+    }
+
+    // Check existing phone number
+    const existingByPhone = await User.findOne({ phoneNumber });
+    if (existingByPhone) {
+      if (existingByPhone.isVerified) {
+        return res.status(400).json({ message: "Phone number already exists" });
+      }
+      // If unverified, update their details and re-send Email OTP
+      const otp = generateOtp();
+      existingByPhone.name = name;
+      existingByPhone.password = password;
+      existingByPhone.email = email;
+      existingByPhone.otp = otp;
+      existingByPhone.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+      await existingByPhone.save();
+
+      sendOtpEmail(email, otp).catch(console.error);
+      return res.status(201).json({ message: "OTP sent to email", requiresOtp: true, email });
     }
 
     const otp = generateOtp();
-    const user = await User.create({ 
+    await User.create({ 
       name, 
-      email, 
+      email,
+      phoneNumber,
       password, 
       isVerified: false,
       otp,
       otpExpiresAt: Date.now() + 10 * 60 * 1000 
     });
 
-    // Do not await email sending to prevent hanging the HTTP response
     sendOtpEmail(email, otp).catch(console.error);
 
     res.status(201).json({
       message: "OTP sent to email",
-      requiresOtp: true
+      requiresOtp: true,
+      email
     });
   })
 );
@@ -66,6 +89,11 @@ router.post(
   "/verify",
   asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({ message: "Email and OTP code are required" });
+    }
+    
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -105,6 +133,11 @@ router.post(
   "/login",
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+    
     const user = await User.findOne({ email });
 
     if (!user || !(await user.comparePassword(password))) {
@@ -112,15 +145,19 @@ router.post(
     }
 
     if (!user.isVerified) {
-      // Re-send OTP if they try to log in but aren't verified yet
+      // Re-send Email OTP if they try to log in but aren't verified yet
       const otp = generateOtp();
       user.otp = otp;
       user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
       await user.save();
       
-      // Do not await email sending to prevent hanging the HTTP response
-      sendOtpEmail(email, otp).catch(console.error);
-      return res.status(403).json({ message: "Please verify your email first", requiresOtp: true });
+      sendOtpEmail(user.email, otp).catch(console.error);
+
+      return res.status(200).json({ 
+        message: "Please verify your email before logging in.", 
+        requiresOtp: true,
+        email: user.email
+      });
     }
 
     const token = createToken(user._id);
@@ -150,12 +187,22 @@ router.get(
 router.post(
   "/forgot-password",
   asyncHandler(async (req, res) => {
-    const { email } = req.body;
+    const { email, method } = req.body;
+
+    if (!method || (method !== "email" && method !== "phone")) {
+      return res.status(400).json({ message: "Recovery method ('email' or 'phone') is required." });
+    }
+
+    if (method === "phone") {
+      return res.status(400).json({ message: "Phone verification coming soon." });
+    }
+    
     const user = await User.findOne({ email });
 
     if (!user) {
-      // Return success even if not found to prevent email enumeration
-      return res.status(200).json({ message: "If that email is in our system, a reset code has been sent." });
+      // Return success even if not found to prevent enumeration
+      const msg = "If that email is in our system, a reset code has been sent.";
+      return res.status(200).json({ message: msg });
     }
 
     const otp = generateOtp();
@@ -173,6 +220,7 @@ router.post(
   "/verify-reset-otp",
   asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
+    
     const user = await User.findOne({ email });
 
     if (!user || user.otp !== otp || user.otpExpiresAt < Date.now()) {
@@ -204,13 +252,44 @@ router.post(
     user.password = newPassword;
     user.otp = undefined;
     user.otpExpiresAt = undefined;
-    
-    // Automatically verify user if they were unverified but successfully proved email ownership
     user.isVerified = true;
-    
     await user.save();
 
     res.status(200).json({ message: "Password reset successful" });
+  })
+);
+
+router.post(
+  "/resend-otp",
+  asyncHandler(async (req, res) => {
+    const { email, method, flow } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    if (method === "phone") {
+      return res.status(400).json({ message: "Phone verification coming soon." });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const otp = generateOtp();
+    user.otp = otp;
+    user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+    await user.save();
+
+    if (flow === "reset") {
+      sendPasswordResetEmail(user.email, otp).catch(console.error);
+    } else {
+      sendOtpEmail(user.email, otp).catch(console.error);
+    }
+
+    res.json({ message: "Verification code resent successfully via email." });
   })
 );
 

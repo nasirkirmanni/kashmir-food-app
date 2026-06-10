@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
     otp: { type: String },
     otpExpiresAt: { type: Date },
     favorites: [favoriteSchema],
-    phoneNumber: { type: String, trim: true },
+    phoneNumber: { type: String, required: true, unique: true, trim: true },
     address: { type: String, trim: true },
   },
   { timestamps: true }
