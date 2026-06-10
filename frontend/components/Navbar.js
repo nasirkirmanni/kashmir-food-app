@@ -47,12 +47,12 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/waza-ai"
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
             className="transition-colors text-[#D4AF37] hover:text-white"
           >
             WAZA AI
-          </Link>
+          </button>
         </div>
 
         <div className="flex items-center gap-6">

@@ -6,6 +6,7 @@ import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 import GlobalBackground from "@/components/GlobalBackground";
+import WazaAI from "@/components/WazaAI";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
             <Navbar />
             <main>{children}</main>
             <Footer />
+            <WazaAI />
             <MobileNav />
           </div>
         </AuthProvider>
