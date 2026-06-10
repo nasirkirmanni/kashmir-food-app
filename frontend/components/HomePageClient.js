@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { MapPin, ChefHat } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import LandingCanvas from "@/components/LandingCanvas";
@@ -287,11 +288,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/30 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
             <AuroraBackground colors={["#D4AF37", "#E65100", "#C92A2A"]} />
-            <div className="relative z-10 p-4 flex flex-col items-start text-left">
-              <div className="flex items-center mb-1 text-[#D4AF37]">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <div className="relative z-10 p-5 flex flex-col items-start text-left h-full justify-between">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[#D4AF37] shadow-lg">
+                <MapPin className="w-5 h-5" strokeWidth={2} />
               </div>
-              <div className="font-display text-[1.2rem] font-medium text-[#D4AF37] leading-tight drop-shadow-md">Explore<br/>Restaurants</div>
+              <div className="font-display text-xl sm:text-2xl font-medium text-[#D4AF37] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Explore<br/>Restaurants</div>
             </div>
           </Link>
           
@@ -300,11 +301,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-[#141414]/30 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
             <AuroraBackground colors={["#C92A2A", "#FF8F00", "#D4AF37"]} />
-            <div className="relative z-10 p-4 flex flex-col items-start text-left">
-              <div className="flex items-center mb-1 text-white/70">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V21h12v-7.5m-12 0a3 3 0 01-3-3c0-1.66 1.34-3 3-3 .22 0 .44.02.65.07A4.49 4.49 0 0110.5 3c2 0 3.7 1.3 4.28 3.12.28-.08.57-.12.87-.12 2.07 0 3.75 1.68 3.75 3.75 0 1.66-1.34 3-3 3m-12 0h12" /></svg>
+            <div className="relative z-10 p-5 flex flex-col items-start text-left h-full justify-between">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white shadow-lg">
+                <ChefHat className="w-5 h-5" strokeWidth={2} />
               </div>
-              <div className="font-display text-[1.2rem] font-medium text-white leading-tight drop-shadow-md">Discover<br/>the Dishes</div>
+              <div className="font-display text-xl sm:text-2xl font-medium text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Discover<br/>the Dishes</div>
             </div>
           </Link>
         </motion.div>
