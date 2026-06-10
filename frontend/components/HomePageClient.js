@@ -249,7 +249,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         >
           <Link 
             href="/restaurants" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-white/10 backdrop-blur-xl aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-black/80 backdrop-blur-md aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
               <div className="flex items-center mb-1 text-[#D4AF37]">
@@ -261,7 +261,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           
           <Link 
             href="/dishes" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-white/10 backdrop-blur-xl aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-black/80 backdrop-blur-md aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
           >
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
               <div className="flex items-center mb-1 text-white/70">
