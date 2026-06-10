@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function FavoritesPage() {
   const { user, loading } = useAuth();
@@ -78,61 +79,71 @@ export default function FavoritesPage() {
               </Link>
             </div>
           ) : (
-            favorites.filter(fav => fav.item != null).map((favorite, index) => {
-              const isDish = favorite.itemType === 'dish';
-              const item = favorite.item;
-              
-              const linkHref = isDish ? `/dishes/${item._id}` : `/restaurants/${item._id}`;
+            <AnimatePresence>
+              {favorites.filter(fav => fav.item != null).map((favorite, index) => {
+                const isDish = favorite.itemType === 'dish';
+                const item = favorite.item;
+                
+                const linkHref = isDish ? `/dishes/${item._id}` : `/restaurants/${item._id}`;
 
-              return (
-                <article key={`${favorite.itemType}-${item._id || index}`} className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col relative">
-                  {item.image && (
-                    <div className="relative h-48 shrink-0 overflow-hidden">
-                      <img src={item.image} alt={item.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
-                      <div className="absolute top-4 left-4">
-                        <span className="place-badge shadow-md bg-black/60 backdrop-blur-md border border-white/20 text-white">{favorite.itemType}</span>
+                return (
+                  <motion.article 
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.85, rotate: (index % 2 === 0 ? 5 : -5), filter: "blur(12px)", y: 40 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    key={`${favorite.itemType}-${item._id || index}`} 
+                    className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col relative"
+                  >
+                    {item.image && (
+                      <div className="relative h-48 shrink-0 overflow-hidden">
+                        <img src={item.image} alt={item.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+                        <div className="absolute top-4 left-4">
+                          <span className="place-badge shadow-md bg-black/60 backdrop-blur-md border border-white/20 text-white">{favorite.itemType}</span>
+                        </div>
+                      </div>
+                    )}
+                    {!item.image && (
+                      <div className="restaurant-meta p-5 pb-0">
+                        <span className="place-badge">{favorite.itemType}</span>
+                      </div>
+                    )}
+                    
+                    <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div>
+                        {isDish && item.category && (
+                          <p className="text-[0.6rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
+                            {item.category}
+                          </p>
+                        )}
+                        <h3 className="font-display mt-2 text-xl text-white">{item.name}</h3>
+                        <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-3">
+                          {item.description || item.location || "Saved for later."}
+                        </p>
+                      </div>
+                      <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
+                        <Link href={linkHref} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
+                          View details &rarr;
+                        </Link>
+                        <button 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleRemoveFavorite(item._id, favorite.itemType);
+                          }}
+                          className="text-white/40 hover:text-red-400 transition-colors p-1"
+                          title="Remove from saved"
+                        >
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
                       </div>
                     </div>
-                  )}
-                  {!item.image && (
-                    <div className="restaurant-meta p-5 pb-0">
-                      <span className="place-badge">{favorite.itemType}</span>
-                    </div>
-                  )}
-                  
-                  <div className="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                      {isDish && item.category && (
-                        <p className="text-[0.6rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
-                          {item.category}
-                        </p>
-                      )}
-                      <h3 className="font-display mt-2 text-xl text-white">{item.name}</h3>
-                      <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-3">
-                        {item.description || item.location || "Saved for later."}
-                      </p>
-                    </div>
-                    <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
-                      <Link href={linkHref} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
-                        View details &rarr;
-                      </Link>
-                      <button 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleRemoveFavorite(item._id, favorite.itemType);
-                        }}
-                        className="text-white/40 hover:text-red-400 transition-colors p-1"
-                        title="Remove from saved"
-                      >
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              );
-            })
+                  </motion.article>
+                );
+              })}
+            </AnimatePresence>
           )}
         </div>
       </section>
