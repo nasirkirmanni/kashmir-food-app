@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ChefHat } from "lucide-react";
+import { MapPin, ChefHat, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import LandingCanvas from "@/components/LandingCanvas";
@@ -281,31 +281,77 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 grid grid-cols-2 gap-4 px-5 z-20 relative"
+          className="mt-16 flex flex-row gap-3 px-4 sm:px-5 z-20 relative"
         >
+          {/* PRIMARY CARD: Explore Restaurants */}
           <Link 
             href="/restaurants" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/30 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-[#D4AF37]/30 bg-[#050505]/40 backdrop-blur-[24px] backdrop-saturate-[150%] transition-all duration-300 hover:bg-[#050505]/30 hover:border-[#D4AF37]/50 shadow-[inset_0_1px_0_0_rgba(212,175,55,0.2),_0_12px_40px_rgba(0,0,0,0.6)] flex-[1.2] min-h-[220px]"
           >
-            <AuroraBackground colors={["#D4AF37", "#E65100", "#C92A2A"]} />
-            <div className="relative z-10 p-5 flex flex-col items-start text-left h-full justify-between">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[#D4AF37] shadow-lg">
-                <MapPin className="w-5 h-5" strokeWidth={2} />
+            {/* Liquid glass light streaks / Refraction */}
+            <div className="absolute inset-0 pointer-events-none rounded-[32px] overflow-hidden mix-blend-overlay opacity-50 group-hover:opacity-70 transition-opacity duration-300">
+              <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 group-hover:-translate-y-4 transition-transform duration-700 ease-out blur-md" />
+              <div className="absolute top-0 right-0 w-[100%] h-[100%] bg-gradient-to-bl from-white/10 to-transparent opacity-30" />
+            </div>
+
+            {/* Subtle floating gold particles */}
+            <div className="absolute top-[20%] right-[20%] w-1 h-1 bg-[#D4AF37] rounded-full blur-[1px] opacity-40 animate-pulse" />
+            <div className="absolute bottom-[30%] left-[10%] w-1.5 h-1.5 bg-[#D4AF37] rounded-full blur-[2px] opacity-30 animate-pulse" style={{ animationDelay: '0.5s' }} />
+
+            {/* Content Top */}
+            <div className="relative z-10 p-5 pb-0 flex justify-between items-start">
+              <div className="flex items-center justify-center w-12 h-12 rounded-[16px] bg-white/5 backdrop-blur-md border border-[#D4AF37]/20 shadow-[inset_0_1px_0_0_rgba(212,175,55,0.3)]">
+                <MapPin className="w-6 h-6 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" strokeWidth={1.5} />
               </div>
-              <div className="font-display text-xl sm:text-2xl font-medium text-[#D4AF37] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Explore<br/>Restaurants</div>
+            </div>
+
+            {/* Content Bottom */}
+            <div className="relative z-10 p-5 flex flex-col items-start text-left">
+              <h2 className="font-display text-[1.35rem] sm:text-2xl font-medium text-[#D4AF37] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-1.5">
+                Explore<br/>Restaurants
+              </h2>
+              <p className="text-[0.65rem] sm:text-xs text-[#D4AF37]/70 font-light leading-snug pr-4">
+                Find the finest dining experiences in Kashmir
+              </p>
+              
+              {/* Arrow Button */}
+              <div className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-[#D4AF37]/10 backdrop-blur-md border border-[#D4AF37]/30 flex items-center justify-center transform group-hover:translate-x-1.5 transition-transform duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+                <ArrowRight className="w-4 h-4 text-[#D4AF37]" strokeWidth={2} />
+              </div>
             </div>
           </Link>
           
+          {/* SECONDARY CARD: Discover the Dishes */}
           <Link 
             href="/dishes" 
-            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-[#141414]/30 backdrop-blur-2xl backdrop-saturate-150 aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/15 bg-[#050505]/40 backdrop-blur-[24px] backdrop-saturate-[150%] transition-all duration-300 hover:bg-[#050505]/30 hover:border-white/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),_0_12px_40px_rgba(0,0,0,0.6)] flex-1 min-h-[220px]"
           >
-            <AuroraBackground colors={["#C92A2A", "#FF8F00", "#D4AF37"]} />
-            <div className="relative z-10 p-5 flex flex-col items-start text-left h-full justify-between">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white shadow-lg">
-                <ChefHat className="w-5 h-5" strokeWidth={2} />
+            {/* Liquid glass light streaks / Refraction */}
+            <div className="absolute inset-0 pointer-events-none rounded-[32px] overflow-hidden mix-blend-overlay opacity-40 group-hover:opacity-60 transition-opacity duration-300">
+              <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-white/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 group-hover:-translate-y-4 transition-transform duration-700 ease-out blur-md" />
+              <div className="absolute top-0 right-0 w-[100%] h-[100%] bg-gradient-to-bl from-white/10 to-transparent opacity-20" />
+            </div>
+
+            {/* Content Top */}
+            <div className="relative z-10 p-5 pb-0 flex justify-between items-start">
+              <div className="flex items-center justify-center w-12 h-12 rounded-[16px] bg-white/5 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)]">
+                <ChefHat className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" strokeWidth={1.5} />
               </div>
-              <div className="font-display text-xl sm:text-2xl font-medium text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Discover<br/>the Dishes</div>
+            </div>
+
+            {/* Content Bottom */}
+            <div className="relative z-10 p-5 flex flex-col items-start text-left">
+              <h2 className="font-display text-[1.2rem] sm:text-xl font-medium text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-1.5">
+                Discover<br/>the Dishes
+              </h2>
+              <p className="text-[0.6rem] sm:text-[0.65rem] text-white/60 font-light leading-snug pr-4">
+                Explore authentic Kashmiri flavors
+              </p>
+              
+              {/* Arrow Button */}
+              <div className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center transform group-hover:translate-x-1.5 transition-transform duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                <ArrowRight className="w-4 h-4 text-white" strokeWidth={2} />
+              </div>
             </div>
           </Link>
         </motion.div>
