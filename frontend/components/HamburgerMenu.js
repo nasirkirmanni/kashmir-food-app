@@ -63,7 +63,7 @@ export default function HamburgerMenu() {
               </Link>
 
               <Link 
-                href="/saved"
+                href="/favorites"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
               >

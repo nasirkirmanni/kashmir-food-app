@@ -9,6 +9,20 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/saved',
+        destination: '/favorites',
+        permanent: true,
+      },
+      {
+        source: '/saved-dishes',
+        destination: '/favorites',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
