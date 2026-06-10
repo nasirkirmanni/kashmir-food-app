@@ -153,7 +153,7 @@ export default function RestaurantsPage() {
                   <p className="text-white/60 mt-4 max-w-2xl text-sm md:text-base mx-auto md:mx-0">{placeMeta[activeLocation].description}</p>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 pb-20">
+                <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 pb-20">
                   {error ? (
                     <div className="col-span-full py-16 text-center px-4">
                       <p className="text-red-400 text-sm max-w-md mx-auto leading-relaxed">{error}</p>
@@ -165,9 +165,9 @@ export default function RestaurantsPage() {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           whileHover={{ y: -5 }}
-                          className="block h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5 flex flex-col shadow-lg transition-colors hover:border-[var(--saffron)] group"
+                          className="block h-full overflow-hidden rounded-xl md:rounded-2xl border border-white/10 bg-white/5 flex flex-col shadow-lg transition-colors hover:border-[var(--saffron)] group"
                         >
-                          <div className="relative h-32 sm:h-48 w-full overflow-hidden bg-black/50">
+                          <div className="relative h-24 sm:h-32 w-full overflow-hidden bg-black/50">
                             {restaurant.image ? (
                               <img
                                 src={restaurant.image}
@@ -176,65 +176,55 @@ export default function RestaurantsPage() {
                               />
                             ) : (
                               <div className="h-full w-full flex items-center justify-center bg-white/5 transition duration-700 group-hover:bg-white/10">
-                                <svg className="w-20 h-20 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="w-12 h-12 md:w-16 md:h-16 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
                                 </svg>
                               </div>
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                              <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 sm:px-2 sm:py-1 text-[0.6rem] sm:text-[0.7rem] font-bold text-[var(--saffron)] backdrop-blur-md">
-                                <svg className="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                              <div className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 flex items-center gap-0.5 rounded bg-black/80 px-1 py-0.5 md:px-1.5 md:py-0.5 text-[0.55rem] md:text-[0.65rem] font-bold text-[var(--saffron)] backdrop-blur-md">
+                                <svg className="h-2 w-2 md:h-2.5 md:w-2.5" fill="currentColor" viewBox="0 0 20 20">
                                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
                                 {restaurant.rating}
                               </div>
                             {restaurant.authentic && (
-                              <div className="absolute top-2 right-2 sm:top-3 sm:right-3 rounded-full border border-[var(--saffron)] bg-black/40 px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[0.5rem] sm:text-[0.6rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
-                                Authentic Pick
+                              <div className="absolute top-1.5 right-1.5 md:top-2 md:right-2 rounded-full border border-[var(--saffron)] bg-black/60 px-1 py-0.5 md:px-1.5 md:py-0.5 text-[0.4rem] md:text-[0.5rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
+                                Authentic
                               </div>
                             )}
                           </div>
                           
-                          <div className="flex flex-1 flex-col p-3 sm:p-5">
-                            <h3 className="font-display text-sm sm:text-xl font-medium text-white group-hover:text-[var(--saffron)] transition-colors line-clamp-1">
-                              {restaurant.name}
-                            </h3>
-                            <p className="mt-1 text-[0.55rem] sm:text-[0.65rem] font-bold uppercase tracking-wider text-white/50 truncate">
-                              {restaurant.location}
-                            </p>
-                            
-                            {(restaurant.phoneNumber || restaurant.openingHours || restaurant.website) && (
-                              <div className="mt-2 flex flex-col gap-1 text-[0.55rem] sm:text-xs text-white/70">
-                                {restaurant.phoneNumber && (
-                                  <div className="flex items-center gap-1.5">
-                                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                    </svg>
-                                    <span className="truncate">{restaurant.phoneNumber}</span>
-                                  </div>
-                                )}
-                                {restaurant.openingHours && (
-                                  <div className="flex items-center gap-1.5">
-                                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span className="truncate">{restaurant.openingHours}</span>
-                                  </div>
-                                )}
-                                {restaurant.website && (
-                                  <div className="flex items-center gap-1.5">
-                                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                                    </svg>
-                                    <span className="truncate">{restaurant.website}</span>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-
-                            <p className="mt-2 sm:mt-3 text-[0.65rem] sm:text-sm text-white/60 line-clamp-2 leading-relaxed">
-                              {restaurant.description}
-                            </p>
+                          <div className="flex flex-1 flex-col p-2 sm:p-3 justify-between">
+                            <div>
+                              <h3 className="font-display text-xs sm:text-sm md:text-base font-medium text-white group-hover:text-[var(--saffron)] transition-colors truncate">
+                                {restaurant.name}
+                              </h3>
+                              <p className="mt-0.5 md:mt-1 text-[0.45rem] md:text-[0.55rem] font-bold uppercase tracking-wider text-white/50 truncate">
+                                {restaurant.location}
+                              </p>
+                              
+                              {(restaurant.phoneNumber || restaurant.openingHours || restaurant.website) && (
+                                <div className="mt-1 md:mt-1.5 flex flex-col gap-0.5 text-[0.45rem] md:text-[0.55rem] text-white/70">
+                                  {restaurant.phoneNumber && (
+                                    <div className="flex items-center gap-1">
+                                      <svg className="w-2 h-2 md:w-2.5 md:h-2.5 text-[var(--saffron)] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                      </svg>
+                                      <span className="truncate">{restaurant.phoneNumber}</span>
+                                    </div>
+                                  )}
+                                  {restaurant.website && (
+                                    <div className="flex items-center gap-1">
+                                      <svg className="w-2 h-2 md:w-2.5 md:h-2.5 text-[var(--saffron)] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                      </svg>
+                                      <span className="truncate">{restaurant.website}</span>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </motion.a>
                       </Link>

@@ -66,13 +66,13 @@ export default function MobileNav() {
         }}
       >
         <Link href="/" className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+          <div className={`p-2 transition-colors ${pathname === "/" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
             <Home size={24} strokeWidth={pathname === "/" ? 2.5 : 2} />
           </div>
         </Link>
 
         <Link href="/restaurants" className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/restaurants" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+          <div className={`p-2 transition-colors ${pathname === "/restaurants" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
             <MapPin size={24} strokeWidth={pathname === "/restaurants" ? 2.5 : 2} />
           </div>
         </Link>
@@ -85,13 +85,13 @@ export default function MobileNav() {
         </button>
 
         <Link href="/dishes" className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/dishes" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+          <div className={`p-2 transition-colors ${pathname === "/dishes" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
             <BowlFoodIcon size={24} strokeWidth={pathname === "/dishes" ? 2.5 : 2} />
           </div>
         </Link>
 
         <Link href={user ? "/profile" : "/login"} className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/profile" ? "text-white" : "text-white/40 hover:text-white/80"}`}>
+          <div className={`p-2 transition-colors ${pathname === "/profile" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
             <User size={24} strokeWidth={pathname === "/profile" ? 2.5 : 2} />
             {isProfileIncomplete && (
               <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-black/40"></span>
