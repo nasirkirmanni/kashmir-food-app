@@ -120,27 +120,28 @@ export default function RestaurantsPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[60] flex flex-col bg-[#0B0B0B] overflow-hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-[#0B0B0B] pt-[72px] md:pt-20 overflow-hidden"
           >
             {/* Dark glassmorphic background elements */}
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
 
             {/* Header */}
-            <div className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
-              <div className="h-10 w-10" /> {/* Spacer for centering */}
-
-              <h2 className="font-display text-xl md:text-2xl font-medium tracking-wide text-white">
-                {activeLocation} Restaurants
-              </h2>
-
+            <div className="relative z-10 flex items-center px-4 md:px-6 py-4 border-b border-white/10 bg-[#0B0B0B]/90 backdrop-blur-xl">
               <button
                 onClick={() => setActiveLocation(null)}
-                className="flex items-center justify-center h-10 w-10 rounded-full border border-white/15 bg-white/5 text-white active:scale-95 transition-transform hover:bg-white/10 hover:border-white/30"
+                className="flex items-center gap-2 text-white/80 hover:text-[var(--saffron)] transition-colors relative z-20"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] mt-0.5">Back</span>
               </button>
+
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <h2 className="font-display text-lg md:text-2xl font-medium tracking-wide text-white">
+                  {activeLocation} Restaurants
+                </h2>
+              </div>
             </div>
 
             {/* Content Area - Restaurant Grid */}
