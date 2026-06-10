@@ -277,13 +277,13 @@ export default function DishDetailPage() {
                 </p>
                 <div className="flex flex-col gap-3">
                   <Link
-                    href="/auth/login"
+                    href="/login"
                     className="w-full rounded-full bg-[var(--saffron)] py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95 text-center"
                   >
                     Sign In
                   </Link>
                   <Link
-                    href="/auth/signup"
+                    href="/signup"
                     className="w-full rounded-full border border-white/20 py-3 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:border-white/50 text-center"
                   >
                     Create Account
