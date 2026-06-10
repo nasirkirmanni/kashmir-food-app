@@ -153,8 +153,15 @@ export default function DishDetailClient() {
           </div>
         </div>
 
-        <div className="rounded-[20px] border border-[var(--border)] bg-white p-4 shadow-card">
-          <img src={dish.image} alt={dish.name} className="restaurant-cover h-[320px]" />
+        <div className="rounded-[20px] border border-[var(--border)] bg-white/5 p-4 shadow-card overflow-hidden">
+          <img
+            src={dish.image}
+            alt={dish.name}
+            loading="eager"
+            decoding="async"
+            className="restaurant-cover h-[320px] w-full object-cover rounded-[12px]"
+            onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+          />
         </div>
       </section>
 

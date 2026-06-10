@@ -10,11 +10,16 @@ import { useRouter } from "next/navigation";
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { user, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   const handleLogout = () => {
@@ -32,24 +37,120 @@ export default function HamburgerMenu() {
     }
   };
 
-  // Animation variants for stagger effect
+  // ─── Animation variants ───────────────────────────────────────────────────
   const containerVars = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      }
-    }
+    show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
   };
-
   const itemVars = {
     hidden: { opacity: 0, x: 20 },
-    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
   };
 
-  const menuContent = (
+  // ─── MOBILE MENU: slim 50% half-screen drawer, golden text ───────────────
+  const mobileMenuContent = (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            style={{
+              position: "fixed", inset: 0, zIndex: 100,
+              background: "rgba(0,0,0,0.55)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+            }}
+          />
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%", transition: { type: "tween", duration: 0.25 } }}
+            transition={{ type: "spring", damping: 28, stiffness: 220 }}
+            style={{
+              position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 101,
+              width: "50%", minWidth: 200, maxWidth: 280,
+              background: "rgba(10, 10, 10, 0.97)",
+              backdropFilter: "blur(32px) saturate(160%)",
+              WebkitBackdropFilter: "blur(32px) saturate(160%)",
+              borderLeft: "1px solid rgba(255,255,255,0.08)",
+              display: "flex", flexDirection: "column",
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 20px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+              <span style={{ fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "0.85rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--saffron, #D4AF37)" }}>
+                Menu
+              </span>
+              <button
+                onClick={() => setIsOpen(false)}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)", padding: 4, display: "flex", alignItems: "center", justifyContent: "center" }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Links */}
+            <div style={{ flex: 1, overflowY: "auto", padding: "16px 20px" }}>
+              <motion.div variants={containerVars} initial="hidden" animate="show" style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+                {[
+                  { label: "Profile", href: "/profile" },
+                  { label: "Saved Dishes", href: "/favorites" },
+                  { label: "Recipes", href: "/recipes" },
+                  { label: "History of Wazwan", href: "/history" },
+                  { label: "Restaurants", href: "/restaurants" },
+                  { label: "List Your Restaurant", href: "/list-restaurant" },
+                ].map((item) => (
+                  <motion.div key={item.href} variants={itemVars}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #D4AF37)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
+                      onMouseLeave={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.paddingLeft = "4px"; }}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div variants={itemVars}>
+                  <button
+                    onClick={handleWazaAI}
+                    style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #D4AF37)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.paddingLeft = "4px"; }}
+                  >
+                    Waza AI
+                    <span style={{ fontSize: "0.45rem", fontFamily: "Inter, sans-serif", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", background: "var(--saffron, #D4AF37)", color: "#000", padding: "2px 5px", borderRadius: 3 }}>Beta</span>
+                  </button>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Footer */}
+            <div style={{ padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+              {user ? (
+                <button onClick={handleLogout} style={{ width: "100%", background: "none", border: "1px solid rgba(255,80,80,0.25)", borderRadius: 8, padding: "9px 0", color: "rgba(255,100,100,0.8)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer" }}>
+                  Log Out
+                </button>
+              ) : (
+                <Link href="/login" onClick={() => setIsOpen(false)} style={{ display: "block", textAlign: "center", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 8, padding: "9px 0", color: "var(--saffron, #D4AF37)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>
+                  Log In
+                </Link>
+              )}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+
+  // ─── DESKTOP MENU: original full-width large card-style menu ─────────────
+  const desktopMenuContent = (
     <AnimatePresence>
       {isOpen && (
         <>
@@ -74,129 +175,41 @@ export default function HamburgerMenu() {
                 className="p-2 text-white/50 hover:text-[var(--saffron)] transition-colors hover:rotate-90 duration-300 rounded-full hover:bg-white/5"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
             </div>
 
             <div className="flex-1 overflow-y-auto no-scrollbar p-6">
-              <motion.div 
-                variants={containerVars}
-                initial="hidden"
-                animate="show"
-                className="flex flex-col gap-3"
-              >
-                {/* 1. Your Profile */}
-                <motion.div variants={itemVars}>
-                  <Link 
-                    href="/profile"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
-                  >
-                    <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">Your Profile</h3>
-                      <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">Manage your details</p>
-                    </div>
-                  </Link>
-                </motion.div>
+              <motion.div variants={containerVars} initial="hidden" animate="show" className="flex flex-col gap-3">
 
-                {/* 2. Saved Dishes */}
-                <motion.div variants={itemVars}>
-                  <Link 
-                    href="/favorites"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
-                  >
-                    <div className="p-2.5 rounded-xl bg-red-500/10 text-red-400 group-hover:scale-110 group-hover:bg-red-500/20 transition-all">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">Saved Dishes</h3>
-                      <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">Your favorite picks</p>
-                    </div>
-                  </Link>
-                </motion.div>
+                {[
+                  { label: "Your Profile", sub: "Manage your details", href: "/profile", iconColor: "blue" },
+                  { label: "Saved Dishes", sub: "Your favorite picks", href: "/favorites", iconColor: "red" },
+                  { label: "Recipes", sub: "Cook like a Waza", href: "/recipes", iconColor: "green" },
+                  { label: "History of Wazwan", sub: "Explore the heritage", href: "/history", iconColor: "amber" },
+                  { label: "List Your Restaurant", sub: "Join Wazwan Way", href: "/list-restaurant", iconColor: "saffron" },
+                ].map((item) => (
+                  <motion.div key={item.href} variants={itemVars}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
+                    >
+                      <div>
+                        <h3 className="font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">{item.label}</h3>
+                        <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">{item.sub}</p>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
 
-                {/* 3. Recipes */}
+                {/* Waza AI */}
                 <motion.div variants={itemVars}>
-                  <Link 
-                    href="/recipes"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
-                  >
-                    <div className="p-2.5 rounded-xl bg-green-500/10 text-green-400 group-hover:scale-110 group-hover:bg-green-500/20 transition-all">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">Recipes</h3>
-                      <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">Cook like a Waza</p>
-                    </div>
-                  </Link>
-                </motion.div>
-
-                {/* 4. History of Wazwan */}
-                <motion.div variants={itemVars}>
-                  <Link 
-                    href="/history"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
-                  >
-                    <div className="p-2.5 rounded-xl bg-amber-700/20 text-amber-500 group-hover:scale-110 group-hover:bg-amber-700/30 transition-all">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">History of Wazwan</h3>
-                      <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">Explore the heritage</p>
-                    </div>
-                  </Link>
-                </motion.div>
-
-                {/* 5. List Your Restaurant */}
-                <motion.div variants={itemVars}>
-                  <Link 
-                    href="/list-restaurant"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
-                  >
-                    <div className="p-2.5 rounded-xl bg-[var(--saffron)]/10 text-[var(--saffron)] group-hover:scale-110 group-hover:bg-[var(--saffron)]/20 transition-all">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">List Your Restaurant</h3>
-                      <p className="text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">Join Wazwan Way</p>
-                    </div>
-                  </Link>
-                </motion.div>
-
-                {/* 6. Waza AI */}
-                <motion.div variants={itemVars}>
-                  <button 
+                  <button
                     onClick={handleWazaAI}
                     className="w-full flex items-center gap-4 p-4 rounded-2xl border border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-500/40 transition-all text-left text-white group"
                   >
-                    <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-400 group-hover:scale-110 group-hover:bg-purple-500/30 transition-all">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path>
-                      </svg>
-                    </div>
                     <div>
                       <h3 className="font-display text-lg tracking-wider text-white group-hover:text-purple-300 transition-colors flex items-center gap-2">
                         Waza AI
@@ -210,18 +223,12 @@ export default function HamburgerMenu() {
               </motion.div>
             </div>
 
-            {/* 7. Logout */}
             <div className="p-6 border-t border-white/10 bg-white/5">
               {user ? (
                 <button
                   onClick={handleLogout}
                   className="flex w-full items-center justify-center gap-3 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-4 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                  </svg>
                   Log Out
                 </button>
               ) : (
@@ -230,11 +237,6 @@ export default function HamburgerMenu() {
                   onClick={() => setIsOpen(false)}
                   className="flex w-full items-center justify-center gap-3 rounded-full border border-[var(--saffron)]/30 bg-[var(--saffron)]/10 px-5 py-4 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] transition-all hover:bg-[var(--saffron)]/20 active:scale-95"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                    <polyline points="10 17 15 12 10 7"></polyline>
-                    <line x1="15" y1="12" x2="3" y2="12"></line>
-                  </svg>
                   Log In
                 </Link>
               )}
@@ -252,13 +254,13 @@ export default function HamburgerMenu() {
         className="p-2 text-white/80 hover:text-[var(--saffron)] transition-colors active:scale-95 bg-white/5 rounded-full border border-white/10 hover:border-[var(--saffron)]/50"
         aria-label="Menu"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="4" y1="12" x2="20" y2="12"></line>
-          <line x1="4" y1="6" x2="20" y2="6"></line>
-          <line x1="4" y1="18" x2="20" y2="18"></line>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="18" x2="20" y2="18" />
         </svg>
       </button>
-      {mounted && createPortal(menuContent, document.body)}
+      {mounted && createPortal(isMobile ? mobileMenuContent : desktopMenuContent, document.body)}
     </>
   );
 }

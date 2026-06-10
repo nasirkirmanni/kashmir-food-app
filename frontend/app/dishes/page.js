@@ -118,7 +118,16 @@ function DishesPageContent() {
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                     className={`wazwan-dish-card ${displayClass}`}
                   >
-                    <img src={dish.image} alt={dish.name} className="h-56 w-full object-cover" />
+                    <div className="relative h-56 w-full overflow-hidden bg-white/5">
+                      <img
+                        src={dish.image}
+                        alt={dish.name}
+                        loading={idx === 0 ? "eager" : "lazy"}
+                        decoding="async"
+                        className="h-56 w-full object-cover"
+                        onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+                      />
+                    </div>
                     <div className="p-6">
                       <p className="text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
                         {dish.category}
@@ -191,10 +200,17 @@ function DishesPageContent() {
               
               <div className="p-6 md:p-10 overflow-y-auto flex-1">
                 <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                  {dishes.map((dish) => (
+                  {dishes.map((dish, idx) => (
                     <article key={dish._id} className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col">
-                      <div className="relative h-40 shrink-0 overflow-hidden">
-                        <img src={dish.image} alt={dish.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+                      <div className="relative h-40 shrink-0 overflow-hidden bg-white/5">
+                        <img
+                          src={dish.image}
+                          alt={dish.name}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                          onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+                        />
                       </div>
                       <div className="p-5 flex-1 flex flex-col justify-between">
                         <div>

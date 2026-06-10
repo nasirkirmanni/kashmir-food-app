@@ -3,6 +3,12 @@
   "appName": "Wazwan Way",
   "webDir": "out",
   "server": {
-    "androidScheme": "http"
+    "androidScheme": "https",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#0B0B0B",
+    "overrideUserAgent": "WazwanWayApp/1.0 Android"
   }
 }
