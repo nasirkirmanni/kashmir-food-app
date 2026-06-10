@@ -1,4 +1,5 @@
 import AuthForm from "@/components/AuthForm";
+import Link from "next/link";
 
 export default function LoginPage({ searchParams }) {
   const isResetSuccess = searchParams?.reset === "success";
@@ -20,6 +21,13 @@ export default function LoginPage({ searchParams }) {
           </p>
         </div>
         <AuthForm mode="login" />
+        
+        <p className="mt-8 text-center text-sm text-white/60">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-[var(--saffron)] font-medium hover:underline transition-all">
+            Join now
+          </Link>
+        </p>
       </section>
     </div>
   );

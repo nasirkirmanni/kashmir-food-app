@@ -7,6 +7,7 @@ import LandingCanvas from "@/components/LandingCanvas";
 import Image from "next/image";
 import DesktopRestaurantTabs from "@/components/DesktopRestaurantTabs";
 import MobileRestaurantExplorerModal from "@/components/MobileRestaurantExplorerModal";
+import SaffronAnimation from "@/components/SaffronAnimation";
 
 const locationTabMeta = {
   Srinagar: {
@@ -208,7 +209,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       {/* ═══════════════════════════════════════════════════════
           MOBILE HERO (below md)
           ═══════════════════════════════════════════════════════ */}
-      <div className="relative block md:hidden pt-28 pb-10 min-h-[100svh] flex flex-col">
+      <div className="relative block md:hidden pt-28 pb-10 min-h-[100svh] flex flex-col overflow-hidden">
+        <SaffronAnimation />
         <div className="relative z-10 flex-1 flex flex-col">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -245,7 +247,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 grid grid-cols-2 gap-4 px-5 z-20 relative"
         >
-          <Link href="/restaurants" className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-[#D4AF37]/30 bg-white/5 backdrop-blur-sm aspect-square transition-all active:scale-95 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
+          <Link 
+            href="/restaurants" 
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-white/10 backdrop-blur-xl aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+          >
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
               <div className="flex items-center mb-1 text-[#D4AF37]">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -254,7 +259,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             </div>
           </Link>
           
-          <Link href="/dishes" className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-white/5 backdrop-blur-sm aspect-square transition-all active:scale-95 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
+          <Link 
+            href="/dishes" 
+            className="group relative flex flex-col justify-end overflow-hidden rounded-[24px] border border-white/20 bg-white/10 backdrop-blur-xl aspect-square transition-all active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+          >
             <div className="relative z-10 p-4 flex flex-col items-start text-left">
               <div className="flex items-center mb-1 text-white/70">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V21h12v-7.5m-12 0a3 3 0 01-3-3c0-1.66 1.34-3 3-3 .22 0 .44.02.65.07A4.49 4.49 0 0110.5 3c2 0 3.7 1.3 4.28 3.12.28-.08.57-.12.87-.12 2.07 0 3.75 1.68 3.75 3.75 0 1.66-1.34 3-3 3m-12 0h12" /></svg>

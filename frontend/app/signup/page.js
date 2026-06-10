@@ -1,4 +1,5 @@
 import AuthForm from "@/components/AuthForm";
+import Link from "next/link";
 
 export default function SignupPage() {
   return (
@@ -13,6 +14,13 @@ export default function SignupPage() {
           </p>
         </div>
         <AuthForm mode="signup" />
+        
+        <p className="mt-8 text-center text-sm text-white/60">
+          Already have an account?{" "}
+          <Link href="/login" className="text-[var(--saffron)] font-medium hover:underline transition-all">
+            Log in
+          </Link>
+        </p>
       </section>
     </div>
   );
