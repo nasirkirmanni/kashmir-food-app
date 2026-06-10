@@ -9,25 +9,31 @@ import { endpoints, request } from "@/lib/api";
 import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export default function RestaurantDetailClient() {
+export default function RestaurantDetailClient({ initialRestaurant = null }) {
   const params = useParams();
   const router = useRouter();
-  const [restaurant, setRestaurant] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [restaurant, setRestaurant] = useState(initialRestaurant);
+  const [loading, setLoading] = useState(!initialRestaurant);
 
   const loadRestaurant = () => {
     if (!params.slug) return Promise.resolve();
+    if (restaurant && (restaurant.slug === params.slug || restaurant._id === params.slug)) {
+      if (params.slug.match(/^[0-9a-fA-F]{24}$/) && restaurant.slug) {
+        router.replace(`/restaurants/${restaurant.slug}`);
+      }
+      return Promise.resolve();
+    }
+    setLoading(true);
     return request(endpoints.restaurant(params.slug)).then((data) => {
       setRestaurant(data);
-      // Redirect if parameter is a raw MongoDB ObjectID
       if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
         router.replace(`/restaurants/${data.slug}`);
       }
-    });
+    }).finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    loadRestaurant().finally(() => setLoading(false));
+    loadRestaurant();
   }, [params.slug]);
 
   if (loading) {

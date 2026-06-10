@@ -2,7 +2,8 @@ import RestaurantDetailClient from "@/components/RestaurantDetailClient";
 import fs from "fs";
 import path from "path";
 
-const BASE_URL = "https://wazwanway.com";
+const CANONICAL_BASE = "https://wazwanway.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
 
 export async function generateStaticParams() {
   try {
@@ -25,7 +26,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await fetch(`${BASE_URL}/api/restaurants/${params.slug}`, {
+    const res = await fetch(`${API_BASE}/api/restaurants/${params.slug}`, {
       cache: "force-cache",
     });
     if (!res.ok) throw new Error("Not found");
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }) {
       restaurant.description ||
       `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`;
 
-    const canonicalUrl = `${BASE_URL}/restaurants/${restaurant.slug}`;
+    const canonicalUrl = `${CANONICAL_BASE}/restaurants/${restaurant.slug}`;
 
     return {
       title,
@@ -69,7 +70,19 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function RestaurantDetailPage() {
-  return <RestaurantDetailClient />;
+export default async function RestaurantDetailPage({ params }) {
+  let restaurant = null;
+  try {
+    const res = await fetch(`${API_BASE}/api/restaurants/${params.slug}`, {
+      cache: "force-cache",
+    });
+    if (res.ok) {
+      restaurant = await res.json();
+    }
+  } catch (err) {
+    console.error("Failed to fetch restaurant on server side:", err);
+  }
+
+  return <RestaurantDetailClient initialRestaurant={restaurant} />;
 }
 

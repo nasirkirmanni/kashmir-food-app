@@ -2,7 +2,8 @@ import DishDetailClient from "@/components/DishDetailClient";
 import fs from "fs";
 import path from "path";
 
-const BASE_URL = "https://wazwanway.com";
+const CANONICAL_BASE = "https://wazwanway.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
 
 export async function generateStaticParams() {
   try {
@@ -25,7 +26,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await fetch(`${BASE_URL}/api/dishes/${params.slug}`, {
+    const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
       cache: "force-cache",
     });
     if (!res.ok) throw new Error("Not found");
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }) {
       dish.description ||
       `Discover ${dish.name}, a classic Kashmiri ${dish.category} dish. Learn its history, ingredients, and where to try it in Kashmir.`;
 
-    const canonicalUrl = `${BASE_URL}/dishes/${dish.slug}`;
+    const canonicalUrl = `${CANONICAL_BASE}/dishes/${dish.slug}`;
 
     return {
       title,
@@ -69,7 +70,19 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function DishDetailPage() {
-  return <DishDetailClient />;
+export default async function DishDetailPage({ params }) {
+  let dish = null;
+  try {
+    const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
+      cache: "force-cache",
+    });
+    if (res.ok) {
+      dish = await res.json();
+    }
+  } catch (err) {
+    console.error("Failed to fetch dish on server side:", err);
+  }
+
+  return <DishDetailClient initialDish={dish} />;
 }
 

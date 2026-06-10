@@ -11,12 +11,12 @@ import ReactMarkdown from "react-markdown";
 import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export default function DishDetailClient() {
+export default function DishDetailClient({ initialDish = null }) {
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
-  const [dish, setDish] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [dish, setDish] = useState(initialDish);
+  const [loading, setLoading] = useState(!initialDish);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -78,10 +78,15 @@ export default function DishDetailClient() {
 
   useEffect(() => {
     if (params.slug) {
+      if (dish && (dish.slug === params.slug || dish._id === params.slug)) {
+        if (params.slug.match(/^[0-9a-fA-F]{24}$/) && dish.slug) {
+          router.replace(`/dishes/${dish.slug}`);
+        }
+        return;
+      }
       request(endpoints.dish(params.slug))
         .then((data) => {
           setDish(data);
-          // Redirect if parameter is a raw MongoDB ObjectID
           if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
             router.replace(`/dishes/${data.slug}`);
           }
