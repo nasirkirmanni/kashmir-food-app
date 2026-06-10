@@ -58,7 +58,7 @@ export default function FavoritesPage() {
       </section>
 
       <section className="places-wrap pt-0">
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {favorites.filter(fav => fav.item != null).length === 0 ? (
             <div className="col-span-full flex flex-col items-center text-center py-20 px-6 bg-[#050505]/40 backdrop-blur-[24px] border border-white/10 rounded-[32px] shadow-2xl">
               <div className="mb-6 text-white/20">
