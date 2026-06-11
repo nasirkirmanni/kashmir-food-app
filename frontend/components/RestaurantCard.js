@@ -49,9 +49,6 @@ export default function RestaurantCard({ restaurant, compact = false, onFavorite
           {restaurant.overpriced ? (
             <span className="rounded-full bg-amber-50 px-3 py-1 text-amber-700">Overpriced</span>
           ) : null}
-          {restaurant.touristTrapWarning ? (
-            <span className="rounded-full bg-rose-50 px-3 py-1 text-rose-700">Tourist Trap Warning</span>
-          ) : null}
         </div>
 
         <div className="flex gap-3">

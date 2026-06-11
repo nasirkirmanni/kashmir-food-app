@@ -72,24 +72,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
             <span className="place-badge">{restaurant.priceLevel}</span>
             <span className="place-badge">{restaurant.rating} / 5</span>
             {restaurant.authentic ? <span className="place-badge">Authentic</span> : null}
-            {restaurant.touristTrapWarning ? <span className="place-badge border-red-500/40 text-red-300 bg-red-500/10">★ Tourist Warning</span> : null}
           </div>
-
-          {restaurant.touristTrapWarning && (
-            <div className="mt-6 rounded-[16px] border border-red-500/30 bg-red-500/10 p-5 backdrop-blur-md shadow-lg">
-              <div className="flex gap-3 items-start">
-                <svg className="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <div>
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-red-400">Visitor Alert: Tourist-Trap Probability</h4>
-                  <p className="mt-2 text-sm text-white/80 leading-relaxed">
-                    {restaurant.touristTrapReason || "This location has been flagged for inflated pricing or simplified traditional recipe preparations."}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="mt-8 rounded-[18px] border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-lg max-w-xl">
             <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] mb-4 flex items-center gap-2">
@@ -203,13 +186,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
               </div>
             </article>
 
-            {restaurant.touristTrapReason ? (
-              <article className="restaurant-place-card">
-                <span className="place-eyebrow">Tourist Note</span>
-                <h3>Pricing and visitor guidance</h3>
-                <p className="restaurant-desc">{restaurant.touristTrapReason}</p>
-              </article>
-            ) : null}
+
 
             <MapPreview query={restaurant.googleMapsQuery} />
           </div>

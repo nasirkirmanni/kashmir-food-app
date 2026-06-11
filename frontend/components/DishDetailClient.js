@@ -262,7 +262,6 @@ export default function DishDetailClient({ initialDish = null }) {
                     <div className="mt-3 flex flex-wrap gap-2">
                       <span className="place-badge">{restaurant.priceLevel}</span>
                       {restaurant.authentic ? <span className="place-badge">Authentic</span> : null}
-                      {restaurant.touristTrapWarning ? <span className="place-badge">Warning</span> : null}
                     </div>
                     <div className="mt-4">
                       <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost">
