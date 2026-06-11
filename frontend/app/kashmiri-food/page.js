@@ -3,14 +3,42 @@
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams, useRouter } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 
+function ShimmerSkeleton() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="border border-white/5 rounded-2xl bg-white/5 p-6 animate-pulse flex flex-col justify-between h-48">
+          <div>
+            <div className="h-6 bg-white/10 rounded w-2/3 mb-4"></div>
+            <div className="h-4 bg-white/5 rounded w-full mb-2"></div>
+            <div className="h-4 bg-white/5 rounded w-5/6"></div>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <div className="h-6 bg-white/10 rounded-full w-16"></div>
+            <div className="h-6 bg-white/10 rounded-full w-20"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function KashmiriFoodContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("all");
+  
+  // Default to null to show the portal view (landing cards)
+  const [activeTab, setActiveTab] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
+  // Load all dishes upfront on mount
   useEffect(() => {
     setLoading(true);
     request(endpoints.dishes())
@@ -22,51 +50,120 @@ function KashmiriFoodContent() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Categorize dishes
+  // Listen to URL search parameter modifications to open correct tabs
+  useEffect(() => {
+    const urlTab = searchParams.get("tab");
+    if (urlTab && ["wazwan", "beverages", "bakery", "street_food"].includes(urlTab)) {
+      setActiveTab(urlTab);
+    } else {
+      setActiveTab(null);
+    }
+  }, [searchParams]);
+
+  const selectTab = (tabId) => {
+    setActiveTab(tabId);
+    setSearchQuery("");
+    const params = new URLSearchParams(window.location.search);
+    if (tabId) {
+      params.set("tab", tabId);
+      router.replace(`/kashmiri-food?${params.toString()}`, { scroll: false });
+    } else {
+      params.delete("tab");
+      router.replace(`/kashmiri-food`, { scroll: false });
+    }
+  };
+
+  // Categorize dishes using exact database enum matches for categoryType
   const wazwanDishes = dishes.filter((d) => d.categoryType === "wazwan");
   const beverageDishes = dishes.filter((d) => d.categoryType === "beverage");
   const bakeryDishes = dishes.filter((d) => d.categoryType === "bakery");
-  // In our DB model, everyday home-style & street food are tagged as 'kashmiri_cuisine'
   const streetFoodDishes = dishes.filter((d) => d.categoryType === "kashmiri_cuisine");
+
+  // Get selected category items
+  const getActiveItems = () => {
+    switch (activeTab) {
+      case "wazwan":
+        return wazwanDishes;
+      case "beverages":
+        return beverageDishes;
+      case "bakery":
+        return bakeryDishes;
+      case "street_food":
+        return streetFoodDishes;
+      default:
+        return [];
+    }
+  };
+
+  const activeItems = getActiveItems();
+
+  // Filter items by user search query (case-insensitive on name & description)
+  const filteredItems = activeItems.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Group Wazwan dishes by courseType
   const wazwanCourses = {
-    foundation: wazwanDishes.filter((d) => d.courseType === "foundation"),
-    signature: wazwanDishes.filter((d) => d.courseType === "signature"),
-    vegetarian: wazwanDishes.filter((d) => d.courseType === "vegetarian"),
+    foundation: filteredItems.filter((d) => d.courseType === "foundation"),
+    signature: filteredItems.filter((d) => d.courseType === "signature" || d.courseType === "additional_meat"),
+    vegetarian: filteredItems.filter((d) => d.courseType === "vegetarian"),
   };
 
-  const tabs = [
-    { id: "all", label: "All Food" },
-    { id: "wazwan", label: "Kashmiri Wazwan", count: wazwanDishes.length },
-    { id: "beverages", label: "Kashmiri Beverages", count: beverageDishes.length },
-    { id: "bakery", label: "Kashmiri Bakery", count: bakeryDishes.length },
-    { id: "street_food", label: "Kashmiri Street Food", count: streetFoodDishes.length },
+  const categories = [
+    {
+      id: "wazwan",
+      label: "Kashmiri Wazwan",
+      count: wazwanDishes.length,
+      unit: "Dishes",
+      desc: "The legendary 36-course royal feast, slow-cooked by traditional Wazas and served on a copper Trami.",
+      icon: (
+        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      )
+    },
+    {
+      id: "beverages",
+      label: "Kashmiri Beverages",
+      count: beverageDishes.length,
+      unit: "Beverages",
+      desc: "Saffron-infused green teas (Kahwa), salted milk teas (Noon Chai), and refreshing local beverages.",
+      icon: (
+        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 8.5v3a3.5 3.5 0 01-7 0v-3h7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 9h1.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-1.5 1.5h-1.5" />
+        </svg>
+      )
+    },
+    {
+      id: "bakery",
+      label: "Kashmiri Bakery",
+      count: bakeryDishes.length,
+      unit: "Breads",
+      desc: "The unique neighborhood bakery culture featuring clay-oven flatbreads like Girda, Czochworu, and Bakerkhani.",
+      icon: (
+        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.5c0-1.38-1.12-2.5-2.5-2.5-.34 0-.66.07-.96.19C16.82 9.77 14.15 8 11 8c-3.15 0-5.82 1.77-6.54 5.19-.3-.12-.62-.19-.96-.19C2.12 13 1 14.12 1 15.5c0 1.25.92 2.27 2.12 2.47.24 1.15 1.26 2.03 2.48 2.03.35 0 .68-.07.98-.21C7.32 20.81 8.98 21 11 21s3.68-.19 4.42-1.21c.3.14.63.21.98.21 1.22 0 2.24-.88 2.48-2.03 1.2-.2 2.12-1.22 2.12-2.47z" />
+        </svg>
+      )
+    },
+    {
+      id: "street_food",
+      label: "Kashmiri Street Food",
+      count: streetFoodDishes.length,
+      unit: "Eats",
+      desc: "Rustic street treats from coal-grilled Tujji skewers to winter Harissa pastes found in Srinagar's bazaars.",
+      icon: (
+        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      )
+    }
   ];
-
-  const scrollToSection = (id) => {
-    setActiveTab(id);
-    if (id === "all") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    const element = document.getElementById(id);
-    if (element) {
-      const yOffset = -100; // Offset for navbar
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="wazwan-shell min-h-screen flex items-center justify-center">
-        <div className="text-white/60 animate-pulse text-lg uppercase tracking-widest font-bold">
-          Loading Kashmiri Food Catalog...
-        </div>
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -87,7 +184,7 @@ function KashmiriFoodContent() {
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none" />
 
-      {/* Hero */}
+      {/* Hero Header */}
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
         <div>
           <span className="place-eyebrow">Culinary Identity of the Valley</span>
@@ -95,7 +192,7 @@ function KashmiriFoodContent() {
             Kashmiri Food Guide
           </h1>
           <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
-            Explore the authentic culinary traditions of Kashmir. From the highly structured 16-dish ceremonial <strong>Wazwan Trami</strong> feast to neighborhood clay-oven <strong>bakery goods</strong>, unique warming <strong>beverages</strong>, and rich downtown <strong>street foods</strong>.
+            Explore the authentic culinary traditions of Kashmir. Choose a category below to open its dedicated catalog and discover recipes, traditions, and custom pairings.
           </p>
         </div>
         <div>
@@ -105,265 +202,394 @@ function KashmiriFoodContent() {
         </div>
       </section>
 
-      {/* Navigation Pills */}
-      <div className="sticky top-20 z-40 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-white/5 py-4 my-8 -mx-4 px-4 flex gap-2 overflow-x-auto no-scrollbar scroll-smooth">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => scrollToSection(tab.id)}
-            className={`shrink-0 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all border ${
-              activeTab === tab.id
-                ? "bg-[var(--saffron)] text-black border-[var(--saffron)]"
-                : "bg-white/5 text-white/60 border-white/5 hover:border-white/20 hover:text-white"
-            }`}
-          >
-            {tab.label} {tab.count !== undefined && `(${tab.count})`}
-          </button>
-        ))}
+      {/* Main Content Area */}
+      <div className="mt-8">
+        <AnimatePresence mode="wait">
+          {activeTab === null ? (
+            /* PORTAL Landing Grid */
+            <motion.div
+              key="portal"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25 }}
+              className="grid gap-6 md:grid-cols-2 max-w-6xl mx-auto my-12"
+            >
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => selectTab(category.id)}
+                  className="w-full text-left glass-panel p-8 rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(212,175,55,0.08)] flex flex-col justify-between h-64 group relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                    {category.icon}
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors">
+                        {category.icon}
+                      </div>
+                      <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.7rem] font-bold font-mono py-1 px-3">
+                        {loading ? (
+                          <span className="h-3 w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
+                        ) : (
+                          `${category.count} ${category.unit}`
+                        )}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-2">
+                      {category.label}
+                    </h3>
+                    <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-md">
+                      {category.desc}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--saffron)] mt-4">
+                    Explore Catalog <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                  </div>
+                </button>
+              ))}
+            </motion.div>
+          ) : (
+            /* ACTIVE TAB VIEW with Subnav and Search */
+            <motion.div
+              key="tabs-view"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25 }}
+            >
+              {/* Sticky sub-navigation & search bar */}
+              <div className="sticky top-20 z-40 bg-[#0B0B0B]/95 border-b border-white/5 py-4 my-8 -mx-4 px-4 flex flex-col gap-4">
+                <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
+                  {/* Category switcher tabs */}
+                  <div className="flex items-center gap-3 overflow-x-auto no-scrollbar scroll-smooth w-full md:w-auto">
+                    <button
+                      onClick={() => selectTab(null)}
+                      className="shrink-0 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 text-white/80 border border-white/5 hover:border-white/20 transition-all flex items-center gap-2"
+                    >
+                      &larr; Categories
+                    </button>
+                    <div className="h-6 w-px bg-white/10 hidden sm:block"></div>
+                    {categories.map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => selectTab(tab.id)}
+                        className={`shrink-0 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all border shadow-sm ${
+                          activeTab === tab.id
+                            ? "bg-[var(--saffron)] text-black border-[var(--saffron)] shadow-[0_0_15px_rgba(212,175,55,0.25)]"
+                            : "bg-white/5 text-white/60 border-white/5 hover:border-white/20 hover:text-white"
+                        }`}
+                      >
+                        {tab.label} {!loading && `(${tab.count})`}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Search Bar Input */}
+                  <div className="relative w-full md:w-80 shrink-0">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-white/40">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search within category..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs text-white placeholder-white/40 focus:outline-none focus:border-[var(--saffron)]/50 focus:bg-white/10 focus:ring-1 focus:ring-[var(--saffron)]/20 transition-all"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery("")}
+                        className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-white/40 hover:text-white transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Shimmer skeleton or dynamic content lists */}
+              {loading ? (
+                <ShimmerSkeleton />
+              ) : filteredItems.length === 0 ? (
+                /* Search Not Found view */
+                <div className="text-center py-20 border border-white/5 bg-white/5 rounded-2xl">
+                  <svg className="w-12 h-12 text-white/20 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-white/60 text-sm">No items match your search &quot;{searchQuery}&quot;</p>
+                  <button onClick={() => setSearchQuery("")} className="mt-4 text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors uppercase tracking-widest">
+                    Clear Search Filter
+                  </button>
+                </div>
+              ) : (
+                /* Dynamic lists by selected category */
+                <div className="mt-8">
+                  {activeTab === "wazwan" && (
+                    <div>
+                      {/* Wazwan traditional intro details */}
+                      <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
+                        <div className="lg:w-1/2">
+                          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
+                            Traditional Feast Platter
+                          </span>
+                          <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
+                            Kashmiri Wazwan Trami
+                          </h2>
+                          <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                            The traditional Wazwan is a masterclass in meat preparation, typically cooked by a master chef called a <em>Waza</em>. It is a formal social ritual where four guests sit together around a large engraved copper platter called the <strong>Trami</strong>. 
+                          </p>
+                          <p className="text-white/65 leading-relaxed text-sm mt-3">
+                            Only exactly <strong>16 authoritative dishes</strong> make up the official trami banquet sequence. Every dish is served in a strict traditional progression.
+                          </p>
+                        </div>
+                        <div className="lg:w-1/2 bg-[var(--saffron-pale)] border border-[var(--saffron)]/10 rounded-2xl p-6 backdrop-blur-md">
+                          <h4 className="text-[var(--saffron)] text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Trami Platter Etiquette
+                          </h4>
+                          <ul className="text-xs text-white/80 space-y-2.5 list-disc list-inside leading-relaxed">
+                            <li>Guests wash hands in a mobile copper basin, the <strong>Tash-t-Næær</strong>, brought right to their seat.</li>
+                            <li>The platter is covered by a dome lid called a <strong>Sarposh</strong>, which is removed only when all guests are seated.</li>
+                            <li>Dishes are eaten collectively with fingers directly from the trami platter, symbolizing brotherhood and equality.</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      {/* Grouped wazwan course listings */}
+                      <div className="space-y-12">
+                        {/* Foundation Courses */}
+                        {wazwanCourses.foundation.length > 0 && (
+                          <div>
+                            <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
+                              Foundation Courses <span className="text-[var(--saffron)] text-xs"> (Placed directly on the Trami on arrival)</span>
+                            </h3>
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              {wazwanCourses.foundation.map((dish) => (
+                                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
+                                  <div className="p-6">
+                                    <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
+                                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                                    <div className="flex gap-2">
+                                      <span className="place-badge">{dish.foodType}</span>
+                                      <span className="place-badge">{dish.spiceLevel}</span>
+                                    </div>
+                                  </div>
+                                  <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
+                                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
+                                      View Recipe Details &rarr;
+                                    </Link>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Signature Meat Courses */}
+                        {wazwanCourses.signature.length > 0 && (
+                          <div>
+                            <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
+                              Signature Meat Courses <span className="text-[var(--saffron)] text-xs"> (Slow-cooked lamb masterpieces served sequentially)</span>
+                            </h3>
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              {wazwanCourses.signature.map((dish) => (
+                                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
+                                  <div className="p-6">
+                                    <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
+                                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                                    <div className="flex gap-2">
+                                      <span className="place-badge">{dish.foodType}</span>
+                                      <span className="place-badge">{dish.spiceLevel}</span>
+                                    </div>
+                                  </div>
+                                  <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
+                                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
+                                      View Recipe Details &rarr;
+                                    </Link>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Vegetarian Accompaniments */}
+                        {wazwanCourses.vegetarian.length > 0 && (
+                          <div>
+                            <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
+                              Vegetarian Accompaniments <span className="text-[var(--saffron)] text-xs"> (Earthy vegetables served to balance rich meats)</span>
+                            </h3>
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              {wazwanCourses.vegetarian.map((dish) => (
+                                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
+                                  <div className="p-6">
+                                    <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
+                                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                                    <div className="flex gap-2">
+                                      <span className="place-badge">{dish.foodType}</span>
+                                      <span className="place-badge">{dish.spiceLevel}</span>
+                                    </div>
+                                  </div>
+                                  <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
+                                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
+                                      View Recipe Details &rarr;
+                                    </Link>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "beverages" && (
+                    <div>
+                      <div className="mb-12">
+                        <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
+                          Warmth in a Cup
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
+                          Kashmiri Beverages
+                        </h2>
+                        <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
+                          The climate of Kashmir shapes its hot beverage customs. Spiced green teas served from charcoal Samovars provide essential warmth and help digest the rich meats of the valley.
+                        </p>
+                      </div>
+
+                      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {filteredItems.map((dish) => (
+                          <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
+                            <div className="p-6">
+                              <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
+                              <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                              <div className="flex gap-2">
+                                <span className="place-badge">{dish.spiceLevel}</span>
+                                <span className="place-badge">{dish.priceRange}</span>
+                              </div>
+                            </div>
+                            <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
+                              <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
+                                View Beverage Profile &rarr;
+                              </Link>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "bakery" && (
+                    <div>
+                      <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
+                        <div className="lg:w-1/2">
+                          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
+                            The Kandur-Wan
+                          </span>
+                          <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
+                            Kashmiri Bakery
+                          </h2>
+                          <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                            Kashmir has a unique neighborhood bakery culture. Bread is never baked in households. Instead, locals visit the community clay-oven bakery, the <strong>Kandur-wan</strong>, fresh every morning and afternoon to buy hot hand-crafted flatbreads.
+                          </p>
+                        </div>
+                        <div className="lg:w-1/2 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-xs space-y-3">
+                          <h4 className="text-[var(--saffron)] font-bold uppercase tracking-wider">Hourly Kandur Custom</h4>
+                          <div className="flex justify-between border-b border-white/5 pb-2">
+                            <span className="text-white/80"><strong>Girda:</strong> Breakfast flatbread</span>
+                            <span className="text-[var(--saffron)] font-mono">6:00 AM – 9:00 AM</span>
+                          </div>
+                          <div className="flex justify-between border-b border-white/5 pb-2">
+                            <span className="text-white/80"><strong>Czochworu:</strong> Sesame afternoon bread</span>
+                            <span className="text-[var(--saffron)] font-mono">3:30 PM – 5:30 PM</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-white/80"><strong>Bakerkhani:</strong> Golden flaky puff</span>
+                            <span className="text-[var(--saffron)] font-mono">4:00 PM – 6:00 PM</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {filteredItems.map((dish) => (
+                          <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
+                            <div className="p-6">
+                              <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
+                              <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                              <div className="flex gap-2">
+                                <span className="place-badge">Bakery</span>
+                                <span className="place-badge">{dish.priceRange}</span>
+                              </div>
+                            </div>
+                            <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
+                              <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
+                                View Baking Details &rarr;
+                              </Link>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "street_food" && (
+                    <div>
+                      <div className="mb-12">
+                        <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
+                          Local Street Staples
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
+                          Kashmiri Street Food
+                        </h2>
+                        <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
+                          The bustling streets of Downtown Srinagar and local bazaar stalls serve incredibly rich and rustic street food. From coal-grilled Tujji skewers wrapped in tandoor Lavas to slow-cooked winter Harissa pastes.
+                        </p>
+                      </div>
+
+                      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {filteredItems.map((dish) => (
+                          <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
+                            <div className="p-6">
+                              <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
+                              <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                              <div className="flex gap-2">
+                                <span className="place-badge">{dish.foodType}</span>
+                                <span className="place-badge">{dish.priceRange}</span>
+                              </div>
+                            </div>
+                            <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
+                              <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
+                                View Street Food Info &rarr;
+                              </Link>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-
-      {/* --- Section 1: Wazwan --- */}
-      <section id="wazwan" className="scroll-mt-36 border-b border-white/5 pb-20 mb-20">
-        <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
-          <div className="lg:w-1/2">
-            <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-              01. The Royal Banquet
-            </span>
-            <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-              Kashmiri Wazwan
-            </h2>
-            <p className="text-white/70 leading-relaxed text-sm md:text-base">
-              The traditional Wazwan is a masterclass in meat preparation, typically cooked by a master chef called a <em>Waza</em>. It is not simply a meal, but a formal social ritual where four guests sit together around a large engraved copper platter called the <strong>Trami</strong>. 
-            </p>
-            <p className="text-white/60 leading-relaxed text-sm mt-3">
-              Only exactly <strong>16 authoritative dishes</strong> make up the official trami banquet sequence. Every dish is served in a strict traditional progression.
-            </p>
-          </div>
-          <div className="lg:w-1/2 bg-[var(--saffron-pale)] border border-[var(--saffron)]/10 rounded-2xl p-6 backdrop-blur-md">
-            <h4 className="text-[var(--saffron)] text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Trami Platter Etiquette
-            </h4>
-            <ul className="text-xs text-white/80 space-y-2.5 list-disc list-inside leading-relaxed">
-              <li>Guests must wash their hands in a mobile copper basin, the <strong>Tash-t-Næær</strong>, brought right to their seat.</li>
-              <li>The platter is covered by a dome lid called a <strong>Sarposh</strong>, which is removed only when all four guests are seated.</li>
-              <li>Dishes are eaten collectively with fingers directly from the trami platter. Sharing symbolizes absolute brotherhood and equality.</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Wazwan Courses Groupings */}
-        <div className="space-y-12">
-          {/* Foundation */}
-          <div>
-            <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
-              Foundation Courses <span className="text-[var(--saffron)] text-xs"> (Placed directly on the Trami on arrival)</span>
-            </h3>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {wazwanCourses.foundation.map((dish) => (
-                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                  <div className="p-6">
-                    <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                    <div className="flex gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.spiceLevel}</span>
-                    </div>
-                  </div>
-                  <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                      View Recipe Details &rarr;
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Signature Meat */}
-          <div>
-            <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
-              Signature Meat Courses <span className="text-[var(--saffron)] text-xs"> (Slow-cooked lamb masterpieces served sequentially)</span>
-            </h3>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {wazwanCourses.signature.map((dish) => (
-                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                  <div className="p-6">
-                    <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                    <div className="flex gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.spiceLevel}</span>
-                    </div>
-                  </div>
-                  <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                      View Recipe Details &rarr;
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Vegetarian Accompaniments */}
-          <div>
-            <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
-              Vegetarian Accompaniments <span className="text-[var(--saffron)] text-xs"> (Earthy vegetables served to balance rich meats)</span>
-            </h3>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {wazwanCourses.vegetarian.map((dish) => (
-                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                  <div className="p-6">
-                    <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                    <div className="flex gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.spiceLevel}</span>
-                    </div>
-                  </div>
-                  <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                      View Recipe Details &rarr;
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- Section 2: Beverages --- */}
-      <section id="beverages" className="scroll-mt-36 border-b border-white/5 pb-20 mb-20">
-        <div className="mb-12">
-          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-            02. Warmth in a Cup
-          </span>
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-            Kashmiri Beverages
-          </h2>
-          <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
-            The climate of Kashmir shapes its hot beverage customs. Spiced green teas served from charcoal Samovars provide essential warmth and help digest the rich meats of the valley.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {beverageDishes.map((dish) => (
-            <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
-              <div className="p-6">
-                <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
-                <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                <div className="flex gap-2">
-                  <span className="place-badge">{dish.spiceLevel}</span>
-                  <span className="place-badge">{dish.priceRange}</span>
-                </div>
-              </div>
-              <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                  View Beverage Profile &rarr;
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- Section 3: Bakery --- */}
-      <section id="bakery" className="scroll-mt-36 border-b border-white/5 pb-20 mb-20">
-        <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
-          <div className="lg:w-1/2">
-            <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-              03. The Kandur-Wan
-            </span>
-            <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-              Kashmiri Bakery
-            </h2>
-            <p className="text-white/70 leading-relaxed text-sm md:text-base">
-              Kashmir has a unique neighborhood bakery culture. Bread is never baked in households. Instead, locals visit the community clay-oven bakery, the <strong>Kandur-wan</strong>, fresh every morning and afternoon to buy hot hand-crafted flatbreads.
-            </p>
-          </div>
-          <div className="lg:w-1/2 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-xs space-y-3">
-            <h4 className="text-[var(--saffron)] font-bold uppercase tracking-wider">Hourly Kandur Custom</h4>
-            <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-white/80"><strong>Girda:</strong> Tandoor breakfast flatbread</span>
-              <span className="text-[var(--saffron)] font-mono">6:00 AM – 9:00 AM</span>
-            </div>
-            <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-white/80"><strong>Czochworu:</strong> Sesame bagel-like bread</span>
-              <span className="text-[var(--saffron)] font-mono">3:30 PM – 5:30 PM</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/80"><strong>Bakerkhani:</strong> Golden laminated flaky puff</span>
-              <span className="text-[var(--saffron)] font-mono">4:00 PM – 6:00 PM</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {bakeryDishes.map((dish) => (
-            <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
-              <div className="p-6">
-                <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
-                <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                <div className="flex gap-2">
-                  <span className="place-badge">Bakery</span>
-                  <span className="place-badge">{dish.priceRange}</span>
-                </div>
-              </div>
-              <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                  View Baking Details &rarr;
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- Section 4: Street Food --- */}
-      <section id="street_food" className="scroll-mt-36 pb-12">
-        <div className="mb-12">
-          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-            04. Local Street Staples
-          </span>
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-            Kashmiri Street Food
-          </h2>
-          <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
-            The bustling streets of Downtown Srinagar and local bazaar stalls serve incredibly rich and rustic street food. From coal-grilled Tujji skewers wrapped in tandoor Lavas to slow-cooked winter Harissa pastes.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {streetFoodDishes.map((dish) => (
-            <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
-              <div className="p-6">
-                <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
-                <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                <div className="flex gap-2">
-                  <span className="place-badge">{dish.foodType}</span>
-                  <span className="place-badge">{dish.priceRange}</span>
-                </div>
-              </div>
-              <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                  View Street Food Info &rarr;
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
 
 export default function KashmiriFoodPage() {
   return (
-    <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading catalog...</div>}>
+    <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading Kashmiri Food...</div>}>
       <KashmiriFoodContent />
     </Suspense>
   );
