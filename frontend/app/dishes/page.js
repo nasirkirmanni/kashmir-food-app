@@ -105,7 +105,7 @@ function DishesPageContent() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {coreDishes.map((dish) => (
               <motion.article
                 key={dish._id}
@@ -162,7 +162,7 @@ function DishesPageContent() {
               </h3>
               <p className="text-xs text-white/40 mt-1">Dishes served directly on the rice bed when the trami is placed before the guests.</p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.foundation.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
                   <div className="p-6">
@@ -191,7 +191,7 @@ function DishesPageContent() {
               </h3>
               <p className="text-xs text-white/40 mt-1">The primary mutton and chicken gravies slow-cooked over wood fire and served one by one.</p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.signature.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
                   <div className="p-6">
@@ -220,7 +220,7 @@ function DishesPageContent() {
               </h3>
               <p className="text-xs text-white/40 mt-1">Collards, potatoes, and lotus roots cooked in yogurt to refresh the palate between meats.</p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.vegetarian.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
                   <div className="p-6">
