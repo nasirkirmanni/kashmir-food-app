@@ -1057,35 +1057,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f0c",
-    "name": "Kahwa (Beverage)",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Cafes style.",
-    "fullDescription": "Kahwa is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Cafes cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Kahwa stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Kahwa, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
-    "category": "Cafes",
-    "foodType": "Veg",
-    "image": "/images/dishes/kahwa.webp",
-    "priceRange": "INR 80-160",
-    "popularityRating": 3.8,
-    "spiceLevel": "Mild",
-    "tags": [
-      "kashmiri",
-      "cafes",
-      "veg",
-      "authentic",
-      "luxury"
-    ],
-    "authenticityScore": 4.7,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:08.558Z",
-    "slug": "kahwa-beverage",
-    "categoryType": "beverage"
-  },
-  {
     "_id": "6a2a4978ac7d60a9cca76f0e",
     "name": "Kashmiri Harissa",
     "description": "A slow-cooked winter mutton and rice paste.",
