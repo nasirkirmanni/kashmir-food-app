@@ -8,21 +8,49 @@ import { endpoints, request } from "@/lib/api";
 
 function ShimmerSkeleton() {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
+    <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="border border-white/5 rounded-2xl bg-white/5 p-6 animate-pulse flex flex-col justify-between h-48">
+        <div key={i} className="border border-white/5 rounded-xl sm:rounded-2xl bg-white/5 p-3 sm:p-6 animate-pulse flex flex-col justify-between h-28 sm:h-48">
           <div>
-            <div className="h-6 bg-white/10 rounded w-2/3 mb-4"></div>
-            <div className="h-4 bg-white/5 rounded w-full mb-2"></div>
-            <div className="h-4 bg-white/5 rounded w-5/6"></div>
+            <div className="h-3 sm:h-6 bg-white/10 rounded w-2/3 mb-2 sm:mb-4"></div>
+            <div className="hidden sm:block h-4 bg-white/5 rounded w-full mb-2"></div>
+            <div className="hidden sm:block h-4 bg-white/5 rounded w-5/6"></div>
           </div>
-          <div className="flex gap-2 mt-4">
-            <div className="h-6 bg-white/10 rounded-full w-16"></div>
-            <div className="h-6 bg-white/10 rounded-full w-20"></div>
+          <div className="flex gap-1 sm:gap-2 mt-2 sm:mt-4">
+            <div className="h-4 sm:h-6 bg-white/10 rounded-full w-10 sm:w-16"></div>
+            <div className="hidden sm:block h-6 bg-white/10 rounded-full w-20"></div>
           </div>
         </div>
       ))}
     </div>
+  );
+}
+
+function DishCard({ dish, linkText = "View Recipe Details" }) {
+  return (
+    <Link href={`/dishes/${dish.slug || dish._id}`} className="block">
+      <div className="wazwan-dish-card flex flex-col justify-between h-28 sm:h-64 hover:border-[var(--saffron)]/30 h-full">
+        <div className="p-3 sm:p-6 h-full flex flex-col justify-between">
+          <div>
+            <h4 className="font-display text-[0.65rem] sm:text-xl text-white mb-1 line-clamp-2 leading-tight">{dish.name}</h4>
+            <p className="hidden sm:block text-white/60 text-xs leading-relaxed line-clamp-3 mb-4">{dish.description}</p>
+          </div>
+          
+          <div className="flex items-center justify-between mt-auto">
+            <div className="hidden sm:flex gap-2">
+              <span className="place-badge">{dish.foodType || "Veg"}</span>
+              <span className="place-badge">{dish.spiceLevel || dish.priceRange || "Medium"}</span>
+            </div>
+            <span className="sm:hidden text-[0.55rem] font-bold uppercase tracking-wider text-[var(--saffron)]">
+              Explore &rarr;
+            </span>
+          </div>
+        </div>
+        <div className="hidden sm:flex px-6 pb-4 border-t border-white/5 pt-3 justify-between items-center bg-black/10 text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)]">
+          {linkText} &rarr;
+        </div>
+      </div>
+    </Link>
   );
 }
 
@@ -224,45 +252,47 @@ function KashmiriFoodContent() {
         <div className="mt-8">
           <AnimatePresence mode="wait">
             {activeTab === null ? (
-              /* PORTAL Landing Grid */
+              /* PORTAL Landing Grid: 3-columns on mobile, 2-columns on desktop */
               <motion.div
                 key="portal"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.25 }}
-                className="grid gap-6 md:grid-cols-2 max-w-6xl mx-auto my-12"
+                className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 max-w-6xl mx-auto my-12"
               >
                 {categories.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => selectTab(category.id)}
-                    className="w-full text-left glass-panel p-8 rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(212,175,55,0.08)] flex flex-col justify-between h-64 group relative overflow-hidden"
+                    className="w-full text-left glass-panel p-3 sm:p-8 rounded-xl sm:rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(212,175,55,0.08)] flex flex-col justify-between h-28 sm:h-64 group relative overflow-hidden"
                   >
-                    <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                    <div className="absolute top-0 right-0 p-3 sm:p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity">
                       {category.icon}
                     </div>
-                    <div>
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors">
-                          {category.icon}
+                    <div className="w-full">
+                      <div className="flex justify-between items-start mb-2 sm:mb-4">
+                        <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors">
+                          <div className="scale-75 sm:scale-100 origin-top-left">
+                            {category.icon}
+                          </div>
                         </div>
-                        <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.7rem] font-bold font-mono py-1 px-3">
+                        <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.55rem] sm:text-[0.7rem] font-bold font-mono py-0.5 sm:py-1 px-1.5 sm:px-3">
                           {loading ? (
-                            <span className="h-3 w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
+                            <span className="h-2 sm:h-3 w-6 sm:w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
                           ) : (
-                            `${category.count} ${category.unit}`
+                            `${category.count} ${category.unit === "Dishes" ? "Items" : category.unit}`
                           )}
                         </span>
                       </div>
-                      <h3 className="text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-2">
+                      <h3 className="text-[0.65rem] sm:text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-1 sm:mb-2 line-clamp-1">
                         {category.label}
                       </h3>
-                      <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-md">
+                      <p className="hidden sm:block text-white/60 text-xs md:text-sm leading-relaxed max-w-md">
                         {category.desc}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--saffron)] mt-4">
+                    <div className="hidden sm:flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--saffron)] mt-4">
                       Explore Catalog <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
                     </div>
                   </button>
@@ -390,23 +420,9 @@ function KashmiriFoodContent() {
                               <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
                                 Foundation Courses <span className="text-[var(--saffron)] text-xs"> (Placed directly on the Trami on arrival)</span>
                               </h3>
-                              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                                 {sortedWazwanFoundation.map((dish) => (
-                                  <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                                    <div className="p-6">
-                                      <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
-                                      <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                                      <div className="flex gap-2">
-                                        <span className="place-badge">{dish.foodType}</span>
-                                        <span className="place-badge">{dish.spiceLevel}</span>
-                                      </div>
-                                    </div>
-                                    <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                                      <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                                        View Recipe Details &rarr;
-                                      </Link>
-                                    </div>
-                                  </div>
+                                  <DishCard key={dish._id} dish={dish} linkText="View Recipe Details" />
                                 ))}
                               </div>
                             </div>
@@ -418,23 +434,9 @@ function KashmiriFoodContent() {
                               <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
                                 Signature Meat Courses <span className="text-[var(--saffron)] text-xs"> (Slow-cooked lamb masterpieces served sequentially)</span>
                               </h3>
-                              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                                 {wazwanCourses.signature.map((dish) => (
-                                  <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                                    <div className="p-6">
-                                      <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
-                                      <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                                      <div className="flex gap-2">
-                                        <span className="place-badge">{dish.foodType}</span>
-                                        <span className="place-badge">{dish.spiceLevel}</span>
-                                      </div>
-                                    </div>
-                                    <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                                      <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                                        View Recipe Details &rarr;
-                                      </Link>
-                                    </div>
-                                  </div>
+                                  <DishCard key={dish._id} dish={dish} linkText="View Recipe Details" />
                                 ))}
                               </div>
                             </div>
@@ -446,23 +448,9 @@ function KashmiriFoodContent() {
                               <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
                                 Vegetarian Accompaniments <span className="text-[var(--saffron)] text-xs"> (Earthy vegetables served to balance rich meats)</span>
                               </h3>
-                              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                                 {wazwanCourses.vegetarian.map((dish) => (
-                                  <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                                    <div className="p-6">
-                                      <h4 className="font-display text-xl text-white mb-2">{dish.name}</h4>
-                                      <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                                      <div className="flex gap-2">
-                                        <span className="place-badge">{dish.foodType}</span>
-                                        <span className="place-badge">{dish.spiceLevel}</span>
-                                      </div>
-                                    </div>
-                                    <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                                      <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                                        View Recipe Details &rarr;
-                                      </Link>
-                                    </div>
-                                  </div>
+                                  <DishCard key={dish._id} dish={dish} linkText="View Recipe Details" />
                                 ))}
                               </div>
                             </div>
@@ -485,23 +473,9 @@ function KashmiriFoodContent() {
                           </p>
                         </div>
 
-                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                           {filteredItems.map((dish) => (
-                            <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
-                              <div className="p-6">
-                                <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
-                                <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                                <div className="flex gap-2">
-                                  <span className="place-badge">{dish.spiceLevel}</span>
-                                  <span className="place-badge">{dish.priceRange}</span>
-                                </div>
-                              </div>
-                              <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                                <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                                  View Beverage Profile &rarr;
-                                </Link>
-                              </div>
-                            </div>
+                            <DishCard key={dish._id} dish={dish} linkText="View Beverage Profile" />
                           ))}
                         </div>
                       </div>
@@ -538,23 +512,9 @@ function KashmiriFoodContent() {
                           </div>
                         </div>
 
-                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                           {filteredItems.map((dish) => (
-                            <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
-                              <div className="p-6">
-                                <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
-                                <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                                <div className="flex gap-2">
-                                  <span className="place-badge">Bakery</span>
-                                  <span className="place-badge">{dish.priceRange}</span>
-                                </div>
-                              </div>
-                              <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                                <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                                  View Baking Details &rarr;
-                                </Link>
-                              </div>
-                            </div>
+                            <DishCard key={dish._id} dish={dish} linkText="View Baking Details" />
                           ))}
                         </div>
                       </div>
@@ -574,23 +534,9 @@ function KashmiriFoodContent() {
                           </p>
                         </div>
 
-                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                           {filteredItems.map((dish) => (
-                            <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30">
-                              <div className="p-6">
-                                <h3 className="font-display text-2xl text-white mb-2">{dish.name}</h3>
-                                <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                                <div className="flex gap-2">
-                                  <span className="place-badge">{dish.foodType}</span>
-                                  <span className="place-badge">{dish.priceRange}</span>
-                                </div>
-                              </div>
-                              <div className="px-6 pb-6 border-t border-white/5 pt-4 flex justify-between items-center bg-black/10">
-                                <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-white transition-colors">
-                                  View Street Food Info &rarr;
-                                </Link>
-                              </div>
-                            </div>
+                            <DishCard key={dish._id} dish={dish} linkText="View Street Food Info" />
                           ))}
                         </div>
                       </div>
