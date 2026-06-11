@@ -146,6 +146,49 @@ export default function DishDetailClient({ initialDish = null }) {
             <span className="place-badge">{dish.spiceLevel}</span>
             <span className="place-badge">{dish.priceRange}</span>
             <span className="place-badge">{dish.popularityRating} / 5 popularity</span>
+            {dish.category === "Wazwan" ? (
+              <span className="place-badge border-[var(--saffron)] text-[var(--saffron)] bg-[var(--saffron-pale)] font-bold">★ Traditional Wazwan Course</span>
+            ) : (
+              <span className="place-badge border-blue-500/40 text-blue-300 bg-blue-500/10 font-bold">❀ Traditional Home-style Recipe</span>
+            )}
+          </div>
+
+          <div className="mt-8 rounded-[18px] border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-lg max-w-xl">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] mb-4 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Waza AI Culinary Authority Scores
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div>
+                <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
+                  <span>Authenticity</span>
+                  <span className="text-[var(--saffron)] font-bold">{dish.authenticityScore || "4.0"}/5</span>
+                </div>
+                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dish.authenticityScore || 4.0) / 5) * 100}%` }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
+                  <span>Tourist Friendliness</span>
+                  <span className="text-[var(--saffron)] font-bold">{dish.touristFriendlinessScore || "4.0"}/5</span>
+                </div>
+                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dish.touristFriendlinessScore || 4.0) / 5) * 100}%` }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
+                  <span>Luxury & Comfort</span>
+                  <span className="text-[var(--saffron)] font-bold">{dish.luxuryScore || "3.0"}/5</span>
+                </div>
+                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dish.luxuryScore || 3.0) / 5) * 100}%` }}></div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-4 items-center">

@@ -57,6 +57,8 @@ export const endpoints = {
   topDishes: "/dishes/top",
   restaurants: (query = "") => `/restaurants${query}`,
   restaurant: (id) => `/restaurants/${id}`,
+  destinations: (query = "") => `/destinations${query}`,
+  destination: (id) => `/destinations/${id}`,
   login: "/auth/login",
   signup: "/auth/signup",
   verify: "/auth/verify",

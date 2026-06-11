@@ -103,6 +103,10 @@ export default function HamburgerMenu() {
                   { label: "Recipes", href: "/recipes" },
                   { label: "History of Wazwan", href: "/history" },
                   { label: "Restaurants", href: "/restaurants" },
+                  { label: "Visit Kashmir", href: "/visit-kashmir" },
+                  { label: "Culinary Itineraries", href: "/itineraries" },
+                  { label: "Plan My Trip", href: "/plan" },
+                  { label: "Bakery Guide", href: "/bakery" },
                   { label: "List Your Restaurant", href: "/list-restaurant" },
                 ].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
@@ -188,6 +192,10 @@ export default function HamburgerMenu() {
                   { label: "Saved Dishes", sub: "Your favorite picks", href: "/favorites", iconColor: "red" },
                   { label: "Recipes", sub: "Cook like a Waza", href: "/recipes", iconColor: "green" },
                   { label: "History of Wazwan", sub: "Explore the heritage", href: "/history", iconColor: "amber" },
+                  { label: "Visit Kashmir", sub: "Explore destinations & scores", href: "/visit-kashmir", iconColor: "blue" },
+                  { label: "Culinary Itineraries", sub: "Hand-crafted food tours", href: "/itineraries", iconColor: "green" },
+                  { label: "Plan My Trip", sub: "Interactive travel planner", href: "/plan", iconColor: "saffron" },
+                  { label: "Bakery Guide", sub: "Traditional Kandur breads", href: "/bakery", iconColor: "amber" },
                   { label: "List Your Restaurant", sub: "Join Wazwan Way", href: "/list-restaurant", iconColor: "saffron" },
                 ].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>

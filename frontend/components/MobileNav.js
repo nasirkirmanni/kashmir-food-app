@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, User } from "lucide-react";
+import { Home, MapPin, User, Compass } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 const BowlFoodIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
@@ -78,6 +78,12 @@ export default function MobileNav() {
         <Link href="/restaurants" className="relative group">
           <div className={`p-2 transition-colors ${pathname === "/restaurants" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
             <MapPin size={24} strokeWidth={pathname === "/restaurants" ? 2.5 : 2} />
+          </div>
+        </Link>
+
+        <Link href="/visit-kashmir" className="relative group">
+          <div className={`p-2 transition-colors ${pathname === "/visit-kashmir" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
+            <Compass size={24} strokeWidth={pathname === "/visit-kashmir" ? 2.5 : 2} />
           </div>
         </Link>
 
