@@ -271,17 +271,10 @@ function KashmiriFoodContent() {
                       {category.icon}
                     </div>
                     <div className="w-full">
-                      <div className="flex justify-between items-center mb-3 sm:mb-4">
-                        <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors flex items-center justify-center shrink-0">
+                      <div className="mb-3 sm:mb-4">
+                        <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors inline-flex items-center justify-center shrink-0">
                           {category.icon}
                         </div>
-                        <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.6rem] sm:text-[0.7rem] font-bold py-0.5 sm:py-1 px-1.5 sm:px-3">
-                          {loading ? (
-                            <span className="h-2 sm:h-3 w-6 sm:w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
-                          ) : (
-                            `${category.count} ${category.unit === "Dishes" ? "Items" : category.unit}`
-                          )}
-                        </span>
                       </div>
                       <h3 className="text-sm sm:text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-1 sm:mb-2 line-clamp-2">
                         {category.label}
@@ -290,8 +283,17 @@ function KashmiriFoodContent() {
                         {category.desc}
                       </p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--saffron)] mt-4">
-                      Explore Catalog <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    <div className="flex items-end justify-between w-full">
+                      <div className="hidden sm:flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--saffron)]">
+                        Explore Catalog <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                      </div>
+                      <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.6rem] sm:text-[0.7rem] font-bold py-0.5 sm:py-1 px-1.5 sm:px-3 ml-auto">
+                        {loading ? (
+                          <span className="h-2 sm:h-3 w-6 sm:w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
+                        ) : (
+                          `${category.count} ${category.unit === "Dishes" ? "Items" : category.unit}`
+                        )}
+                      </span>
                     </div>
                   </button>
                 ))}
