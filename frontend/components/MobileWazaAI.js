@@ -72,7 +72,7 @@ const ChefAIIcon = ({ size = 32, className = "" }) => (
   </svg>
 );
 
-export default function MobileWazaAI() {
+export default function MobileWazaAI({ initialPrompt }) {
   const router = useRouter();
   const [messages, setMessages] = useState([
     {
@@ -83,6 +83,11 @@ export default function MobileWazaAI() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const messagesRef = useRef(messages);
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   const suggestedQuestions = [
     "What is Rista?",
@@ -110,7 +115,7 @@ export default function MobileWazaAI() {
     try {
       const data = await request(endpoints.chat, {
         method: "POST",
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch (error) {
@@ -123,6 +128,14 @@ export default function MobileWazaAI() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (initialPrompt) {
+      setTimeout(() => {
+        handleSendMessage(initialPrompt);
+      }, 500);
+    }
+  }, [initialPrompt]);
 
   return (
     <div className="flex flex-col h-[100dvh] w-full bg-[#0B0B0B] text-white overflow-hidden relative">

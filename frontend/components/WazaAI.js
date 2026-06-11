@@ -49,6 +49,11 @@ export default function WazaAI() {
     "Recommend a restaurant near me."
   ];
 
+  const messagesRef = useRef(messages);
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -69,11 +74,6 @@ export default function WazaAI() {
     }, 2500);
   };
 
-  useEffect(() => {
-    window.addEventListener('open-waza-ai-intro', handleOpenIntro);
-    return () => window.removeEventListener('open-waza-ai-intro', handleOpenIntro);
-  }, []);
-
   const handleSendMessage = async (text) => {
     if (!text.trim()) return;
     
@@ -85,7 +85,7 @@ export default function WazaAI() {
     try {
       const data = await request(endpoints.chat, {
         method: "POST",
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch (error) {
@@ -94,6 +94,36 @@ export default function WazaAI() {
       setIsLoading(false);
     }
   };
+
+  const handleOpenPrompt = (e) => {
+    const promptText = e.detail;
+    if (!promptText) return;
+    setIsOpen(true);
+    setIsIntroMode(false);
+    handleSendMessage(promptText);
+  };
+
+  useEffect(() => {
+    window.addEventListener('open-waza-ai-intro', handleOpenIntro);
+    window.addEventListener('open-waza-ai-prompt', handleOpenPrompt);
+
+    // Check sessionStorage for pending prompts from redirects
+    const pendingPrompt = sessionStorage.getItem("waza_ai_pending_prompt");
+    if (pendingPrompt) {
+      sessionStorage.removeItem("waza_ai_pending_prompt");
+      // Give page transition time to stabilize
+      setTimeout(() => {
+        setIsOpen(true);
+        setIsIntroMode(false);
+        handleSendMessage(pendingPrompt);
+      }, 500);
+    }
+
+    return () => {
+      window.removeEventListener('open-waza-ai-intro', handleOpenIntro);
+      window.removeEventListener('open-waza-ai-prompt', handleOpenPrompt);
+    };
+  }, []);
 
   return (
     <>
