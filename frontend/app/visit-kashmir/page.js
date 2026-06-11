@@ -61,7 +61,7 @@ export default function VisitKashmirPage() {
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
         <div>
           <span className="place-eyebrow">Waza AI Travel Companion</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4 text-[#D4AF37]">
             Visit Kashmir
           </h1>
           <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
@@ -73,10 +73,20 @@ export default function VisitKashmirPage() {
             &larr; Back to Home
           </Link>
           <Link href="/plan" className="wazwan-btn-primary rounded-full px-6 py-3 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:scale-105 transition-transform">
-            Plan My Trip
+            Visit kashmir
           </Link>
         </div>
       </section>
+
+      {/* Rare destinations section header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <h2 className="text-2xl md:text-3xl font-display font-medium text-white tracking-tight">
+          Rare destinations
+        </h2>
+        <p className="text-white/45 text-xs md:text-sm mt-1">
+          Discover handpicked, offbeat destinations audited for culture, friendliness, and luxury.
+        </p>
+      </div>
 
       {/* Search & Filter Controls */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
@@ -132,17 +142,22 @@ export default function VisitKashmirPage() {
             <p className="text-white/50 text-sm">No destinations found matching your filters.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
             {filteredDestinations.map((dest, idx) => (
               <motion.div
                 key={dest._id || idx}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: Math.min(idx * 0.05, 0.3) }}
-                className="group flex flex-col rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden shadow-2xl hover:border-[var(--saffron)]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all"
+                onClick={() => {
+                  if (window.innerWidth < 768) {
+                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.name + ", Kashmir")}`, "_blank");
+                  }
+                }}
+                className="group flex flex-col rounded-xl md:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden shadow-2xl hover:border-[var(--saffron)]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all cursor-pointer md:cursor-default"
               >
                 {/* Image top */}
-                <div className="relative h-48 w-full overflow-hidden bg-black/40">
+                <div className="relative h-16 xs:h-20 sm:h-24 md:h-48 w-full overflow-hidden bg-black/40">
                   <img
                     src={dest.image || "/wazwan-hero.jpg"}
                     alt={dest.name}
@@ -153,24 +168,24 @@ export default function VisitKashmirPage() {
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4 rounded bg-black/60 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)] backdrop-blur-md">
+                  <div className="absolute top-1 left-1 md:top-4 md:left-4 rounded bg-black/60 px-1 py-0.5 md:px-2 md:py-0.5 text-[8px] md:text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)] backdrop-blur-md">
                     {dest.location ? dest.location.split(",")[0] : "Destination"}
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
+                <div className="p-2 md:p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-display text-2xl font-medium text-white mb-2 group-hover:text-[var(--saffron)] transition-colors">
+                    <h3 className="font-display text-[11px] xs:text-xs sm:text-sm md:text-2xl font-medium text-white mb-0.5 md:mb-2 group-hover:text-[var(--saffron)] transition-colors line-clamp-1 md:line-clamp-none">
                       {dest.name}
                     </h3>
-                    <p className="text-white/60 text-sm leading-relaxed mb-4">
+                    <p className="hidden md:block text-white/60 text-sm leading-relaxed mb-4">
                       {dest.description}
                     </p>
 
                     {/* Meta Indicators */}
                     {dest.bestTimeToVisit && (
-                      <div className="flex items-center gap-2 mb-5 text-xs text-white/50 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 w-fit">
+                      <div className="hidden md:flex items-center gap-2 mb-5 text-xs text-white/50 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 w-fit">
                         <svg className="w-3.5 h-3.5 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -179,7 +194,7 @@ export default function VisitKashmirPage() {
                     )}
 
                     {/* Scores Panel */}
-                    <div className="space-y-3 mb-6 bg-black/30 p-4 rounded-xl border border-white/5">
+                    <div className="hidden md:block space-y-3 mb-6 bg-black/30 p-4 rounded-xl border border-white/5">
                       <div className="text-[0.62rem] font-bold uppercase tracking-wider text-[var(--saffron)] mb-2">
                         Waza AI Scores
                       </div>
@@ -220,7 +235,7 @@ export default function VisitKashmirPage() {
 
                     {/* Attractions list */}
                     {dest.attractions && dest.attractions.length > 0 && (
-                      <div className="mb-6">
+                      <div className="hidden md:block mb-6">
                         <div className="text-[0.62rem] font-bold uppercase tracking-wider text-white/50 mb-2">
                           Key Attractions
                         </div>
@@ -237,7 +252,7 @@ export default function VisitKashmirPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-4 border-t border-white/5 flex gap-3">
+                  <div className="hidden md:flex pt-4 border-t border-white/5 gap-3">
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                         dest.name + ", Kashmir"

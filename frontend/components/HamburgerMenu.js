@@ -101,13 +101,9 @@ export default function HamburgerMenu() {
                   { label: "Profile", href: "/profile" },
                   { label: "Saved Dishes", href: "/favorites" },
                   { label: "Recipes", href: "/recipes" },
-                  { label: "History of Wazwan", href: "/history" },
-                  { label: "Kashmiri Food", href: "/kashmiri-food" },
                   { label: "Traditional Wazwan", href: "/dishes" },
                   { label: "Restaurants", href: "/restaurants" },
-                  { label: "Visit Kashmir", href: "/visit-kashmir" },
-                  { label: "Culinary Itineraries", href: "/itineraries" },
-                  { label: "Plan My Trip", href: "/plan" },
+                  { label: "Visit kashmir", href: "/plan" },
                   { label: "List Your Restaurant", href: "/list-restaurant" },
                 ].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
@@ -196,9 +192,9 @@ export default function HamburgerMenu() {
                   { label: "Kashmiri Food", sub: "Wazwan, Bakery, street eats & teas", href: "/kashmiri-food", iconColor: "saffron" },
                   { label: "Traditional Wazwan", sub: "Trami sequence & core dishes", href: "/dishes", iconColor: "saffron" },
                   { label: "Restaurants", sub: "Where to dine", href: "/restaurants", iconColor: "saffron" },
-                  { label: "Visit Kashmir", sub: "Explore destinations & scores", href: "/visit-kashmir", iconColor: "blue" },
+                  { label: "Rare destinations", sub: "Explore destinations & scores", href: "/visit-kashmir", iconColor: "blue" },
                   { label: "Culinary Itineraries", sub: "Hand-crafted food tours", href: "/itineraries", iconColor: "green" },
-                  { label: "Plan My Trip", sub: "Interactive travel planner", href: "/plan", iconColor: "saffron" },
+                  { label: "Visit kashmir", sub: "Interactive travel planner", href: "/plan", iconColor: "saffron" },
                   { label: "List Your Restaurant", sub: "Join Wazwan Way", href: "/list-restaurant", iconColor: "saffron" },
                 ].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 // Static fallback data in case API fails
 const fallbackDestinations = [
@@ -18,11 +19,32 @@ export default function PlanTripPage() {
   const [step, setStep] = useState(1);
   const [durationMode, setDurationMode] = useState("predefined"); // predefined vs custom
   const [duration, setDuration] = useState("5"); // parsed to integer later
+  const [initialDuration, setInitialDuration] = useState("5");
   const [selectedStyles, setSelectedStyles] = useState([]); // multi-select
+  const { user } = useAuth();
   const [travelParty, setTravelParty] = useState("Couple"); // single-select
   const [travelSeason, setTravelSeason] = useState("Summer"); // single-select
   const [budgetTier, setBudgetTier] = useState("Premium"); // single-select
   const [selectedInterests, setSelectedInterests] = useState([]); // multi-select
+  const [adultsCount, setAdultsCount] = useState(2);
+  const [childrenCount, setChildrenCount] = useState(0);
+  const [seniorsCount, setSeniorsCount] = useState(0);
+  const [userName, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [arrivalDate, setArrivalDate] = useState(null);
+  const [leavingDate, setLeavingDate] = useState(null);
+  const [calendarMonth, setCalendarMonth] = useState(new Date());
+
+  // Pre-populate contact fields if user is authenticated
+  useEffect(() => {
+    if (user) {
+      setUserName(user.name || "");
+      setUserEmail(user.email || "");
+      // Use phone from user object if available
+      setUserPhone(user.phone || "");
+    }
+  }, [user]);
 
   // Database collections
   const [dbDestinations, setDbDestinations] = useState([]);
@@ -67,10 +89,105 @@ export default function PlanTripPage() {
     );
   };
 
+  const handlePrevMonth = () => {
+    const today = new Date();
+    const firstOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    
+    const prevMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1);
+    if (prevMonth >= firstOfCurrentMonth) {
+      setCalendarMonth(prevMonth);
+    }
+  };
+
+  const handleNextMonth = () => {
+    const nextMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1);
+    setCalendarMonth(nextMonth);
+  };
+
+  const handleDateClick = (date) => {
+    if (!arrivalDate || (arrivalDate && leavingDate)) {
+      setArrivalDate(date);
+      setLeavingDate(null);
+    } else {
+      if (date.getTime() === arrivalDate.getTime()) {
+        setArrivalDate(null);
+        setLeavingDate(null);
+      } else if (date < arrivalDate) {
+        setArrivalDate(date);
+        setLeavingDate(null);
+      } else {
+        setLeavingDate(date);
+        
+        // Duration state sync: (leavingDate - arrivalDate) in days
+        const diffTime = Math.abs(date - arrivalDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        setDuration(diffDays.toString());
+      }
+    }
+  };
+
+  const renderCalendarDays = () => {
+    const year = calendarMonth.getFullYear();
+    const month = calendarMonth.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+    
+    const cells = [];
+    // Offset cells
+    for (let i = 0; i < firstDay; i++) {
+      cells.push(<div key={`empty-${i}`} className="w-10 h-10" />);
+    }
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    for (let day = 1; day <= totalDays; day++) {
+      const currentDate = new Date(year, month, day);
+      const isPast = currentDate < today;
+      
+      const isArrival = arrivalDate && currentDate.getTime() === arrivalDate.getTime();
+      const isLeaving = leavingDate && currentDate.getTime() === leavingDate.getTime();
+      const isInRange = arrivalDate && leavingDate && currentDate > arrivalDate && currentDate < leavingDate;
+      
+      let bgClass = "text-white hover:bg-white/10";
+      if (isPast) {
+        bgClass = "text-white/20 cursor-not-allowed";
+      } else if (isArrival || isLeaving) {
+        bgClass = "bg-[var(--saffron)] text-black font-bold shadow-[0_0_10px_rgba(212,175,55,0.4)]";
+      } else if (isInRange) {
+        bgClass = "bg-[#D4AF37]/15 text-[var(--saffron)]";
+      }
+      
+      cells.push(
+        <button
+          key={`day-${day}`}
+          type="button"
+          disabled={isPast}
+          onClick={() => handleDateClick(currentDate)}
+          className={`w-10 h-10 flex items-center justify-center rounded-full text-xs transition-all ${bgClass}`}
+          style={{ minWidth: '40px', minHeight: '40px' }}
+        >
+          {day}
+        </button>
+      );
+    }
+    return cells;
+  };
+
   // Reusable future-ready Itinerary Engine
   const generateItinerary = (params, db) => {
-    const { days, styles, party, season, budget, interests } = params;
+    const { days, styles, party, season, budget, interests, arrivalDate } = params;
     const { destinations, restaurants, dishes } = db;
+
+    // Resolve season dynamically if Custom
+    let resolvedSeason = season;
+    if (season === "Custom" && arrivalDate) {
+      const month = new Date(arrivalDate).getMonth();
+      if ([11, 0, 1, 2].includes(month)) resolvedSeason = "Winter";
+      else if ([3, 4].includes(month)) resolvedSeason = "Spring";
+      else if ([5, 6, 7].includes(month)) resolvedSeason = "Summer";
+      else if ([8, 9, 10].includes(month)) resolvedSeason = "Autumn";
+    }
 
     const numDays = parseInt(days, 10) || 5;
 
@@ -93,10 +210,10 @@ export default function PlanTripPage() {
 
       // Season contextual matching
       const destNameLower = dest.name.toLowerCase();
-      if (season === "Winter") {
+      if (resolvedSeason === "Winter") {
         if (destNameLower.includes("gulmarg")) score += 10;
         if (destNameLower.includes("srinagar")) score += 5;
-      } else if (season === "Summer" || season === "Spring") {
+      } else if (resolvedSeason === "Summer" || resolvedSeason === "Spring") {
         if (destNameLower.includes("pahalgam") || destNameLower.includes("sonamarg") || destNameLower.includes("valley")) {
           score += 8;
         }
@@ -247,12 +364,40 @@ export default function PlanTripPage() {
     };
   };
 
+  const getDerivedSeason = (date) => {
+    if (!date) return "";
+    const month = date.getMonth();
+    if ([11, 0, 1, 2].includes(month)) return "Winter";
+    if ([3, 4].includes(month)) return "Spring";
+    if ([5, 6, 7].includes(month)) return "Summer";
+    if ([8, 9, 10].includes(month)) return "Autumn";
+    return "";
+  };
+
+  const getArrivalText = (date) => {
+    if (!date) return "";
+    const weekday = date.toLocaleDateString('en-US', { weekday: 'short' });
+    const day = date.getDate();
+    const month = date.toLocaleDateString('en-US', { month: 'short' });
+    return `Arriving ${weekday} ${day} ${month}`;
+  };
+
+  const formatDateDMY = (date) => {
+    if (!date) return "";
+    const d = String(date.getDate()).padStart(2, '0');
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const y = date.getFullYear();
+    return `${d}/${m}/${y}`;
+  };
+
   const handleGeneratePlan = () => {
     const params = {
       days: duration,
       styles: selectedStyles.length ? selectedStyles : ["Food Lover"],
       party: travelParty,
       season: travelSeason,
+      arrivalDate: arrivalDate ? arrivalDate.toISOString() : null,
+      leavingDate: leavingDate ? leavingDate.toISOString() : null,
       budget: budgetTier,
       interests: selectedInterests.length ? selectedInterests : ["Traditional Wazwan"]
     };
@@ -266,14 +411,19 @@ export default function PlanTripPage() {
     // Run dynamic recommendation engine
     const itinerary = generateItinerary(params, db);
     setResult(itinerary);
-    setStep(7); // Jump to results page
+    setStep(9); // Jump to results page
   };
 
   const compilePrompt = () => {
+    const seasonText = travelSeason === "Custom" && arrivalDate && leavingDate
+      ? `Custom Dates (Arrival: ${formatDateDMY(arrivalDate)} — Departure: ${formatDateDMY(leavingDate)}, Auto-derived Season: ${getDerivedSeason(arrivalDate)})`
+      : `${travelSeason} Season`;
+
     return `Plan a ${duration}-day Kashmir trip.
+Registered Contact: ${userName} (${userPhone}, ${userEmail})
 Traveler Type: ${selectedStyles.length ? selectedStyles.join(" + ") : "Food Lover"}
-Travel Party: ${travelParty}
-Season: ${travelSeason}
+Travel Party: ${travelParty} (${adultsCount} Adults, ${childrenCount} Children, ${seniorsCount} Seniors over 65)
+Season: ${seasonText}
 Budget: ${budgetTier}
 Interests: ${selectedInterests.length ? selectedInterests.join(", ") : "Traditional Wazwan"}
 
@@ -305,7 +455,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
         <div>
           <span className="place-eyebrow">Luxury Travel Concierge</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
-            Plan My Kashmir Trip
+            Visit kashmir
           </h1>
           <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
             Construct a personalized, score-weighted itinerary leveraging audited database reviews, local restaurants, and wazwan courses.
@@ -326,7 +476,6 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
         </div>
       )}
 
-      {/* Main Questionnaire Flow */}
       {!loadingData && (
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
           <AnimatePresence mode="wait">
@@ -341,81 +490,113 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               >
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 1 of 6: Duration
+                    Step 1 of 8: Duration
                   </span>
-                  <span className="text-white/40 text-xs font-semibold">15% Complete</span>
+                  <span className="text-white/40 text-xs font-semibold">12% Complete</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-6">
                   How many days is your trip?
                 </h2>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                  {[
-                    { label: "3 Days", value: "3", desc: "Weekend getaway", mode: "predefined" },
-                    { label: "5 Days", value: "5", desc: "Classic Valley tour", mode: "predefined" },
-                    { label: "7 Days", value: "7", desc: "Wilderness explorer", mode: "predefined" },
-                    { label: "Custom Trip", value: "custom", desc: "Choose own duration", mode: "custom" }
-                  ].map((item) => (
+                {travelSeason === "Custom" && arrivalDate && leavingDate ? (
+                  <div className="mb-8 p-6 bg-black/40 border border-[var(--saffron)]/20 rounded-xl text-center">
+                    <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-widest block mb-2">
+                      Custom Dates Active (Read-Only)
+                    </span>
+                    <div className="text-4xl font-display font-medium text-[var(--saffron)] mb-2">
+                      {duration} Days / {parseInt(duration) > 1 ? `${parseInt(duration) - 1} Nights` : '0 Nights'}
+                    </div>
+                    <p className="text-white/70 text-xs mt-2 leading-relaxed">
+                      Arriving: <strong className="text-white">{arrivalDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</strong>
+                      <br />
+                      Departure: <strong className="text-white">{leavingDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</strong>
+                    </p>
                     <button
-                      key={item.label}
+                      type="button"
                       onClick={() => {
-                        setDurationMode(item.mode);
-                        if (item.value !== "custom") {
-                          setDuration(item.value);
-                        }
+                        setTravelSeason("Summer");
+                        setArrivalDate(null);
+                        setLeavingDate(null);
                       }}
-                      className={`p-5 rounded-xl border text-center transition-all ${
-                        (item.mode === "custom" && durationMode === "custom") ||
-                        (item.mode === "predefined" && durationMode === "predefined" && duration === item.value)
-                          ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
-                          : "bg-black/30 border-white/10 text-white hover:border-white/30"
-                      }`}
+                      className="mt-4 text-[10px] text-white/50 hover:text-[var(--saffron)] underline transition-colors uppercase tracking-wider font-bold"
                     >
-                      <div className="text-base font-bold">{item.label}</div>
-                      <div className={`text-[0.62rem] mt-1 leading-normal ${
-                        (item.mode === "custom" && durationMode === "custom") ||
-                        (item.mode === "predefined" && durationMode === "predefined" && duration === item.value)
-                          ? "text-black/85"
-                          : "text-white/50"
-                      }`}>
-                        {item.desc}
-                      </div>
+                      Reset to Standard Seasons
                     </button>
-                  ))}
-                </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                      {[
+                        { label: "3 Days", value: "3", desc: "Weekend getaway", mode: "predefined" },
+                        { label: "5 Days", value: "5", desc: "Classic Valley tour", mode: "predefined" },
+                        { label: "7 Days", value: "7", desc: "Wilderness explorer", mode: "predefined" },
+                        { label: "Custom Trip", value: "custom", desc: "Choose own duration", mode: "custom" }
+                      ].map((item) => (
+                        <button
+                          key={item.label}
+                          onClick={() => {
+                            setDurationMode(item.mode);
+                            if (item.value !== "custom") {
+                              setDuration(item.value);
+                            }
+                          }}
+                          className={`p-5 rounded-xl border text-center transition-all ${
+                            (item.mode === "custom" && durationMode === "custom") ||
+                            (item.mode === "predefined" && durationMode === "predefined" && duration === item.value)
+                              ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
+                              : "bg-black/30 border-white/10 text-white hover:border-white/30"
+                          }`}
+                        >
+                          <div className="text-base font-bold">{item.label}</div>
+                          <div className={`text-[0.62rem] mt-1 leading-normal ${
+                            (item.mode === "custom" && durationMode === "custom") ||
+                            (item.mode === "predefined" && durationMode === "predefined" && duration === item.value)
+                              ? "text-black/85"
+                              : "text-white/50"
+                          }`}>
+                            {item.desc}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
 
-                {/* Custom slider display (1 - 30 days) */}
-                {durationMode === "custom" && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="mb-8 p-6 bg-black/40 border border-white/5 rounded-xl text-center"
-                  >
-                    <div className="text-xs uppercase tracking-widest text-white/50 mb-3">
-                      Select Custom Duration
-                    </div>
-                    <div className="text-4xl font-display font-medium text-[var(--saffron)] mb-4">
-                      {duration} Days
-                    </div>
-                    <input
-                      type="range"
-                      min="1"
-                      max="30"
-                      value={duration}
-                      onChange={(e) => setDuration(e.target.value)}
-                      className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[var(--saffron)]"
-                    />
-                    <div className="flex justify-between text-[0.6rem] text-white/40 mt-2">
-                      <span>1 Day</span>
-                      <span>15 Days</span>
-                      <span>30 Days</span>
-                    </div>
-                  </motion.div>
+                    {/* Custom slider display (1 - 30 days) */}
+                    {durationMode === "custom" && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        className="mb-8 p-6 bg-black/40 border border-white/5 rounded-xl text-center"
+                      >
+                        <div className="text-xs uppercase tracking-widest text-white/50 mb-3">
+                          Select Custom Duration
+                        </div>
+                        <div className="text-4xl font-display font-medium text-[var(--saffron)] mb-4">
+                          {duration} Days
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="30"
+                          value={duration}
+                          onChange={(e) => setDuration(e.target.value)}
+                          className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[var(--saffron)]"
+                        />
+                        <div className="flex justify-between text-[0.6rem] text-white/40 mt-2">
+                          <span>1 Day</span>
+                          <span>15 Days</span>
+                          <span>30 Days</span>
+                        </div>
+                      </motion.div>
+                    )}
+                  </>
                 )}
 
                 <div className="flex justify-end border-t border-white/5 pt-6">
                   <button
-                    onClick={() => setStep(2)}
+                    onClick={() => {
+                      setInitialDuration(duration);
+                      setStep(2);
+                    }}
                     className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
                   >
                     Next Step &rarr;
@@ -424,7 +605,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </motion.div>
             )}
 
-            {/* STEP 2: Travel Style (Multi-select) */}
+            {/* STEP 2: Travelers Counter */}
             {step === 2 && (
               <motion.div
                 key="step2"
@@ -435,9 +616,193 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               >
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 2 of 6: Travel Style
+                    Step 2 of 8: Travelers
                   </span>
-                  <span className="text-white/40 text-xs font-semibold">33% Complete</span>
+                  <span className="text-white/40 text-xs font-semibold">25% Complete</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-2">
+                  Who is traveling?
+                </h2>
+                <p className="text-white/50 text-xs mb-8">Specify the group size and age distribution of your party.</p>
+
+                <div className="space-y-6 mb-8">
+                  {/* Adults Counter */}
+                  <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-black/20">
+                    <div>
+                      <div className="text-sm font-bold text-white">Adults</div>
+                      <div className="text-[0.65rem] text-white/50">Age 13 or above</div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setAdultsCount(Math.max(1, adultsCount - 1))}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                      >
+                        -
+                      </button>
+                      <span className="text-lg font-bold text-white w-6 text-center">{adultsCount}</span>
+                      <button
+                        onClick={() => setAdultsCount(Math.min(20, adultsCount + 1))}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Children Counter */}
+                  <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-black/20">
+                    <div>
+                      <div className="text-sm font-bold text-white">Children</div>
+                      <div className="text-[0.65rem] text-white/50">Ages 2 to 12</div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setChildrenCount(Math.max(0, childrenCount - 1))}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                      >
+                        -
+                      </button>
+                      <span className="text-lg font-bold text-white w-6 text-center">{childrenCount}</span>
+                      <button
+                        onClick={() => setChildrenCount(Math.min(20, childrenCount + 1))}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Seniors Counter (above 65) */}
+                  <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-black/20">
+                    <div>
+                      <div className="text-sm font-bold text-white">Seniors (65+)</div>
+                      <div className="text-[0.65rem] text-white/50">Old age travelers (above 65)</div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setSeniorsCount(Math.max(0, seniorsCount - 1))}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                      >
+                        -
+                      </button>
+                      <span className="text-lg font-bold text-white w-6 text-center">{seniorsCount}</span>
+                      <button
+                        onClick={() => setSeniorsCount(Math.min(20, seniorsCount + 1))}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-between border-t border-white/5 pt-6">
+                  <button
+                    onClick={() => setStep(1)}
+                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                  >
+                    &larr; Back
+                  </button>
+                  <button
+                    onClick={() => setStep(3)}
+                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
+                  >
+                    Next Step &rarr;
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* STEP 3: Contact Details (New Step) */}
+            {step === 3 && (
+              <motion.div
+                key="step3"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md"
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
+                    Step 3 of 8: Registration Details
+                  </span>
+                  <span className="text-white/40 text-xs font-semibold">37% Complete</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-2">
+                  Registration Details
+                </h2>
+                <p className="text-white/50 text-xs mb-8">Please provide the details of the person registering this custom itinerary.</p>
+
+                <div className="space-y-5 mb-8">
+                  {/* Full Name */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-white/60">Name of the person registering</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Nasir Kirmani"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 focus:border-[var(--saffron)] focus:ring-1 focus:ring-[var(--saffron)] rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                    />
+                  </div>
+
+                  {/* Mobile Number */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-white/60">Mobile Number</label>
+                    <input
+                      type="tel"
+                      placeholder="e.g. +91 98765 43210"
+                      value={userPhone}
+                      onChange={(e) => setUserPhone(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 focus:border-[var(--saffron)] focus:ring-1 focus:ring-[var(--saffron)] rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                    />
+                  </div>
+
+                  {/* Email ID */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-white/60">Email ID</label>
+                    <input
+                      type="email"
+                      placeholder="e.g. nasir@example.com"
+                      value={userEmail}
+                      onChange={(e) => setUserEmail(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 focus:border-[var(--saffron)] focus:ring-1 focus:ring-[var(--saffron)] rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-between border-t border-white/5 pt-6">
+                  <button
+                    onClick={() => setStep(2)}
+                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                  >
+                    &larr; Back
+                  </button>
+                  <button
+                    onClick={() => setStep(4)}
+                    disabled={!userName || !userPhone || !userEmail}
+                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold disabled:opacity-50"
+                  >
+                    Next Step &rarr;
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* STEP 4: Travel Style (Multi-select) */}
+            {step === 4 && (
+              <motion.div
+                key="step4"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md"
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
+                    Step 4 of 8: Travel Style
+                  </span>
+                  <span className="text-white/40 text-xs font-semibold">50% Complete</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-2">
                   Select your travel style
@@ -478,13 +843,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
-                    onClick={() => setStep(1)}
+                    onClick={() => setStep(3)}
                     className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
-                    onClick={() => setStep(3)}
+                    onClick={() => setStep(5)}
                     disabled={selectedStyles.length === 0}
                     className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold disabled:opacity-50"
                   >
@@ -494,10 +859,10 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </motion.div>
             )}
 
-            {/* STEP 3: Travel Party (Single-select) */}
-            {step === 3 && (
+            {/* STEP 5: Travel Party (Single-select) */}
+            {step === 5 && (
               <motion.div
-                key="step3"
+                key="step5"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -505,9 +870,9 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               >
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 3 of 6: Travel Party
+                    Step 5 of 8: Travel Party
                   </span>
-                  <span className="text-white/40 text-xs font-semibold">50% Complete</span>
+                  <span className="text-white/40 text-xs font-semibold">62% Complete</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-6">
                   Who are you traveling with?
@@ -540,13 +905,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
-                    onClick={() => setStep(2)}
+                    onClick={() => setStep(4)}
                     className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
-                    onClick={() => setStep(4)}
+                    onClick={() => setStep(6)}
                     className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
                   >
                     Next Step &rarr;
@@ -555,10 +920,10 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </motion.div>
             )}
 
-            {/* STEP 4: Season (Single-select) */}
-            {step === 4 && (
+            {/* STEP 6: Season (Single-select) */}
+            {step === 6 && (
               <motion.div
-                key="step4"
+                key="step6"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -566,48 +931,130 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               >
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 4 of 6: Season
+                    Step 6 of 8: Season
                   </span>
-                  <span className="text-white/40 text-xs font-semibold">66% Complete</span>
+                  <span className="text-white/40 text-xs font-semibold">75% Complete</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-6">
                   When are you visiting Kashmir?
                 </h2>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
                   {[
                     { label: "Spring", value: "Spring", desc: "April to May (Badamwari blossoms & tulips)" },
                     { label: "Summer", value: "Summer", desc: "June to August (Lush green alpine meadows)" },
                     { label: "Autumn", value: "Autumn", desc: "September to November (Golden Chinars & saffron)" },
-                    { label: "Winter", value: "Winter", desc: "December to March (Snow resorts & warm Harissa)" }
+                    { label: "Winter", value: "Winter", desc: "December to March (Snow resorts & warm Harissa)" },
+                    { label: "Custom Dates", value: "Custom", desc: "Select specific arrival and departure dates" }
                   ].map((item) => (
                     <button
                       key={item.value}
                       onClick={() => setTravelSeason(item.value)}
-                      className={`p-5 rounded-xl border text-left transition-all h-36 flex flex-col justify-between ${
+                      className={`p-4 rounded-xl border text-left transition-all h-36 flex flex-col justify-between ${
                         travelSeason === item.value
                           ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
                           : "bg-black/30 border-white/10 text-white hover:border-white/30"
                       }`}
                     >
-                      <div className="text-sm font-bold">{item.label}</div>
-                      <div className={`text-[0.6rem] mt-2 leading-relaxed ${travelSeason === item.value ? "text-black/85" : "text-white/50"}`}>
+                      <div className="text-xs font-bold">{item.label}</div>
+                      <div className={`text-[0.55rem] mt-2 leading-relaxed ${travelSeason === item.value ? "text-black/85" : "text-white/50"}`}>
                         {item.desc}
                       </div>
                     </button>
                   ))}
                 </div>
 
-                <div className="flex justify-between border-t border-white/5 pt-6">
+                {travelSeason === "Custom" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="mt-6 p-5 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md"
+                  >
+                    {!arrivalDate ? (
+                      <div className="text-[var(--saffron)] font-bold text-center mb-4 uppercase tracking-widest text-sm">Select your arrival date</div>
+                    ) : !leavingDate ? (
+                      <div className="text-[var(--saffron)] font-bold text-center mb-4 uppercase tracking-widest text-sm">Now select your departure date</div>
+                    ) : null}
+                    {/* Calendar Month Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <button
+                        type="button"
+                        onClick={handlePrevMonth}
+                        disabled={new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1) < new Date(new Date().getFullYear(), new Date().getMonth(), 1)}
+                        className={`p-1.5 rounded-full border border-white/10 transition-colors ${
+                          new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1) < new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+                            ? "opacity-30 cursor-not-allowed"
+                            : "text-white hover:border-[var(--saffron)] hover:text-[var(--saffron)]"
+                        }`}
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                      <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                        {calendarMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                      </h3>
+                      <button
+                        type="button"
+                        onClick={handleNextMonth}
+                        className="p-1.5 rounded-full border border-white/10 text-white hover:border-[var(--saffron)] hover:text-[var(--saffron)] transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Weekday Row */}
+                    <div className="grid grid-cols-7 gap-1 text-center mb-2">
+                      {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((wd) => (
+                        <div key={wd} className="text-white/40 text-[0.62rem] font-bold uppercase tracking-wider">
+                          {wd}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Day Grid */}
+                    <div className="grid grid-cols-7 gap-1.5 justify-items-center">
+                      {renderCalendarDays()}
+                    </div>
+
+                    {/* Trip Summary Strip */}
+                    {arrivalDate && leavingDate && (
+                      <>
+                        {parseInt(duration) !== parseInt(initialDuration) && (
+                          <div className="mt-4 p-3 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-200 text-xs text-center">
+                            You selected {initialDuration} days in Step 1 but your dates cover {duration} days. Your itinerary will be {parseInt(duration) > parseInt(initialDuration) ? "extended" : "adjusted"} to {duration} days.
+                          </div>
+                        )}
+                        <div className="mt-5 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/70">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="bg-[#D4AF37]/15 text-[var(--saffron)] px-2.5 py-0.5 rounded font-bold uppercase text-[9px] tracking-wider border border-[var(--saffron)]/10">
+                              {parseInt(duration) > 1 ? `${parseInt(duration) - 1} nights` : '0 nights'} ({duration} Days)
+                            </span>
+                            <span className="text-white/30">|</span>
+                            <span>Derived Season: <strong className="text-white">{getDerivedSeason(arrivalDate)}</strong></span>
+                          </div>
+                          <div className="font-semibold text-[var(--saffron)]">
+                            {getArrivalText(arrivalDate)}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
+                )}
+
+                <div className="flex justify-between border-t border-white/5 pt-6 mt-6">
                   <button
-                    onClick={() => setStep(3)}
+                    onClick={() => setStep(5)}
                     className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
-                    onClick={() => setStep(5)}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
+                    onClick={() => setStep(7)}
+                    disabled={travelSeason === "Custom" && (!arrivalDate || !leavingDate)}
+                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold disabled:opacity-50"
                   >
                     Next Step &rarr;
                   </button>
@@ -615,10 +1062,10 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </motion.div>
             )}
 
-            {/* STEP 5: Budget */}
-            {step === 5 && (
+            {/* STEP 7: Budget */}
+            {step === 7 && (
               <motion.div
-                key="step5"
+                key="step7"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -626,9 +1073,9 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               >
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 5 of 6: Budget Tier
+                    Step 7 of 8: Budget Tier
                   </span>
-                  <span className="text-white/40 text-xs font-semibold">80% Complete</span>
+                  <span className="text-white/40 text-xs font-semibold">87% Complete</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-6">
                   What is your budget tier?
@@ -660,13 +1107,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
-                    onClick={() => setStep(4)}
+                    onClick={() => setStep(6)}
                     className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
-                    onClick={() => setStep(6)}
+                    onClick={() => setStep(8)}
                     className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
                   >
                     Next Step &rarr;
@@ -675,10 +1122,10 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </motion.div>
             )}
 
-            {/* STEP 6: Culinary Interests (Multi-select) */}
-            {step === 6 && (
+            {/* STEP 8: Culinary Interests (Multi-select) */}
+            {step === 8 && (
               <motion.div
-                key="step6"
+                key="step8"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -686,7 +1133,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               >
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 6 of 6: Food Interests
+                    Step 8 of 8: Food Interests
                   </span>
                   <span className="text-white/40 text-xs font-semibold">95% Complete</span>
                 </div>
@@ -729,7 +1176,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
-                    onClick={() => setStep(5)}
+                    onClick={() => setStep(7)}
                     className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
@@ -745,8 +1192,8 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </motion.div>
             )}
 
-            {/* STEP 7: Completed Dynamic Itinerary Results */}
-            {step === 7 && result && (
+            {/* STEP 9: Completed Dynamic Itinerary Results */}
+            {step === 9 && result && (
               <motion.div
                 key="result"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -763,7 +1210,9 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     {result.title}
                   </h2>
                   <div className="flex flex-wrap gap-2.5 mt-4 text-[0.65rem] text-white/50 font-bold uppercase tracking-wider">
-                    <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">{travelSeason} Season</span>
+                    <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">
+                      {travelSeason === "Custom" && arrivalDate ? `${getDerivedSeason(arrivalDate)} Season` : `${travelSeason} Season`}
+                    </span>
                     <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">{budgetTier} Tier</span>
                     <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">{travelParty}</span>
                   </div>

@@ -112,9 +112,9 @@ function DishesPageContent() {
                 initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="wazwan-dish-card flex flex-col justify-between border-[var(--saffron)]/20 shadow-[0_0_30px_rgba(212,175,55,0.05)]"
+                className="wazwan-dish-card flex flex-col justify-between border-[var(--saffron)]/20 shadow-[0_0_30px_rgba(212,175,55,0.05)] h-full"
               >
-                <div className="relative h-[220px] w-full overflow-hidden bg-white/5">
+                <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                   <img
                     src={dish.image}
                     alt={dish.name}
@@ -126,19 +126,19 @@ function DishesPageContent() {
                     Core Dish
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[var(--saffron)]">
+                <div className="p-[10px] md:p-6 flex flex-col flex-grow">
+                  <p className="text-[9px] md:text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[var(--saffron)]">
                     {dish.courseType} Course
                   </p>
-                  <h3 className="font-display mt-2 text-2xl text-white">{dish.name}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/60">{dish.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="place-badge">{dish.foodType}</span>
-                    <span className="place-badge">{dish.spiceLevel}</span>
+                  <h3 className="font-display mt-1 md:mt-2 text-[14px] md:text-2xl font-medium md:font-normal text-white">{dish.name}</h3>
+                  <p className="mt-1 md:mt-3 text-[12px] md:text-sm leading-relaxed text-white/60 truncate">{dish.description}</p>
+                  <div className="mt-auto pt-3 md:pt-4 flex flex-wrap gap-2">
+                    <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.foodType}</span>
+                    <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.spiceLevel}</span>
                   </div>
                 </div>
-                <div className="px-6 pb-6 pt-4 border-t border-white/5 flex justify-between items-center bg-black/20">
-                  <Link href={`/dishes/${dish.slug || dish._id}`} className="bg-[var(--saffron)] text-black font-bold px-4 py-2 rounded hover:bg-[var(--saffron-light)] transition-colors">
+                <div className="px-[10px] pb-[10px] pt-[10px] md:px-6 md:pb-6 md:pt-4 border-t border-white/5 flex justify-between items-center bg-black/20 mt-auto">
+                  <Link href={`/dishes/${dish.slug || dish._id}`} className="bg-[var(--saffron)] text-black font-bold px-3 py-1.5 md:px-4 md:py-2 text-[11px] md:text-base rounded hover:bg-[var(--saffron-light)] transition-colors w-full text-center md:text-left">
                     View Dish Details
                   </Link>
                 </div>
@@ -164,17 +164,17 @@ function DishesPageContent() {
             </div>
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.foundation.map((dish) => (
-                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                  <div className="p-6">
-                    <h4 className="font-display text-2xl text-white mb-2">{dish.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                    <div className="flex gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.priceRange}</span>
+                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
+                  <div className="p-[10px] md:p-6 flex flex-col flex-grow">
+                    <h4 className="font-display text-[14px] md:text-2xl font-medium md:font-normal text-white mb-1 md:mb-2">{dish.name}</h4>
+                    <p className="text-white/60 text-[12px] md:text-xs leading-relaxed mb-3 md:mb-4 truncate">{dish.description}</p>
+                    <div className="mt-auto flex flex-wrap gap-2">
+                      <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.foodType}</span>
+                      <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.priceRange}</span>
                     </div>
                   </div>
-                  <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center">
-                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors">
+                  <div className="px-[10px] pb-[10px] pt-[10px] md:px-6 md:pb-6 md:pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center mt-auto">
+                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[11px] md:text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors w-full text-center md:text-left">
                       Explore Details &rarr;
                     </Link>
                   </div>
@@ -193,17 +193,17 @@ function DishesPageContent() {
             </div>
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.signature.map((dish) => (
-                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                  <div className="p-6">
-                    <h4 className="font-display text-2xl text-white mb-2">{dish.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                    <div className="flex gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.priceRange}</span>
+                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
+                  <div className="p-[10px] md:p-6 flex flex-col flex-grow">
+                    <h4 className="font-display text-[14px] md:text-2xl font-medium md:font-normal text-white mb-1 md:mb-2">{dish.name}</h4>
+                    <p className="text-white/60 text-[12px] md:text-xs leading-relaxed mb-3 md:mb-4 truncate">{dish.description}</p>
+                    <div className="mt-auto flex flex-wrap gap-2">
+                      <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.foodType}</span>
+                      <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.priceRange}</span>
                     </div>
                   </div>
-                  <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center">
-                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors">
+                  <div className="px-[10px] pb-[10px] pt-[10px] md:px-6 md:pb-6 md:pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center mt-auto">
+                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[11px] md:text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors w-full text-center md:text-left">
                       Explore Details &rarr;
                     </Link>
                   </div>
@@ -222,17 +222,17 @@ function DishesPageContent() {
             </div>
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.vegetarian.map((dish) => (
-                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
-                  <div className="p-6">
-                    <h4 className="font-display text-2xl text-white mb-2">{dish.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
-                    <div className="flex gap-2">
-                      <span className="place-badge">{dish.foodType}</span>
-                      <span className="place-badge">{dish.priceRange}</span>
+                <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
+                  <div className="p-[10px] md:p-6 flex flex-col flex-grow">
+                    <h4 className="font-display text-[14px] md:text-2xl font-medium md:font-normal text-white mb-1 md:mb-2">{dish.name}</h4>
+                    <p className="text-white/60 text-[12px] md:text-xs leading-relaxed mb-3 md:mb-4 truncate">{dish.description}</p>
+                    <div className="mt-auto flex flex-wrap gap-2">
+                      <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.foodType}</span>
+                      <span className="place-badge !text-[11px] !px-[8px] !py-[4px] md:!text-[0.78rem] md:!px-[0.7rem] md:!py-[0.35rem]">{dish.priceRange}</span>
                     </div>
                   </div>
-                  <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center">
-                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors">
+                  <div className="px-[10px] pb-[10px] pt-[10px] md:px-6 md:pb-6 md:pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center mt-auto">
+                    <Link href={`/dishes/${dish.slug || dish._id}`} className="text-[11px] md:text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors w-full text-center md:text-left">
                       Explore Details &rarr;
                     </Link>
                   </div>

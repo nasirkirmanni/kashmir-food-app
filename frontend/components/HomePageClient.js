@@ -636,7 +636,188 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         <span className="mt-8 block text-[0.8rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">A Kashmiri Elder, Srinagar</span>
       </div>
 
-      <section id="tips" className="page-shell py-32">
+      <section className="block md:hidden page-shell py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.05),transparent_50%)] pointer-events-none" />
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }} 
+          transition={{ duration: 0.8 }}
+          className="mb-10 text-center relative z-10"
+        >
+          <h2 className="font-display text-4xl font-medium tracking-tight text-white">All Things Kashmir!</h2>
+          <p className="mx-auto mt-3 px-4 text-[0.85rem] leading-relaxed text-white/60">Explore Kashmir through its food, culture, travel, and traditions.</p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 gap-4 px-4 relative z-10">
+          {/* Card 1: Kashmiri Food */}
+          <motion.div
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ y: -4 }}
+            className="flex"
+          >
+            <Link 
+              href="/kashmiri-food" 
+              className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
+            >
+              {/* Subtle glass refraction highlight */}
+              <div className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden mix-blend-overlay opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 transition-transform duration-700 ease-out blur-sm" />
+              </div>
+
+              {/* Icon Container */}
+              <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/5 border border-white/15 text-[var(--saffron)] transition-all duration-300 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 group-hover:scale-105 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 filter drop-shadow-[0_0_4px_rgba(212,175,55,0.4)]">
+                  {/* Cloche dome */}
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 17a9 9 0 0118 0H3z" />
+                  {/* Cloche handle */}
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                  {/* Platter base */}
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2 19h20v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-1z" />
+                </svg>
+              </div>
+
+              {/* Text info */}
+              <div className="mt-auto">
+                <h3 className="font-display text-[1.15rem] font-medium leading-tight text-white group-hover:text-[var(--saffron)] transition-colors">
+                  Kashmiri Food
+                </h3>
+                <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
+                  Wazwan dishes, local cuisines & spices
+                </p>
+              </div>
+
+              {/* Tiny arrow hint */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Card 2: Plan Kashmir Visit */}
+          <motion.div
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ y: -4 }}
+            className="flex"
+          >
+            <Link 
+              href="/visit-kashmir" 
+              className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
+            >
+              {/* Subtle glass refraction highlight */}
+              <div className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden mix-blend-overlay opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 transition-transform duration-700 ease-out blur-sm" />
+              </div>
+
+              {/* Icon Container */}
+              <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/5 border border-white/15 text-[var(--saffron)] transition-all duration-300 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 group-hover:scale-105 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 filter drop-shadow-[0_0_4px_rgba(212,175,55,0.4)]">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88" />
+                </svg>
+              </div>
+
+              {/* Text info */}
+              <div className="mt-auto">
+                <h3 className="font-display text-[1.15rem] font-medium leading-tight text-white group-hover:text-[var(--saffron)] transition-colors">
+                  Rare destinations
+                </h3>
+                <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
+                  Valleys, pristine lakes & scores
+                </p>
+              </div>
+
+              {/* Tiny arrow hint */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Card 3: Culinary Itineraries */}
+          <motion.div
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ y: -4 }}
+            className="flex"
+          >
+            <Link 
+              href="/itineraries" 
+              className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
+            >
+              {/* Subtle glass refraction highlight */}
+              <div className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden mix-blend-overlay opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 transition-transform duration-700 ease-out blur-sm" />
+              </div>
+
+              {/* Icon Container */}
+              <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/5 border border-white/15 text-[var(--saffron)] transition-all duration-300 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 group-hover:scale-105 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 filter drop-shadow-[0_0_4px_rgba(212,175,55,0.4)]">
+                  <circle cx="6" cy="19" r="3" />
+                  <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-5a3.5 3.5 0 0 1 0-7H15" />
+                  <circle cx="18" cy="5" r="3" />
+                </svg>
+              </div>
+
+              {/* Text info */}
+              <div className="mt-auto">
+                <h3 className="font-display text-[1.15rem] font-medium leading-tight text-white group-hover:text-[var(--saffron)] transition-colors">
+                  Culinary Itineraries
+                </h3>
+                <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
+                  Curated food trails & travel journeys
+                </p>
+              </div>
+
+              {/* Tiny arrow hint */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Card 4: History of Wazwan */}
+          <motion.div
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ y: -4 }}
+            className="flex"
+          >
+            <Link 
+              href="/history" 
+              className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
+            >
+              {/* Subtle glass refraction highlight */}
+              <div className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden mix-blend-overlay opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 transition-transform duration-700 ease-out blur-sm" />
+              </div>
+
+              {/* Icon Container */}
+              <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/5 border border-white/15 text-[var(--saffron)] transition-all duration-300 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 group-hover:scale-105 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 filter drop-shadow-[0_0_4px_rgba(212,175,55,0.4)]">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </div>
+
+              {/* Text info */}
+              <div className="mt-auto">
+                <h3 className="font-display text-[1.15rem] font-medium leading-tight text-white group-hover:text-[var(--saffron)] transition-colors">
+                  History of Wazwan
+                </h3>
+                <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
+                  14th-century origins, culture & heritage
+                </p>
+              </div>
+
+              {/* Tiny arrow hint */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+              </div>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="tips" className="hidden md:block page-shell py-32">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           className="mb-24 text-center"
@@ -680,7 +861,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               </p>
             </div>
             <div className="flex flex-col sm:flex-row w-full sm:w-auto justify-center gap-4">
-              <Link href="/dishes" className="w-full sm:w-auto text-center rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-black transition-transform hover:scale-105">
+              <Link href="/kashmiri-food" className="w-full sm:w-auto text-center rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-black transition-transform hover:scale-105">
                 View all dishes
               </Link>
               <Link href="/restaurants" className="w-full sm:w-auto text-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-wide text-white backdrop-blur transition hover:bg-white/10">
