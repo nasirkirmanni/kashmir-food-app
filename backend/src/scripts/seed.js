@@ -3,9 +3,10 @@ import bcrypt from "bcryptjs";
 import { connectDB } from "../config/db.js";
 import { Dish } from "../models/Dish.js";
 import { Restaurant } from "../models/Restaurant.js";
+import { Destination } from "../models/Destination.js";
 import { User } from "../models/User.js";
 import { Review } from "../models/Review.js";
-import { dishes, restaurants, users } from "../data/seedData.js";
+import { dishes, restaurants, destinations, users } from "../data/seedData.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ const seed = async () => {
   await Promise.all([
     Dish.deleteMany({}),
     Restaurant.deleteMany({}),
+    Destination.deleteMany({}),
     User.deleteMany({}),
     Review.deleteMany({})
   ]);
@@ -34,9 +36,12 @@ const seed = async () => {
   const createdRestaurants = await Restaurant.insertMany(
     restaurants.map((restaurant) => ({
       ...restaurant,
-      linkedDishes: restaurant.linkedDishNames.map((dishName) => dishMap.get(dishName))
+      linkedDishes: (restaurant.linkedDishNames || []).map((dishName) => dishMap.get(dishName)).filter(Boolean)
     }))
   );
+
+  const createdDestinations = await Destination.insertMany(destinations);
+  console.log(`Seeded ${createdDestinations.length} destinations`);
 
   await Review.insertMany([
     {

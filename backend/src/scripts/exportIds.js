@@ -8,6 +8,7 @@ dotenv.config();
 const MONGODB_URI = process.env.MONGODB_URI;
 const restaurantsPath = path.join("..", "frontend", "restaurants-static-ids.json");
 const dishesPath = path.join("..", "frontend", "dishes-static-ids.json");
+const destinationsPath = path.join("..", "frontend", "destinations-static-ids.json");
 
 async function run() {
   console.log("Connecting to MongoDB to export IDs...");
@@ -37,6 +38,15 @@ async function run() {
   fs.writeFileSync(dishesPath, JSON.stringify(dishIds, null, 2));
   console.log(`Successfully exported ${dishIds.length} dish IDs & Slugs to ${dishesPath}`);
 
+  // Set up Destination model dynamically
+  const Destination = mongoose.models.Destination || mongoose.model("Destination", new mongoose.Schema({}));
+  const destinations = await Destination.find({}, "_id slug").lean();
+  const destinationIds = destinations.map((d) => ({
+    id: d._id.toString(),
+    slug: d.slug
+  }));
+  fs.writeFileSync(destinationsPath, JSON.stringify(destinationIds, null, 2));
+  console.log(`Successfully exported ${destinationIds.length} destination IDs & Slugs to ${destinationsPath}`);
   
   await mongoose.disconnect();
 }

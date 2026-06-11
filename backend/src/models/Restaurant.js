@@ -23,6 +23,9 @@ const restaurantSchema = new mongoose.Schema(
     touristTrapWarning: { type: Boolean, default: false },
     touristTrapReason: { type: String, default: "" },
     googleMapsQuery: { type: String, required: true },
+    authenticityScore: { type: Number, default: 4.0, min: 1, max: 5 },
+    touristFriendlinessScore: { type: Number, default: 4.0, min: 1, max: 5 },
+    luxuryScore: { type: Number, default: 3.0, min: 1, max: 5 },
     slug: { type: String, unique: true, sparse: true },
   },
   { timestamps: true }

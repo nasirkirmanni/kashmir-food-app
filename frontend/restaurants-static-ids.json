@@ -1,186 +1,206 @@
 [
   {
-    "id": "6a281eaca131360af1aab326",
-    "slug": "stream-restaurant"
-  },
-  {
-    "id": "6a281eaca131360af1aab322",
-    "slug": "lhasa-restaurant"
-  },
-  {
-    "id": "6a281eaca131360af1aab331",
-    "slug": "al-hadaf-restaurant"
-  },
-  {
-    "id": "6a281eaca131360af1aab336",
-    "slug": "7-cs-cafe-fine-dine"
-  },
-  {
-    "id": "6a281eaca131360af1aab329",
-    "slug": "mummy-please"
-  },
-  {
-    "id": "6a281eaca131360af1aab337",
-    "slug": "the-chinar"
-  },
-  {
-    "id": "6a281eaca131360af1aab338",
-    "slug": "1860-restaurant"
-  },
-  {
-    "id": "6a281eaca131360af1aab31e",
+    "id": "6a2a4978ac7d60a9cca76f5d",
     "slug": "shamyana-restaurant"
   },
   {
-    "id": "6a281eaca131360af1aab32e",
-    "slug": "chai-jaai"
-  },
-  {
-    "id": "6a281eaca131360af1aab323",
-    "slug": "clove-the-art-of-dining"
-  },
-  {
-    "id": "6a281eaca131360af1aab325",
-    "slug": "jee-enn-sons"
-  },
-  {
-    "id": "6a281eaca131360af1aab32d",
-    "slug": "gulshan-books-cafe"
-  },
-  {
-    "id": "6a281eaca131360af1aab334",
-    "slug": "wazwan-point"
-  },
-  {
-    "id": "6a281eaca131360af1aab339",
-    "slug": "golden-chinar-dining"
-  },
-  {
-    "id": "6a281eaca131360af1aab32b",
-    "slug": "winterfell-cafe"
-  },
-  {
-    "id": "6a281eaca131360af1aab335",
-    "slug": "downtown-wazwan-houses"
-  },
-  {
-    "id": "6a281eaca131360af1aab32f",
-    "slug": "kashmiri-kitchen"
-  },
-  {
-    "id": "6a281eaca131360af1aab327",
-    "slug": "khaiba-restaurant"
-  },
-  {
-    "id": "6a281eaca131360af1aab333",
-    "slug": "cafia-restaurant"
-  },
-  {
-    "id": "6a281eaca131360af1aab320",
-    "slug": "ahdoos"
-  },
-  {
-    "id": "6a281eaca131360af1aab31f",
+    "id": "6a2a4978ac7d60a9cca76f5e",
     "slug": "mughal-darbar"
   },
   {
-    "id": "6a281eaca131360af1aab321",
+    "id": "6a2a4978ac7d60a9cca76f5f",
+    "slug": "ahdoos"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f60",
     "slug": "kareema-restaurant"
   },
   {
-    "id": "6a281eaca131360af1aab324",
+    "id": "6a2a4978ac7d60a9cca76f61",
+    "slug": "lhasa-restaurant"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f62",
+    "slug": "clove-the-art-of-dining"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f63",
     "slug": "new-mughal-darbar"
   },
   {
-    "id": "6a281eaca131360af1aab32c",
-    "slug": "the-boulevard-avenue"
+    "id": "6a2a4978ac7d60a9cca76f64",
+    "slug": "jee-enn-sons"
   },
   {
-    "id": "6a281eaca131360af1aab332",
-    "slug": "grand-mughal-darbar"
+    "id": "6a2a4978ac7d60a9cca76f65",
+    "slug": "stream-restaurant"
   },
   {
-    "id": "6a281eaca131360af1aab328",
+    "id": "6a2a4978ac7d60a9cca76f66",
+    "slug": "khaiba-restaurant"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f67",
     "slug": "imran-cafeteria-imran-bbq"
   },
   {
-    "id": "6a281eaca131360af1aab32a",
+    "id": "6a2a4978ac7d60a9cca76f68",
+    "slug": "mummy-please"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f69",
     "slug": "sufi-restaurant"
   },
   {
-    "id": "6a281eaca131360af1aab330",
+    "id": "6a2a4978ac7d60a9cca76f6a",
+    "slug": "winterfell-cafe"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f6b",
+    "slug": "the-boulevard-avenue"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f6c",
+    "slug": "gulshan-books-cafe"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f6d",
+    "slug": "chai-jaai"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f6e",
+    "slug": "kashmiri-kitchen"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f6f",
     "slug": "dar-al-taj"
   },
   {
-    "id": "6a2916cb63b065db85043f6e",
+    "id": "6a2a4978ac7d60a9cca76f70",
+    "slug": "al-hadaf-restaurant"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f71",
+    "slug": "grand-mughal-darbar"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f72",
+    "slug": "cafia-restaurant"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f73",
+    "slug": "wazwan-point"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f74",
+    "slug": "downtown-wazwan-houses"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f75",
+    "slug": "7-cs-cafe-fine-dine"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f76",
+    "slug": "the-chinar"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f77",
+    "slug": "golden-chinar-dining"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f78",
     "slug": "real-kashmiri-wazwan"
   },
   {
-    "id": "6a2916cb63b065db85043f6f",
+    "id": "6a2a4978ac7d60a9cca76f79",
     "slug": "sifar-pahalgam"
   },
   {
-    "id": "6a2916cb63b065db85043f70",
+    "id": "6a2a4978ac7d60a9cca76f7a",
     "slug": "eat-more-restaurant"
   },
   {
-    "id": "6a2916cb63b065db85043f71",
+    "id": "6a2a4978ac7d60a9cca76f7b",
     "slug": "lazeez-foods"
   },
   {
-    "id": "6a29188963b065db85043f72",
+    "id": "6a2a4978ac7d60a9cca76f7c",
     "slug": "salam-e-wazwan-gulmarg"
   },
   {
-    "id": "6a29188963b065db85043f73",
+    "id": "6a2a4978ac7d60a9cca76f7d",
+    "slug": "1860-restaurant"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f7e",
     "slug": "bakshi-restaurant-cafe"
   },
   {
-    "id": "6a29188963b065db85043f74",
+    "id": "6a2a4978ac7d60a9cca76f7f",
     "slug": "panjabi-dhaba-and-kashmiri-wazwan"
   },
   {
-    "id": "6a29188963b065db85043f75",
+    "id": "6a2a4978ac7d60a9cca76f80",
     "slug": "gulmarg-zaika-restaurant"
   },
   {
-    "id": "6a29188963b065db85043f76",
+    "id": "6a2a4978ac7d60a9cca76f81",
     "slug": "tarboosh-foods"
   },
   {
-    "id": "6a2922a6c5df487e756a5960",
-    "slug": "rizk-kashmiri-wazwan"
+    "id": "6a2a4978ac7d60a9cca76f82",
+    "slug": "nishat-breeze-restaurant"
   },
   {
-    "id": "6a2922a6c5df487e756a5962",
-    "slug": "the-mountain-lounge-restaurant"
+    "id": "6a2a4978ac7d60a9cca76f83",
+    "slug": "shalimar-heights-cafe"
   },
   {
-    "id": "6a2922a6c5df487e756a595f",
-    "slug": "hotel-glacier-heights"
+    "id": "6a2a4978ac7d60a9cca76f84",
+    "slug": "lidder-heights-restaurant"
   },
   {
-    "id": "6a2922a6c5df487e756a595d",
-    "slug": "the-vista-hotel-sonamarg"
+    "id": "6a2a4978ac7d60a9cca76f85",
+    "slug": "trout-beat-pahalgam"
   },
   {
-    "id": "6a2922a6c5df487e756a595e",
-    "slug": "glacier-heights-restaurant"
+    "id": "6a2a4978ac7d60a9cca76f86",
+    "slug": "snowland-restaurant"
   },
   {
-    "id": "6a2922a6c5df487e756a595a",
-    "slug": "lolabi-kashmiri-wazwan"
+    "id": "6a2a4978ac7d60a9cca76f87",
+    "slug": "thajiwas-view-point-eatery"
   },
   {
-    "id": "6a2922a6c5df487e756a595c",
-    "slug": "hotel-sounsar-and-restaurant"
+    "id": "6a2a4978ac7d60a9cca76f88",
+    "slug": "sindh-valley-retreat"
   },
   {
-    "id": "6a2922a6c5df487e756a5961",
-    "slug": "thajwas-glacier-hotel-restaurant"
+    "id": "6a2a4978ac7d60a9cca76f89",
+    "slug": "tangmarg-treat"
   },
   {
-    "id": "6a2922a6c5df487e756a595b",
-    "slug": "hotel-tranquil-retreat"
+    "id": "6a2a4978ac7d60a9cca76f8a",
+    "slug": "gurez-alpine-dhaba"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f8b",
+    "slug": "yusmarg-meadows-cafe"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f8c",
+    "slug": "doodhpathri-tea-stall-grill"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f8d",
+    "slug": "verinag-springs-restaurant"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f8e",
+    "slug": "kokernag-botanist-cafe"
+  },
+  {
+    "id": "6a2a49c6185d2d28b82e8681",
+    "slug": "doodhpathri-pine-grill"
   }
 ]

@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { connectDB } from "../config/db.js";
 import { Dish } from "../models/Dish.js";
 import { Restaurant } from "../models/Restaurant.js";
+import { Destination } from "../models/Destination.js";
 
 dotenv.config();
 
@@ -24,6 +25,14 @@ const runMigration = async () => {
   for (const restaurant of restaurants) {
     await restaurant.save();
     console.log(`Generated slug for restaurant: ${restaurant.name} -> ${restaurant.slug}`);
+  }
+
+  // Load and save destinations
+  const destinations = await Destination.find();
+  console.log(`Found ${destinations.length} destinations. Generating slugs...`);
+  for (const destination of destinations) {
+    await destination.save();
+    console.log(`Generated slug for destination: ${destination.name} -> ${destination.slug}`);
   }
 
   console.log("Migration complete!");

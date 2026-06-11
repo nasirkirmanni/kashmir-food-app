@@ -5,6 +5,7 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import dishRoutes from "./routes/dishRoutes.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
+import destinationRoutes from "./routes/destinationRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
@@ -56,6 +57,7 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/dishes", dishRoutes);
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/destinations", destinationRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/stats", statsRoutes);

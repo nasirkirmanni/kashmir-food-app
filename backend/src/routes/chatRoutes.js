@@ -1,5 +1,8 @@
 import express from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { Dish } from "../models/Dish.js";
+import { Restaurant } from "../models/Restaurant.js";
+import { Destination } from "../models/Destination.js";
 
 const router = express.Router();
 
@@ -75,22 +78,101 @@ When recommending restaurants, ALWAYS use:
 ## Signature Dishes
 ## Location
 ## Best For
+## Ratings & Scores
+* Authenticity Score: X.X/5
+* Tourist Friendliness Score: X.X/5
+* Luxury Score: X.X/5
 
 When explaining a dish, ALWAYS use:
 
 # Dish Name
 ## What Is It?
-## Ingredients
 ## Flavor Profile
 ## Cultural Significance
+## Ratings & Scores
+* Authenticity Score: X.X/5
+* Tourist Friendliness Score: X.X/5
+* Luxury Score: X.X/5
+
+When explaining a Kashmir destination, ALWAYS use:
+
+# Destination Name
+## Overview
+## Key Attractions
+## Best Time to Visit
+## Ratings & Scores
+* Authenticity Score: X.X/5
+* Tourist Friendliness Score: X.X/5
+* Luxury Score: X.X/5
 
 Additional Rules:
 * Keep responses clean and structured.
 * Use proper spacing between sections.
 * Prefer lists over long paragraphs.
 * Maintain a warm Kashmiri hospitality tone.
-* If information about restaurants or dishes is provided in the request context, prioritize that information over general knowledge.
-* Do not invent restaurant data.`;
+* If information about restaurants, destinations, or dishes is provided in the request context, prioritize that information over general knowledge.
+* Do not invent restaurant, destination, or dish data.
+* Utilize the Authenticity, Tourist Friendliness, and Luxury scores (rated 1.0 to 5.0) when answering inquiries about ratings, luxury, authenticity, or tourist friendliness.`;
+
+    // Dynamic context retrieval from database based on message queries
+    let contextString = "";
+    try {
+      const lastMessage = messages[messages.length - 1]?.content || "";
+      const queryWords = lastMessage.toLowerCase().split(/\s+/);
+
+      // Search destinations
+      const dests = await Destination.find({}, "name location description bestTimeToVisit authenticityScore touristFriendlinessScore luxuryScore").lean();
+      const matchedDests = dests.filter(d => 
+        queryWords.some(word => d.name.toLowerCase().includes(word) || d.location.toLowerCase().includes(word))
+      );
+      
+      const finalDests = matchedDests.length > 0 ? matchedDests : (
+        lastMessage.toLowerCase().match(/(visit|place|destination|tourism|travel|kashmir|go to|stay|hotel)/)
+        ? dests.slice(0, 8) : []
+      );
+
+      if (finalDests.length > 0) {
+        contextString += "\n\nKASHMIR DESTINATIONS:\n" + finalDests.map(d => 
+          `- Name: ${d.name}\n  Location: ${d.location}\n  Description: ${d.description}\n  Best Time to Visit: ${d.bestTimeToVisit}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
+        ).join("\n");
+      }
+
+      // Search restaurants
+      const rests = await Restaurant.find({}, "name location city rating priceLevel authentic authenticityScore touristFriendlinessScore luxuryScore").lean();
+      const matchedRests = rests.filter(r => 
+        queryWords.some(word => r.name.toLowerCase().includes(word) || r.city.toLowerCase().includes(word))
+      );
+      
+      const finalRests = matchedRests.length > 0 ? matchedRests : (
+        lastMessage.toLowerCase().match(/(eat|restaurant|dine|dining|food joint|place to eat|cafe|dhaba|recommend)/)
+        ? rests.slice(0, 8) : []
+      );
+
+      if (finalRests.length > 0) {
+        contextString += "\n\nRESTAURANTS:\n" + finalRests.map(r => 
+          `- Name: ${r.name}\n  Location: ${r.location}, ${r.city}\n  Rating: ${r.rating}/5, Price: ${r.priceLevel}\n  Scores: Authenticity: ${r.authenticityScore}/5, Tourist Friendliness: ${r.touristFriendlinessScore}/5, Luxury: ${r.luxuryScore}/5`
+        ).join("\n");
+      }
+
+      // Search dishes
+      const dishes = await Dish.find({}, "name description category foodType authenticityScore touristFriendlinessScore luxuryScore").lean();
+      const matchedDishes = dishes.filter(d => 
+        queryWords.some(word => d.name.toLowerCase().includes(word) || d.category.toLowerCase().includes(word))
+      );
+
+      const finalDishes = matchedDishes.length > 0 ? matchedDishes : (
+        lastMessage.toLowerCase().match(/(food|dish|wazwan|veg|non-veg|eat|recipe|cook|spice|specialty)/)
+        ? dishes.slice(0, 10) : []
+      );
+
+      if (finalDishes.length > 0) {
+        contextString += "\n\nDISHES:\n" + finalDishes.map(d => 
+          `- Name: ${d.name}\n  Type: ${d.foodType}, Category: ${d.category}\n  Description: ${d.description}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
+        ).join("\n");
+      }
+    } catch (dbErr) {
+      console.error("Failed to inject DB context in chat:", dbErr);
+    }
 
     // Map the messages to the format Gemini expects
     const geminiMessages = messages.map(msg => ({
@@ -106,7 +188,7 @@ Additional Rules:
       },
       body: JSON.stringify({
         systemInstruction: {
-          parts: [{ text: systemPrompt }]
+          parts: [{ text: systemPrompt + (contextString ? "\n\nCRITICAL CONTEXT FROM DATABASE (Prioritize this data over general knowledge):\n" + contextString : "") }]
         },
         contents: geminiMessages,
         generationConfig: {
