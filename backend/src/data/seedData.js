@@ -307,7 +307,7 @@ export const dishes = [
     "createdAt": "2026-06-11T05:36:56.225Z",
     "updatedAt": "2026-06-11T07:06:13.222Z",
     "slug": "cardamom-kahwa",
-    "categoryType": "beverage"
+    "categoryType": "kashmiri_cuisine"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f58",
@@ -1108,7 +1108,7 @@ export const dishes = [
     "touristTip": "Always drink it hot. It is the perfect welcome drink when you arrive in the cool valleys of Kashmir.",
     "updatedAt": "2026-06-11T07:06:14.543Z",
     "slug": "kashmiri-kahwa",
-    "categoryType": "beverage"
+    "categoryType": "kashmiri_cuisine"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f3c",
@@ -2951,7 +2951,7 @@ export const dishes = [
     "createdAt": "2026-06-11T05:36:56.224Z",
     "updatedAt": "2026-06-11T07:06:12.760Z",
     "slug": "zamut-doodh",
-    "categoryType": "beverage"
+    "categoryType": "kashmiri_cuisine"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f43",

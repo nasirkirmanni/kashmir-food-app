@@ -290,6 +290,21 @@ const newDishes = [
     popularityRating: 4.7,
     spiceLevel: "Medium",
     tags: ["trout", "fish", "fried"]
+  },
+  {
+    name: "Kashmiri Lassi",
+    description: "A creamy yogurt-based drink infused with saffron and dry fruits.",
+    fullDescription: "Kashmiri Lassi is a rich, creamy yogurt drink blended with saffron strands, crushed almonds, pistachios, and a touch of rose water. Unlike the thin lassis found in the plains, the Kashmiri version is thick, aromatic, and served chilled as a refreshing accompaniment to heavy meals or as a standalone summer cooler.",
+    history: "Yogurt-based drinks have been part of Kashmiri cuisine for centuries, especially during the warm summer months. The addition of saffron and dry fruits reflects Kashmir's access to premium ingredients from its own orchards and fields. Traditionally prepared at home using fresh curd, it has now become a popular offering at local cafes and street stalls across the valley.",
+    touristTip: "Order it chilled after a heavy Wazwan meal — it helps with digestion and balances the rich, spicy flavors of the meats.",
+    category: "Cafes",
+    categoryType: "beverage",
+    foodType: "Veg",
+    image: "/images/dishes/daniwal-korma.png",
+    priceRange: "INR 60-120",
+    popularityRating: 4.6,
+    spiceLevel: "Mild",
+    tags: ["lassi", "yogurt", "saffron", "chilled"]
   }
 ];
 

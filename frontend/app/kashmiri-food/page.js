@@ -162,7 +162,7 @@ function KashmiriFoodContent() {
       unit: "Dishes",
       desc: "The legendary royal feast slow-cooked by traditional Wazas and served on a copper Trami. Built around 16 authoritative dishes in strict traditional sequence.",
       icon: (
-        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       )
@@ -172,9 +172,9 @@ function KashmiriFoodContent() {
       label: "Kashmiri Beverages",
       count: beverageDishes.length,
       unit: "Beverages",
-      desc: "Saffron-infused green teas (Kahwa), salted milk teas (Noon Chai), and refreshing local beverages.",
+      desc: "Authentic Kashmiri drinks — Noon Chai, Saffron Kahwa, Babribyol, and creamy Kashmiri Lassi.",
       icon: (
-        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 8.5v3a3.5 3.5 0 01-7 0v-3h7z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 9h1.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-1.5 1.5h-1.5" />
@@ -188,7 +188,7 @@ function KashmiriFoodContent() {
       unit: "Breads",
       desc: "The unique neighborhood bakery culture featuring clay-oven flatbreads like Girda, Czochworu, and Bakerkhani.",
       icon: (
-        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657a8 8 0 01-11.314 0zM12 2C8 6 6 10 6 14a6 6 0 0012 0c0-4-2-8-6-12z" />
         </svg>
       )
@@ -200,7 +200,7 @@ function KashmiriFoodContent() {
       unit: "Eats",
       desc: "Rustic street treats from coal-grilled Tujji skewers to winter Harissa pastes found in Srinagar's bazaars.",
       icon: (
-        <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -259,25 +259,23 @@ function KashmiriFoodContent() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.25 }}
-                className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 max-w-6xl mx-auto my-12"
+                className="grid grid-cols-2 gap-3 sm:gap-6 max-w-6xl mx-auto my-12"
               >
                 {categories.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => selectTab(category.id)}
-                    className="w-full text-left glass-panel p-3 sm:p-8 rounded-xl sm:rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(212,175,55,0.08)] flex flex-col justify-between h-28 sm:h-64 group relative overflow-hidden"
+                    className="w-full text-left glass-panel p-3.5 sm:p-8 rounded-xl sm:rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(212,175,55,0.08)] flex flex-col justify-between h-36 sm:h-64 group relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 p-3 sm:p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity">
                       {category.icon}
                     </div>
                     <div className="w-full">
-                      <div className="flex justify-between items-start mb-2 sm:mb-4">
-                        <div className="p-1.5 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors">
-                          <div className="scale-75 sm:scale-100 origin-top-left">
-                            {category.icon}
-                          </div>
+                      <div className="flex justify-between items-center mb-3 sm:mb-4">
+                        <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors flex items-center justify-center shrink-0">
+                          {category.icon}
                         </div>
-                        <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.55rem] sm:text-[0.7rem] font-bold font-mono py-0.5 sm:py-1 px-1.5 sm:px-3">
+                        <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.6rem] sm:text-[0.7rem] font-bold py-0.5 sm:py-1 px-1.5 sm:px-3">
                           {loading ? (
                             <span className="h-2 sm:h-3 w-6 sm:w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
                           ) : (
@@ -285,7 +283,7 @@ function KashmiriFoodContent() {
                           )}
                         </span>
                       </div>
-                      <h3 className="text-[0.65rem] sm:text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-1 sm:mb-2 line-clamp-1">
+                      <h3 className="text-sm sm:text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-1 sm:mb-2 line-clamp-2">
                         {category.label}
                       </h3>
                       <p className="hidden sm:block text-white/60 text-xs md:text-sm leading-relaxed max-w-md">
@@ -469,11 +467,11 @@ function KashmiriFoodContent() {
                             Kashmiri Beverages
                           </h2>
                           <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
-                            The climate of Kashmir shapes its hot beverage customs. Spiced green teas served from charcoal Samovars provide essential warmth and help digest the rich meats of the valley.
+                            The climate of Kashmir shapes its beverage customs. From the iconic pink-hued Noon Chai served with fresh bakery bread, to saffron-infused Kahwa brewed in charcoal Samovars, creamy Kashmiri Lassi, and the fragrant Babribyol — these are the authentic drinks of the valley.
                           </p>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
                           {filteredItems.map((dish) => (
                             <DishCard key={dish._id} dish={dish} linkText="View Beverage Profile" />
                           ))}
