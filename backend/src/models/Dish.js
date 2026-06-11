@@ -12,6 +12,22 @@ const dishSchema = new mongoose.Schema(
       enum: ["Wazwan", "Street Food", "Cafes", "Budget Eats", "Luxury Dining"],
       required: true,
     },
+    categoryType: {
+      type: String,
+      enum: ["wazwan", "kashmiri_cuisine", "bakery", "beverage"],
+      required: true,
+    },
+    courseType: {
+      type: String,
+      enum: [
+        "foundation",
+        "signature",
+        "additional_meat",
+        "vegetarian",
+        "condiment",
+        "dessert"
+      ]
+    },
     foodType: {
       type: String,
       enum: ["Veg", "Non-veg"],

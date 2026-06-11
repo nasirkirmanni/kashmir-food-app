@@ -41,7 +41,7 @@
   },
   {
     "id": "6a2a4978ac7d60a9cca76f02",
-    "slug": "waza-haak"
+    "slug": "haakh"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f03",
@@ -49,7 +49,7 @@
   },
   {
     "id": "6a2a4978ac7d60a9cca76f04",
-    "slug": "aab-gosh"
+    "slug": "aab-gosht"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f05",
@@ -57,7 +57,7 @@
   },
   {
     "id": "6a2a4978ac7d60a9cca76f06",
-    "slug": "seekh-kabab"
+    "slug": "seekh-kebab"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f07",
@@ -69,7 +69,7 @@
   },
   {
     "id": "6a2a4978ac7d60a9cca76f09",
-    "slug": "dum-aelve"
+    "slug": "dum-oluv"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f0a",
@@ -81,11 +81,11 @@
   },
   {
     "id": "6a2a4978ac7d60a9cca76f0c",
-    "slug": "kahwa"
+    "slug": "kahwa-beverage"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f0d",
-    "slug": "noon-chai"
+    "slug": "noon-chai-beverage"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f0e",
@@ -345,7 +345,7 @@
   },
   {
     "id": "6a2a4978ac7d60a9cca76f4e",
-    "slug": "ginger-noon-chai"
+    "slug": "noon-chai-home-style"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f4f",
@@ -405,7 +405,7 @@
   },
   {
     "id": "6a2a49c1185d2d28b82e867c",
-    "slug": "yakhin"
+    "slug": "yakhni"
   },
   {
     "id": "6a2a49c2185d2d28b82e867d",
@@ -422,5 +422,13 @@
   {
     "id": "6a2a49c2185d2d28b82e8680",
     "slug": "girda"
+  },
+  {
+    "id": "6a2a5e67185d2d28b82e8692",
+    "slug": "rice"
+  },
+  {
+    "id": "6a2a5e67185d2d28b82e8693",
+    "slug": "aloo-bukhar-korma"
   }
 ]

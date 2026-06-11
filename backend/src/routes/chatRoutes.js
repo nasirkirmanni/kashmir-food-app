@@ -123,7 +123,10 @@ Additional Rules:
 * TOURIST RECOMMENDATION RULES:
   * When recommending dishes to tourists, prioritize core authentic dishes.
   * Always explain the cultural significance of the recommended dish.
-  * Explicitly state whether the dish is part of the traditional Wazwan feast (and its role/position in the feast progression, such as Gushtaba being the grand finale) or if it is a daily home-style dish.`;
+  * Explicitly state whether the dish is part of the traditional Wazwan feast (and its role/position in the feast progression, such as Gushtaba being the grand finale) or if it is a daily home-style dish.
+* WAZWAN & KASHMIRI FOOD RULES:
+  * When users ask "What is Wazwan?" or ask about traditional Wazwan feasts, you must ONLY recommend/discuss dishes classified as categoryType = "wazwan". Do not mention or recommend everyday Kashmiri dishes, bakery items, or beverages in this context.
+  * When users ask "Tell me about Kashmiri food" or general questions about Kashmiri cuisine, you must use all categories (wazwan, kashmiri_cuisine, bakery, beverage) to present a complete, rich picture of the region's culinary culture.`;
 
     // Dynamic context retrieval from database based on message queries
     let contextString = "";
@@ -165,20 +168,31 @@ Additional Rules:
         ).join("\n");
       }
 
-      // Search dishes
-      const dishes = await Dish.find({}, "name description category foodType authenticityScore touristFriendlinessScore luxuryScore").lean();
-      const matchedDishes = dishes.filter(d => 
+      // Search dishes with categoryType filtering
+      const dishes = await Dish.find({}, "name description category categoryType foodType authenticityScore touristFriendlinessScore luxuryScore").lean();
+      
+      let filteredDishes = dishes;
+      const lowerLastMessage = lastMessage.toLowerCase();
+      const isWazwanQuery = lowerLastMessage.includes("what is wazwan") || 
+                            lowerLastMessage.includes("wazwan only") ||
+                            (lowerLastMessage.includes("wazwan") && !lowerLastMessage.includes("kashmiri food") && !lowerLastMessage.includes("kashmiri cuisine"));
+      
+      if (isWazwanQuery) {
+        filteredDishes = dishes.filter(d => d.categoryType === "wazwan");
+      }
+
+      const matchedDishes = filteredDishes.filter(d => 
         queryWords.some(word => d.name.toLowerCase().includes(word) || d.category.toLowerCase().includes(word))
       );
 
       const finalDishes = matchedDishes.length > 0 ? matchedDishes : (
-        lastMessage.toLowerCase().match(/(food|dish|wazwan|veg|non-veg|eat|recipe|cook|spice|specialty)/)
-        ? dishes.slice(0, 10) : []
+        lowerLastMessage.match(/(food|dish|wazwan|veg|non-veg|eat|recipe|cook|spice|specialty)/)
+        ? filteredDishes.slice(0, 10) : []
       );
 
       if (finalDishes.length > 0) {
         contextString += "\n\nDISHES:\n" + finalDishes.map(d => 
-          `- Name: ${d.name}\n  Type: ${d.foodType}, Category: ${d.category}\n  Description: ${d.description}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
+          `- Name: ${d.name}\n  Type: ${d.foodType}, Category: ${d.category}, categoryType: ${d.categoryType}\n  Description: ${d.description}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
         ).join("\n");
       }
     } catch (dbErr) {

@@ -94,9 +94,9 @@ export default function MobileNav() {
           <ChefAIIcon size={28} strokeWidth={2.5} />
         </Link>
 
-        <Link href="/dishes" className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/dishes" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <BowlFoodIcon size={24} strokeWidth={pathname === "/dishes" ? 2.5 : 2} />
+        <Link href="/kashmiri-food" className="relative group">
+          <div className={`p-2 transition-colors ${pathname === "/kashmiri-food" || pathname === "/dishes" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
+            <BowlFoodIcon size={24} strokeWidth={pathname === "/kashmiri-food" || pathname === "/dishes" ? 2.5 : 2} />
           </div>
         </Link>
 

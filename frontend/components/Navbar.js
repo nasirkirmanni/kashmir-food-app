@@ -19,12 +19,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "The Wazwan", href: "/#dishes" },
+    { label: "Kashmiri Food", href: "/kashmiri-food" },
+    { label: "Traditional Wazwan", href: "/dishes" },
     { label: "Restaurants", href: "/restaurants" },
     { label: "Visit Kashmir", href: "/visit-kashmir" },
     { label: "Itineraries", href: "/itineraries" },
     { label: "Plan Trip", href: "/plan" },
-    { label: "Bakery Guide", href: "/bakery" },
   ];
 
   /* ── Liquid Glass pill style — desktop unchanged ── */

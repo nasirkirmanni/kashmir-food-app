@@ -3,246 +3,248 @@
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 
 function DishesPageContent() {
-  const searchParams = useSearchParams();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [filters, setFilters] = useState({
-    searchQuery: searchParams.get("search") || "",
-  });
-
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setFilters({
-      searchQuery: searchParams.get("search") || "",
-    });
-  }, [searchParams]);
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-    const search = searchParams.get("search");
-
-    if (filters.searchQuery) params.set("search", filters.searchQuery);
-
     setLoading(true);
-    setError(null);
-    request(endpoints.dishes(`?${params.toString()}`))
+    // Fetch only traditional wazwan dishes
+    request(endpoints.dishes("?categoryType=wazwan"))
       .then((data) => setDishes(data))
       .catch((err) => {
-        console.error("Failed to fetch dishes:", err);
-        setError("Failed to load dishes. Please check your connection or try again later.");
+        console.error("Failed to fetch wazwan dishes:", err);
+        setError("Failed to load traditional Wazwan dishes. Please try again later.");
       })
       .finally(() => setLoading(false));
-  }, [filters, searchParams]);
+  }, []);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const coreDishNames = [
+    "tabak maaz",
+    "seekh kebab",
+    "methi maaz",
+    "rista",
+    "rogan josh",
+    "daniwal korma",
+    "aab gosht",
+    "marchwangan korma",
+    "yakhni",
+    "gushtaba"
+  ];
 
-  useEffect(() => {
-    if (dishes.length > 0) {
-      const rjIndex = dishes.findIndex(d => d.name.toLowerCase().includes("rogan josh"));
-      if (rjIndex !== -1) {
-        setCurrentIndex(rjIndex);
-      }
-    }
-  }, [dishes]);
+  // Filter core wazwan dishes
+  const coreDishes = dishes.filter(d => coreDishNames.includes(d.name.toLowerCase()));
 
-  useEffect(() => {
-    if (isExpanded || filters.searchQuery || dishes.length <= 1) return;
+  // Group dishes by course
+  const courses = {
+    foundation: dishes.filter(d => d.courseType === "foundation"),
+    signature: dishes.filter(d => d.courseType === "signature"),
+    vegetarian: dishes.filter(d => d.courseType === "vegetarian")
+  };
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % dishes.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [isExpanded, filters.searchQuery, dishes.length]);
-
-  const carouselDishes = [];
-  if (dishes.length > 0) {
-    const numToShow = Math.min(3, dishes.length);
-    for (let i = 0; i < numToShow; i++) {
-      carouselDishes.push(dishes[(currentIndex + i) % dishes.length]);
-    }
+  if (loading) {
+    return (
+      <div className="wazwan-shell min-h-screen flex items-center justify-center">
+        <div className="text-white/60 animate-pulse text-lg uppercase tracking-widest font-bold">
+          Loading Traditional Wazwan Catalog...
+        </div>
+      </div>
+    );
   }
-  const dishesToShow = filters.searchQuery ? dishes : carouselDishes;
+
+  if (error) {
+    return (
+      <div className="wazwan-shell min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-400 text-lg mb-4">{error}</p>
+          <button onClick={() => window.location.reload()} className="wazwan-btn-primary">
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="wazwan-shell">
-      <section className="place-hero">
+    <div className="wazwan-shell relative min-h-screen pb-24">
+      {/* Background gradients */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
+
+      {/* Hero */}
+      <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
         <div>
-          <span className="place-eyebrow">The Wazwan</span>
-          <h1>Signature dishes from Kashmir&apos;s ceremonial table.</h1>
+          <span className="place-eyebrow">The Royal Feast</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
+            Traditional Wazwan
+          </h1>
+          <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
+            The traditional Kashmiri Wazwan is a formal 36-course banquet cooked by master chefs (Wazas). Today, the authoritative Trami sequence centers around exactly <strong>16 historical dishes</strong> served on the engraved copper platter.
+          </p>
         </div>
-
-        <div className="jump-grid">
-          <div className="jump-card">
-            <strong>Search by Name</strong>
-            <span>Type a dish name in the search bar below to jump directly to a favorite.</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="places-wrap pt-0 md:-mt-8">
-        <div className="place-section border-t-0 pt-0">
-          <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-10">
-            <input
-              value={filters.searchQuery}
-              onChange={(event) => setFilters({ searchQuery: event.target.value })}
-              placeholder="Search dishes..."
-              className="w-full rounded-xl border border-white/10 bg-black/40 text-white/90 placeholder-white/30 px-4 py-3 text-sm outline-none focus:border-[var(--saffron)] transition-colors"
-            />
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {loading ? (
-              <p className="text-[var(--muted)]">Loading dishes...</p>
-            ) : error ? (
-              <p className="text-red-400">{error}</p>
-            ) : dishesToShow.length === 0 ? (
-              <p className="text-[var(--muted)]">No dishes found matching your search.</p>
-            ) : (
-              <AnimatePresence mode="wait">
-                {dishesToShow.map((dish, idx) => {
-                  const isCarousel = !filters.searchQuery;
-                  const displayClass = isCarousel && idx > 0 ? "hidden md:flex flex-col" : "flex flex-col";
-                  return (
-                  <motion.article 
-                    key={dish._id} 
-                    initial={{ opacity: 0, filter: "blur(8px)", scale: 0.98 }}
-                    animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                    exit={{ opacity: 0, filter: "blur(8px)", scale: 0.98 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className={`wazwan-dish-card ${displayClass}`}
-                  >
-                    <div className="relative h-56 w-full overflow-hidden bg-white/5">
-                      <img
-                        src={dish.image}
-                        alt={dish.name}
-                        loading={idx === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                        className="h-56 w-full object-cover"
-                        onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
-                      />
-                    </div>
-                    <div className="p-6">
-                      <p className="text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
-                        {dish.category}
-                      </p>
-                      <h3 className="font-display mt-2 text-2xl text-[var(--walnut)]">{dish.name}</h3>
-                      <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{dish.description}</p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        <span className="place-badge">{dish.foodType}</span>
-                        <span className="place-badge">{dish.spiceLevel}</span>
-                        <span className="place-badge">{dish.priceRange}</span>
-                      </div>
-                      <div className="mt-6">
-                        <Link href={`/dishes/${dish.slug || dish._id}`} className="wazwan-btn-primary inline-flex">
-                          View dish
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.article>
-                  );
-                })}
-              </AnimatePresence>
-            )}
-          </div>
-          
-          {!filters.searchQuery && dishes.length > 1 && (
-            <div className="mt-12 flex justify-center">
-              <button onClick={() => setIsExpanded(true)} className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 active:scale-95">
-                Explore Dishes
-              </button>
-            </div>
-          )}
-          
-          <div className="jump-grid mt-16 pt-8 border-t border-white/10">
-            <div className="jump-card">
-              <strong>Spot the Classics</strong>
-              <span>Rogan Josh, Gushtaba, Rista, and Tabak Maaz are your essential starting points.</span>
-            </div>
-            <div className="jump-card">
-              <strong>Match Your Taste</strong>
-              <span>Look for food type, spice level, and price range before planning the meal.</span>
-            </div>
-          </div>
+        <div>
+          <Link href="/kashmiri-food" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30">
+            View All Kashmiri Food &rarr;
+          </Link>
         </div>
       </section>
 
-      <AnimatePresence>
-        {isExpanded && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-3xl bg-[#111] border border-white/10 shadow-2xl flex flex-col"
+      {/* Must-Have Core Dishes Highlights */}
+      <section className="mt-12">
+        <div className="mb-8 border-l-2 border-[var(--saffron)] pl-4">
+          <h2 className="text-2xl md:text-3xl font-display font-medium text-white">
+            The 10 Core Wazwan Masterpieces
+          </h2>
+          <p className="text-white/50 text-xs md:text-sm mt-1">
+            These dishes define the culinary soul of the traditional Wazwan experience.
+          </p>
+        </div>
+        
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {coreDishes.map((dish) => (
+            <motion.article 
+              key={dish._id}
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="wazwan-dish-card flex flex-col justify-between border-[var(--saffron)]/20 shadow-[0_0_30px_rgba(212,175,55,0.05)]"
             >
-              <div className="flex items-center justify-between p-6 md:px-10 border-b border-white/10 bg-black/40">
-                <div>
-                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">The Wazwan</span>
-                  <h2 className="mt-1 text-2xl md:text-3xl font-display text-white">All Signature Dishes</h2>
-                </div>
-                <button
-                  onClick={() => setIsExpanded(false)}
-                  className="rounded-full p-3 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all hover:rotate-90 active:scale-90"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              
-              <div className="p-6 md:p-10 overflow-y-auto flex-1">
-                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                  {dishes.map((dish, idx) => (
-                    <article key={dish._id} className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col">
-                      <div className="relative h-40 shrink-0 overflow-hidden bg-white/5">
-                        <img
-                          src={dish.image}
-                          alt={dish.name}
-                          loading="lazy"
-                          decoding="async"
-                          className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-                          onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
-                        />
-                      </div>
-                      <div className="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                          <p className="text-[0.6rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
-                            {dish.category}
-                          </p>
-                          <h3 className="font-display mt-2 text-xl text-white">{dish.name}</h3>
-                          <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-3">{dish.description}</p>
-                        </div>
-                        <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
-                          <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
-                            View details &rarr;
-                          </Link>
-                        </div>
-                      </div>
-                    </article>
-                  ))}
+              <div className="relative h-48 w-full overflow-hidden bg-white/5">
+                <img
+                  src={dish.image}
+                  alt={dish.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+                />
+                <div className="absolute top-4 left-4 bg-[var(--saffron)] text-black font-bold uppercase tracking-widest text-[0.6rem] px-2.5 py-1 rounded">
+                  Core Dish
                 </div>
               </div>
-            </motion.div>
+              <div className="p-6">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[var(--saffron)]">
+                  {dish.courseType} Course
+                </p>
+                <h3 className="font-display mt-2 text-2xl text-white">{dish.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/60">{dish.description}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="place-badge">{dish.foodType}</span>
+                  <span className="place-badge">{dish.spiceLevel}</span>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-4 border-t border-white/5 flex justify-between items-center bg-black/20">
+                <Link href={`/dishes/${dish.slug || dish._id}`} className="wazwan-btn-primary !py-2 !px-4 text-xs">
+                  View Dish Details
+                </Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      {/* Traditional Trami Progression Sections */}
+      <section className="mt-24 border-t border-white/5 pt-16">
+        <div className="text-center mb-16">
+          <span className="text-[var(--saffron)] text-xs font-bold uppercase tracking-[0.2em] block mb-2">Trami Ritual Sequence</span>
+          <h2 className="text-3xl md:text-5xl font-display font-medium text-white">The 16 Authoritative Dishes</h2>
+        </div>
+
+        {/* Foundation */}
+        <div className="mb-20">
+          <div className="border-b border-white/10 pb-3 mb-8">
+            <h3 className="text-xl font-bold uppercase tracking-widest text-white/80">
+              Foundation Courses
+            </h3>
+            <p className="text-xs text-white/40 mt-1">Dishes served directly on the rice bed when the trami is placed before the guests.</p>
           </div>
-        )}
-      </AnimatePresence>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {courses.foundation.map((dish) => (
+              <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
+                <div className="p-6">
+                  <h4 className="font-display text-2xl text-white mb-2">{dish.name}</h4>
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                  <div className="flex gap-2">
+                    <span className="place-badge">{dish.foodType}</span>
+                    <span className="place-badge">{dish.priceRange}</span>
+                  </div>
+                </div>
+                <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center">
+                  <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors">
+                    Explore Details &rarr;
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Signature */}
+        <div className="mb-20">
+          <div className="border-b border-white/10 pb-3 mb-8">
+            <h3 className="text-xl font-bold uppercase tracking-widest text-white/80">
+              Signature Meat Courses
+            </h3>
+            <p className="text-xs text-white/40 mt-1">The primary mutton and chicken gravies slow-cooked over wood fire and served one by one.</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {courses.signature.map((dish) => (
+              <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
+                <div className="p-6">
+                  <h4 className="font-display text-2xl text-white mb-2">{dish.name}</h4>
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                  <div className="flex gap-2">
+                    <span className="place-badge">{dish.foodType}</span>
+                    <span className="place-badge">{dish.priceRange}</span>
+                  </div>
+                </div>
+                <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center">
+                  <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors">
+                    Explore Details &rarr;
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Vegetarian Accompaniments */}
+        <div>
+          <div className="border-b border-white/10 pb-3 mb-8">
+            <h3 className="text-xl font-bold uppercase tracking-widest text-white/80">
+              Vegetarian Accompaniments
+            </h3>
+            <p className="text-xs text-white/40 mt-1">Collards, potatoes, and lotus roots cooked in yogurt to refresh the palate between meats.</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {courses.vegetarian.map((dish) => (
+              <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between">
+                <div className="p-6">
+                  <h4 className="font-display text-2xl text-white mb-2">{dish.name}</h4>
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">{dish.description}</p>
+                  <div className="flex gap-2">
+                    <span className="place-badge">{dish.foodType}</span>
+                    <span className="place-badge">{dish.priceRange}</span>
+                  </div>
+                </div>
+                <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-black/10 flex justify-between items-center">
+                  <Link href={`/dishes/${dish.slug || dish._id}`} className="text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors">
+                    Explore Details &rarr;
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
 
 export default function DishesPage() {
   return (
-    <Suspense
-      fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading dishes...</div>}
-    >
+    <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading wazwan dishes...</div>}>
       <DishesPageContent />
     </Suspense>
   );
