@@ -165,6 +165,15 @@ function DishesPageContent() {
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.foundation.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
+                  <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+                    />
+                  </div>
                   <div className="p-[10px] md:p-6 flex flex-col flex-grow">
                     <h4 className="font-display text-[14px] md:text-2xl font-medium md:font-normal text-white mb-1 md:mb-2">{dish.name}</h4>
                     <p className="text-white/60 text-[12px] md:text-xs leading-relaxed mb-3 md:mb-4 truncate">{dish.description}</p>
@@ -194,6 +203,15 @@ function DishesPageContent() {
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.signature.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
+                  <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+                    />
+                  </div>
                   <div className="p-[10px] md:p-6 flex flex-col flex-grow">
                     <h4 className="font-display text-[14px] md:text-2xl font-medium md:font-normal text-white mb-1 md:mb-2">{dish.name}</h4>
                     <p className="text-white/60 text-[12px] md:text-xs leading-relaxed mb-3 md:mb-4 truncate">{dish.description}</p>
@@ -223,6 +241,15 @@ function DishesPageContent() {
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {courses.vegetarian.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
+                  <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+                    />
+                  </div>
                   <div className="p-[10px] md:p-6 flex flex-col flex-grow">
                     <h4 className="font-display text-[14px] md:text-2xl font-medium md:font-normal text-white mb-1 md:mb-2">{dish.name}</h4>
                     <p className="text-white/60 text-[12px] md:text-xs leading-relaxed mb-3 md:mb-4 truncate">{dish.description}</p>

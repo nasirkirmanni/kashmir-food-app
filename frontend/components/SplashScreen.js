@@ -51,14 +51,7 @@ export default function SplashScreen() {
       </div>
 
       {/* Desktop View (md and up) */}
-      <div className="absolute inset-0 hidden bg-[#111111] md:block">
-        <Image 
-          src="/opening-transition.png"
-          alt="Wazwan Opening"
-          fill
-          priority
-          className="object-cover object-center opacity-80 blur-[4px] scale-105"
-        />
+      <div className="absolute inset-0 hidden bg-black md:block">
         <div className="relative flex h-full flex-col items-center justify-center px-6 pt-40 pb-12 text-center">
           <h1 className="font-display font-bold uppercase leading-[1.04] tracking-[0.14em] sm:text-[5.4rem]">
             <span className="block text-white drop-shadow-xl">WAZWAN</span>
@@ -70,7 +63,7 @@ export default function SplashScreen() {
             }`}
           >
             <p className="text-[0.78rem] font-bold uppercase tracking-[0.42em] text-white drop-shadow-lg">
-              A PRODUCT BY XYZ TOUR AGENCY
+              A PRODUCT BY ORL MEDIA
             </p>
           </div>
         </div>
