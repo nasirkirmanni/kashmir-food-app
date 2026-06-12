@@ -1216,7 +1216,7 @@ export const dishes = [
     "createdAt": "2026-06-11T05:36:56.224Z",
     "updatedAt": "2026-06-11T07:06:11.857Z",
     "slug": "masala-tsot",
-    "categoryType": "bakery"
+    "categoryType": "kashmiri_cuisine"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f2e",
