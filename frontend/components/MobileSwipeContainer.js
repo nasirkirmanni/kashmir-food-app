@@ -121,9 +121,9 @@ export default function MobileSwipeContainer({ children }) {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
-      height: 56px;
+      height: 80px;
       z-index: 100;
-      background: #1a0f08;
+      background: transparent;
     }
     .bottom-bar {
       position: fixed;
@@ -177,10 +177,10 @@ export default function MobileSwipeContainer({ children }) {
     }
     .swipe-container {
       position: fixed;
-      top: 56px;
+      top: 80px;
       left: 0;
       width: 500vw;
-      height: calc(100vh - 56px);
+      height: calc(100vh - 80px);
       display: flex;
       flex-direction: row;
       will-change: transform;

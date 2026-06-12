@@ -255,7 +255,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       {/* ═══════════════════════════════════════════════════════
           MOBILE HERO (below md)
           ═══════════════════════════════════════════════════════ */}
-      <div className="relative block md:hidden pt-28 pb-10 min-h-[100svh] flex flex-col overflow-hidden">
+      <div className="relative block md:hidden pt-6 pb-10 min-h-[calc(100svh-72px)] flex flex-col overflow-hidden">
         <SaffronAnimation />
         <div className="relative z-10 flex-1 flex flex-col">
           <motion.div

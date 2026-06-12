@@ -258,15 +258,14 @@ export default function HamburgerMenu() {
   return (
     <>
       <button
+        id="menuBtn"
         onClick={() => setIsOpen(true)}
-        className="p-2 text-white/80 hover:text-[var(--saffron)] transition-colors active:scale-95 bg-white/5 rounded-full border border-white/10 hover:border-[var(--saffron)]/50"
+        className={`menu-btn ${isOpen ? 'open' : ''}`}
         aria-label="Menu"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <line x1="4" y1="6" x2="20" y2="6" />
-          <line x1="4" y1="18" x2="20" y2="18" />
-        </svg>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
       {mounted && createPortal(isMobile ? mobileMenuContent : desktopMenuContent, document.body)}
     </>
