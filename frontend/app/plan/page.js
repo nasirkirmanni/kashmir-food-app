@@ -46,6 +46,51 @@ export default function PlanTripPage() {
     }
   }, [user]);
 
+  const [sendingQuery, setSendingQuery] = useState(false);
+  const [querySent, setQuerySent] = useState(false);
+  const [queryError, setQueryError] = useState(null);
+
+  const handleSendToTeam = async () => {
+    setSendingQuery(true);
+    setQueryError(null);
+
+    const queryData = {
+      userName,
+      userPhone,
+      userEmail,
+      duration,
+      travelParty,
+      travelSeason: travelSeason === "Custom" && arrivalDate && leavingDate
+        ? `Custom Dates (Arrival: ${formatDateDMY(arrivalDate)} — Departure: ${formatDateDMY(leavingDate)})`
+        : travelSeason,
+      budgetTier,
+      selectedInterests,
+      adultsCount,
+      childrenCount,
+      seniorsCount,
+      arrivalDate: arrivalDate ? arrivalDate.toISOString() : null,
+      leavingDate: leavingDate ? leavingDate.toISOString() : null,
+      itinerarySummary: {
+        title: result.title,
+        spots: result.spots,
+        summary: result.summary
+      }
+    };
+
+    try {
+      await request(endpoints.tripQuery, {
+        method: "POST",
+        body: JSON.stringify(queryData)
+      });
+      setQuerySent(true);
+    } catch (err) {
+      console.error("Failed to send trip query:", err);
+      setQueryError("Failed to send query. Please check your internet connection and try again.");
+    } finally {
+      setSendingQuery(false);
+    }
+  };
+
   // Database collections
   const [dbDestinations, setDbDestinations] = useState([]);
   const [dbRestaurants, setDbRestaurants] = useState([]);
@@ -1370,18 +1415,22 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                       ))}
                     </ul>
                   </div>
-                </div>
+              </div>
 
+              {/* Grid of actions at the bottom */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                 {/* BOT QUERY TRIGGER */}
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center">
-                  <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-[0.25em] block mb-2">
-                    ✨ Let Waza AI Plan Everything
-                  </span>
-                  <h3 className="text-xl font-display text-white mb-2">Request complete custom adjustments</h3>
-                  <p className="text-white/60 text-sm max-w-lg mx-auto mb-6 leading-relaxed">
-                    Have Waza AI review your {duration}-day trip preferences and write custom restaurant reservations, transport packages, or daily timings.
-                  </p>
-                  <div className="flex justify-center gap-4">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between">
+                  <div>
+                    <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-[0.25em] block mb-2">
+                      ✨ Let Waza AI Plan Everything
+                    </span>
+                    <h3 className="text-xl font-display text-white mb-2">Request custom adjustments</h3>
+                    <p className="text-white/65 text-xs max-w-lg mx-auto mb-6 leading-relaxed">
+                      Have Waza AI review your {duration}-day trip preferences and write custom restaurant reservations, transport packages, or daily timings.
+                    </p>
+                  </div>
+                  <div className="flex justify-center mt-auto">
                     <button
                       onClick={() => setShowPromptPreview(true)}
                       className="wazwan-btn-primary rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform"
@@ -1390,8 +1439,45 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     </button>
                   </div>
                 </div>
-              </motion.div>
-            )}
+
+                {/* SEND QUERY TO TEAM CARD */}
+                <div className="rounded-2xl border border-[var(--saffron)]/20 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--saffron)]/5 to-transparent pointer-events-none" />
+                  <div>
+                    <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-[0.25em] block mb-2">
+                      📬 Premium Travel Service
+                    </span>
+                    <h3 className="text-xl font-display text-white mb-2">Send Itinerary to our Travel Team</h3>
+                    <p className="text-white/65 text-xs max-w-lg mx-auto mb-6 leading-relaxed">
+                      Have our team of local Kashmir experts review your custom itinerary, arrange premium bookings, transport, and contact you directly.
+                    </p>
+                  </div>
+                  
+                  <div className="flex justify-center mt-auto w-full">
+                    {querySent ? (
+                      <div className="p-4 bg-green-500/20 border border-green-500/30 text-green-200 text-xs rounded-xl w-full">
+                        <strong>✓ Query Sent Successfully!</strong>
+                        <p className="text-[11px] mt-1 text-white/80">Our team has received your details and will contact you via phone ({userPhone}) or email ({userEmail}) within 24 hours.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-3 w-full">
+                        {queryError && (
+                          <p className="text-xs text-red-400">{queryError}</p>
+                        )}
+                        <button
+                          onClick={handleSendToTeam}
+                          disabled={sendingQuery}
+                          className="wazwan-btn-primary rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform disabled:opacity-50 w-full"
+                        >
+                          {sendingQuery ? "Sending Query..." : "Send Query to our Team"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
           </AnimatePresence>
         </div>
       )}

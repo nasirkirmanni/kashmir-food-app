@@ -80,3 +80,79 @@ export const sendPasswordResetEmail = async (to, otp) => {
     console.error("Error sending password reset email:", error);
   }
 };
+
+export const sendTripQueryEmail = async (queryData) => {
+  const {
+    userName,
+    userPhone,
+    userEmail,
+    duration,
+    travelParty,
+    travelSeason,
+    budgetTier,
+    selectedInterests,
+    adultsCount,
+    childrenCount,
+    seniorsCount,
+    arrivalDate,
+    leavingDate,
+    itinerarySummary
+  } = queryData;
+
+  const to = "nasirkirmani@wazwanway.com";
+
+  console.log(`\n============================`);
+  console.log(`[DEV MODE] Trip Query received from ${userName} (${userEmail})`);
+  console.log(`============================\n`);
+
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not set in .env. Skipping actual email send.");
+    return;
+  }
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { data, error } = await resend.emails.send({
+      from: "Wazwan Way Concierge <nasirkirmani@wazwanway.com>",
+      to: [to],
+      subject: `New Trip Query from ${userName}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+          <h2 style="color: #D4AF37; border-bottom: 2px solid #D4AF37; padding-bottom: 8px;">New Trip Planner Query</h2>
+          <p><strong>Contact Details:</strong></p>
+          <ul>
+            <li><strong>Name:</strong> ${userName}</li>
+            <li><strong>Phone:</strong> ${userPhone}</li>
+            <li><strong>Email:</strong> ${userEmail}</li>
+          </ul>
+          <p><strong>Trip Parameters:</strong></p>
+          <ul>
+            <li><strong>Duration:</strong> ${duration} Days</li>
+            <li><strong>Travel Party:</strong> ${travelParty} (${adultsCount} Adults, ${childrenCount} Children, ${seniorsCount} Seniors)</li>
+            <li><strong>Season:</strong> ${travelSeason}</li>
+            <li><strong>Dates:</strong> ${arrivalDate ? new Date(arrivalDate).toLocaleDateString('en-IN') : 'N/A'} - ${leavingDate ? new Date(leavingDate).toLocaleDateString('en-IN') : 'N/A'}</li>
+            <li><strong>Budget Tier:</strong> ${budgetTier}</li>
+            <li><strong>Culinary Interests:</strong> ${selectedInterests ? selectedInterests.join(', ') : 'None'}</li>
+          </ul>
+          ${itinerarySummary ? `
+          <p><strong>Proposed Itinerary Summary:</strong></p>
+          <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #D4AF37; border-radius: 4px;">
+            <p><strong>Title:</strong> ${itinerarySummary.title || 'N/A'}</p>
+            <p><strong>Estimated Cost:</strong> ${itinerarySummary.summary?.totalEstCost || 'N/A'}</p>
+            <p><strong>Key Dining Stops:</strong> ${itinerarySummary.spots ? itinerarySummary.spots.join(', ') : 'N/A'}</p>
+          </div>
+          ` : ''}
+          <p style="font-size: 11px; color: #888; margin-top: 30px;">Sent programmatically via Wazwan Way Concierge</p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error("Resend API Error:", error);
+    } else {
+      console.log("Trip query email sent successfully via Resend:", data);
+    }
+  } catch (err) {
+    console.error("Error sending trip query email:", err);
+  }
+};

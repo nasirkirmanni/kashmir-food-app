@@ -3,8 +3,17 @@ import { Destination } from "../models/Destination.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { protect } from "../middleware/auth.js";
 import { adminOnly } from "../middleware/admin.js";
+import { sendTripQueryEmail } from "../utils/sendEmail.js";
 
 const router = express.Router();
+
+router.post(
+  "/trip-query",
+  asyncHandler(async (req, res) => {
+    await sendTripQueryEmail(req.body);
+    res.json({ message: "Trip query successfully sent to our team" });
+  })
+);
 
 // Get all destinations (with query support)
 router.get(

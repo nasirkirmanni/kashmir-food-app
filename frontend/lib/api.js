@@ -161,4 +161,5 @@ export const endpoints = {
   stats: "/stats/overview",
   profile: "/users/profile",
   chat: "/chat",
+  tripQuery: "/destinations/trip-query",
 };

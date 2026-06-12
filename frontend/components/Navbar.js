@@ -23,7 +23,7 @@ export default function Navbar() {
     { label: "Kashmiri Food", href: "/kashmiri-food" },
     { label: "Traditional Wazwan", href: "/dishes" },
     { label: "Restaurants", href: "/restaurants" },
-    { label: "Rare destinations", href: "/visit-kashmir" },
+    { label: "Visit Kashmir", href: "/plan" },
   ];
 
   /* ── Liquid Glass pill style — desktop navbar ── */
