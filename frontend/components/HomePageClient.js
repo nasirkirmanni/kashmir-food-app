@@ -372,7 +372,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               </div>
             </div>
           </Link>
-        </motion.div>
+          </div>
         
         <motion.div 
           style={{ opacity: scrollOpacity }}
