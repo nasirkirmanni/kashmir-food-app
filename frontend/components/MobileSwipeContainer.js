@@ -22,6 +22,14 @@ export default function MobileSwipeContainer({ children }) {
   const isHorizontalDragRef = useRef(null);
   const rafIdRef = useRef(null);
   const currentTranslateRef = useRef(0);
+  const screenWidthRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 375);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const updateWidth = () => { screenWidthRef.current = window.innerWidth; };
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
 
   // Apply transition when activeIndex changes from navigation taps
   useEffect(() => {
@@ -31,7 +39,7 @@ export default function MobileSwipeContainer({ children }) {
     // Only apply transition if we aren't dragging
     if (!isDraggingRef.current) {
       container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-      currentTranslateRef.current = -activeIndex * window.innerWidth;
+      currentTranslateRef.current = -activeIndex * screenWidthRef.current;
       container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
     }
   }, [activeIndex, isMobile]);
@@ -82,7 +90,7 @@ export default function MobileSwipeContainer({ children }) {
       // If horizontal drag, move container and prevent vertical scroll
       if (isHorizontalDragRef.current === true) {
         e.preventDefault();
-        const base = -activeIndex * window.innerWidth;
+        const base = -activeIndex * screenWidthRef.current;
         currentTranslateRef.current = base + deltaX;
         
         // Schedule transform update using requestAnimationFrame
@@ -124,7 +132,7 @@ export default function MobileSwipeContainer({ children }) {
       } else {
         // Snap back to current index if threshold not met
         container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        currentTranslateRef.current = -activeIndex * window.innerWidth;
+        currentTranslateRef.current = -activeIndex * screenWidthRef.current;
         container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
       }
       

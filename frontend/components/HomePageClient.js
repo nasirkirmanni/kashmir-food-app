@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 
 const LandingCanvas = dynamic(() => import("@/components/LandingCanvas"), { ssr: false });
 const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaurantTabs"), { ssr: false });
@@ -134,8 +135,18 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false);
   const [isDishModalVisible, setIsDishModalVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   const locationTabs = ["Srinagar", "Pahalgam", "Gulmarg", "Sonamarg"];
+
+  useEffect(() => {
+    setIsMounted(true);
+    const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, []);
 
   useEffect(() => {
     request(endpoints.dishes())
@@ -261,11 +272,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       <div className="relative block md:hidden pt-6 pb-10 min-h-[calc(100svh-72px)] flex flex-col overflow-hidden">
         <SaffronAnimation />
         <div className="relative z-10 flex-1 flex flex-col">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center px-5"
+          <div
+            className="text-center px-5 pt-2"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)] bg-[#0B0B0B]/80 backdrop-blur-md px-5 py-2 text-[0.55rem] font-bold uppercase tracking-[0.22em] text-[var(--saffron)] shadow-[0_0_15px_rgba(212,175,55,0.15)]">
               <span className="text-xs">❖</span>
@@ -288,12 +296,9 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             <p className="mt-5 text-[0.85rem] leading-relaxed text-[#D1D5DB] mx-auto max-w-sm drop-shadow-md px-2">
               Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes from the kitchens of Kashmir to the traveler&apos;s table.
             </p>
-          </motion.div>
+          </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        <div 
           className="mt-16 flex flex-row gap-3 px-4 sm:px-5 z-20 relative"
         >
           {/* PRIMARY CARD: Explore Restaurants */}
@@ -394,7 +399,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       <section className="relative hidden md:flex min-h-screen items-center justify-start pt-20 overflow-hidden bg-[#0B0B0B]">
         <div className="absolute inset-0 z-0 flex justify-end">
           <div className="relative w-full h-full">
-            <Image priority fill src="/wazwan-hero.jpg" alt="Kashmiri Wazwan feast" className="object-cover object-right lg:object-center" />
+            <Image priority fetchPriority="high" fill src="/wazwan-hero.jpg" alt="Kashmiri Wazwan feast" className="object-cover object-right lg:object-center" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
             <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#0B0B0B] to-transparent" />
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
@@ -402,13 +407,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           </div>
         </div>
         
-        <LandingCanvas />
+        {isMounted && isDesktop && <LandingCanvas />}
         
         <div className="page-shell relative z-10 w-full flex items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          <div
             className="max-w-2xl text-left"
           >
             <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--saffron)]/40 bg-black/40 px-4 py-1.5 text-[0.55rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] backdrop-blur-xl">
@@ -465,33 +467,34 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             <div className="mt-16">
               {featureIconsGrid}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
       {/* 2. RESTAURANTS SECTION */}
       <section id="restaurants" className="relative pt-12 md:pt-32 pb-24 z-10 mt-8">
         <div className="page-shell">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
+          <FadeInWhenVisible
             className="mb-8 md:mb-24 text-center"
           >
             <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Where To Eat</span>
             <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Discover the best restaurants</h2>
             <p className="mx-auto mt-4 px-6 max-w-sm md:max-w-2xl text-sm md:text-lg text-white/60">Curated from Residency Road, Dal Lake, and Srinagar&apos;s most prestigious dining rooms.</p>
-          </motion.div>
+          </FadeInWhenVisible>
 
           {/* ── DESKTOP: 4-tab grid (md and above) ─────────────── */}
           <div className="hidden md:block">
-            <DesktopRestaurantTabs
-              locationTabs={locationTabs}
-              locationTabMeta={locationTabMeta}
-              locationCounts={locationCounts}
-              selectedLocation={selectedLocation}
-              onSelectLocation={(location) => {
-                setSelectedLocation(location);
-                setIsRestaurantModalVisible(true);
-              }}
-            />
+            {isMounted && isDesktop && (
+              <DesktopRestaurantTabs
+                locationTabs={locationTabs}
+                locationTabMeta={locationTabMeta}
+                locationCounts={locationCounts}
+                selectedLocation={selectedLocation}
+                onSelectLocation={(location) => {
+                  setSelectedLocation(location);
+                  setIsRestaurantModalVisible(true);
+                }}
+              />
+            )}
           </div>
 
           {/* ── MOBILE: compact selector with inline results (below md) */}
@@ -511,11 +514,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       <section className="hidden md:block relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32">
         
         <div className="page-shell relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <FadeInWhenVisible
             className="mb-24 text-center lg:text-left"
           >
             <span className="inline-block rounded-full border border-[var(--saffron)] bg-[rgba(212,175,55,0.1)] px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] shadow-[0_0_20px_rgba(212,175,55,0.2)]">
@@ -525,7 +524,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             <p className="mt-6 text-lg text-white/60 lg:max-w-xl">
               Handpicked dining experiences representing the finest flavors and uncompromising luxury of Kashmir.
             </p>
-          </motion.div>
+          </FadeInWhenVisible>
 
           <div className="flex flex-col max-w-4xl lg:mx-0">
             {curatedRestaurants.map((restaurant, i) => {
@@ -536,11 +535,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
               return (
                 <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} key={restaurant._id}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                  <FadeInWhenVisible
+                    delay={i * 0.1}
                     className="group flex flex-row items-center justify-between border-b border-white/10 py-6 transition-all hover:border-[var(--saffron)]"
                   >
                     <div className="flex flex-col">
@@ -562,7 +558,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 md:w-5 md:h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
                       </div>
                     </div>
-                  </motion.div>
+                  </FadeInWhenVisible>
                 </Link>
               );
             })}
@@ -572,30 +568,26 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
       {/* 4. WAZWAN DISHES */}
       <section id="dishes" className="hidden md:block page-shell py-32">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
+        <FadeInWhenVisible 
           className="mb-24 text-center"
         >
           <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">The Courses</span>
           <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Signature Wazwan Dishes</h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">A cinematic journey through the dishes that define Kashmir&apos;s grandest culinary tradition.</p>
-        </motion.div>
+        </FadeInWhenVisible>
 
         <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-4xl mx-auto">
           {featuredDishes.slice(0, 4).map((dish, i) => (
-            <motion.article
+            <FadeInWhenVisible
               key={dish._id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
+              delay={i * 0.1}
+              scaleOffset={0.95}
               className="group cursor-pointer overflow-hidden rounded-[16px] md:rounded-[20px] border border-white/10 bg-white/5 shadow-xl backdrop-blur-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col"
-              onClick={() => {
+            >
+              <div onClick={() => {
                 setSelectedDish(dish);
                 setIsDishModalVisible(true);
-              }}
-            >
+              }} className="flex flex-col h-full">
               <div className="relative h-28 md:h-40 shrink-0 overflow-hidden">
                 <div className="absolute inset-0 z-10 bg-black/20 transition duration-500 group-hover:bg-transparent" />
                 <Image
@@ -621,7 +613,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   </span>
                 </div>
               </div>
-            </motion.article>
+              </div>
+            </FadeInWhenVisible>
           ))}
         </div>
         
@@ -645,16 +638,12 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
       <section className="block md:hidden page-shell py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.05),transparent_50%)] pointer-events-none" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true }} 
-          transition={{ duration: 0.8 }}
+        <FadeInWhenVisible 
           className="mb-10 text-center relative z-10"
         >
           <h2 className="font-display text-4xl font-medium tracking-tight text-white">All Things Kashmir!</h2>
           <p className="mx-auto mt-3 px-4 text-[0.85rem] leading-relaxed text-white/60">Explore Kashmir through its food, culture, travel, and traditions.</p>
-        </motion.div>
+        </FadeInWhenVisible>
 
         <div className="grid grid-cols-2 gap-4 px-4 relative z-10">
           {/* Card 1: Kashmiri Food */}
