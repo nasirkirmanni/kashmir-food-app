@@ -2808,6 +2808,34 @@ export const dishes = [
     "updatedAt": "2026-06-12T07:11:55.810Z",
     "slug": "kashmiri-lassi",
     "categoryType": "beverage"
+  },
+  {
+    "_id": "6a2a4978ac7d60a9cca76f19",
+    "name": "Kashmiri Kulcha",
+    "description": "Small, round, crumbly afternoon bakery biscuits topped with poppy seeds.",
+    "fullDescription": "Kashmiri Kulcha is a dry, hard, biscuit-like baked bread with a golden crumbly texture, traditionally topped with poppy seeds. Unlike the soft, leavened Punjabi Kulcha, the Kashmiri version is a small snack biscuit specifically baked by the Kandur to be enjoyed with afternoon tea.",
+    "history": "Kashmiri Kulchas have been baked in neighborhood Kandur-wans for generations. There are sweet and savory versions, both of which are central to the valley's afternoon social gatherings. It is historically paired with Noon Chai or spiced saffron Kahwa.",
+    "touristTip": "Dip the hard Kulcha into your Noon Chai for a few seconds to soften it before taking a bite—the salty tea and crumbly biscuit flavor combination is a local favorite.",
+    "category": "Street Food",
+    "foodType": "Veg",
+    "image": "/images/dishes/kulcha.png",
+    "priceRange": "INR 15-30",
+    "popularityRating": 4.7,
+    "spiceLevel": "Mild",
+    "tags": [
+      "kashmiri",
+      "bakery",
+      "veg",
+      "popular",
+      "biscuits"
+    ],
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 4.8,
+    "luxuryScore": 3.5,
+    "createdAt": "2026-06-12T07:34:31.772Z",
+    "updatedAt": "2026-06-12T07:34:31.780Z",
+    "slug": "kashmiri-kulcha",
+    "categoryType": "bakery"
   }
 ];
 
