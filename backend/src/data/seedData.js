@@ -4472,7 +4472,7 @@ export const destinations = [
     "name": "Gulmarg",
     "description": "A breathtaking destination in North Kashmir, Baramulla famous for its natural landscapes and local hospitality.",
     "fullDescription": "Gulmarg stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Baramulla, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
+    "image": "/images/Destinations/Gulmarg.jpg",
     "location": "North Kashmir, Baramulla",
     "bestTimeToVisit": "December to March (Snow), April to June (Meadows)",
     "attractions": [
@@ -4600,7 +4600,7 @@ export const destinations = [
     "name": "Pahalgam",
     "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
     "fullDescription": "Pahalgam stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
+    "image": "/images/Destinations/Pahalgam.jpg",
     "location": "South Kashmir, Anantnag",
     "bestTimeToVisit": "March to November",
     "attractions": [
@@ -4704,7 +4704,7 @@ export const destinations = [
     "name": "Sonamarg",
     "description": "A breathtaking destination in Central Kashmir, Ganderbal famous for its natural landscapes and local hospitality.",
     "fullDescription": "Sonamarg stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, Ganderbal, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
+    "image": "/images/Destinations/Sonmarg.jpg",
     "location": "Central Kashmir, Ganderbal",
     "bestTimeToVisit": "April to October",
     "attractions": [
@@ -4730,7 +4730,7 @@ export const destinations = [
     "name": "Srinagar",
     "description": "A breathtaking destination in Central Kashmir famous for its natural landscapes and local hospitality.",
     "fullDescription": "Srinagar stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
+    "image": "/images/Destinations/Srinagar.jpg",
     "location": "Central Kashmir",
     "bestTimeToVisit": "April to October",
     "attractions": [
