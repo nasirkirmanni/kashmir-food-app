@@ -65,71 +65,52 @@ export default function MobileNav() {
   };
 
   return (
-    <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[420px]">
-      <div 
-        className="flex items-center justify-between px-6 py-4 rounded-[32px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-        style={{
-          background: "rgba(20, 20, 20, 0.4)",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+    <div className="md:hidden bottom-bar">
+      <Link 
+        href="/" 
+        className={`nav-icon ${activeIndex === 0 ? "active" : ""}`}
+        onClick={(e) => {
+          window.dispatchEvent(new Event('close-all-modals'));
+          handleNavClick(0, e);
         }}
       >
-        <Link 
-          href="/" 
-          className="relative group"
-          onClick={(e) => {
-            window.dispatchEvent(new Event('close-all-modals'));
-            handleNavClick(0, e);
-          }}
-        >
-          <div className={`p-2 transition-colors ${activeIndex === 0 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <Home size={24} strokeWidth={activeIndex === 0 ? 2.5 : 2} />
-          </div>
-        </Link>
+        <Home size={22} strokeWidth={activeIndex === 0 ? 2.5 : 2} />
+      </Link>
 
-        <Link 
-          href="/restaurants" 
-          className="relative group"
-          onClick={(e) => handleNavClick(1, e)}
-        >
-          <div className={`p-2 transition-colors ${activeIndex === 1 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <MapPin size={24} strokeWidth={activeIndex === 1 ? 2.5 : 2} />
-          </div>
-        </Link>
+      <Link 
+        href="/restaurants" 
+        className={`nav-icon ${activeIndex === 1 ? "active" : ""}`}
+        onClick={(e) => handleNavClick(1, e)}
+      >
+        <MapPin size={22} strokeWidth={activeIndex === 1 ? 2.5 : 2} />
+      </Link>
 
-        <Link 
-          href="/waza-ai"
-          className="relative group p-2 text-[var(--saffron)] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] transition-transform active:scale-95"
-          onClick={(e) => handleNavClick(2, e)}
-        >
-          <div className={`transition-colors ${activeIndex === 2 ? "text-[var(--saffron)]" : "text-white/80"}`}>
-            <ChefAIIcon size={28} strokeWidth={2.5} />
-          </div>
-        </Link>
+      <Link 
+        href="/waza-ai"
+        className={`nav-icon ${activeIndex === 2 ? "active" : ""}`}
+        onClick={(e) => handleNavClick(2, e)}
+      >
+        <ChefAIIcon size={22} strokeWidth={2.5} />
+      </Link>
 
-        <Link 
-          href="/kashmiri-food" 
-          className="relative group"
-          onClick={(e) => handleNavClick(3, e)}
-        >
-          <div className={`p-2 transition-colors ${activeIndex === 3 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <BowlFoodIcon size={24} strokeWidth={activeIndex === 3 ? 2.5 : 2} />
-          </div>
-        </Link>
+      <Link 
+        href="/kashmiri-food" 
+        className={`nav-icon ${activeIndex === 3 ? "active" : ""}`}
+        onClick={(e) => handleNavClick(3, e)}
+      >
+        <BowlFoodIcon size={22} strokeWidth={activeIndex === 3 ? 2.5 : 2} />
+      </Link>
 
-        <Link 
-          href={user ? "/profile" : "/login"} 
-          className="relative group"
-          onClick={(e) => handleNavClick(4, e)}
-        >
-          <div className={`p-2 transition-colors ${activeIndex === 4 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <User size={24} strokeWidth={activeIndex === 4 ? 2.5 : 2} />
-            {isProfileIncomplete && (
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-black/40"></span>
-            )}
-          </div>
-        </Link>
-      </div>
+      <Link 
+        href={user ? "/profile" : "/login"} 
+        className={`nav-icon ${activeIndex === 4 ? "active" : ""}`}
+        onClick={(e) => handleNavClick(4, e)}
+      >
+        <User size={22} strokeWidth={activeIndex === 4 ? 2.5 : 2} />
+        {isProfileIncomplete && (
+          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-transparent"></span>
+        )}
+      </Link>
     </div>
   );
 }

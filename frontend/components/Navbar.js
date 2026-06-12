@@ -102,7 +102,7 @@ export default function Navbar() {
   );
 
   const mobileNav = (
-    <div className="md:hidden fixed top-0 left-0 right-0 z-50">
+    <div className="md:hidden header">
       <motion.div
         initial={false}
         animate={{
@@ -115,7 +115,7 @@ export default function Navbar() {
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(255,255,255,0)",
         }}
         transition={{ duration: 0.3 }}
-        className="w-full flex items-center justify-between px-6 py-4"
+        className="w-full h-full flex items-center justify-between px-6"
       >
         <Link
           href="/"
