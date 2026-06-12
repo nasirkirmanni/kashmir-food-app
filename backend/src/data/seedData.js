@@ -70,7 +70,7 @@ export const dishes = [
     "foodType": "Non-veg",
     "fullDescription": "Aloo Bukhar Korma is a unique Wazwan course consisting of spiced minced mutton meatballs (kofte) simmered in a sweet-and-sour gravy flavored with dried plums (aloo bukhar) and warm spices.",
     "history": "Historically prepared by Wazas to balance the highly savory and spicy meat-heavy progression of the Wazwan with sweet and tangy fruit notes.",
-    "image": "/images/dishes/rista.jpg",
+    "image": "/images/dishes/aloo-bukhar-korma.jpg",
     "luxuryScore": 4,
     "popularityRating": 4.6,
     "priceRange": "INR 350-700",
@@ -5254,4 +5254,19 @@ export const destinations = [
   }
 ];
 
-export const users = [];
+export const users = [
+  {
+    "name": "Admin User",
+    "email": "admin@wazwanway.com",
+    "password": "admin123",
+    "isAdmin": true,
+    "phoneNumber": "+91 99999 99999"
+  },
+  {
+    "name": "Travel Explorer",
+    "email": "traveler@wazwanway.com",
+    "password": "traveler123",
+    "isAdmin": false,
+    "phoneNumber": "+91 88888 88888"
+  }
+];
