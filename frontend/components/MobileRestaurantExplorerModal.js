@@ -55,34 +55,42 @@ export default function MobileRestaurantExplorerModal({
       {/* ── Inline 2x2 Location Grid ─────────────────────────────── */}
       <div className="grid grid-cols-2 gap-3 pb-4">
         {locationTabs.map((location, i) => {
-                const count = locationCounts[location] || 0;
-                return (
-                  <motion.button
-                    key={location}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.3 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleLocationClick(location)}
-                    className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
-                  >
-                    <div className="absolute inset-0 z-0 opacity-40">
-                       <img src={`/wazwan-hero.png`} className="w-full h-full object-cover grayscale brightness-50 mix-blend-overlay" alt="" />
-                       <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/50 to-transparent" />
-                    </div>
-                    
-                    <div className="relative z-10 flex flex-col items-center">
-                      <div className="mb-2 h-8 w-8 flex items-center justify-center rounded-full bg-[var(--saffron)] text-black">
-                        <div className="scale-75">{locationTabMeta[location]?.icon}</div>
-                      </div>
-                      <span className="font-display text-lg font-medium text-white">{location}</span>
-                      <span className="mt-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)]">
-                        {count} Venues
-                      </span>
-                    </div>
-                  </motion.button>
-                );
-              })}
+          const count = locationCounts[location] || 0;
+          const locationImages = {
+            Srinagar: "/images/Destinations/Srinagar.jpg",
+            Gulmarg: "/images/Destinations/Gulmarg.jpg",
+            Pahalgam: "/images/Destinations/Pahalgam.jpg",
+            Sonamarg: "/images/Destinations/Sonmarg.jpg"
+          };
+          const imgUrl = locationImages[location] || "/wazwan-hero.jpg";
+
+          return (
+            <motion.button
+              key={location}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05, duration: 0.3 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleLocationClick(location)}
+              className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
+            >
+              <div className="absolute inset-0 z-0 opacity-50">
+                 <img src={imgUrl} className="w-full h-full object-cover brightness-75" alt="" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
+              </div>
+              
+              <div className="relative z-10 flex flex-col items-center">
+                <div className="mb-2 h-8 w-8 flex items-center justify-center rounded-full bg-[var(--saffron)] text-black">
+                  <div className="scale-75">{locationTabMeta[location]?.icon}</div>
+                </div>
+                <span className="font-display text-lg font-medium text-white">{location}</span>
+                <span className="mt-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)]">
+                  {count} Venues
+                </span>
+              </div>
+            </motion.button>
+          );
+        })}
       </div>
 
       {/* ── Fullscreen Restaurant Modal ──────────────────────────── */}
