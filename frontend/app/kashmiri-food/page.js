@@ -29,8 +29,18 @@ function ShimmerSkeleton() {
 function DishCard({ dish, linkText = "View Recipe Details" }) {
   return (
     <Link href={`/dishes/${dish.slug || dish._id}`} className="block">
-      <div className="wazwan-dish-card flex flex-col justify-between h-28 sm:h-64 hover:border-[var(--saffron)]/30 h-full">
-        <div className="p-3 sm:p-6 h-full flex flex-col justify-between">
+      <div className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30 h-full">
+        {/* Dish Image */}
+        <div className="relative h-20 sm:h-40 w-full overflow-hidden bg-white/5 shrink-0">
+          <img
+            src={dish.image}
+            alt={dish.name}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+            onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+          />
+        </div>
+        <div className="p-3 sm:p-6 flex flex-col flex-grow justify-between">
           <div>
             <h4 className="font-display text-[0.65rem] sm:text-xl text-white mb-1 line-clamp-2 leading-tight">{dish.name}</h4>
             <p className="hidden sm:block text-white/60 text-xs leading-relaxed line-clamp-3 mb-4">{dish.description}</p>
