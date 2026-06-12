@@ -493,31 +493,47 @@ function KashmiriFoodContent() {
 
                     {activeTab === "bakery" && (
                       <div>
-                        <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
-                          <div className="lg:w-1/2">
-                            <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-                              The Kandur-Wan
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-                              Kashmiri Bakery
-                            </h2>
-                            <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                              Kashmir has a unique neighborhood bakery culture. Bread is never baked in households. Instead, locals visit the community clay-oven bakery, the <strong>Kandur-wan</strong>, fresh every morning and afternoon to buy hot hand-crafted flatbreads.
-                            </p>
+                        <div className="flex flex-col lg:flex-row gap-8 items-stretch mb-12">
+                          {/* Description and Hours Column */}
+                          <div className="lg:w-7/12 flex flex-col justify-between gap-6">
+                            <div>
+                              <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
+                                The Kandur-Wan
+                              </span>
+                              <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
+                                Kashmiri Bakery
+                              </h2>
+                              <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                                Kashmir has a unique neighborhood bakery culture. Bread is never baked in households. Instead, locals visit the community clay-oven bakery, the <strong>Kandur-wan</strong>, fresh every morning and afternoon to buy hot hand-crafted flatbreads.
+                              </p>
+                            </div>
+                            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-xs space-y-3">
+                              <h4 className="text-[var(--saffron)] font-bold uppercase tracking-wider">Hourly Kandur Custom</h4>
+                              <div className="flex justify-between border-b border-white/5 pb-2">
+                                <span className="text-white/80"><strong>Girda:</strong> Breakfast flatbread</span>
+                                <span className="text-[var(--saffron)] font-mono">6:00 AM – 9:00 AM</span>
+                              </div>
+                              <div className="flex justify-between border-b border-white/5 pb-2">
+                                <span className="text-white/80"><strong>Czochworu:</strong> Sesame afternoon bread</span>
+                                <span className="text-[var(--saffron)] font-mono">3:30 PM – 5:30 PM</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-white/80"><strong>Bakerkhani:</strong> Golden flaky puff</span>
+                                <span className="text-[var(--saffron)] font-mono">4:00 PM – 6:00 PM</span>
+                              </div>
+                            </div>
                           </div>
-                          <div className="lg:w-1/2 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-xs space-y-3">
-                            <h4 className="text-[var(--saffron)] font-bold uppercase tracking-wider">Hourly Kandur Custom</h4>
-                            <div className="flex justify-between border-b border-white/5 pb-2">
-                              <span className="text-white/80"><strong>Girda:</strong> Breakfast flatbread</span>
-                              <span className="text-[var(--saffron)] font-mono">6:00 AM – 9:00 AM</span>
-                            </div>
-                            <div className="flex justify-between border-b border-white/5 pb-2">
-                              <span className="text-white/80"><strong>Czochworu:</strong> Sesame afternoon bread</span>
-                              <span className="text-[var(--saffron)] font-mono">3:30 PM – 5:30 PM</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-white/80"><strong>Bakerkhani:</strong> Golden flaky puff</span>
-                              <span className="text-[var(--saffron)] font-mono">4:00 PM – 6:00 PM</span>
+
+                          {/* Cover Image Column */}
+                          <div className="lg:w-5/12 relative rounded-2xl border border-white/10 overflow-hidden shadow-2xl min-h-[300px] lg:min-h-0 bg-white/5 group">
+                            <img
+                              src="/images/bakery-cover.jpg"
+                              alt="Kashmiri neighborhood clay-oven bakery (Kandur-wan)"
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                            <div className="absolute bottom-4 left-4 right-4 text-xs text-white/80 italic font-light drop-shadow">
+                              Kashmiri neighborhood clay-oven bakery (Kandur-wan)
                             </div>
                           </div>
                         </div>
