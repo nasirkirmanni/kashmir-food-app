@@ -2752,6 +2752,34 @@ export const dishes = [
     "updatedAt": "2026-06-11T07:06:12.483Z",
     "slug": "zere-chetin",
     "categoryType": "kashmiri_cuisine"
+  },
+  {
+    "_id": "6a2bab1955478f6653436289",
+    "name": "Waza Paneer",
+    "description": "Fried paneer cubes cooked in a rich, traditional spiced tomato gravy.",
+    "fullDescription": "Waza Paneer (also known as Ruwangan Chaman) is a classic Kashmiri Wazwan dish featuring golden-fried cottage cheese cubes cooked in a fragrant tomato-based gravy flavored with fennel, cardamom, and Kashmiri red chilies.",
+    "history": "Waza Paneer is a major vegetarian dish in the traditional Kashmiri Wazwan. Prepared by the Wazas, it brings a bright acidity and color to the royal feast. It has been cooked for decades as the premier paneer offering in marriage ceremonies and celebrations.",
+    "touristTip": "Perfect for vegetarians looking to experience authentic Wazwan spices. Tastes best with hot steamed rice.",
+    "category": "Wazwan",
+    "foodType": "Veg",
+    "image": "/images/dishes/ruwangan-chaman.png",
+    "priceRange": "INR 250-450",
+    "popularityRating": 4.7,
+    "spiceLevel": "Medium",
+    "tags": [
+      "paneer",
+      "vegetarian",
+      "wazwan",
+      "comfort"
+    ],
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 4.8,
+    "luxuryScore": 4,
+    "createdAt": "2026-06-12T06:45:45.859Z",
+    "updatedAt": "2026-06-12T06:45:45.860Z",
+    "slug": "waza-paneer",
+    "categoryType": "wazwan",
+    "courseType": "vegetarian"
   }
 ];
 
