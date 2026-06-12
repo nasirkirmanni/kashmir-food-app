@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, MapPin, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useMobileNavigation } from "@/context/MobileNavigationContext";
 
 const BowlFoodIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   <svg
@@ -52,8 +53,16 @@ const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
 export default function MobileNav() {
   const pathname = usePathname();
   const { user } = useAuth();
+  const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
 
   const isProfileIncomplete = user && (!user.phoneNumber || !user.address);
+
+  const handleNavClick = (index, e) => {
+    if (isMobile) {
+      e.preventDefault();
+      setActiveIndex(index);
+    }
+  };
 
   return (
     <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[420px]">
@@ -68,36 +77,53 @@ export default function MobileNav() {
         <Link 
           href="/" 
           className="relative group"
-          onClick={() => window.dispatchEvent(new Event('close-all-modals'))}
+          onClick={(e) => {
+            window.dispatchEvent(new Event('close-all-modals'));
+            handleNavClick(0, e);
+          }}
         >
-          <div className={`p-2 transition-colors ${pathname === "/" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <Home size={24} strokeWidth={pathname === "/" ? 2.5 : 2} />
+          <div className={`p-2 transition-colors ${activeIndex === 0 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
+            <Home size={24} strokeWidth={activeIndex === 0 ? 2.5 : 2} />
           </div>
         </Link>
 
-        <Link href="/restaurants" className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/restaurants" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <MapPin size={24} strokeWidth={pathname === "/restaurants" ? 2.5 : 2} />
+        <Link 
+          href="/restaurants" 
+          className="relative group"
+          onClick={(e) => handleNavClick(1, e)}
+        >
+          <div className={`p-2 transition-colors ${activeIndex === 1 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
+            <MapPin size={24} strokeWidth={activeIndex === 1 ? 2.5 : 2} />
           </div>
         </Link>
-
 
         <Link 
           href="/waza-ai"
           className="relative group p-2 text-[var(--saffron)] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] transition-transform active:scale-95"
+          onClick={(e) => handleNavClick(2, e)}
         >
-          <ChefAIIcon size={28} strokeWidth={2.5} />
-        </Link>
-
-        <Link href="/kashmiri-food" className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/kashmiri-food" || pathname === "/dishes" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <BowlFoodIcon size={24} strokeWidth={pathname === "/kashmiri-food" || pathname === "/dishes" ? 2.5 : 2} />
+          <div className={`transition-colors ${activeIndex === 2 ? "text-[var(--saffron)]" : "text-white/80"}`}>
+            <ChefAIIcon size={28} strokeWidth={2.5} />
           </div>
         </Link>
 
-        <Link href={user ? "/profile" : "/login"} className="relative group">
-          <div className={`p-2 transition-colors ${pathname === "/profile" ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
-            <User size={24} strokeWidth={pathname === "/profile" ? 2.5 : 2} />
+        <Link 
+          href="/kashmiri-food" 
+          className="relative group"
+          onClick={(e) => handleNavClick(3, e)}
+        >
+          <div className={`p-2 transition-colors ${activeIndex === 3 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
+            <BowlFoodIcon size={24} strokeWidth={activeIndex === 3 ? 2.5 : 2} />
+          </div>
+        </Link>
+
+        <Link 
+          href={user ? "/profile" : "/login"} 
+          className="relative group"
+          onClick={(e) => handleNavClick(4, e)}
+        >
+          <div className={`p-2 transition-colors ${activeIndex === 4 ? "text-[var(--saffron)]" : "text-white/40 hover:text-white/80"}`}>
+            <User size={24} strokeWidth={activeIndex === 4 ? 2.5 : 2} />
             {isProfileIncomplete && (
               <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-black/40"></span>
             )}

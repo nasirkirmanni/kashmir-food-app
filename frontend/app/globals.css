@@ -579,3 +579,13 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .hero-sway, .hero-float, .hero-orbit { animation: none; }
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

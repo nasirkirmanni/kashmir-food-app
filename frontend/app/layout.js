@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 import GlobalBackground from "@/components/GlobalBackground";
 import WazaAI from "@/components/WazaAI";
+import { MobileNavigationProvider } from "@/context/MobileNavigationContext";
+import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -100,14 +102,20 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
         <GlobalBackground />
         <AuthProvider>
-          <div className="min-h-screen relative z-10 pb-24 md:pb-0">
-            <SplashScreen />
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-            <WazaAI />
-            <MobileNav />
-          </div>
+          <MobileNavigationProvider>
+            <div className="min-h-screen relative z-10 pb-24 md:pb-0">
+              <SplashScreen />
+              <Navbar />
+              <MobileSwipeContainer>
+                <main>{children}</main>
+              </MobileSwipeContainer>
+              <div className="hidden md:block">
+                <Footer />
+              </div>
+              <WazaAI />
+              <MobileNav />
+            </div>
+          </MobileNavigationProvider>
         </AuthProvider>
       </body>
     </html>
