@@ -62,7 +62,7 @@ export default function VisitKashmirPage() {
         <div>
           <span className="place-eyebrow">Waza AI Travel Companion</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4 text-[#D4AF37]">
-            Visit Kashmir
+            Rare Destinations
           </h1>
           <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
             Explore Kashmir's most iconic valleys, pristine alpine lakes, and heritage sites. Fully audited for local culinary authenticity, tourist accessibility, and premium luxury accommodation.

@@ -103,6 +103,7 @@ export default function HamburgerMenu() {
                   { label: "Recipes", href: "/recipes" },
                   { label: "Traditional Wazwan", href: "/dishes" },
                   { label: "Restaurants", href: "/restaurants" },
+                  { label: "Rare Destinations", href: "/visit-kashmir" },
                   { label: "Visit kashmir", href: "/plan" },
                   { label: "List Your Restaurant", href: "/list-restaurant" },
                 ].map((item) => (
