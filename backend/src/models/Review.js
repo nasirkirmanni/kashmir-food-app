@@ -14,4 +14,6 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+reviewSchema.index({ restaurant: 1, createdAt: -1 });
+
 export const Review = mongoose.model("Review", reviewSchema);

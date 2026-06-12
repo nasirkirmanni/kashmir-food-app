@@ -24,7 +24,7 @@ export default function DishCard({ dish, onFavorite }) {
   return (
     <article className="overflow-hidden rounded-[28px] bg-white shadow-card transition hover:-translate-y-1">
       <div className="relative h-56 overflow-hidden">
-        <img src={dish.image} alt={dish.name} className="h-full w-full object-cover" />
+        <img src={dish.image} alt={dish.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
         <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-pine">
           {dish.foodType}
         </span>

@@ -6,28 +6,33 @@ import Image from "next/image";
 export default function SplashScreen() {
   const [visible, setVisible] = useState(true);
   const [showCredit, setShowCredit] = useState(false);
+  const [destroyed, setDestroyed] = useState(false);
 
   useEffect(() => {
-    // Slower transition timings
-    const creditTimer = window.setTimeout(() => setShowCredit(true), 1500);
-    const hideTimer = window.setTimeout(() => setVisible(false), 4500);
+    const creditTimer = window.setTimeout(() => setShowCredit(true), 500);
+    const hideTimer = window.setTimeout(() => setVisible(false), 1500);
+    const destroyTimer = window.setTimeout(() => setDestroyed(true), 2100);
 
     return () => {
       window.clearTimeout(creditTimer);
       window.clearTimeout(hideTimer);
+      window.clearTimeout(destroyTimer);
     };
   }, []);
 
+  if (destroyed) return null;
+
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-[100] overflow-hidden transition-all duration-[2000ms] ${
+      style={{ willChange: visible ? "opacity" : "auto" }}
+      className={`pointer-events-none fixed inset-0 z-[100] overflow-hidden transition-all duration-500 ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
       {/* Mobile View (Below md) */}
       <div className="absolute inset-0 bg-[#111111] md:hidden">
         <Image 
-          src="/mobile.png"
+          src="/mobile.jpg"
           alt="Wazwan Opening"
           fill
           priority
@@ -39,7 +44,7 @@ export default function SplashScreen() {
             <span className="mt-4 block text-[var(--saffron,#D4AF37)] drop-shadow-xl">WAY</span>
           </h1>
           <div
-            className={`mt-6 transition-all duration-1000 ${
+            className={`mt-6 transition-all duration-700 ${
               showCredit ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             }`}
           >
@@ -58,7 +63,7 @@ export default function SplashScreen() {
             <span className="mt-4 block text-[var(--saffron,#D4AF37)] drop-shadow-xl">WAY</span>
           </h1>
           <div
-            className={`mt-6 transition-all duration-1000 ${
+            className={`mt-6 transition-all duration-700 ${
               showCredit ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             }`}
           >
@@ -71,3 +76,4 @@ export default function SplashScreen() {
     </div>
   );
 }
+

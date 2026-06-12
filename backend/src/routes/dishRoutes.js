@@ -10,7 +10,12 @@ const router = express.Router();
 router.get(
   "/top",
   asyncHandler(async (_req, res) => {
-    const dishes = await Dish.find().sort({ popularityRating: -1 }).limit(5);
+    res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=600");
+    const dishes = await Dish.find()
+      .sort({ popularityRating: -1 })
+      .limit(5)
+      .select("name description category image popularityRating priceRange slug foodType")
+      .lean();
     res.json(dishes);
   })
 );
@@ -43,7 +48,10 @@ router.get(
       query.foodType = foodType;
     }
 
-    const dishes = await Dish.find(query).sort({ popularityRating: -1 });
+    const dishes = await Dish.find(query)
+      .sort({ popularityRating: -1 })
+      .select("name description category image popularityRating priceRange slug foodType")
+      .lean();
     res.json(dishes);
   })
 );
@@ -51,27 +59,28 @@ router.get(
 router.get(
   "/:idOrSlug",
   asyncHandler(async (req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=30, stale-while-revalidate=300");
     let dish;
     
     // Check if parameter is a valid MongoDB ObjectID
     if (req.params.idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
-      dish = await Dish.findById(req.params.idOrSlug);
+      dish = await Dish.findById(req.params.idOrSlug).lean();
     }
     
     // Fall back to slug lookup
     if (!dish) {
-      dish = await Dish.findOne({ slug: req.params.idOrSlug });
+      dish = await Dish.findOne({ slug: req.params.idOrSlug }).lean();
     }
 
     if (!dish) {
       return res.status(404).json({ message: "Dish not found" });
     }
 
-    const restaurants = await Restaurant.find({ linkedDishes: dish._id }).select(
-      "name location rating priceLevel authentic touristTrapWarning slug"
-    );
+    const restaurants = await Restaurant.find({ linkedDishes: dish._id })
+      .select("name location rating priceLevel authentic touristTrapWarning slug")
+      .lean();
 
-    res.json({ ...dish.toObject(), restaurants });
+    res.json({ ...dish, restaurants });
   })
 );
 

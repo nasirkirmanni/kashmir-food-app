@@ -51,17 +51,18 @@ const locationTabMeta = {
 const dishImageOverrides = {
   "Methi Maaz": "/images/dishes/methi-maaz.jpg",
   "Waza Kokur": "/images/dishes/waza-kokur.jpg",
-  "Dani Phol": "https://img1.wsimg.com/isteam/ip/dd6344ba-b4f2-40bd-9964-c303da269da2/Dani%20Phol.jpg/:/rs=w:600,cg:true,m",
-  "Daniwal Korma": "/images/dishes/daniwal-korma.png",
-  "Waza Palak": "/images/dishes/waza-palak.png",
-  "Waza Haak": "/images/dishes/waza-haak.png",
-  "Wazwaan Mushroom": "/images/dishes/wazwaan-mushroom.png",
-  "Aab Gosh": "https://img1.wsimg.com/isteam/ip/dd6344ba-b4f2-40bd-9964-c303da269da2/Aab%20Gosht%20Final.jpg/:/rs=w:600,cg:true,m",
+  "Dani Phol": "/images/dishes/dani-phol.jpg",
+  "Daniwal Korma": "/images/dishes/daniwal-korma.jpg",
+  "Waza Palak": "/images/dishes/waza-palak.jpg",
+  "Waza Haak": "/images/dishes/waza-haak.jpg",
+  "Wazwaan Mushroom": "/images/dishes/wazwaan-mushroom.jpg",
+  "Aab Gosh": "/images/dishes/aab-gosht.jpg",
+  "Aab Gosht": "/images/dishes/aab-gosht.jpg",
   "Marchwangan Korma": "/images/dishes/marchwangan-korma.jpg",
-  "Ruwangan Chaman": "/images/dishes/ruwangan-chaman.png",
+  "Ruwangan Chaman": "/images/dishes/ruwangan-chaman.jpg",
   "Dum Aelve": "/images/dishes/dum-aelve.jpg",
-  "Gande Tsitin": "/images/dishes/gande-tsitin.png",
-  "Muji Chetin": "/images/dishes/muji-chetin.png"
+  "Gande Tsitin": "/images/dishes/gande-tsitin.jpg",
+  "Muji Chetin": "/images/dishes/muji-chetin.jpg"
 };
 
 const dishResearchSummaries = {
@@ -596,6 +597,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 <img
                   src={dishImageOverrides[dish.name] || dish.image}
                   alt={dish.name}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
               </div>

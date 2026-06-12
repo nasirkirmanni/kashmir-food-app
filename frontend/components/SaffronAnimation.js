@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function SaffronAnimation() {
@@ -10,14 +10,20 @@ export default function SaffronAnimation() {
     offset: ["start end", "end start"],
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   // Parallax transforms for different depths
   const yFront = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const yMiddle = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const yBack = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
-  // Generate 20 saffron strands with varying properties
+  // Generate saffron strands with varying properties
   const strands = useMemo(() => {
-    return Array.from({ length: 20 }).map((_, i) => {
+    const count = isMobile ? 6 : 20;
+    return Array.from({ length: count }).map((_, i) => {
       const isFront = i % 3 === 0;
       const isBack = i % 3 === 1;
       
@@ -60,11 +66,12 @@ export default function SaffronAnimation() {
         glow: Math.random() > 0.7 // 30% chance to have a warm golden glow
       };
     });
-  }, []);
+  }, [isMobile]);
 
-  // Generate 30 glowing particles
+  // Generate glowing particles
   const particles = useMemo(() => {
-    return Array.from({ length: 30 }).map((_, i) => ({
+    const count = isMobile ? 8 : 30;
+    return Array.from({ length: count }).map((_, i) => ({
       id: `p-${i}`,
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
@@ -73,7 +80,7 @@ export default function SaffronAnimation() {
       duration: 3 + Math.random() * 5,
       delay: Math.random() * -10,
     }));
-  }, []);
+  }, [isMobile]);
 
   return (
     <div 

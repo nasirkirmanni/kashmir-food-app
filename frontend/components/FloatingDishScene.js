@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 // All timing is unique per dish — they NEVER sync
 const DISHES = [
   {
-    src: "/dishes/Ruwangan Chaman.png",
+    src: "/dishes/Ruwangan Chaman.jpg",
     alt: "Ruwangan Chaman",
     label: "Ruwangan Chaman",
     // Centre — largest, slowest
@@ -24,7 +24,7 @@ const DISHES = [
     scale: [1, 1.025, 1, 1.02, 1],
   },
   {
-    src: "/dishes/Daniwal Korma.png",
+    src: "/dishes/Daniwal Korma.jpg",
     alt: "Daniwal Korma",
     label: "Daniwal Korma",
     // Top-left
@@ -40,7 +40,7 @@ const DISHES = [
     scale: [1, 1.02, 1, 1.018, 1],
   },
   {
-    src: "/dishes/Waza Haak.png",
+    src: "/dishes/Waza Haak.jpg",
     alt: "Waza Haak",
     label: "Waza Haak",
     // Top-right
@@ -72,7 +72,7 @@ const DISHES = [
     scale: [1, 1.022, 1, 1.015, 1],
   },
   {
-    src: "/dishes/Waza Palak.png",
+    src: "/dishes/Waza Palak.jpg",
     alt: "Waza Palak",
     label: "Waza Palak",
     // Bottom-right
@@ -88,7 +88,7 @@ const DISHES = [
     scale: [1, 1.02, 1, 1.025, 1],
   },
   {
-    src: "/dishes/Wazwaan Mushroom.png",
+    src: "/dishes/Wazwaan Mushroom.jpg",
     alt: "Wazwaan Mushroom",
     label: "Wazwaan Mushroom",
     // Mid-right

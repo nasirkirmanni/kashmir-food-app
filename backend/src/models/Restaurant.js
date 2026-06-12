@@ -31,6 +31,10 @@ const restaurantSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+restaurantSchema.index({ rating: -1 });
+restaurantSchema.index({ city: 1, rating: -1 });
+restaurantSchema.index({ linkedDishes: 1 });
+
 function slugify(text) {
   return text
     .toString()

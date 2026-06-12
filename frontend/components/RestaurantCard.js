@@ -25,7 +25,7 @@ export default function RestaurantCard({ restaurant, compact = false, onFavorite
     <article className="overflow-hidden rounded-[28px] bg-white shadow-card">
       {!compact ? (
         <div className="h-48">
-          <img src={restaurant.image} alt={restaurant.name} className="h-full w-full object-cover" />
+          <img src={restaurant.image} alt={restaurant.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
         </div>
       ) : null}
       <div className="space-y-4 p-5">

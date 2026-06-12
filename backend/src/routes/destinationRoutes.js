@@ -26,7 +26,8 @@ router.get(
       query.tags = { $in: [new RegExp(tag, "i")] };
     }
 
-    const destinations = await Destination.find(query).sort({ name: 1 });
+    res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=600");
+    const destinations = await Destination.find(query).sort({ name: 1 }).lean();
     res.json(destinations);
   })
 );
@@ -35,16 +36,17 @@ router.get(
 router.get(
   "/:idOrSlug",
   asyncHandler(async (req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=30, stale-while-revalidate=300");
     let destination;
 
     // Check if ID is a valid MongoDB ObjectID
     if (req.params.idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
-      destination = await Destination.findById(req.params.idOrSlug);
+      destination = await Destination.findById(req.params.idOrSlug).lean();
     }
 
     // Fall back to slug lookup
     if (!destination) {
-      destination = await Destination.findOne({ slug: req.params.idOrSlug });
+      destination = await Destination.findOne({ slug: req.params.idOrSlug }).lean();
     }
 
     if (!destination) {

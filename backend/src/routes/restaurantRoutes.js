@@ -37,9 +37,11 @@ router.get(
       query.linkedDishes = { $in: matchingDishIds };
     }
 
+    res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=600");
     const restaurants = await Restaurant.find(query)
       .populate("linkedDishes", "name foodType category")
-      .sort({ rating: -1 });
+      .sort({ rating: -1 })
+      .lean();
 
     res.json(restaurants);
   })
@@ -48,22 +50,21 @@ router.get(
 router.get(
   "/:idOrSlug",
   asyncHandler(async (req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=30, stale-while-revalidate=300");
     let restaurant;
     
     // Check if parameter is a valid MongoDB ObjectID
     if (req.params.idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
-      restaurant = await Restaurant.findById(req.params.idOrSlug).populate(
-        "linkedDishes",
-        "name category image slug"
-      );
+      restaurant = await Restaurant.findById(req.params.idOrSlug)
+        .populate("linkedDishes", "name category image slug")
+        .lean();
     }
     
     // Fall back to slug lookup
     if (!restaurant) {
-      restaurant = await Restaurant.findOne({ slug: req.params.idOrSlug }).populate(
-        "linkedDishes",
-        "name category image slug"
-      );
+      restaurant = await Restaurant.findOne({ slug: req.params.idOrSlug })
+        .populate("linkedDishes", "name category image slug")
+        .lean();
     }
 
     if (!restaurant) {
@@ -72,9 +73,10 @@ router.get(
 
     const reviews = await Review.find({ restaurant: restaurant._id })
       .populate("user", "name")
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
 
-    res.json({ ...restaurant.toObject(), reviews });
+    res.json({ ...restaurant, reviews });
   })
 );
 
