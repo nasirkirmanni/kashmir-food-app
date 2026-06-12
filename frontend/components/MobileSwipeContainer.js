@@ -22,6 +22,7 @@ export default function MobileSwipeContainer({ children }) {
   const isHorizontalDragRef = useRef(null);
   const rafIdRef = useRef(null);
   const currentTranslateRef = useRef(0);
+  const lastTouchTimeRef = useRef(0);
   const screenWidthRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 375);
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export default function MobileSwipeContainer({ children }) {
     const onStart = (e) => {
       startXRef.current = e.touches[0].clientX;
       startYRef.current = e.touches[0].clientY;
+      lastTouchTimeRef.current = Date.now();
       isDraggingRef.current = true;
       isHorizontalDragRef.current = null;
       container.style.transition = 'none';
@@ -101,42 +103,74 @@ export default function MobileSwipeContainer({ children }) {
     };
 
     const onEnd = (e) => {
-      // Paint reduction: remove dragging class from body
-      document.body.classList.remove('is-dragging');
-      
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
-      
-      if (!isDraggingRef.current || isHorizontalDragRef.current === false) {
-        isDraggingRef.current = false;
-        return;
-      }
-      
-      const delta = e.changedTouches[0].clientX - startXRef.current;
-      
+      let decision = "stay";
       let nextIndex = activeIndex;
-      // Swipe LEFT (delta negative) = HIGHER index
-      if (delta < -80 && activeIndex < 4) {
-        nextIndex = activeIndex + 1;
-      } 
-      // Swipe RIGHT (delta positive) = LOWER index
-      else if (delta > 80 && activeIndex > 0) {
-        nextIndex = activeIndex - 1;
-      }
-      
-      // Update global context, triggering transform with transition
-      if (nextIndex !== activeIndex) {
-        setActiveIndex(nextIndex);
-      } else {
-        // Snap back to current index if threshold not met
+      let delta = 0;
+      let velocity = 0;
+      let touchTime = 0;
+
+      try {
+        // Paint reduction: remove dragging class from body
+        document.body.classList.remove('is-dragging');
+        
+        if (rafIdRef.current) {
+          cancelAnimationFrame(rafIdRef.current);
+          rafIdRef.current = null;
+        }
+        
+        if (!isDraggingRef.current || isHorizontalDragRef.current === false) {
+          return;
+        }
+        
+        // Handle cases where changedTouches might be empty (e.g. touchcancel)
+        if (!e.changedTouches || e.changedTouches.length === 0) {
+          decision = "cancel (no touches)";
+          return;
+        }
+
+        delta = e.changedTouches[0].clientX - startXRef.current;
+        touchTime = Date.now() - lastTouchTimeRef.current;
+        
+        // Calculate velocity (pixels per ms)
+        velocity = touchTime > 0 ? Math.abs(delta) / touchTime : 0;
+        
+        // Navigation threshold: distance > 80px OR high velocity (> 0.5 px/ms)
+        const isSignificantSwipe = Math.abs(delta) > 80;
+        const isFastSwipe = velocity > 0.5 && Math.abs(delta) > 30; // minimum distance to avoid accidental taps
+
+        if ((isSignificantSwipe || isFastSwipe) && delta < 0 && activeIndex < 4) {
+          nextIndex = activeIndex + 1;
+          decision = "navigate next";
+        } else if ((isSignificantSwipe || isFastSwipe) && delta > 0 && activeIndex > 0) {
+          nextIndex = activeIndex - 1;
+          decision = "navigate prev";
+        } else {
+          decision = "snap back";
+        }
+
+        console.log(`[Swipe] translateX: ${currentTranslateRef.current.toFixed(1)}px, distance: ${delta}px, velocity: ${velocity.toFixed(2)}px/ms, decision: ${decision}`);
+
+        if (nextIndex !== activeIndex) {
+          setActiveIndex(nextIndex);
+        }
+      } catch (err) {
+        console.error("[Swipe] Error during dragEnd logic:", err);
+        decision = "error fallback";
+      } finally {
+        // Ultimate safety fallback: 
+        // Synchronously apply the transform and transition for BOTH navigation and snap-back scenarios.
+        // This ensures the container never remains visually stuck between pages.
         container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        currentTranslateRef.current = -activeIndex * screenWidthRef.current;
+        
+        // Always enforce the container's physical position to the decided index (which may just be the current one)
+        const targetIndex = nextIndex !== undefined ? nextIndex : activeIndex;
+        currentTranslateRef.current = -targetIndex * screenWidthRef.current;
+        
+        // Apply immediately bypassing React's render bottleneck
         container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+
+        isDraggingRef.current = false;
       }
-      
-      isDraggingRef.current = false;
     };
 
     container.addEventListener('touchstart', onStart, { passive: true });
