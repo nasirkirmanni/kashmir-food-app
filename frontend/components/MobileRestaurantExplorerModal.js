@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 // ─── star icon ───────────────────────────────────────────────────
 function StarIcon() {
@@ -57,10 +58,10 @@ export default function MobileRestaurantExplorerModal({
         {locationTabs.map((location, i) => {
           const count = locationCounts[location] || 0;
           const locationImages = {
-            Srinagar: "/images/Destinations/Srinagar.jpg",
-            Gulmarg: "/images/Destinations/Gulmarg.jpg",
-            Pahalgam: "/images/Destinations/Pahalgam.jpg",
-            Sonamarg: "/images/Destinations/Sonmarg.jpg"
+            Srinagar: "/images/Destinations/optimized/Srinagar-800.avif",
+            Gulmarg: "/images/Destinations/optimized/Gulmarg-800.avif",
+            Pahalgam: "/images/Destinations/optimized/Pahalgam-800.avif",
+            Sonamarg: "/images/Destinations/optimized/Sonmarg-800.avif"
           };
           const imgUrl = locationImages[location] || "/wazwan-hero.jpg";
 
@@ -75,7 +76,7 @@ export default function MobileRestaurantExplorerModal({
               className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
             >
               <div className="absolute inset-0 z-0 opacity-50">
-                 <img src={imgUrl} loading="lazy" decoding="async" className="w-full h-full object-cover brightness-75" alt="" />
+                 <Image src={imgUrl} fill sizes="50vw" className="object-cover brightness-75" alt="" />
                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
               </div>
               
@@ -139,12 +140,12 @@ export default function MobileRestaurantExplorerModal({
                     >
                       <div className="relative h-24 w-full overflow-hidden bg-black/50">
                         {restaurant.image && (
-                          <img
+                          <Image
                             src={restaurant.image}
                             alt={restaurant.name}
-                            loading="lazy"
-                            decoding="async"
-                            className="h-full w-full object-cover"
+                            fill
+                            sizes="33vw"
+                            className="object-cover"
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />

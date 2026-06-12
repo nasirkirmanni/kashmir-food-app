@@ -4,11 +4,14 @@ import Link from "next/link";
 import { MapPin, ChefHat, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import LandingCanvas from "@/components/LandingCanvas";
+
 import Image from "next/image";
-import DesktopRestaurantTabs from "@/components/DesktopRestaurantTabs";
-import MobileRestaurantExplorerModal from "@/components/MobileRestaurantExplorerModal";
-import SaffronAnimation from "@/components/SaffronAnimation";
+import dynamic from "next/dynamic";
+
+const LandingCanvas = dynamic(() => import("@/components/LandingCanvas"), { ssr: false });
+const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaurantTabs"), { ssr: false });
+const MobileRestaurantExplorerModal = dynamic(() => import("@/components/MobileRestaurantExplorerModal"), { ssr: false });
+const SaffronAnimation = dynamic(() => import("@/components/SaffronAnimation"), { ssr: false });
 import { endpoints, request } from "@/lib/api";
 
 const locationTabMeta = {
@@ -595,12 +598,12 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             >
               <div className="relative h-28 md:h-40 shrink-0 overflow-hidden">
                 <div className="absolute inset-0 z-10 bg-black/20 transition duration-500 group-hover:bg-transparent" />
-                <img
-                  src={dishImageOverrides[dish.name] || dish.image}
+                <Image
+                  src={dishImageOverrides[dish.name] || dish.image || '/wazwan-hero.jpg'}
                   alt={dish.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover transition duration-700 group-hover:scale-110"
                 />
               </div>
               <div className="p-4 md:p-6 flex flex-col flex-1 justify-between">

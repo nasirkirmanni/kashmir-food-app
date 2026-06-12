@@ -4,6 +4,16 @@ import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
 import { endpoints, request } from "@/lib/api";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+function getOptimizedImage(url, size = 800) {
+  if (!url) return "/wazwan-hero.jpg";
+  if (url.includes("/images/Destinations/")) {
+    if (url.includes("/optimized/")) return url;
+    return url.replace("/images/Destinations/", "/images/Destinations/optimized/").replace(/\.(jpg|jpeg|png)$/i, `-${size}.avif`);
+  }
+  return url;
+}
 
 export default function VisitKashmirPage() {
   const [destinations, setDestinations] = useState([]);
@@ -158,14 +168,12 @@ export default function VisitKashmirPage() {
               >
                 {/* Image top */}
                 <div className="relative h-16 xs:h-20 sm:h-24 md:h-48 w-full overflow-hidden bg-black/40">
-                  <img
-                    src={dest.image || "/wazwan-hero.jpg"}
+                  <Image
+                    src={getOptimizedImage(dest.image, 800)}
                     alt={dest.name}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    onError={(e) => {
-                      e.currentTarget.src = "/wazwan-hero.jpg";
-                      e.currentTarget.onerror = null;
-                    }}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent" />
                   <div className="absolute top-1 left-1 md:top-4 md:left-4 rounded bg-black/60 px-1 py-0.5 md:px-2 md:py-0.5 text-[8px] md:text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)] backdrop-blur-md">

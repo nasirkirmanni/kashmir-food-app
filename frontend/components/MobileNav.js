@@ -68,6 +68,7 @@ export default function MobileNav() {
     <div className="md:hidden bottom-bar">
       <Link 
         href="/" 
+        aria-label="Home"
         className={`nav-icon ${activeIndex === 0 ? "active" : ""}`}
         onClick={(e) => {
           window.dispatchEvent(new Event('close-all-modals'));
@@ -79,6 +80,7 @@ export default function MobileNav() {
 
       <Link 
         href="/restaurants" 
+        aria-label="Restaurants"
         className={`nav-icon ${activeIndex === 1 ? "active" : ""}`}
         onClick={(e) => handleNavClick(1, e)}
       >
@@ -87,6 +89,7 @@ export default function MobileNav() {
 
       <Link 
         href="/waza-ai"
+        aria-label="Waza AI Concierge"
         className={`nav-icon ${activeIndex === 2 ? "active" : ""}`}
         onClick={(e) => handleNavClick(2, e)}
       >
@@ -95,6 +98,7 @@ export default function MobileNav() {
 
       <Link 
         href="/kashmiri-food" 
+        aria-label="Kashmiri Food"
         className={`nav-icon ${activeIndex === 3 ? "active" : ""}`}
         onClick={(e) => handleNavClick(3, e)}
       >
@@ -103,6 +107,7 @@ export default function MobileNav() {
 
       <Link 
         href={user ? "/profile" : "/login"} 
+        aria-label="Profile"
         className={`nav-icon ${activeIndex === 4 ? "active" : ""}`}
         onClick={(e) => handleNavClick(4, e)}
       >

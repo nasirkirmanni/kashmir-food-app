@@ -155,7 +155,6 @@ export default function SaffronAnimation() {
                 style={{
                   transform: `scale(${strand.scale})`,
                   opacity: strand.opacity,
-                  filter: strand.glow ? 'drop-shadow(0 0 4px rgba(212, 175, 55, 0.6))' : 'none'
                 }}
               >
                 <path

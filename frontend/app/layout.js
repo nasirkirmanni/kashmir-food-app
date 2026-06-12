@@ -91,8 +91,6 @@ export const metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: "cover",
 };
 
@@ -100,7 +98,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
         <GlobalBackground />
