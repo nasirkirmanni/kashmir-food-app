@@ -20,13 +20,20 @@ export default function MobileSwipeContainer({ children }) {
   const startXRef = useRef(0);
   const startYRef = useRef(0);
   const isHorizontalDragRef = useRef(null);
+  const rafIdRef = useRef(null);
+  const currentTranslateRef = useRef(0);
 
   // Apply transition when activeIndex changes from navigation taps
   useEffect(() => {
     if (!isMobile || !containerRef.current) return;
     const container = containerRef.current;
-    container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    container.style.transform = `translateX(${-activeIndex * 100}vw)`;
+    
+    // Only apply transition if we aren't dragging
+    if (!isDraggingRef.current) {
+      container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      currentTranslateRef.current = -activeIndex * window.innerWidth;
+      container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+    }
   }, [activeIndex, isMobile]);
 
   // Touch logic based on explicit prompt instructions
@@ -34,12 +41,22 @@ export default function MobileSwipeContainer({ children }) {
     if (!isMobile || !containerRef.current) return;
     const container = containerRef.current;
 
+    const updateTransform = () => {
+      if (containerRef.current && isDraggingRef.current) {
+        containerRef.current.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+      }
+      rafIdRef.current = null;
+    };
+
     const onStart = (e) => {
       startXRef.current = e.touches[0].clientX;
       startYRef.current = e.touches[0].clientY;
       isDraggingRef.current = true;
       isHorizontalDragRef.current = null;
       container.style.transition = 'none';
+      
+      // Paint reduction: toggle dragging class on body
+      document.body.classList.add('is-dragging');
     };
 
     const onMove = (e) => {
@@ -64,13 +81,26 @@ export default function MobileSwipeContainer({ children }) {
 
       // If horizontal drag, move container and prevent vertical scroll
       if (isHorizontalDragRef.current === true) {
-        const base = -activeIndex * window.innerWidth;
-        container.style.transform = `translateX(${base + deltaX}px)`;
         e.preventDefault();
+        const base = -activeIndex * window.innerWidth;
+        currentTranslateRef.current = base + deltaX;
+        
+        // Schedule transform update using requestAnimationFrame
+        if (!rafIdRef.current) {
+          rafIdRef.current = requestAnimationFrame(updateTransform);
+        }
       }
     };
 
     const onEnd = (e) => {
+      // Paint reduction: remove dragging class from body
+      document.body.classList.remove('is-dragging');
+      
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+      
       if (!isDraggingRef.current || isHorizontalDragRef.current === false) {
         isDraggingRef.current = false;
         return;
@@ -89,18 +119,31 @@ export default function MobileSwipeContainer({ children }) {
       }
       
       // Update global context, triggering transform with transition
-      setActiveIndex(nextIndex);
+      if (nextIndex !== activeIndex) {
+        setActiveIndex(nextIndex);
+      } else {
+        // Snap back to current index if threshold not met
+        container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        currentTranslateRef.current = -activeIndex * window.innerWidth;
+        container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+      }
+      
       isDraggingRef.current = false;
     };
 
     container.addEventListener('touchstart', onStart, { passive: true });
     container.addEventListener('touchmove', onMove, { passive: false });
     container.addEventListener('touchend', onEnd, { passive: true });
+    container.addEventListener('touchcancel', onEnd, { passive: true });
 
     return () => {
       container.removeEventListener('touchstart', onStart);
       container.removeEventListener('touchmove', onMove);
       container.removeEventListener('touchend', onEnd);
+      container.removeEventListener('touchcancel', onEnd);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
     };
   }, [activeIndex, isMobile, setActiveIndex]);
 
@@ -117,6 +160,21 @@ export default function MobileSwipeContainer({ children }) {
       top: 0; left: 0;
       background: #1a0f08;
     }
+    
+    /* Paint reduction optimization for when user is actively swiping */
+    body.is-dragging .bottom-bar {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(20, 20, 20, 0.95) !important;
+      box-shadow: none !important;
+    }
+    body.is-dragging .header-icon-btn {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(20, 20, 20, 0.95) !important;
+      box-shadow: none !important;
+    }
+    
     .header {
       position: fixed;
       top: 0; left: 0;
@@ -151,6 +209,7 @@ export default function MobileSwipeContainer({ children }) {
         inset 0 1px 0 rgba(255, 255, 255, 0.12),
         inset 0 -1px 0 rgba(0, 0, 0, 0.2);
       padding-bottom: env(safe-area-inset-bottom);
+      transition: backdrop-filter 0.2s, background 0.2s, box-shadow 0.2s;
     }
     .nav-icon {
       position: relative;
@@ -184,8 +243,11 @@ export default function MobileSwipeContainer({ children }) {
       display: flex;
       flex-direction: row;
       will-change: transform;
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
       transition: transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      touch-action: pan-y;
+      backface-visibility: hidden;
+      perspective: 1000px;
     }
     .screen {
       width: 100vw;
@@ -194,6 +256,10 @@ export default function MobileSwipeContainer({ children }) {
       overflow-x: hidden;
       flex-shrink: 0;
       background: #0B0B0B;
+      backface-visibility: hidden;
+      perspective: 1000px;
+      contain: layout paint style;
+      transform: translateZ(0); /* Force layer promotion */
     }
   `;
 

@@ -589,3 +589,20 @@ a {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Paint reduction optimization for when user is actively swiping */
+body.is-dragging .glass-panel,
+body.is-dragging .wazwan-dish-card,
+body.is-dragging .wazwan-restaurant-card,
+body.is-dragging .jump-card,
+body.is-dragging .wazwan-tip-card,
+body.is-dragging .restaurant-place-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+body.is-dragging * {
+  animation-play-state: paused !important;
+}
+

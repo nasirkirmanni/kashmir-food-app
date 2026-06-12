@@ -75,7 +75,7 @@ export default function MobileRestaurantExplorerModal({
               className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
             >
               <div className="absolute inset-0 z-0 opacity-50">
-                 <img src={imgUrl} className="w-full h-full object-cover brightness-75" alt="" />
+                 <img src={imgUrl} loading="lazy" decoding="async" className="w-full h-full object-cover brightness-75" alt="" />
                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
               </div>
               
@@ -142,6 +142,8 @@ export default function MobileRestaurantExplorerModal({
                           <img
                             src={restaurant.image}
                             alt={restaurant.name}
+                            loading="lazy"
+                            decoding="async"
                             className="h-full w-full object-cover"
                           />
                         )}
