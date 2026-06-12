@@ -1,3 +1,4 @@
+import HomePageHero from "@/components/HomePageHero";
 import HomePageClient from "@/components/HomePageClient";
 import JsonLd, { buildWebsiteSchema, buildOrganizationSchema, buildFaqSchema } from "@/components/JsonLd";
 
@@ -37,6 +38,7 @@ export default function HomePage() {
       <JsonLd data={buildWebsiteSchema()} />
       <JsonLd data={buildOrganizationSchema()} />
       <JsonLd data={buildFaqSchema(homeFaqs)} />
+      <HomePageHero />
       <HomePageClient />
     </>
   );

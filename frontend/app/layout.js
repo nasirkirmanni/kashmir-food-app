@@ -4,7 +4,6 @@ import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
-import SplashScreen from "@/components/SplashScreen";
 import GlobalBackground from "@/components/GlobalBackground";
 import WazaAI from "@/components/WazaAI";
 import { MobileNavigationProvider } from "@/context/MobileNavigationContext";
@@ -12,13 +11,15 @@ import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body"
+  variable: "--font-body",
+  display: "swap"
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "500", "600", "700"]
+  weight: ["400", "500", "600", "700"],
+  display: "swap"
 });
 
 const BASE_URL = "https://wazwanway.com";
@@ -104,7 +105,6 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <MobileNavigationProvider>
             <div className="min-h-screen relative z-10 pb-24 md:pb-0">
-              <SplashScreen />
               <Navbar />
               <MobileSwipeContainer>
                 <main>{children}</main>
