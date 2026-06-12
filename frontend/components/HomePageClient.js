@@ -698,47 +698,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             </Link>
           </motion.div>
 
-          {/* Card 2: Plan Kashmir Visit */}
-          <motion.div
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ y: -4 }}
-            className="flex"
-          >
-            <Link 
-              href="/visit-kashmir" 
-              className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
-            >
-              {/* Subtle glass refraction highlight */}
-              <div className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden mix-blend-overlay opacity-30 group-hover:opacity-50 transition-opacity duration-300">
-                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 transition-transform duration-700 ease-out blur-sm" />
-              </div>
-
-              {/* Icon Container */}
-              <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/5 border border-white/15 text-[var(--saffron)] transition-all duration-300 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 group-hover:scale-105 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 filter drop-shadow-[0_0_4px_rgba(212,175,55,0.4)]">
-                  <circle cx="12" cy="12" r="10" />
-                  <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88" />
-                </svg>
-              </div>
-
-              {/* Text info */}
-              <div className="mt-auto">
-                <h3 className="font-display text-[1.15rem] font-medium leading-tight text-white group-hover:text-[var(--saffron)] transition-colors">
-                  Rare destinations
-                </h3>
-                <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
-                  Valleys, pristine lakes & scores
-                </p>
-              </div>
-
-              {/* Tiny arrow hint */}
-              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* Card 3: Culinary Itineraries */}
+          {/* Card 2: Culinary Itineraries */}
           <motion.div
             whileTap={{ scale: 0.96 }}
             whileHover={{ y: -4 }}
@@ -769,6 +729,46 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 </h3>
                 <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
                   Curated food trails & travel journeys
+                </p>
+              </div>
+
+              {/* Tiny arrow hint */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Card 3: Visit Kashmir */}
+          <motion.div
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ y: -4 }}
+            className="flex"
+          >
+            <Link 
+              href="/visit-kashmir" 
+              className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
+            >
+              {/* Subtle glass refraction highlight */}
+              <div className="absolute inset-0 pointer-events-none rounded-[28px] overflow-hidden mix-blend-overlay opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 transition-transform duration-700 ease-out blur-sm" />
+              </div>
+
+              {/* Icon Container */}
+              <div className="mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/5 border border-white/15 text-[var(--saffron)] transition-all duration-300 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 group-hover:scale-105 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 filter drop-shadow-[0_0_4px_rgba(212,175,55,0.4)]">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88" />
+                </svg>
+              </div>
+
+              {/* Text info */}
+              <div className="mt-auto">
+                <h3 className="font-display text-[1.15rem] font-medium leading-tight text-white group-hover:text-[var(--saffron)] transition-colors">
+                  Visit Kashmir
+                </h3>
+                <p className="mt-1 text-[0.62rem] leading-snug text-white/50 font-light pr-1">
+                  Valleys, pristine lakes & travel guide
                 </p>
               </div>
 
