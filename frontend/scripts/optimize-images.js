@@ -43,6 +43,14 @@ async function optimizeFolder(folderPath, originalsFolder, optimizedFolder, spec
 
       const baseName = path.parse(file).name;
       
+      const out400 = path.join(optimizedFolder, `${baseName}-400.avif`);
+      await sharp(originalPath)
+        .resize({ width: 400, withoutEnlargement: true })
+        .avif({ quality: 45, effort: 6 })
+        .toFile(out400);
+      const stat400 = fs.statSync(out400);
+      console.log(`Created ${baseName}-400.avif - ${(stat400.size / 1024).toFixed(2)} KB`);
+
       const out800 = path.join(optimizedFolder, `${baseName}-800.avif`);
       await sharp(originalPath)
         .resize({ width: 800, withoutEnlargement: true })

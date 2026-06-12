@@ -284,13 +284,14 @@ function KashmiriFoodContent() {
                     {/* Cover image background for categories with bgImage */}
                     {category.bgImage && (
                       <>
-                        <Image
-                          src={category.bgImage}
-                          alt=""
-                          fill
-                          sizes="(max-width: 768px) 50vw, 25vw"
-                          className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105"
-                        />
+                        <picture>
+                          <source media="(max-width: 768px)" srcSet={category.bgImage ? category.bgImage.replace('-800.avif', '-400.avif') : ''} />
+                          <img
+                            src={category.bgImage}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105"
+                          />
+                        </picture>
                         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/85 z-0" />
                       </>
                     )}

@@ -190,11 +190,13 @@ export default function MobileSwipeContainer({ children }) {
     };
   }, [activeIndex, isMobile, setActiveIndex]);
 
-  // Pass-through for desktop
-  if (!isMobile) return <>{children}</>;
+  // We intentionally do NOT return early based on `isMobile` here.
+  // Returning early causes a hydration mismatch where the DOM is destroyed
+  // and recreated, devastating the LCP metric. We render both and use CSS to toggle.
 
   const css = `
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @media (max-width: 767px) {
+      * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       width: 100vw;
       height: 100vh;
@@ -303,31 +305,41 @@ export default function MobileSwipeContainer({ children }) {
       perspective: 1000px;
       transform: translateZ(0); /* Force layer promotion */
     }
+    }
   `;
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      <div className="swipe-container" ref={containerRef}>
-        <div className="screen">
-          {Math.abs(activeIndex - 0) <= 1 ? (
-            <>
-              <HomePageHero />
-              <HomePageClient />
-            </>
-          ) : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
+      
+      {/* Desktop view */}
+      <div className="hidden md:block w-full h-full">
+        {children}
+      </div>
+
+      {/* Mobile view */}
+      <div className="block md:hidden">
+        <div className="swipe-container" ref={containerRef}>
+          <div className="screen">
+            {Math.abs(activeIndex - 0) <= 1 ? (
+              <>
+                <HomePageHero />
+                <HomePageClient />
+              </>
+            ) : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
+          </div>
         </div>
       </div>
     </>

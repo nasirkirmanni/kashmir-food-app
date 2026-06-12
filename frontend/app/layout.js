@@ -99,6 +99,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="preconnect" href="https://kashmir-food-app-api.onrender.com" />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
         <GlobalBackground />

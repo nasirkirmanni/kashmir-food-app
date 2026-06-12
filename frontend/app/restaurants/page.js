@@ -170,13 +170,14 @@ export default function RestaurantsPage() {
                         >
                           <div className="relative h-24 sm:h-32 w-full overflow-hidden bg-black/50">
                             {restaurant.image ? (
-                              <Image
-                                src={restaurant.image}
-                                alt={restaurant.name}
-                                fill
-                                sizes="(max-width: 768px) 33vw, 20vw"
-                                className="object-cover transition duration-700 group-hover:scale-105"
-                              />
+                              <picture>
+                                <source media="(max-width: 768px)" srcSet={restaurant.image ? restaurant.image.replace('-800.avif', '-400.avif') : ''} />
+                                <img
+                                  src={restaurant.image}
+                                  alt={restaurant.name}
+                                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                />
+                              </picture>
                             ) : (
                               <div className="h-full w-full flex items-center justify-center bg-white/5 transition duration-700 group-hover:bg-white/10">
                                 <svg className="w-12 h-12 md:w-16 md:h-16 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
