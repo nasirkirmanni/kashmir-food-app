@@ -473,7 +473,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             className="mb-8 md:mb-24 text-center"
           >
             <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Where To Eat</span>
-            <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">The Finest Destinations</h2>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Discover the best restaurants</h2>
             <p className="mx-auto mt-4 px-6 max-w-sm md:max-w-2xl text-sm md:text-lg text-white/60">Curated from Residency Road, Dal Lake, and Srinagar&apos;s most prestigious dining rooms.</p>
           </motion.div>
 
