@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const MobileNavigationContext = createContext(null);
 
@@ -25,10 +25,8 @@ const indexRouteMap = [
 
 export function MobileNavigationProvider({ children }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [customSlideDirection, setCustomSlideDirection] = useState(null); // 'left' or 'right'
 
   // Detect mobile viewport
   useEffect(() => {
@@ -49,13 +47,7 @@ export function MobileNavigationProvider({ children }) {
 
   const navigateToTab = (index) => {
     if (index === activeIndex) return;
-    
-    // Determine transition direction based on index diff
-    const direction = index > activeIndex ? "left" : "right";
-    setCustomSlideDirection(direction);
     setActiveIndex(index);
-    
-    // Update browser URL silently
     const targetRoute = indexRouteMap[index];
     window.history.pushState(null, "", targetRoute);
   };
@@ -66,8 +58,6 @@ export function MobileNavigationProvider({ children }) {
         activeIndex,
         setActiveIndex: navigateToTab,
         isMobile,
-        customSlideDirection,
-        setCustomSlideDirection,
       }}
     >
       {children}
