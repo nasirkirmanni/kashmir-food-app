@@ -172,9 +172,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     };
   }, [isRestaurantModalVisible]);
 
-  const featuredDishes = dishes.filter(
-    (dish) => dish.category === "Wazwan" || dish.name === "Gushtaba"
-  );
+  const targetFeaturedNames = ["Rista", "Gushtaba", "Kabab", "Aab Gosht"];
+  const featuredDishes = targetFeaturedNames
+    .map((name) => dishes.find((d) => d.name.toLowerCase() === name.toLowerCase()))
+    .filter(Boolean);
 
   const targetCuratedNames = ["Ahdoos", "Mughal Darbar", "Kareema Restaurant"];
   const curatedRestaurants = restaurants

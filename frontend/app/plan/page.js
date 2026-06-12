@@ -25,6 +25,7 @@ export default function PlanTripPage() {
   const [travelParty, setTravelParty] = useState("Couple"); // single-select
   const [travelSeason, setTravelSeason] = useState("Summer"); // single-select
   const [budgetTier, setBudgetTier] = useState("Premium"); // single-select
+  const [customBudgetValue, setCustomBudgetValue] = useState(7000);
   const [selectedInterests, setSelectedInterests] = useState([]); // multi-select
   const [adultsCount, setAdultsCount] = useState(2);
   const [childrenCount, setChildrenCount] = useState(0);
@@ -63,7 +64,7 @@ export default function PlanTripPage() {
       travelSeason: travelSeason === "Custom" && arrivalDate && leavingDate
         ? `Custom Dates (Arrival: ${formatDateDMY(arrivalDate)} — Departure: ${formatDateDMY(leavingDate)})`
         : travelSeason,
-      budgetTier,
+      budgetTier: budgetTier === "Custom" ? `Custom (₹${customBudgetValue}/day)` : budgetTier,
       selectedInterests,
       adultsCount,
       childrenCount,
@@ -293,14 +294,17 @@ export default function PlanTripPage() {
         let rScoreA = a.rating || 4.0;
         let rScoreB = b.rating || 4.0;
 
-        if (budget === "Luxury") {
+        if (budget === "Luxury" || (typeof budget === "number" && budget >= 15000)) {
           if (a.priceLevel === "Luxury") rScoreA += 5;
           if (b.priceLevel === "Luxury") rScoreB += 5;
           rScoreA += (a.luxuryScore || 3.0);
           rScoreB += (b.luxuryScore || 3.0);
-        } else if (budget === "Budget") {
+        } else if (budget === "Budget" || (typeof budget === "number" && budget < 3500)) {
           if (a.priceLevel === "Budget") rScoreA += 5;
           if (b.priceLevel === "Budget") rScoreB += 5;
+        } else if (budget === "Premium" || (typeof budget === "number" && budget >= 7500 && budget < 15000)) {
+          if (a.priceLevel === "Premium" || a.priceLevel === "Mid-range") rScoreA += 3;
+          if (b.priceLevel === "Premium" || b.priceLevel === "Mid-range") rScoreB += 3;
         }
 
         if (styles.includes("Food Lover")) {
@@ -340,8 +344,16 @@ export default function PlanTripPage() {
       }
 
       // Budget indicator
-      const budgetMap = { Budget: "₹", "Mid-Range": "₹₹", Premium: "₹₹₹", Luxury: "₹₹₹₹" };
-      const estBudget = budgetMap[budget] || "₹₹";
+      let estBudget = "₹₹";
+      if (typeof budget === "number") {
+        if (budget < 3500) estBudget = "₹";
+        else if (budget < 7500) estBudget = "₹₹";
+        else if (budget < 15000) estBudget = "₹₹₹";
+        else estBudget = "₹₹₹₹";
+      } else {
+        const budgetMap = { Budget: "₹", "Mid-Range": "₹₹", Premium: "₹₹₹", Luxury: "₹₹₹₹" };
+        estBudget = budgetMap[budget] || "₹₹";
+      }
 
       // Contextual travel tips
       let travelTip = "Wear comfortable walking shoes and carry small change.";
@@ -380,7 +392,7 @@ export default function PlanTripPage() {
     const uniqueRestaurants = Array.from(new Set(dayByDay.map((d) => d.restaurant)));
 
     // Budget range calculation helper
-    const costPerDay = { Budget: 2000, "Mid-Range": 5000, Premium: 10000, Luxury: 25000 }[budget];
+    const costPerDay = typeof budget === "number" ? budget : ({ Budget: 2000, "Mid-Range": 5000, Premium: 10000, Luxury: 25000 }[budget] || 7000);
     const totalEstCost = `₹${(costPerDay * numDays * (party === "Solo Traveler" ? 1 : party === "Couple" ? 1.8 : 3.5)).toLocaleString()} - ₹${(costPerDay * numDays * 1.5 * (party === "Solo Traveler" ? 1 : party === "Couple" ? 1.8 : 3.5)).toLocaleString()}`;
 
     // Select Photo Spots & Cultural experiences based on selections
@@ -443,7 +455,7 @@ export default function PlanTripPage() {
       season: travelSeason,
       arrivalDate: arrivalDate ? arrivalDate.toISOString() : null,
       leavingDate: leavingDate ? leavingDate.toISOString() : null,
-      budget: budgetTier,
+      budget: budgetTier === "Custom" ? customBudgetValue : budgetTier,
       interests: selectedInterests.length ? selectedInterests : ["Traditional Wazwan"]
     };
 
@@ -469,7 +481,7 @@ Registered Contact: ${userName} (${userPhone}, ${userEmail})
 Traveler Type: ${selectedStyles.length ? selectedStyles.join(" + ") : "Food Lover"}
 Travel Party: ${travelParty} (${adultsCount} Adults, ${childrenCount} Children, ${seniorsCount} Seniors over 65)
 Season: ${seasonText}
-Budget: ${budgetTier}
+Budget: ${budgetTier === "Custom" ? `Custom (₹${customBudgetValue.toLocaleString()}/day)` : budgetTier}
 Interests: ${selectedInterests.length ? selectedInterests.join(", ") : "Traditional Wazwan"}
 
 Generate itinerary using destinations, restaurants, and dishes from the Wazwan Way database.`;
@@ -1126,29 +1138,59 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                   What is your budget tier?
                 </h2>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
                   {[
                     { label: "Budget", value: "Budget", desc: "Local dhabas, street carts, and pocket-friendly stays" },
                     { label: "Mid-Range", value: "Mid-Range", desc: "Standard family restaurants and cozy hotels" },
                     { label: "Premium", value: "Premium", desc: "Comfort-focused dining and boutique lodgings" },
-                    { label: "Luxury", value: "Luxury", desc: "Fine dining wazwan, five-star heritage resorts" }
+                    { label: "Luxury", value: "Luxury", desc: "Fine dining wazwan, five-star heritage resorts" },
+                    { label: "Custom Budget", value: "Custom", desc: "Set a custom daily budget limit in ₹ INR" }
                   ].map((item) => (
                     <button
                       key={item.value}
                       onClick={() => setBudgetTier(item.value)}
-                      className={`p-5 rounded-xl border text-left transition-all h-32 flex flex-col justify-between ${
+                      className={`p-4 rounded-xl border text-left transition-all h-36 flex flex-col justify-between ${
                         budgetTier === item.value
                           ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
                           : "bg-black/30 border-white/10 text-white hover:border-white/30"
                       }`}
                     >
                       <div className="text-sm font-bold">{item.label}</div>
-                      <div className={`text-[0.6rem] mt-2 leading-relaxed ${budgetTier === item.value ? "text-black/85" : "text-white/50"}`}>
+                      <div className={`text-[0.58rem] mt-2 leading-relaxed ${budgetTier === item.value ? "text-black/85" : "text-white/50"}`}>
                         {item.desc}
                       </div>
                     </button>
                   ))}
                 </div>
+
+                {budgetTier === "Custom" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="mb-8 p-6 bg-black/40 border border-white/5 rounded-xl text-center"
+                  >
+                    <div className="text-xs uppercase tracking-widest text-white/50 mb-3">
+                      Select Custom Daily Budget
+                    </div>
+                    <div className="text-4xl font-display font-medium text-[var(--saffron)] mb-4">
+                      ₹{customBudgetValue.toLocaleString()} <span className="text-xs text-white/50">/ day</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="1000"
+                      max="50000"
+                      step="500"
+                      value={customBudgetValue}
+                      onChange={(e) => setCustomBudgetValue(parseInt(e.target.value))}
+                      className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[var(--saffron)]"
+                    />
+                    <div className="flex justify-between text-[0.6rem] text-white/40 mt-2">
+                      <span>₹1,000</span>
+                      <span>₹25,000</span>
+                      <span>₹50,000</span>
+                    </div>
+                  </motion.div>
+                )}
 
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
@@ -1258,7 +1300,9 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">
                       {travelSeason === "Custom" && arrivalDate ? `${getDerivedSeason(arrivalDate)} Season` : `${travelSeason} Season`}
                     </span>
-                    <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">{budgetTier} Tier</span>
+                    <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">
+                      {budgetTier === "Custom" ? `₹${customBudgetValue.toLocaleString()}/day` : `${budgetTier} Tier`}
+                    </span>
                     <span className="bg-white/5 px-2.5 py-1 rounded border border-white/5">{travelParty}</span>
                   </div>
 
