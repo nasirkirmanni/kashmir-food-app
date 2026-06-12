@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
@@ -169,10 +170,12 @@ export default function RestaurantsPage() {
                         >
                           <div className="relative h-24 sm:h-32 w-full overflow-hidden bg-black/50">
                             {restaurant.image ? (
-                              <img
+                              <Image
                                 src={restaurant.image}
                                 alt={restaurant.name}
-                                className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                fill
+                                sizes="(max-width: 768px) 33vw, 20vw"
+                                className="object-cover transition duration-700 group-hover:scale-105"
                               />
                             ) : (
                               <div className="h-full w-full flex items-center justify-center bg-white/5 transition duration-700 group-hover:bg-white/10">

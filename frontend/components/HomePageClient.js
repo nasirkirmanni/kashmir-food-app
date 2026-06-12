@@ -744,10 +744,12 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
               <div className="relative h-48 w-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent z-10" />
-                <img
-                  src={dishImageOverrides[selectedDish.name] || selectedDish.image}
+                <Image
+                  src={dishImageOverrides[selectedDish.name] || selectedDish.image || '/wazwan-hero.jpg'}
                   alt={selectedDish.name}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
 

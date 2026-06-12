@@ -5,6 +5,7 @@ import { useMobileNavigation } from "@/context/MobileNavigationContext";
 import { useAuth } from "@/context/AuthContext";
 
 import HomePageClient from "@/components/HomePageClient";
+import HomePageHero from "@/components/HomePageHero";
 import RestaurantsPage from "@/app/restaurants/page";
 import MobileWazaAI from "@/components/MobileWazaAI";
 import KashmiriFoodPage from "@/app/kashmiri-food/page";
@@ -300,7 +301,6 @@ export default function MobileSwipeContainer({ children }) {
       background: #0B0B0B;
       backface-visibility: hidden;
       perspective: 1000px;
-      contain: layout paint style;
       transform: translateZ(0); /* Force layer promotion */
     }
   `;
@@ -309,11 +309,26 @@ export default function MobileSwipeContainer({ children }) {
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className="swipe-container" ref={containerRef}>
-        <div className="screen"><HomePageClient /></div>
-        <div className="screen"><RestaurantsPage /></div>
-        <div className="screen"><MobileWazaAI /></div>
-        <div className="screen"><KashmiriFoodPage /></div>
-        <div className="screen">{user ? <ProfilePage /> : <LoginPage />}</div>
+        <div className="screen">
+          {Math.abs(activeIndex - 0) <= 1 ? (
+            <>
+              <HomePageHero />
+              <HomePageClient />
+            </>
+          ) : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
+        </div>
       </div>
     </>
   );

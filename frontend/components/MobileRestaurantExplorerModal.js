@@ -76,7 +76,7 @@ export default function MobileRestaurantExplorerModal({
               className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
             >
               <div className="absolute inset-0 z-0 opacity-50">
-                 <Image src={imgUrl} fill sizes="50vw" className="object-cover brightness-75" alt="" />
+                <Image src={imgUrl} fill sizes="(max-width: 768px) 33vw, 25vw" className="object-cover brightness-75" alt="" />
                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
               </div>
               
@@ -141,11 +141,11 @@ export default function MobileRestaurantExplorerModal({
                       <div className="relative h-24 w-full overflow-hidden bg-black/50">
                         {restaurant.image && (
                           <Image
-                            src={restaurant.image}
+                            src={restaurant.image || '/wazwan-hero.jpg'}
                             alt={restaurant.name}
                             fill
-                            sizes="33vw"
-                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />

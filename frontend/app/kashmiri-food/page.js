@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -283,9 +284,11 @@ function KashmiriFoodContent() {
                     {/* Cover image background for categories with bgImage */}
                     {category.bgImage && (
                       <>
-                        <img
+                        <Image
                           src={category.bgImage}
                           alt=""
+                          fill
+                          sizes="(max-width: 768px) 50vw, 25vw"
                           className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/85 z-0" />
