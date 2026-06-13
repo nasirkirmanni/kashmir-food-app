@@ -71,7 +71,7 @@ export default function VisitKashmirPage() {
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
         <div>
           <span className="place-eyebrow">Waza AI Travel Companion</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4 text-[#D4AF37]">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4 text-[#C8A46A]">
             Rare Destinations
           </h1>
           <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">

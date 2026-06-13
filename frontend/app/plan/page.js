@@ -201,7 +201,7 @@ export default function PlanTripPage() {
       } else if (isArrival || isLeaving) {
         bgClass = "bg-[var(--saffron)] text-black font-bold shadow-[0_0_10px_rgba(212,175,55,0.4)]";
       } else if (isInRange) {
-        bgClass = "bg-[#D4AF37]/15 text-[var(--saffron)]";
+        bgClass = "bg-[#C8A46A]/15 text-[var(--saffron)]";
       }
       
       cells.push(
@@ -692,14 +692,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setAdultsCount(Math.max(1, adultsCount - 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#C8A46A]/10"
                       >
                         -
                       </button>
                       <span className="text-lg font-bold text-white w-6 text-center">{adultsCount}</span>
                       <button
                         onClick={() => setAdultsCount(Math.min(20, adultsCount + 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#C8A46A]/10"
                       >
                         +
                       </button>
@@ -715,14 +715,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setChildrenCount(Math.max(0, childrenCount - 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#C8A46A]/10"
                       >
                         -
                       </button>
                       <span className="text-lg font-bold text-white w-6 text-center">{childrenCount}</span>
                       <button
                         onClick={() => setChildrenCount(Math.min(20, childrenCount + 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#C8A46A]/10"
                       >
                         +
                       </button>
@@ -738,14 +738,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setSeniorsCount(Math.max(0, seniorsCount - 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#C8A46A]/10"
                       >
                         -
                       </button>
                       <span className="text-lg font-bold text-white w-6 text-center">{seniorsCount}</span>
                       <button
                         onClick={() => setSeniorsCount(Math.min(20, seniorsCount + 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#D4AF37]/10"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-[var(--saffron)] hover:bg-[#C8A46A]/10"
                       >
                         +
                       </button>
@@ -1086,7 +1086,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                         )}
                         <div className="mt-5 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/70">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="bg-[#D4AF37]/15 text-[var(--saffron)] px-2.5 py-0.5 rounded font-bold uppercase text-[9px] tracking-wider border border-[var(--saffron)]/10">
+                            <span className="bg-[#C8A46A]/15 text-[var(--saffron)] px-2.5 py-0.5 rounded font-bold uppercase text-[9px] tracking-wider border border-[var(--saffron)]/10">
                               {parseInt(duration) > 1 ? `${parseInt(duration) - 1} nights` : '0 nights'} ({duration} Days)
                             </span>
                             <span className="text-white/30">|</span>

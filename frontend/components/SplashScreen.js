@@ -41,7 +41,7 @@ export default function SplashScreen() {
         <div className="relative flex h-full flex-col items-center justify-center px-6 pt-32 pb-10 text-center">
           <h1 className="font-display text-[4.4rem] font-bold uppercase leading-[1.04] tracking-[0.14em]">
             <span className="block text-white drop-shadow-xl">WAZWAN</span>
-            <span className="mt-4 block text-[var(--saffron,#D4AF37)] drop-shadow-xl">WAY</span>
+            <span className="mt-4 block text-[var(--saffron,#C8A46A)] drop-shadow-xl">WAY</span>
           </h1>
           <div
             className={`mt-6 transition-all duration-700 ${
@@ -60,7 +60,7 @@ export default function SplashScreen() {
         <div className="relative flex h-full flex-col items-center justify-center px-6 pt-40 pb-12 text-center">
           <h1 className="font-display font-bold uppercase leading-[1.04] tracking-[0.14em] sm:text-[5.4rem]">
             <span className="block text-white drop-shadow-xl">WAZWAN</span>
-            <span className="mt-4 block text-[var(--saffron,#D4AF37)] drop-shadow-xl">WAY</span>
+            <span className="mt-4 block text-[var(--saffron,#C8A46A)] drop-shadow-xl">WAY</span>
           </h1>
           <div
             className={`mt-6 transition-all duration-700 ${

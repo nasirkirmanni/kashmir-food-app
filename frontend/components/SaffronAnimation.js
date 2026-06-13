@@ -90,7 +90,7 @@ export default function SaffronAnimation() {
       {isMobile === false && (
         <>
           {/* Warm haze that fades out smoothly at both top and bottom */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent mix-blend-overlay animate-pulse" style={{ animationDuration: '8s', zIndex: 5 }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#C8A46A]/10 to-transparent mix-blend-overlay animate-pulse" style={{ animationDuration: '8s', zIndex: 5 }} />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-transparent" style={{ zIndex: 5 }} />
 
           {/* Particles */}
@@ -98,7 +98,7 @@ export default function SaffronAnimation() {
             {particles.map((p) => (
               <motion.div
                 key={p.id}
-                className="absolute rounded-full bg-[#D4AF37] blur-[1px]"
+                className="absolute rounded-full bg-[#C8A46A] blur-[1px]"
                 style={{
                   left: p.left,
                   top: p.top,

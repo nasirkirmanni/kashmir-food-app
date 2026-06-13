@@ -81,7 +81,7 @@ export default function HamburgerMenu() {
           >
             {/* Header */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 20px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-              <span style={{ fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "0.85rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--saffron, #D4AF37)" }}>
+              <span style={{ fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "0.85rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--saffron, #C8A46A)" }}>
                 Menu
               </span>
               <button
@@ -111,7 +111,7 @@ export default function HamburgerMenu() {
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #D4AF37)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
+                      style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #C8A46A)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                       onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
                       onMouseLeave={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.paddingLeft = "4px"; }}
                     >
@@ -122,12 +122,12 @@ export default function HamburgerMenu() {
                 <motion.div variants={itemVars}>
                   <button
                     onClick={handleWazaAI}
-                    style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #D4AF37)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
+                    style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #C8A46A)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                     onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
                     onMouseLeave={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.paddingLeft = "4px"; }}
                   >
                     Waza AI
-                    <span style={{ fontSize: "0.45rem", fontFamily: "Inter, sans-serif", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", background: "var(--saffron, #D4AF37)", color: "#000", padding: "2px 5px", borderRadius: 3 }}>Beta</span>
+                    <span style={{ fontSize: "0.45rem", fontFamily: "Inter, sans-serif", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", background: "var(--saffron, #C8A46A)", color: "#000", padding: "2px 5px", borderRadius: 3 }}>Beta</span>
                   </button>
                 </motion.div>
               </motion.div>
@@ -140,7 +140,7 @@ export default function HamburgerMenu() {
                   Log Out
                 </button>
               ) : (
-                <Link href="/login" onClick={() => setIsOpen(false)} style={{ display: "block", textAlign: "center", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 8, padding: "9px 0", color: "var(--saffron, #D4AF37)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>
+                <Link href="/login" onClick={() => setIsOpen(false)} style={{ display: "block", textAlign: "center", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 8, padding: "9px 0", color: "var(--saffron, #C8A46A)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>
                   Log In
                 </Link>
               )}

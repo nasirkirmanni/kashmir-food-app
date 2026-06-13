@@ -83,7 +83,7 @@ export default function HomePageHero() {
         {/* Hero content */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-4">
           
-          <div className="inline-flex items-center rounded-full border border-[#D4AF37]/40 bg-white/5 backdrop-blur-md px-3 py-1.5 text-[9px] font-[700] uppercase tracking-[0.18em] text-[#D4AF37] mb-4 self-start">
+          <div className="inline-flex items-center rounded-full border border-[#C8A46A]/40 bg-white/5 backdrop-blur-md px-3 py-1.5 text-[9px] font-[700] uppercase tracking-[0.18em] text-[#C8A46A] mb-4 self-start">
             <svg className="w-3 h-3 mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
             ROYAL CUISINE OF KASHMIR
           </div>
@@ -91,7 +91,7 @@ export default function HomePageHero() {
           {/* Hero headline */}
           <h1 className="font-display font-[700] text-[56px] tracking-[-0.02em] leading-[0.95] text-white mb-4">
             The<br/>Royal<br/>
-            <span className="text-[#D4AF37]">Table.</span>
+            <span className="text-[#C8A46A]">Table.</span>
           </h1>
           
           <p className="text-[14px] font-body font-[400] leading-[1.6] text-[#A0A0A0] tracking-[0.01em] mb-[28px] max-w-[280px]">
@@ -106,13 +106,13 @@ export default function HomePageHero() {
             <input 
               type="text" 
               placeholder="Dishes, restaurants, places..."
-              className="w-full h-[52px] pl-11 pr-5 bg-white/[0.04] backdrop-blur-[24px] border border-[#D4AF37]/20 rounded-[26px] text-[15px] font-[400] text-white placeholder-[#777777] focus:outline-none focus:border-[#D4AF37]/50 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
+              className="w-full h-[52px] pl-11 pr-5 bg-white/[0.04] backdrop-blur-[24px] border border-[#C8A46A]/20 rounded-[26px] text-[15px] font-[400] text-white placeholder-[#777777] focus:outline-none focus:border-[#C8A46A]/50 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
               onClick={() => window.dispatchEvent(new Event('open-search'))}
             />
           </div>
 
           <div className="w-full mt-[32px] relative">
-            <h2 className="text-[11px] font-[600] tracking-[0.15em] text-[#D4AF37] uppercase mb-4 border-b border-[#D4AF37]/20 pb-1 inline-block">
+            <h2 className="text-[11px] font-[600] tracking-[0.15em] text-[#C8A46A] uppercase mb-4 border-b border-[#C8A46A]/20 pb-1 inline-block">
               EXPLORE
             </h2>
             
@@ -131,12 +131,12 @@ export default function HomePageHero() {
               <div className="w-[92%] shrink-0 snap-center">
                 <div className="grid grid-cols-2 gap-3">
                   <Link href="/restaurants" className="block group">
-                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                        <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
                         </div>
-                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                        <ArrowRight size={14} className="text-[#C8A46A]/50" />
                       </div>
                       <div>
                         <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Restaurants</h3>
@@ -145,12 +145,12 @@ export default function HomePageHero() {
                     </div>
                   </Link>
                   <Link href="/kashmiri-food" className="block group">
-                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><path d="M6 17h12"/></svg>
+                        <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><path d="M6 17h12"/></svg>
                         </div>
-                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                        <ArrowRight size={14} className="text-[#C8A46A]/50" />
                       </div>
                       <div>
                         <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Kashmiri Food</h3>
@@ -159,12 +159,12 @@ export default function HomePageHero() {
                     </div>
                   </Link>
                   <div className="block group opacity-80 cursor-not-allowed">
-                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+                        <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
                         </div>
-                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                        <ArrowRight size={14} className="text-[#C8A46A]/50" />
                       </div>
                       <div>
                         <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Food Trails</h3>
@@ -173,12 +173,12 @@ export default function HomePageHero() {
                     </div>
                   </div>
                   <div className="block group opacity-80 cursor-not-allowed">
-                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+                        <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
                         </div>
-                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                        <ArrowRight size={14} className="text-[#C8A46A]/50" />
                       </div>
                       <div>
                         <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">History</h3>

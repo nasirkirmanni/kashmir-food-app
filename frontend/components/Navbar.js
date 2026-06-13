@@ -60,14 +60,14 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
-              className="whitespace-nowrap transition-colors hover:text-[#D4AF37]"
+              className="whitespace-nowrap transition-colors hover:text-[#C8A46A]"
             >
               {link.label}
             </Link>
           ))}
           <button
             onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
-            className="whitespace-nowrap transition-colors text-[#D4AF37] hover:text-white"
+            className="whitespace-nowrap transition-colors text-[#C8A46A] hover:text-white"
           >
             WAZA AI
           </button>
@@ -78,16 +78,16 @@ export default function Navbar() {
           <HamburgerMenu />
           {user ? (
             <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white">
-              <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#D4AF37] whitespace-nowrap">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#D4AF37] transition-colors overflow-hidden shrink-0">
-                  <svg className="w-4 h-4 text-white/70 group-hover:text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#C8A46A] whitespace-nowrap">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#C8A46A] transition-colors overflow-hidden shrink-0">
+                  <svg className="w-4 h-4 text-white/70 group-hover:text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
                 <span>{user.name}</span>
               </Link>
               {user.role === "admin" && (
-                <Link href="/admin" className="text-[#D4AF37] hover:text-white transition-colors whitespace-nowrap">
+                <Link href="/admin" className="text-[#C8A46A] hover:text-white transition-colors whitespace-nowrap">
                   Dashboard
                 </Link>
               )}
@@ -99,13 +99,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="text-xs font-bold uppercase tracking-widest text-white transition-colors hover:text-[#D4AF37] whitespace-nowrap"
+                className="text-xs font-bold uppercase tracking-widest text-white transition-colors hover:text-[#C8A46A] whitespace-nowrap"
               >
                 Login
               </Link>
               <Link
                 href="/signup"
-                className="rounded-full bg-[#D4AF37] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
+                className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
               >
                 Sign up
               </Link>
@@ -122,7 +122,7 @@ export default function Navbar() {
     <div className="md:hidden fixed top-0 left-0 w-full z-[100] px-5 pt-6 pb-2 pointer-events-none">
       <div className="flex items-center justify-between w-full relative pointer-events-auto">
         <div className="flex flex-col justify-center">
-          <span className="text-[10px] font-[600] text-[#D4AF37] tracking-[0.15em] uppercase mb-1">
+          <span className="text-[10px] font-[600] text-[#C8A46A] tracking-[0.15em] uppercase mb-1">
             {greeting.replace(',', '')}
           </span>
           <span className="font-display text-[42px] font-[600] leading-[1] tracking-[-0.03em] text-white">
@@ -133,12 +133,12 @@ export default function Navbar() {
         {/* Profile / Menu Button */}
         <button 
           onClick={() => window.dispatchEvent(new Event('open-mobile-menu'))}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D4AF37]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
         >
           {user ? (
-            <User size={18} className="text-[#D4AF37]" strokeWidth={2} />
+            <User size={18} className="text-[#C8A46A]" strokeWidth={2} />
           ) : (
-            <User size={18} className="text-[#D4AF37]/70" strokeWidth={2} />
+            <User size={18} className="text-[#C8A46A]/70" strokeWidth={2} />
           )}
         </button>
       </div>
