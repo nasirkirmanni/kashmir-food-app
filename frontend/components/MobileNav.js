@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { Home, MapPin, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
@@ -75,58 +76,105 @@ export default function MobileNav() {
     }
   };
 
+  // Scroll listener for compact state
+  useEffect(() => {
+    const navEl = document.getElementById("mobile-nav-pill");
+    if (!navEl) return;
+
+    let scrollTarget = window;
+    
+    if (isSwipeableRoute) {
+      // Find the active .screen container. 
+      // MobileSwipeContainer statically renders exactly 5 .screen divs in sequence.
+      const screens = document.querySelectorAll('.screen');
+      if (screens && screens.length > activeIndex) {
+        scrollTarget = screens[activeIndex];
+      }
+    }
+
+    let scrollTimer = null;
+    let isCompact = false;
+
+    const onScroll = () => {
+      if (!isCompact) {
+        navEl.classList.add("nav-compact");
+        isCompact = true;
+      }
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        navEl.classList.remove("nav-compact");
+        isCompact = false;
+      }, 240);
+    };
+
+    scrollTarget.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      scrollTarget.removeEventListener('scroll', onScroll);
+      clearTimeout(scrollTimer);
+      if (isCompact) {
+        navEl.classList.remove("nav-compact");
+      }
+    };
+  }, [activeIndex, isSwipeableRoute]);
+
   return (
-    <div className="md:hidden bottom-bar">
+    <nav id="mobile-nav-pill" className="md:hidden nav-pill">
       <Link 
         href="/" 
         aria-label="Home"
-        className={`nav-icon ${isActiveTab(0) ? "active" : ""}`}
+        className={`nav-icon-pill ${isActiveTab(0) ? "active" : ""}`}
         onClick={(e) => {
           window.dispatchEvent(new Event('close-all-modals'));
           handleNavClick(0, e);
         }}
       >
-        <Home size={22} strokeWidth={isActiveTab(0) ? 2.5 : 2} />
+        <Home size={24} strokeWidth={isActiveTab(0) ? 2.5 : 2} />
+        {isActiveTab(0) && <span className="nav-dot" />}
       </Link>
 
       <Link 
         href="/restaurants" 
         aria-label="Restaurants"
-        className={`nav-icon ${isActiveTab(1) ? "active" : ""}`}
+        className={`nav-icon-pill ${isActiveTab(1) ? "active" : ""}`}
         onClick={(e) => handleNavClick(1, e)}
       >
-        <MapPin size={22} strokeWidth={isActiveTab(1) ? 2.5 : 2} />
+        <MapPin size={24} strokeWidth={isActiveTab(1) ? 2.5 : 2} />
+        {isActiveTab(1) && <span className="nav-dot" />}
       </Link>
 
       <Link 
         href="/waza-ai"
         aria-label="Waza AI Concierge"
-        className={`nav-icon ${isActiveTab(2) ? "active" : ""}`}
+        className={`nav-icon-pill ${isActiveTab(2) ? "active" : ""}`}
         onClick={(e) => handleNavClick(2, e)}
       >
-        <ChefAIIcon size={22} strokeWidth={2.5} />
+        <ChefAIIcon size={24} strokeWidth={2.5} />
+        {isActiveTab(2) && <span className="nav-dot" />}
       </Link>
 
       <Link 
         href="/kashmiri-food" 
         aria-label="Kashmiri Food"
-        className={`nav-icon ${isActiveTab(3) ? "active" : ""}`}
+        className={`nav-icon-pill ${isActiveTab(3) ? "active" : ""}`}
         onClick={(e) => handleNavClick(3, e)}
       >
-        <BowlFoodIcon size={22} strokeWidth={isActiveTab(3) ? 2.5 : 2} />
+        <BowlFoodIcon size={24} strokeWidth={isActiveTab(3) ? 2.5 : 2} />
+        {isActiveTab(3) && <span className="nav-dot" />}
       </Link>
 
       <Link 
         href={user ? "/profile" : "/login"} 
         aria-label="Profile"
-        className={`nav-icon ${isActiveTab(4) ? "active" : ""}`}
+        className={`nav-icon-pill ${isActiveTab(4) ? "active" : ""}`}
         onClick={(e) => handleNavClick(4, e)}
       >
-        <User size={22} strokeWidth={isActiveTab(4) ? 2.5 : 2} />
+        <User size={24} strokeWidth={isActiveTab(4) ? 2.5 : 2} />
         {isProfileIncomplete && (
           <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-transparent"></span>
         )}
+        {isActiveTab(4) && <span className="nav-dot" />}
       </Link>
-    </div>
+    </nav>
   );
 }

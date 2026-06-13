@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Adaptive Floating Nav Demo</title>
+  <style>
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0B0B0B;
+      color: white;
+      height: 200vh; /* Force scrolling */
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* Content to simulate scrolling */
+    .mock-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 120px; /* Safe area */
+    }
+    .mock-card {
+      height: 200px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 1.5rem;
+    }
+
+    /* Instagram-Style Adaptive Floating Navigation Bar */
+    .nav-pill {
+      position: fixed;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%) scale(1) translateY(0);
+      width: 72%;
+      max-width: 360px;
+      height: 56px;
+      border-radius: 9999px;
+      background: rgba(28, 28, 28, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      z-index: 100;
+      transition: transform 280ms ease-out, opacity 280ms ease-out;
+      will-change: transform, opacity;
+      opacity: 1;
+    }
+
+    .nav-pill.nav-compact {
+      transform: translateX(-50%) scale(0.92) translateY(4px);
+      opacity: 0.72;
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+      .nav-pill { background: rgba(28, 28, 28, 0.93); }
+    }
+
+    .nav-icon-pill {
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: white;
+      opacity: 0.5;
+      transition: opacity 200ms ease;
+      text-decoration: none;
+    }
+
+    .nav-icon-pill.active {
+      opacity: 1;
+    }
+
+    .nav-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: currentColor;
+      position: absolute;
+      bottom: 4px;
+    }
+
+    /* Mock Icons */
+    .icon {
+      width: 24px;
+      height: 24px;
+      border: 2px solid currentColor;
+      border-radius: 4px;
+    }
+    .icon-round { border-radius: 50%; }
+  </style>
+</head>
+<body>
+
+  <h1>Scroll Down!</h1>
+  <p style="margin-bottom: 24px; color: rgba(255,255,255,0.6);">
+    Watch the navigation bar shrink when you scroll, and restore when you stop.
+  </p>
+
+  <div class="mock-content">
+    <div class="mock-card">1</div>
+    <div class="mock-card">2</div>
+    <div class="mock-card">3</div>
+    <div class="mock-card">4</div>
+    <div class="mock-card">5</div>
+    <div class="mock-card">6</div>
+  </div>
+
+  <nav id="mobile-nav-pill" class="nav-pill">
+    <a href="#" class="nav-icon-pill active">
+      <div class="icon icon-round"></div>
+      <span class="nav-dot"></span>
+    </a>
+    <a href="#" class="nav-icon-pill">
+      <div class="icon"></div>
+    </a>
+    <a href="#" class="nav-icon-pill">
+      <div class="icon"></div>
+    </a>
+    <a href="#" class="nav-icon-pill">
+      <div class="icon icon-round"></div>
+    </a>
+    <a href="#" class="nav-icon-pill">
+      <div class="icon"></div>
+    </a>
+  </nav>
+
+  <script>
+    const navEl = document.getElementById("mobile-nav-pill");
+    let scrollTimer = null;
+    let isCompact = false;
+
+    // Attach to window since this demo scrolls on body
+    window.addEventListener('scroll', () => {
+      if (!isCompact) {
+        navEl.classList.add("nav-compact");
+        isCompact = true;
+      }
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        navEl.classList.remove("nav-compact");
+        isCompact = false;
+      }, 240);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
