@@ -11,6 +11,7 @@ export default function GlobalBackground() {
   // If we are on the homepage, the opacity scales from 1.0 (actually 0.8 because of the base opacity) down to 0.15 based on scroll
   // If we are on other pages, it's just statically 0.15
   const homeOpacity = useTransform(scrollY, [0, 300, 600, 900], [0.8, 0.6, 0.4, 0.15]);
+  const homeGradientOpacity = useTransform(scrollY, [0, 600], [1, 0.85]);
   const opacity = isHome ? homeOpacity : 0.15;
   const gradientOpacity = isHome ? homeGradientOpacity : 0.8;
 
