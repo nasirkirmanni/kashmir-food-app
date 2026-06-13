@@ -153,40 +153,42 @@ export default function Navbar() {
           }}
         />
 
-        {/* EXPANDED: 2-line greeting — visible when NOT scrolled */}
-        <AnimatePresence mode="wait">
-          {!scrolled ? (
-            <motion.div
-              key="expanded"
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ type: "spring", stiffness: 400, damping: 35 }}
-              className="flex flex-col justify-center pt-3 relative z-10"
-            >
-              <span className="font-body text-[20px] font-[800] text-white/80 tracking-[-0.02em] uppercase leading-none mb-[2px]">
-                {greeting}
-              </span>
-              <span className="font-body text-[32px] font-[700] leading-[1.05] tracking-[-0.02em] text-white">
-                {userName}
-              </span>
-            </motion.div>
-          ) : (
-            /* COLLAPSED: single-line compact — visible when scrolled */
-            <motion.div
-              key="collapsed"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              transition={{ type: "spring", stiffness: 400, damping: 35 }}
-              className="flex items-center gap-2 relative z-10"
-            >
-              <span className="font-body text-[15px] font-[600] text-white/90 tracking-[-0.01em]">
-                {greeting} <strong className="font-[800] text-white">{userName}</strong>
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="relative flex-1 h-full min-h-[56px]">
+          {/* EXPANDED: 2-line greeting — visible when NOT scrolled */}
+          <motion.div
+            initial={false}
+            animate={{ 
+              opacity: scrolled ? 0 : 1, 
+              y: scrolled ? -6 : 0,
+              pointerEvents: scrolled ? "none" : "auto"
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 35 }}
+            className="absolute inset-0 flex flex-col justify-center pt-3 z-10"
+          >
+            <span className="font-body text-[20px] font-[800] text-white/80 tracking-[-0.02em] uppercase leading-none mb-[2px]">
+              {greeting}
+            </span>
+            <span className="font-body text-[32px] font-[700] leading-[1.05] tracking-[-0.02em] text-white">
+              {userName}
+            </span>
+          </motion.div>
+
+          {/* COLLAPSED: single-line compact — visible when scrolled */}
+          <motion.div
+            initial={false}
+            animate={{ 
+              opacity: scrolled ? 1 : 0, 
+              y: scrolled ? 0 : 6,
+              pointerEvents: scrolled ? "auto" : "none"
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 35 }}
+            className="absolute inset-0 flex items-center gap-2 z-10"
+          >
+            <span className="font-body text-[15px] font-[600] text-white/90 tracking-[-0.01em]">
+              {greeting} <strong className="font-[800] text-white">{userName}</strong>
+            </span>
+          </motion.div>
+        </div>
 
         <div className="relative z-10">
           <HamburgerMenu />
