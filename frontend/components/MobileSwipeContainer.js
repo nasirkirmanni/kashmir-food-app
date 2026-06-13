@@ -305,10 +305,10 @@ export default function MobileSwipeContainer({ children }) {
     }
     .swipe-container {
       position: fixed;
-      top: 80px;
+      top: 0;
       left: 0;
       width: 500vw;
-      height: calc(100dvh - 80px);
+      height: 100dvh;
       display: flex;
       flex-direction: row;
       will-change: transform;

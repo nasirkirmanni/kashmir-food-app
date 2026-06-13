@@ -52,7 +52,7 @@ export default function HomePageHero() {
       {/* ═══════════════════════════════════════════════════════
           MOBILE HERO (below md) - PAGE 1
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative flex md:hidden w-full flex-col overflow-visible h-auto min-h-[100vh]">
+      <section className="relative flex md:hidden w-full flex-col overflow-visible h-full min-h-screen">
         {/* Base Background */}
         <div className="absolute inset-0 z-0 bg-[#050505]" />
 
