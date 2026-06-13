@@ -71,6 +71,11 @@ export default function MobileNav() {
 
   const handleNavClick = (index, e) => {
     if (isMobile) {
+      if (!isSwipeableRoute) {
+        // Let Next.js <Link> handle it normally to exit the non-swipeable page
+        setActiveIndex(index);
+        return;
+      }
       e.preventDefault();
       setActiveIndex(index);
     }
