@@ -51,10 +51,32 @@ export default function HomePageHero() {
           MOBILE HERO (below md) - PAGE 1
           ═══════════════════════════════════════════════════════ */}
       <section className="relative block md:hidden w-full h-[100vh] min-h-[100vh] max-h-[100vh] flex-col overflow-hidden snap-start snap-always page">
+        {/* Base Background */}
+        <div className="absolute inset-0 z-0 bg-[#050505]" />
+
+        {/* Artwork Image */}
+        <div 
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            backgroundImage: "url('/hero-background.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "right center",
+            backgroundRepeat: "no-repeat"
+          }}
+        />
+
+        {/* Dark Overlay */}
+        <div 
+          className="absolute inset-0 z-[2] pointer-events-none"
+          style={{
+            background: "radial-gradient(circle at 20% 20%, rgba(0,0,0,0.15), rgba(0,0,0,0.85))"
+          }}
+        />
+
         <SaffronAnimation />
         
         {/* Top bar spacer */}
-        <div className="h-[52px] shrink-0" />
+        <div className="h-[52px] shrink-0 relative z-10" />
 
         {/* Hero content (flex: 1) */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-2">
