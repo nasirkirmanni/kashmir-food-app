@@ -175,7 +175,7 @@ export default function HomePageHero() {
             >
               <div className="w-[92%] shrink-0 snap-center">
                 <div className="grid grid-cols-2 gap-3">
-                  <Link href="/restaurants" className="block group" onClick={(e) => handleNavClick(e, 1)}>
+                  <Link href="/restaurants" className="block group" onClick={(e) => handleNavClick(e, 1)} prefetch={false}>
                     <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.95]">
                       <div className="flex items-center justify-between">
                         <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
@@ -189,7 +189,7 @@ export default function HomePageHero() {
                       </div>
                     </div>
                   </Link>
-                  <Link href="/kashmiri-food" className="block group" onClick={(e) => handleNavClick(e, 3)}>
+                  <Link href="/kashmiri-food" className="block group" onClick={(e) => handleNavClick(e, 3)} prefetch={false}>
                     <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.95]">
                       <div className="flex items-center justify-between">
                         <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">

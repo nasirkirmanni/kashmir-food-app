@@ -427,7 +427,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               ALL THINGS KASHMIR
             </h3>
             <div className="grid grid-cols-2 gap-3">
-              <Link href="/dishes" className="block">
+              <Link href="/dishes" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
                   <div className="text-white"><i className="ti ti-tools-kitchen text-[22px]"></i></div>
                   <div>
@@ -437,7 +437,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/destinations" className="block">
+              <Link href="/destinations" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
                   <div className="text-white"><i className="ti ti-map-2 text-[22px]"></i></div>
                   <div>
@@ -447,7 +447,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/itineraries" className="block">
+              <Link href="/itineraries" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
                   <div className="text-white"><i className="ti ti-route text-[22px]"></i></div>
                   <div>
@@ -457,7 +457,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/history" className="block">
+              <Link href="/history" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
                   <div className="text-white"><i className="ti ti-book text-[22px]"></i></div>
                   <div>
@@ -476,7 +476,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               Plan a Kashmir Visit
             </h2>
             <div className="grid grid-cols-2 gap-3">
-              <Link href="/visit-kashmir" className="block">
+              <Link href="/plan" className="block" prefetch={false}>
                 <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
                   <div className="text-black"><i className="ti ti-map-2 text-[22px]"></i></div>
                   <div>
@@ -486,7 +486,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/plan" className="block">
+              <Link href="/plan" className="block" prefetch={false}>
                 <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
                   <div className="text-black"><i className="ti ti-sparkles text-[22px]"></i></div>
                   <div>
