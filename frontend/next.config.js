@@ -15,6 +15,10 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizeCss: true,
+    browsersListForSwc: true,
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

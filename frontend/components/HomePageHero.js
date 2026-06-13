@@ -145,9 +145,6 @@ export default function HomePageHero() {
             </div>
           </div>
 
-          <div className="hidden">
-            {featureIconsGrid}
-          </div>
         </div>
       </div>
 
