@@ -17,7 +17,6 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    browsersListForSwc: true,
   },
 };
 
