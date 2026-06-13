@@ -119,13 +119,13 @@ export default function Navbar() {
   const userName = user && user.name ? user.name.split(' ')[0] : "User";
 
   const mobileNav = (
-    <div className="md:hidden fixed top-0 left-0 w-full z-[100] px-5 pt-6 pb-2 pointer-events-none">
+    <div className="md:hidden fixed top-0 left-0 w-full z-[100] px-5 pt-16 pb-2 pointer-events-none">
       <div className="flex items-center justify-between w-full relative pointer-events-auto">
         <div className="flex flex-col justify-center">
-          <span className="text-[10px] font-[600] text-[#C8A46A] tracking-[0.15em] uppercase mb-1">
+          <span className="text-[12px] font-[700] text-[#C8A46A] tracking-[0.18em] uppercase mb-1">
             {greeting.replace(',', '')}
           </span>
-          <span className="font-display text-[42px] font-[600] leading-[1] tracking-[-0.03em] text-white">
+          <span className="font-display text-[56px] font-[500] leading-[0.95] tracking-[-0.03em] text-white">
             {userName}
           </span>
         </div>
