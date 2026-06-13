@@ -199,7 +199,6 @@ export default function MobileSwipeContainer({ children }) {
     "/restaurants",
     "/waza-ai",
     "/kashmiri-food",
-    "/dishes",
     "/profile",
     "/login",
   ].includes(pathname);
