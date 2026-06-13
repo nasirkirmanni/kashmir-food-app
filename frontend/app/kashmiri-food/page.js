@@ -337,7 +337,7 @@ function KashmiriFoodContent() {
                 transition={{ duration: 0.25 }}
               >
                 {/* Sticky sub-navigation & search bar */}
-                <div className="sticky top-20 z-40 bg-[#0B0B0B]/95 border-b border-white/5 py-4 my-8 -mx-4 px-4 flex flex-col gap-4">
+                <div className="sticky top-0 z-50 bg-[#0B0B0B]/80 backdrop-blur-xl border-b border-white/10 py-4 mb-8 -mx-4 px-4 flex flex-col gap-4 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                   <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
                     {/* Category switcher tabs */}
                     <div className="flex items-center gap-3 overflow-x-auto no-scrollbar scroll-smooth w-full md:w-auto">
