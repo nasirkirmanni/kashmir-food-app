@@ -38,17 +38,8 @@ export default function HomePage() {
       <JsonLd data={buildWebsiteSchema()} />
       <JsonLd data={buildOrganizationSchema()} />
       <JsonLd data={buildFaqSchema(homeFaqs)} />
-      {/* Mobile Scroll Container */}
-      <div className="block md:hidden w-full">
-        <HomePageHero />
-        <HomePageClient />
-      </div>
-
-      {/* Desktop Layout */}
-      <div className="hidden md:block">
-        <HomePageHero />
-        <HomePageClient />
-      </div>
+      <HomePageHero />
+      <HomePageClient />
     </>
   );
 }

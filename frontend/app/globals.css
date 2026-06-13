@@ -694,3 +694,7 @@ body.is-dragging * {
   position: absolute;
   bottom: 4px;
 }
+
+@media (min-width: 768px) { html { font-size: 95% !important; } }
+@keyframes stripe-scroll { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+

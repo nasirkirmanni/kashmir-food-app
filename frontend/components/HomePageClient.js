@@ -216,18 +216,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
   return (
     <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
-      <style>{`
-        @media (min-width: 768px) {
-          html {
-            font-size: 95% !important;
-          }
-        }
-        @keyframes stripe-scroll {
-          0% { background-position: 0 0; }
-          100% { background-position: 40px 40px; }
-        }
-      `}</style>
-      
       {/* Global background is now handled by layout.js */}
       {/* 2. RESTAURANTS SECTION */}
       <section id="restaurants" className="hidden md:block relative pt-12 md:pt-32 pb-24 z-10 mt-8">
@@ -525,7 +513,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 {tip.number}
               </div>
               <h3 className="mt-3 md:mt-6 font-display text-lg md:text-3xl font-medium tracking-tight text-white leading-tight">{tip.title}</h3>
-              <p className="mt-2 md:mt-4 text-[0.65rem] md:text-sm leading-relaxed text-white/60 line-clamp-4 md:line-clamp-none">{tip.description}</p>
+              <p className="mt-2 md:mt-4 text-xs md:text-base leading-relaxed text-white/60 line-clamp-4 md:line-clamp-none">{tip.description}</p>
             </motion.article>
           ))}
         </div>
