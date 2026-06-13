@@ -1,124 +1,138 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import HamburgerMenu from "./HamburgerMenu";
 
 export default function Navbar() {
-  const { user } = useAuth();
-  const [greeting, setGreeting] = useState("Welcome");
+  const { user, logout } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState(null);
 
+  /* ── Scroll-aware glass intensity ── */
   useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) setGreeting("Good Morning");
-    else if (hour < 17) setGreeting("Good Afternoon");
-    else setGreeting("Good Evening");
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const userName = user?.name ? user.name.split(" ")[0] : "Guest";
-  const displayName = userName.length > 12 ? userName.substring(0, 10) + "..." : userName;
+  /* ── Desktop nav links — only high-priority items visible ── */
+  const desktopNavLinks = [
+    { label: "Kashmiri Food", href: "/kashmiri-food" },
+    { label: "Traditional Wazwan", href: "/dishes" },
+    { label: "Restaurants", href: "/restaurants" },
+    { label: "Visit Kashmir", href: "/plan" },
+  ];
 
-  const greetingText = user ? `${greeting}, ${displayName}` : "Welcome, Guest";
+  /* ── Liquid Glass pill style — desktop navbar ── */
+  const desktopNav = (
+    <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
+      <div className="flex h-20 items-center justify-between w-full px-6 lg:px-12 2xl:px-16">
+        {/* Logo — with right margin for breathing room */}
+        <Link
+          href="/"
+          className="font-display text-[1.75rem] font-medium uppercase leading-[0.9] tracking-[0.15em] text-white mr-8 shrink-0"
+        >
+          <span className="block">Wazwan</span>
+          <span className="block text-[#D4AF37]">Way</span>
+        </Link>
 
-  const css = `
-    #app-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 80px;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px 0 24px;
-      background: linear-gradient(to bottom, rgba(15, 8, 3, 0.95) 40%, rgba(15, 8, 3, 0) 100%);
-      box-shadow: none;
-      border: none;
-      transition: background 0.3s ease;
-    }
+        {/* Nav links — nowrap, generous gap */}
+        <div className="flex flex-1 items-center justify-center gap-8 lg:gap-10 text-[0.75rem] font-bold uppercase tracking-[0.15em] text-white/80">
+          {desktopNavLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="whitespace-nowrap transition-colors hover:text-[#D4AF37]"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
+            className="whitespace-nowrap transition-colors text-[#D4AF37] hover:text-white"
+          >
+            WAZA AI
+          </button>
+        </div>
 
-    .greeting-sub {
-      font-family: 'Inter', sans-serif;
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      color: #c9a84c;
-      text-transform: uppercase;
-      opacity: 0.85;
-      margin-bottom: 5px;
-      display: block;
-    }
+        {/* Right actions — hamburger, login, signup with consistent gaps */}
+        <div className="flex items-center gap-3 lg:gap-4 shrink-0 ml-6">
+          <HamburgerMenu />
+          {user ? (
+            <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white">
+              <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#D4AF37] whitespace-nowrap">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#D4AF37] transition-colors overflow-hidden shrink-0">
+                  <svg className="w-4 h-4 text-white/70 group-hover:text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <span>{user.name}</span>
+              </Link>
+              {user.role === "admin" && (
+                <Link href="/admin" className="text-[#D4AF37] hover:text-white transition-colors whitespace-nowrap">
+                  Dashboard
+                </Link>
+              )}
+              <button onClick={logout} className="text-white/60 hover:text-white transition-colors whitespace-nowrap">
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="text-xs font-bold uppercase tracking-widest text-white transition-colors hover:text-[#D4AF37] whitespace-nowrap"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-full bg-[#D4AF37] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
 
-    .greeting-main {
-      font-family: var(--font-display, 'Cormorant Garamond', serif);
-      font-size: 26px;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      color: #f5efe6;
-      line-height: 1;
-      display: block;
-    }
-
-    .header-icon-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.8);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.2);
-      overflow: hidden;
-    }
-
-    .header-icon-btn:active {
-      transform: scale(0.95);
-    }
-
-    .header-icon-btn:hover {
-      color: #f5efe6;
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-  `;
+  const mobileNav = (
+    <div className="md:hidden header">
+      <motion.div
+        initial={false}
+        animate={{
+          background: scrolled
+            ? "rgba(10, 10, 10, 0.85)"
+            : "rgba(10, 10, 10, 0)",
+          backdropFilter: scrolled
+            ? "blur(24px) saturate(180%)"
+            : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(255,255,255,0)",
+        }}
+        transition={{ duration: 0.3 }}
+        className="w-full h-full flex items-center justify-between px-6"
+      >
+        <Link
+          href="/"
+          className="font-display text-[1.4rem] font-medium uppercase leading-[0.9] tracking-[0.15em] text-white flex gap-2 items-baseline"
+        >
+          <span>Wazwan</span>
+          <span className="text-[#D4AF37] text-[1rem]">Way</span>
+        </Link>
+        <HamburgerMenu />
+      </motion.div>
+    </div>
+  );
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: css }} />
-      <header id="app-header">
-        {/* Left Side: Greeting */}
-        <div className="flex flex-col justify-center">
-          <span className="greeting-sub">{greetingText}</span>
-          <h1 className="greeting-main">Explore Kashmir</h1>
-        </div>
-
-        {/* Right Side: Actions */}
-        <div className="flex items-center gap-3">
-          <button className="header-icon-btn" aria-label="Search">
-            <Search size={18} strokeWidth={2} />
-          </button>
-          
-          <Link 
-            href={user ? "/profile" : "/login"}
-            className="header-icon-btn"
-            aria-label="Profile"
-          >
-            {user && user.avatar ? (
-              <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-            ) : (
-              <User size={18} strokeWidth={2} />
-            )}
-          </Link>
-        </div>
-      </header>
+      {desktopNav}
+      {mobileNav}
     </>
   );
 }
