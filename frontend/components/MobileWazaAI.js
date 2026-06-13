@@ -138,7 +138,7 @@ export default function MobileWazaAI({ initialPrompt }) {
   }, [initialPrompt]);
 
   return (
-    <div className="flex flex-col h-[100dvh] w-full bg-[#0B0B0B] text-white overflow-hidden relative">
+    <div className="flex flex-col h-full w-full bg-[#0B0B0B] text-white overflow-hidden relative">
       {/* Top Header */}
       <header className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/40 backdrop-blur-md shrink-0">
         <div className="flex items-center gap-3">
@@ -240,7 +240,7 @@ export default function MobileWazaAI({ initialPrompt }) {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-white/10 bg-black/40 backdrop-blur-lg px-4 py-3 shrink-0">
+      <div className="border-t border-white/10 bg-black/40 backdrop-blur-lg px-4 pt-3 shrink-0 mobile-safe-bottom">
         <form
           onSubmit={(e) => {
             e.preventDefault();

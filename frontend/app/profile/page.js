@@ -81,7 +81,7 @@ export default function ProfilePage() {
   const initials = (user.name || "User").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
 
   return (
-    <div className="min-h-screen pt-28 pb-32 px-6 page-shell flex flex-col items-center">
+    <div className="min-h-full pt-28 px-6 page-shell flex flex-col items-center mobile-safe-bottom">
       <div className="w-full max-w-md">
         
         {/* PROFILE HEADER & AVATAR */}

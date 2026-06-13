@@ -599,10 +599,15 @@ body.is-dragging .wazwan-tip-card,
 body.is-dragging .restaurant-place-card {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  background: rgba(20, 20, 20, 0.95) !important;
   box-shadow: none !important;
+}
+
+/* Mobile Layout Safe Areas */
+.mobile-safe-bottom {
+  padding-bottom: calc(90px + env(safe-area-inset-bottom));
 }
 
 body.is-dragging * {
   animation-play-state: paused !important;
 }
-
