@@ -252,14 +252,13 @@ export default function HomePageHero() {
       {/* ═══════════════════════════════════════════════════════
           DESKTOP HERO (md and above)
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative hidden md:flex min-h-screen items-center justify-start pt-20 overflow-hidden bg-[#0B0B0B]">
+      <section className="relative hidden md:flex min-h-screen items-center justify-start pt-20 pb-32 overflow-hidden bg-[#0B0B0B]">
         <div className="absolute inset-0 z-0 flex justify-end">
           <div className="relative w-full h-full">
             <Image priority fetchPriority="high" fill src="/newhome.png" alt="Kashmiri Wazwan feast" className="object-cover object-right lg:object-center" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
             <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#0B0B0B] to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/90 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-[#0B0B0B]" />
+            <div className="absolute inset-x-0 bottom-0 h-[400px] bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/80 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_55%,rgba(212,175,55,0.05),transparent_55%)]" />
           </div>
         </div>
