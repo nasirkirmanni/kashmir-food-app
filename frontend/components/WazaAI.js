@@ -137,6 +137,7 @@ export default function WazaAI() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleOpenIntro}
+            aria-label="Open Waza AI Assistant"
             className="hidden md:flex fixed bottom-10 right-10 z-50 h-[72px] w-[72px] items-center justify-center rounded-full bg-[var(--saffron)] text-black shadow-[0_8px_32px_rgba(212,175,55,0.4)] transition-colors hover:bg-[var(--saffron-light)]"
           >
             <ChefAIIcon size={36} strokeWidth={2} />

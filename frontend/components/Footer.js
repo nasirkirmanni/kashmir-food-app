@@ -13,14 +13,14 @@ export default function Footer() {
         <p className="mx-auto max-w-md font-display text-xl font-light italic text-[#F5F5F0]/70">
           The definitive guide to Kashmir&apos;s greatest culinary heritage.
         </p>
-        <div className="mt-16 mb-16 flex flex-wrap justify-center gap-10 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#F5F5F0]/60">
+        <div className="mt-16 mb-16 flex flex-wrap justify-center gap-10 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#F5F5F0]/80">
           <Link href="/dishes" className="transition-colors duration-300 hover:text-[#C8A46A]">Dishes</Link>
           <Link href="/restaurants" className="transition-colors duration-300 hover:text-[#C8A46A]">Restaurants</Link>
           <Link href="/#tips" className="transition-colors duration-300 hover:text-[#C8A46A]">Guide</Link>
           <Link href="/login" className="transition-colors duration-300 hover:text-[#C8A46A]">Login</Link>
           <Link href="/signup" className="transition-colors duration-300 hover:text-[#C8A46A]">Join</Link>
         </div>
-        <div className="border-t border-[#F5F5F0]/10 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-[0.7rem] uppercase tracking-widest text-[#F5F5F0]/40">
+        <div className="border-t border-[#F5F5F0]/10 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-[0.7rem] uppercase tracking-widest text-[#F5F5F0]/70">
           <p>© 2026 Wazwan Way. All rights reserved.</p>
           <p>Designed for the culture.</p>
         </div>
