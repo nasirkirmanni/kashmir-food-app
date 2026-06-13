@@ -149,7 +149,7 @@ function RestaurantsPageContent() {
   }, [restaurants]);
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] overflow-hidden flex flex-col justify-center px-6">
+    <div className="relative min-h-screen bg-[#0A0A0A] overflow-y-auto overflow-x-hidden flex flex-col justify-start pt-28 md:pt-32 px-6">
       
       {/* Removed expensive CSS blur element to fix lag */}
 
