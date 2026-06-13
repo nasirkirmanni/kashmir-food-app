@@ -9,9 +9,9 @@ export default function SplashScreen() {
   const [destroyed, setDestroyed] = useState(false);
 
   useEffect(() => {
-    const creditTimer = window.setTimeout(() => setShowCredit(true), 500);
-    const hideTimer = window.setTimeout(() => setVisible(false), 1500);
-    const destroyTimer = window.setTimeout(() => setDestroyed(true), 2100);
+    const creditTimer = window.setTimeout(() => setShowCredit(true), 300);
+    const hideTimer = window.setTimeout(() => setVisible(false), 900);
+    const destroyTimer = window.setTimeout(() => setDestroyed(true), 1300);
 
     return () => {
       window.clearTimeout(creditTimer);
