@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ChefHat, ArrowRight, Search } from "lucide-react";
@@ -11,6 +12,7 @@ const SaffronAnimation = dynamic(() => import("@/components/SaffronAnimation"), 
 
 export default function HomePageHero() {
   const { user } = useAuth();
+  const [currentExplorePage, setCurrentExplorePage] = useState(0);
   const featureIconsGrid = (
     <div className="grid grid-cols-4 w-full">
       <div className="flex flex-col items-center text-center">
@@ -108,52 +110,93 @@ export default function HomePageHero() {
             />
           </div>
 
-          {/* NEW: EXPLORE GRID (Moved from Client, Bug 3, Bug 4) */}
-          <div className="w-full">
-            <h2 className="text-[10px] font-[800] tracking-[0.16em] text-[#2e2e2e] uppercase mb-[12px] mt-[22px]">
+          {/* NEW: EXPLORE CAROUSEL */}
+          <div className="w-full mt-[22px] border border-white/[0.06] rounded-[24px] bg-[rgba(10,10,10,0.35)] backdrop-blur-[20px] p-4 relative">
+            <h2 className="text-[10px] font-[800] tracking-[0.16em] text-[#888] uppercase mb-4">
               Explore
             </h2>
-            <div className="grid grid-cols-2 gap-3">
-              <Link href="/restaurants" className="block">
-                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
-                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Restaurants</h3>
-                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">29 venues across<br/>Kashmir</p>
+            
+            <div 
+              className="flex w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-3 pb-2"
+              onScroll={(e) => {
+                const scrollLeft = e.target.scrollLeft;
+                const width = e.target.clientWidth;
+                const page = Math.round(scrollLeft / width);
+                if (page !== currentExplorePage) {
+                  setCurrentExplorePage(page);
+                }
+              }}
+            >
+              {/* PAGE 1 */}
+              <div className="w-[94%] shrink-0 snap-center">
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/restaurants" className="block group">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Restaurants</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">29 venues</p>
+                    </div>
+                  </Link>
+                  <Link href="/kashmiri-food" className="block group">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Kashmiri Food</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Authentic tastes</p>
+                    </div>
+                  </Link>
+                  <Link href="/itineraries" className="block group">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Food Trails</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Curated routes</p>
+                    </div>
+                  </Link>
+                  <Link href="/history" className="block group">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">History</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">14th-century</p>
+                    </div>
+                  </Link>
                 </div>
-              </Link>
-              <Link href="/kashmiri-food" className="block">
-                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
-                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Kashmiri Food</h3>
-                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">Authentic local<br/>delicacies</p>
+              </div>
+
+              {/* PAGE 2 */}
+              <div className="w-[94%] shrink-0 snap-center">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="block group cursor-pointer">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">A</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
+                    </div>
+                  </div>
+                  <div className="block group cursor-pointer">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">B</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
+                    </div>
+                  </div>
+                  <div className="block group cursor-pointer">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">C</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
+                    </div>
+                  </div>
+                  <div className="block group cursor-pointer">
+                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
+                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">D</h3>
+                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
+                    </div>
+                  </div>
                 </div>
-              </Link>
-              <Link href="/itineraries" className="block">
-                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
-                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Food Trails</h3>
-                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">Curated travel + food</p>
-                </div>
-              </Link>
-              <Link href="/history" className="block">
-                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
-                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">History</h3>
-                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">14th-century origins</p>
-                </div>
-              </Link>
+              </div>
+            </div>
+
+            {/* Pagination Dots */}
+            <div className="flex justify-center items-center gap-1.5 mt-2">
+              <div className={`h-1.5 rounded-full transition-all duration-300 ease-out ${currentExplorePage === 0 ? 'w-4 bg-white/90' : 'w-1.5 bg-[#444]'}`} />
+              <div className={`h-1.5 rounded-full transition-all duration-300 ease-out ${currentExplorePage === 1 ? 'w-4 bg-white/90' : 'w-1.5 bg-[#444]'}`} />
             </div>
           </div>
         </div>
 
-        {/* Scroll cue */}
-        <div className="h-[36px] shrink-0 flex flex-col justify-center items-center relative z-10">
-          <span className="text-[9px] font-[800] tracking-[0.16em] text-[#2a2a2a] uppercase">Plan Your Trip</span>
-        </div>
 
-        {/* Page dots (●○) */}
-        <div className="h-[20px] shrink-0 flex items-center justify-center relative z-10">
-          <div className="flex gap-2 items-center">
-            <div className="w-8 h-1 bg-white rounded-full"></div>
-            <div className="w-1 h-1 bg-[#333] rounded-full"></div>
-          </div>
-        </div>
 
         {/* Bottom nav spacer */}
         <div className="h-[58px] shrink-0" />

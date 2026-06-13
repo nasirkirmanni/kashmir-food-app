@@ -470,28 +470,29 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             </div>
           </div>
 
-          {/* Section 3 — Waza AI Help Banner */}
-          <div className="w-full">
-            <div className="bg-[#111] rounded-[18px] border-t border-t-white/5 border-x-[0.5px] border-x-[#1e1e1e] border-b-[0.5px] border-b-[#1e1e1e] p-5 flex flex-col w-full relative overflow-hidden">
-              <div className="flex justify-between items-start mb-6 relative z-10">
-                <div className="flex flex-col items-start max-w-[75%]">
-                  <div className="inline-flex items-center rounded-sm px-1.5 py-0.5 bg-[#161616] text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#2e2e2e] mb-3">
-                    AI POWERED
+          {/* Section 3 — Plan Kashmir Visit */}
+          <div className="w-full bg-white rounded-[24px] p-5">
+            <h2 className="font-body font-black text-[24px] tracking-[-0.04em] leading-tight text-black mb-4">
+              Plan a Kashmir Visit
+            </h2>
+            <div className="grid grid-cols-2 gap-3">
+              <Link href="/visit-kashmir" className="block">
+                <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
+                  <div className="text-black"><i className="ti ti-map-2 text-[22px]"></i></div>
+                  <div>
+                    <h4 className="font-display font-black text-black text-[14px] leading-tight mb-0.5">Visit Kashmir</h4>
+                    <p className="text-[#555] font-medium text-[11px]">Travel Guide</p>
                   </div>
-                  <h3 className="font-display font-black text-white text-[16px] tracking-[-0.03em] mb-1.5">
-                    Waza AI is here.
-                  </h3>
-                  <p className="font-medium text-[#555] text-[11px] leading-[1.6]">
-                    Not sure where to eat or what to order?<br/>Ask Waza — your Kashmir food guide.
-                  </p>
+                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
                 </div>
-                <div className="w-[38px] h-[38px] rounded-full bg-white flex items-center justify-center shrink-0">
-                  <i className="ti ti-sparkles text-black text-[20px]"></i>
-                </div>
-              </div>
-              <Link href="/waza-ai" className="w-full relative z-10 block">
-                <div className="w-full bg-[#fff] text-[#0a0a0a] font-black text-[13px] py-[13px] rounded-[12px] text-center transition-transform hover:scale-[1.02] active:scale-95">
-                  Ask Waza AI
+              </Link>
+              <Link href="/plan" className="block">
+                <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
+                  <div className="text-black"><i className="ti ti-sparkles text-[22px]"></i></div>
+                  <div>
+                    <h4 className="font-display font-black text-black text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h4>
+                  </div>
+                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
                 </div>
               </Link>
             </div>
