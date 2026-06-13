@@ -6,6 +6,7 @@ import Image from "next/image";
 import { MapPin, ChefHat, ArrowRight, Search, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
+import { useMobileNavigation } from "@/context/MobileNavigationContext";
 
 const LandingCanvas = dynamic(() => import("@/components/LandingCanvas"), { ssr: false });
 const SaffronAnimation = dynamic(() => import("@/components/SaffronAnimation"), { ssr: false });
@@ -14,6 +15,14 @@ export default function HomePageHero() {
   const { user } = useAuth();
   const [currentExplorePage, setCurrentExplorePage] = useState(0);
   const [greeting, setGreeting] = useState("Good evening,");
+  const { setActiveIndex, isMobile } = useMobileNavigation();
+
+  const handleNavClick = (e, index) => {
+    if (isMobile) {
+      e.preventDefault();
+      setActiveIndex(index);
+    }
+  };
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -166,8 +175,8 @@ export default function HomePageHero() {
             >
               <div className="w-[92%] shrink-0 snap-center">
                 <div className="grid grid-cols-2 gap-3">
-                  <Link href="/restaurants" className="block group">
-                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
+                  <Link href="/restaurants" className="block group" onClick={(e) => handleNavClick(e, 1)}>
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.95]">
                       <div className="flex items-center justify-between">
                         <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
                           <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
@@ -180,8 +189,8 @@ export default function HomePageHero() {
                       </div>
                     </div>
                   </Link>
-                  <Link href="/kashmiri-food" className="block group">
-                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
+                  <Link href="/kashmiri-food" className="block group" onClick={(e) => handleNavClick(e, 3)}>
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.95]">
                       <div className="flex items-center justify-between">
                         <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
                           <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><path d="M6 17h12"/></svg>
