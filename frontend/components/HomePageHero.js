@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ChefHat, ArrowRight, Search } from "lucide-react";
+import { MapPin, ChefHat, ArrowRight, Search, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
 
@@ -13,6 +13,16 @@ const SaffronAnimation = dynamic(() => import("@/components/SaffronAnimation"), 
 export default function HomePageHero() {
   const { user } = useAuth();
   const [currentExplorePage, setCurrentExplorePage] = useState(0);
+  const [greeting, setGreeting] = useState("Good evening,");
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setGreeting("Good morning,");
+    else if (hour < 17) setGreeting("Good afternoon,");
+    else setGreeting("Good evening,");
+  }, []);
+
+  const userName = user && user.name ? user.name.split(' ')[0] : "User";
   const featureIconsGrid = (
     <div className="grid grid-cols-4 w-full">
       <div className="flex flex-col items-center text-center">
@@ -78,7 +88,33 @@ export default function HomePageHero() {
         <SaffronAnimation />
         
         {/* Top bar spacer */}
-        <div className="h-[150px] shrink-0 relative z-10" />
+        <div className="h-[150px] shrink-0 relative z-10">
+          {/* Greeting Overlay */}
+          <div className="absolute top-0 left-0 w-full px-5 pt-16 pb-2 pointer-events-auto">
+            <div className="flex items-center justify-between w-full">
+              <div className="flex flex-col justify-center">
+                <span className="text-[12px] font-[700] text-[#C8A46A] tracking-[0.18em] uppercase mb-1">
+                  {greeting.replace(',', '')}
+                </span>
+                <span className="font-display text-[56px] font-[500] leading-[0.95] tracking-[-0.03em] text-white">
+                  {userName}
+                </span>
+              </div>
+              
+              {/* Profile / Menu Button */}
+              <button 
+                onClick={() => window.dispatchEvent(new Event('open-mobile-menu'))}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
+              >
+                {user ? (
+                  <User size={18} className="text-[#C8A46A]" strokeWidth={2} />
+                ) : (
+                  <User size={18} className="text-[#C8A46A]/70" strokeWidth={2} />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* Hero content */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-4">

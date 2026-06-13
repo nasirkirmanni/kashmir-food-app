@@ -116,39 +116,9 @@ export default function Navbar() {
     </nav>
   );
 
-  const userName = user && user.name ? user.name.split(' ')[0] : "User";
-
-  const mobileNav = (
-    <div className="md:hidden fixed top-0 left-0 w-full z-[100] px-5 pt-16 pb-2 pointer-events-none">
-      <div className="flex items-center justify-between w-full relative pointer-events-auto">
-        <div className="flex flex-col justify-center">
-          <span className="text-[12px] font-[700] text-[#C8A46A] tracking-[0.18em] uppercase mb-1">
-            {greeting.replace(',', '')}
-          </span>
-          <span className="font-display text-[56px] font-[500] leading-[0.95] tracking-[-0.03em] text-white">
-            {userName}
-          </span>
-        </div>
-        
-        {/* Profile / Menu Button */}
-        <button 
-          onClick={() => window.dispatchEvent(new Event('open-mobile-menu'))}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
-        >
-          {user ? (
-            <User size={18} className="text-[#C8A46A]" strokeWidth={2} />
-          ) : (
-            <User size={18} className="text-[#C8A46A]/70" strokeWidth={2} />
-          )}
-        </button>
-      </div>
-    </div>
-  );
-
   return (
     <>
       {desktopNav}
-      {mobileNav}
     </>
   );
 }
