@@ -60,7 +60,7 @@ export default function HomePageHero() {
         <div 
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
-            backgroundImage: "url('/new-design.png')",
+            backgroundImage: "url('/hero-background.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat"
