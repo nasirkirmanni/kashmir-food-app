@@ -520,11 +520,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* NEXT PAGE SWIPE INDICATOR (Mobile Only) */}
-      <section className="flex md:hidden pb-32 pt-6 flex-col items-center justify-center relative z-10">
+      <div className="flex md:hidden pb-32 pt-6 flex-col items-center justify-center relative z-10">
         <div className="flex flex-col items-center gap-1 opacity-50 animate-pulse">
           <i className="ti ti-arrow-right text-[28px] text-gray-400"></i>
         </div>
-      </section>
+      </div>
 
       <section className="hidden md:block border-t border-white/10 bg-[#111111] py-24">
         <div className="page-shell">
