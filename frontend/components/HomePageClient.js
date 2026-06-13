@@ -409,11 +409,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           
           {/* Section 1 — About Wazwan */}
           <div className="w-full text-left">
-            <div className="inline-flex items-center rounded-sm bg-[#111] px-2 py-1 text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#2e2e2e] mb-4">
+            <div className="inline-flex items-center rounded-sm bg-white/5 border border-[#C8A46A]/20 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#C8A46A] mb-4">
               THE WAZWAN
             </div>
-            <h2 className="font-display font-black text-[32px] tracking-[-0.03em] text-[#fff] leading-[1.05] mb-5">
-              Not just a meal.<br/>A ceremony.
+            <h2 className="font-display font-[500] text-[40px] tracking-[-0.03em] text-[#fff] leading-[1.05] mb-5">
+              Not just a meal.<br/>A <span className="text-[#C8A46A]">ceremony.</span>
             </h2>
             <p className="font-medium text-[#555] text-[12px] leading-[1.6]">
               Wazwan is a 36-course royal feast from Kashmir, cooked by master chefs called Wazas. Every dish tells a story of culture, fire, and hospitality.
@@ -423,7 +423,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
           {/* Section 2 — All Things Kashmir */}
           <div className="w-full">
-            <h3 className="text-[9px] font-extrabold tracking-[0.16em] text-[#2e2e2e] uppercase mb-4">
+            <h3 className="text-[10px] font-bold tracking-[0.16em] text-[#C8A46A] uppercase mb-4 pl-1">
               ALL THINGS KASHMIR
             </h3>
             <div className="grid grid-cols-2 gap-3">
