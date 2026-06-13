@@ -102,6 +102,7 @@ export default function SaffronAnimation() {
               top: p.top,
               width: p.size,
               height: p.size,
+              willChange: "transform",
             }}
             animate={{
               y: [0, -100 - Math.random() * 100],
@@ -136,6 +137,7 @@ export default function SaffronAnimation() {
             }}
           >
             <motion.div
+              style={{ willChange: "transform" }}
               animate={{
                 y: [0, -200 - Math.random() * 150],
                 x: [0, (Math.random() - 0.5) * 100],

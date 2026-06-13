@@ -28,9 +28,6 @@
     "tailwindcss": "^3.4.7"
   },
   "browserslist": [
-    ">0.3%",
-    "defaults",
-    "supports es6-module",
-    "maintained node versions"
+    "defaults"
   ]
 }
