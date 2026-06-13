@@ -10,7 +10,7 @@ export default function SaffronAnimation() {
     offset: ["start end", "end start"],
   });
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(null);
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
   }, []);
@@ -81,6 +81,8 @@ export default function SaffronAnimation() {
       delay: Math.random() * -10,
     }));
   }, [isMobile]);
+
+  if (isMobile === null) return null;
 
   return (
     <div 
