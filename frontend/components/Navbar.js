@@ -10,6 +10,14 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState(null);
+  const [greeting, setGreeting] = useState("Good evening,");
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setGreeting("Good morning,");
+    else if (hour < 17) setGreeting("Good afternoon,");
+    else setGreeting("Good evening,");
+  }, []);
 
   /* ── Scroll-aware glass intensity ── */
   useEffect(() => {
@@ -117,13 +125,14 @@ export default function Navbar() {
         transition={{ duration: 0.3 }}
         className="w-full h-full flex items-center justify-between px-6"
       >
-        <Link
-          href="/"
-          className="font-display text-[15px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white flex items-baseline"
-        >
-          <span>Wazwan</span>
-          <span className="text-[#444444] text-[13px] font-medium ml-[2px]">Way</span>
-        </Link>
+        <div className="flex flex-col justify-center pt-3">
+          <span className="font-body text-[20px] font-[800] text-white/80 tracking-[-0.02em] uppercase leading-none mb-[2px]">
+            {greeting}
+          </span>
+          <span className="font-body text-[32px] font-[700] leading-[1.05] tracking-[-0.02em] text-white">
+            {user && user.name ? user.name.split(' ')[0] : "User"}
+          </span>
+        </div>
         <HamburgerMenu />
       </motion.div>
     </div>

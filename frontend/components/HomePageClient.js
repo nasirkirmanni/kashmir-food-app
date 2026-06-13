@@ -496,20 +496,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 </div>
               </Link>
             </div>
-          </div>
-
         </div>
-
-        {/* Page dots (●○ -> ○●) */}
-        <div className="h-[20px] shrink-0 flex items-center justify-center relative z-10">
-          <div className="flex gap-2 items-center">
-            <div className="w-2 h-2 bg-[#333] rounded-full"></div>
-            <div className="w-8 h-1.5 bg-white rounded-full"></div>
-          </div>
         </div>
-
-        {/* Bottom nav spacer */}
-        <div className="h-[58px] shrink-0" />
       </section>
 
       <section id="tips" className="hidden md:block page-shell py-32">
@@ -543,14 +531,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         </div>
       </section>
 
-      {/* NEW: PLAN YOUR TRIP (Mobile Only) */}
-      <section className="block md:hidden pb-32 pt-6 flex flex-col items-center">
-        <h2 className="text-[0.65rem] font-bold tracking-[0.2em] text-[#444] uppercase mb-4">
-          Plan Your Trip
-        </h2>
-        <div className="flex gap-2 items-center">
-          <div className="w-8 h-1 bg-white rounded-full"></div>
-          <div className="w-1 h-1 bg-[#333] rounded-full"></div>
+      {/* NEXT PAGE SWIPE INDICATOR (Mobile Only) */}
+      <section className="flex md:hidden pb-32 pt-6 flex-col items-center justify-center relative z-10">
+        <div className="flex flex-col items-center gap-1 opacity-50 animate-pulse">
+          <i className="ti ti-arrow-right text-[28px] text-gray-400"></i>
         </div>
       </section>
 

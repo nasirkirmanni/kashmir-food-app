@@ -61,6 +61,8 @@ export default function MobileSwipeContainer({ children }) {
     };
 
     const onStart = (e) => {
+      if (e.target.closest('[data-explore-carousel]')) return;
+      
       startXRef.current = e.touches[0].clientX;
       startYRef.current = e.touches[0].clientY;
       lastTouchTimeRef.current = Date.now();

@@ -52,7 +52,7 @@ export default function HomePageHero() {
       {/* ═══════════════════════════════════════════════════════
           MOBILE HERO (below md) - PAGE 1
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative block md:hidden w-full h-[100vh] min-h-[100vh] max-h-[100vh] flex-col overflow-hidden snap-start snap-always page">
+      <section className="relative flex md:hidden w-full flex-col overflow-visible h-auto min-h-[100vh]">
         {/* Base Background */}
         <div className="absolute inset-0 z-0 bg-[#050505]" />
 
@@ -87,7 +87,7 @@ export default function HomePageHero() {
             ROYAL CUISINE OF KASHMIR
           </div>
           
-          {/* Bug 2: Hero headline font rendering */}
+          {/* Hero headline */}
           <h1 className="font-body font-[900] text-[42px] tracking-[-0.04em] leading-[1] text-[#ffffff]">
             The<br/>
             Royal<br/>
@@ -117,6 +117,7 @@ export default function HomePageHero() {
             </h2>
             
             <div 
+              data-explore-carousel="true"
               className="flex w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-3 pb-2"
               onScroll={(e) => {
                 const scrollLeft = e.target.scrollLeft;
