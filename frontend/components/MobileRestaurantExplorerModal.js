@@ -66,30 +66,31 @@ export default function MobileRestaurantExplorerModal({
           const imgUrl = locationImages[location] || "/wazwan-hero.jpg";
 
           return (
-            <motion.button
-              key={location}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05, duration: 0.3 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleLocationClick(location)}
-              className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
-            >
-              <div className="absolute inset-0 z-0 opacity-50">
-                <Image src={imgUrl} fill sizes="(max-width: 768px) 33vw, 25vw" className="object-cover brightness-75" alt="" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
-              </div>
-              
-              <div className="relative z-10 flex flex-col items-center">
-                <div className="mb-2 h-8 w-8 flex items-center justify-center rounded-full bg-[var(--saffron)] text-black">
-                  <div className="scale-75">{locationTabMeta[location]?.icon}</div>
+            <Link key={location} href={`/restaurants?location=${location}`} passHref legacyBehavior>
+              <motion.a
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05, duration: 0.3 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleLocationClick && handleLocationClick(location)}
+                className="relative flex flex-col items-center justify-center h-32 rounded-[1.2rem] border border-white/10 bg-white/5 overflow-hidden shadow-lg"
+              >
+                <div className="absolute inset-0 z-0 opacity-50">
+                  <Image src={imgUrl} fill sizes="(max-width: 768px) 33vw, 25vw" className="object-cover brightness-75" alt="" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
                 </div>
-                <span className="font-display text-lg font-medium text-white">{location}</span>
-                <span className="mt-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)]">
-                  {count} Venues
-                </span>
-              </div>
-            </motion.button>
+                
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="mb-2 h-8 w-8 flex items-center justify-center rounded-full bg-[var(--saffron)] text-black">
+                    <div className="scale-75">{locationTabMeta[location]?.icon}</div>
+                  </div>
+                  <span className="font-display text-lg font-medium text-white">{location}</span>
+                  <span className="mt-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)]">
+                    {count} Venues
+                  </span>
+                </div>
+              </motion.a>
+            </Link>
           );
         })}
       </div>

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -36,10 +37,23 @@ const placeMeta = {
 
 const placeOrder = ["Srinagar", "Gulmarg", "Pahalgam", "Sonamarg"];
 
-export default function RestaurantsPage() {
+function RestaurantsPageContent() {
+  const searchParams = useSearchParams();
   const [restaurants, setRestaurants] = useState([]);
   const [activeLocation, setActiveLocation] = useState(null);
   const [error, setError] = useState(null);
+
+  // Initialize activeLocation from query params
+  useEffect(() => {
+    const locParam = searchParams.get('location');
+    if (locParam) {
+      // Find case-insensitive match from placeOrder
+      const match = placeOrder.find(p => p.toLowerCase() === locParam.toLowerCase());
+      if (match) {
+        setActiveLocation(match);
+      }
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     request(endpoints.restaurants())
@@ -56,11 +70,15 @@ export default function RestaurantsPage() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      // Optional: Clear the query param when closing the modal
+      if (searchParams.get('location')) {
+        window.history.replaceState(null, '', '/restaurants');
+      }
     }
     return () => {
       document.body.style.overflow = "";
     };
-  }, [activeLocation]);
+  }, [activeLocation, searchParams]);
 
   const grouped = useMemo(() => {
     const groups = Object.fromEntries(placeOrder.map((place) => [place, []]));
@@ -246,5 +264,13 @@ export default function RestaurantsPage() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+export default function RestaurantsPage() {
+  return (
+    <Suspense fallback={<div className="wazwan-shell relative min-h-screen pb-16 flex items-center justify-center text-white/50">Loading restaurants...</div>}>
+      <RestaurantsPageContent />
+    </Suspense>
   );
 }
