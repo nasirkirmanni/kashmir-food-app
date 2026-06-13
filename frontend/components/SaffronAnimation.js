@@ -83,6 +83,8 @@ export default function SaffronAnimation() {
   }, [isMobile]);
 
   if (isMobile === null) return null;
+  // Disable complex Framer Motion SVG animations on mobile to prevent 550ms of Total Blocking Time
+  if (isMobile) return null;
 
   return (
     <div 

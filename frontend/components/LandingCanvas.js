@@ -91,16 +91,28 @@ export default function LandingCanvas() {
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
 
-      animationFrame = window.requestAnimationFrame(draw);
+      if (isVisible) {
+        animationFrame = window.requestAnimationFrame(draw);
+      }
     };
+
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) draw();
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     resize();
     window.addEventListener("resize", resize);
-    draw();
 
     return () => {
       window.removeEventListener("resize", resize);
       window.cancelAnimationFrame(animationFrame);
+      observer.disconnect();
     };
   }, []);
 
