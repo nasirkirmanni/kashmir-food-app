@@ -191,6 +191,18 @@ export default function MobileSwipeContainer({ children }) {
     };
   }, [activeIndex, isMobile, setActiveIndex]);
 
+  // Check if current route is a swipeable tab
+  const pathname = usePathname();
+  const isSwipeableRoute = [
+    "/",
+    "/restaurants",
+    "/waza-ai",
+    "/kashmiri-food",
+    "/dishes",
+    "/profile",
+    "/login",
+  ].includes(pathname);
+
   // We intentionally do NOT return early based on `isMobile` here.
   // Returning early causes a hydration mismatch where the DOM is destroyed
   // and recreated, devastating the LCP metric. We render both and use CSS to toggle.
@@ -316,18 +328,6 @@ export default function MobileSwipeContainer({ children }) {
     }
     }
   `;
-
-  // Check if current route is a swipeable tab
-  const pathname = usePathname();
-  const isSwipeableRoute = [
-    "/",
-    "/restaurants",
-    "/waza-ai",
-    "/kashmiri-food",
-    "/dishes",
-    "/profile",
-    "/login",
-  ].includes(pathname);
 
   // If mobile and on a non-swipeable route, we must render standard children.
   // Otherwise, user can never see sub-pages like /visit-kashmir, /history, or /restaurants/[id]
