@@ -81,7 +81,7 @@ export const request = async (path, options = {}) => {
 
   if (cacheable) {
     _inflight.set(cacheKey, promise);
-    promise.finally(() => _inflight.delete(cacheKey));
+    promise.finally(() => _inflight.delete(cacheKey)).catch(() => {});
   }
 
   return promise;

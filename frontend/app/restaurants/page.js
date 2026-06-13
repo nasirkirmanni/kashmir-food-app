@@ -37,11 +37,65 @@ const placeMeta = {
 
 const placeOrder = ["Srinagar", "Gulmarg", "Pahalgam", "Sonamarg"];
 
+const cityCoordinates = {
+  Srinagar: { lat: 34.0837, lon: 74.7973 },
+  Gulmarg: { lat: 34.0484, lon: 74.3805 },
+  Pahalgam: { lat: 34.0150, lon: 75.3150 },
+  Sonamarg: { lat: 34.3031, lon: 75.2952 }
+};
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function getClosestCity(userLat, userLon) {
+  let minDistance = Infinity;
+  let closest = "Srinagar";
+  for (const [city, coords] of Object.entries(cityCoordinates)) {
+    const dist = getDistanceFromLatLonInKm(userLat, userLon, coords.lat, coords.lon);
+    if (dist < minDistance) {
+      minDistance = dist;
+      closest = city;
+    }
+  }
+  return closest;
+}
+
 function RestaurantsPageContent() {
   const searchParams = useSearchParams();
   const [restaurants, setRestaurants] = useState([]);
   const [activeLocation, setActiveLocation] = useState(null);
   const [error, setError] = useState(null);
+  const [locating, setLocating] = useState(false);
+
+  const handleNearMe = () => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser");
+      return;
+    }
+    setLocating(true);
+    setError(null);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocating(false);
+        const { latitude, longitude } = position.coords;
+        const closest = getClosestCity(latitude, longitude);
+        setActiveLocation(closest);
+      },
+      (err) => {
+        setLocating(false);
+        setError("Unable to retrieve your location. Please check your permissions.");
+      }
+    );
+  };
 
   // Initialize activeLocation from query params
   useEffect(() => {
@@ -95,40 +149,62 @@ function RestaurantsPageContent() {
   }, [restaurants]);
 
   return (
-    <div className="wazwan-shell relative min-h-screen pb-16">
-      <section className="place-hero mb-10">
+    <div className="relative min-h-screen bg-[#0A0A0A] overflow-hidden flex flex-col justify-center px-6">
+      
+      {/* Removed expensive CSS blur element to fix lag */}
+
+      <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col gap-8 pb-16">
         <div>
-          <span className="place-eyebrow">Eat By Place</span>
-          <h1>Find the right Wazwan table for each stop in Kashmir.</h1>
-          <p>
-            Choose a destination below to explore curated luxury dining options and local favorites.
+          <h1 className="font-display font-black text-white text-[3rem] leading-[1.05] tracking-tight mb-3">
+            Find the <br/>best Wazwan <br/><span className="text-[#555]">near you.</span>
+          </h1>
+          <p className="text-[#888] text-[0.85rem] leading-relaxed max-w-[260px]">
+            Discover luxury dining options and local favorites based on your location.
           </p>
         </div>
 
-        {/* 2x2 Grid of Locations */}
-        <div className="jump-grid">
-          {placeOrder.map((place) => (
-            <button
-              key={place}
-              className="jump-card text-left w-full h-full cursor-pointer hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] hover:border-[var(--saffron)] transition-all bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 flex flex-col justify-between"
-              onClick={() => setActiveLocation(place)}
-            >
-              <div>
-                <strong className="block text-2xl font-display text-white mb-2">{place}</strong>
-                <span className="block text-sm text-white/60 leading-relaxed">{placeMeta[place].short}</span>
-              </div>
-              <span className="block mt-6 text-[0.65rem] font-bold uppercase tracking-widest text-[var(--saffron)]">
-                {(grouped[place] || []).length} Venues
-              </span>
-            </button>
-          ))}
-        </div>
-      </section>
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
+            <p className="text-red-400 text-xs">{error}</p>
+          </div>
+        )}
 
-      <div className="page-shell flex justify-center">
-        <Link href="/" className="wazwan-btn-primary mx-auto text-center inline-block">
-          Back to Home
-        </Link>
+        <div className="flex flex-col gap-4">
+          <Link href="/dishes" className="block">
+            <div className="bg-[#111] rounded-[24px] p-6 h-[130px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5 shadow-lg group">
+              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/50 group-hover:bg-[var(--saffron)] group-hover:text-black transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-white text-[1.15rem]">Explore traditional wazwan</h3>
+                <p className="text-[#666] text-[0.7rem] mt-1">Discover the 36-course royal feast</p>
+              </div>
+            </div>
+          </Link>
+
+          <button onClick={handleNearMe} disabled={locating} className="text-left w-full">
+            <div className="bg-[#111] rounded-[24px] p-6 h-[130px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-[var(--saffron)]/30 shadow-lg group relative overflow-hidden">
+              {/* Highlight gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--saffron)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              
+              <div className="relative z-10 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/50 group-hover:bg-[var(--saffron)] group-hover:text-black transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              </div>
+              <div className="relative z-10 flex items-end justify-between">
+                <div>
+                  <h3 className="font-display font-bold text-white text-[1.15rem]">{locating ? "Locating..." : "Find restaurants near me"}</h3>
+                  <p className="text-[#666] text-[0.7rem] mt-1">Uses GPS to find closest venues</p>
+                </div>
+                {locating && (
+                  <svg className="animate-spin h-5 w-5 text-[var(--saffron)] mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                )}
+              </div>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* ── Fullscreen Restaurant Modal ──────────────────────────── */}

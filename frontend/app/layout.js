@@ -101,6 +101,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://kashmir-food-app-api.onrender.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://kashmir-food-app-api.onrender.com" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
         <GlobalBackground />

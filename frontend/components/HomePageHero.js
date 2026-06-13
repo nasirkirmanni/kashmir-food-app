@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ChefHat, ArrowRight } from "lucide-react";
+import { MapPin, ChefHat, ArrowRight, Search } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useAuth } from "@/context/AuthContext";
 
 const LandingCanvas = dynamic(() => import("@/components/LandingCanvas"), { ssr: false });
 const SaffronAnimation = dynamic(() => import("@/components/SaffronAnimation"), { ssr: false });
 
 export default function HomePageHero() {
+  const { user } = useAuth();
   const featureIconsGrid = (
     <div className="grid grid-cols-4 w-full">
       <div className="flex flex-col items-center text-center">
@@ -44,109 +48,94 @@ export default function HomePageHero() {
   return (
     <>
       {/* ═══════════════════════════════════════════════════════
-          MOBILE HERO (below md)
+          MOBILE HERO (below md) - PAGE 1
           ═══════════════════════════════════════════════════════ */}
-      <div className="relative block md:hidden pt-6 pb-10 min-h-[calc(100svh-72px)] flex flex-col overflow-hidden">
+      <section className="relative block md:hidden w-full h-[100vh] min-h-[100vh] max-h-[100vh] flex-col overflow-hidden snap-start snap-always page">
         <SaffronAnimation />
-        <div className="relative z-10 flex-1 flex flex-col">
-          <div className="text-center px-5 pt-2">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)] bg-[#0B0B0B]/80 backdrop-blur-md px-5 py-2 text-[0.55rem] font-bold uppercase tracking-[0.22em] text-[var(--saffron)] shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-              <span className="text-xs">❖</span>
-              Welcome to the Royal Cuisine of Kashmir
-            </div>
-            <h1 className="mt-6 font-display text-5xl font-medium leading-[1.05] tracking-tight text-white drop-shadow-lg">
-              The <em className="text-[var(--saffron)] not-italic">Royal</em> Table
-              <br />
-              of Kashmir
-            </h1>
-            
-            <div className="flex justify-center mt-4">
-              <div className="flex items-center gap-3 text-[var(--saffron)] drop-shadow-md">
-                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[var(--saffron)]/60"></div>
-                <span className="text-xs">❖</span>
-                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[var(--saffron)]/60"></div>
-              </div>
-            </div>
+        
+        {/* Top bar spacer */}
+        <div className="h-[52px] shrink-0" />
 
-            <p className="mt-5 text-[0.85rem] leading-relaxed text-[#D1D5DB] mx-auto max-w-sm drop-shadow-md px-2">
-              Wazwan is not just a meal. It is a cinematic experience of tradition, hospitality, storytelling, and unforgettable dishes from the kitchens of Kashmir to the traveler&apos;s table.
-            </p>
-          </div>
-
-          <div className="mt-16 flex flex-row gap-3 px-4 sm:px-5 z-20 relative">
-            {/* PRIMARY CARD: Explore Restaurants */}
-            <Link 
-              href="/restaurants" 
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-[#D4AF37]/30 bg-[#050505]/40 backdrop-blur-[24px] backdrop-saturate-[150%] transition-all duration-300 hover:bg-[#050505]/30 hover:border-[#D4AF37]/50 shadow-[inset_0_1px_0_0_rgba(212,175,55,0.2),_0_12px_40px_rgba(0,0,0,0.6)] flex-[1.2] min-h-[220px]"
-            >
-              <div className="absolute inset-0 pointer-events-none rounded-[32px] overflow-hidden mix-blend-overlay opacity-50 group-hover:opacity-70 transition-opacity duration-300">
-                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-[#D4AF37]/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 group-hover:-translate-y-4 transition-transform duration-700 ease-out blur-md" />
-                <div className="absolute top-0 right-0 w-[100%] h-[100%] bg-gradient-to-bl from-white/10 to-transparent opacity-30" />
-              </div>
-
-              <div className="absolute top-[20%] right-[20%] w-1 h-1 bg-[#D4AF37] rounded-full blur-[1px] opacity-40 animate-pulse" />
-              <div className="absolute bottom-[30%] left-[10%] w-1.5 h-1.5 bg-[#D4AF37] rounded-full blur-[2px] opacity-30 animate-pulse" style={{ animationDelay: '0.5s' }} />
-
-              <div className="relative z-10 p-5 pb-0 flex justify-between items-start">
-                <div className="flex items-center justify-center w-12 h-12 rounded-[16px] bg-white/5 backdrop-blur-md border border-[#D4AF37]/20 shadow-[inset_0_1px_0_0_rgba(212,175,55,0.3)]">
-                  <MapPin className="w-6 h-6 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" strokeWidth={1.5} />
-                </div>
-              </div>
-
-              <div className="relative z-10 p-5 flex flex-col items-start text-left">
-                <h2 className="font-display text-[1.35rem] sm:text-2xl font-medium text-[#D4AF37] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-1.5">
-                  Explore<br/>Restaurants
-                </h2>
-                <p className="text-[0.65rem] sm:text-xs text-[#D4AF37]/70 font-light leading-snug pr-4">
-                  Find the finest dining experiences in Kashmir
-                </p>
-                
-                <div className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-[#D4AF37]/10 backdrop-blur-md border border-[#D4AF37]/30 flex items-center justify-center transform group-hover:translate-x-1.5 transition-transform duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-                  <ArrowRight className="w-4 h-4 text-[#D4AF37]" strokeWidth={2} />
-                </div>
-              </div>
-            </Link>
-            
-            {/* SECONDARY CARD: Discover the Dishes */}
-            <Link 
-              href="/dishes" 
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/15 bg-[#050505]/40 backdrop-blur-[24px] backdrop-saturate-[150%] transition-all duration-300 hover:bg-[#050505]/30 hover:border-white/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),_0_12px_40px_rgba(0,0,0,0.6)] flex-1 min-h-[220px]"
-            >
-              <div className="absolute inset-0 pointer-events-none rounded-[32px] overflow-hidden mix-blend-overlay opacity-40 group-hover:opacity-60 transition-opacity duration-300">
-                <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-gradient-to-tr from-transparent via-white/10 to-transparent rotate-[35deg] transform translate-y-10 group-hover:translate-x-8 group-hover:-translate-y-4 transition-transform duration-700 ease-out blur-md" />
-                <div className="absolute top-0 right-0 w-[100%] h-[100%] bg-gradient-to-bl from-white/10 to-transparent opacity-20" />
-              </div>
-
-              <div className="relative z-10 p-5 pb-0 flex justify-between items-start">
-                <div className="flex items-center justify-center w-12 h-12 rounded-[16px] bg-white/5 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)]">
-                  <ChefHat className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" strokeWidth={1.5} />
-                </div>
-              </div>
-
-              <div className="relative z-10 p-5 flex flex-col items-start text-left">
-                <h2 className="font-display text-[1.2rem] sm:text-xl font-medium text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-1.5">
-                  Discover<br/>the Dishes
-                </h2>
-                <p className="text-[0.6rem] sm:text-[0.65rem] text-white/60 font-light leading-snug pr-4">
-                  Explore authentic Kashmiri flavors
-                </p>
-                
-                <div className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center transform group-hover:translate-x-1.5 transition-transform duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                  <ArrowRight className="w-4 h-4 text-white" strokeWidth={2} />
-                </div>
-              </div>
-            </Link>
+        {/* Hero content (flex: 1) */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-2">
+          
+          <div className="inline-flex items-center rounded-lg bg-[#161616] px-2 py-1 text-[9px] font-[800] uppercase tracking-[0.16em] text-[#444444] mb-3 self-start">
+            ROYAL CUISINE OF KASHMIR
           </div>
           
-          <div className="mt-10 flex flex-col items-center justify-center text-white/50 pb-6 z-20 relative">
-            <span className="text-[0.65rem] uppercase tracking-[0.2em] font-medium mb-2">Scroll</span>
-            <div className="animate-bounce">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-            </div>
+          {/* Bug 2: Hero headline font rendering */}
+          <h1 className="font-body font-[900] text-[42px] tracking-[-0.04em] leading-[1] text-[#ffffff]">
+            The<br/>
+            Royal<br/>
+            <span className="text-[#2a2a2a] block">Table.</span>
+          </h1>
+          
+          <p className="text-[13px] font-medium leading-[1.65] text-[#555555] tracking-[0.01em] mb-[20px] mt-4 max-w-[280px]">
+            Find restaurants, discover dishes, and plan your Kashmir food journey.
+          </p>
+
+          {/* Search Bar */}
+          <div className="relative w-full">
+            <input 
+              type="text" 
+              placeholder="Dishes, restaurants, places..."
+              className="w-full h-[50px] px-5 bg-[#161616] rounded-xl text-[14px] font-[600] text-white placeholder-[#2e2e2e] focus:outline-none focus:ring-1 focus:ring-white/20 transition-all"
+              onClick={() => {
+                window.dispatchEvent(new Event('open-search'));
+              }}
+            />
           </div>
 
+          {/* NEW: EXPLORE GRID (Moved from Client, Bug 3, Bug 4) */}
+          <div className="w-full">
+            <h2 className="text-[10px] font-[800] tracking-[0.16em] text-[#2e2e2e] uppercase mb-[12px] mt-[22px]">
+              Explore
+            </h2>
+            <div className="grid grid-cols-2 gap-3">
+              <Link href="/restaurants" className="block">
+                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
+                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Restaurants</h3>
+                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">29 venues across<br/>Kashmir</p>
+                </div>
+              </Link>
+              <Link href="/kashmiri-food" className="block">
+                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
+                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Kashmiri Food</h3>
+                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">Authentic local<br/>delicacies</p>
+                </div>
+              </Link>
+              <Link href="/itineraries" className="block">
+                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
+                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Food Trails</h3>
+                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">Curated travel + food</p>
+                </div>
+              </Link>
+              <Link href="/history" className="block">
+                <div className="bg-[#111] rounded-[20px] p-4 h-[100px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5">
+                  <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">History</h3>
+                  <p className="text-[#444444] font-medium text-[11px] leading-[1.5]">14th-century origins</p>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* Scroll cue */}
+        <div className="h-[36px] shrink-0 flex flex-col justify-center items-center relative z-10">
+          <span className="text-[9px] font-[800] tracking-[0.16em] text-[#2a2a2a] uppercase">Plan Your Trip</span>
+        </div>
+
+        {/* Page dots (●○) */}
+        <div className="h-[20px] shrink-0 flex items-center justify-center relative z-10">
+          <div className="flex gap-2 items-center">
+            <div className="w-8 h-1 bg-white rounded-full"></div>
+            <div className="w-1 h-1 bg-[#333] rounded-full"></div>
+          </div>
+        </div>
+
+        {/* Bottom nav spacer */}
+        <div className="h-[58px] shrink-0" />
+      </section>
 
       {/* ═══════════════════════════════════════════════════════
           DESKTOP HERO (md and above)

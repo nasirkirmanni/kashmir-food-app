@@ -33,10 +33,10 @@ export default function Navbar() {
         {/* Logo — with right margin for breathing room */}
         <Link
           href="/"
-          className="font-display text-[1.75rem] font-medium uppercase leading-[0.9] tracking-[0.15em] text-white mr-8 shrink-0"
+          className="font-display text-[15px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline"
         >
-          <span className="block">Wazwan</span>
-          <span className="block text-[#D4AF37]">Way</span>
+          <span>Wazwan</span>
+          <span className="text-[#444444] text-[13px] font-medium ml-[2px]">Way</span>
         </Link>
 
         {/* Nav links — nowrap, generous gap */}
@@ -119,10 +119,10 @@ export default function Navbar() {
       >
         <Link
           href="/"
-          className="font-display text-[1.4rem] font-medium uppercase leading-[0.9] tracking-[0.15em] text-white flex gap-2 items-baseline"
+          className="font-display text-[15px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white flex items-baseline"
         >
           <span>Wazwan</span>
-          <span className="text-[#D4AF37] text-[1rem]">Way</span>
+          <span className="text-[#444444] text-[13px] font-medium ml-[2px]">Way</span>
         </Link>
         <HamburgerMenu />
       </motion.div>
