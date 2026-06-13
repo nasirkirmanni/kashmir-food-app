@@ -11,5 +11,11 @@
     "allowMixedContent": true,
     "webContentsDebuggingEnabled": false,
     "overrideUserAgent": "WazwanWayApp/1.0 Android"
+  },
+  "plugins": {
+    "StatusBar": {
+      "overlaysWebView": true,
+      "style": "DARK"
+    }
   }
 }
