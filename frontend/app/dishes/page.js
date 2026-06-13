@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { endpoints, request } from "@/lib/api";
 
 function DishesPageContent() {
+  const router = useRouter();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -69,7 +71,7 @@ function DishesPageContent() {
   }
 
   return (
-    <div className="wazwan-shell relative min-h-screen pb-24">
+    <div className="wazwan-shell relative min-h-screen pb-24 pt-8 md:pt-0">
       {/* Background gradients */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none" />
@@ -79,6 +81,15 @@ function DishesPageContent() {
         {/* Hero */}
         <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12" style={{ maxWidth: 'none', margin: '0' }}>
           <div>
+            <button 
+              onClick={() => router.back()} 
+              className="mb-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back
+            </button>
             <span className="place-eyebrow">The Royal Feast</span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
               Traditional Wazwan
