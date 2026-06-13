@@ -60,65 +60,65 @@ export default function HomePageHero() {
         <div 
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
-            backgroundImage: "url('/hero-background.png')",
+            backgroundImage: "url('/new-design.png')",
             backgroundSize: "cover",
-            backgroundPosition: "right center",
+            backgroundPosition: "center",
             backgroundRepeat: "no-repeat"
           }}
         />
 
-        {/* Dark Overlay */}
+        {/* Dark Left-to-Right Overlay */}
         <div 
           className="absolute inset-0 z-[2] pointer-events-none"
           style={{
-            background: "radial-gradient(circle at 20% 20%, rgba(0,0,0,0.15), rgba(0,0,0,0.85))"
+            background: "linear-gradient(to right, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.4) 60%, rgba(5,5,5,0.1) 100%)"
           }}
         />
 
         <SaffronAnimation />
         
-        {/* Top bar spacer — matches expanded greeting height */}
-        <div className="h-[80px] shrink-0 relative z-10" />
+        {/* Top bar spacer */}
+        <div className="h-[100px] shrink-0 relative z-10" />
 
-        {/* Hero content (flex: 1) */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-2">
+        {/* Hero content */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-4">
           
-          <div className="inline-flex items-center rounded-lg bg-[#161616] px-2 py-1 text-[9px] font-[800] uppercase tracking-[0.16em] text-[#444444] mb-3 self-start">
+          <div className="inline-flex items-center rounded-full border border-[#D4AF37]/40 bg-white/5 backdrop-blur-md px-3 py-1.5 text-[9px] font-[700] uppercase tracking-[0.18em] text-[#D4AF37] mb-4 self-start">
+            <svg className="w-3 h-3 mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
             ROYAL CUISINE OF KASHMIR
           </div>
           
           {/* Hero headline */}
-          <h1 className="font-body font-[900] text-[42px] tracking-[-0.04em] leading-[1] text-[#ffffff]">
-            The<br/>
-            Royal<br/>
-            <span className="text-[#2a2a2a] block">Table.</span>
+          <h1 className="font-display font-[700] text-[56px] tracking-[-0.02em] leading-[0.95] text-white mb-4">
+            The<br/>Royal<br/>
+            <span className="text-[#D4AF37]">Table.</span>
           </h1>
           
-          <p className="text-[13px] font-medium leading-[1.65] text-[#555555] tracking-[0.01em] mb-[20px] mt-4 max-w-[280px]">
+          <p className="text-[14px] font-body font-[400] leading-[1.6] text-[#A0A0A0] tracking-[0.01em] mb-[28px] max-w-[280px]">
             Find restaurants, discover dishes, and plan your Kashmir food journey.
           </p>
 
           {/* Search Bar */}
           <div className="relative w-full">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Search size={18} className="text-[#888888]" />
+            </div>
             <input 
               type="text" 
               placeholder="Dishes, restaurants, places..."
-              className="w-full h-[50px] px-5 bg-[#161616] rounded-xl text-[14px] font-[600] text-white placeholder-[#2e2e2e] focus:outline-none focus:ring-1 focus:ring-white/20 transition-all"
-              onClick={() => {
-                window.dispatchEvent(new Event('open-search'));
-              }}
+              className="w-full h-[52px] pl-11 pr-5 bg-white/[0.04] backdrop-blur-[24px] border border-[#D4AF37]/20 rounded-[26px] text-[15px] font-[400] text-white placeholder-[#777777] focus:outline-none focus:border-[#D4AF37]/50 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
+              onClick={() => window.dispatchEvent(new Event('open-search'))}
             />
           </div>
 
-          {/* NEW: EXPLORE CAROUSEL */}
-          <div className="w-full mt-[22px] border border-white/[0.06] rounded-[24px] bg-[rgba(10,10,10,0.35)] backdrop-blur-[20px] p-4 relative">
-            <h2 className="text-[10px] font-[800] tracking-[0.16em] text-[#888] uppercase mb-4">
-              Explore
+          <div className="w-full mt-[32px] relative">
+            <h2 className="text-[11px] font-[600] tracking-[0.15em] text-[#D4AF37] uppercase mb-4 border-b border-[#D4AF37]/20 pb-1 inline-block">
+              EXPLORE
             </h2>
             
             <div 
               data-explore-carousel="true"
-              className="flex w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-3 pb-2"
+              className="flex w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-4 pb-2"
               onScroll={(e) => {
                 const scrollLeft = e.target.scrollLeft;
                 const width = e.target.clientWidth;
@@ -128,61 +128,62 @@ export default function HomePageHero() {
                 }
               }}
             >
-              {/* PAGE 1 */}
-              <div className="w-[94%] shrink-0 snap-center">
+              <div className="w-[92%] shrink-0 snap-center">
                 <div className="grid grid-cols-2 gap-3">
                   <Link href="/restaurants" className="block group">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Restaurants</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">29 venues</p>
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
+                      <div className="flex items-center justify-between">
+                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                        </div>
+                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Restaurants</h3>
+                        <p className="text-[#888] font-body text-[11px] mt-0.5">29 venues</p>
+                      </div>
                     </div>
                   </Link>
                   <Link href="/kashmiri-food" className="block group">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Kashmiri Food</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Authentic tastes</p>
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.98]">
+                      <div className="flex items-center justify-between">
+                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><path d="M6 17h12"/></svg>
+                        </div>
+                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Kashmiri Food</h3>
+                        <p className="text-[#888] font-body text-[11px] mt-0.5">Authentic tastes</p>
+                      </div>
                     </div>
                   </Link>
-                  <Link href="/itineraries" className="block group">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">Food Trails</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Curated routes</p>
-                    </div>
-                  </Link>
-                  <Link href="/history" className="block group">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">History</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">14th-century</p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* PAGE 2 */}
-              <div className="w-[94%] shrink-0 snap-center">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="block group cursor-pointer">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">A</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
+                  <div className="block group opacity-80 cursor-not-allowed">
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                      <div className="flex items-center justify-between">
+                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+                        </div>
+                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Food Trails</h3>
+                        <p className="text-[#888] font-body text-[11px] mt-0.5">Curated routes</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="block group cursor-pointer">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">B</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
-                    </div>
-                  </div>
-                  <div className="block group cursor-pointer">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">C</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
-                    </div>
-                  </div>
-                  <div className="block group cursor-pointer">
-                    <div className="rounded-[20px] p-4 h-[100px] flex flex-col justify-between border border-white/[0.08] bg-[rgba(15,15,15,0.85)] shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_0_1px_rgba(255,255,255,0.02)] group-hover:-translate-y-[2px] transition-all duration-250 ease-out">
-                      <h3 className="font-body font-[800] text-[#ffffff] text-[15px] tracking-[-0.02em]">D</h3>
-                      <p className="text-[#666] font-medium text-[11px] leading-[1.5]">Placeholder</p>
+                  <div className="block group opacity-80 cursor-not-allowed">
+                    <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#D4AF37]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                      <div className="flex items-center justify-between">
+                        <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+                        </div>
+                        <ArrowRight size={14} className="text-[#D4AF37]/50" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">History</h3>
+                        <p className="text-[#888] font-body text-[11px] mt-0.5">14th-century</p>
+                      </div>
                     </div>
                   </div>
                 </div>

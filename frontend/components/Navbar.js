@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import HamburgerMenu from "./HamburgerMenu";
+import { User } from "lucide-react";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -118,82 +119,29 @@ export default function Navbar() {
   const userName = user && user.name ? user.name.split(' ')[0] : "User";
 
   const mobileNav = (
-    <div className="md:hidden header">
-      <motion.div
-        initial={false}
-        animate={{
-          background: scrolled
-            ? "rgba(10,10,10,0.55)"
-            : "rgba(10,10,10,0)",
-          backdropFilter: scrolled
-            ? "blur(24px) saturate(180%)"
-            : "blur(0px)",
-          WebkitBackdropFilter: scrolled
-            ? "blur(24px) saturate(180%)"
-            : "blur(0px)",
-          borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.08)"
-            : "1px solid rgba(255,255,255,0)",
-          boxShadow: scrolled
-            ? "0 8px 32px rgba(0,0,0,0.25)"
-            : "0 0px 0px rgba(0,0,0,0)",
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="w-full h-full flex items-center justify-between px-6 relative overflow-hidden"
-      >
-        {/* Gradient sheen — Apple glass inner highlight */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          animate={{
-            opacity: scrolled ? 1 : 0,
-          }}
-          transition={{ duration: 0.3 }}
-          style={{
-            background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.01))",
-          }}
-        />
-
-        <div className="relative flex-1 h-full min-h-[56px]">
-          {/* EXPANDED: 2-line greeting — visible when NOT scrolled */}
-          <motion.div
-            initial={false}
-            animate={{ 
-              opacity: scrolled ? 0 : 1, 
-              y: scrolled ? -6 : 0,
-              pointerEvents: scrolled ? "none" : "auto"
-            }}
-            transition={{ type: "spring", stiffness: 400, damping: 35 }}
-            className="absolute inset-0 flex flex-col justify-center pt-3 z-10"
-          >
-            <span className="font-body text-[20px] font-[800] text-white/80 tracking-[-0.02em] uppercase leading-none mb-[2px]">
-              {greeting}
-            </span>
-            <span className="font-body text-[32px] font-[700] leading-[1.05] tracking-[-0.02em] text-white">
-              {userName}
-            </span>
-          </motion.div>
-
-          {/* COLLAPSED: single-line compact — visible when scrolled */}
-          <motion.div
-            initial={false}
-            animate={{ 
-              opacity: scrolled ? 1 : 0, 
-              y: scrolled ? 0 : 6,
-              pointerEvents: scrolled ? "auto" : "none"
-            }}
-            transition={{ type: "spring", stiffness: 400, damping: 35 }}
-            className="absolute inset-0 flex items-center gap-2 z-10"
-          >
-            <span className="font-body text-[15px] font-[600] text-white/90 tracking-[-0.01em]">
-              {greeting} <strong className="font-[800] text-white">{userName}</strong>
-            </span>
-          </motion.div>
+    <div className="md:hidden fixed top-0 left-0 w-full z-[100] px-5 pt-6 pb-2 pointer-events-none">
+      <div className="flex items-center justify-between w-full relative pointer-events-auto">
+        <div className="flex flex-col justify-center">
+          <span className="text-[10px] font-[600] text-[#D4AF37] tracking-[0.15em] uppercase mb-1">
+            {greeting.replace(',', '')}
+          </span>
+          <span className="font-display text-[42px] font-[600] leading-[1] tracking-[-0.03em] text-white">
+            {userName}
+          </span>
         </div>
-
-        <div className="relative z-10">
-          <HamburgerMenu />
-        </div>
-      </motion.div>
+        
+        {/* Profile / Menu Button */}
+        <button 
+          onClick={() => window.dispatchEvent(new Event('open-mobile-menu'))}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D4AF37]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
+        >
+          {user ? (
+            <User size={18} className="text-[#D4AF37]" strokeWidth={2} />
+          ) : (
+            <User size={18} className="text-[#D4AF37]/70" strokeWidth={2} />
+          )}
+        </button>
+      </div>
     </div>
   );
 
