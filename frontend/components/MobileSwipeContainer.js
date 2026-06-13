@@ -247,7 +247,8 @@ export default function MobileSwipeContainer({ children }) {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
-      height: 80px;
+      min-height: 56px;
+      height: auto;
       z-index: 100;
       background: transparent;
     }

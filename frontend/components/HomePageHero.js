@@ -77,8 +77,8 @@ export default function HomePageHero() {
 
         <SaffronAnimation />
         
-        {/* Top bar spacer */}
-        <div className="h-[52px] shrink-0 relative z-10" />
+        {/* Top bar spacer — matches expanded greeting height */}
+        <div className="h-[80px] shrink-0 relative z-10" />
 
         {/* Hero content (flex: 1) */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-5 pb-2">

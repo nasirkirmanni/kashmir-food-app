@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import HamburgerMenu from "./HamburgerMenu";
 
 export default function Navbar() {
@@ -21,7 +21,7 @@ export default function Navbar() {
 
   /* ── Scroll-aware glass intensity ── */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -109,31 +109,82 @@ export default function Navbar() {
     </nav>
   );
 
+  const userName = user && user.name ? user.name.split(' ')[0] : "User";
+
   const mobileNav = (
     <div className="md:hidden header">
       <motion.div
         initial={false}
         animate={{
           background: scrolled
-            ? "rgba(10, 10, 10, 0.85)"
-            : "rgba(10, 10, 10, 0)",
+            ? "rgba(10,10,10,0.55)"
+            : "rgba(10,10,10,0)",
           backdropFilter: scrolled
             ? "blur(24px) saturate(180%)"
-            : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(255,255,255,0)",
+            : "blur(0px)",
+          WebkitBackdropFilter: scrolled
+            ? "blur(24px) saturate(180%)"
+            : "blur(0px)",
+          borderBottom: scrolled
+            ? "1px solid rgba(255,255,255,0.08)"
+            : "1px solid rgba(255,255,255,0)",
+          boxShadow: scrolled
+            ? "0 8px 32px rgba(0,0,0,0.25)"
+            : "0 0px 0px rgba(0,0,0,0)",
         }}
-        transition={{ duration: 0.3 }}
-        className="w-full h-full flex items-center justify-between px-6"
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="w-full h-full flex items-center justify-between px-6 relative overflow-hidden"
       >
-        <div className="flex flex-col justify-center pt-3">
-          <span className="font-body text-[20px] font-[800] text-white/80 tracking-[-0.02em] uppercase leading-none mb-[2px]">
-            {greeting}
-          </span>
-          <span className="font-body text-[32px] font-[700] leading-[1.05] tracking-[-0.02em] text-white">
-            {user && user.name ? user.name.split(' ')[0] : "User"}
-          </span>
+        {/* Gradient sheen — Apple glass inner highlight */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          animate={{
+            opacity: scrolled ? 1 : 0,
+          }}
+          transition={{ duration: 0.3 }}
+          style={{
+            background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.01))",
+          }}
+        />
+
+        {/* EXPANDED: 2-line greeting — visible when NOT scrolled */}
+        <AnimatePresence mode="wait">
+          {!scrolled ? (
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              className="flex flex-col justify-center pt-3 relative z-10"
+            >
+              <span className="font-body text-[20px] font-[800] text-white/80 tracking-[-0.02em] uppercase leading-none mb-[2px]">
+                {greeting}
+              </span>
+              <span className="font-body text-[32px] font-[700] leading-[1.05] tracking-[-0.02em] text-white">
+                {userName}
+              </span>
+            </motion.div>
+          ) : (
+            /* COLLAPSED: single-line compact — visible when scrolled */
+            <motion.div
+              key="collapsed"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 6 }}
+              transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              className="flex items-center gap-2 relative z-10"
+            >
+              <span className="font-body text-[15px] font-[600] text-white/90 tracking-[-0.01em]">
+                {greeting} <strong className="font-[800] text-white">{userName}</strong>
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="relative z-10">
+          <HamburgerMenu />
         </div>
-        <HamburgerMenu />
       </motion.div>
     </div>
   );
