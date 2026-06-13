@@ -258,7 +258,8 @@ export default function HomePageHero() {
             <Image priority fetchPriority="high" fill src="/newhome.png" alt="Kashmiri Wazwan feast" className="object-cover object-right lg:object-center" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
             <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#0B0B0B] to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/90 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-[#0B0B0B]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_55%,rgba(212,175,55,0.05),transparent_55%)]" />
           </div>
         </div>
@@ -279,8 +280,8 @@ export default function HomePageHero() {
               Welcome to the Royal Cuisine of Kashmir
             </div>
             
-            <h1 className="mt-8 font-display text-6xl lg:text-[7rem] font-medium leading-[1.05] tracking-tight text-white drop-shadow-2xl">
-              The <em className="text-[var(--saffron)] not-italic">Royal</em> Table
+            <h1 className="mt-8 font-display text-6xl lg:text-[7rem] font-medium leading-[1.05] tracking-tight text-[#E6C875] drop-shadow-2xl">
+              The <em className="text-white not-italic">Royal</em> Table
               <br />
               of Kashmir
             </h1>
