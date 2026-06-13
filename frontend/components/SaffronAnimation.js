@@ -82,99 +82,99 @@ export default function SaffronAnimation() {
     }));
   }, [isMobile]);
 
-  if (isMobile === null) return null;
-  // Disable complex Framer Motion SVG animations on mobile to prevent 550ms of Total Blocking Time
-  if (isMobile) return null;
-
   return (
     <div 
       ref={containerRef} 
       className="absolute inset-0 pointer-events-none"
     >
-      {/* Warm haze that fades out smoothly at both top and bottom */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent mix-blend-overlay animate-pulse" style={{ animationDuration: '8s', zIndex: 5 }} />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-transparent" style={{ zIndex: 5 }} />
+      {isMobile === false && (
+        <>
+          {/* Warm haze that fades out smoothly at both top and bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent mix-blend-overlay animate-pulse" style={{ animationDuration: '8s', zIndex: 5 }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-transparent" style={{ zIndex: 5 }} />
 
-      {/* Particles */}
-      <motion.div style={{ y: yMiddle }} className="absolute inset-0" style={{ zIndex: 15 }}>
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full bg-[#D4AF37] blur-[1px]"
-            style={{
-              left: p.left,
-              top: p.top,
-              width: p.size,
-              height: p.size,
-              willChange: "transform",
-            }}
-            animate={{
-              y: [0, -100 - Math.random() * 100],
-              x: [0, (Math.random() - 0.5) * 50],
-              opacity: [0, p.opacity, 0],
-              scale: [0.5, 1.5, 0.5]
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              delay: p.delay,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </motion.div>
-
-      {/* Saffron Strands */}
-      {strands.map((strand) => {
-        const yTransform = strand.isFront ? yFront : strand.isBack ? yBack : yMiddle;
-        const zIndex = strand.isFront ? 30 : strand.isBack ? 10 : 15; // Cards will be z-20
-        
-        return (
-          <motion.div
-            key={strand.id}
-            className="absolute"
-            style={{
-              left: strand.left,
-              top: strand.top,
-              zIndex,
-              y: yTransform
-            }}
-          >
-            <motion.div
-              style={{ willChange: "transform" }}
-              animate={{
-                y: [0, -200 - Math.random() * 150],
-                x: [0, (Math.random() - 0.5) * 100],
-                rotate: [strand.rotation, strand.rotation + (Math.random() - 0.5) * 90],
-              }}
-              transition={{
-                duration: strand.duration,
-                repeat: Infinity,
-                delay: strand.delay,
-                ease: "linear"
-              }}
-            >
-              <svg 
-                width="60" 
-                height="30" 
-                viewBox="0 0 60 30" 
+          {/* Particles */}
+          <motion.div style={{ y: yMiddle, zIndex: 15 }} className="absolute inset-0">
+            {particles.map((p) => (
+              <motion.div
+                key={p.id}
+                className="absolute rounded-full bg-[#D4AF37] blur-[1px]"
                 style={{
-                  transform: `scale(${strand.scale})`,
-                  opacity: strand.opacity,
+                  left: p.left,
+                  top: p.top,
+                  width: p.size,
+                  height: p.size,
+                  willChange: "transform",
+                }}
+                animate={{
+                  y: [0, -100 - Math.random() * 100],
+                  x: [0, (Math.random() - 0.5) * 50],
+                  opacity: [0, p.opacity, 0],
+                  scale: [0.5, 1.5, 0.5]
+                }}
+                transition={{
+                  duration: p.duration,
+                  repeat: Infinity,
+                  delay: p.delay,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </motion.div>
+
+          {/* Saffron Strands */}
+          {strands.map((strand) => {
+            const yTransform = strand.isFront ? yFront : strand.isBack ? yBack : yMiddle;
+            const zIndex = strand.isFront ? 30 : strand.isBack ? 10 : 15; // Cards will be z-20
+            
+            return (
+              <motion.div
+                key={strand.id}
+                className="absolute"
+                style={{
+                  left: strand.left,
+                  top: strand.top,
+                  zIndex,
+                  y: yTransform
                 }}
               >
-                <path
-                  d={strand.path}
-                  fill="none"
-                  stroke={strand.color}
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </motion.div>
-          </motion.div>
-        );
-      })}
+                <motion.div
+                  style={{ willChange: "transform" }}
+                  animate={{
+                    y: [0, -200 - Math.random() * 150],
+                    x: [0, (Math.random() - 0.5) * 100],
+                    rotate: [strand.rotation, strand.rotation + (Math.random() - 0.5) * 90],
+                  }}
+                  transition={{
+                    duration: strand.duration,
+                    repeat: Infinity,
+                    delay: strand.delay,
+                    ease: "linear"
+                  }}
+                >
+                  <svg 
+                    width="60" 
+                    height="30" 
+                    viewBox="0 0 60 30" 
+                    style={{
+                      transform: `scale(${strand.scale})`,
+                      opacity: strand.opacity,
+                    }}
+                  >
+                    <path
+                      d={strand.path}
+                      fill="none"
+                      stroke={strand.color}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </>
+      )}
     </div>
   );
 }
