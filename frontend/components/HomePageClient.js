@@ -400,12 +400,12 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       {/* ═══════════════════════════════════════════════════════
           PAGE 2 CONTENT (Mobile Only)
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative block md:hidden w-full h-[100vh] min-h-[100vh] max-h-[100vh] flex-col overflow-hidden snap-start snap-always page">
+      <section className="relative block md:hidden w-full min-h-[100vh] flex-col overflow-visible snap-start snap-always page pb-10">
         {/* Top bar spacer */}
         <div className="h-[52px] shrink-0" />
 
         {/* Page 2 content (flex: 1) */}
-        <div className="flex-1 flex flex-col justify-center px-5 relative z-10 w-full gap-8">
+        <div className="flex-1 flex flex-col justify-center px-5 relative z-10 w-full gap-8 mt-10">
           
           {/* Section 1 — About Wazwan */}
           <div className="w-full text-left">
