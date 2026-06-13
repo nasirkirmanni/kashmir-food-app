@@ -11,6 +11,7 @@ import MobileWazaAI from "@/components/MobileWazaAI";
 import KashmiriFoodPage from "@/app/kashmiri-food/page";
 import ProfilePage from "@/app/profile/page";
 import LoginPage from "@/app/login/page";
+import { usePathname } from "next/navigation";
 
 export default function MobileSwipeContainer({ children }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
@@ -197,14 +198,22 @@ export default function MobileSwipeContainer({ children }) {
   const css = `
     @media (max-width: 767px) {
       * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      position: fixed;
-      top: 0; left: 0;
-      background: #1a0f08;
-    }
+      
+      ${isSwipeableRoute ? `
+        body {
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          position: fixed;
+          top: 0; left: 0;
+          background: #1a0f08;
+        }
+      ` : `
+        /* When not on a swipeable route, just ensure safe area padding but allow normal scrolling */
+        body {
+          background: #0B0B0B;
+        }
+      `}
     
     /* Paint reduction optimization for when user is actively swiping */
     body.is-dragging .bottom-bar {
@@ -308,6 +317,55 @@ export default function MobileSwipeContainer({ children }) {
     }
   `;
 
+  // Check if current route is a swipeable tab
+  const pathname = usePathname();
+  const isSwipeableRoute = [
+    "/",
+    "/restaurants",
+    "/waza-ai",
+    "/kashmiri-food",
+    "/dishes",
+    "/profile",
+    "/login",
+  ].includes(pathname);
+
+  // If mobile and on a non-swipeable route, we must render standard children.
+  // Otherwise, user can never see sub-pages like /visit-kashmir, /history, or /restaurants/[id]
+  const renderMobileContent = () => {
+    if (!isSwipeableRoute) {
+      return (
+        <div className="w-full h-full min-h-screen pb-24">
+          {children}
+        </div>
+      );
+    }
+
+    return (
+      <div className="swipe-container" ref={containerRef}>
+        <div className="screen">
+          {Math.abs(activeIndex - 0) <= 1 ? (
+            <>
+              <HomePageHero />
+              <HomePageClient />
+            </>
+          ) : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
+        </div>
+        <div className="screen">
+          {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
@@ -319,28 +377,7 @@ export default function MobileSwipeContainer({ children }) {
 
       {/* Mobile view */}
       <div className="block md:hidden">
-        <div className="swipe-container" ref={containerRef}>
-          <div className="screen">
-            {Math.abs(activeIndex - 0) <= 1 ? (
-              <>
-                <HomePageHero />
-                <HomePageClient />
-              </>
-            ) : null}
-          </div>
-          <div className="screen">
-            {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
-          </div>
-          <div className="screen">
-            {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
-          </div>
-          <div className="screen">
-            {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
-          </div>
-          <div className="screen">
-            {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
-          </div>
-        </div>
+        {renderMobileContent()}
       </div>
     </>
   );
