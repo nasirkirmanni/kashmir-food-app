@@ -622,10 +622,41 @@ body.is-dragging * {
   max-width: 360px;
   height: 56px;
   border-radius: 9999px;
-  background: rgba(28, 28, 28, 0.55);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 0.5px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  z-index: 100;
+  transition: transform 280ms ease-out, opacity 280ms ease-out;
+  will-change: transform, opacity;
+  opacity: 1;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-pill {
+    background: rgba(10, 10, 10, 0.95);
+    border: 0.5px solid #1e1e1e;
+  }
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transition: background 300ms ease;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .topbar {
+    background: rgba(10, 10, 10, 0.97);
+  }
+}
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -638,12 +669,6 @@ body.is-dragging * {
 .nav-pill.nav-compact {
   transform: translateX(-50%) scale(0.92) translateY(4px);
   opacity: 0.72;
-}
-
-@supports not (backdrop-filter: blur(1px)) {
-  .nav-pill {
-    background: rgba(28, 28, 28, 0.93);
-  }
 }
 
 .nav-icon-pill {

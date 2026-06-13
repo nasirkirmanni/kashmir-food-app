@@ -323,10 +323,12 @@ export default function MobileSwipeContainer({ children }) {
       height: 100%;
       overflow-y: auto;
       overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
       flex-shrink: 0;
       background: #0B0B0B;
       backface-visibility: hidden;
       perspective: 1000px;
+      will-change: scroll-position;
       transform: translateZ(0); /* Force layer promotion */
     }
     }

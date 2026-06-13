@@ -7,8 +7,9 @@
     "cleartext": false
   },
   "android": {
-    "allowMixedContent": false,
-    "backgroundColor": "#0B0B0B",
+    "backgroundColor": "#0a0a0a",
+    "allowMixedContent": true,
+    "webContentsDebuggingEnabled": false,
     "overrideUserAgent": "WazwanWayApp/1.0 Android"
   }
 }
