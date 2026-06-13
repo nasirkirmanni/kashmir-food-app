@@ -406,13 +406,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
         <div className="grid grid-cols-2 gap-4 px-4 relative z-10">
           {/* Card 1: Kashmiri Food */}
-          <motion.div
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ y: -4 }}
-            className="flex"
-          >
-            <Link 
-              href="/kashmiri-food" 
+          <Link href="/kashmiri-food" className="flex">
+            <motion.div
+              whileTap={{ scale: 0.96 }}
+              whileHover={{ y: -4 }}
               className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
             >
               {/* Subtle glass refraction highlight */}
@@ -446,17 +443,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
               </div>
-            </Link>
-          </motion.div>
+            </motion.div>
+          </Link>
 
           {/* Card 2: Culinary Itineraries */}
-          <motion.div
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ y: -4 }}
-            className="flex"
-          >
-            <Link 
-              href="/itineraries" 
+          <Link href="/itineraries" className="flex">
+            <motion.div
+              whileTap={{ scale: 0.96 }}
+              whileHover={{ y: -4 }}
               className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
             >
               {/* Subtle glass refraction highlight */}
@@ -487,17 +481,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
               </div>
-            </Link>
-          </motion.div>
+            </motion.div>
+          </Link>
 
           {/* Card 3: Visit Kashmir */}
-          <motion.div
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ y: -4 }}
-            className="flex"
-          >
-            <Link 
-              href="/visit-kashmir" 
+          <Link href="/visit-kashmir" className="flex">
+            <motion.div
+              whileTap={{ scale: 0.96 }}
+              whileHover={{ y: -4 }}
               className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
             >
               {/* Subtle glass refraction highlight */}
@@ -527,17 +518,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
               </div>
-            </Link>
-          </motion.div>
+            </motion.div>
+          </Link>
 
           {/* Card 4: History of Wazwan */}
-          <motion.div
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ y: -4 }}
-            className="flex"
-          >
-            <Link 
-              href="/history" 
+          <Link href="/history" className="flex">
+            <motion.div
+              whileTap={{ scale: 0.96 }}
+              whileHover={{ y: -4 }}
               className="group relative flex flex-col justify-between w-full min-h-[160px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0B0B0B]/40 p-5 backdrop-blur-[20px] backdrop-saturate-[150%] transition-all duration-300 hover:border-[#D4AF37]/40 hover:bg-[#0B0B0B]/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.4)]"
             >
               {/* Subtle glass refraction highlight */}
@@ -567,8 +555,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[var(--saffron)]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
               </div>
-            </Link>
-          </motion.div>
+            </motion.div>
+          </Link>
         </div>
       </section>
 
