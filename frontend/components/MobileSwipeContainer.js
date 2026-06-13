@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
 import { useAuth } from "@/context/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 import HomePageClient from "@/components/HomePageClient";
 import HomePageHero from "@/components/HomePageHero";
@@ -332,36 +333,57 @@ export default function MobileSwipeContainer({ children }) {
   // If mobile and on a non-swipeable route, we must render standard children.
   // Otherwise, user can never see sub-pages like /visit-kashmir, /history, or /restaurants/[id]
   const renderMobileContent = () => {
-    if (!isSwipeableRoute) {
-      return (
-        <div className="w-full h-full min-h-screen pb-24">
-          {children}
-        </div>
-      );
-    }
-
     return (
-      <div className="swipe-container" ref={containerRef}>
-        <div className="screen">
-          {Math.abs(activeIndex - 0) <= 1 ? (
-            <>
-              <HomePageHero />
-              <HomePageClient />
-            </>
-          ) : null}
+      <div className="relative w-full h-full min-h-screen">
+        {/* SWIPE CONTAINER: Always mounted to preserve state/scroll, hidden via CSS on subpages */}
+        <div 
+          className="swipe-container" 
+          ref={containerRef}
+          style={{
+            opacity: isSwipeableRoute ? 1 : 0,
+            pointerEvents: isSwipeableRoute ? 'auto' : 'none',
+            transition: 'opacity 0.3s ease'
+          }}
+        >
+          <div className="screen">
+            {Math.abs(activeIndex - 0) <= 1 ? (
+              <>
+                <HomePageHero />
+                <HomePageClient />
+              </>
+            ) : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
+          </div>
+          <div className="screen">
+            {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
+          </div>
         </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
-        </div>
-        <div className="screen">
-          {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
-        </div>
+
+        {/* OVERLAY FOR NON-SWIPEABLE ROUTES (e.g. Dish Details) */}
+        <AnimatePresence mode="wait">
+          {!isSwipeableRoute && (
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 15 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute top-0 left-0 w-full min-h-screen z-50 bg-[#0B0B0B]"
+            >
+              <div className="w-full h-full pb-24">
+                {children}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   };
