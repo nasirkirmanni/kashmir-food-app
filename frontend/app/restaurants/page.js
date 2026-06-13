@@ -204,6 +204,30 @@ function RestaurantsPageContent() {
               </div>
             </div>
           </button>
+
+          {/* Location Grid */}
+          <div className="grid grid-cols-2 gap-4 mt-2">
+            {[
+              { id: "Srinagar", label: "Srinagar", sub: "Capital city dining", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
+              { id: "Gulmarg", label: "Gulmarg", sub: "Mountain dining", icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z M12 7a3 3 0 100 6 3 3 0 000-6z" },
+              { id: "Pahalgam", label: "Pahalgam", sub: "Valley dining", icon: "M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z M3 21l9-18 9 18H3z" },
+              { id: "Sonamarg", label: "Sonamarg", sub: "Meadow dining", icon: "M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" }
+            ].map((loc) => (
+              <button key={loc.id} onClick={() => setActiveLocation(loc.id)} className="text-left w-full">
+                <div className="bg-[#111] rounded-[24px] p-5 h-[130px] flex flex-col justify-between hover:bg-[#161616] transition-colors border border-transparent hover:border-white/5 shadow-lg group">
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/50 group-hover:bg-[var(--saffron)] group-hover:text-black transition-colors">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d={loc.icon} />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-white text-[1rem] leading-tight">Restaurants in {loc.label}</h3>
+                    <p className="text-[#666] text-[0.65rem] mt-1">{loc.sub}</p>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
