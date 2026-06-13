@@ -48,6 +48,8 @@ export default function MobileSwipeContainer({ children }) {
     }
   }, [activeIndex, isMobile]);
 
+
+
   // Touch logic based on explicit prompt instructions
   useEffect(() => {
     if (!isMobile || !containerRef.current) return;
@@ -196,6 +198,15 @@ export default function MobileSwipeContainer({ children }) {
 
   // Check if current route is a swipeable tab
   const pathname = usePathname();
+
+  // Safety net: Since swipeable pages never unmount, modal scroll locks
+  // might persist after a user clicks a link inside them. Reset on route change.
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "";
+    }
+  }, [pathname]);
+
   const isSwipeableRoute = [
     "/",
     "/restaurants",
