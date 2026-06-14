@@ -48,10 +48,10 @@ export default function Navbar() {
         {/* Logo — with right margin for breathing room */}
         <Link
           href="/"
-          className="font-display text-[15px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline"
+          className="font-display text-[28px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline"
         >
           <span>Wazwan</span>
-          <span className="text-[#444444] text-[13px] font-medium ml-[2px]">Way</span>
+          <span className="text-[#C8A46A] text-[24px] font-medium ml-[4px]">Way</span>
         </Link>
 
         {/* Nav links — nowrap, generous gap */}
