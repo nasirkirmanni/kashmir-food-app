@@ -39,11 +39,11 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <div className="wazwan-shell min-h-screen flex items-center justify-center pt-20 pb-16">
-      <section className="w-full max-w-md px-4">
+      <div className="w-full max-w-md px-4">
         <Suspense fallback={<div className="text-center text-white/60">Loading login form...</div>}>
           <LoginContent />
         </Suspense>
-      </section>
+      </div>
     </div>
   );
 }

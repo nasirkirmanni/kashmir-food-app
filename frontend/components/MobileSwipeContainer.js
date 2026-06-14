@@ -199,14 +199,6 @@ export default function MobileSwipeContainer({ children }) {
   // Check if current route is a swipeable tab
   const pathname = usePathname();
 
-  // Safety net: Since swipeable pages never unmount, modal scroll locks
-  // might persist after a user clicks a link inside them. Reset on route change.
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "";
-    }
-  }, [pathname]);
-
   const isSwipeableRoute = [
     "/",
     "/restaurants",
@@ -216,134 +208,24 @@ export default function MobileSwipeContainer({ children }) {
     "/login",
   ].includes(pathname);
 
+  // Safety net: Since swipeable pages never unmount, modal scroll locks
+  // might persist after a user clicks a link inside them. Reset on route change.
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "";
+      if (isSwipeableRoute) {
+        document.body.classList.add("is-swipeable-route");
+      } else {
+        document.body.classList.remove("is-swipeable-route");
+      }
+    }
+  }, [pathname, isSwipeableRoute]);
+
   // We intentionally do NOT return early based on `isMobile` here.
   // Returning early causes a hydration mismatch where the DOM is destroyed
   // and recreated, devastating the LCP metric. We render both and use CSS to toggle.
 
-  const css = `
-    @media (max-width: 767px) {
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      
-      ${isSwipeableRoute ? `
-        body {
-          width: 100vw;
-          height: 100vh;
-          overflow: hidden;
-          position: fixed;
-          top: 0; left: 0;
-          background: #1a0f08;
-        }
-      ` : `
-        /* When not on a swipeable route, just ensure safe area padding but allow normal scrolling */
-        body {
-          background: #0B0B0B;
-        }
-      `}
-    
-    /* Paint reduction optimization for when user is actively swiping */
-    body.is-dragging .bottom-bar {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background: rgba(20, 20, 20, 0.95) !important;
-      box-shadow: none !important;
-    }
-    body.is-dragging .header-icon-btn {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background: rgba(20, 20, 20, 0.95) !important;
-      box-shadow: none !important;
-    }
-    
-    .header {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      min-height: 56px;
-      height: auto;
-      z-index: 100;
-      background: transparent;
-    }
-    .bottom-bar {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: auto;
-      min-width: 280px;
-      max-width: 340px;
-      height: 60px;
-      border-radius: 40px;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      padding: 0 20px;
-      gap: 8px;
 
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-      padding-bottom: env(safe-area-inset-bottom);
-      transition: backdrop-filter 0.2s, background 0.2s, box-shadow 0.2s;
-    }
-    .nav-icon {
-      position: relative;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.4);
-      transition: all 0.3s ease;
-    }
-    .nav-icon.active {
-      color: white;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
-    }
-    .nav-icon.active::before {
-      content: '';
-      position: absolute;
-      width: 44px;
-      height: 36px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.12);
-      z-index: -1;
-    }
-    .swipe-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 500vw;
-      height: 100dvh;
-      display: flex;
-      flex-direction: row;
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
-      transition: transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      touch-action: pan-y;
-      backface-visibility: hidden;
-      perspective: 1000px;
-    }
-    .screen {
-      width: 100vw;
-      height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      flex-shrink: 0;
-      background: #0B0B0B;
-      backface-visibility: hidden;
-      perspective: 1000px;
-      will-change: scroll-position;
-      transform: translateZ(0); /* Force layer promotion */
-    }
-    }
-  `;
 
   // If mobile and on a non-swipeable route, we must render standard children.
   // Otherwise, user can never see sub-pages like /visit-kashmir, /history, or /restaurants/[id]
@@ -405,8 +287,6 @@ export default function MobileSwipeContainer({ children }) {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: css }} />
-      
       {/* Desktop view */}
       <div className="hidden md:block w-full h-full">
         {children}

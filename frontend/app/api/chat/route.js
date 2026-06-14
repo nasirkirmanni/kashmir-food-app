@@ -53,7 +53,7 @@ Do not invent restaurant data.`;
         contents: geminiMessages,
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 500,
+          maxOutputTokens: 2500,
         }
       }),
     });

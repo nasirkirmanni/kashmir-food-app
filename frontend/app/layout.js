@@ -12,14 +12,16 @@ import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  display: "swap"
+  display: "swap",
+  adjustFontFallback: false
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["400", "500", "600", "700"],
-  display: "swap"
+  display: "swap",
+  adjustFontFallback: false
 });
 
 const BASE_URL = "https://wazwanway.com";

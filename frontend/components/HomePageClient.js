@@ -11,6 +11,7 @@ import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 
 const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaurantTabs"), { ssr: false });
 const MobileRestaurantExplorerModal = dynamic(() => import("@/components/MobileRestaurantExplorerModal"), { ssr: false });
+const WazaAITripPlannerModal = dynamic(() => import("@/components/WazaAITripPlannerModal"), { ssr: false });
 import { endpoints, request } from "@/lib/api";
 
 const locationTabMeta = {
@@ -133,6 +134,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false);
   const [isDishModalVisible, setIsDishModalVisible] = useState(false);
+  const [isTripPlannerModalVisible, setIsTripPlannerModalVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
 
@@ -218,7 +220,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
       {/* Global background is now handled by layout.js */}
       {/* 2. RESTAURANTS SECTION */}
-      <section id="restaurants" className="hidden md:block relative pt-12 md:pt-32 pb-24 z-10 mt-8">
+      <section className="hidden md:block relative pt-12 md:pt-32 pb-24 z-10 mt-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image src="/x.jpg" alt="Restaurants Background" fill sizes="100vw" className="object-cover opacity-60" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-black/50 to-[#0B0B0B]"></div>
@@ -318,7 +320,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* 4. WAZWAN DISHES */}
-      <section id="dishes" className="hidden md:block page-shell py-32">
+      <section className="hidden md:block page-shell py-32">
         <FadeInWhenVisible 
           className="mb-24 text-center"
         >
@@ -478,7 +480,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/plan" className="block" prefetch={false}>
+              <button onClick={() => setIsTripPlannerModalVisible(true)} className="block w-full text-left">
                 <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
                   <div className="text-black"><i className="ti ti-sparkles text-[22px]"></i></div>
                   <div>
@@ -486,13 +488,13 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   </div>
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
                 </div>
-              </Link>
+              </button>
             </div>
         </div>
         </div>
       </section>
 
-      <section id="tips" className="hidden md:block page-shell py-32">
+      <section className="hidden md:block page-shell py-32">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           className="mb-24 text-center"
@@ -709,6 +711,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           </motion.div>
         )}
       </AnimatePresence>
+
+      <WazaAITripPlannerModal 
+        isOpen={isTripPlannerModalVisible} 
+        onClose={() => setIsTripPlannerModalVisible(false)} 
+      />
     </div>
   );
 }

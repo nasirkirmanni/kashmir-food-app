@@ -66,7 +66,7 @@ function getClosestCity(userLat, userLon) {
       closest = city;
     }
   }
-  return closest;
+  return { city: closest, distance: minDistance };
 }
 
 function RestaurantsPageContent() {
@@ -75,6 +75,7 @@ function RestaurantsPageContent() {
   const [activeLocation, setActiveLocation] = useState(null);
   const [error, setError] = useState(null);
   const [locating, setLocating] = useState(false);
+  const [distanceInfo, setDistanceInfo] = useState(null);
 
   const handleNearMe = () => {
     if (!navigator.geolocation) {
@@ -87,8 +88,14 @@ function RestaurantsPageContent() {
       (position) => {
         setLocating(false);
         const { latitude, longitude } = position.coords;
-        const closest = getClosestCity(latitude, longitude);
-        setActiveLocation(closest);
+        const result = getClosestCity(latitude, longitude);
+        setActiveLocation(result.city);
+        
+        if (result.distance <= 20) {
+          setDistanceInfo({ type: 'success', text: `Found restaurants within a 20km radius (approx. ${Math.round(result.distance)}km away in ${result.city}).` });
+        } else {
+          setDistanceInfo({ type: 'warning', text: `No restaurants found within 20km. Showing the closest restaurants in ${result.city} (${Math.round(result.distance)}km away).` });
+        }
       },
       (err) => {
         setLocating(false);
@@ -124,6 +131,7 @@ function RestaurantsPageContent() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      setDistanceInfo(null);
       // Optional: Clear the query param when closing the modal
       if (searchParams.get('location')) {
         window.history.replaceState(null, '', '/restaurants');
@@ -270,6 +278,17 @@ function RestaurantsPageContent() {
                   <p className="text-[var(--saffron)] text-[0.65rem] font-bold tracking-[0.25em] uppercase mb-3">{activeLocation}</p>
                   <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-medium text-white">{placeMeta[activeLocation].title}</h3>
                   <p className="text-white/60 mt-4 max-w-2xl text-sm md:text-base mx-auto md:mx-0">{placeMeta[activeLocation].description}</p>
+                  
+                  {distanceInfo && (
+                    <div className={`mt-6 inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm max-w-2xl mx-auto md:mx-0 text-left ${distanceInfo.type === 'success' ? 'bg-green-500/10 border-green-500/20 text-green-400' : 'bg-[var(--saffron)]/10 border-[var(--saffron)]/20 text-[var(--saffron)]'}`}>
+                      {distanceInfo.type === 'success' ? (
+                        <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      ) : (
+                        <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      )}
+                      <span>{distanceInfo.text}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 pb-20">

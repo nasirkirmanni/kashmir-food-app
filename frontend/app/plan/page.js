@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
+import dynamic from "next/dynamic";
+
+const WazaAITripPlannerModal = dynamic(() => import("@/components/WazaAITripPlannerModal"), { ssr: false });
 
 // Static fallback data in case API fails
 const fallbackDestinations = [
@@ -16,6 +19,7 @@ const fallbackDestinations = [
 ];
 
 export default function PlanTripPage() {
+  const [isWazaModalOpen, setIsWazaModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [durationMode, setDurationMode] = useState("predefined"); // predefined vs custom
   const [duration, setDuration] = useState("5"); // parsed to integer later
@@ -514,9 +518,15 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
             Visit kashmir
           </h1>
-          <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
+          <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed mb-6">
             Construct a personalized, score-weighted itinerary leveraging audited database reviews, local restaurants, and wazwan courses.
           </p>
+          <button 
+            onClick={() => setIsWazaModalOpen(true)}
+            className="hidden md:inline-flex bg-gradient-to-r from-[var(--saffron)] to-[#e8c35e] text-black px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-transform shadow-[0_0_20px_rgba(212,175,55,0.3)] items-center gap-2"
+          >
+            <span>Let Waza AI Plan Your Trip ✨</span>
+          </button>
         </div>
         <div>
           <Link href="/" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30">
@@ -1580,6 +1590,10 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
           </div>
         )}
       </AnimatePresence>
+      <WazaAITripPlannerModal 
+        isOpen={isWazaModalOpen}
+        onClose={() => setIsWazaModalOpen(false)}
+      />
     </div>
   );
 }
