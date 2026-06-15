@@ -40,8 +40,8 @@ Do not invent restaurant data.`;
       parts: [{ text: msg.content }]
     }));
 
-    // Calling Gemini Flash
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    // Calling Gemini Flash Lite
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ Do not invent restaurant data.`;
          return NextResponse.json({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." }, { status: 200 });
       }
       
-      return NextResponse.json({ error: "Failed to communicate with Gemini" }, { status: 500 });
+      return NextResponse.json({ reply: `Gemini API Error: ${JSON.stringify(errorData)}` }, { status: 200 });
     }
 
     const data = await response.json();
