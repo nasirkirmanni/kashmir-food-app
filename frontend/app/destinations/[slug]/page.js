@@ -6,7 +6,15 @@ const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
 
 export async function generateStaticParams() {
-  // If there's a static IDs file for destinations in the future, we could read it here
+  try {
+    const res = await fetch(`${API_BASE}/api/destinations`, { cache: 'no-store' });
+    if (res.ok) {
+      const destinations = await res.json();
+      return destinations.map(dest => ({ slug: dest.slug || dest._id }));
+    }
+  } catch (err) {
+    console.error("Failed to fetch destinations for static params", err);
+  }
   return [];
 }
 
