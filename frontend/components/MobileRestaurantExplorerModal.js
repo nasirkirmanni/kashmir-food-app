@@ -99,11 +99,11 @@ export default function MobileRestaurantExplorerModal({
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
-            initial={{ opacity: 0, y: "100%" }}
+            initial={{ opacity: 0, y: "100vh" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "100%" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex flex-col bg-[#0B0B0B] pt-[72px] md:pt-20 overflow-hidden"
+            exit={{ opacity: 0, y: "100vh" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[100] flex flex-col bg-black/60 backdrop-blur-2xl pt-[72px] md:pt-20 overflow-hidden h-[100dvh]"
           >
             {/* Dark glassmorphic background elements */}
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
