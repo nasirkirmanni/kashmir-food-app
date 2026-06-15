@@ -4314,165 +4314,30 @@ export const restaurants = [
 
 export const destinations = [
   {
-    "_id": "6a2a4978ac7d60a9cca76f9c",
-    "name": "Achabal",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Achabal stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "name": "Srinagar",
+    "description": "A breathtaking destination in Central Kashmir famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Srinagar stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/wazwan-hero.jpg",
-    "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to September",
-    "attractions": [
-      "Achabal Scenic Point",
-      "Historic Local Market in Achabal",
-      "Traditional Food Street of Achabal"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.299Z",
-    "slug": "achabal"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f97",
-    "name": "Aru Valley",
-    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Aru Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Pahalgam, Anantnag",
-    "bestTimeToVisit": "March to November",
-    "attractions": [
-      "Aru Valley Scenic Point",
-      "Historic Local Market in Aru Valley",
-      "Traditional Food Street of Aru Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "pahalgam-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.926Z",
-    "slug": "aru-valley"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f9f",
-    "name": "Bangus Valley",
-    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Bangus Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "North Kashmir, Kupwara",
-    "bestTimeToVisit": "May to September",
-    "attractions": [
-      "Bangus Valley Scenic Point",
-      "Historic Local Market in Bangus Valley",
-      "Traditional Food Street of Bangus Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-kupwara",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.529Z",
-    "slug": "bangus-valley"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f98",
-    "name": "Betaab Valley",
-    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Betaab Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Pahalgam, Anantnag",
-    "bestTimeToVisit": "March to October",
-    "attractions": [
-      "Betaab Valley Scenic Point",
-      "Historic Local Market in Betaab Valley",
-      "Traditional Food Street of Betaab Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "pahalgam-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:15.054Z",
-    "slug": "betaab-valley"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f9e",
-    "name": "Daksum",
-    "description": "A breathtaking destination in Anantnag District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Daksum stands as a premier tourist attraction in the Kashmir valley. Located in Anantnag District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Anantnag District",
+    "location": "Central Kashmir",
     "bestTimeToVisit": "April to October",
     "attractions": [
-      "Daksum Scenic Point",
-      "Historic Local Market in Daksum",
-      "Traditional Food Street of Daksum"
+      "Srinagar Scenic Point",
+      "Historic Local Market in Srinagar",
+      "Traditional Food Street of Srinagar"
     ],
     "tags": [
       "kashmir",
-      "anantnag-district"
+      "central-kashmir"
     ],
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.456Z",
-    "slug": "daksum"
+    "luxuryScore": 3
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f99",
-    "name": "Doodhpathri",
-    "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Doodhpathri stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Budgam District",
-    "bestTimeToVisit": "May to October",
-    "attractions": [
-      "Doodhpathri Scenic Point",
-      "Historic Local Market in Doodhpathri",
-      "Traditional Food Street of Doodhpathri"
-    ],
-    "tags": [
-      "kashmir",
-      "budgam-district"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.1,
-    "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.116Z",
-    "slug": "doodhpathri"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f91",
     "name": "Gulmarg",
     "description": "A breathtaking destination in North Kashmir, Baramulla famous for its natural landscapes and local hospitality.",
     "fullDescription": "Gulmarg stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Baramulla, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/Gulmarg.jpg",
+    "image": "/wazwan-hero.jpg",
     "location": "North Kashmir, Baramulla",
     "bestTimeToVisit": "December to March (Snow), April to June (Meadows)",
     "attractions": [
@@ -4487,120 +4352,13 @@ export const destinations = [
     ],
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.471Z",
-    "slug": "gulmarg"
+    "luxuryScore": 4
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f95",
-    "name": "Gurez Valley",
-    "description": "A breathtaking destination in North Kashmir, Bandipora famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Gurez Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Bandipora, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "North Kashmir, Bandipora",
-    "bestTimeToVisit": "June to September",
-    "attractions": [
-      "Gurez Valley Scenic Point",
-      "Historic Local Market in Gurez Valley",
-      "Traditional Food Street of Gurez Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-bandipora",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.752Z",
-    "slug": "gurez-valley"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f9a",
-    "name": "Kokernag",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Kokernag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Kokernag Scenic Point",
-      "Historic Local Market in Kokernag",
-      "Traditional Food Street of Kokernag"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.179Z",
-    "slug": "kokernag"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f96",
-    "name": "Lolab Valley",
-    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Lolab Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "North Kashmir, Kupwara",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Lolab Valley Scenic Point",
-      "Historic Local Market in Lolab Valley",
-      "Traditional Food Street of Lolab Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-kupwara"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.846Z",
-    "slug": "lolab-valley"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76fa1",
-    "name": "Manasbal Lake",
-    "description": "A breathtaking destination in Ganderbal District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Manasbal Lake stands as a premier tourist attraction in the Kashmir valley. Located in Ganderbal District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Ganderbal District",
-    "bestTimeToVisit": "May to October",
-    "attractions": [
-      "Manasbal Lake Scenic Point",
-      "Historic Local Market in Manasbal Lake",
-      "Traditional Food Street of Manasbal Lake"
-    ],
-    "tags": [
-      "kashmir",
-      "ganderbal-district"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.1,
-    "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.666Z",
-    "slug": "manasbal-lake"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f92",
     "name": "Pahalgam",
     "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
     "fullDescription": "Pahalgam stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/Pahalgam.jpg",
+    "image": "/wazwan-hero.jpg",
     "location": "South Kashmir, Anantnag",
     "bestTimeToVisit": "March to November",
     "attractions": [
@@ -4615,96 +4373,13 @@ export const destinations = [
     ],
     "authenticityScore": 4.7,
     "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.539Z",
-    "slug": "pahalgam"
+    "luxuryScore": 4
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76fa2",
-    "name": "Pari Mahal",
-    "description": "A breathtaking destination in Zabarwan Range, Srinagar famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Pari Mahal stands as a premier tourist attraction in the Kashmir valley. Located in Zabarwan Range, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Zabarwan Range, Srinagar",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Pari Mahal Scenic Point",
-      "Historic Local Market in Pari Mahal",
-      "Traditional Food Street of Pari Mahal"
-    ],
-    "tags": [
-      "kashmir",
-      "zabarwan-range-srinagar",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.764Z",
-    "slug": "pari-mahal"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76fa3",
-    "name": "Shalimar Bagh",
-    "description": "A breathtaking destination in Dal Lake front, Srinagar famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Shalimar Bagh stands as a premier tourist attraction in the Kashmir valley. Located in Dal Lake front, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Dal Lake front, Srinagar",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Shalimar Bagh Scenic Point",
-      "Historic Local Market in Shalimar Bagh",
-      "Traditional Food Street of Shalimar Bagh"
-    ],
-    "tags": [
-      "kashmir",
-      "dal-lake-front-srinagar",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.832Z",
-    "slug": "shalimar-bagh"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f9d",
-    "name": "Sinthan Top",
-    "description": "A breathtaking destination in Kishtwar-Anantnag Border famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Sinthan Top stands as a premier tourist attraction in the Kashmir valley. Located in Kishtwar-Anantnag Border, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Kishtwar-Anantnag Border",
-    "bestTimeToVisit": "April to September",
-    "attractions": [
-      "Sinthan Top Scenic Point",
-      "Historic Local Market in Sinthan Top",
-      "Traditional Food Street of Sinthan Top"
-    ],
-    "tags": [
-      "kashmir",
-      "kishtwar-anantnag-border",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.366Z",
-    "slug": "sinthan-top"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f93",
     "name": "Sonamarg",
     "description": "A breathtaking destination in Central Kashmir, Ganderbal famous for its natural landscapes and local hospitality.",
     "fullDescription": "Sonamarg stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, Ganderbal, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/Sonmarg.jpg",
+    "image": "/wazwan-hero.jpg",
     "location": "Central Kashmir, Ganderbal",
     "bestTimeToVisit": "April to October",
     "attractions": [
@@ -4719,95 +4394,13 @@ export const destinations = [
     ],
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.609Z",
-    "slug": "sonamarg"
+    "luxuryScore": 3.5
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f90",
-    "name": "Srinagar",
-    "description": "A breathtaking destination in Central Kashmir famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Srinagar stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/Srinagar.jpg",
-    "location": "Central Kashmir",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Srinagar Scenic Point",
-      "Historic Local Market in Srinagar",
-      "Traditional Food Street of Srinagar"
-    ],
-    "tags": [
-      "kashmir",
-      "central-kashmir"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.406Z",
-    "slug": "srinagar"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f9b",
-    "name": "Verinag",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Verinag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Verinag Scenic Point",
-      "Historic Local Market in Verinag",
-      "Traditional Food Street of Verinag"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.238Z",
-    "slug": "verinag"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76fa0",
-    "name": "Wular Lake",
-    "description": "A breathtaking destination in Bandipora District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Wular Lake stands as a premier tourist attraction in the Kashmir valley. Located in Bandipora District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
-    "location": "Bandipora District",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Wular Lake Scenic Point",
-      "Historic Local Market in Wular Lake",
-      "Traditional Food Street of Wular Lake"
-    ],
-    "tags": [
-      "kashmir",
-      "bandipora-district",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.580Z",
-    "updatedAt": "2026-06-11T05:38:15.596Z",
-    "slug": "wular-lake"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f94",
     "name": "Yusmarg",
     "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
     "fullDescription": "Yusmarg stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/wazwan-hero.jpg",
+    "image": "/images/Destinations/Yusmarg.jpg",
     "location": "Budgam District",
     "bestTimeToVisit": "May to September",
     "attractions": [
@@ -4822,11 +4415,318 @@ export const destinations = [
     ],
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.579Z",
-    "updatedAt": "2026-06-11T05:38:14.669Z",
-    "slug": "yusmarg"
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Gurez Valley",
+    "description": "A breathtaking destination in North Kashmir, Bandipora famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Gurez Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Bandipora, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Gurez_Valley.jpg",
+    "location": "North Kashmir, Bandipora",
+    "bestTimeToVisit": "June to September",
+    "attractions": [
+      "Gurez Valley Scenic Point",
+      "Historic Local Market in Gurez Valley",
+      "Traditional Food Street of Gurez Valley"
+    ],
+    "tags": [
+      "kashmir",
+      "north-kashmir-bandipora",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Lolab Valley",
+    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Lolab Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Lolab_Valley.JPG",
+    "location": "North Kashmir, Kupwara",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Lolab Valley Scenic Point",
+      "Historic Local Market in Lolab Valley",
+      "Traditional Food Street of Lolab Valley"
+    ],
+    "tags": [
+      "kashmir",
+      "north-kashmir-kupwara"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3
+  },
+  {
+    "name": "Aru Valley",
+    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Aru Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Aru_Valley.jpg",
+    "location": "Pahalgam, Anantnag",
+    "bestTimeToVisit": "March to November",
+    "attractions": [
+      "Aru Valley Scenic Point",
+      "Historic Local Market in Aru Valley",
+      "Traditional Food Street of Aru Valley"
+    ],
+    "tags": [
+      "kashmir",
+      "pahalgam-anantnag",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4
+  },
+  {
+    "name": "Betaab Valley",
+    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Betaab Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Betaab_Valley.jpg",
+    "location": "Pahalgam, Anantnag",
+    "bestTimeToVisit": "March to October",
+    "attractions": [
+      "Betaab Valley Scenic Point",
+      "Historic Local Market in Betaab Valley",
+      "Traditional Food Street of Betaab Valley"
+    ],
+    "tags": [
+      "kashmir",
+      "pahalgam-anantnag",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Doodhpathri",
+    "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Doodhpathri stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Doodhpathri.jpg",
+    "location": "Budgam District",
+    "bestTimeToVisit": "May to October",
+    "attractions": [
+      "Doodhpathri Scenic Point",
+      "Historic Local Market in Doodhpathri",
+      "Traditional Food Street of Doodhpathri"
+    ],
+    "tags": [
+      "kashmir",
+      "budgam-district"
+    ],
+    "authenticityScore": 3.8,
+    "touristFriendlinessScore": 4.1,
+    "luxuryScore": 2.5
+  },
+  {
+    "name": "Kokernag",
+    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Kokernag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Kokernag.jpg",
+    "location": "South Kashmir, Anantnag",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Kokernag Scenic Point",
+      "Historic Local Market in Kokernag",
+      "Traditional Food Street of Kokernag"
+    ],
+    "tags": [
+      "kashmir",
+      "south-kashmir-anantnag",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Verinag",
+    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Verinag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Verinag.jpg",
+    "location": "South Kashmir, Anantnag",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Verinag Scenic Point",
+      "Historic Local Market in Verinag",
+      "Traditional Food Street of Verinag"
+    ],
+    "tags": [
+      "kashmir",
+      "south-kashmir-anantnag",
+      "luxury-resort"
+    ],
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5
+  },
+  {
+    "name": "Achabal",
+    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Achabal stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Achabal.jpg",
+    "location": "South Kashmir, Anantnag",
+    "bestTimeToVisit": "April to September",
+    "attractions": [
+      "Achabal Scenic Point",
+      "Historic Local Market in Achabal",
+      "Traditional Food Street of Achabal"
+    ],
+    "tags": [
+      "kashmir",
+      "south-kashmir-anantnag",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Sinthan Top",
+    "description": "A breathtaking destination in Kishtwar-Anantnag Border famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Sinthan Top stands as a premier tourist attraction in the Kashmir valley. Located in Kishtwar-Anantnag Border, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Sinthan_Top.jpg",
+    "location": "Kishtwar-Anantnag Border",
+    "bestTimeToVisit": "April to September",
+    "attractions": [
+      "Sinthan Top Scenic Point",
+      "Historic Local Market in Sinthan Top",
+      "Traditional Food Street of Sinthan Top"
+    ],
+    "tags": [
+      "kashmir",
+      "kishtwar-anantnag-border",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Daksum",
+    "description": "A breathtaking destination in Anantnag District famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Daksum stands as a premier tourist attraction in the Kashmir valley. Located in Anantnag District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Daksum.png",
+    "location": "Anantnag District",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Daksum Scenic Point",
+      "Historic Local Market in Daksum",
+      "Traditional Food Street of Daksum"
+    ],
+    "tags": [
+      "kashmir",
+      "anantnag-district"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3
+  },
+  {
+    "name": "Bangus Valley",
+    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Bangus Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Bangus_Valley.png",
+    "location": "North Kashmir, Kupwara",
+    "bestTimeToVisit": "May to September",
+    "attractions": [
+      "Bangus Valley Scenic Point",
+      "Historic Local Market in Bangus Valley",
+      "Traditional Food Street of Bangus Valley"
+    ],
+    "tags": [
+      "kashmir",
+      "north-kashmir-kupwara",
+      "luxury-resort"
+    ],
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.8,
+    "luxuryScore": 5
+  },
+  {
+    "name": "Wular Lake",
+    "description": "A breathtaking destination in Bandipora District famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Wular Lake stands as a premier tourist attraction in the Kashmir valley. Located in Bandipora District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Wular_Lake.jpg",
+    "location": "Bandipora District",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Wular Lake Scenic Point",
+      "Historic Local Market in Wular Lake",
+      "Traditional Food Street of Wular Lake"
+    ],
+    "tags": [
+      "kashmir",
+      "bandipora-district",
+      "luxury-resort"
+    ],
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5
+  },
+  {
+    "name": "Manasbal Lake",
+    "description": "A breathtaking destination in Ganderbal District famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Manasbal Lake stands as a premier tourist attraction in the Kashmir valley. Located in Ganderbal District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Manasbal_Lake.jpg",
+    "location": "Ganderbal District",
+    "bestTimeToVisit": "May to October",
+    "attractions": [
+      "Manasbal Lake Scenic Point",
+      "Historic Local Market in Manasbal Lake",
+      "Traditional Food Street of Manasbal Lake"
+    ],
+    "tags": [
+      "kashmir",
+      "ganderbal-district"
+    ],
+    "authenticityScore": 3.8,
+    "touristFriendlinessScore": 4.1,
+    "luxuryScore": 2.5
+  },
+  {
+    "name": "Pari Mahal",
+    "description": "A breathtaking destination in Zabarwan Range, Srinagar famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Pari Mahal stands as a premier tourist attraction in the Kashmir valley. Located in Zabarwan Range, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Pari_Mahal.jpg",
+    "location": "Zabarwan Range, Srinagar",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Pari Mahal Scenic Point",
+      "Historic Local Market in Pari Mahal",
+      "Traditional Food Street of Pari Mahal"
+    ],
+    "tags": [
+      "kashmir",
+      "zabarwan-range-srinagar",
+      "luxury-resort"
+    ],
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.8,
+    "luxuryScore": 5
+  },
+  {
+    "name": "Shalimar Bagh",
+    "description": "A breathtaking destination in Dal Lake front, Srinagar famous for its natural landscapes and local hospitality.",
+    "fullDescription": "Shalimar Bagh stands as a premier tourist attraction in the Kashmir valley. Located in Dal Lake front, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
+    "image": "/images/Destinations/Shalimar_Bagh.jpg",
+    "location": "Dal Lake front, Srinagar",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Shalimar Bagh Scenic Point",
+      "Historic Local Market in Shalimar Bagh",
+      "Traditional Food Street of Shalimar Bagh"
+    ],
+    "tags": [
+      "kashmir",
+      "dal-lake-front-srinagar",
+      "highly-accessible"
+    ],
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4
   }
 ];
 
