@@ -82,12 +82,17 @@ export default function MobileSwipeContainer({ children }) {
       const deltaX = e.touches[0].clientX - startXRef.current;
       const deltaY = e.touches[0].clientY - startYRef.current;
 
-      // Determine drag direction on first move
+      // Determine drag direction after a small threshold to avoid accidental swipes
       if (isHorizontalDragRef.current === null) {
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          isHorizontalDragRef.current = true;
-        } else if (Math.abs(deltaY) > Math.abs(deltaX)) {
-          isHorizontalDragRef.current = false;
+        if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            isHorizontalDragRef.current = true;
+          } else {
+            isHorizontalDragRef.current = false;
+          }
+        } else {
+          // Wait for more movement before deciding
+          return;
         }
       }
 

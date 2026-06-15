@@ -81,8 +81,9 @@ export default function HomePageHero() {
           style={{
             backgroundImage: "url('/hero-background.png')",
             backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat"
+            backgroundPosition: "bottom",
+            backgroundRepeat: "no-repeat",
+            transform: "scale(1.05)"
           }}
         />
 
@@ -94,7 +95,13 @@ export default function HomePageHero() {
           }}
         />
 
-        <SaffronAnimation />
+        {/* Fade out at bottom to smoothly transition to Page 2 */}
+        <div 
+          className="absolute inset-x-0 bottom-0 h-32 z-[2] pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, transparent, #050505)"
+          }}
+        />
         
         {/* Top bar spacer */}
         <div className="h-[150px] shrink-0 relative z-10">
