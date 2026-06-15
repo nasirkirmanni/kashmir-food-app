@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
 import { endpoints, request } from "@/lib/api";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 function getOptimizedImage(url, size = 800) {
@@ -19,6 +19,7 @@ export default function VisitKashmirPage() {
   const [destinations, setDestinations] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("All");
+  const [selectedDest, setSelectedDest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -159,12 +160,8 @@ export default function VisitKashmirPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: Math.min(idx * 0.05, 0.3) }}
-                onClick={() => {
-                  if (window.innerWidth < 768) {
-                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.name + ", Kashmir")}`, "_blank");
-                  }
-                }}
-                className="group flex flex-col rounded-xl md:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden shadow-2xl hover:border-[var(--saffron)]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all cursor-pointer md:cursor-default"
+                onClick={() => setSelectedDest(dest)}
+                className="group flex flex-col rounded-xl md:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden shadow-2xl hover:border-[var(--saffron)]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all cursor-pointer"
               >
                 {/* Image top */}
                 <div className="relative h-16 xs:h-20 sm:h-24 md:h-48 w-full overflow-hidden bg-black/40">
@@ -259,18 +256,16 @@ export default function VisitKashmirPage() {
                     )}
                   </div>
 
-                  {/* Actions */}
                   <div className="hidden md:flex pt-4 border-t border-white/5 gap-3">
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                        dest.name + ", Kashmir"
-                      )}`}
-                      target="_blank"
-                      rel="noreferrer"
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedDest(dest);
+                      }}
                       className="flex-1 text-center bg-white/5 border border-white/10 hover:border-white/30 text-white/90 rounded-xl py-2.5 text-xs font-bold uppercase tracking-widest transition-colors"
                     >
-                      Locate on Map
-                    </a>
+                      View Details
+                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -278,6 +273,113 @@ export default function VisitKashmirPage() {
           </div>
         )}
       </div>
+
+      {/* DESTINATION MODAL */}
+      <AnimatePresence>
+        {selectedDest && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 py-8 backdrop-blur-xl"
+            onClick={() => setSelectedDest(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.95, y: 20, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[24px] border border-white/20 bg-[#111111] shadow-[0_0_50px_rgba(0,0,0,0.8)] custom-scrollbar"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedDest(null)}
+                className="absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/40 text-lg text-white backdrop-blur-md transition hover:bg-[var(--saffron)] hover:text-black hover:border-[var(--saffron)]"
+              >
+                &times;
+              </button>
+
+              <div className="relative h-64 w-full overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent z-10" />
+                <Image
+                  src={getOptimizedImage(selectedDest.image, 800)}
+                  alt={selectedDest.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="relative z-20 -mt-12 p-6 md:p-8">
+                <button 
+                  onClick={() => setSelectedDest(null)}
+                  className="mb-4 flex items-center gap-2 text-[var(--saffron)] text-sm font-bold uppercase tracking-widest hover:text-white transition-colors"
+                >
+                  &larr; Back
+                </button>
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-white backdrop-blur-md">
+                    {selectedDest.location ? selectedDest.location.split(",")[0] : "Destination"}
+                  </span>
+                </div>
+
+                <h3 className="mt-4 font-display text-3xl md:text-4xl font-medium tracking-tight text-white">{selectedDest.name}</h3>
+                <p className="mt-4 text-sm md:text-base leading-relaxed text-white/70">
+                  {selectedDest.description}
+                </p>
+
+                {selectedDest.bestTimeToVisit && (
+                  <div className="mt-6 flex items-center gap-2 text-sm text-white/70 bg-white/5 px-4 py-2 rounded-lg border border-white/5 w-fit">
+                    <svg className="w-4 h-4 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Best Time To Visit: <strong>{selectedDest.bestTimeToVisit}</strong></span>
+                  </div>
+                )}
+
+                {(selectedDest.authenticityScore || selectedDest.touristFriendlinessScore || selectedDest.luxuryScore) && (
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 bg-black/30 p-5 rounded-xl border border-white/5">
+                    {selectedDest.authenticityScore && (
+                      <div>
+                        <div className="text-[0.68rem] text-white/50 mb-1 uppercase tracking-wider font-bold">Authenticity</div>
+                        <div className="text-lg text-[var(--saffron)] font-bold">{selectedDest.authenticityScore}/5</div>
+                      </div>
+                    )}
+                    {selectedDest.touristFriendlinessScore && (
+                      <div>
+                        <div className="text-[0.68rem] text-white/50 mb-1 uppercase tracking-wider font-bold">Tourist Friendly</div>
+                        <div className="text-lg text-[var(--saffron)] font-bold">{selectedDest.touristFriendlinessScore}/5</div>
+                      </div>
+                    )}
+                    {selectedDest.luxuryScore && (
+                      <div>
+                        <div className="text-[0.68rem] text-white/50 mb-1 uppercase tracking-wider font-bold">Luxury</div>
+                        <div className="text-lg text-[var(--saffron)] font-bold">{selectedDest.luxuryScore}/5</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {selectedDest.attractions && selectedDest.attractions.length > 0 && (
+                  <div className="mt-8">
+                    <h4 className="text-sm font-bold uppercase tracking-wider text-white/50 mb-3">
+                      Key Attractions
+                    </h4>
+                    <ul className="space-y-2">
+                      {selectedDest.attractions.map((att, aIdx) => (
+                        <li key={aIdx} className="flex gap-3 items-start text-sm text-white/80">
+                          <span className="text-[var(--saffron)] mt-0.5">•</span>
+                          <span>{att}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

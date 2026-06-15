@@ -242,11 +242,6 @@ export default function HomePageHero() {
               </div>
             </div>
 
-            {/* Pagination Dots */}
-            <div className="flex justify-center items-center gap-1.5 mt-2">
-              <div className={`h-1.5 rounded-full transition-all duration-300 ease-out ${currentExplorePage === 0 ? 'w-4 bg-white/90' : 'w-1.5 bg-[#444]'}`} />
-              <div className={`h-1.5 rounded-full transition-all duration-300 ease-out ${currentExplorePage === 1 ? 'w-4 bg-white/90' : 'w-1.5 bg-[#444]'}`} />
-            </div>
           </div>
         </div>
 
