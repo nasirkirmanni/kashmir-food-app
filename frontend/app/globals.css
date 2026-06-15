@@ -804,7 +804,7 @@ body.is-dragging * {
     position: fixed;
     top: 0;
     left: 0;
-    width: 500vw;
+    width: 500%;
     height: 100dvh;
     display: flex;
     flex-direction: row;
@@ -816,7 +816,7 @@ body.is-dragging * {
     perspective: 1000px;
   }
   .screen {
-    width: 100vw;
+    width: 20%;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;

@@ -441,14 +441,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/itineraries" className="block" prefetch={false}>
-                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white"><i className="ti ti-route text-[22px]"></i></div>
+              <Link href="/things-to-do" className="block group" prefetch={false}>
+                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative hover:bg-[#1a1a1a] transition-colors">
+                  <div className="text-[var(--saffron)]"><i className="ti ti-map-pin text-[22px]"></i></div>
                   <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5">Food Trails</h4>
-                    <p className="text-[#555] font-medium text-[11px]">Curated travel + food</p>
+                    <h4 className="font-display font-black text-white text-[14px] mb-0.5 group-hover:text-[var(--saffron)] transition-colors">Things to Do</h4>
+                    <p className="text-[#555] font-medium text-[11px]">Top experiences & activities</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
+                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors text-[16px]"></i>
                 </div>
               </Link>
               <Link href="/history" className="block" prefetch={false}>
@@ -465,28 +465,31 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           </div>
 
           {/* Section 3 — Plan Kashmir Visit */}
-          <div className="w-full bg-white rounded-[24px] p-5">
-            <h2 className="font-body font-black text-[24px] tracking-[-0.04em] leading-tight text-black mb-4">
+          <div className="w-full bg-gradient-to-br from-white via-[#fcf8ef] to-[#f2e5c6] border border-[#C8A46A]/30 shadow-[0_8px_30px_rgba(200,164,106,0.2)] rounded-[24px] p-5 relative overflow-hidden">
+            {/* Subtle gold glow in the corner */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#C8A46A]/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+            
+            <h2 className="relative z-10 font-body font-black text-[24px] tracking-[-0.04em] leading-tight text-[#1a130a] mb-4">
               Plan a Kashmir Visit
             </h2>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="relative z-10 grid grid-cols-2 gap-3">
               <Link href="/plan" className="block" prefetch={false}>
-                <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
-                  <div className="text-black"><i className="ti ti-map-2 text-[22px]"></i></div>
+                <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
+                  <div className="text-[#C8A46A]"><i className="ti ti-map-2 text-[22px]"></i></div>
                   <div>
-                    <h4 className="font-display font-black text-black text-[14px] leading-tight mb-0.5">Visit Kashmir</h4>
-                    <p className="text-[#555] font-medium text-[11px]">Travel Guide</p>
+                    <h4 className="font-display font-black text-[#1a130a] text-[14px] leading-tight mb-0.5">Visit Kashmir</h4>
+                    <p className="text-[#665d50] font-medium text-[11px]">Travel Guide</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
+                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#C8A46A] text-[16px]"></i>
                 </div>
               </Link>
               <button onClick={() => setIsTripPlannerModalVisible(true)} className="block w-full text-left">
-                <div className="bg-[#f4f4f4] rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-black/5 hover:bg-[#ebebeb] transition-colors">
-                  <div className="text-black"><i className="ti ti-sparkles text-[22px]"></i></div>
+                <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
+                  <div className="text-[#C8A46A]"><i className="ti ti-sparkles text-[22px]"></i></div>
                   <div>
-                    <h4 className="font-display font-black text-black text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h4>
+                    <h4 className="font-display font-black text-[#1a130a] text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h4>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-black text-[16px]"></i>
+                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#C8A46A] text-[16px]"></i>
                 </div>
               </button>
             </div>

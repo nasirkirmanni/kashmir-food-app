@@ -99,8 +99,19 @@ function DishesPageContent() {
             </p>
           </div>
           <div>
-            <Link href="/kashmiri-food" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30">
+            <Link href="/kashmiri-food" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30 mb-4 block text-center">
               View All Kashmiri Food &rarr;
+            </Link>
+            <Link href="/etiquette" className="block bg-[#111] border border-[var(--saffron)]/30 rounded-2xl p-4 hover:border-[var(--saffron)]/60 transition-colors group">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-[var(--saffron)]/10 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div className="text-left">
+                  <h5 className="text-[var(--saffron)] font-bold text-sm mb-0.5 group-hover:text-white transition-colors">Wazwan Etiquette</h5>
+                  <p className="text-white/50 text-[10px] uppercase tracking-wider">7 Unwritten Rules</p>
+                </div>
+              </div>
             </Link>
           </div>
         </section>

@@ -433,11 +433,20 @@ function KashmiriFoodContent() {
                               </svg>
                               Trami Platter Etiquette
                             </h4>
-                            <ul className="text-xs text-white/80 space-y-2.5 list-disc list-inside leading-relaxed">
+                            <ul className="text-xs text-white/80 space-y-2.5 list-disc list-inside leading-relaxed mb-5">
                               <li>Guests wash hands in a mobile copper basin, the <strong>Tash-t-Næær</strong>, brought right to their seat.</li>
                               <li>The platter is covered by a dome lid called a <strong>Sarposh</strong>, which is removed only when all guests are seated.</li>
                               <li>Dishes are eaten collectively with fingers directly from the trami platter, symbolizing brotherhood and equality.</li>
                             </ul>
+                            <Link href="/etiquette" className="block bg-black/20 border border-[var(--saffron)]/30 rounded-xl p-4 hover:bg-black/30 transition-colors group">
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <h5 className="text-[var(--saffron)] font-bold text-sm mb-1 group-hover:text-white transition-colors">Wazwan Etiquette Guide</h5>
+                                  <p className="text-white/60 text-xs">Learn the 7 unwritten rules of dining.</p>
+                                </div>
+                                <span className="text-[var(--saffron)] group-hover:translate-x-1 transition-transform">&rarr;</span>
+                              </div>
+                            </Link>
                           </div>
                         </div>
 
