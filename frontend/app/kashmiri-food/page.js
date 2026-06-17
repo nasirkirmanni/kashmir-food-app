@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
-import { endpoints, request } from "@/lib/api";
+import { endpoints, request } from "../../lib/api";
 
 function ShimmerSkeleton() {
   return (

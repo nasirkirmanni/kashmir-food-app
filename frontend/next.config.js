@@ -5,6 +5,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // NOTE: output: 'export' is needed for Capacitor (npm run build).
+  // Comment this out when using npm run dev for local browser testing.
   output: 'export',
   images: {
     unoptimized: true,

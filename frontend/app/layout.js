@@ -8,6 +8,8 @@ import GlobalBackground from "@/components/GlobalBackground";
 import WazaAI from "@/components/WazaAI";
 import { MobileNavigationProvider } from "@/context/MobileNavigationContext";
 import MobileSwipeContainer from "@/components/MobileSwipeContainer";
+import CapacitorListeners from "@/components/CapacitorListeners";
+import GlobalSearchModal from "@/components/GlobalSearchModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -102,6 +104,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
+        <CapacitorListeners />
         <GlobalBackground />
         <AuthProvider>
           <MobileNavigationProvider>
@@ -114,6 +117,7 @@ export default function RootLayout({ children }) {
                 <Footer />
               </div>
               <WazaAI />
+              <GlobalSearchModal />
               <MobileNav />
             </div>
           </MobileNavigationProvider>

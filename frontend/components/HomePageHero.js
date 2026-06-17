@@ -155,12 +155,12 @@ export default function HomePageHero() {
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Search size={18} className="text-[#888888]" />
             </div>
-            <input 
-              type="text" 
-              placeholder="Dishes, restaurants, places..."
-              className="w-full h-[52px] pl-11 pr-5 bg-white/[0.04] backdrop-blur-[24px] border border-[#C8A46A]/20 rounded-[26px] text-[15px] font-[400] text-white placeholder-[#777777] focus:outline-none focus:border-[#C8A46A]/50 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
+            <button 
               onClick={() => window.dispatchEvent(new Event('open-search'))}
-            />
+              className="w-full h-[52px] pl-11 pr-5 bg-white/[0.04] backdrop-blur-[24px] border border-[#C8A46A]/20 rounded-[26px] text-[15px] font-[400] text-[#777777] focus:outline-none focus:border-[#C8A46A]/50 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.2)] text-left"
+            >
+              Dishes, restaurants, places...
+            </button>
           </div>
 
           <div className="w-full mt-[32px] relative">
