@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { App } from "@capacitor/app";
 
 export default function CapacitorListeners() {
   useEffect(() => {
@@ -9,6 +8,9 @@ export default function CapacitorListeners() {
 
     const initListener = async () => {
       try {
+        // Dynamically import @capacitor/app — this will fail gracefully
+        // on web/Vercel where the package is not installed
+        const { App } = await import("@capacitor/app");
         listener = await App.addListener("backButton", ({ canGoBack }) => {
           if (canGoBack) {
             window.history.back();
@@ -17,7 +19,7 @@ export default function CapacitorListeners() {
           }
         });
       } catch (err) {
-        console.warn("Could not add backButton listener:", err);
+        // Expected on web — Capacitor is only available in the native app
       }
     };
 
