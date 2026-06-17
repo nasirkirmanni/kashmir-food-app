@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 import Image from "next/image";
+import { resolveImageUrl } from "@/lib/imageUtils";
 import dynamic from "next/dynamic";
 import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 
@@ -344,7 +345,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <div className="relative h-28 md:h-40 shrink-0 overflow-hidden">
                 <div className="absolute inset-0 z-10 bg-black/20 transition duration-500 group-hover:bg-transparent" />
                 <Image
-                  src={dishImageOverrides[dish.name] || dish.image || '/wazwan-hero.jpg'}
+                  src={resolveImageUrl(dishImageOverrides[dish.name] || dish.image)}
                   alt={dish.name}
                   fill
                   sizes="(max-width: 768px) 50vw, 33vw"
@@ -677,7 +678,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <div className="relative h-48 w-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent z-10" />
                 <Image
-                  src={dishImageOverrides[selectedDish.name] || selectedDish.image || '/wazwan-hero.jpg'}
+                  src={resolveImageUrl(dishImageOverrides[selectedDish.name] || selectedDish.image || '/wazwan-hero.jpg')}
                   alt={selectedDish.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
 import Image from "next/image";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function DishCard({ dish, onFavorite }) {
   const { user } = useAuth();
@@ -25,7 +26,7 @@ export default function DishCard({ dish, onFavorite }) {
   return (
     <article className="overflow-hidden rounded-[28px] bg-white shadow-card transition hover:-translate-y-1">
       <div className="relative h-56 overflow-hidden">
-        <Image src={dish.image || '/wazwan-hero.jpg'} alt={dish.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+        <Image src={resolveImageUrl(dish.image)} alt={dish.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" loading="lazy" />
         <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-pine">
           {dish.foodType}
         </span>

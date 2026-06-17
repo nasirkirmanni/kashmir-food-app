@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 import ReactMarkdown from "react-markdown";
 import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function DishDetailClient({ initialDish = null }) {
   const { user } = useAuth();
@@ -221,7 +222,7 @@ export default function DishDetailClient({ initialDish = null }) {
 
         <div className="rounded-[20px] border border-[var(--border)] bg-white/5 p-4 shadow-card overflow-hidden">
           <img
-            src={dish.image}
+            src={resolveImageUrl(dish.image)}
             alt={dish.name}
             loading="eager"
             decoding="async"

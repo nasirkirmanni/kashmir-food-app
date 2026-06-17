@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
 import Image from "next/image";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function RestaurantCard({ restaurant, compact = false, onFavorite }) {
   const { user } = useAuth();
@@ -26,7 +27,7 @@ export default function RestaurantCard({ restaurant, compact = false, onFavorite
     <article className="overflow-hidden rounded-[28px] bg-white shadow-card">
       {!compact ? (
         <div className="relative h-48">
-          <Image src={restaurant.image || '/wazwan-hero.jpg'} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+          <Image src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" loading="lazy" />
         </div>
       ) : null}
       <div className="space-y-4 p-5">

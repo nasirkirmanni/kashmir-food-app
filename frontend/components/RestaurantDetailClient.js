@@ -9,6 +9,7 @@ import { endpoints, request } from "@/lib/api";
 import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Image from "next/image";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function RestaurantDetailClient({ initialRestaurant = null }) {
   const params = useParams();
@@ -151,7 +152,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
         <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-md p-4 shadow-2xl mt-8 md:mt-0">
           {restaurant.image ? (
             <div className="relative h-[250px] md:h-[320px] w-full">
-              <Image src={restaurant.image} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="restaurant-cover object-cover rounded-[12px]" />
+              <Image src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="restaurant-cover object-cover rounded-[12px]" />
             </div>
           ) : (
             <div className="restaurant-cover h-[250px] md:h-[320px] flex items-center justify-center bg-white/5 rounded-[12px]">
@@ -172,7 +173,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
                 {restaurant.linkedDishes.map((dish) => (
                   <div key={dish._id} className="flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg transition hover:border-[var(--saffron)] hover:bg-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
                     <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
-                      <Image src={dish.image || '/wazwan-hero.jpg'} alt={dish.name} fill sizes="100px" className="object-cover" />
+                      <Image src={resolveImageUrl(dish.image)} alt={dish.name} fill sizes="100px" className="object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>
