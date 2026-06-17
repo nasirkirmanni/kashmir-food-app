@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { Calendar, Users, Wallet, Utensils, AlertTriangle, CheckCircle } from "lucide-react";
 
+import { request, endpoints } from "../lib/api";
+
 // Anti-gibberish validation logic
 const isValidInput = (text) => {
   if (!text || text.trim().length < 2) return false;
@@ -168,13 +170,11 @@ You MUST return the response strictly in JSON format matching the following stru
 }`;
 
     try {
-      const response = await fetch("/api/chat", {
+      const data = await request(endpoints.chat, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: [{ role: "user", content: promptText }] })
       });
 
-      const data = await response.json();
       if (data.reply) {
         try {
           let jsonString = data.reply.replace(/```json/g, '').replace(/```/g, '').trim();
