@@ -66,7 +66,7 @@ export default function MobileSwipeContainer({ children }) {
     };
 
     const onStart = (e) => {
-      if (e.target.closest('[data-explore-carousel]')) return;
+      if (e.target.closest('[data-explore-carousel]') || document.body.classList.contains('restaurant-modal-open')) return;
       
       startXRef.current = e.touches[0].clientX;
       startYRef.current = e.touches[0].clientY;
