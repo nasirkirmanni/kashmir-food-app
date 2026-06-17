@@ -49,6 +49,8 @@ const dishSchema = new mongoose.Schema(
 dishSchema.index({ popularityRating: -1 });
 dishSchema.index({ category: 1, popularityRating: -1 });
 dishSchema.index({ foodType: 1, popularityRating: -1 });
+dishSchema.index({ categoryType: 1 });
+dishSchema.index({ courseType: 1 });
 
 function slugify(text) {
   return text

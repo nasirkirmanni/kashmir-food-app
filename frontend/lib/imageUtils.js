@@ -23,11 +23,6 @@ export function resolveImageUrl(src, fallback = '/wazwan-hero.jpg') {
     return src;
   }
   
-  // Relative path from the API — resolve to backend
-  if (src.startsWith('/images/')) {
-    return `${API_BASE}${src}`;
-  }
-  
-  // Local public folder image (e.g. /wazwan-hero.jpg)
+  // Local public folder image (e.g. /images/... or /wazwan-hero.jpg)
   return src;
 }

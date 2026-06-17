@@ -23,7 +23,7 @@ router.get(
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const { search, category, budget, foodType } = req.query;
+    const { search, category, budget, foodType, categoryType } = req.query;
     const query = {};
 
     if (search) {
@@ -46,6 +46,10 @@ router.get(
 
     if (foodType) {
       query.foodType = foodType;
+    }
+
+    if (categoryType) {
+      query.categoryType = categoryType;
     }
 
     const dishes = await Dish.find(query)

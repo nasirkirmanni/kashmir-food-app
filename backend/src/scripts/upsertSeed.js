@@ -18,6 +18,8 @@ const newDishes = [
     history: "Historically, Matsgand has been a key dish in Kashmiri Pandit feasts. It showcases the Pandit style of meat preparation, which excludes onion and garlic, relying heavily on fennel seeds (badian) and ginger powder (sonth) for its distinct aroma.",
     touristTip: "Best enjoyed with hot steamed basmati rice and a side of fresh walnut chutney.",
     category: "Wazwan",
+    categoryType: "wazwan",
+    courseType: "signature",
     foodType: "Non-veg",
     image: "/images/dishes/rista.jpg",
     priceRange: "INR 400-800",
@@ -32,6 +34,8 @@ const newDishes = [
     history: "A cousin of the Muslim Wazwan's Tabak Maaz, Kabargah is the Pandit counterpart. Its preparation involves simmering tender ribs in milk infused with cardamoms and sweet fennel before a final flash-fry.",
     touristTip: "Perfect as an appetizer. Squeeze fresh lemon juice on top before eating.",
     category: "Luxury Dining",
+    categoryType: "kashmiri_cuisine",
+    courseType: "signature",
     foodType: "Non-veg",
     image: "/images/dishes/tabak-maaz.jpg",
     priceRange: "INR 450-900",
@@ -46,6 +50,7 @@ const newDishes = [
     history: "This dish is highly celebrated during the winter months in Kashmir. It is also an essential part of the Gaad Batte festival, symbolizing local harvest and the connection between land and water.",
     touristTip: "Try this in local households or traditional local eateries during winter for the most authentic experience.",
     category: "Wazwan",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
     image: "/images/dishes/rogan-josh.webp",
     priceRange: "INR 300-600",
@@ -60,6 +65,7 @@ const newDishes = [
     history: "Lotus stems (Nadru) harvested from Dal and Anchar lakes have been eaten in Kashmir since ancient times. Pairing them with local fish represents the traditional lakeside diet of the valley.",
     touristTip: "A great local specialty. The lotus stems absorb the delicious fish gravy and become extremely flavorful.",
     category: "Wazwan",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
     image: "/images/dishes/nadru-yakhni.jpg",
     priceRange: "INR 320-650",
@@ -74,8 +80,9 @@ const newDishes = [
     history: "Quince apples are native to the temperate climate of Kashmir. Historically, Wazas slow-cooked this fruit during autumn to balance the savory feast menus with fruity, acidic undertones.",
     touristTip: "Try it if you want to experience the rare fruit-meat pairings of Kashmiri royal cuisine.",
     category: "Wazwan",
+    categoryType: "kashmiri_cuisine",
     foodType: "Veg",
-    image: "/images/dishes/ruwangan-chaman.png",
+    image: "/images/dishes/ruwangan-chaman.jpg",
     priceRange: "INR 250-500",
     popularityRating: 4.0,
     spiceLevel: "Medium",
@@ -88,6 +95,7 @@ const newDishes = [
     history: "Kashmiris historically sun-dried summer vegetables like bottle gourd (Al-Hachh) to prepare for the harsh winter months when snow blocked trade routes. This dish represents the resilience and preservation traditions of Kashmir.",
     touristTip: "Perfect comfort food for chilly autumn or winter days.",
     category: "Wazwan",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
     image: "/images/dishes/rogan-josh.webp",
     priceRange: "INR 350-700",
@@ -102,8 +110,10 @@ const newDishes = [
     history: "This dish is a vegetarian highlight of Kashmiri feasting. The combination of heat and sour tamarind makes it an excellent palate cleanser.",
     touristTip: "An excellent option for vegetarians who want something with a bold, punchy, and tangy flavor.",
     category: "Wazwan",
+    categoryType: "wazwan",
+    courseType: "vegetarian",
     foodType: "Veg",
-    image: "/images/dishes/ruwangan-chaman.png",
+    image: "/images/dishes/ruwangan-chaman.jpg",
     priceRange: "INR 200-400",
     popularityRating: 4.5,
     spiceLevel: "High",
@@ -116,6 +126,8 @@ const newDishes = [
     history: "Shufta has historically been served at weddings and special celebrations, symbolizing wealth and luxury because of its use of premium dry fruits.",
     touristTip: "Extremely rich. Share a small bowl with friends at the end of your meal.",
     category: "Luxury Dining",
+    categoryType: "kashmiri_cuisine",
+    courseType: "dessert",
     foodType: "Veg",
     image: "/images/dishes/gushtaba.jpg",
     priceRange: "INR 400-800",
@@ -130,8 +142,9 @@ const newDishes = [
     history: "Brought to Kashmir from Central Asia, Harissa has been a winter breakfast staple in Downtown Srinagar for centuries. Specialized cooks (Haris-Froush) prepare it in large copper pots inside underground wood-fired ovens.",
     touristTip: "Go early in the morning (around 6 AM) to a traditional Harissa shop in Downtown Srinagar to experience it piping hot with local Lavas bread.",
     category: "Street Food",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
-    image: "/images/dishes/rogan-josh.webp",
+    image: "/images/dishes/kashmiri-harissa.jpg",
     priceRange: "INR 200-400",
     popularityRating: 4.9,
     spiceLevel: "Medium",
@@ -144,6 +157,7 @@ const newDishes = [
     history: "As a foundational daily meat dish of the Kashmiri Pandit community, Syoon represents a centuries-old culinary style defined by strict dietary preferences and local spices.",
     touristTip: "It has a lighter and more herbal flavor than the heavier Muslim Wazwan Rogan Josh.",
     category: "Wazwan",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
     image: "/images/dishes/rogan-josh.webp",
     priceRange: "INR 380-750",
@@ -158,6 +172,7 @@ const newDishes = [
     history: "Turnips are a highly resilient crop in Kashmir. Cooking them with mutton is a warm home-style tradition that keeps families cozy during the winter months.",
     touristTip: "Perfect for travelers looking for a rustic, non-commercial meal that tastes like home.",
     category: "Wazwan",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
     image: "/images/dishes/rogan-josh.webp",
     priceRange: "INR 300-600",
@@ -172,8 +187,10 @@ const newDishes = [
     history: "Walnut trees are abundant across Kashmir. This chutney has been served as a standard accompaniment in Wazwan feasts and home meals to aid digestion of rich meats.",
     touristTip: "Take a small dab on your rice; it has a beautiful nutty richness with a punch of green chili heat.",
     category: "Wazwan",
+    categoryType: "wazwan",
+    courseType: "condiment",
     foodType: "Veg",
-    image: "/images/dishes/gande-tsitin.png",
+    image: "/images/dishes/gande-tsitin.jpg",
     priceRange: "INR 50-100",
     popularityRating: 4.7,
     spiceLevel: "High",
@@ -186,8 +203,9 @@ const newDishes = [
     history: "Kahwa has been drank in Kashmir for centuries. It was historically reserved for royalty and guests of honor as a warm welcome drink and digestive aid.",
     touristTip: "Always drink it hot. It is the perfect welcome drink when you arrive in the cool valleys of Kashmir.",
     category: "Cafes",
+    categoryType: "beverage",
     foodType: "Veg",
-    image: "/images/dishes/daniwal-korma.png",
+    image: "/images/dishes/saffron-kahwa.jpg",
     priceRange: "INR 60-120",
     popularityRating: 4.9,
     spiceLevel: "Mild",
@@ -200,8 +218,9 @@ const newDishes = [
     history: "This pink tea is the daily morning and afternoon beverage for almost every Kashmiri. Its unique color comes from the chemical reaction of tea leaves with baking soda under prolonged boiling.",
     touristTip: "It is salty, not sweet! Try it with local baked breads like Girda or Bakerkhani.",
     category: "Cafes",
+    categoryType: "beverage",
     foodType: "Veg",
-    image: "/images/dishes/waza-haak.png",
+    image: "/images/dishes/noon-chai.jpg",
     priceRange: "INR 40-80",
     popularityRating: 4.5,
     spiceLevel: "Mild",
@@ -214,8 +233,9 @@ const newDishes = [
     history: "Kashmir has a unique bakery culture (Kandur-wan). Girda is purchased fresh every morning by locals to eat with Noon Chai.",
     touristTip: "Eat it warm with a spread of butter, dipped in Noon Chai.",
     category: "Street Food",
+    categoryType: "bakery",
     foodType: "Veg",
-    image: "/images/dishes/dum-aelve.jpg",
+    image: "/images/dishes/girda.jpg",
     priceRange: "INR 10-20",
     popularityRating: 4.6,
     spiceLevel: "Mild",
@@ -228,8 +248,9 @@ const newDishes = [
     history: "Originating during Mughal times, the Bakerkhani has evolved in Kashmir into a popular afternoon snack, usually enjoyed with salted pink tea.",
     touristTip: "Buy it fresh from a local neighborhood kandur (baker) in the afternoon.",
     category: "Street Food",
+    categoryType: "bakery",
     foodType: "Veg",
-    image: "/images/dishes/dum-aelve.jpg",
+    image: "/images/dishes/bakerkhani.jpg",
     priceRange: "INR 15-30",
     popularityRating: 4.4,
     spiceLevel: "Mild",
@@ -242,8 +263,9 @@ const newDishes = [
     history: "Lavas has deep Central Asian roots. It acts as the primary wrap for street foods (Tujji) and winter Harissa in the valley.",
     touristTip: "Use it to scoop up hot Harissa or wrapped around skewered Tujji kababs.",
     category: "Street Food",
+    categoryType: "bakery",
     foodType: "Veg",
-    image: "/images/dishes/waza-haak.png",
+    image: "/images/dishes/lavas.jpg",
     priceRange: "INR 10-20",
     popularityRating: 4.6,
     spiceLevel: "Mild",
@@ -256,8 +278,9 @@ const newDishes = [
     history: "Another classic kandur bread, Czochworu has been the traditional tea-time companion for students and office workers in the afternoon.",
     touristTip: "Best sliced in half with butter spread inside.",
     category: "Street Food",
+    categoryType: "bakery",
     foodType: "Veg",
-    image: "/images/dishes/dum-aelve.jpg",
+    image: "/images/dishes/czochworu.jpg",
     priceRange: "INR 10-20",
     popularityRating: 4.3,
     spiceLevel: "Mild",
@@ -270,6 +293,7 @@ const newDishes = [
     history: "A celebratory sweet rice preparation developed in royal kitchens to showcase the abundance of Kashmiri saffron and local orchards.",
     touristTip: "A great option if you prefer a sweet, rich, and completely non-spicy rice dish.",
     category: "Luxury Dining",
+    categoryType: "kashmiri_cuisine",
     foodType: "Veg",
     image: "/images/dishes/rogan-josh.webp",
     priceRange: "INR 250-500",
@@ -284,6 +308,7 @@ const newDishes = [
     history: "Trout was introduced to Kashmir's cold streams during British colonial rule. It has since become a localized delicacy, especially in Pahalgam and Dachigam streams.",
     touristTip: "A must-try in Pahalgam. Freshness is guaranteed since the fish is harvested from local cold-water farms.",
     category: "Luxury Dining",
+    categoryType: "kashmiri_cuisine",
     foodType: "Non-veg",
     image: "/images/dishes/tabak-maaz.jpg",
     priceRange: "INR 350-700",
@@ -300,7 +325,7 @@ const newDishes = [
     category: "Cafes",
     categoryType: "beverage",
     foodType: "Veg",
-    image: "/images/dishes/daniwal-korma.png",
+    image: "/images/dishes/kashmiri-lassi.jpg",
     priceRange: "INR 60-120",
     popularityRating: 4.6,
     spiceLevel: "Mild",
@@ -603,12 +628,31 @@ async function run() {
   console.log("Upserting database collections...");
 
   // 1. Upsert Dishes
-  const dishesToUpsert = [];
+  const dishesMap = new Map();
   
   // Original dishes
   originalDishes.forEach(d => {
     const scores = getDeterministicScores(d.name, 101);
-    dishesToUpsert.push({
+    let image = d.image;
+    // Correct Cardamom Kahwa thumbnail mapping
+    if (d.name === "Cardamom Kahwa" || d.image?.endsWith("cardamom-kahwa.webp")) {
+      image = "/images/dishes/saffron-kahwa.jpg";
+    }
+    dishesMap.set(d.name.toLowerCase(), {
+      ...d,
+      image,
+      authenticityScore: scores.authenticityScore,
+      touristFriendlinessScore: scores.touristFriendlinessScore,
+      luxuryScore: scores.luxuryScore
+    });
+  });
+
+  // New dishes - merge and override
+  newDishes.forEach(d => {
+    const scores = getDeterministicScores(d.name, 101);
+    const existing = dishesMap.get(d.name.toLowerCase()) || {};
+    dishesMap.set(d.name.toLowerCase(), {
+      ...existing,
       ...d,
       authenticityScore: scores.authenticityScore,
       touristFriendlinessScore: scores.touristFriendlinessScore,
@@ -616,16 +660,7 @@ async function run() {
     });
   });
 
-  // New dishes
-  newDishes.forEach(d => {
-    const scores = getDeterministicScores(d.name, 101);
-    dishesToUpsert.push({
-      ...d,
-      authenticityScore: scores.authenticityScore,
-      touristFriendlinessScore: scores.touristFriendlinessScore,
-      luxuryScore: scores.luxuryScore
-    });
-  });
+  const dishesToUpsert = Array.from(dishesMap.values());
 
   console.log(`Upserting ${dishesToUpsert.length} dishes...`);
   const dishMap = new Map();
@@ -640,12 +675,13 @@ async function run() {
   console.log("Dishes upsert complete.");
 
   // 2. Upsert Restaurants
-  const restaurantsToUpsert = [];
+  const restaurantsMap = new Map();
 
   // Original list
   originalRestaurants.forEach(r => {
     const scores = getDeterministicScores(r.name, 202);
-    restaurantsToUpsert.push({
+    const key = `${r.name.toLowerCase()}|${(r.city || "srinagar").toLowerCase()}`;
+    restaurantsMap.set(key, {
       ...r,
       authenticityScore: scores.authenticityScore,
       touristFriendlinessScore: scores.touristFriendlinessScore,
@@ -657,7 +693,8 @@ async function run() {
   originalUsers.forEach(item => {
     if (item.name && item.name !== "Admin User" && item.name !== "Travel Explorer") {
       const scores = getDeterministicScores(item.name, 202);
-      restaurantsToUpsert.push({
+      const key = `${item.name.toLowerCase()}|${(item.city || "srinagar").toLowerCase()}`;
+      restaurantsMap.set(key, {
         ...item,
         authenticityScore: scores.authenticityScore,
         touristFriendlinessScore: scores.touristFriendlinessScore,
@@ -669,7 +706,10 @@ async function run() {
   // New restaurants
   newRestaurants.forEach(r => {
     const scores = getDeterministicScores(r.name, 202);
-    restaurantsToUpsert.push({
+    const key = `${r.name.toLowerCase()}|${(r.city || "srinagar").toLowerCase()}`;
+    const existing = restaurantsMap.get(key) || {};
+    restaurantsMap.set(key, {
+      ...existing,
       ...r,
       authenticityScore: scores.authenticityScore,
       touristFriendlinessScore: scores.touristFriendlinessScore,
@@ -677,6 +717,7 @@ async function run() {
     });
   });
 
+  const restaurantsToUpsert = Array.from(restaurantsMap.values());
   console.log(`Upserting ${restaurantsToUpsert.length} restaurants...`);
   for (const rest of restaurantsToUpsert) {
     const dishIds = (rest.linkedDishNames || []).map(dname => dishMap.get(dname)).filter(Boolean);

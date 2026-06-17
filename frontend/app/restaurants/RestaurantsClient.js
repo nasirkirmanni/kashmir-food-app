@@ -181,14 +181,14 @@ const LuxuryRestaurantCard = memo(({
         onMouseLeave={onMouseLeave}
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`relative flex flex-col sm:flex-row w-full overflow-hidden rounded-3xl border transition-all duration-300 bg-[#0B0B0B] group active:scale-[0.99] p-4 gap-6 ${
+        className={`relative flex flex-col w-full overflow-hidden rounded-2xl border transition-all duration-300 bg-[#0B0B0B] group active:scale-[0.99] ${
           isHovered 
             ? "border-[var(--saffron)]/70 shadow-[0_0_25px_rgba(212,175,55,0.15)] -translate-y-1" 
             : "border-white/10 shadow-lg hover:border-[var(--saffron)]/40"
         }`}
       >
-        {/* Left Side: Large Restaurant Image */}
-        <div className="relative w-full sm:w-[220px] h-[180px] sm:h-auto shrink-0 overflow-hidden rounded-2xl bg-black/50">
+        {/* Top: Restaurant Image */}
+        <div className="relative w-full h-[200px] overflow-hidden bg-black/50">
           {imageSrc ? (
             <img
               src={imageSrc}
@@ -204,124 +204,107 @@ const LuxuryRestaurantCard = memo(({
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           
-          {/* Authentic / Trust badge at top left of image */}
-          {restaurant.authentic && (
-            <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full border border-[var(--saffron)] bg-black/75 px-3 py-1 text-[0.6rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              Verified
-            </div>
-          )}
-        </div>
-
-        {/* Center: Restaurant Metadata & Details */}
-        <div className="flex flex-1 flex-col justify-between min-w-0">
-          <div>
-            {/* Header row: Name, rating, reviews */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <h3 className="font-display text-lg md:text-xl font-bold text-white group-hover:text-[var(--saffron)] transition-colors truncate">
-                {restaurant.name}
-              </h3>
-              
-              {/* Verified Badge next to name */}
-              {restaurant.authentic && (
-                <div className="flex items-center gap-1 text-[10px] font-bold text-[var(--saffron)] bg-[var(--saffron-pale)] px-2 py-0.5 rounded border border-[var(--saffron)]/30">
-                  <CheckCircle2 className="w-3 h-3 text-[var(--saffron)]" />
-                  <span>Verified Partner</span>
-                </div>
-              )}
-            </div>
-
-            {/* Rating / Review Count / Price Range / Distance row */}
-            <div className="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-white/50">
-              <div className="flex items-center gap-1 bg-green-700/80 text-white rounded px-1.5 py-0.5 text-[0.7rem] font-bold shrink-0">
-                <Star className="h-3 w-3 fill-current" />
-                <span>{restaurant.rating || "4.0"}</span>
+          {/* Top-left badges */}
+          <div className="absolute top-3 left-3 flex items-center gap-2">
+            {restaurant.authentic && (
+              <div className="flex items-center gap-1 rounded-full border border-[var(--saffron)] bg-black/75 px-2.5 py-1 text-[0.6rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
+                <CheckCircle2 className="w-3 h-3" />
+                Verified
               </div>
-              <span>•</span>
-              <span>{enriched.reviewsCount} reviews</span>
-              <span>•</span>
-              <span className="text-white/80 font-mono tracking-wider">{enriched.priceRange}</span>
-              <span>•</span>
-              <span className="text-[var(--saffron)] font-bold">{distanceMetrics.distance}</span>
-            </div>
-
-            {/* Address */}
-            <p className="mt-3 text-xs text-white/70 flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-white/40 shrink-0" />
-              <span className="truncate">{restaurant.location}</span>
-            </p>
-
-            {/* Cuisine Tags */}
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).slice(0, 3).map((tag, idx) => (
-                <button
-                  key={idx}
-                  onClick={(e) => onTagClick(tag, e)}
-                  className="rounded-full bg-white/5 hover:bg-[var(--saffron)] hover:text-black border border-white/5 px-2.5 py-0.5 text-[10px] font-medium text-white/60 transition-colors"
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-
-            {/* Must Try Dishes */}
-            <div className="mt-4 text-xs text-white/50 flex flex-wrap items-center gap-1">
-              <span className="text-white/70 font-medium">Must Try:</span>
-              <div className="flex flex-wrap gap-1">
-                {enriched.mustTry.map((dish, idx) => (
-                  <button
-                    key={idx}
-                    onClick={(e) => onDishClick(dish, e)}
-                    className="text-[var(--saffron)] hover:text-white font-semibold transition-colors"
-                  >
-                    {dish}{idx < enriched.mustTry.length - 1 ? " •" : ""}
-                  </button>
-                ))}
-              </div>
-            </div>
+            )}
           </div>
 
-          {/* Operating Hours / Travel time row */}
-          <div className="mt-4 pt-3.5 border-t border-white/5 flex flex-wrap items-center justify-between gap-3 text-xs text-white/40">
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-white/30 shrink-0" />
-              <span className={openStatus.isOpen ? "text-green-500 font-semibold" : "text-red-500 font-semibold"}>
-                {openStatus.text}
-              </span>
-              <span>•</span>
-              <span className="truncate">{openStatus.hoursText}</span>
-            </div>
-            <div className="flex items-center gap-1 font-semibold text-white/60">
-              <Navigation className="w-3.5 h-3.5 text-[var(--saffron)] rotate-45 shrink-0" />
-              <span>{distanceMetrics.travelTime} away</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side: Quick Action CTA Group */}
-        <div className="flex sm:flex-col justify-end sm:justify-between items-end shrink-0 gap-3 border-t sm:border-t-0 sm:border-l border-white/5 pt-4 sm:pt-0 sm:pl-4">
+          {/* Top-right bookmark */}
           <button
             onClick={onToggleBookmark}
-            className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-colors ${
-              isBookmarked ? "bg-[var(--saffron-pale)] text-[var(--saffron)] border-[var(--saffron)]/40" : "text-white/60 hover:text-[var(--saffron)] hover:border-[var(--saffron)]/50"
+            className={`absolute top-3 right-3 w-9 h-9 rounded-full border flex items-center justify-center transition-colors backdrop-blur-md ${
+              isBookmarked ? "bg-[var(--saffron-pale)] text-[var(--saffron)] border-[var(--saffron)]/40" : "bg-black/50 text-white/70 border-white/20 hover:text-[var(--saffron)] hover:border-[var(--saffron)]/50"
             }`}
           >
             <Bookmark className={`w-4 h-4 ${isBookmarked ? "fill-[var(--saffron)]" : ""}`} />
           </button>
-          
-          <div className="flex sm:flex-col gap-2 w-full sm:w-auto">
-            <button className="flex items-center justify-center gap-1.5 rounded-full bg-[var(--saffron)] hover:bg-[var(--saffron-light)] text-black px-5 py-2.5 text-xs font-bold transition-all whitespace-nowrap shadow-[0_4px_15px_rgba(212,175,55,0.15)]">
-              View Details
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+
+          {/* Bottom-left: Open status pill */}
+          <div className="absolute bottom-3 left-3">
+            <div className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.6rem] font-bold backdrop-blur-md border ${
+              openStatus.isOpen 
+                ? "bg-green-900/60 text-green-400 border-green-500/30" 
+                : "bg-red-900/60 text-red-400 border-red-500/30"
+            }`}>
+              <Clock className="w-3 h-3" />
+              {openStatus.text}
+            </div>
+          </div>
+
+          {/* Bottom-right: Distance pill */}
+          <div className="absolute bottom-3 right-3">
+            <div className="flex items-center gap-1 rounded-full bg-black/70 backdrop-blur-md px-2.5 py-1 text-[0.6rem] font-bold text-[var(--saffron)] border border-white/10">
+              <Navigation className="w-3 h-3 rotate-45" />
+              {distanceMetrics.distance}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom: Content */}
+        <div className="flex flex-col gap-3 p-4">
+          {/* Name + Rating row */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-display text-base font-bold text-white group-hover:text-[var(--saffron)] transition-colors truncate">
+                {restaurant.name}
+              </h3>
+              <p className="mt-1 text-[11px] text-white/50 flex items-center gap-1 truncate">
+                <MapPin className="w-3 h-3 text-white/30 shrink-0" />
+                {restaurant.location}
+              </p>
+            </div>
+            <div className="flex items-center gap-1 bg-green-700/80 text-white rounded px-2 py-0.5 text-xs font-bold shrink-0">
+              <Star className="h-3 w-3 fill-current" />
+              {restaurant.rating || "4.0"}
+            </div>
+          </div>
+
+          {/* Meta row */}
+          <div className="flex items-center gap-2 text-[11px] text-white/50 flex-wrap">
+            <span>{enriched.reviewsCount} reviews</span>
+            <span className="text-white/20">&bull;</span>
+            <span className="text-white/70 font-mono">{enriched.priceRange}</span>
+            <span className="text-white/20">&bull;</span>
+            <span>{distanceMetrics.travelTime} away</span>
+            <span className="text-white/20">&bull;</span>
+            <span>{openStatus.hoursText}</span>
+          </div>
+
+          {/* Tags row */}
+          <div className="flex flex-wrap gap-1.5">
+            {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).slice(0, 4).map((tag, idx) => (
+              <button
+                key={idx}
+                onClick={(e) => onTagClick(tag, e)}
+                className="rounded-full bg-white/5 hover:bg-[var(--saffron)] hover:text-black border border-white/5 px-2.5 py-0.5 text-[10px] font-medium text-white/60 transition-colors"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+
+          {/* Must Try + Directions row */}
+          <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/5">
+            <div className="text-[11px] text-white/50 flex items-center gap-1 min-w-0 flex-1 truncate">
+              <span className="text-white/70 font-medium shrink-0">Must Try:</span>
+              <span className="text-[var(--saffron)] font-semibold truncate">
+                {enriched.mustTry.join(" \u2022 ")}
+              </span>
+            </div>
             <button
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurant.googleMapsQuery || restaurant.name)}`);
               }}
-              className="flex items-center justify-center gap-1.5 rounded-full border border-white/10 hover:border-[var(--saffron)]/40 hover:bg-white/5 text-white/80 px-4 py-2.5 text-xs font-bold transition-colors whitespace-nowrap"
+              className="shrink-0 flex items-center gap-1 rounded-full border border-white/10 hover:border-[var(--saffron)]/40 hover:bg-white/5 text-white/70 px-3 py-1.5 text-[10px] font-bold transition-colors"
             >
+              <Navigation className="w-3 h-3 text-[var(--saffron)] rotate-45" />
               Directions
             </button>
           </div>

@@ -5,6 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { endpoints, request } from "@/lib/api";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 function DishesPageContent() {
   const router = useRouter();
@@ -138,7 +139,7 @@ function DishesPageContent() {
               >
                 <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                   <img
-                    src={dish.image}
+                    src={resolveImageUrl(dish.image)}
                     alt={dish.name}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
@@ -189,7 +190,7 @@ function DishesPageContent() {
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                     <img
-                      src={dish.image}
+                      src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
@@ -227,7 +228,7 @@ function DishesPageContent() {
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                     <img
-                      src={dish.image}
+                      src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
@@ -265,7 +266,7 @@ function DishesPageContent() {
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                     <img
-                      src={dish.image}
+                      src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"

@@ -20,9 +20,9 @@ export const dishes = [
       "milk curry",
       "fennel"
     ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5,
+    "authenticityScore": 3.8,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3,
     "__v": 0,
     "createdAt": "2026-06-11T05:36:56.222Z",
     "updatedAt": "2026-06-11T07:06:07.968Z",
@@ -31,7 +31,6 @@ export const dishes = [
     "courseType": "signature"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f1f",
     "name": "Al-Hachh Mutton",
     "description": "Mutton cooked with dried bottle gourd slices.",
     "fullDescription": "Al-Hachh Mutton is a classic dish combining sun-dried bottle gourd slices with tender mutton in a slow-cooked spiced gravy.",
@@ -51,17 +50,13 @@ export const dishes = [
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.224Z",
-    "updatedAt": "2026-06-11T07:06:09.916Z",
-    "slug": "al-hachh-mutton",
     "categoryType": "kashmiri_cuisine"
   },
   {
     "_id": "6a2a5e67185d2d28b82e8693",
     "name": "Aloo Bukhar Korma",
     "__v": 0,
-    "authenticityScore": 4.8,
+    "authenticityScore": 4.1,
     "category": "Wazwan",
     "categoryType": "wazwan",
     "courseType": "signature",
@@ -71,7 +66,7 @@ export const dishes = [
     "fullDescription": "Aloo Bukhar Korma is a unique Wazwan course consisting of spiced minced mutton meatballs (kofte) simmered in a sweet-and-sour gravy flavored with dried plums (aloo bukhar) and warm spices.",
     "history": "Historically prepared by Wazas to balance the highly savory and spicy meat-heavy progression of the Wazwan with sweet and tangy fruit notes.",
     "image": "/images/dishes/aloo-bukhar-korma.jpg",
-    "luxuryScore": 4,
+    "luxuryScore": 3.5,
     "popularityRating": 4.6,
     "priceRange": "INR 350-700",
     "slug": "aloo-bukhar-korma",
@@ -82,7 +77,7 @@ export const dishes = [
       "sweet-sour",
       "plums"
     ],
-    "touristFriendlinessScore": 4.5,
+    "touristFriendlinessScore": 4.7,
     "touristTip": "Look out for the whole dried plums in the gravy which give the dish its distinctive flavor.",
     "updatedAt": "2026-06-11T07:06:14.768Z"
   },
@@ -171,7 +166,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f18",
     "name": "Bakerkhani",
     "description": "Flaky, layered baked flatbread.",
     "fullDescription": "Bakerkhani is a thick, round, flaky flatbread with a golden crust, baked in a clay tandoor.",
@@ -191,14 +185,9 @@ export const dishes = [
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.403Z",
-    "slug": "bakerkhani",
     "categoryType": "bakery"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f1e",
     "name": "Bam Tsoonth",
     "description": "Quince apples cooked in a tangy, spiced curry.",
     "fullDescription": "Bam Tsoonth is a unique sweet and sour Kashmiri dish featuring quince apples cooked with mutton or paneer in a spiced gravy.",
@@ -218,10 +207,6 @@ export const dishes = [
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.839Z",
-    "slug": "bam-tsoonth",
     "categoryType": "kashmiri_cuisine"
   },
   {
@@ -289,7 +274,7 @@ export const dishes = [
     "touristTip": "When ordering Cardamom Kahwa, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
     "category": "Cafes",
     "foodType": "Veg",
-    "image": "/images/dishes/cardamom-kahwa.webp",
+    "image": "/images/dishes/saffron-kahwa.jpg",
     "priceRange": "INR 90-180",
     "popularityRating": 4.1,
     "spiceLevel": "Mild",
@@ -310,7 +295,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f17",
     "name": "Czochworu",
     "description": "Bagel-like tandoor-baked bread topped with sesame.",
     "fullDescription": "Czochworu is a small, round, bagel-like bread with a soft interior and a hard crust topped with sesame seeds.",
@@ -330,10 +314,6 @@ export const dishes = [
     "authenticityScore": 3.8,
     "touristFriendlinessScore": 4.1,
     "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.341Z",
-    "slug": "czochworu",
     "categoryType": "bakery"
   },
   {
@@ -419,31 +399,27 @@ export const dishes = [
     "courseType": "signature"
   },
   {
-    "_id": "6a2a49c2185d2d28b82e867e",
     "name": "Doon Chetin",
-    "__v": 0,
-    "authenticityScore": 4.1,
-    "category": "Wazwan",
-    "createdAt": "2026-06-11T05:38:09.811Z",
     "description": "Earthy walnut chutney with green chilies.",
-    "foodType": "Veg",
     "fullDescription": "Doon Chetin is a thick, textured paste of crushed walnuts, green chilies, yogurt, mint, and salt.",
     "history": "Walnut trees are abundant across Kashmir. This chutney has been served as a standard accompaniment in Wazwan feasts and home meals to aid digestion of rich meats.",
+    "touristTip": "Take a small dab on your rice; it has a beautiful nutty richness with a punch of green chili heat.",
+    "category": "Wazwan",
+    "foodType": "Veg",
     "image": "/images/dishes/gande-tsitin.jpg",
-    "luxuryScore": 3,
-    "popularityRating": 4.7,
     "priceRange": "INR 50-100",
+    "popularityRating": 4.7,
     "spiceLevel": "High",
     "tags": [
       "walnut",
       "chutney",
       "condiment"
     ],
+    "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
-    "touristTip": "Take a small dab on your rice; it has a beautiful nutty richness with a punch of green chili heat.",
-    "updatedAt": "2026-06-11T07:06:14.473Z",
-    "slug": "doon-chetin",
-    "categoryType": "kashmiri_cuisine"
+    "luxuryScore": 3,
+    "categoryType": "wazwan",
+    "courseType": "condiment"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f09",
@@ -463,9 +439,9 @@ export const dishes = [
       "yogurt",
       "rare"
     ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5,
     "__v": 0,
     "createdAt": "2026-06-11T05:36:56.222Z",
     "updatedAt": "2026-06-11T07:06:08.338Z",
@@ -557,34 +533,28 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a49c2185d2d28b82e8680",
     "name": "Girda",
-    "__v": 0,
-    "authenticityScore": 4.7,
-    "category": "Street Food",
-    "createdAt": "2026-06-11T05:38:10.001Z",
     "description": "Tandoor-baked breakfast bread.",
-    "foodType": "Veg",
     "fullDescription": "Girda is a round, flat bread with finger impressions pressed into the dough, baked in a traditional clay tandoor (kandur).",
     "history": "Kashmir has a unique bakery culture (Kandur-wan). Girda is purchased fresh every morning by locals to eat with Noon Chai.",
+    "touristTip": "Eat it warm with a spread of butter, dipped in Noon Chai.",
+    "category": "Street Food",
+    "foodType": "Veg",
     "image": "/images/dishes/girda.jpg",
-    "luxuryScore": 4,
-    "popularityRating": 4.6,
     "priceRange": "INR 10-20",
+    "popularityRating": 4.6,
     "spiceLevel": "Mild",
     "tags": [
       "bread",
       "breakfast",
       "street-food"
     ],
+    "authenticityScore": 4.7,
     "touristFriendlinessScore": 5,
-    "touristTip": "Eat it warm with a spread of butter, dipped in Noon Chai.",
-    "updatedAt": "2026-06-11T07:06:14.614Z",
-    "slug": "girda",
+    "luxuryScore": 4,
     "categoryType": "bakery"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f23",
     "name": "Gogji Mutton",
     "description": "Mutton cooked simply with fresh turnips.",
     "fullDescription": "Gogji Mutton is a rustic, home-style Kashmiri curry where mutton is slow-cooked with whole or halved turnips until meltingly soft.",
@@ -604,10 +574,6 @@ export const dishes = [
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.224Z",
-    "updatedAt": "2026-06-11T07:06:10.230Z",
-    "slug": "gogji-mutton",
     "categoryType": "kashmiri_cuisine"
   },
   {
@@ -741,9 +707,9 @@ export const dishes = [
       "greens",
       "traditional"
     ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
     "__v": 0,
     "createdAt": "2026-06-11T05:36:56.222Z",
     "updatedAt": "2026-06-11T07:06:07.834Z",
@@ -806,7 +772,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f30",
     "name": "Kabargah",
     "description": "Crispy fried mutton ribs cooked in milk and spices.",
     "fullDescription": "Kabargah consists of mutton ribs cooked in milk and spices, then dipped in chickpea flour batter and shallow fried in pure ghee until crispy and golden.",
@@ -826,14 +791,10 @@ export const dishes = [
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.224Z",
-    "updatedAt": "2026-06-11T07:06:11.153Z",
-    "slug": "kabargah",
-    "categoryType": "kashmiri_cuisine"
+    "categoryType": "kashmiri_cuisine",
+    "courseType": "signature"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f0e",
     "name": "Kashmiri Harissa",
     "description": "A slow-cooked winter mutton and rice paste.",
     "fullDescription": "Harissa is a rich, smooth paste of mutton slow-cooked overnight with rice, spices, and oil, served hot with local baked flatbreads.",
@@ -853,41 +814,31 @@ export const dishes = [
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 5,
     "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:08.695Z",
-    "slug": "kashmiri-harissa",
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a49c2185d2d28b82e867f",
     "name": "Kashmiri Kahwa",
-    "__v": 0,
-    "authenticityScore": 5,
-    "category": "Cafes",
-    "createdAt": "2026-06-11T05:38:09.878Z",
     "description": "Saffron-infused Kashmiri green tea with almonds.",
-    "foodType": "Veg",
     "fullDescription": "Kahwa is an aromatic green tea brewed with saffron strands, cinnamon bark, cardamom pods, and served with a generous garnish of crushed almonds.",
     "history": "Kahwa has been drank in Kashmir for centuries. It was historically reserved for royalty and guests of honor as a warm welcome drink and digestive aid.",
-    "image": "/images/dishes/daniwal-korma.jpg",
-    "luxuryScore": 4.5,
-    "popularityRating": 4.9,
+    "touristTip": "Always drink it hot. It is the perfect welcome drink when you arrive in the cool valleys of Kashmir.",
+    "category": "Cafes",
+    "foodType": "Veg",
+    "image": "/images/dishes/saffron-kahwa.jpg",
     "priceRange": "INR 60-120",
+    "popularityRating": 4.9,
     "spiceLevel": "Mild",
     "tags": [
       "tea",
       "saffron",
       "almonds"
     ],
+    "authenticityScore": 5,
     "touristFriendlinessScore": 3.5,
-    "touristTip": "Always drink it hot. It is the perfect welcome drink when you arrive in the cool valleys of Kashmir.",
-    "updatedAt": "2026-06-11T07:06:14.543Z",
-    "slug": "kashmiri-kahwa",
-    "categoryType": "kashmiri_cuisine"
+    "luxuryScore": 4.5,
+    "categoryType": "beverage"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f11",
     "name": "Kashmiri Pulao",
     "description": "Sweet, fragrant saffron rice with nuts.",
     "fullDescription": "Kashmiri Pulao is an aromatic rice preparation cooked with milk, ghee, saffron, and loaded with nuts like almonds, walnuts, and raisins, topped with fresh fruits.",
@@ -907,14 +858,9 @@ export const dishes = [
     "authenticityScore": 3.8,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:08.903Z",
-    "slug": "kashmiri-pulao",
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f16",
     "name": "Lavas",
     "description": "Thin, soft baked unleavened flatbread.",
     "fullDescription": "Lavas is a thin, puffed unleavened flatbread baked in a tandoor, commonly wrapped around barbecue or harissa.",
@@ -934,10 +880,6 @@ export const dishes = [
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.264Z",
-    "slug": "lavas",
     "categoryType": "bakery"
   },
   {
@@ -1023,7 +965,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f31",
     "name": "Matsgand",
     "description": "Minced meatballs cooked in a spicy red gravy.",
     "fullDescription": "Matsgand is a beloved Kashmiri Pandit minced mutton meatball preparation cooked in a rich, red chili-forward gravy flavored with fennel, ginger, and asafoetida.",
@@ -1043,11 +984,8 @@ export const dishes = [
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.224Z",
-    "updatedAt": "2026-06-11T07:06:11.230Z",
-    "slug": "matsgand",
-    "categoryType": "kashmiri_cuisine"
+    "categoryType": "wazwan",
+    "courseType": "signature"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76efd",
@@ -1135,7 +1073,6 @@ export const dishes = [
     "courseType": "foundation"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f1c",
     "name": "Muji Gaad",
     "description": "Kashmiri fish curry cooked with radish.",
     "fullDescription": "Muji Gaad is a traditional winter dish combining freshwater fish with sliced radish, cooked in a spicy red gravy flavored with Kashmiri spices.",
@@ -1155,10 +1092,6 @@ export const dishes = [
     "authenticityScore": 4.7,
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.694Z",
-    "slug": "muji-gaad",
     "categoryType": "kashmiri_cuisine"
   },
   {
@@ -1218,7 +1151,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f1d",
     "name": "Nadru Gaad",
     "description": "Kashmiri fish curry cooked with lotus stems.",
     "fullDescription": "Nadru Gaad pairs tender lake fish with fresh lotus stem slices, cooked together in a rich spice-infused red gravy.",
@@ -1238,10 +1170,6 @@ export const dishes = [
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.764Z",
-    "slug": "nadru-gaad",
     "categoryType": "kashmiri_cuisine"
   },
   {
@@ -1346,7 +1274,7 @@ export const dishes = [
       "salty",
       "pink"
     ],
-    "authenticityScore": 4.1,
+    "authenticityScore": 3.8,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
@@ -1374,9 +1302,9 @@ export const dishes = [
       "veg",
       "popular"
     ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5,
     "__v": 0,
     "createdAt": "2026-06-11T05:36:56.225Z",
     "updatedAt": "2026-06-11T07:06:13.293Z",
@@ -1558,7 +1486,7 @@ export const dishes = [
     "_id": "6a2a5e67185d2d28b82e8692",
     "name": "Rice",
     "__v": 0,
-    "authenticityScore": 5,
+    "authenticityScore": 4.7,
     "category": "Wazwan",
     "categoryType": "wazwan",
     "courseType": "foundation",
@@ -1796,9 +1724,9 @@ export const dishes = [
       "authentic",
       "luxury"
     ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5,
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
     "__v": 0,
     "createdAt": "2026-06-11T05:36:56.222Z",
     "updatedAt": "2026-06-11T07:06:08.104Z",
@@ -1891,7 +1819,6 @@ export const dishes = [
     "categoryType": "bakery"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f13",
     "name": "Shufta",
     "description": "A rich sweet mixture of dry fruits, paneer, and honey.",
     "fullDescription": "Shufta is a decadent dessert packed with almonds, walnuts, pistachios, cashews, raisins, dry dates, and fried paneer, all coated in a saffron-infused honey syrup.",
@@ -1911,11 +1838,8 @@ export const dishes = [
     "authenticityScore": 3.8,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:09.043Z",
-    "slug": "shufta",
-    "categoryType": "kashmiri_cuisine"
+    "categoryType": "kashmiri_cuisine",
+    "courseType": "dessert"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f55",
@@ -1946,30 +1870,25 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a49c2185d2d28b82e867d",
     "name": "Syoon",
-    "__v": 0,
-    "authenticityScore": 4.4,
-    "category": "Wazwan",
-    "createdAt": "2026-06-11T05:38:09.597Z",
     "description": "Traditional Kashmiri Pandit lamb curry.",
-    "foodType": "Non-veg",
     "fullDescription": "Syoon is a light, thin mutton curry cooked without onion or garlic, relying on asafoetida, yogurt, ginger, and fennel powder.",
     "history": "As a foundational daily meat dish of the Kashmiri Pandit community, Syoon represents a centuries-old culinary style defined by strict dietary preferences and local spices.",
+    "touristTip": "It has a lighter and more herbal flavor than the heavier Muslim Wazwan Rogan Josh.",
+    "category": "Wazwan",
+    "foodType": "Non-veg",
     "image": "/images/dishes/rogan-josh.webp",
-    "luxuryScore": 3.5,
-    "popularityRating": 4.4,
     "priceRange": "INR 380-750",
+    "popularityRating": 4.4,
     "spiceLevel": "Medium",
     "tags": [
       "lamb",
       "pandit-style",
       "traditional"
     ],
+    "authenticityScore": 4.4,
     "touristFriendlinessScore": 4.7,
-    "touristTip": "It has a lighter and more herbal flavor than the heavier Muslim Wazwan Rogan Josh.",
-    "updatedAt": "2026-06-11T07:06:14.408Z",
-    "slug": "syoon",
+    "luxuryScore": 3.5,
     "categoryType": "kashmiri_cuisine"
   },
   {
@@ -2086,7 +2005,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f4a",
     "name": "Trout Fish Fry",
     "description": "Fresh fried mountain trout with local spices.",
     "fullDescription": "Trout Fish Fry features locally harvested mountain stream trout marinated in spices and pan-fried until crispy.",
@@ -2106,10 +2024,6 @@ export const dishes = [
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.225Z",
-    "updatedAt": "2026-06-11T07:06:12.968Z",
-    "slug": "trout-fish-fry",
     "categoryType": "kashmiri_cuisine"
   },
   {
@@ -2169,7 +2083,6 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f21",
     "name": "Tsoek Wangangan",
     "description": "Sour and spicy baby eggplants.",
     "fullDescription": "Tsoek Wangangan consists of baby eggplants fried and cooked in a tangy tamarind and spice-based gravy.",
@@ -2189,11 +2102,8 @@ export const dishes = [
     "authenticityScore": 3.8,
     "touristFriendlinessScore": 4.1,
     "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.224Z",
-    "updatedAt": "2026-06-11T07:06:10.088Z",
-    "slug": "tsoek-wangangan",
-    "categoryType": "kashmiri_cuisine"
+    "categoryType": "wazwan",
+    "courseType": "vegetarian"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f33",
@@ -2465,8 +2375,8 @@ export const dishes = [
       "comfort"
     ],
     "authenticityScore": 5,
-    "touristFriendlinessScore": 4.8,
-    "luxuryScore": 4,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5,
     "createdAt": "2026-06-12T06:45:45.859Z",
     "updatedAt": "2026-06-12T06:45:45.860Z",
     "slug": "waza-paneer",
@@ -2474,32 +2384,27 @@ export const dishes = [
     "courseType": "vegetarian"
   },
   {
-    "_id": "6a2bb13b06150cd84cfc8e82",
     "name": "Kashmiri Lassi",
-    "description": "Creamy sweetened yogurt beverage topped with fresh malai, almonds, and pistachios.",
-    "fullDescription": "Kashmiri Lassi (historically rooted in the buttermilk drink Gurus) is a rich, creamy yogurt-based beverage. The modern festive version is whisked to a frothy consistency, sweetened, infused with crushed cardamom and saffron, and topped generously with a layer of thick fresh malai (clotted cream) and chopped almonds and pistachios.",
-    "history": "The traditional yogurt beverage of Kashmir was historically 'Gurus', a savory buttermilk by-product of butter-making churned in earthen vessels. In folklore, Gurus was a symbol of cooling hospitality. Over time, particularly in Srinagar's urban bazaar and street food stalls, it evolved into the decadent, sweet Kashmiri Lassi served in clay cups (kulhads) to visitors looking for a cooling respite.",
-    "touristTip": "Enjoyed fresh from a clay kulhad in the summer heat. The clay adds a distinct earthy aroma (sondhi khushboo) to the creamy drink.",
-    "category": "Street Food",
+    "description": "A creamy yogurt-based drink infused with saffron and dry fruits.",
+    "fullDescription": "Kashmiri Lassi is a rich, creamy yogurt drink blended with saffron strands, crushed almonds, pistachios, and a touch of rose water. Unlike the thin lassis found in the plains, the Kashmiri version is thick, aromatic, and served chilled as a refreshing accompaniment to heavy meals or as a standalone summer cooler.",
+    "history": "Yogurt-based drinks have been part of Kashmiri cuisine for centuries, especially during the warm summer months. The addition of saffron and dry fruits reflects Kashmir's access to premium ingredients from its own orchards and fields. Traditionally prepared at home using fresh curd, it has now become a popular offering at local cafes and street stalls across the valley.",
+    "touristTip": "Order it chilled after a heavy Wazwan meal — it helps with digestion and balances the rich, spicy flavors of the meats.",
+    "category": "Cafes",
+    "categoryType": "beverage",
     "foodType": "Veg",
     "image": "/images/dishes/kashmiri-lassi.jpg",
-    "priceRange": "INR 50-90",
+    "priceRange": "INR 60-120",
     "popularityRating": 4.6,
     "spiceLevel": "Mild",
     "tags": [
       "lassi",
       "yogurt",
-      "street-food",
-      "sweet",
-      "beverage"
+      "saffron",
+      "chilled"
     ],
-    "authenticityScore": 4.5,
-    "touristFriendlinessScore": 4.9,
-    "luxuryScore": 3.5,
-    "createdAt": "2026-06-12T07:11:55.802Z",
-    "updatedAt": "2026-06-12T07:11:55.810Z",
-    "slug": "kashmiri-lassi",
-    "categoryType": "beverage"
+    "authenticityScore": 3.8,
+    "touristFriendlinessScore": 4.1,
+    "luxuryScore": 2.5
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f19",
@@ -2521,8 +2426,8 @@ export const dishes = [
       "popular",
       "biscuits"
     ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 4.8,
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5,
     "createdAt": "2026-06-12T07:34:31.772Z",
     "updatedAt": "2026-06-12T07:34:31.780Z",
@@ -2549,13 +2454,35 @@ export const dishes = [
       "street-food",
       "veg"
     ],
-    "authenticityScore": 4.5,
-    "touristFriendlinessScore": 4.9,
-    "luxuryScore": 2.5,
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
     "createdAt": "2026-06-12T07:42:03.368Z",
     "updatedAt": "2026-06-12T07:42:03.369Z",
     "slug": "aloo-monji",
     "categoryType": "kashmiri_cuisine"
+  },
+  {
+    "name": "Noon Chai",
+    "description": "Traditional pink salted tea brewed with milk.",
+    "fullDescription": "Noon Chai (also called Sheer Chai) is a pink salted tea brewed from special green tea leaves, baking soda, milk, and salt.",
+    "history": "This pink tea is the daily morning and afternoon beverage for almost every Kashmiri. Its unique color comes from the chemical reaction of tea leaves with baking soda under prolonged boiling.",
+    "touristTip": "It is salty, not sweet! Try it with local baked breads like Girda or Bakerkhani.",
+    "category": "Cafes",
+    "foodType": "Veg",
+    "image": "/images/dishes/noon-chai.jpg",
+    "priceRange": "INR 40-80",
+    "popularityRating": 4.5,
+    "spiceLevel": "Mild",
+    "tags": [
+      "tea",
+      "salty",
+      "pink"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3,
+    "categoryType": "beverage"
   }
 ];
 
@@ -2695,38 +2622,33 @@ export const restaurants = [
     "slug": "clove-the-art-of-dining"
   },
   {
-    "_id": "6a2a49c6185d2d28b82e8681",
-    "city": "Doodhpathri",
     "name": "Doodhpathri Pine Grill",
-    "__v": 0,
-    "authentic": true,
-    "authenticityScore": 3.8,
-    "createdAt": "2026-06-11T05:38:14.267Z",
-    "description": "A highly scenic Tujji point in Doodhpathri serving coal-grilled barbecues wrapped in fresh local tandoori lavas.",
-    "googleMapsQuery": "Doodhpathri meadows Tujji points",
-    "image": "/images/restaurants/restaurant-art.jpg",
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76f16",
-      "6a2a4978ac7d60a9cca76f0d"
-    ],
     "location": "Pine Valley Meadows, Doodhpathri",
-    "luxuryScore": 3,
-    "openingHours": "10:00 AM – 7:00 PM daily",
-    "overpriced": false,
-    "phoneNumber": "",
-    "priceLevel": "Budget",
+    "city": "Doodhpathri",
     "rating": 4.4,
+    "priceLevel": "Budget",
     "tags": [
       "Barbecue",
       "Tujji",
       "Meadow View"
     ],
-    "touristFriendlinessScore": 4.4,
-    "touristTrapReason": "",
-    "touristTrapWarning": false,
-    "updatedAt": "2026-06-11T05:38:14.267Z",
+    "image": "/images/restaurants/restaurant-art.png",
+    "description": "A highly scenic Tujji point in Doodhpathri serving coal-grilled barbecues wrapped in fresh local tandoori lavas.",
+    "phoneNumber": "",
+    "openingHours": "10:00 AM – 7:00 PM daily",
     "website": "",
-    "slug": "doodhpathri-pine-grill"
+    "authentic": true,
+    "overpriced": false,
+    "touristTrapWarning": false,
+    "googleMapsQuery": "Doodhpathri meadows Tujji points",
+    "linkedDishNames": [
+      "Mutton Tujji",
+      "Lavas",
+      "Noon Chai"
+    ],
+    "authenticityScore": 3.8,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f8c",
@@ -2826,7 +2748,6 @@ export const restaurants = [
     "slug": "gulmarg-zaika-restaurant"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f8a",
     "name": "Gurez Alpine Dhaba",
     "location": "Dawar Market, Gurez Valley",
     "city": "Gurez",
@@ -2837,12 +2758,7 @@ export const restaurants = [
       "Gurez",
       "Local Fish"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76f4a",
-      "6a2a4978ac7d60a9cca76f23",
-      "6a2a4978ac7d60a9cca76f0d"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "A local, family-run dhaba in Dawar serving fresh river trout and home-style potato turnip stews.",
     "phoneNumber": "",
     "openingHours": "8:00 AM – 9:30 PM daily",
@@ -2850,15 +2766,15 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Dawar Gurez Valley market restaurants",
+    "linkedDishNames": [
+      "Trout Fish Fry",
+      "Gogji Mutton",
+      "Noon Chai"
+    ],
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.508Z",
-    "updatedAt": "2026-06-11T05:38:14.128Z",
-    "slug": "gurez-alpine-dhaba"
+    "luxuryScore": 3
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f8e",
@@ -2929,7 +2845,6 @@ export const restaurants = [
     "slug": "lazeez-foods"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f84",
     "name": "Lidder Heights Restaurant",
     "location": "Aru Road, Pahalgam",
     "city": "Pahalgam",
@@ -2940,12 +2855,7 @@ export const restaurants = [
       "Mountain View",
       "Riverside"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef9",
-      "6a2a4978ac7d60a9cca76efa",
-      "6a2a4978ac7d60a9cca76f30"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "A premium dining destination in Pahalgam offering panoramic mountain views and highly polished Wazwan courses.",
     "phoneNumber": "+91 1936 243 556",
     "openingHours": "12:00 PM – 10:30 PM daily",
@@ -2953,15 +2863,15 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Lidder Heights Restaurant Pahalgam",
+    "linkedDishNames": [
+      "Gushtaba",
+      "Rista",
+      "Kabargah"
+    ],
     "authenticityScore": 4.7,
     "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.507Z",
-    "updatedAt": "2026-06-11T05:38:13.686Z",
-    "slug": "lidder-heights-restaurant"
+    "luxuryScore": 4.5
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f5e",
@@ -3123,7 +3033,6 @@ export const restaurants = [
     "slug": "sifar-pahalgam"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f88",
     "name": "Sindh Valley Retreat",
     "location": "Srinagar-Leh Highway, Gagangir, Sonamarg",
     "city": "Sonamarg",
@@ -3134,12 +3043,7 @@ export const restaurants = [
       "Riverside",
       "Luxury"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef9",
-      "6a2a4978ac7d60a9cca76efa",
-      "6a2a4978ac7d60a9cca76f11"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "An upscale riverside restaurant at Gagangir offering standard multi-cuisine and premium Kashmiri Wazwan platters.",
     "phoneNumber": "+91 194 230 4455",
     "openingHours": "12:00 PM – 10:00 PM daily",
@@ -3147,18 +3051,17 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Sindh Valley Retreat Gagangir",
+    "linkedDishNames": [
+      "Gushtaba",
+      "Rista",
+      "Kashmiri Pulao"
+    ],
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.508Z",
-    "updatedAt": "2026-06-11T05:38:13.976Z",
-    "slug": "sindh-valley-retreat"
+    "luxuryScore": 3
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f86",
     "name": "Snowland Restaurant",
     "location": "Main Street, Sonamarg",
     "city": "Sonamarg",
@@ -3169,12 +3072,7 @@ export const restaurants = [
       "Glacier View",
       "Cozy"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76f04",
-      "6a2a4978ac7d60a9cca76f13"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "A premium restaurant in Sonamarg serving hot Wazwan and traditional warming meals under the backdrop of snowy peaks.",
     "phoneNumber": "+91 194 230 1122",
     "openingHours": "11:00 AM – 10:00 PM daily",
@@ -3182,18 +3080,17 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Snowland Restaurant Sonamarg",
+    "linkedDishNames": [
+      "Rogan Josh",
+      "Aab Gosh",
+      "Shufta"
+    ],
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.507Z",
-    "updatedAt": "2026-06-11T05:38:13.833Z",
-    "slug": "snowland-restaurant"
+    "luxuryScore": 3.5
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f89",
     "name": "Tangmarg Treat",
     "location": "Main Chowk, Tangmarg",
     "city": "Gulmarg",
@@ -3204,11 +3101,7 @@ export const restaurants = [
       "Tea",
       "Kebabs"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76f0d",
-      "6a2a4978ac7d60a9cca76f16"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "A popular transit stop in Tangmarg before taking the mountain road up to Gulmarg, famous for hot tea and skewered Tujji.",
     "phoneNumber": "",
     "openingHours": "7:00 AM – 9:00 PM daily",
@@ -3216,15 +3109,15 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Tangmarg Main Chowk food",
+    "linkedDishNames": [
+      "Mutton Tujji",
+      "Noon Chai",
+      "Lavas"
+    ],
     "authenticityScore": 4.7,
     "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.508Z",
-    "updatedAt": "2026-06-11T05:38:14.063Z",
-    "slug": "tangmarg-treat"
+    "luxuryScore": 4.5
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f81",
@@ -3258,7 +3151,6 @@ export const restaurants = [
     "slug": "tarboosh-foods"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f87",
     "name": "Thajiwas View Point Eatery",
     "location": "Thajiwas Glacier Trail, Sonamarg",
     "city": "Sonamarg",
@@ -3269,12 +3161,7 @@ export const restaurants = [
       "Maggie",
       "Noon Chai"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76f0d",
-      "6a2a49c2185d2d28b82e8680",
-      "6a2a49c2185d2d28b82e867e"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "A rustic, budget-friendly stop along the Thajiwas Glacier trail, famous for hot noon chai, local bread, and warming noodle cups.",
     "phoneNumber": "",
     "openingHours": "8:00 AM – 7:00 PM daily",
@@ -3282,18 +3169,17 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Thajiwas Glacier Sonamarg food stalls",
+    "linkedDishNames": [
+      "Noon Chai",
+      "Girda",
+      "Doon Chetin"
+    ],
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.507Z",
-    "updatedAt": "2026-06-11T05:38:13.906Z",
-    "slug": "thajiwas-view-point-eatery"
+    "luxuryScore": 3
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f85",
     "name": "Trout Beat Pahalgam",
     "location": "Laripora Fish Farm Road, Pahalgam",
     "city": "Pahalgam",
@@ -3304,12 +3190,7 @@ export const restaurants = [
       "Seafood",
       "Fresh Farm"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76f4a",
-      "6a2a4978ac7d60a9cca76f1d",
-      "6a2a4978ac7d60a9cca76f1c"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "Specialized in fresh cold-water trout, prepared either fried, grilled, or cooked in authentic Kashmiri Pandit style.",
     "phoneNumber": "+91 1936 243 778",
     "openingHours": "11:30 AM – 9:30 PM daily",
@@ -3317,18 +3198,17 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Trout Beat Laripora Pahalgam",
+    "linkedDishNames": [
+      "Trout Fish Fry",
+      "Nadru Gaad",
+      "Muji Gaad"
+    ],
     "authenticityScore": 4.7,
     "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.507Z",
-    "updatedAt": "2026-06-11T05:38:13.766Z",
-    "slug": "trout-beat-pahalgam"
+    "luxuryScore": 4.5
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f8d",
     "name": "Verinag Springs Restaurant",
     "location": "Opposite Mughal Garden Entrance, Verinag",
     "city": "Verinag",
@@ -3339,12 +3219,7 @@ export const restaurants = [
       "Wazwan",
       "Spring Side"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76efc",
-      "6a2a49c2185d2d28b82e867f"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "Conveniently located right outside the famous Verinag Spring garden, serving classic curry bowls and saffron tea.",
     "phoneNumber": "+91 1932 255 111",
     "openingHours": "10:30 AM – 9:00 PM daily",
@@ -3352,18 +3227,17 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Verinag Spring garden entrance restaurants",
+    "linkedDishNames": [
+      "Rogan Josh",
+      "Nadru Yakhni",
+      "Kashmiri Kahwa"
+    ],
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.508Z",
-    "updatedAt": "2026-06-11T05:38:14.336Z",
-    "slug": "verinag-springs-restaurant"
+    "luxuryScore": 4.5
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f8b",
     "name": "Yusmarg Meadows Cafe",
     "location": "Meadow Stalls, Yusmarg",
     "city": "Yusmarg",
@@ -3374,12 +3248,7 @@ export const restaurants = [
       "Bakerkhani",
       "Picnic"
     ],
-    "linkedDishes": [
-      "6a2a49c2185d2d28b82e867f",
-      "6a2a4978ac7d60a9cca76f18",
-      "6a2a49c2185d2d28b82e867e"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
+    "image": "/images/restaurants/restaurant-art.png",
     "description": "An open-air tea stall in the middle of Yusmarg meadow, serving fresh bakery flatbreads and hot saffron Kahwa.",
     "phoneNumber": "",
     "openingHours": "9:00 AM – 6:00 PM daily",
@@ -3387,15 +3256,73 @@ export const restaurants = [
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Yusmarg meadows food stalls",
+    "linkedDishNames": [
+      "Kashmiri Kahwa",
+      "Bakerkhani",
+      "Doon Chetin"
+    ],
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.508Z",
-    "updatedAt": "2026-06-11T05:38:14.199Z",
-    "slug": "yusmarg-meadows-cafe"
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Nishat Breeze Restaurant",
+    "location": "Near Nishat Gardens, Boulevard Road, Srinagar",
+    "city": "Srinagar",
+    "rating": 4.4,
+    "priceLevel": "Mid-range",
+    "tags": [
+      "Trout",
+      "Scenic View",
+      "Near Garden"
+    ],
+    "image": "/images/restaurants/restaurant-art.png",
+    "description": "Located near Nishat Mughal Garden, Nishat Breeze is famous for serving fresh trout and Kashmiri meals with outdoor seating.",
+    "phoneNumber": "+91 194 246 1122",
+    "openingHours": "11:00 AM – 10:00 PM daily",
+    "website": "nishatbreeze.com",
+    "authentic": true,
+    "overpriced": false,
+    "touristTrapWarning": false,
+    "googleMapsQuery": "Nishat Breeze Restaurant Srinagar",
+    "linkedDishNames": [
+      "Trout Fish Fry",
+      "Rogan Josh",
+      "Nadru Yakhni"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5
+  },
+  {
+    "name": "Shalimar Heights Cafe",
+    "location": "Main Road, Near Shalimar Bagh, Srinagar",
+    "city": "Srinagar",
+    "rating": 4.2,
+    "priceLevel": "Mid-range",
+    "tags": [
+      "Cafe",
+      "Coffee",
+      "Kashmiri Breads"
+    ],
+    "image": "/images/restaurants/restaurant-art.png",
+    "description": "A trendy cafe near Shalimar Bagh providing excellent Kashmiri coffee, dry fruit Kahwa, and afternoon local bakery goods.",
+    "phoneNumber": "+91 194 246 3344",
+    "openingHours": "10:00 AM – 9:00 PM daily",
+    "website": "shalimarheightscafe.com",
+    "authentic": false,
+    "overpriced": false,
+    "touristTrapWarning": false,
+    "googleMapsQuery": "Shalimar Heights Cafe Srinagar",
+    "linkedDishNames": [
+      "Kashmiri Kahwa",
+      "Czochworu",
+      "Bakerkhani"
+    ],
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3
   }
 ];
 

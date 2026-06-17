@@ -46,6 +46,22 @@ export default function SrinagarMiniMap({
     });
   }, [restaurants]);
 
+  const filteredPins = useMemo(() => {
+    let result = pins;
+    if (searchArea.trim() !== "") {
+      const query = searchArea.toLowerCase();
+      result = pins.filter((pin) => {
+        const nameMatch = pin.name?.toLowerCase().includes(query);
+        const locMatch = pin.restaurant.location?.toLowerCase().includes(query);
+        const tagMatch = pin.restaurant.tags?.some((tag) =>
+          tag.toLowerCase().includes(query)
+        );
+        return nameMatch || locMatch || tagMatch;
+      });
+    }
+    return result;
+  }, [pins, searchArea]);
+
   const clusters = [
     { name: "Nishat Bagh", count: 12, x: 320, y: 150 },
     { name: "Lal Chowk", count: 15, x: 180, y: 300 },
@@ -59,6 +75,47 @@ export default function SrinagarMiniMap({
   const handleRecenter = () => {
     setZoom(1);
     setMapCenter({ x: 0, y: 0 });
+  };
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (e) => {
+    if (e.button !== 0) return;
+    setIsDragging(true);
+    setDragStart({ x: e.clientX - mapCenter.x, y: e.clientY - mapCenter.y });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    setMapCenter({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchStart = (e) => {
+    if (e.touches.length !== 1) return;
+    setIsDragging(true);
+    const touch = e.touches[0];
+    setDragStart({ x: touch.clientX - mapCenter.x, y: touch.clientY - mapCenter.y });
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    setMapCenter({
+      x: touch.clientX - dragStart.x,
+      y: touch.clientY - dragStart.y
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
   };
 
   return (
@@ -85,7 +142,17 @@ export default function SrinagarMiniMap({
       </div>
 
       {/* Interactive Map Surface */}
-      <div className="flex-1 w-full h-full relative overflow-hidden bg-[#060606]">
+      <div 
+        className="flex-1 w-full h-full relative overflow-hidden bg-[#060606]"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ cursor: isDragging ? "grabbing" : "grab" }}
+      >
         {/* Subtle grid line pattern */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
@@ -100,9 +167,10 @@ export default function SrinagarMiniMap({
 
         {/* Outer map scale and translate container */}
         <div
-          className="w-full h-full flex items-center justify-center transition-transform duration-300 ease-out"
+          className="w-full h-full flex items-center justify-center"
           style={{
             transform: `scale(${zoom}) translate(${mapCenter.x}px, ${mapCenter.y}px)`,
+            transition: isDragging ? "none" : "transform 300ms ease-out",
           }}
         >
           <svg
@@ -193,7 +261,7 @@ export default function SrinagarMiniMap({
             ))}
 
             {/* Interactive Pins */}
-            {pins.map((pin) => {
+            {filteredPins.map((pin) => {
               const isHovered = hoveredRestaurantId === pin.id;
               const isMainLocation = pin.restaurant.city?.toLowerCase() === activeLocation.toLowerCase();
 
