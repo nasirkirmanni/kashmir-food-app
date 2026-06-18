@@ -2462,41 +2462,7 @@ export const restaurants = [
     "updatedAt": "2026-06-11T05:38:13.084Z",
     "slug": "1860-restaurant"
   },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f5f",
-    "name": "Ahdoos",
-    "location": "Residency Road, Srinagar",
-    "city": "Srinagar",
-    "rating": 4.7,
-    "priceLevel": "Mid-range",
-    "tags": [
-      "Traditional",
-      "Heritage",
-      "Wazwan"
-    ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76efb",
-      "6a2a4978ac7d60a9cca76ef9"
-    ],
-    "image": "/images/restaurants/ahdoos-new.jpg",
-    "description": "A heritage favorite for travelers looking to experience classic Kashmiri food in a legacy setting.",
-    "phoneNumber": "+91 194 247 2593",
-    "openingHours": "11:30 AM – 10:00 PM daily",
-    "website": "ahdoos.com",
-    "authentic": true,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "touristTrapReason": "",
-    "googleMapsQuery": "Ahdoos Residency Road Srinagar",
-    "authenticityScore": 4.7,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.506Z",
-    "updatedAt": "2026-06-11T05:38:10.651Z",
-    "slug": "ahdoos"
-  },
+
   {
     "_id": "6a2a4978ac7d60a9cca76f7e",
     "name": "Bakshi Restaurant & Cafe",
@@ -2528,43 +2494,7 @@ export const restaurants = [
     "updatedAt": "2026-06-11T05:38:13.149Z",
     "slug": "bakshi-restaurant-cafe"
   },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f62",
-    "name": "Clove - The Art of Dining",
-    "location": "Rooftop Terrace, Bloom Hotel, opposite Ghat 3, Boulevard Road, Dalgate Bridge, Srinagar, Jammu and Kashmir 190001",
-    "city": "Srinagar",
-    "rating": 4.7,
-    "priceLevel": "Luxury",
-    "tags": [
-      "Fine Dining",
-      "Lake View",
-      "Wazwan",
-      "Cafe Style"
-    ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef9",
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76efb",
-      "6a2a4978ac7d60a9cca76efc"
-    ],
-    "image": "/images/restaurants/clove-the-art-of-dining.jpg",
-    "description": "A stylish rooftop dining space in Srinagar combining scenic views with Kashmiri dishes, Indian mains, and a polished modern dining experience.",
-    "phoneNumber": "+91 77218 00020",
-    "openingHours": "11:30 AM – 10:00 PM daily",
-    "website": "clovetheartofdining.com",
-    "authentic": true,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "touristTrapReason": "",
-    "googleMapsQuery": "Clove The Art of Dining Srinagar",
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.506Z",
-    "updatedAt": "2026-06-11T05:38:10.851Z",
-    "slug": "clove-the-art-of-dining"
-  },
+
   {
     "name": "Doodhpathri Pine Grill",
     "location": "Pine Valley Meadows, Doodhpathri",

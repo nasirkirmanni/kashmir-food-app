@@ -27,38 +27,7 @@
     "luxuryScore": 3,
     "slug": "1860-restaurant",
     "createdAt": "2026-06-11T05:36:56.507Z",
-    "updatedAt": "2026-06-18T06:52:01.476Z",
-    "__v": 0
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f5f",
-    "name": "Ahdoos",
-    "location": "Residency Road, Srinagar",
-    "city": "Srinagar",
-    "rating": 4.7,
-    "priceLevel": "Mid-range",
-    "tags": [
-      "Traditional",
-      "Heritage",
-      "Wazwan"
-    ],
-    "linkedDishes": [],
-    "image": "/images/restaurants/ahdoos-new.jpg",
-    "description": "A heritage favorite for travelers looking to experience classic Kashmiri food in a legacy setting.",
-    "phoneNumber": "+91 194 247 2593",
-    "openingHours": "11:30 AM – 10:00 PM daily",
-    "website": "ahdoos.com",
-    "authentic": true,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "touristTrapReason": "",
-    "googleMapsQuery": "Ahdoos Residency Road Srinagar",
-    "authenticityScore": 4.7,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "slug": "ahdoos",
-    "createdAt": "2026-06-11T05:36:56.506Z",
-    "updatedAt": "2026-06-11T05:38:10.651Z",
+    "updatedAt": "2026-06-18T07:06:37.208Z",
     "__v": 0
   },
   {
@@ -66,7 +35,7 @@
     "name": "Bakshi Restaurant & Cafe",
     "location": "Near Police Station, Main Market, Gulmarg",
     "city": "Gulmarg",
-    "rating": 4,
+    "rating": 4.5,
     "priceLevel": "Mid-range",
     "tags": [
       "Wazwan",
@@ -89,47 +58,15 @@
     "luxuryScore": 4,
     "slug": "bakshi-restaurant-cafe",
     "createdAt": "2026-06-11T05:36:56.507Z",
-    "updatedAt": "2026-06-18T06:52:01.477Z",
+    "updatedAt": "2026-06-11T05:38:13.149Z",
     "__v": 0
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f62",
-    "name": "Clove - The Art of Dining",
-    "location": "Rooftop Terrace, Bloom Hotel, opposite Ghat 3, Boulevard Road, Dalgate Bridge, Srinagar, Jammu and Kashmir 190001",
-    "city": "Srinagar",
-    "rating": 4.7,
-    "priceLevel": "Luxury",
-    "tags": [
-      "Fine Dining",
-      "Lake View",
-      "Wazwan",
-      "Cafe Style"
-    ],
-    "linkedDishes": [],
-    "image": "/images/restaurants/clove-the-art-of-dining.jpg",
-    "description": "A stylish rooftop dining space in Srinagar combining scenic views with Kashmiri dishes, Indian mains, and a polished modern dining experience.",
-    "phoneNumber": "+91 77218 00020",
-    "openingHours": "11:30 AM – 10:00 PM daily",
-    "website": "clovetheartofdining.com",
-    "authentic": true,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "touristTrapReason": "",
-    "googleMapsQuery": "Clove The Art of Dining Srinagar",
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "slug": "clove-the-art-of-dining",
-    "createdAt": "2026-06-11T05:36:56.506Z",
-    "updatedAt": "2026-06-11T05:38:10.851Z",
-    "__v": 0
-  },
-  {
-    "_id": "6a339591ebdc662d458ba4f6",
+    "_id": "6a3398fc1e0d5eb15fef6a92",
     "name": "Doodhpathri Pine Grill",
     "location": "Pine Valley Meadows, Doodhpathri",
     "city": "Doodhpathri",
-    "rating": 4.4,
+    "rating": 4,
     "priceLevel": "Budget",
     "tags": [
       "Barbecue",
@@ -138,8 +75,8 @@
     ],
     "linkedDishes": [
       "6a2a4978ac7d60a9cca76f0f",
-      "6a339590ebdc662d458ba4b7",
-      "6a339590ebdc662d458ba4f0"
+      "6a3398fc1e0d5eb15fef6a51",
+      "6a3398fc1e0d5eb15fef6a8a"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "A highly scenic Tujji point in Doodhpathri serving coal-grilled barbecues wrapped in fresh local tandoori lavas.",
@@ -155,8 +92,8 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.137Z",
-    "updatedAt": "2026-06-18T06:52:01.137Z"
+    "createdAt": "2026-06-18T07:06:36.807Z",
+    "updatedAt": "2026-06-18T07:06:37.209Z"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f8c",
@@ -251,7 +188,7 @@
     "__v": 0
   },
   {
-    "_id": "6a339591ebdc662d458ba4fa",
+    "_id": "6a3398fc1e0d5eb15fef6a96",
     "name": "Gurez Alpine Dhaba",
     "location": "Dawar Market, Gurez Valley",
     "city": "Gurez",
@@ -263,9 +200,9 @@
       "Local Fish"
     ],
     "linkedDishes": [
-      "6a339590ebdc662d458ba4df",
-      "6a339590ebdc662d458ba4ab",
-      "6a339590ebdc662d458ba4f0"
+      "6a3398fc1e0d5eb15fef6a79",
+      "6a3398fc1e0d5eb15fef6a45",
+      "6a3398fc1e0d5eb15fef6a8a"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "A local, family-run dhaba in Dawar serving fresh river trout and home-style potato turnip stews.",
@@ -281,8 +218,8 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.138Z",
-    "updatedAt": "2026-06-18T06:52:01.138Z"
+    "createdAt": "2026-06-18T07:06:36.807Z",
+    "updatedAt": "2026-06-18T07:06:36.807Z"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f8e",
@@ -348,7 +285,7 @@
     "__v": 0
   },
   {
-    "_id": "6a339591ebdc662d458ba4fd",
+    "_id": "6a3398fc1e0d5eb15fef6a99",
     "name": "Lidder Heights Restaurant",
     "location": "Aru Road, Pahalgam",
     "city": "Pahalgam",
@@ -362,7 +299,7 @@
     "linkedDishes": [
       "6a2a4978ac7d60a9cca76ef9",
       "6a2a4978ac7d60a9cca76efa",
-      "6a339590ebdc662d458ba4b3"
+      "6a3398fc1e0d5eb15fef6a4d"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "A premium dining destination in Pahalgam offering panoramic mountain views and highly polished Wazwan courses.",
@@ -378,8 +315,8 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.138Z",
-    "updatedAt": "2026-06-18T06:52:01.138Z"
+    "createdAt": "2026-06-18T07:06:36.808Z",
+    "updatedAt": "2026-06-18T07:06:36.808Z"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f7f",
@@ -505,7 +442,7 @@
     "__v": 0
   },
   {
-    "_id": "6a339591ebdc662d458ba502",
+    "_id": "6a3398fc1e0d5eb15fef6a9e",
     "name": "Sindh Valley Retreat",
     "location": "Srinagar-Leh Highway, Gagangir, Sonamarg",
     "city": "Sonamarg",
@@ -519,7 +456,7 @@
     "linkedDishes": [
       "6a2a4978ac7d60a9cca76ef9",
       "6a2a4978ac7d60a9cca76efa",
-      "6a339590ebdc662d458ba4b6"
+      "6a3398fc1e0d5eb15fef6a50"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "An upscale riverside restaurant at Gagangir offering standard multi-cuisine and premium Kashmiri Wazwan platters.",
@@ -535,11 +472,11 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.138Z",
-    "updatedAt": "2026-06-18T06:52:01.138Z"
+    "createdAt": "2026-06-18T07:06:36.808Z",
+    "updatedAt": "2026-06-18T07:06:36.808Z"
   },
   {
-    "_id": "6a339591ebdc662d458ba503",
+    "_id": "6a3398fc1e0d5eb15fef6a9f",
     "name": "Snowland Restaurant",
     "location": "Main Street, Sonamarg",
     "city": "Sonamarg",
@@ -552,7 +489,7 @@
     ],
     "linkedDishes": [
       "6a2a4978ac7d60a9cca76ef8",
-      "6a339590ebdc662d458ba4d8"
+      "6a3398fc1e0d5eb15fef6a72"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "A premium restaurant in Sonamarg serving hot Wazwan and traditional warming meals under the backdrop of snowy peaks.",
@@ -568,11 +505,11 @@
     "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.138Z",
-    "updatedAt": "2026-06-18T06:52:01.138Z"
+    "createdAt": "2026-06-18T07:06:36.808Z",
+    "updatedAt": "2026-06-18T07:06:36.808Z"
   },
   {
-    "_id": "6a339591ebdc662d458ba504",
+    "_id": "6a3398fc1e0d5eb15fef6aa0",
     "name": "Tangmarg Treat",
     "location": "Main Chowk, Tangmarg",
     "city": "Gulmarg",
@@ -585,8 +522,8 @@
     ],
     "linkedDishes": [
       "6a2a4978ac7d60a9cca76f0f",
-      "6a339590ebdc662d458ba4f0",
-      "6a339590ebdc662d458ba4b7"
+      "6a3398fc1e0d5eb15fef6a8a",
+      "6a3398fc1e0d5eb15fef6a51"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "A popular transit stop in Tangmarg before taking the mountain road up to Gulmarg, famous for hot tea and skewered Tujji.",
@@ -602,8 +539,8 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.138Z",
-    "updatedAt": "2026-06-18T06:52:01.138Z"
+    "createdAt": "2026-06-18T07:06:36.808Z",
+    "updatedAt": "2026-06-18T07:06:36.808Z"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f81",
@@ -637,7 +574,7 @@
     "__v": 0
   },
   {
-    "_id": "6a339591ebdc662d458ba506",
+    "_id": "6a3398fc1e0d5eb15fef6aa2",
     "name": "Thajiwas View Point Eatery",
     "location": "Thajiwas Glacier Trail, Sonamarg",
     "city": "Sonamarg",
@@ -649,9 +586,9 @@
       "Noon Chai"
     ],
     "linkedDishes": [
-      "6a339590ebdc662d458ba4f0",
-      "6a339590ebdc662d458ba4aa",
-      "6a339590ebdc662d458ba4a5"
+      "6a3398fc1e0d5eb15fef6a8a",
+      "6a3398fc1e0d5eb15fef6a44",
+      "6a3398fc1e0d5eb15fef6a3f"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "A rustic, budget-friendly stop along the Thajiwas Glacier trail, famous for hot noon chai, local bread, and warming noodle cups.",
@@ -667,11 +604,11 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.139Z",
-    "updatedAt": "2026-06-18T06:52:01.139Z"
+    "createdAt": "2026-06-18T07:06:36.809Z",
+    "updatedAt": "2026-06-18T07:06:36.809Z"
   },
   {
-    "_id": "6a339591ebdc662d458ba507",
+    "_id": "6a3398fc1e0d5eb15fef6aa3",
     "name": "Trout Beat Pahalgam",
     "location": "Laripora Fish Farm Road, Pahalgam",
     "city": "Pahalgam",
@@ -683,9 +620,9 @@
       "Fresh Farm"
     ],
     "linkedDishes": [
-      "6a339590ebdc662d458ba4df",
-      "6a339590ebdc662d458ba4c2",
-      "6a339590ebdc662d458ba4bf"
+      "6a3398fc1e0d5eb15fef6a79",
+      "6a3398fc1e0d5eb15fef6a5c",
+      "6a3398fc1e0d5eb15fef6a59"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "Specialized in fresh cold-water trout, prepared either fried, grilled, or cooked in authentic Kashmiri Pandit style.",
@@ -701,11 +638,11 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.139Z",
-    "updatedAt": "2026-06-18T06:52:01.139Z"
+    "createdAt": "2026-06-18T07:06:36.809Z",
+    "updatedAt": "2026-06-18T07:06:36.809Z"
   },
   {
-    "_id": "6a339591ebdc662d458ba508",
+    "_id": "6a3398fc1e0d5eb15fef6aa4",
     "name": "Verinag Springs Restaurant",
     "location": "Opposite Mughal Garden Entrance, Verinag",
     "city": "Verinag",
@@ -719,7 +656,7 @@
     "linkedDishes": [
       "6a2a4978ac7d60a9cca76ef8",
       "6a2a4978ac7d60a9cca76efc",
-      "6a339590ebdc662d458ba4b5"
+      "6a3398fc1e0d5eb15fef6a4f"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "Conveniently located right outside the famous Verinag Spring garden, serving classic curry bowls and saffron tea.",
@@ -735,11 +672,11 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.139Z",
-    "updatedAt": "2026-06-18T06:52:01.139Z"
+    "createdAt": "2026-06-18T07:06:36.809Z",
+    "updatedAt": "2026-06-18T07:06:36.809Z"
   },
   {
-    "_id": "6a339591ebdc662d458ba509",
+    "_id": "6a3398fc1e0d5eb15fef6aa5",
     "name": "Yusmarg Meadows Cafe",
     "location": "Meadow Stalls, Yusmarg",
     "city": "Yusmarg",
@@ -751,9 +688,9 @@
       "Picnic"
     ],
     "linkedDishes": [
-      "6a339590ebdc662d458ba4b5",
-      "6a339590ebdc662d458ba49c",
-      "6a339590ebdc662d458ba4a5"
+      "6a3398fc1e0d5eb15fef6a4f",
+      "6a3398fc1e0d5eb15fef6a36",
+      "6a3398fc1e0d5eb15fef6a3f"
     ],
     "image": "/images/restaurants/restaurant-art.png",
     "description": "An open-air tea stall in the middle of Yusmarg meadow, serving fresh bakery flatbreads and hot saffron Kahwa.",
@@ -769,7 +706,7 @@
     "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5,
     "__v": 0,
-    "createdAt": "2026-06-18T06:52:01.139Z",
-    "updatedAt": "2026-06-18T06:52:01.139Z"
+    "createdAt": "2026-06-18T07:06:36.809Z",
+    "updatedAt": "2026-06-18T07:06:36.809Z"
   }
 ]

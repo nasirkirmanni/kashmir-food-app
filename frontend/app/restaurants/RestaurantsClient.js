@@ -1176,16 +1176,22 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
             ) : processedRestaurants.length === 0 ? (
               <div className="border border-white/10 rounded-3xl bg-white/5 py-16 text-center px-6">
                 <Info className="w-8 h-8 text-[var(--saffron)] mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-white mb-2">No Dining Options Match</h3>
-                <p className="text-xs text-white/60 max-w-sm mx-auto leading-relaxed">
-                  Try clearing some filter metrics or searches to view all heritage dining spaces.
-                </p>
-                <button
-                  onClick={handleClearAllFilters}
-                  className="mt-4 rounded-full bg-white/10 hover:bg-white/15 px-5 py-2 text-xs font-bold text-white transition-colors"
-                >
-                  Clear All Filters
-                </button>
+                {activeLocation.toLowerCase() === "srinagar" ? (
+                  <h3 className="text-lg font-bold text-white mb-2">No restaurants listed for Srinagar yet</h3>
+                ) : (
+                  <>
+                    <h3 className="text-lg font-bold text-white mb-2">No Dining Options Match</h3>
+                    <p className="text-xs text-white/60 max-w-sm mx-auto leading-relaxed">
+                      Try clearing some filter metrics or searches to view all heritage dining spaces.
+                    </p>
+                    <button
+                      onClick={handleClearAllFilters}
+                      className="mt-4 rounded-full bg-white/10 hover:bg-white/15 px-5 py-2 text-xs font-bold text-white transition-colors"
+                    >
+                      Clear All Filters
+                    </button>
+                  </>
+                )}
               </div>
             ) : (
               <>

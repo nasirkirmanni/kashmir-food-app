@@ -359,7 +359,9 @@ export default function MobileRestaurantSelector({
             ) : (
               <div className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 py-12">
                 <p className="text-sm text-white/40">
-                  No venues listed yet for {selectedLocation}.
+                  {selectedLocation?.toLowerCase() === "srinagar" 
+                    ? "No restaurants listed for Srinagar yet" 
+                    : `No venues listed yet for ${selectedLocation}.`}
                 </p>
               </div>
             )}

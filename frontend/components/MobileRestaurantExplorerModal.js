@@ -169,7 +169,9 @@ export default function MobileRestaurantExplorerModal({
                 ))}
                 {filteredRestaurants.length === 0 && (
                   <div className="col-span-3 py-10 text-center text-white/50 text-sm">
-                    No venues available in this location yet.
+                    {activeLocation?.toLowerCase() === "srinagar" 
+                      ? "No restaurants listed for Srinagar yet" 
+                      : "No venues available in this location yet."}
                   </div>
                 )}
               </div>
