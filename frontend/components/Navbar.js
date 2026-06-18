@@ -57,7 +57,7 @@ export default function Navbar() {
         </Link>
 
         {/* Nav links — nowrap, generous gap */}
-        <div className="flex flex-1 items-center justify-center gap-8 lg:gap-10 text-[0.75rem] font-bold uppercase tracking-[0.15em] text-white/80">
+        <div className="flex flex-1 items-center justify-center gap-8 lg:gap-10 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/80">
           {desktopNavLinks.map((link) => (
             <Link
               key={link.label}
@@ -79,14 +79,14 @@ export default function Navbar() {
         <div className="flex items-center gap-4 lg:gap-6 shrink-0 ml-6">
           
           {user ? (
-            <div className="flex items-center gap-4 lg:gap-6 text-xs font-bold uppercase tracking-widest text-white">
+            <div className="flex items-center gap-4 lg:gap-6 text-[0.65rem] font-bold uppercase tracking-widest text-white">
               <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#C8A46A] whitespace-nowrap">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#C8A46A] transition-colors overflow-hidden shrink-0">
                   <svg className="w-4 h-4 text-white/70 group-hover:text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <span className="hidden lg:inline text-xs font-bold uppercase tracking-widest">{user.name}</span>
+                <span className="hidden lg:inline text-[0.65rem] font-bold uppercase tracking-widest">{user.name}</span>
               </Link>
               {user.role === "admin" && (
                 <Link href="/admin" className="text-[#C8A46A] hover:text-white transition-colors whitespace-nowrap">
@@ -101,13 +101,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="text-xs font-bold uppercase tracking-widest text-white transition-colors hover:text-[#C8A46A] whitespace-nowrap"
+                className="text-[0.65rem] font-bold uppercase tracking-widest text-white transition-colors hover:text-[#C8A46A] whitespace-nowrap"
               >
                 Login
               </Link>
               <Link
                 href="/signup"
-                className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
+                className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
               >
                 Sign up
               </Link>
