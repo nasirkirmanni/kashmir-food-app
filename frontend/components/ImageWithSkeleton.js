@@ -25,7 +25,7 @@ export default function ImageWithSkeleton({
 
   return (
     <div
-      className={`relative overflow-hidden bg-white/5 ${containerClassName}`}
+      className={`relative overflow-hidden bg-white/5 ${fill ? "w-full h-full" : ""} ${containerClassName}`}
       style={!fill ? { width, height } : {}}
     >
       {/* Shimmer Skeleton */}
@@ -42,9 +42,7 @@ export default function ImageWithSkeleton({
         height={!fill ? height : undefined}
         sizes={sizes}
         priority={priority}
-        className={`transition-opacity duration-500 ease-in-out ${
-          isLoading ? "opacity-0" : "opacity-100"
-        } ${className}`}
+        className={`relative z-10 transition-opacity duration-500 ease-in-out opacity-100 ${className}`}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setImgSrc("/wazwan-hero.jpg");
