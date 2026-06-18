@@ -1257,33 +1257,6 @@ export const dishes = [
     "courseType": "vegetarian"
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f0d",
-    "name": "Noon Chai (Beverage)",
-    "description": "Traditional pink salted tea brewed with milk.",
-    "fullDescription": "Noon Chai (also called Sheer Chai) is a pink salted tea brewed from special green tea leaves, baking soda, milk, and salt.",
-    "history": "This pink tea is the daily morning and afternoon beverage for almost every Kashmiri. Its unique color comes from the chemical reaction of tea leaves with baking soda under prolonged boiling.",
-    "touristTip": "It is salty, not sweet! Try it with local baked breads like Girda or Bakerkhani.",
-    "category": "Cafes",
-    "foodType": "Veg",
-    "image": "/images/dishes/noon-chai.jpg",
-    "priceRange": "INR 40-80",
-    "popularityRating": 4.5,
-    "spiceLevel": "Mild",
-    "tags": [
-      "tea",
-      "salty",
-      "pink"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.223Z",
-    "updatedAt": "2026-06-11T07:06:08.630Z",
-    "slug": "noon-chai-beverage",
-    "categoryType": "beverage"
-  },
-  {
     "_id": "6a2a4978ac7d60a9cca76f4e",
     "name": "Noon Chai (Home Style)",
     "description": "A traditional Kashmiri veg dish prepared in the authentic Cafes style.",
@@ -1647,35 +1620,6 @@ export const dishes = [
     "updatedAt": "2026-06-11T07:06:10.308Z",
     "slug": "ruwangan-mutton",
     "categoryType": "kashmiri_cuisine"
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f4c",
-    "name": "Saffron Kahwa",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Luxury Dining style.",
-    "fullDescription": "Saffron Kahwa is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Luxury Dining cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Saffron Kahwa stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Saffron Kahwa, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
-    "category": "Luxury Dining",
-    "foodType": "Veg",
-    "image": "/images/dishes/saffron-kahwa.jpg",
-    "priceRange": "INR 150-300",
-    "popularityRating": 4.1,
-    "spiceLevel": "Mild",
-    "tags": [
-      "kashmiri",
-      "luxury-dining",
-      "veg",
-      "authentic",
-      "luxury"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.225Z",
-    "updatedAt": "2026-06-11T07:06:13.145Z",
-    "slug": "saffron-kahwa",
-    "categoryType": "beverage"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f53",
