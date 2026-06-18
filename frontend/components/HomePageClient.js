@@ -197,10 +197,12 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     .map((name) => dishes.find((d) => d.name.toLowerCase() === name.toLowerCase()))
     .filter(Boolean);
 
-  const targetCuratedNames = ["Ahdoos", "Mughal Darbar", "Clove - The Art of Dining"];
+  const targetCuratedNames = ["1860 Restaurant", "Bakshi Restaurant & Cafe", "SALAM E WAZWAN Gulmarg"];
   const curatedRestaurants = restaurants
     .filter((r) => targetCuratedNames.includes(r.name))
     .sort((a, b) => targetCuratedNames.indexOf(a.name) - targetCuratedNames.indexOf(b.name));
+  console.log("Restaurants count:", restaurants.length);
+  console.log("Curated restaurants:", curatedRestaurants.map(r => r.name));
 
   const locationCounts = locationTabs.reduce((counts, location) => {
     counts[location] = restaurants.filter(
