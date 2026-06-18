@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
+import { Mail, Phone, Send, Check } from "lucide-react";
 
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
@@ -58,20 +58,6 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="md:col-span-1 space-y-6 flex flex-col justify-center"
           >
-            {/* Address */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[var(--saffron)]/10 border border-[var(--saffron)]/20 flex items-center justify-center shrink-0">
-                <MapPin className="w-5 h-5 text-[var(--saffron)]" />
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-1">Our Srinagar Office</h3>
-                <p className="text-white/50 text-xs leading-relaxed">
-                  Boulevard Road, Opp. Ghat No. 7,<br />
-                  Dal Lake, Srinagar, J&K, 190001
-                </p>
-              </div>
-            </div>
-
             {/* Email */}
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-[var(--saffron)]/10 border border-[var(--saffron)]/20 flex items-center justify-center shrink-0">
@@ -79,8 +65,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-1">Email Us</h3>
-                <a href="mailto:hello@wazwanway.com" className="text-white/50 text-xs hover:text-[var(--saffron)] transition-colors">
-                  hello@wazwanway.com
+                <a href="mailto:nasirkirmani@wazwanway.com" className="text-white/50 text-xs hover:text-[var(--saffron)] transition-colors">
+                  nasirkirmani@wazwanway.com
                 </a>
               </div>
             </div>
@@ -92,8 +78,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-1">Call Support</h3>
-                <a href="tel:+911942450000" className="text-white/50 text-xs hover:text-[var(--saffron)] transition-colors">
-                  +91 194 245 0000
+                <a href="tel:+917889717920" className="text-white/50 text-xs hover:text-[var(--saffron)] transition-colors">
+                  +91 78897 17920
                 </a>
               </div>
             </div>
