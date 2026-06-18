@@ -149,14 +149,17 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
 
-  useEffect(() => {
-    request(endpoints.dishes())
-      .then((data) => setDishes(data))
-      .catch((err) => console.error("Failed to fetch dishes:", err));
-    request(endpoints.restaurants())
-      .then((data) => setRestaurants(data))
-      .catch((err) => console.error("Failed to fetch restaurants:", err));
-  }, []);
+  // Home page featured sections are fully supported by static fallback data.
+  // We disable on-mount live API calls here to achieve instant load times (0ms delay) and prevent cold start lag.
+  // useEffect(() => {
+  //   request(endpoints.dishes())
+  //     .then((data) => setDishes(data))
+  //     .catch((err) => console.error("Failed to fetch dishes:", err));
+  //   request(endpoints.restaurants())
+  //     .then((data) => setRestaurants(data))
+  //     .catch((err) => console.error("Failed to fetch restaurants:", err));
+  // }, []);
+
 
   useEffect(() => {
     if (!selectedDish) return undefined;
@@ -223,7 +226,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       {/* 2. RESTAURANTS SECTION */}
       <section className="hidden md:block relative pt-12 md:pt-32 pb-24 z-10 mt-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image src="/x.jpg" alt="Restaurants Background" fill sizes="100vw" className="object-cover opacity-60" priority />
+          <Image src="/x.jpg" alt="Restaurants Background" fill sizes="100vw" className="object-cover opacity-60" priority unoptimized />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-black/50 to-[#0B0B0B]"></div>
         </div>
         <div className="page-shell relative z-10">
@@ -350,6 +353,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   fill
                   sizes="(max-width: 768px) 50vw, 33vw"
                   className="object-cover transition duration-700 group-hover:scale-110"
+                  unoptimized
                 />
               </div>
               <div className="p-4 md:p-6 flex flex-col flex-1 justify-between">
@@ -683,6 +687,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
+                  unoptimized
                 />
               </div>
 

@@ -14,13 +14,20 @@ function DishesPageContent({ initialDishes = [] }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    if (dishes.length === 0) {
+      setLoading(true);
+    }
     // Fetch only traditional wazwan dishes
     request(endpoints.dishes("?categoryType=wazwan"))
-      .then((data) => setDishes(data))
+      .then((data) => {
+        setDishes(data);
+        setError(null);
+      })
       .catch((err) => {
         console.error("Failed to load traditional Wazwan dishes:", err);
-        setError("Failed to load traditional Wazwan dishes. Please try again later.");
+        if (dishes.length === 0) {
+          setError("Failed to load traditional Wazwan dishes. Please try again later.");
+        }
       })
       .finally(() => setLoading(false));
   }, []);

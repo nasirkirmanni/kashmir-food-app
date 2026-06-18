@@ -628,27 +628,26 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
     }
   }, [searchParams]);
 
-  // Load from backend if empty
   useEffect(() => {
-    if (initialRestaurants.length > 0) {
-      setRestaurants(initialRestaurants);
-      setLoading(false);
-    } else {
+    // Only show full screen loader if no initial fallback restaurants exist
+    if (restaurants.length === 0) {
       setLoading(true);
-      request(endpoints.restaurants())
-        .then((data) => {
-          setRestaurants(data);
-          setError(null);
-        })
-        .catch((err) => {
-          console.error("Failed to fetch restaurants:", err);
-          setError("Failed to load restaurants. Operating in offline demo mode.");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
     }
-  }, [initialRestaurants]);
+    request(endpoints.restaurants())
+      .then((data) => {
+        setRestaurants(data);
+        setError(null);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch restaurants:", err);
+        if (restaurants.length === 0) {
+          setError("Failed to load restaurants. Operating in offline demo mode.");
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const handleCuisineToggle = (cuisine) => {
     if (cuisine === "All") {

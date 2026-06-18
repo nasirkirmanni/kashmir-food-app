@@ -77,14 +77,20 @@ function KashmiriFoodContent({ initialDishes = [] }) {
   const [activeTab, setActiveTab] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Load all dishes upfront on mount
   useEffect(() => {
-    setLoading(true);
+    if (dishes.length === 0) {
+      setLoading(true);
+    }
     request(endpoints.dishes())
-      .then((data) => setDishes(data))
+      .then((data) => {
+        setDishes(data);
+        setError(null);
+      })
       .catch((err) => {
         console.error("Failed to fetch dishes:", err);
-        setError("Failed to load Kashmiri food catalog. Please try again later.");
+        if (dishes.length === 0) {
+          setError("Failed to load Kashmiri food catalog. Please try again later.");
+        }
       })
       .finally(() => setLoading(false));
   }, []);
