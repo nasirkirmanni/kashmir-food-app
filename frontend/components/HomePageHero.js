@@ -192,7 +192,7 @@ export default function HomePageHero() {
                       </div>
                       <div>
                         <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Restaurants</h3>
-                        <p className="text-[#888] font-body text-[11px] mt-0.5">27 venues</p>
+                        <p className="text-[#888] font-body text-[11px] mt-0.5">25 venues</p>
                       </div>
                     </div>
                   </Link>

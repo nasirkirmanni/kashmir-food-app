@@ -3210,64 +3210,7 @@ export const restaurants = [
     "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5
   },
-  {
-    "name": "Nishat Breeze Restaurant",
-    "location": "Near Nishat Gardens, Boulevard Road, Srinagar",
-    "city": "Srinagar",
-    "rating": 4.4,
-    "priceLevel": "Mid-range",
-    "tags": [
-      "Trout",
-      "Scenic View",
-      "Near Garden"
-    ],
-    "image": "/images/restaurants/restaurant-art.png",
-    "description": "Located near Nishat Mughal Garden, Nishat Breeze is famous for serving fresh trout and Kashmiri meals with outdoor seating.",
-    "phoneNumber": "+91 194 246 1122",
-    "openingHours": "11:00 AM – 10:00 PM daily",
-    "website": "nishatbreeze.com",
-    "authentic": true,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "googleMapsQuery": "Nishat Breeze Restaurant Srinagar",
-    "linkedDishNames": [
-      "Trout Fish Fry",
-      "Rogan Josh",
-      "Nadru Yakhni"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
-  },
-  {
-    "name": "Shalimar Heights Cafe",
-    "location": "Main Road, Near Shalimar Bagh, Srinagar",
-    "city": "Srinagar",
-    "rating": 4.2,
-    "priceLevel": "Mid-range",
-    "tags": [
-      "Cafe",
-      "Coffee",
-      "Kashmiri Breads"
-    ],
-    "image": "/images/restaurants/restaurant-art.png",
-    "description": "A trendy cafe near Shalimar Bagh providing excellent Kashmiri coffee, dry fruit Kahwa, and afternoon local bakery goods.",
-    "phoneNumber": "+91 194 246 3344",
-    "openingHours": "10:00 AM – 9:00 PM daily",
-    "website": "shalimarheightscafe.com",
-    "authentic": false,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "googleMapsQuery": "Shalimar Heights Cafe Srinagar",
-    "linkedDishNames": [
-      "Kashmiri Kahwa",
-      "Czochworu",
-      "Bakerkhani"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3
-  }
+
 ];
 
 export const destinations = [
