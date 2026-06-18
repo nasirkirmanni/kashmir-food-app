@@ -106,6 +106,10 @@ export default function HamburgerMenu() {
                   { label: "Rare Destinations", href: "/visit-kashmir" },
                   { label: "Visit kashmir", href: "/plan" },
                   { label: "List Your Restaurant", href: "/list-restaurant" },
+                  { label: "Blog", href: "/blog" },
+                  { label: "About Us", href: "/about" },
+                  { label: "Contact Us", href: "/contact" },
+                  { label: "Privacy Policy", href: "/privacy" },
                 ].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
                     <Link
@@ -197,6 +201,10 @@ export default function HamburgerMenu() {
                   { label: "Culinary Itineraries", sub: "Hand-crafted food tours", href: "/itineraries", iconColor: "green" },
                   { label: "Visit kashmir", sub: "Interactive travel planner", href: "/plan", iconColor: "saffron" },
                   { label: "List Your Restaurant", sub: "Join Wazwan Way", href: "/list-restaurant", iconColor: "saffron" },
+                  { label: "Wazwan Way Blog", sub: "Culinary stories & insights", href: "/blog", iconColor: "saffron" },
+                  { label: "About Us", sub: "Our story & mission", href: "/about", iconColor: "saffron" },
+                  { label: "Contact Us", sub: "Reach out to our team", href: "/contact", iconColor: "saffron" },
+                  { label: "Privacy Policy", sub: "Your privacy is our priority", href: "/privacy", iconColor: "saffron" },
                 ].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
                     <Link

@@ -45,14 +45,36 @@ export default function Navbar() {
   const desktopNav = (
     <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
       <div className="flex h-20 items-center justify-between w-full px-6 lg:px-12 2xl:px-16">
-        {/* Logo — with right margin for breathing room */}
-        <Link
-          href="/"
-          className="font-display text-[28px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline"
-        >
-          <span>Wazwan</span>
-          <span className="text-[#C8A46A] text-[24px] font-medium ml-[4px]">Way</span>
-        </Link>
+        
+        {/* Left Side: Hamburger Menu & Login controls next to Logo */}
+        <div className="flex items-center gap-6 shrink-0 mr-8">
+          <HamburgerMenu />
+          {user ? (
+            <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#C8A46A] whitespace-nowrap">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#C8A46A] transition-colors overflow-hidden shrink-0">
+                <svg className="w-4 h-4 text-white/70 group-hover:text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <span className="hidden lg:inline text-xs font-bold uppercase tracking-widest">{user.name}</span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-xs font-bold uppercase tracking-widest text-white transition-colors hover:text-[#C8A46A] whitespace-nowrap"
+            >
+              Login
+            </Link>
+          )}
+          
+          <Link
+            href="/"
+            className="font-display text-[28px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white ml-2 shrink-0 flex items-baseline"
+          >
+            <span>Wazwan</span>
+            <span className="text-[#C8A46A] text-[24px] font-medium ml-[4px]">Way</span>
+          </Link>
+        </div>
 
         {/* Nav links — nowrap, generous gap */}
         <div className="flex flex-1 items-center justify-center gap-8 lg:gap-10 text-[0.75rem] font-bold uppercase tracking-[0.15em] text-white/80">
@@ -73,19 +95,10 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Right actions — hamburger, login, signup with consistent gaps */}
-        <div className="flex items-center gap-3 lg:gap-4 shrink-0 ml-6">
-          <HamburgerMenu />
+        {/* Right actions — Sign up / Log out */}
+        <div className="flex items-center gap-4 shrink-0 ml-6">
           {user ? (
             <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white">
-              <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#C8A46A] whitespace-nowrap">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#C8A46A] transition-colors overflow-hidden shrink-0">
-                  <svg className="w-4 h-4 text-white/70 group-hover:text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <span>{user.name}</span>
-              </Link>
               {user.role === "admin" && (
                 <Link href="/admin" className="text-[#C8A46A] hover:text-white transition-colors whitespace-nowrap">
                   Dashboard
@@ -96,20 +109,12 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <>
-              <Link
-                href="/login"
-                className="text-xs font-bold uppercase tracking-widest text-white transition-colors hover:text-[#C8A46A] whitespace-nowrap"
-              >
-                Login
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
-              >
-                Sign up
-              </Link>
-            </>
+            <Link
+              href="/signup"
+              className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
+            >
+              Sign up
+            </Link>
           )}
         </div>
       </div>
