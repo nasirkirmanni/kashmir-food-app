@@ -103,10 +103,10 @@ export default function HomePageHero() {
           }}
         />
         
-        {/* Top bar spacer */}
-        <div className="h-[150px] shrink-0 relative z-10">
+        {/* Top bar spacer — accounts for device status bar only */}
+        <div className="shrink-0 relative z-10" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}>
           {/* Greeting Overlay */}
-          <div className="absolute top-0 left-0 w-full px-5 pt-16 pb-2 pointer-events-auto">
+          <div className="px-5 pt-12 pb-2 pointer-events-auto">
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col justify-center">
                 <span className="text-[12px] font-[700] text-[#C8A46A] tracking-[0.18em] uppercase mb-1">

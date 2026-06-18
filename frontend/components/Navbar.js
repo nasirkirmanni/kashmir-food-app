@@ -122,7 +122,7 @@ export default function Navbar() {
     <>
       {desktopNav}
       {/* Mobile Nav Bar */}
-      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
+      <nav className="hidden fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl md:flex">
         <div className="flex h-24 items-center justify-between w-full px-6 lg:px-12 2xl:px-16">
           {/* Logo */}
           <Link href="/" className="font-display text-[28px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline">
