@@ -209,12 +209,12 @@ export default function HamburgerMenu() {
       <button
         id="menuBtn"
         onClick={() => setIsOpen(true)}
-        className="p-2 text-white/80 hover:text-[var(--saffron)] transition-colors active:scale-95 bg-white/5 rounded-full border border-white/10 hover:border-[var(--saffron)]/50 flex items-center justify-center shrink-0"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95 text-[#C8A46A] hover:border-[#C8A46A]/60 shrink-0"
         aria-label="Menu"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="4" y1="12" x2="20" y2="12" />
           <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="12" x2="20" y2="12" />
           <line x1="4" y1="18" x2="20" y2="18" />
         </svg>
       </button>

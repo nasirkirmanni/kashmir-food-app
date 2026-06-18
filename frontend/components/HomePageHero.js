@@ -7,6 +7,7 @@ import { MapPin, ChefHat, ArrowRight, Search, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
+import HamburgerMenu from "@/components/HamburgerMenu";
 
 const LandingCanvas = dynamic(() => import("@/components/LandingCanvas"), { ssr: false });
 const SaffronAnimation = dynamic(() => import("@/components/SaffronAnimation"), { ssr: false });
@@ -117,17 +118,20 @@ export default function HomePageHero() {
                 </span>
               </div>
               
-              {/* Profile / Menu Button */}
-              <button 
-                onClick={(e) => handleNavClick(e, 4)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
-              >
-                {user ? (
-                  <User size={18} className="text-[#C8A46A]" strokeWidth={2} />
-                ) : (
-                  <User size={18} className="text-[#C8A46A]/70" strokeWidth={2} />
-                )}
-              </button>
+              {/* Right side: Profile + Hamburger */}
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={(e) => handleNavClick(e, 4)}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
+                >
+                  {user ? (
+                    <User size={18} className="text-[#C8A46A]" strokeWidth={2} />
+                  ) : (
+                    <User size={18} className="text-[#C8A46A]/70" strokeWidth={2} />
+                  )}
+                </button>
+                <HamburgerMenu />
+              </div>
             </div>
           </div>
         </div>
