@@ -14,6 +14,7 @@ const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaura
 const MobileRestaurantExplorerModal = dynamic(() => import("@/components/MobileRestaurantExplorerModal"), { ssr: false });
 const WazaAITripPlannerModal = dynamic(() => import("@/components/WazaAITripPlannerModal"), { ssr: false });
 import { endpoints, request } from "@/lib/api";
+import CustomReelPlayer from "@/components/CustomReelPlayer";
 
 const locationTabMeta = {
   Srinagar: {
@@ -210,15 +211,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
   const featuredRestaurants = selectedLocation
     ? restaurants.filter((restaurant) => (restaurant.city || "Srinagar") === selectedLocation)
     : [];
-
-  const tips = [
-    { number: "01", title: "Book in Advance", description: "A full Wazwan is often prepared overnight, so call ahead if you want the ceremonial feast experience rather than a standard menu order." },
-    { number: "02", title: "Come Hungry, Come Many", description: "Wazwan is best enjoyed in a group. The shared trami experience makes the meal feel cultural, social, and complete." },
-    { number: "03", title: "Start with the Classics", description: "If you are new to Kashmiri food, begin with Rogan Josh, Gushtaba, Rista, and Tabak Maaz before branching into rarer specialties." },
-    { number: "04", title: "Respect the Finale", description: "Dishes like Gushtaba are traditionally served at the end of a Wazwan, so knowing the order makes the experience far more immersive." },
-    { number: "05", title: "Ask About Authenticity", description: "Some restaurants are polished for tourists, while others preserve older cooking styles. Use the authenticity notes in the app." },
-    { number: "06", title: "Pair Food with the Place", description: "A Dal Lake setting, an old city dining hall, and a heritage restaurant each create a very different mood around the same dish." }
-  ];
 
   return (
     <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
@@ -507,28 +499,40 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           className="mb-24 text-center"
         >
-          <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Visitor Guide</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">How to Experience Wazwan</h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">Everything you should know before you sit at the trami.</p>
+          <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Socials</span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">The Instagram of Wazwanway</h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">
+            Follow our journey and explore the royal Kashmiri feast visual experience on Instagram.
+          </p>
+          <div className="mt-8">
+            <a 
+              href="https://instagram.com/wazwanway" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)] bg-[rgba(212,175,55,0.1)] px-6 py-3 text-sm font-bold uppercase tracking-widest text-[var(--saffron)] shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all hover:bg-[var(--saffron)] hover:text-black"
+            >
+              <i className="ti ti-brand-instagram text-xl"></i>
+              @wazwanway
+            </a>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {tips.map((tip, i) => (
-            <motion.article 
-              key={tip.number}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            { id: "DZu2M4gpuYC", src: "/videos/reel_1.mp4", poster: "/images/dishes/rista.jpg" },
+            { id: "DZrhoL_Jagk", src: "/videos/reel_2.mp4", poster: "/images/dishes/gushtaba.jpg" },
+            { id: "DZfIBSMJB3b", src: "/videos/reel_3.mp4", poster: "/images/dishes/rogan-josh.jpg" }
+          ].map((reel, i) => (
+            <motion.div 
+              key={reel.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="rounded-[16px] md:rounded-[24px] border border-white/10 bg-white/5 p-4 md:p-8 backdrop-blur-xl transition hover:border-[var(--saffron)] flex flex-col justify-start"
+              className="w-full flex justify-center"
             >
-              <div className="font-display text-2xl md:text-4xl font-bold text-[var(--saffron)] opacity-50">
-                {tip.number}
-              </div>
-              <h3 className="mt-3 md:mt-6 font-display text-lg md:text-3xl font-medium tracking-tight text-white leading-tight">{tip.title}</h3>
-              <p className="mt-2 md:mt-4 text-xs md:text-base leading-relaxed text-white/60 line-clamp-4 md:line-clamp-none">{tip.description}</p>
-            </motion.article>
+              <CustomReelPlayer src={reel.src} poster={reel.poster} />
+            </motion.div>
           ))}
         </div>
       </section>

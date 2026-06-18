@@ -35,6 +35,7 @@ export default function Navbar() {
 
   /* ── Desktop nav links — only high-priority items visible ── */
   const desktopNavLinks = [
+    { label: "How to experience wazwan", href: "/how-to-experience" },
     { label: "Kashmiri Food", href: "/kashmiri-food" },
     { label: "Traditional Wazwan", href: "/dishes" },
     { label: "Restaurants", href: "/restaurants" },
