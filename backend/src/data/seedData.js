@@ -2817,42 +2817,7 @@ export const restaurants = [
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5
   },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f5e",
-    "name": "Mughal Darbar",
-    "location": "Residency Road, near GPO, Munshi Bagh, Srinagar, Jammu and Kashmir 190001",
-    "city": "Srinagar",
-    "rating": 3.7,
-    "priceLevel": "Mid-range",
-    "tags": [
-      "Traditional",
-      "Wazwan",
-      "Local Favorite"
-    ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76ef9",
-      "6a2a4978ac7d60a9cca76efa",
-      "6a2a4978ac7d60a9cca76efb"
-    ],
-    "image": "/images/restaurants/restaurant-art.jpg",
-    "description": "A long-running Srinagar favorite for classic Kashmiri Wazwan, known especially for Rogan Josh, Gushtaba, and other traditional meat dishes.",
-    "phoneNumber": "+91 60060 74803",
-    "openingHours": "11:30 AM – 10:00 PM daily",
-    "website": "mughaldarbar.com",
-    "authentic": true,
-    "overpriced": false,
-    "touristTrapWarning": false,
-    "touristTrapReason": "",
-    "googleMapsQuery": "Mughal Darbar Residency Road Srinagar",
-    "authenticityScore": 4.7,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-11T05:36:56.506Z",
-    "updatedAt": "2026-06-11T05:38:10.589Z",
-    "slug": "mughal-darbar"
-  },
+
   {
     "_id": "6a2a4978ac7d60a9cca76f7f",
     "name": "Panjabi Dhaba and Kashmiri Wazwan",
