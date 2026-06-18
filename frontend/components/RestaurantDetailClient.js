@@ -8,7 +8,7 @@ import ReviewList from "@/components/ReviewList";
 import { endpoints, request } from "@/lib/api";
 import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Image from "next/image";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function RestaurantDetailClient({ initialRestaurant = null }) {
@@ -16,6 +16,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
   const router = useRouter();
   const [restaurant, setRestaurant] = useState(initialRestaurant);
   const [loading, setLoading] = useState(!initialRestaurant);
+  const [error, setError] = useState(null);
 
   const loadRestaurant = () => {
     if (!params.slug) return Promise.resolve();
@@ -26,12 +27,20 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
       return Promise.resolve();
     }
     setLoading(true);
-    return request(endpoints.restaurant(params.slug)).then((data) => {
-      setRestaurant(data);
-      if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
-        router.replace(`/restaurants/${data.slug}`);
-      }
-    }).finally(() => setLoading(false));
+    setError(null);
+    return request(endpoints.restaurant(params.slug))
+      .then((data) => {
+        setRestaurant(data);
+        if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
+          router.replace(`/restaurants/${data.slug}`);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch restaurant:", err);
+        setError("Failed to load restaurant details. Please try again later.");
+        setRestaurant(null);
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -39,11 +48,36 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
   }, [params.slug]);
 
   if (loading) {
-    return <div className="places-wrap py-24 text-[var(--muted)]">Loading restaurant...</div>;
+    return (
+      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--saffron)]"></div>
+          <p className="text-[var(--saffron)] font-bold uppercase tracking-widest text-sm animate-pulse">Loading Restaurant...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-4">
+          <div className="text-red-400 font-bold text-xl">{error}</div>
+          <button onClick={loadRestaurant} className="rounded-full bg-white/10 px-6 py-2 text-white hover:bg-white/20 transition-colors">Try Again</button>
+        </div>
+      </div>
+    );
   }
 
   if (!restaurant) {
-    return <div className="places-wrap py-24 text-[var(--muted)]">Restaurant not found.</div>;
+    return (
+      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-4">
+          <div className="text-white/60 font-medium text-xl">Restaurant not found.</div>
+          <button onClick={() => router.back()} className="rounded-full bg-[var(--saffron)] px-6 py-2 text-black font-bold hover:scale-105 transition-transform">Go Back</button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -152,7 +186,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
         <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-md p-4 shadow-2xl mt-8 md:mt-0">
           {restaurant.image ? (
             <div className="relative h-[250px] md:h-[320px] w-full">
-              <Image src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="restaurant-cover object-cover rounded-[12px]" />
+              <ImageWithSkeleton src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="restaurant-cover object-cover rounded-[12px]" />
             </div>
           ) : (
             <div className="restaurant-cover h-[250px] md:h-[320px] flex items-center justify-center bg-white/5 rounded-[12px]">
@@ -173,7 +207,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
                 {restaurant.linkedDishes.map((dish) => (
                   <div key={dish._id} className="flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg transition hover:border-[var(--saffron)] hover:bg-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
                     <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
-                      <Image src={resolveImageUrl(dish.image)} alt={dish.name} fill sizes="100px" className="object-cover" />
+                      <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill sizes="100px" className="object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>

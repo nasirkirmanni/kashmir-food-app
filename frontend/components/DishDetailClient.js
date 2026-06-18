@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 import ReactMarkdown from "react-markdown";
 import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function DishDetailClient({ initialDish = null }) {
@@ -18,6 +19,7 @@ export default function DishDetailClient({ initialDish = null }) {
   const router = useRouter();
   const [dish, setDish] = useState(initialDish);
   const [loading, setLoading] = useState(!initialDish);
+  const [error, setError] = useState(null);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -85,6 +87,8 @@ export default function DishDetailClient({ initialDish = null }) {
         }
         return;
       }
+      setLoading(true);
+      setError(null);
       request(endpoints.dish(params.slug))
         .then((data) => {
           setDish(data);
@@ -94,6 +98,7 @@ export default function DishDetailClient({ initialDish = null }) {
         })
         .catch((err) => {
           console.error("Failed to fetch dish:", err);
+          setError("Failed to load dish details. Please try again later.");
           setDish(null);
         })
         .finally(() => setLoading(false));
@@ -111,11 +116,36 @@ export default function DishDetailClient({ initialDish = null }) {
   }, [user, dish]);
 
   if (loading) {
-    return <div className="places-wrap py-24 text-[var(--muted)]">Loading dish...</div>;
+    return (
+      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--saffron)]"></div>
+          <p className="text-[var(--saffron)] font-bold uppercase tracking-widest text-sm animate-pulse">Loading Dish...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-4">
+          <div className="text-red-400 font-bold text-xl">{error}</div>
+          <button onClick={() => window.location.reload()} className="rounded-full bg-white/10 px-6 py-2 text-white hover:bg-white/20 transition-colors">Try Again</button>
+        </div>
+      </div>
+    );
   }
 
   if (!dish) {
-    return <div className="places-wrap py-24 text-[var(--muted)]">Dish not found.</div>;
+    return (
+      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-4">
+          <div className="text-white/60 font-medium text-xl">Dish not found.</div>
+          <button onClick={() => router.back()} className="rounded-full bg-[var(--saffron)] px-6 py-2 text-black font-bold hover:scale-105 transition-transform">Go Back</button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -221,14 +251,16 @@ export default function DishDetailClient({ initialDish = null }) {
         </div>
 
         <div className="rounded-[20px] border border-[var(--border)] bg-white/5 p-4 shadow-card overflow-hidden">
-          <img
-            src={resolveImageUrl(dish.image)}
-            alt={dish.name}
-            loading="eager"
-            decoding="async"
-            className="restaurant-cover h-[320px] w-full object-cover rounded-[12px]"
-            onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
-          />
+          <div className="relative h-[320px] w-full">
+            <ImageWithSkeleton
+              src={resolveImageUrl(dish.image)}
+              alt={dish.name}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="restaurant-cover object-cover rounded-[12px]"
+            />
+          </div>
         </div>
       </section>
 
@@ -252,19 +284,6 @@ export default function DishDetailClient({ initialDish = null }) {
               <h3>Restaurants serving {dish.name}</h3>
               <div className="mt-2 space-y-4">
                 {dish.restaurants && dish.restaurants.map((restaurant) => (
-                  <div key={restaurant._id} className="rounded-[16px] border border-[var(--border)] p-4">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <p className="font-display text-2xl text-[var(--walnut)]">{restaurant.name}</p>
-                        <p className="restaurant-submeta mt-1">{restaurant.location}</p>
-                      </div>
-                      <div className="restaurant-rating">{restaurant.rating} / 5</div>
-                    </div>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <span className="place-badge">{restaurant.priceLevel}</span>
-                      {restaurant.authentic ? <span className="place-badge">Authentic</span> : null}
-                    </div>
-                    <div className="mt-4">
                       <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost">
                         View restaurant -&gt;
                       </Link>

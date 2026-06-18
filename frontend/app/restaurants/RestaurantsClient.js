@@ -555,19 +555,24 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
   // Fetch coordinates on mount
   useEffect(() => {
-    if (typeof window !== "undefined" && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserCoords({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        () => {
-          // Fallback coordinate: Srinagar Center
-          setUserCoords({ latitude: 34.0837, longitude: 74.7973 });
-        }
-      );
+    if (typeof window !== "undefined") {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserCoords({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+          },
+          () => {
+            // Fallback coordinate: Srinagar Center
+            setUserCoords({ latitude: 34.0837, longitude: 74.7973 });
+          }
+        );
+      } else {
+        // Fallback for no geolocation support
+        setUserCoords({ latitude: 34.0837, longitude: 74.7973 });
+      }
     }
   }, []);
 

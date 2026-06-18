@@ -87,6 +87,35 @@ export const request = async (path, options = {}) => {
   return promise;
 };
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchWithRetry(url, options = {}, retries = 3, backoff = 300, timeout = 8000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), timeout);
+
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+      clearTimeout(id);
+
+      // Only retry on 5xx server errors
+      if (!response.ok && response.status >= 500) {
+        throw new Error(`Server Error: ${response.status}`);
+      }
+      return response;
+    } catch (err) {
+      if (err.name === "AbortError") {
+        console.warn(`Request timeout for ${url}`);
+      }
+      if (i === retries - 1) throw err;
+      await wait(backoff * Math.pow(2, i));
+    }
+  }
+}
+
 async function _doFetch(path, options, cacheKey, cacheable) {
   const token = getToken();
   const headers = {
@@ -112,7 +141,7 @@ async function _doFetch(path, options, cacheKey, cacheable) {
     delete fetchOptions.cache;
   }
 
-  const response = await fetch(buildApiUrl(path), fetchOptions);
+  const response = await fetchWithRetry(buildApiUrl(path), fetchOptions);
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {

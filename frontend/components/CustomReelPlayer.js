@@ -43,7 +43,7 @@ export default function CustomReelPlayer({ src, poster }) {
   }, []);
 
   return (
-    <div className="relative w-[280px] h-[500px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0B0B0B] shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] group mx-auto">
+    <div className="relative w-[260px] h-[460px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0B0B0B] shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] group mx-auto">
       
       {/* Golden Corner Highlights */}
       <div className="absolute top-0 left-0 w-12 h-12 border-t-[3px] border-l-[3px] border-[var(--saffron)] rounded-tl-[24px] pointer-events-none z-10 opacity-90" />

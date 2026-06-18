@@ -414,9 +414,10 @@ export default function SrinagarMiniMap({
             {/* Interactive Pins */}
             {filteredPins.map((pin) => {
               const isHovered = hoveredRestaurantId === pin.id;
-              const isMainLocation = pin.restaurant.city?.toLowerCase() === activeLocation.toLowerCase();
+              const city = pin.restaurant.city || "Srinagar";
+              const isMainLocation = city.toLowerCase() === activeLocation.toLowerCase();
 
-              if (!isMainLocation && pin.restaurant.city) return null;
+              if (!isMainLocation) return null;
 
               return (
                 <g

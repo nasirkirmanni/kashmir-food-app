@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
-import Image from "next/image";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function RestaurantCard({ restaurant, compact = false, onFavorite }) {
@@ -26,8 +26,8 @@ export default function RestaurantCard({ restaurant, compact = false, onFavorite
   return (
     <article className="overflow-hidden rounded-[28px] bg-white shadow-card">
       {!compact ? (
-        <div className="relative h-48">
-          <Image src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" loading="lazy" />
+        <div className="relative h-48 w-full">
+          <ImageWithSkeleton src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
         </div>
       ) : null}
       <div className="space-y-4 p-5">

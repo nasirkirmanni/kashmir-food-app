@@ -103,7 +103,7 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://kashmir-food-app-api.onrender.com" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative`}>
+      <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative overflow-x-hidden`}>
         <CapacitorListeners />
         <GlobalBackground />
         <AuthProvider>
