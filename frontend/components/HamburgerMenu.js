@@ -53,65 +53,25 @@ export default function HamburgerMenu() {
       {isOpen && (
         <>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
-            style={{
-              position: "fixed", inset: 0, zIndex: 100,
-              background: "rgba(0,0,0,0.55)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-            }}
-          />
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%", transition: { type: "tween", duration: 0.25 } }}
-            transition={{ type: "spring", damping: 28, stiffness: 220 }}
-            style={{
-              position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 101,
-              width: "50%", minWidth: 200, maxWidth: 280,
-              background: "rgba(10, 10, 10, 0.97)",
-              backdropFilter: "blur(32px) saturate(160%)",
-              WebkitBackdropFilter: "blur(32px) saturate(160%)",
-              borderLeft: "1px solid rgba(255,255,255,0.08)",
-              display: "flex", flexDirection: "column",
-            }}
+            initial={{ opacity: 0, y: "-10%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-10%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="absolute top-12 right-4 z-50 w-64 max-h-[80vh] overflow-y-auto bg-[#0B0B0B]/90 backdrop-blur-3xl border border-white/10 rounded-md p-4 shadow-lg"
           >
             {/* Header */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 20px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-              <span style={{ fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "0.85rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--saffron, #C8A46A)" }}>
-                Menu
-              </span>
-              <button
-                onClick={() => setIsOpen(false)}
-                style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)", padding: 4, display: "flex", alignItems: "center", justifyContent: "center" }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+              <span style={{ fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "0.85rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--saffron, #C8A46A)" }}>Menu</span>
+              <button onClick={() => setIsOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)", padding: 4 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>
-
             {/* Links */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "16px 20px" }}>
+            <div style={{ flex: 1, padding: "12px 0" }}>
               <motion.div variants={containerVars} initial="hidden" animate="show" style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                {[
-                  { label: "Profile", href: "/profile" },
-                  { label: "Saved Dishes", href: "/favorites" },
-                  { label: "Recipes", href: "/recipes" },
-                  { label: "List Your Restaurant", href: "/list-restaurant" },
-                  { label: "Blog", href: "/blog" },
-                  { label: "About Us", href: "/about" },
-                  { label: "Contact Us", href: "/contact" },
-                  { label: "Privacy Policy", href: "/privacy" },
-                ].map((item) => (
+                {[{ label: "Profile", href: "/profile" },{ label: "Saved Dishes", href: "/favorites" },{ label: "Recipes", href: "/recipes" },{ label: "List Your Restaurant", href: "/list-restaurant" },{ label: "Blog", href: "/blog" },{ label: "About Us", href: "/about" },{ label: "Contact Us", href: "/contact" },{ label: "Privacy Policy", href: "/privacy" }].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #C8A46A)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
+                    <Link href={item.href} onClick={() => setIsOpen(false)} style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #C8A46A)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                       onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
                       onMouseLeave={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.paddingLeft = "4px"; }}
                     >
@@ -120,29 +80,21 @@ export default function HamburgerMenu() {
                   </motion.div>
                 ))}
                 <motion.div variants={itemVars}>
-                  <button
-                    onClick={handleWazaAI}
-                    style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #C8A46A)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
+                  <button onClick={handleWazaAI} style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #C8A46A)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                     onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
                     onMouseLeave={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.paddingLeft = "4px"; }}
                   >
-                    Waza AI
-                    <span style={{ fontSize: "0.45rem", fontFamily: "Inter, sans-serif", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", background: "var(--saffron, #C8A46A)", color: "#000", padding: "2px 5px", borderRadius: 3 }}>Beta</span>
+                    Waza AI<span style={{ fontSize: "0.45rem", fontFamily: "Inter, sans-serif", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", background: "var(--saffron, #C8A46A)", color: "#000", padding: "2px 5px", borderRadius: 3 }}>Beta</span>
                   </button>
                 </motion.div>
               </motion.div>
             </div>
-
             {/* Footer */}
-            <div style={{ padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+            <div style={{ padding: "12px 0", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
               {user ? (
-                <button onClick={handleLogout} style={{ width: "100%", background: "none", border: "1px solid rgba(255,80,80,0.25)", borderRadius: 8, padding: "9px 0", color: "rgba(255,100,100,0.8)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer" }}>
-                  Log Out
-                </button>
+                <button onClick={handleLogout} style={{ width: "100%", background: "none", border: "1px solid rgba(255,80,80,0.25)", borderRadius: 8, padding: "9px 0", color: "rgba(255,100,100,0.8)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer" }}>Log Out</button>
               ) : (
-                <Link href="/login" onClick={() => setIsOpen(false)} style={{ display: "block", textAlign: "center", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 8, padding: "9px 0", color: "var(--saffron, #C8A46A)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>
-                  Log In
-                </Link>
+                <Link href="/login" onClick={() => setIsOpen(false)} style={{ display: "block", textAlign: "center", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 8, padding: "9px 0", color: "var(--saffron, #C8A46A)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>Log In</Link>
               )}
             </div>
           </motion.div>

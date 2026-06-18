@@ -76,7 +76,7 @@ export default function Navbar() {
 
         {/* Right actions — Menu, Login, and Sign up / Log out */}
         <div className="flex items-center gap-4 lg:gap-6 shrink-0 ml-6">
-          <HamburgerMenu />
+          
           {user ? (
             <div className="flex items-center gap-4 lg:gap-6 text-xs font-bold uppercase tracking-widest text-white">
               <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#C8A46A] whitespace-nowrap">
@@ -95,6 +95,7 @@ export default function Navbar() {
               <button onClick={logout} className="text-white/60 hover:text-white transition-colors whitespace-nowrap">
                 Log Out
               </button>
+              <HamburgerMenu />
             </div>
           ) : (
             <>
@@ -122,20 +123,12 @@ export default function Navbar() {
       {desktopNav}
       {/* Mobile Nav Bar */}
       <nav className="md:hidden fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
-        <div className="flex h-20 items-center justify-between w-full px-6 lg:px-12 2xl:px-16">
+        <div className="flex h-24 items-center justify-between w-full px-6 lg:px-12 2xl:px-16">
           {/* Logo */}
           <Link href="/" className="font-display text-[28px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline">
             <span>Wazwan</span>
             <span className="text-[#C8A46A] text-[24px] font-medium ml-[4px]">Way</span>
           </Link>
-          {/* Links */}
-          <div className="flex items-center gap-4 lg:gap-6 text-[0.75rem] font-bold uppercase tracking-[0.15em] text-white/80">
-            {desktopNavLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="whitespace-nowrap transition-colors hover:text-[#C8A46A]">
-                {link.label}
-              </Link>
-            ))}
-          </div>
           {/* Right actions – Profile/Login and Hamburger */}
           <div className="flex items-center gap-2">
             {user ? (
