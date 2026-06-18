@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Search, X, Utensils, MapPin, ArrowRight, Loader2 } from "lucide-react";
 import { endpoints, request } from "@/lib/api";
 import { useDebounce } from "@/hooks/useDebounce";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function GlobalSearchModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -232,9 +234,11 @@ export default function GlobalSearchModal() {
                             <div className="flex items-center gap-3">
                               <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white/5">
                                 {dish.image ? (
-                                  <img
-                                    src={dish.image}
+                                  <ImageWithSkeleton
+                                    src={resolveImageUrl(dish.image)}
                                     alt={dish.name}
+                                    fill
+                                    sizes="48px"
                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                   />
                                 ) : (
@@ -276,9 +280,11 @@ export default function GlobalSearchModal() {
                             <div className="flex items-center gap-3">
                               <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white/5">
                                 {rest.image ? (
-                                  <img
-                                    src={rest.image}
+                                  <ImageWithSkeleton
+                                    src={resolveImageUrl(rest.image)}
                                     alt={rest.name}
+                                    fill
+                                    sizes="48px"
                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                   />
                                 ) : (

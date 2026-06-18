@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 // ─── chevron icon ─────────────────────────────────────────────────
 function ChevronIcon({ open }) {
@@ -302,9 +304,11 @@ export default function MobileRestaurantSelector({
                     {restaurant.image && (
                       <div className="relative h-44 w-full overflow-hidden">
                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                        <img
-                          src={restaurant.image}
+                        <ImageWithSkeleton
+                          src={resolveImageUrl(restaurant.image)}
                           alt={restaurant.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="h-full w-full object-cover"
                         />
                         {/* Rating badge */}

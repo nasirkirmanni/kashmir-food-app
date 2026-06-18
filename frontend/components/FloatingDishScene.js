@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 // ─── Each dish: position, size, animation config ──────────────
 // pos: { top, left, right, bottom } as CSS % strings
@@ -150,10 +151,12 @@ export default function FloatingDishScene({ className = "" }) {
             transition={loopTransition(dish.rotateDuration, dish.float.delay + 0.2)}
             style={{ transformOrigin: "50% 60%" }}
           >
-            <img
+            <Image
               src={dish.src}
               alt={dish.alt}
-              className="w-full h-auto rounded-[18px] object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="rounded-[18px] object-cover"
               style={{
                 // Blend edges with dark bg using shadows
                 filter: `
@@ -165,7 +168,7 @@ export default function FloatingDishScene({ className = "" }) {
                 maskImage: "radial-gradient(ellipse 90% 88% at 50% 50%, black 55%, transparent 100%)",
                 WebkitMaskImage: "radial-gradient(ellipse 90% 88% at 50% 50%, black 55%, transparent 100%)",
               }}
-              loading="eager"
+              priority={true}
             />
           </motion.div>
         </motion.div>

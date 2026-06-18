@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function FavoritesPage() {
   const { user, loading } = useAuth();
@@ -107,7 +109,13 @@ export default function FavoritesPage() {
                   >
                     {item.image ? (
                       <div className="relative h-48 shrink-0 overflow-hidden">
-                        <img src={item.image} alt={item.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+                        <ImageWithSkeleton 
+                          src={resolveImageUrl(item.image)} 
+                          alt={item.name} 
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="h-full w-full object-cover transition duration-700 group-hover:scale-110" 
+                        />
                         <div className="absolute top-4 left-4">
                           <span className="place-badge shadow-md bg-black/60 backdrop-blur-md border border-white/20 text-white">{favorite.itemType}</span>
                         </div>

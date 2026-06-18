@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { useEffect, useMemo, useState, Suspense, memo, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
@@ -190,11 +191,11 @@ const LuxuryRestaurantCard = memo(({
         {/* Top: Restaurant Image */}
         <div className="relative w-full h-[200px] overflow-hidden bg-black/50">
           {imageSrc ? (
-            <img
+            <ImageWithSkeleton
               src={imageSrc}
               alt={restaurant.name}
-              loading="lazy"
-              decoding="async"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
             />
           ) : (
@@ -370,9 +371,12 @@ const FeaturedPartnerCard = memo(({
         {/* Large Imagery Block */}
         <div className="relative w-full h-[240px] md:h-[280px] overflow-hidden rounded-2xl bg-black/50 border border-white/5">
           {imageSrc ? (
-            <img
+            <ImageWithSkeleton
               src={imageSrc}
               alt={restaurant.name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={true}
               className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-105"
             />
           ) : (

@@ -284,10 +284,14 @@ export default function DishDetailClient({ initialDish = null }) {
               <h3>Restaurants serving {dish.name}</h3>
               <div className="mt-2 space-y-4">
                 {dish.restaurants && dish.restaurants.map((restaurant) => (
-                      <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost">
-                        View restaurant -&gt;
-                      </Link>
+                  <div key={restaurant._id || restaurant.name} className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-black/40 p-4">
+                    <div>
+                      <h4 className="font-semibold text-white">{restaurant.name}</h4>
+                      <p className="text-sm text-white/60">{restaurant.location}</p>
                     </div>
+                    <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost text-xs">
+                      View -&gt;
+                    </Link>
                   </div>
                 ))}
               </div>

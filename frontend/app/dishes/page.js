@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
+import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { endpoints, request } from "@/lib/api";
@@ -145,12 +146,12 @@ function DishesPageContent({ initialDishes = [] }) {
                 className="wazwan-dish-card flex flex-col justify-between border-[var(--saffron)]/20 shadow-[0_0_30px_rgba(212,175,55,0.05)] h-full"
               >
                 <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
-                  <img
+                  <ImageWithSkeleton
                     src={resolveImageUrl(dish.image)}
                     alt={dish.name}
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                    onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
                   />
                   <div className="absolute top-4 left-4 bg-[var(--saffron)] text-black font-bold uppercase tracking-widest text-[0.6rem] px-2.5 py-1 rounded">
                     Core Dish
@@ -196,12 +197,12 @@ function DishesPageContent({ initialDishes = [] }) {
               {courses.foundation.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
-                    <img
+                    <ImageWithSkeleton
                       src={resolveImageUrl(dish.image)}
                       alt={dish.name}
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                      onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
                     />
                   </div>
                   <div className="p-[10px] md:p-6 flex flex-col flex-grow">
@@ -234,12 +235,12 @@ function DishesPageContent({ initialDishes = [] }) {
               {courses.signature.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
-                    <img
+                    <ImageWithSkeleton
                       src={resolveImageUrl(dish.image)}
                       alt={dish.name}
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                      onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
                     />
                   </div>
                   <div className="p-[10px] md:p-6 flex flex-col flex-grow">
@@ -272,12 +273,12 @@ function DishesPageContent({ initialDishes = [] }) {
               {courses.vegetarian.map((dish) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
-                    <img
+                    <ImageWithSkeleton
                       src={resolveImageUrl(dish.image)}
                       alt={dish.name}
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                      onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
                     />
                   </div>
                   <div className="p-[10px] md:p-6 flex flex-col flex-grow">
