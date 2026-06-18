@@ -6,6 +6,7 @@ import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { endpoints, request } from "../../lib/api";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 function DishesPageContent({ initialDishes = [] }) {
   const router = useRouter();
@@ -141,7 +142,7 @@ function DishesPageContent({ initialDishes = [] }) {
               >
                 <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                   <ImageWithSkeleton
-                    src={dish.image}
+                    src={resolveImageUrl(dish.image)}
                     alt={dish.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -188,14 +189,15 @@ function DishesPageContent({ initialDishes = [] }) {
               <p className="text-xs text-white/40 mt-1">Dishes served directly on the rice bed when the trami is placed before the guests.</p>
             </div>
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {courses.foundation.map((dish) => (
+              {courses.foundation.map((dish, index) => (
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                     <ImageWithSkeleton
-                      src={dish.image}
+                      src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={index < 4}
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>
@@ -230,7 +232,7 @@ function DishesPageContent({ initialDishes = [] }) {
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                     <ImageWithSkeleton
-                      src={dish.image}
+                      src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -268,7 +270,7 @@ function DishesPageContent({ initialDishes = [] }) {
                 <div key={dish._id} className="wazwan-dish-card flex flex-col justify-between h-full">
                   <div className="relative h-[120px] md:h-[220px] w-full overflow-hidden bg-white/5 shrink-0">
                     <ImageWithSkeleton
-                      src={dish.image}
+                      src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

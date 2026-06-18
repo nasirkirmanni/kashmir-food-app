@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function ImageWithSkeleton({
@@ -16,6 +16,12 @@ export default function ImageWithSkeleton({
   ...props
 }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [imgSrc, setImgSrc] = useState(src || "/wazwan-hero.jpg");
+
+  useEffect(() => {
+    setImgSrc(src || "/wazwan-hero.jpg");
+    setIsLoading(true);
+  }, [src]);
 
   return (
     <div
@@ -29,7 +35,7 @@ export default function ImageWithSkeleton({
 
       {/* Actual Image */}
       <Image
-        src={src || "/images/placeholder-dish.jpg"}
+        src={imgSrc}
         alt={alt || "Image"}
         fill={fill}
         width={!fill ? width : undefined}
@@ -39,7 +45,11 @@ export default function ImageWithSkeleton({
         className={`transition-opacity duration-500 ease-in-out ${
           isLoading ? "opacity-0" : "opacity-100"
         } ${className}`}
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setImgSrc("/wazwan-hero.jpg");
+          setIsLoading(false);
+        }}
         {...props}
       />
     </div>

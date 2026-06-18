@@ -513,7 +513,7 @@ export const dishes = [
     "touristTip": "When ordering Ghee Batta, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
     "category": "Budget Eats",
     "foodType": "Veg",
-    "image": "/images/dishes/ghee-batta.webp",
+    "image": "/images/dishes/ghee-batta.jpg",
     "priceRange": "INR 120-240",
     "popularityRating": 5,
     "spiceLevel": "Mild",

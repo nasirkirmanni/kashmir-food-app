@@ -204,10 +204,10 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
             <article className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 shadow-2xl overflow-hidden">
               <h3 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h3>
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                {restaurant.linkedDishes.map((dish) => (
+                {restaurant.linkedDishes.map((dish, index) => (
                   <div key={dish._id} className="flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg transition hover:border-[var(--saffron)] hover:bg-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
                     <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
-                      <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill sizes="100px" className="object-cover" />
+                      <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="100px" className="object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>

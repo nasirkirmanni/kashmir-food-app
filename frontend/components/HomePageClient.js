@@ -521,7 +521,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           {[
             { id: "DZu2M4gpuYC", src: "/videos/reel_1.mp4", poster: "/images/dishes/rista.jpg" },
             { id: "DZrhoL_Jagk", src: "/videos/reel_2.mp4", poster: "/images/dishes/gushtaba.jpg" },
-            { id: "DZfIBSMJB3b", src: "/videos/reel_3.mp4", poster: "/images/dishes/rogan-josh.jpg" }
+            { id: "DZfIBSMJB3b", src: "/videos/reel_3.mp4", poster: "/images/dishes/rogan-josh.webp" }
           ].map((reel, i) => (
             <motion.div 
               key={reel.id}

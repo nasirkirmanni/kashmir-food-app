@@ -16,7 +16,12 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL?.trim()?.replace(/\/+$/, '')
  * - Falsy values return the fallback image.
  */
 export function resolveImageUrl(src, fallback = '/wazwan-hero.jpg') {
-  if (!src) return fallback;
+  if (!src) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn("Missing image field in data response. Falling back to default image.");
+    }
+    return fallback;
+  }
   
   // Already an absolute URL
   if (src.startsWith('http://') || src.startsWith('https://')) {
