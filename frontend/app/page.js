@@ -1,6 +1,8 @@
 import HomePageHero from "@/components/HomePageHero";
 import HomePageClient from "@/components/HomePageClient";
 import JsonLd, { buildWebsiteSchema, buildOrganizationSchema, buildFaqSchema } from "@/components/JsonLd";
+import dishesData from "@/data/dishes.json";
+import restaurantsData from "@/data/restaurants.json";
 
 export const metadata = {
   title: "Wazwan Way | Discover Authentic Kashmiri Cuisine",
@@ -39,7 +41,7 @@ export default function HomePage() {
       <JsonLd data={buildOrganizationSchema()} />
       <JsonLd data={buildFaqSchema(homeFaqs)} />
       <HomePageHero />
-      <HomePageClient />
+      <HomePageClient initialDishes={dishesData} initialRestaurants={restaurantsData} />
     </>
   );
 }

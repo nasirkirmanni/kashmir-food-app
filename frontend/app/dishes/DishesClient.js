@@ -297,7 +297,9 @@ function DishesPageContent({ initialDishes = [] }) {
   );
 }
 
-export default function DishesClient({ initialDishes = [] }) {
+import dishesData from "@/data/dishes.json";
+
+export default function DishesClient({ initialDishes = dishesData.filter(d => d.categoryType === "wazwan") }) {
   return (
     <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading wazwan dishes...</div>}>
       <DishesPageContent initialDishes={initialDishes} />

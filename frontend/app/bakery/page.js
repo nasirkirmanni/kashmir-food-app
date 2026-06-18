@@ -5,18 +5,25 @@ import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { endpoints, request } from "@/lib/api";
 
+import dishesData from "@/data/dishes.json";
+
 function BakeryContent() {
-  const [breads, setBreads] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const initialBreads = dishesData.filter(d => d.categoryType === "bakery");
+  const [breads, setBreads] = useState(initialBreads);
+  const [loading, setLoading] = useState(initialBreads.length === 0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    if (initialBreads.length === 0) {
+      setLoading(true);
+    }
     request(endpoints.dishes("?categoryType=bakery"))
       .then((data) => setBreads(data))
       .catch((err) => {
         console.error("Failed to fetch bakery items:", err);
-        setError("Failed to load bakery items. Please try again later.");
+        if (initialBreads.length === 0) {
+          setError("Failed to load bakery items. Please try again later.");
+        }
       })
       .finally(() => setLoading(false));
   }, []);

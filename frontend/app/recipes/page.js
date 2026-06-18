@@ -6,9 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
+import dishesData from "@/data/dishes.json";
+
 export default function RecipesPage() {
-  const [dishes, setDishes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [dishes, setDishes] = useState(dishesData);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -21,7 +23,10 @@ export default function RecipesPage() {
   useEffect(() => {
     request(endpoints.dishes(""))
       .then((data) => setDishes(data))
-      .catch((err) => setError("Failed to load dishes."))
+      .catch((err) => {
+        console.error(err);
+        if (dishesData.length === 0) setError("Failed to load dishes.");
+      })
       .finally(() => setLoading(false));
   }, []);
 

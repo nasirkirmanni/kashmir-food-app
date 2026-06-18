@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 import { endpoints, request } from "@/lib/api";
 import { resolveImageUrl } from "@/lib/imageUtils";
 
-function DishesPageContent() {
+function DishesPageContent({ initialDishes = [] }) {
   const router = useRouter();
-  const [dishes, setDishes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [dishes, setDishes] = useState(initialDishes);
+  const [loading, setLoading] = useState(initialDishes.length === 0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -296,10 +296,13 @@ function DishesPageContent() {
   );
 }
 
+import dishesData from "@/data/dishes.json";
+
 export default function DishesPage() {
+  const initialWazwanDishes = dishesData.filter(d => d.categoryType === "wazwan");
   return (
     <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading wazwan dishes...</div>}>
-      <DishesPageContent />
+      <DishesPageContent initialDishes={initialWazwanDishes} />
     </Suspense>
   );
 }

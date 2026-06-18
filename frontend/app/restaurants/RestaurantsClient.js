@@ -1482,7 +1482,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   );
 }
 
-export default function RestaurantsClient({ initialRestaurants = [] }) {
+import restaurantsData from "@/data/restaurants.json";
+
+export default function RestaurantsClient({ initialRestaurants = restaurantsData }) {
   return (
     <Suspense
       fallback={

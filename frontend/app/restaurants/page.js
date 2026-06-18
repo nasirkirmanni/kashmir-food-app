@@ -1482,6 +1482,8 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   );
 }
 
+import restaurantsData from "@/data/restaurants.json";
+
 export default function RestaurantsPage() {
   return (
     <Suspense
@@ -1492,7 +1494,7 @@ export default function RestaurantsPage() {
         </div>
       }
     >
-      <RestaurantsPageContent />
+      <RestaurantsPageContent initialRestaurants={restaurantsData} />
     </Suspense>
   );
 }

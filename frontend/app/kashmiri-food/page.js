@@ -65,12 +65,12 @@ function DishCard({ dish, linkText = "View Recipe Details" }) {
   );
 }
 
-function KashmiriFoodContent() {
+function KashmiriFoodContent({ initialDishes = [] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  const [dishes, setDishes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [dishes, setDishes] = useState(initialDishes);
+  const [loading, setLoading] = useState(initialDishes.length === 0);
   const [error, setError] = useState(null);
   
   // Default to null to show the portal view (landing cards)
@@ -590,10 +590,12 @@ function KashmiriFoodContent() {
   );
 }
 
+import dishesData from "@/data/dishes.json";
+
 export default function KashmiriFoodPage() {
   return (
     <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading Kashmiri Food...</div>}>
-      <KashmiriFoodContent />
+      <KashmiriFoodContent initialDishes={dishesData} />
     </Suspense>
   );
 }

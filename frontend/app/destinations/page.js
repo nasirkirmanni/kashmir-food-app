@@ -15,11 +15,13 @@ function getOptimizedImage(url, size = 800) {
   return url;
 }
 
+import destinationsData from "@/data/destinations.json";
+
 export default function VisitKashmirPage() {
-  const [destinations, setDestinations] = useState([]);
+  const [destinations, setDestinations] = useState(destinationsData);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("All");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -30,7 +32,9 @@ export default function VisitKashmirPage() {
       })
       .catch((err) => {
         console.error("Failed to fetch destinations:", err);
-        setError("Could not load destinations at this moment.");
+        if (destinationsData.length === 0) {
+          setError("Could not load destinations at this moment.");
+        }
         setLoading(false);
       });
   }, []);
