@@ -108,8 +108,8 @@ export async function generateMetadata({ params }) {
           description: "Master the social dining etiquette of a Kashmiri Wazwan. Learn about sharing the Trami, washing hands, and traditional protocols.",
         },
         "restaurant-vs-wedding-vs-home": {
-          title: "Restaurant vs. Wedding vs. Home Wazwan | WazwanWay",
-          description: "Compare the dining experience of commercial restaurant Wazwan, massive wedding feasts, and home-cooked Kashmiri food.",
+          title: "Wazwan: Restaurant vs Wedding vs Home | WazwanWay",
+          description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
         },
       },
       bakery: {

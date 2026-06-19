@@ -375,4 +375,101 @@ Nadur — lotus stem. It's grown locally, deeply embedded in Kashmiri cooking, a
 *For a full breakdown of what Wazwan dishes consist of, see [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained). For context on what the full Wazwan experience looks like, see [What is Wazwan?](/kashmiri-food/wazwan/guide/what-is-wazwan)*
 `
   }
+  ,
+  {
+    slug: "restaurant-vs-wedding-vs-home",
+    category: "wazwan",
+    title: "Wazwan: Restaurant vs Wedding vs Home — What's Actually Different",
+    description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
+    readTime: "6 min read",
+    author: "WazwanWay Team",
+    date: "2025-06-19",
+    content: `
+# Wazwan: Restaurant vs Wedding vs Home — What's Actually Different
+
+People who've eaten Wazwan at a Kashmiri wedding and people who've eaten it at a Srinagar restaurant have sometimes had what felt like completely different meals. That's not just nostalgia talking. The setting, the cook, the fuel source, the ingredients, the number of courses, and the entire social context are genuinely different across these three versions — and understanding how changes what you look for when you seek Wazwan out.
+
+---
+
+## The Wedding Wazwan: The Original
+
+A wedding Wazwan is what the tradition was built for. Everything about it is different from a restaurant experience.
+
+**The waza comes to you.** A family hires a *vasta waza* (head chef) and his team, who arrive the evening before the feast — sometimes with two red wagons of equipment — and set up a temporary outdoor kitchen called a *vur* at the family's home. They cook through the night. The pounding of meat for rista and gushtaba, the noise of ladles on copper degs, the smell of firewood — these are audible signals to the whole neighbourhood that a wedding is happening.
+
+**Firewood, not gas.** This is one of the most significant practical differences. Authentic Wazwan is cooked over slow-burning hardwood from fruit trees — apricot is preferred — in large nickel-plated copper *degs*. Restaurants use gas burners. The slow, even heat of wood fire over many hours is not replicable on a commercial gas range, and experienced Kashmiri diners can often taste the difference in the depth of the gravies.
+
+**The ingredients are sourced specifically.** *Praan* — Kashmiri shallots, the preferred allium in Wazwan — are seasonal, available once a year, and priced at ₹500–₹1,000 per kg during wedding season. For every 100 kg of Wazwan, a waza uses 7–10 kg of praan paste. *Mushk Budiji*, a short-grain Kashmiri rice variety, is used rather than standard basmati. Everything is cooked in ghee. Restaurants may source some of these ingredients, but rarely all of them at this standard.
+
+**Scale and sequence are fixed.** A full wedding Wazwan runs to anywhere from 12 to 36 dishes in strict sequence — always opening with tabak maaz and seekh kebab on the trami, always closing with gushtaba. The vasta waza personally places the gushtaba in each trami as a mark of respect. Guests eat together from shared copper platters, seated on the floor on a dastarkhwan.
+
+**You take the leftovers home.** This is a genuine tradition, not an afterthought. Each guest receives bags to carry home whatever they couldn't finish — an acknowledgment that the quantity served is always more than anyone can eat in one sitting.
+
+---
+
+## The Restaurant Wazwan: Accessible but Different
+
+Restaurants in Srinagar serve something honest and often very good — but it is a different thing from a wedding Wazwan, and the best restaurants don't pretend otherwise.
+
+**What a restaurant can do well:** The core dishes — rogan josh, rista, tabak maaz, gushtaba — can be excellent in a good restaurant kitchen. The Kashmiri spice profile, the slow cooking, the hand-pounded meatballs — these techniques are carried forward by skilled restaurant chefs. For a visitor who won't be attending a Kashmiri wedding, a well-run restaurant is the right way to experience Wazwan.
+
+**What a restaurant changes:**
+
+- *Gas over wood fire.* Every restaurant in Srinagar cooks on gas. The flavour difference is real, though subtle enough that most first-time visitors won't notice it — they're too busy enjoying the food, as they should be.
+- *Fewer courses.* A restaurant thali typically covers 5–8 dishes. The full sequence of a wedding Wazwan — 15 to 36 courses served over hours — isn't something a restaurant kitchen is structured to deliver.
+- *Individual portions.* Most restaurants serve individual thalis rather than the shared-trami-for-four format. Some offer the trami experience for groups, but even then the communal floor-seating context of a wedding isn't there.
+- *Ingredient sourcing varies.* Praan, Mushk Budiji rice, and seasonal ghee are expensive and sometimes hard to source consistently. Not every restaurant uses all of them.
+
+**The honest advice:** Don't visit Srinagar expecting a restaurant Wazwan to be identical to a wedding Wazwan. Approach it as the best available version of the cuisine in a restaurant setting — which, at the right places, is excellent on its own terms.
+
+---
+
+## The Home Wazwan: Everyday Kashmiri Cooking
+
+This is the most misunderstood category. Wazwan is a ceremonial feast tradition — it's not what Kashmiris eat at home on a daily basis.
+
+What Kashmiris cook at home is related to Wazwan in flavour and technique, but scaled down, simplified, and adapted to what a family kitchen can realistically produce. Home versions of rogan josh, dum aloo, or haakh use the same spice palette — fennel, dried ginger, Kashmiri chilli — but without the all-night waza-led production, the copper degs, the praan paste in bulk, or the full trami format.
+
+A few specific differences in home cooking:
+
+- **Mustard oil instead of ghee.** Ghee is the fat of an authentic Wazwan. At home, mustard oil is the everyday standard — it's cheaper, more available, and most Kashmiri households use it for daily cooking.
+- **Onion and garlic sometimes appear.** Traditional Wazwan uses praan (shallots) and avoids regular onion and garlic in the way other Indian cooking uses them. Home cooking is less strict about this.
+- **Dishes are single, not sequential.** A family dinner might be rogan josh with rice and haakh — not a 12-course sequence. The multi-course ceremonial format belongs to the waza context.
+
+The Kashmiri home kitchen is its own rich tradition, but calling it Wazwan would be like calling a home pasta dinner a restaurant tasting menu. Related, shaped by the same culture, different in kind.
+
+---
+
+## Which Version Should You Try?
+
+**If you're a visitor to Srinagar:** A restaurant Wazwan is what's available to you, and it's genuinely worth doing. Choose a restaurant that serves a shared trami format for the closest approximation of the communal eating experience, if you're with others.
+
+**If you're invited to a Kashmiri wedding:** Go. This is the unreplicable version — the full sequence, the firewood, the trami, the sheer scale of hospitality. Most Kashmiris would agree that even the best restaurant Wazwan is a different experience from a well-made wedding feast.
+
+**If you're eating in a Kashmiri home:** You're experiencing everyday Kashmiri cooking, which is excellent and distinct. Don't mentally compare it to Wazwan — appreciate it as what it actually is.
+
+---
+
+## FAQ
+
+**Is restaurant Wazwan "fake"?**
+No — that framing isn't useful. It's an adaptation of the tradition to a restaurant setting, with real limits and real strengths. The dishes are genuine; the context is different.
+
+**Can a tourist hire a waza for a private Wazwan experience?**
+It's possible but requires local contacts and planning. Some wazas do take private bookings for smaller groups outside of wedding season, but this isn't a standard tourist offering you can book online.
+
+**Does the firewood really make a difference to the taste?**
+Yes, according to both wazas and experienced Kashmiri diners. The slow, sustained heat of fruit-wood fire over 12–18 hours produces a depth in the gravies that gas cooking doesn't replicate. Whether a first-time visitor would notice is another question.
+
+**What's the minimum number of dishes in a proper Wazwan?**
+Traditionally seven — the number also mandated as the minimum for funeral Wazwans. Wedding feasts run much higher, from 12 up to 36 in a full royal spread.
+
+**Are home-cooked Kashmiri dishes available anywhere in Srinagar?**
+Some smaller, locally-oriented restaurants and dhabas serve food closer to home-style Kashmiri cooking — simpler, less ceremonial, often very good value.
+
+---
+
+*For a full breakdown of Wazwan dishes, see [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained). To understand what Wazwan costs across these different contexts, see our [Wazwan Cost Guide](/kashmiri-food/wazwan/guide/cost-guide).*
+`
+  }
 ];
