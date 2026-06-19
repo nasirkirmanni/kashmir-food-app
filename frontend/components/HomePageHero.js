@@ -80,7 +80,7 @@ export default function HomePageHero() {
         <div 
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
-            backgroundImage: "url('/hero-background.png')",
+            backgroundImage: "url('/hero-background.avif')",
             backgroundSize: "cover",
             backgroundPosition: "bottom",
             backgroundRepeat: "no-repeat",
