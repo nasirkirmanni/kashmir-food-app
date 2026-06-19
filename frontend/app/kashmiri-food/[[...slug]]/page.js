@@ -100,8 +100,8 @@ export async function generateMetadata({ params }) {
           description: "What does Wazwan cost in Srinagar? A breakdown of restaurant, wedding, and fine dining price ranges — and what's driving them.",
         },
         "vegetarian-wazwan": {
-          title: "Vegetarian Wazwan: Menu, Dishes & Alternatives | WazwanWay",
-          description: "Can you have a vegetarian Wazwan? Explore the delicious vegetarian dishes like Ruwangan Chaman and Dum Aloo served in Kashmir.",
+          title: "Vegetarian Wazwan: What to Expect and What to Order | WazwanWay",
+          description: "A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
         },
         etiquette: {
           title: "Wazwan Dining Etiquette: Tash-t-Næær & Trami Rules | WazwanWay",

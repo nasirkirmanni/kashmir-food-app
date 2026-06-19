@@ -269,4 +269,110 @@ Kashmiri waza teams do travel and cater events across India, though authentic in
 *Want to know what dishes make up a Wazwan? See our [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained) guide. For the full cultural context, start with [What is Wazwan?](/kashmiri-food/wazwan/guide/what-is-wazwan)*
 `
   }
+  ,
+  {
+    slug: "vegetarian-wazwan",
+    category: "wazwan",
+    title: "Vegetarian Wazwan: What to Expect and What to Order",
+    description: "A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
+    readTime: "6 min read",
+    author: "WazwanWay Team",
+    date: "2025-06-19",
+    content: `
+# Vegetarian Wazwan: What to Expect and What to Order
+
+The honest answer first: traditional Wazwan is a meat feast. Almost every dish at its core — rista, gushtaba, rogan josh, tabak maaz, seekh kebab — is built around lamb. If you're vegetarian and someone invites you to a Kashmiri wedding, you should know that going in.
+
+But that's not the end of the story. Vegetarian dishes have always had a place at the Wazwan table, and in recent years that presence has grown. This guide covers what those dishes actually are, where they come from, and how to eat well in Srinagar as a vegetarian — even if a full Wazwan thali isn't for you.
+
+---
+
+## Does Wazwan Have Vegetarian Dishes?
+
+Yes — but they're accompaniments, not the centrepiece.
+
+A traditional Wazwan spread has always included a small number of vegetarian dishes alongside the meat courses. These were never meant to replace the lamb; they were there to provide contrast, texture variety, and a lighter note between rich meat gravies.
+
+The vegetables most commonly found in a Wazwan context:
+
+**Dum Aloo** — Baby potatoes deep-fried and then slow-cooked in a yogurt and spice gravy. This is arguably the most beloved vegetarian dish in all of Kashmiri cooking, and it appears in both Wazwan and everyday home meals. The preparation is distinct from north Indian dum aloo: it's cooked without onion or tomato, relying on fennel, dried ginger, and Kashmiri chilli for its flavour.
+
+**Haakh** — Collard greens cooked simply in mustard oil with Kashmiri chillies. One of the oldest staples in Kashmiri cuisine, eaten daily in most households. At a Wazwan it provides a clean, slightly bitter contrast to the meat dishes.
+
+**Nadur (Lotus Stem)** — A uniquely Kashmiri ingredient. Lotus roots are harvested from Dal Lake and surrounding water bodies and cooked in various ways — most commonly as nadur yakhni (in a yogurt-based gravy) or nadur palak (with spinach). The texture is crunchy, somewhere between water chestnut and bamboo shoot.
+
+**Ruwangan Tsaman** — Paneer cooked in a spiced tomato gravy with Kashmiri chilli, cardamom, and black cumin. This is one of the more recent additions to the Wazwan context — it's a Kashmiri Pandit-origin dish that has crossed over into the broader Kashmir food landscape and now appears in many restaurant spreads.
+
+**Waza Palak** — Spinach cooked in the Waza style. In its vegetarian form (some versions include meatballs) it's a simple, well-spiced green that works as a side.
+
+**Waza Heddar** — Mushroom dish, a more recent addition. Chicken and vegetarian items like mushroom have been added to Wazwan in recent years as dietary preferences have broadened.
+
+---
+
+## The 2017 Regulation: Why Vegetarian Dishes Now Have a Fixed Role
+
+In 2017, the J&K government passed restrictions on the scale of wedding Wazwans, in part to reduce the enormous food wastage that had become associated with large celebrations. The regulation capped wedding feasts at seven non-vegetarian dishes and seven vegetarian dishes.
+
+This had a quiet structural effect: it gave vegetarian dishes a formally recognised and equal numerical place in the Wazwan format, rather than treating them as casual additions. At a regulated wedding Wazwan today, roughly half the spread by dish count is vegetarian.
+
+---
+
+## The Kashmiri Pandit Tradition: A Different Vegetarian Richness
+
+A note worth including here: Wazwan as most people know it is a Kashmiri Muslim tradition. But Kashmir has a parallel vegetarian food culture rooted in Kashmiri Pandit cooking — and it's exceptional.
+
+Kashmiri Pandit cuisine traditionally avoids onion, garlic, and tomato, using asafoetida (*heeng*), fennel, dried ginger, and cardamom as its aromatic base. The result is a distinct flavour profile unlike anything else in Indian vegetarian cooking. Staple dishes include:
+
+- **Nadur yakhni** — Lotus stem in a yogurt-based gravy
+- **Lyader tsaman** — Cottage cheese in a rich yellow cream gravy (distinct from ruwangan tsaman)
+- **Modur pulao** — Saffron rice cooked with dry fruits; served at weddings and celebrations
+- **Chuk wangun** — Eggplant in a tamarind-based gravy, tangy and unusual
+
+This isn't technically Wazwan, but if you're a vegetarian visitor interested in the depth of Kashmiri cooking, Pandit-style vegetarian food is where you'll find the richest tradition.
+
+---
+
+## What to Order as a Vegetarian at a Srinagar Restaurant
+
+Most restaurants that serve Wazwan also offer individual vegetarian dishes from the same kitchen. If you're not ordering the full non-veg thali, here's what to prioritise:
+
+1. **Dum Aloo** — Order this everywhere. Quality varies significantly; a good version will be richly spiced and have potatoes that have absorbed the gravy through the cooking process.
+2. **Nadur dishes** — Nadur yakhni or nadur palak, if available. Lotus stem is genuinely Kashmiri and something you won't find in most of India.
+3. **Haakh** — Straightforward, often underrated. A good marker of whether a kitchen is cooking Kashmiri food properly or catering to tourist expectations.
+4. **Ruwangan tsaman** — If you want something heartier, this is the vegetarian dish closest in richness to the meat curries.
+
+---
+
+## The Honest Picture for Vegetarians
+
+If you're visiting Srinagar and you're strictly vegetarian, you won't go hungry — Kashmiri vegetarian cooking is genuinely excellent. But you should calibrate your expectations around Wazwan specifically: the ceremony, the trami format, the whole experience of sitting with three others around a copper plate — that is built around meat.
+
+What you can experience fully is the setting, the kahwa, the rice, the vegetable sides, and the ruwangan tsaman. What you won't get is the gushtaba, the rista, or the tabak maaz that define what Wazwan actually is.
+
+That's not a gap in Kashmir's hospitality. It's just an accurate picture of what the tradition is, and what it offers people who eat differently.
+
+---
+
+## FAQ
+
+**Is there a fully vegetarian Wazwan?**
+Not in the traditional sense. Some restaurants now offer "vegetarian Wazwan thalis" as a separate menu item, but these are restaurant adaptations rather than a traditional format. The original Wazwan is defined by its meat dishes.
+
+**Can I attend a Kashmiri wedding as a vegetarian?**
+Yes. Wedding Wazwans now include up to seven vegetarian dishes by regulation. You'll eat well — dum aloo, haakh, nadur, paneer dishes — even if the heart of the feast isn't for you.
+
+**Is Kashmiri food generally vegetarian-friendly?**
+More so than its reputation suggests. The Kashmiri Pandit food tradition is primarily vegetarian and produces dishes of real depth. Many restaurants in Srinagar serve this alongside Wazwan-style cooking.
+
+**Does Wazwan use ghee in vegetarian dishes?**
+Authentic Wazwan cooking uses ghee as the primary fat, so vegetable dishes are not vegan. Check with individual restaurants if that matters for you.
+
+**What's the most distinctly Kashmiri vegetarian ingredient?**
+Nadur — lotus stem. It's grown locally, deeply embedded in Kashmiri cooking, and not something you'll find in most other Indian cuisines.
+
+---
+
+*For a full breakdown of what Wazwan dishes consist of, see [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained). For context on what the full Wazwan experience looks like, see [What is Wazwan?](/kashmiri-food/wazwan/guide/what-is-wazwan)*
+`
+  }
 ];
