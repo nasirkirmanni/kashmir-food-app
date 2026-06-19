@@ -925,8 +925,8 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
         </div>
 
         {/* --- FILTER PILLS ROW --- */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full">
-          <div className="flex gap-2 shrink-0">
+        <div className="flex items-center justify-between gap-4 pb-4 mb-6 w-full">
+          <div className="flex items-center gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full pb-2">
             {[
               { label: "All", tag: "All" },
               { label: "Wazwan", tag: "Wazwan" },

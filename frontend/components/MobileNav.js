@@ -127,6 +127,7 @@ export default function MobileNav() {
     <nav id="mobile-nav-pill" className="md:hidden nav-pill">
       <Link 
         href="/" 
+        prefetch={true}
         aria-label="Home"
         className={`nav-icon-pill ${isActiveTab(0) ? "active" : ""}`}
         onClick={(e) => {
@@ -140,6 +141,7 @@ export default function MobileNav() {
 
       <Link 
         href="/restaurants" 
+        prefetch={true}
         aria-label="Restaurants"
         className={`nav-icon-pill ${isActiveTab(1) ? "active" : ""}`}
         onClick={(e) => handleNavClick(1, e)}
@@ -150,6 +152,7 @@ export default function MobileNav() {
 
       <Link 
         href="/waza-ai"
+        prefetch={true}
         aria-label="Waza AI Concierge"
         className={`nav-icon-pill ${isActiveTab(2) ? "active" : ""}`}
         onClick={(e) => handleNavClick(2, e)}
@@ -160,6 +163,7 @@ export default function MobileNav() {
 
       <Link 
         href="/kashmiri-food" 
+        prefetch={true}
         aria-label="Kashmiri Food"
         className={`nav-icon-pill ${isActiveTab(3) ? "active" : ""}`}
         onClick={(e) => handleNavClick(3, e)}
@@ -170,6 +174,7 @@ export default function MobileNav() {
 
       <Link 
         href={user ? "/profile" : "/login"} 
+        prefetch={true}
         aria-label="Profile"
         className={`nav-icon-pill ${isActiveTab(4) ? "active" : ""}`}
         onClick={(e) => handleNavClick(4, e)}
