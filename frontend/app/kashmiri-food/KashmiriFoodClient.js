@@ -2,30 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { endpoints, request } from "../../lib/api";
+import dishesData from "@/data/dishes.json";
 
-function ShimmerSkeleton() {
-  return (
-    <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
-      {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="border border-white/5 rounded-xl sm:rounded-2xl bg-white/5 p-3 sm:p-6 animate-pulse flex flex-col justify-between h-28 sm:h-48">
-          <div>
-            <div className="h-3 sm:h-6 bg-white/10 rounded w-2/3 mb-2 sm:mb-4"></div>
-            <div className="hidden sm:block h-4 bg-white/5 rounded w-full mb-2"></div>
-            <div className="hidden sm:block h-4 bg-white/5 rounded w-5/6"></div>
-          </div>
-          <div className="flex gap-1 sm:gap-2 mt-2 sm:mt-4">
-            <div className="h-4 sm:h-6 bg-white/10 rounded-full w-10 sm:w-16"></div>
-            <div className="hidden sm:block h-6 bg-white/10 rounded-full w-20"></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+
 
 function DishCard({ dish, linkText = "View Recipe Details" }) {
   return (
@@ -65,34 +47,14 @@ function DishCard({ dish, linkText = "View Recipe Details" }) {
   );
 }
 
-function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, activeGuide = null }) {
+function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = null, activeGuide = null }) {
   const router = useRouter();
   
-  const [dishes, setDishes] = useState(initialDishes);
-  const [loading, setLoading] = useState(initialDishes.length === 0);
-  const [error, setError] = useState(null);
+  const [dishes] = useState(initialDishes);
   
   // Use propTab as the source of truth for active tab
   const activeTab = propTab;
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    if (dishes.length === 0) {
-      setLoading(true);
-    }
-    request(endpoints.dishes())
-      .then((data) => {
-        setDishes(data);
-        setError(null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch dishes:", err);
-        if (dishes.length === 0) {
-          setError("Failed to load Kashmiri food catalog. Please try again later.");
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
 
 
 
@@ -216,48 +178,8 @@ function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, ac
     }
   ];
 
-  if (error) {
-    return (
-      <div className="wazwan-shell min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-400 text-lg mb-4">{error}</p>
-          <button onClick={() => window.location.reload()} className="wazwan-btn-primary">
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="wazwan-shell relative min-h-screen pb-24">
-      {/* Background gradients */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none" />
-
-      {/* Center-aligned container wrapper to prevent any viewport layout overflow */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full box-border">
-        
-        {/* Hero Header */}
-        <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
-          <div>
-            <span className="place-eyebrow">Culinary Identity of the Valley</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
-              Kashmiri Food Guide
-            </h1>
-            <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
-              Explore the authentic culinary traditions of Kashmir. Choose a category below to open its dedicated catalog and discover recipes, traditions, and custom pairings.
-            </p>
-          </div>
-          <div>
-            <Link href="/" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30">
-              &larr; Back to Home
-            </Link>
-          </div>
-        </section>
-
-        {/* Main Content Area */}
-        <div className="mt-8">
+    <div className="mt-8">
           <AnimatePresence mode="wait">
             {activeTab === null ? (
               /* PORTAL Landing Grid: 3-columns on mobile, 2-columns on desktop */
@@ -311,11 +233,7 @@ function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, ac
                         Explore Catalog <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
                       </div>
                       <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.6rem] sm:text-[0.7rem] font-bold py-0.5 sm:py-1 px-1.5 sm:px-3 ml-auto">
-                        {loading ? (
-                          <span className="h-2 sm:h-3 w-6 sm:w-10 bg-[var(--saffron)]/20 rounded animate-pulse inline-block align-middle"></span>
-                        ) : (
-                          `${category.count} ${category.unit === "Dishes" ? "Items" : category.unit}`
-                        )}
+                        {`${category.count} ${category.unit === "Dishes" ? "Items" : category.unit}`}
                       </span>
                     </div>
                   </button>
@@ -352,7 +270,7 @@ function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, ac
                               : "bg-white/5 text-white/60 border-white/5 hover:border-white/20 hover:text-white"
                           }`}
                         >
-                          {tab.label} {!loading && `(${tab.count})`}
+                          {tab.label} {`(${tab.count})`}
                         </button>
                       ))}
                     </div>
@@ -385,10 +303,8 @@ function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, ac
                   </div>
                 </div>
 
-                {/* Shimmer skeleton or dynamic content lists */}
-                {loading ? (
-                  <ShimmerSkeleton />
-                ) : filteredItems.length === 0 ? (
+                {/* Dynamic content lists */}
+                {filteredItems.length === 0 ? (
                   /* Search Not Found view */
                   <div className="text-center py-20 border border-white/5 bg-white/5 rounded-2xl">
                     <svg className="w-12 h-12 text-white/20 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -588,14 +504,10 @@ function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, ac
             )}
           </AnimatePresence>
         </div>
-      </div>
-    </div>
   );
 }
 
-import dishesData from "@/data/dishes.json";
-
-export default function KashmiriFoodClient({ initialDishes = [], activeTab = null, activeGuide = null }) {
+export default function KashmiriFoodClient({ initialDishes = dishesData, activeTab = null, activeGuide = null }) {
   return (
     <KashmiriFoodContent initialDishes={initialDishes} activeTab={activeTab} activeGuide={activeGuide} />
   );

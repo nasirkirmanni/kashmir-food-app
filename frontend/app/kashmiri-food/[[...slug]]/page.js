@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import KashmiriFoodClient from "../KashmiriFoodClient";
+import dynamic from "next/dynamic";
+const KashmiriFoodClient = dynamic(() => import("../KashmiriFoodClient"), { ssr: true });
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 
@@ -231,22 +232,45 @@ export async function generateMetadata({ params }) {
 
 export default function Page({ params }) {
   const slug = params?.slug || [];
-  
-  if (slug.length === 0) {
-    return <KashmiriFoodClient initialDishes={dishesData} activeTab={null} activeGuide={null} />;
-  }
-  
   const category = slug[0];
   const validCategories = ["wazwan", "bakery", "beverages", "street-food"];
   
-  if (!validCategories.includes(category)) {
-    notFound();
-  }
-  
-  const activeTab = category === "street-food" ? "street_food" : category;
-  
-  if (slug.length === 1) {
-    return <KashmiriFoodClient initialDishes={dishesData} activeTab={activeTab} activeGuide={null} />;
+  if (slug.length === 0 || slug.length === 1) {
+    if (slug.length === 1 && !validCategories.includes(category)) {
+      notFound();
+    }
+    const activeTab = slug.length === 1 ? (category === "street-food" ? "street_food" : category) : null;
+    return (
+      <div className="wazwan-shell relative min-h-screen pb-24">
+        {/* Background gradients */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none" />
+
+        {/* Center-aligned container wrapper to prevent any viewport layout overflow */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full box-border">
+          {/* Hero Header */}
+          <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
+            <div>
+              <span className="place-eyebrow">Culinary Identity of the Valley</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
+                Kashmiri Food Guide
+              </h1>
+              <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
+                Explore the authentic culinary traditions of Kashmir. Choose a category below to open its dedicated catalog and discover recipes, traditions, and custom pairings.
+              </p>
+            </div>
+            <div>
+              <Link href="/" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30">
+                &larr; Back to Home
+              </Link>
+            </div>
+          </section>
+
+          {/* Dynamic catalog content (interactive client side) */}
+          <KashmiriFoodClient initialDishes={dishesData} activeTab={activeTab} activeGuide={null} />
+        </div>
+      </div>
+    );
   }
   
   // Render Category Guide Index Page (e.g. /kashmiri-food/wazwan/guide)
