@@ -63,103 +63,7 @@ a {
   color: var(--walnut);
 }
 
-.wazwan-section-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
 
-.wazwan-tag {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--saffron);
-  margin-bottom: 0.85rem;
-}
-
-.wazwan-section-header h2 {
-  font-family: var(--font-display), serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--walnut);
-}
-
-.wazwan-section-header p {
-  font-family: var(--font-accent), serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--muted);
-  max-width: 40rem;
-  margin: 0.8rem auto 0;
-  line-height: 1.7;
-}
-
-.wazwan-hero-grid {
-  position: relative;
-  display: grid;
-  gap: 3rem;
-  align-items: center;
-  min-height: 100vh;
-  padding-top: 8rem;
-  padding-bottom: 5rem;
-}
-
-.wazwan-hero-grid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(200, 134, 10, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(139, 26, 46, 0.05) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.wazwan-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233A2A1A' fill-opacity='1'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 80px 80px;
-  pointer-events: none;
-}
-
-.wazwan-badge {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--saffron);
-  border: 1px solid var(--saffron-light);
-  background: rgba(245, 208, 138, 0.15);
-  padding: 0.42rem 1.1rem;
-  border-radius: 999px;
-}
-
-.wazwan-hero-title {
-  font-family: var(--font-display), serif;
-  font-size: clamp(3.2rem, 8vw, 6.5rem);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
-  color: var(--walnut);
-}
-
-.wazwan-hero-title em {
-  color: var(--crimson);
-  font-style: italic;
-}
-
-.wazwan-hero-sub {
-  font-family: var(--font-accent), serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
-  font-weight: 400;
-  color: var(--muted);
-  line-height: 1.8;
-  max-width: 36rem;
-}
 
 .wazwan-btn-primary {
   background: var(--crimson);
@@ -190,27 +94,7 @@ a {
   color: var(--crimson);
 }
 
-.wazwan-intro-strip {
-  background: var(--crimson);
-  padding: 3.5rem 2rem;
-  text-align: center;
-}
 
-.wazwan-intro-strip p {
-  font-family: var(--font-accent), serif;
-  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.92);
-  max-width: 50rem;
-  margin: 0 auto;
-  line-height: 1.8;
-}
-
-.wazwan-intro-strip strong {
-  color: var(--saffron-light);
-  font-style: normal;
-  font-weight: 500;
-}
 
 .wazwan-dish-card {
   background: rgba(255, 255, 255, 0.05);
@@ -228,65 +112,7 @@ a {
   border-color: rgba(212, 175, 55, 0.3);
 }
 
-.wazwan-restaurant-card {
-  background: rgba(255, 255, 255, 0.05);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 2rem 2.2rem;
-  display: grid;
-  gap: 1.5rem;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-}
 
-.wazwan-restaurant-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.1);
-  border-color: rgba(212, 175, 55, 0.3);
-}
-
-.homepage-restaurant-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.homepage-restaurant-link:hover {
-  color: var(--saffron);
-}
-
-.wazwan-tip-card {
-  background: rgba(255, 255, 255, 0.05);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 2rem;
-}
-
-.wazwan-quote {
-  background: var(--walnut);
-  padding: 5rem 2rem;
-  text-align: center;
-}
-
-.wazwan-quote p {
-  font-family: var(--font-accent), serif;
-  font-size: clamp(1.4rem, 3vw, 2.1rem);
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 44rem;
-  margin: 0 auto 1.5rem;
-  line-height: 1.7;
-}
-
-.wazwan-quote span {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--saffron);
-}
 
 .place-hero {
   max-width: 1200px;
@@ -323,44 +149,7 @@ a {
   max-width: 700px;
 }
 
-.jump-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
 
-.jump-card {
-  background: rgba(255, 255, 255, 0.05);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 1.2rem;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.jump-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: 0 18px 48px rgba(212, 175, 55, 0.1);
-}
-
-.jump-card strong {
-  display: block;
-  font-family: var(--font-display), serif;
-  font-size: 1.15rem;
-  margin-bottom: 0.35rem;
-  color: #FFFFFF;
-}
-
-.jump-card span {
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
 
 .places-wrap {
   max-width: 1200px;
@@ -392,11 +181,7 @@ a {
   line-height: 1.7;
 }
 
-.restaurant-grid-luxury {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.2rem;
-}
+
 
 .restaurant-place-card {
   background: rgba(255, 255, 255, 0.05);
@@ -463,55 +248,9 @@ a {
   font-size: 0.94rem;
 }
 
-.restaurant-quote {
-  font-style: italic;
-  color: var(--muted);
-}
 
-.restaurant-highlights {
-  padding-left: 1.1rem;
-  display: grid;
-  gap: 0.45rem;
-}
 
-.restaurant-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.25rem;
-}
 
-.restaurant-map-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(139, 26, 46, 0.2);
-  background: rgba(139, 26, 46, 0.06);
-  color: var(--crimson);
-  border-radius: 6px;
-  padding: 0.9rem 1.35rem;
-  font-size: 0.88rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s, transform 0.15s;
-}
-
-.restaurant-map-link:hover {
-  background: rgba(139, 26, 46, 0.12);
-  color: var(--crimson);
-  transform: translateY(-1px);
-}
-
-@media (min-width: 1024px) {
-  .wazwan-hero-grid {
-    grid-template-columns: 1.05fr 0.95fr;
-  }
-
-  .wazwan-restaurant-card {
-    grid-template-columns: 1fr auto;
-  }
-}
 
 @media (max-width: 900px) {
   .place-hero {
@@ -525,66 +264,9 @@ a {
   }
 }
 
-@media (max-width: 640px) {
-  .jump-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
-/* ═══════════════════════════════════════════════════════
-   HERO IMAGE FLOAT / LEVITATION ANIMATIONS
-   Three independent layers combine to feel like each dish
-   floats independently — sine ease-in-out, GPU-accelerated
-   ═══════════════════════════════════════════════════════ */
 
-/* Layer 1 — Container sway: slow rotation 1.2deg, 7s */
-@keyframes heroSway {
-  0%   { transform: rotate(0deg); }
-  20%  { transform: rotate(1.2deg); }
-  50%  { transform: rotate(0deg); }
-  80%  { transform: rotate(-1.2deg); }
-  100% { transform: rotate(0deg); }
-}
 
-/* Layer 2 — Main float: 0 to -8px bob with scale breath, 5s */
-@keyframes heroFloat {
-  0%   { transform: translateY(0px)  scale(1.04); }
-  25%  { transform: translateY(-8px) scale(1.07); }
-  50%  { transform: translateY(-3px) scale(1.05); }
-  75%  { transform: translateY(-7px) scale(1.065); }
-  100% { transform: translateY(0px)  scale(1.04); }
-}
-
-/* Layer 3 — Inner orbit: faster + phase offset, 3.2s */
-@keyframes heroOrbit {
-  0%   { transform: translateY(0px)  translateX(0px); }
-  30%  { transform: translateY(-5px) translateX(2px); }
-  60%  { transform: translateY(-4px) translateX(-2px); }
-  100% { transform: translateY(0px)  translateX(0px); }
-}
-
-.hero-sway {
-  animation: heroSway 7s ease-in-out infinite;
-  transform-origin: 50% 58%;
-  will-change: transform;
-}
-
-.hero-float {
-  animation: heroFloat 5s ease-in-out infinite;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-
-.hero-orbit {
-  animation: heroOrbit 3.2s ease-in-out infinite;
-  animation-delay: 0.8s;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-sway, .hero-float, .hero-orbit { animation: none; }
-}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
@@ -599,9 +281,6 @@ a {
 /* Paint reduction optimization for when user is actively swiping */
 body.is-dragging .glass-panel,
 body.is-dragging .wazwan-dish-card,
-body.is-dragging .wazwan-restaurant-card,
-body.is-dragging .jump-card,
-body.is-dragging .wazwan-tip-card,
 body.is-dragging .restaurant-place-card {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -726,80 +405,7 @@ body.is-dragging * {
     background: #1a0f08;
   }
   
-  /* Paint reduction optimization for when user is actively swiping */
-  body.is-dragging .bottom-bar {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-    background: rgba(20, 20, 20, 0.95) !important;
-    box-shadow: none !important;
-  }
-  body.is-dragging .header-icon-btn {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-    background: rgba(20, 20, 20, 0.95) !important;
-    box-shadow: none !important;
-  }
-  
-  .header {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    min-height: 56px;
-    height: auto;
-    z-index: 100;
-    background: transparent;
-  }
-  .bottom-bar {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    min-width: 280px;
-    max-width: 340px;
-    height: 60px;
-    border-radius: 40px;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0 20px;
-    gap: 8px;
 
-    background: rgba(255, 255, 255, 0.08);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-    padding-bottom: env(safe-area-inset-bottom);
-    transition: backdrop-filter 0.2s, background 0.2s, box-shadow 0.2s;
-  }
-  .nav-icon {
-    position: relative;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.4);
-    transition: all 0.3s ease;
-  }
-  .nav-icon.active {
-    color: white;
-    filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
-  }
-  .nav-icon.active::before {
-    content: '';
-    position: absolute;
-    width: 44px;
-    height: 36px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.12);
-    z-index: -1;
-  }
   .swipe-container {
     position: fixed;
     top: 0;
