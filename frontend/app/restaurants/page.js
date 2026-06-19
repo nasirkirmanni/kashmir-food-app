@@ -921,6 +921,15 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Srinagar Food Guide Button */}
+            <Link href="/restaurants/best-wazwan-srinagar" passHref legacyBehavior>
+              <a className="h-11 px-5 rounded-full border border-[var(--saffron)]/30 hover:border-[var(--saffron)]/60 bg-[var(--saffron)]/5 hover:bg-[var(--saffron)]/15 text-[var(--saffron)] text-xs font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap">
+                <Compass className="w-3.5 h-3.5 text-[var(--saffron)]" />
+                Srinagar Food Guide
+                <ArrowRight className="w-3.5 h-3.5 ml-0.5 animate-pulse" />
+              </a>
+            </Link>
           </div>
         </div>
 
