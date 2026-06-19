@@ -36,12 +36,26 @@ const homeFaqs = [
 
 export default function HomePage() {
   return (
-    <>
-      <JsonLd data={buildWebsiteSchema()} />
-      <JsonLd data={buildOrganizationSchema()} />
-      <JsonLd data={buildFaqSchema(homeFaqs)} />
-      <HomePageHero />
-      <HomePageClient initialDishes={dishesData} initialRestaurants={restaurantsData} />
-    </>
+    <div className="relative min-h-screen">
+      {/* Fixed subtle luxury background artwork */}
+      <div 
+        className="pointer-events-none fixed inset-0 z-[5] bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.05]" 
+        style={{ filter: "blur(80px)" }}
+      />
+
+      {/* Scrolling gradient overlay to mask the background as user scrolls down */}
+      <div 
+        className="pointer-events-none absolute inset-x-0 top-0 h-[1200px] z-[6]" 
+        style={{ background: "linear-gradient(to bottom, rgba(11, 11, 11, 0.1) 0%, rgba(11, 11, 11, 0.85) 800px, #0B0B0B 100%)" }}
+      />
+
+      <div className="relative z-10">
+        <JsonLd data={buildWebsiteSchema()} />
+        <JsonLd data={buildOrganizationSchema()} />
+        <JsonLd data={buildFaqSchema(homeFaqs)} />
+        <HomePageHero />
+        <HomePageClient initialDishes={dishesData} initialRestaurants={restaurantsData} />
+      </div>
+    </div>
   );
 }

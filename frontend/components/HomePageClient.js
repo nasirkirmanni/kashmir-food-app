@@ -259,7 +259,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* 3. CURATED SELECTION */}
-      <section className="hidden md:block relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32">
+      <section className="hidden md:block relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32 z-10">
         
         <div className="page-shell relative z-10">
           <FadeInWhenVisible
@@ -315,7 +315,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* 4. WAZWAN DISHES */}
-      <section className="hidden md:block page-shell py-32">
+      <section className="hidden md:block page-shell py-32 relative z-10">
         <FadeInWhenVisible 
           className="mb-24 text-center"
         >
@@ -377,7 +377,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       </section>
 
       {/* 5. QUOTES & TIPS */}
-      <div className="hidden md:block bg-[#111111] py-24 text-center border-y border-white/10">
+      <div className="hidden md:block bg-[#111111]/30 backdrop-blur-md py-24 text-center border-y border-white/5 relative z-10">
         <p className="mx-auto max-w-4xl px-4 font-display text-3xl md:text-4xl lg:text-5xl font-normal italic leading-tight text-white/90">
           &quot;To be invited to a Wazwan is to be welcomed into someone&apos;s heart. The feast is not cooked, it is composed like music.&quot;
         </p>
@@ -492,7 +492,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         </div>
       </section>
 
-      <section className="hidden md:block page-shell py-32">
+      <section className="hidden md:block page-shell py-32 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           className="mb-24 text-center"
@@ -542,7 +542,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         </div>
       </div>
 
-      <section className="hidden md:block border-t border-white/10 bg-[#111111] py-24">
+      <section className="hidden md:block border-t border-white/10 bg-transparent py-24 relative z-10">
         <div className="page-shell">
           <div className="flex flex-col items-center justify-between gap-10 rounded-[32px] border border-[var(--saffron)] bg-[rgba(212,175,55,0.05)] p-12 text-center lg:flex-row lg:text-left shadow-[0_0_60px_rgba(212,175,55,0.1)]">
             <div>
