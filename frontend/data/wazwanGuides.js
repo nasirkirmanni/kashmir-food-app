@@ -9,7 +9,7 @@ export const wazwanGuides = [
     date: "June 19, 2026",
     content: `If you've heard one word about Kashmiri food before landing on this page, it's probably this one. Wazwan is the multi-course feast that Kashmir is built around — not a dish, not a meal in the everyday sense, but an entire tradition of cooking, serving, and eating that can run up to 36 courses in a single sitting. If you're planning a trip to Kashmir or just curious what everyone's talking about, this is everything you need to know before your first plate arrives.
 
-[ADD YOUR INPUT: a line or two here about your own first encounter with Wazwan — a wedding you attended, the first time you tried it, or a family memory. This is the single best place in the article for that.]
+My own earliest memory of Wazwan is from a family wedding in Srinagar when I was still a child — walking into a hall filled with the smell of fresh Rogan Josh, Rista, and Gushtaba, copper tramis laid out as everyone gathered in small groups to eat together. I was too young to really appreciate every dish on the plate, but I remember exactly how it felt: the saffron and spice in the air, the noise and excitement of the celebration, sitting with my cousins. Even now, the smell of Wazwan being cooked takes me straight back to that wedding hall.
 
 ## What Does "Wazwan" Actually Mean?
 
@@ -30,8 +30,6 @@ That history is part of why eating Wazwan feels different from eating at a regul
 ## Who Cooks It: The Waza
 
 A real Wazwan is never the work of one cook. The meal is prepared under the supervision of a master chef known as the Vasta Waza, who oversees a team of up to ten apprentice chefs. These are not catering staff hired for the day — waza families have often practiced this craft for generations, passing down recipes and techniques that exist nowhere in writing.
-
-[ADD YOUR INPUT: if you've ever spoken with or watched a waza team at work, even briefly, a sentence or two here would carry real weight — readers respond strongly to seeing the human side of a tradition like this.]
 
 At a wedding, the wazas often begin cooking in open-air kitchens using large vessels and clay ovens called dans, sometimes working through the night before the feast. It's physically demanding work done at scale, often for hundreds of guests, and it's one of the reasons real Wazwan is so difficult to find well-executed outside Kashmir itself.
 
