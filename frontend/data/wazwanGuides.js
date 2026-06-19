@@ -78,5 +78,85 @@ Not typically without a personal connection or invitation — weddings are priva
 ---
 
 *Want to go deeper? Explore the [full Wazwan guide](/kashmiri-food/wazwan/guide) for dish-by-dish breakdowns, etiquette tips, and cost guides — or jump straight to our [best Wazwan restaurants in Srinagar](/restaurants/best-wazwan-srinagar) to plan where to eat.*`
+  },
+  {
+    slug: "dishes-explained",
+    category: "wazwan",
+    title: "Wazwan Dishes Explained: The Saat Rang and Beyond",
+    description: "A dish-by-dish guide to Kashmir's royal Wazwan feast. Learn about the seven essential Saat Rang courses (Rogan Josh, Rista, Gushtaba) and more.",
+    readTime: "4 min read",
+    author: "WazwanWay Team",
+    date: "June 19, 2026",
+    content: `# Wazwan Dishes Explained: The Saat Rang and Beyond
+
+Walk up to any Wazwan trami in Srinagar and you'll find the same handful of names again and again — Rogan Josh, Rista, Gushtaba, Tabak Maaz. They show up so consistently that Kashmiris have a name for the core lineup: the **Saat Rang**, or "seven colors" — seven dishes considered essential to almost any proper Wazwan spread. This guide breaks down each of those seven, plus a few other dishes you'll commonly run into, so you know exactly what's coming before it lands in front of you.
+
+If you haven't read our overview yet, start with [What is Wazwan?](/kashmiri-food/wazwan/guide/what-is-wazwan) for the full history and context. This guide is the dish-by-dish reference.
+
+## The Saat Rang: Seven Essential Dishes
+
+### 1. Rogan Josh
+
+The dish most people outside Kashmir already know by name, and the one that opens the meal in spirit if not always literally. Rogan means oil or fat, and josh means intense heat — together describing how the lamb is cooked at high heat in its own fat until the gravy turns deep, glossy red. That red color is traditional, and it doesn't come from tomatoes; it comes from Kashmiri red chillies and a flower called mawal, used for centuries to color the dish without adding heat. The flavor is rich and aromatic rather than fiery — a common surprise for first-timers expecting a spicy curry.
+
+### 2. Rista
+
+Hand-pounded mutton, beaten until smooth and shaped into meatballs, then simmered in a hot red gravy colored with the same mawal flower used in Rogan Josh, along with saffron and fennel. Four ristas are typically served per trami. The texture is the giveaway here — properly made Rista should be dense and tightly packed, a result of the meat being hand-ground rather than machine-minced.
+
+### 3. Gushtaba
+
+Often called the "dish for kings," and traditionally the dish that closes the main course — when Gushtaba arrives, the meal is winding down. It looks similar to Rista, but the gravy is entirely different: a mild, white yogurt-based curry called yakhni, fragrant with cardamom and dried ginger rather than chilli. The texture is famously velvety, almost like a fine pâté, which comes from the meat being pounded for far longer than any other dish on the trami. If you only remember one Wazwan dish by name, this is usually the one locals point to with the most pride.
+
+### 4. Tabak Maaz
+
+Lamb ribs, cooked twice. First they're braised slowly in milk and spices until the meat is fall-apart tender, then shallow-fried in ghee until the fat crisps into something close to crackling. The result is the most texturally distinct dish in the whole spread — crisp on the outside, soft underneath — and usually one of the first dishes served, working almost like an appetizer for the courses that follow.
+
+### 5. Daniwal Korma
+
+The name comes from daniwal, the Kashmiri word for coriander. Lamb is roasted with yogurt, onion, and spices, then finished with a heavy topping of fresh coriander leaves. It's noticeably lighter and tangier than the red-gravy dishes around it, which is partly the point — Daniwal Korma is often there to reset the palate between richer courses.
+
+### 6. Aab Gosht
+
+A quieter dish than most of its neighbors. Lamb chunks are slow-cooked in a mild, milky gravy built on fennel and cardamom, sometimes finished with a touch of dried milk for extra body. There's no chilli heat here at all — it's one of the most fragrant, gentle dishes on the trami, and a good one to fall back on if the spicier courses are too much.
+
+### 7. Marchwangan Korma
+
+The opposite end of the spectrum from Aab Gosht. Marchwangan means red chilli in Kashmiri, and this dish earns the name — mutton cooked in a fiery red chilli paste, often using a disproportionate share of the chilli in the entire meal in this one dish alone. If you want to know how spicy Kashmiri food can actually get, this is the answer.
+
+## Beyond the Saat Rang: Other Dishes You'll See
+
+A full Wazwan spread rarely stops at seven dishes. Depending on the occasion and the wazas preparing it, you'll likely also encounter:
+
+- **Methi Maaz** — a curry made with tripe and fenugreek leaves, bitter and aromatic, often one of the first dishes set on the trami
+- **Yakhni** — a standalone mild yogurt-based mutton stew, gently spiced with bay leaf, cardamom, and clove, served separately from Gushtaba's yakhni gravy
+- **Kabab** — minced meat, hand-shaped and roasted over coals, simple by comparison but a near-constant presence
+- **Lahabi Kabab (Moachi Kabab)** — a diamond-shaped kabab of pounded meat mixed with yogurt and coriander, distinct from the standard skewered kabab
+- **Sabz Haakh** — a leafy green vegetable dish cooked in mustard oil, considered an essential counterpart to all the meat on the trami despite being one of the few non-meat dishes
+- **Nadru (lotus stem) preparations** — served either with yogurt (Nadir Yakhni) or spinach (Nadir Palak), one of the more common vegetable-forward additions
+- **Phirni** — the dessert that closes the meal, a set milk-and-semolina pudding, usually finished with crushed nuts and a layer of edible silver leaf
+
+For a full breakdown of which dishes have vegetarian versions or substitutes, see our [vegetarian Wazwan guide](/kashmiri-food/wazwan/guide/vegetarian-wazwan).
+
+## A Note on How These Dishes Get Their Color
+
+If there's one detail that surprises first-time visitors, it's this: none of the deep red in Rogan Josh or Rista comes from tomato, and very little of the heat comes from chilli alone. Much of the traditional red color comes from mawal, the dried cockscomb flower, used for its color rather than its flavor. It's a small detail, but it explains why Wazwan dishes can look intensely fiery while actually being far gentler on the palate than they appear — Marchwangan Korma aside.
+
+## Frequently Asked Questions
+
+**Which Wazwan dish should a first-timer try first?**
+Tabak Maaz is the easiest entry point — it's closer to a familiar fried-rib texture than anything else on the trami. Rogan Josh is the most universally recognizable by name and a safe, flavorful second choice.
+
+**What's the actual difference between Rista and Gushtaba?**
+Both are mutton meatballs, but Rista sits in a hot red gravy and has a denser texture, while Gushtaba sits in a mild white yogurt gravy (yakhni) and is pounded to a much smoother, softer finish. Gushtaba is also traditionally the dish that signals the meal is ending.
+
+**Is any of this very spicy?**
+Most of it isn't. Outside of Marchwangan Korma, which is deliberately fiery, the majority of Saat Rang dishes lean aromatic and rich rather than hot — the deep red color is misleading if you're expecting chilli-forward heat.
+
+**Do I need to order all seven Saat Rang dishes to get the real experience?**
+At a restaurant, you likely won't have the choice — most Wazwan thalis are pre-set by the kitchen and already include the core lineup. At weddings, the full Saat Rang plus extras is closer to the standard.
+
+---
+
+*Ready to taste these for yourself? Check our [list of the best Wazwan restaurants in Srinagar](/restaurants/best-wazwan-srinagar), or head back to the [full Wazwan guide](/kashmiri-food/wazwan/guide) for cost breakdowns and etiquette tips.*`
   }
 ];
