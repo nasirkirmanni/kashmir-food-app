@@ -7,7 +7,8 @@ import { useEffect, useMemo, useState, Suspense, memo, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
-import SrinagarMiniMap from "@/components/SrinagarMiniMap";
+import dynamic from "next/dynamic";
+const SrinagarMiniMap = dynamic(() => import("@/components/SrinagarMiniMap"), { ssr: false });
 import {
   Search,
   Star,
@@ -175,13 +176,11 @@ const LuxuryRestaurantCard = memo(({
   }, [restaurant.name, restaurant.image]);
 
   return (
-    <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} passHref legacyBehavior>
+    <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} passHref legacyBehavior prefetch={false}>
       <motion.a
         id={restaurant._id || restaurant.slug}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
         className={`relative flex flex-col w-full overflow-hidden rounded-2xl border transition-all duration-300 bg-[#0B0B0B] group active:scale-[0.99] ${
           isHovered 
             ? "border-[var(--saffron)]/70 shadow-[0_0_25px_rgba(212,175,55,0.15)] -translate-y-1" 
@@ -343,7 +342,7 @@ const FeaturedPartnerCard = memo(({
   }, [restaurant.name, restaurant.image]);
 
   return (
-    <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} passHref legacyBehavior>
+    <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} passHref legacyBehavior prefetch={false}>
       <motion.a
         id={`featured-${restaurant._id || restaurant.slug}`}
         onMouseEnter={onMouseEnter}

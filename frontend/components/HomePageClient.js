@@ -220,10 +220,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       {/* Global background is now handled by layout.js */}
       {/* 2. RESTAURANTS SECTION */}
       <section className="hidden md:block relative pt-12 md:pt-32 pb-24 z-10 mt-8">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image src="/x.jpg" alt="Restaurants Background" fill sizes="100vw" className="object-cover opacity-60" priority unoptimized />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-black/50 to-[#0B0B0B]"></div>
-        </div>
         <div className="page-shell relative z-10">
           <FadeInWhenVisible
             className="mb-8 md:mb-24 text-center"

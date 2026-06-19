@@ -1,22 +1,47 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
 import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
 
+// Eagerly loaded: Home screen (index 0) — always rendered first
 import HomePageClient from "@/components/HomePageClient";
 import HomePageHero from "@/components/HomePageHero";
-import RestaurantsPage from "@/app/restaurants/page";
-import MobileWazaAI from "@/components/MobileWazaAI";
-import KashmiriFoodClient from "@/app/kashmiri-food/KashmiriFoodClient";
-import ProfilePage from "@/app/profile/page";
-import LoginPage from "@/app/login/page";
+
+// Lazy-loaded: Only fetched when user navigates to them
+const RestaurantsPage = dynamic(() => import("@/app/restaurants/page"), { ssr: false });
+const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: false });
+const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: false });
+const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: false });
+const LoginPage = dynamic(() => import("@/app/login/page"), { ssr: false });
+
 import { usePathname } from "next/navigation";
 
 export default function MobileSwipeContainer({ children }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   const { user } = useAuth();
+
+  // Track which screens have been visited so they stay mounted after first load
+  // Screen 0 (Home) is always considered visited
+  const [visitedScreens, setVisitedScreens] = useState(new Set([0]));
+
+  // Mark current and adjacent screens as visited whenever activeIndex changes
+  useEffect(() => {
+    setVisitedScreens(prev => {
+      const next = new Set(prev);
+      next.add(activeIndex);
+      // Also preload adjacent screen
+      if (activeIndex > 0) next.add(activeIndex - 1);
+      if (activeIndex < 4) next.add(activeIndex + 1);
+      if (next.size === prev.size) return prev; // no change
+      return next;
+    });
+  }, [activeIndex]);
+
+  // Helper: should a screen be mounted?
+  const shouldMount = useCallback((index) => visitedScreens.has(index), [visitedScreens]);
 
   const containerRef = useRef(null);
   const isDraggingRef = useRef(false);
@@ -251,29 +276,25 @@ export default function MobileSwipeContainer({ children }) {
           }}
         >
           <div className="screen">
-            {Math.abs(activeIndex - 0) <= 1 ? (
-              <>
-                <HomePageHero />
-                <HomePageClient />
-              </>
-            ) : null}
+            <HomePageHero />
+            <HomePageClient />
           </div>
           <div className="screen">
-            {Math.abs(activeIndex - 1) <= 1 ? <RestaurantsPage /> : null}
+            {shouldMount(1) ? <RestaurantsPage /> : null}
           </div>
           <div className="screen">
-            {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
+            {shouldMount(2) ? <MobileWazaAI /> : null}
           </div>
           <div className="screen">
-            {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodClient /> : null}
+            {shouldMount(3) ? <KashmiriFoodClient /> : null}
           </div>
           <div className="screen">
-            {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}
+            {shouldMount(4) ? (user ? <ProfilePage /> : <LoginPage />) : null}
           </div>
         </div>
 
         {/* OVERLAY FOR NON-SWIPEABLE ROUTES (e.g. Dish Details) */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           {!isSwipeableRoute && (
             <motion.div
               key={pathname}

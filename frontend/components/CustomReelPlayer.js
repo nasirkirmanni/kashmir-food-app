@@ -5,8 +5,10 @@ import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 
 export default function CustomReelPlayer({ src, poster }) {
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const videoRef = useRef(null);
+  const containerRef = useRef(null);
 
   const toggleMute = (e) => {
     e.preventDefault();
@@ -29,10 +31,33 @@ export default function CustomReelPlayer({ src, poster }) {
     }
   };
 
-  // Ensure video plays continuously on mount
+  // Intersection Observer to detect when video is in viewport
   useEffect(() => {
-    if (videoRef.current) {
-      // Force play promise handling to avoid play() interruption errors
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect(); // Stop observing once we've loaded the video
+        }
+      },
+      {
+        rootMargin: "50px", // Start loading slightly before it enters the viewport
+        threshold: 0.01,
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Handle autoplay when it becomes visible
+  useEffect(() => {
+    if (isInView && videoRef.current) {
       videoRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(error => {
@@ -40,10 +65,13 @@ export default function CustomReelPlayer({ src, poster }) {
         setIsPlaying(false);
       });
     }
-  }, []);
+  }, [isInView]);
 
   return (
-    <div className="relative w-[260px] h-[460px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0B0B0B] shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] group mx-auto">
+    <div 
+      ref={containerRef}
+      className="relative w-[260px] h-[460px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0B0B0B] shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] group mx-auto"
+    >
       
       {/* Golden Corner Highlights */}
       <div className="absolute top-0 left-0 w-12 h-12 border-t-[3px] border-l-[3px] border-[var(--saffron)] rounded-tl-[24px] pointer-events-none z-10 opacity-90" />
@@ -51,17 +79,26 @@ export default function CustomReelPlayer({ src, poster }) {
       <div className="absolute bottom-0 left-0 w-12 h-12 border-b-[3px] border-l-[3px] border-[var(--saffron)] rounded-bl-[24px] pointer-events-none z-10 opacity-90" />
       <div className="absolute bottom-0 right-0 w-12 h-12 border-b-[3px] border-r-[3px] border-[var(--saffron)] rounded-br-[24px] pointer-events-none z-10 opacity-90" />
 
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="w-full h-full object-cover"
-        onClick={togglePlay}
-      />
+      {isInView ? (
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="none"
+          className="w-full h-full object-cover animate-fade-in"
+          onClick={togglePlay}
+        />
+      ) : (
+        <img
+          src={poster}
+          alt="Instagram reel poster"
+          className="w-full h-full object-cover"
+        />
+      )}
       
       {/* Overlay gradient for better icon visibility */}
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
