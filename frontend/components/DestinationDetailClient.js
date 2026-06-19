@@ -36,7 +36,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0B0B]">
+      <div className="min-h-screen flex items-center justify-center bg-transparent">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--saffron)]"></div>
       </div>
     );
@@ -44,7 +44,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
 
   if (error || !destination) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0B0B0B] text-center px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-transparent text-center px-4">
         <h1 className="text-2xl text-white font-display font-medium mb-4">{error || "Destination Not Found"}</h1>
         <Link href="/destinations" className="text-[var(--saffron)] hover:underline uppercase tracking-widest font-bold text-xs">
           &larr; Back to Destinations
@@ -54,7 +54,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black">
+    <div className="min-h-screen bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black">
       {/* Hero Image Section */}
       <div className="relative h-[50vh] min-h-[400px] w-full">
         <Image

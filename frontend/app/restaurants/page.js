@@ -793,7 +793,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   }, [restaurants, activeLocation]);
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white pt-24 pb-16">
+    <div className="relative min-h-screen bg-transparent text-white pt-24 pb-16">
       
       {/* Subtle global dark luxury glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
@@ -1516,7 +1516,7 @@ export default function RestaurantsPage() {
   return (
     <Suspense
       fallback={
-        <div className="relative min-h-screen bg-[#050505] flex flex-col items-center justify-center text-white/50">
+        <div className="relative min-h-screen bg-transparent flex flex-col items-center justify-center text-white/50">
           <div className="w-10 h-10 border-b-2 border-[var(--saffron)] rounded-full animate-spin mb-4" />
           <span className="text-xs font-bold uppercase tracking-widest">Loading restaurants page...</span>
         </div>

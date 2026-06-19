@@ -1,31 +1,25 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function GlobalBackground() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const { scrollY } = useScroll();
-
-  // For the home page, we no longer show the global background image (Page 1 has its own).
-  const opacity = isHome ? 0 : 0.15;
-  const gradientOpacity = isHome ? 0 : 0.8;
 
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#050505]">
+    <div className="fixed inset-0 z-[5] pointer-events-none bg-[#050505]">
+      {/* Subtle luxury background artwork for all pages other than home page */}
       {!isHome && (
-        <motion.img 
-          src="/wazwan-hero-mobile.jpg" 
-          alt="" 
-          style={{ opacity }}
-          className="block md:hidden h-full w-full object-cover object-bottom scale-[1.05] blur-[2px]" 
+        <div 
+          className="absolute inset-0 bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.22]" 
+          style={{ filter: "blur(60px)" }}
         />
       )}
+
+      {/* Dark gradient overlay to preserve high readability of text and UI elements */}
       {!isHome && (
-        <motion.div 
-          style={{ opacity: gradientOpacity }}
-          className="block md:hidden absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-transparent to-[#0B0B0B]/90" 
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B]/70 via-[#050505]/80 to-[#0B0B0B]/95" 
         />
       )}
     </div>

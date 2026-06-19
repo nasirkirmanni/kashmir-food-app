@@ -19,7 +19,7 @@ export default function HistoryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-white selection:bg-[var(--saffron)] selection:text-black">
+    <div className="min-h-screen bg-transparent text-white selection:bg-[var(--saffron)] selection:text-black">
       
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] w-full flex items-center justify-center overflow-hidden">

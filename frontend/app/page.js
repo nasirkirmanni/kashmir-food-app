@@ -39,14 +39,14 @@ export default function HomePage() {
     <div className="relative min-h-screen">
       {/* Fixed subtle luxury background artwork */}
       <div 
-        className="pointer-events-none fixed inset-0 z-[5] bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.10]" 
-        style={{ filter: "blur(40px)" }}
+        className="pointer-events-none fixed inset-0 z-[5] bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.22]" 
+        style={{ filter: "blur(60px)" }}
       />
 
       {/* Scrolling gradient overlay to mask the background as user scrolls down */}
       <div 
         className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-[6]" 
-        style={{ background: "linear-gradient(to bottom, rgba(11, 11, 11, 0.2) 0%, rgba(11, 11, 11, 0.7) 1200px, rgba(11, 11, 11, 0.92) 100%)" }}
+        style={{ background: "linear-gradient(to bottom, rgba(11, 11, 11, 0.2) 0%, rgba(11, 11, 11, 0.65) 1200px, rgba(11, 11, 11, 0.78) 100%)" }}
       />
 
       <div className="relative z-10">
