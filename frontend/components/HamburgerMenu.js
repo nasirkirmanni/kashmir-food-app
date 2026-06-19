@@ -150,7 +150,7 @@ export default function HamburgerMenu() {
                   <motion.div key={item.href} variants={itemVars}>
                     <Link
                       href={item.href}
-                      prefetch={true}
+                      prefetch={false}
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-white group"
                     >

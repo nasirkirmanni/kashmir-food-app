@@ -10,6 +10,7 @@ import { MobileNavigationProvider } from "@/context/MobileNavigationContext";
 import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 import CapacitorListeners from "@/components/CapacitorListeners";
 import GlobalSearchModal from "@/components/GlobalSearchModal";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -106,6 +107,17 @@ export default function RootLayout({ children }) {
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" /></noscript>
       </head>
       <body className={`${inter.variable} ${cormorant.variable} font-body bg-[#0B0B0B] text-white antialiased relative overflow-x-hidden`}>
+        <NextTopLoader
+          color="#C8A46A"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #C8A46A, 0 0 5px #C8A46A"
+        />
         <CapacitorListeners />
         <GlobalBackground />
         <AuthProvider>

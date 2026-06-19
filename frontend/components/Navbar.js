@@ -63,7 +63,7 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
-              prefetch={true}
+              prefetch={false}
               className="whitespace-nowrap transition-colors hover:text-[#C8A46A]"
             >
               {link.label}
