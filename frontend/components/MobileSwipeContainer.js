@@ -281,9 +281,9 @@ export default function MobileSwipeContainer({ children }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 15 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute top-0 left-0 w-full min-h-screen z-50 bg-[#0B0B0B]"
+              className="absolute top-0 left-0 w-full min-h-screen z-50 bg-[#0B0B0B] overflow-y-auto"
             >
-              <div className="w-full h-full pb-24">
+              <div className="w-full min-h-full pb-24">
                 {children}
               </div>
             </motion.div>

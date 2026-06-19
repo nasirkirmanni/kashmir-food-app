@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, User, ArrowUpRight } from "lucide-react";
 
+import Link from "next/link";
+
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -12,6 +14,7 @@ export default function BlogPage() {
   const posts = [
     {
       title: "Secrets of Gushtaba: The Royal Velvet Meatball",
+      slug: "secrets-of-gushtaba",
       summary: "Discover the meticulous science and immense physical effort behind creating the legendary final dish of the Wazwan feast.",
       readTime: "5 min read",
       date: "June 14, 2026",
@@ -21,6 +24,7 @@ export default function BlogPage() {
     },
     {
       title: "The Kandur-Wan Breads of Kashmir",
+      slug: "kandur-wan-breads",
       summary: "From morning Girda to evening Chochoor: how local clay-oven bakeries define daily life and social structures in the valley.",
       readTime: "4 min read",
       date: "June 10, 2026",
@@ -30,6 +34,7 @@ export default function BlogPage() {
     },
     {
       title: "Kahwa vs. Noon Chai: An Ancestral Tea Feud",
+      slug: "kahwa-vs-noon-chai",
       summary: "An exploration of two distinct beverage traditions that warm the hearts and hearths of Kashmiri homes.",
       readTime: "6 min read",
       date: "May 28, 2026",
@@ -39,6 +44,7 @@ export default function BlogPage() {
     },
     {
       title: "Trami Etiquette: The Sacred Rules of Sharing",
+      slug: "trami-etiquette",
       summary: "Everything a traveler needs to know about sitting, sharing, and savoring when invited to a traditional Kashmiri wedding feast.",
       readTime: "5 min read",
       date: "May 15, 2026",
@@ -95,48 +101,49 @@ export default function BlogPage() {
         >
           <AnimatePresence mode="popLayout">
             {filteredPosts.map((post) => (
-              <motion.article
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                key={post.title}
-                className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[28px] p-6 sm:p-8 flex flex-col justify-between hover:border-[var(--saffron)]/30 hover:shadow-[0_15px_45px_rgba(212,175,55,0.08)] group transition-all"
-              >
-                <div>
-                  {/* Category & Read Time */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[var(--saffron)] font-bold tracking-[0.15em] uppercase text-[0.6rem] bg-[var(--saffron)]/10 px-3 py-1 rounded-full border border-[var(--saffron)]/20">
-                      {post.category}
-                    </span>
-                    <span className="flex items-center gap-1.5 text-white/40 text-[0.65rem] uppercase tracking-wider font-semibold">
-                      <Clock className="w-3.5 h-3.5" /> {post.readTime}
-                    </span>
+              <Link key={post.slug} href={`/blog/${post.slug}`}>
+                <motion.article
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[28px] p-6 sm:p-8 flex flex-col justify-between hover:border-[var(--saffron)]/30 hover:shadow-[0_15px_45px_rgba(212,175,55,0.08)] group transition-all h-full"
+                >
+                  <div>
+                    {/* Category & Read Time */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[var(--saffron)] font-bold tracking-[0.15em] uppercase text-[0.6rem] bg-[var(--saffron)]/10 px-3 py-1 rounded-full border border-[var(--saffron)]/20">
+                        {post.category}
+                      </span>
+                      <span className="flex items-center gap-1.5 text-white/40 text-[0.65rem] uppercase tracking-wider font-semibold">
+                        <Clock className="w-3.5 h-3.5" /> {post.readTime}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display text-xl sm:text-2xl text-white mb-3 group-hover:text-[var(--saffron)] transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-6 line-clamp-3">
+                      {post.excerpt}
+                    </p>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-display text-xl sm:text-2xl text-white mb-3 group-hover:text-[var(--saffron)] transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-6 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                </div>
-
-                {/* Footer Metadata */}
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-4 text-[0.65rem] uppercase tracking-wider font-bold text-white/50">
-                    <span className="flex items-center gap-1"><User className="w-3.5 h-3.5 text-[var(--saffron)]" /> {post.author}</span>
-                    <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> {post.date}</span>
+                  {/* Footer Metadata */}
+                  <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
+                    <div className="flex items-center gap-4 text-[0.65rem] uppercase tracking-wider font-bold text-white/50">
+                      <span className="flex items-center gap-1"><User className="w-3.5 h-3.5 text-[var(--saffron)]" /> {post.author}</span>
+                      <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> {post.date}</span>
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-white/5 group-hover:bg-[var(--saffron)] group-hover:text-black flex items-center justify-center text-white/55 transition-all">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-white/5 group-hover:bg-[var(--saffron)] group-hover:text-black flex items-center justify-center text-white/55 transition-all">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </motion.article>
+                </motion.article>
+              </Link>
             ))}
           </AnimatePresence>
         </motion.div>

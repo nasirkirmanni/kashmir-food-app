@@ -40,6 +40,7 @@ export default function Navbar() {
     { label: "Traditional Wazwan", href: "/dishes" },
     { label: "Restaurants", href: "/restaurants" },
     { label: "Visit Kashmir", href: "/plan" },
+    { label: "Blog", href: "/blog" },
   ];
 
   /* ── Liquid Glass pill style — desktop navbar ── */
