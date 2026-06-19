@@ -450,14 +450,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors text-[16px]"></i>
                 </div>
               </Link>
-              <Link href="/history" className="block" prefetch={false}>
-                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white"><i className="ti ti-book text-[22px]"></i></div>
+              <Link href="/about" className="block group" prefetch={false}>
+                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative hover:bg-[#1a1a1a] transition-colors">
+                  <div className="text-white group-hover:text-[var(--saffron)] transition-colors"><i className="ti ti-info-circle text-[22px]"></i></div>
                   <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5">History & Culture</h4>
-                    <p className="text-[#555] font-medium text-[11px]">14th-century origins</p>
+                    <h4 className="font-display font-black text-white text-[14px] mb-0.5 group-hover:text-[var(--saffron)] transition-colors">About Us</h4>
+                    <p className="text-[#555] font-medium text-[11px]">Our mission & story</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
+                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors text-[16px]"></i>
                 </div>
               </Link>
             </div>

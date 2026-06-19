@@ -925,13 +925,13 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
         </div>
 
         {/* --- FILTER PILLS ROW --- */}
-        <div className="flex items-center justify-between gap-4 overflow-x-auto pb-4 mb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-2">
+        <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full">
+          <div className="flex gap-2 shrink-0">
             {[
               { label: "All", tag: "All" },
               { label: "Wazwan", tag: "Wazwan" },
+              { label: "Bakery", tag: "Bakery" },
               { label: "Fine Dining", tag: "Fine Dining" },
-              { label: "Family Friendly", tag: "Family" },
               { label: "Near Me", tag: "Near" },
               { label: "Top Rated", tag: "Top" },
               { label: "Open Now", tag: "Open" },
@@ -941,10 +941,10 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                   ? selectedCuisines.includes("All") && !showOpenNowOnly
                   : pill.tag === "Wazwan" 
                   ? selectedCuisines.includes("Wazwan")
+                  : pill.tag === "Bakery"
+                  ? selectedCuisines.includes("Bakery")
                   : pill.tag === "Fine Dining"
                   ? selectedPrice === "₹₹₹₹"
-                  : pill.tag === "Family"
-                  ? showFamilyFriendly
                   : pill.tag === "Near"
                   ? maxDistance <= 5
                   : pill.tag === "Top"
@@ -959,10 +959,10 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                       handleClearAllFilters();
                     } else if (pill.tag === "Wazwan") {
                       handleCuisineToggle("Wazwan");
+                    } else if (pill.tag === "Bakery") {
+                      handleCuisineToggle("Bakery");
                     } else if (pill.tag === "Fine Dining") {
                       setSelectedPrice(selectedPrice === "₹₹₹₹" ? "All" : "₹₹₹₹");
-                    } else if (pill.tag === "Family") {
-                      setShowFamilyFriendly(!showFamilyFriendly);
                     } else if (pill.tag === "Near") {
                       setMaxDistance(maxDistance <= 5 ? 20 : 5);
                     } else if (pill.tag === "Top") {
@@ -971,7 +971,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                       setShowOpenNowOnly(!showOpenNowOnly);
                     }
                   }}
-                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border shrink-0 ${
                     isActive
                       ? "border-[var(--saffron)] bg-[var(--saffron)] text-black shadow-[0_0_15px_rgba(212,175,55,0.3)] scale-[1.03]"
                       : "border-white/10 bg-white/5 text-white/70 hover:border-white/20 hover:text-white"
