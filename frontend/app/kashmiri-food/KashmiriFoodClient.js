@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { endpoints, request } from "../../lib/api";
 
 function ShimmerSkeleton() {
@@ -65,16 +65,15 @@ function DishCard({ dish, linkText = "View Recipe Details" }) {
   );
 }
 
-function KashmiriFoodContent({ initialDishes = [] }) {
-  const searchParams = useSearchParams();
+function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, activeGuide = null }) {
   const router = useRouter();
   
   const [dishes, setDishes] = useState(initialDishes);
   const [loading, setLoading] = useState(initialDishes.length === 0);
   const [error, setError] = useState(null);
   
-  // Default to null to show the portal view (landing cards)
-  const [activeTab, setActiveTab] = useState(null);
+  // Use propTab as the source of truth for active tab
+  const activeTab = propTab;
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -95,26 +94,15 @@ function KashmiriFoodContent({ initialDishes = [] }) {
       .finally(() => setLoading(false));
   }, []);
 
-  // Listen to URL search parameter modifications to open correct tabs
-  useEffect(() => {
-    const urlTab = searchParams.get("tab");
-    if (urlTab && ["wazwan", "beverages", "bakery", "street_food"].includes(urlTab)) {
-      setActiveTab(urlTab);
-    } else {
-      setActiveTab(null);
-    }
-  }, [searchParams]);
+
 
   const selectTab = (tabId) => {
-    setActiveTab(tabId);
     setSearchQuery("");
-    const params = new URLSearchParams(window.location.search);
     if (tabId) {
-      params.set("tab", tabId);
-      router.replace(`/kashmiri-food?${params.toString()}`, { scroll: false });
+      const urlSlug = tabId === "street_food" ? "street-food" : tabId;
+      router.push(`/kashmiri-food/${urlSlug}`, { scroll: false });
     } else {
-      params.delete("tab");
-      router.replace(`/kashmiri-food`, { scroll: false });
+      router.push(`/kashmiri-food`, { scroll: false });
     }
   };
 
@@ -598,10 +586,8 @@ function KashmiriFoodContent({ initialDishes = [] }) {
 
 import dishesData from "@/data/dishes.json";
 
-export default function KashmiriFoodPage() {
+export default function KashmiriFoodClient({ initialDishes = [], activeTab = null, activeGuide = null }) {
   return (
-    <Suspense fallback={<div className="places-wrap py-24 text-[var(--muted)]">Loading Kashmiri Food...</div>}>
-      <KashmiriFoodContent initialDishes={dishesData} />
-    </Suspense>
+    <KashmiriFoodContent initialDishes={initialDishes} activeTab={activeTab} activeGuide={activeGuide} />
   );
 }

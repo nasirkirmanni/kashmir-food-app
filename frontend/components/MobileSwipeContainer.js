@@ -9,7 +9,7 @@ import HomePageClient from "@/components/HomePageClient";
 import HomePageHero from "@/components/HomePageHero";
 import RestaurantsPage from "@/app/restaurants/page";
 import MobileWazaAI from "@/components/MobileWazaAI";
-import KashmiriFoodPage from "@/app/kashmiri-food/page";
+import KashmiriFoodClient from "@/app/kashmiri-food/KashmiriFoodClient";
 import ProfilePage from "@/app/profile/page";
 import LoginPage from "@/app/login/page";
 import { usePathname } from "next/navigation";
@@ -265,7 +265,7 @@ export default function MobileSwipeContainer({ children }) {
             {Math.abs(activeIndex - 2) <= 1 ? <MobileWazaAI /> : null}
           </div>
           <div className="screen">
-            {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodPage /> : null}
+            {Math.abs(activeIndex - 3) <= 1 ? <KashmiriFoodClient /> : null}
           </div>
           <div className="screen">
             {Math.abs(activeIndex - 4) <= 1 ? (user ? <ProfilePage /> : <LoginPage />) : null}

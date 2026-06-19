@@ -43,5 +43,42 @@ export default function sitemap() {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...dishPages, ...restaurantPages];
+  const kashmiriFoodPages = [
+    { url: `${BASE_URL}/kashmiri-food`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/kashmiri-food/wazwan`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/kashmiri-food/bakery`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/kashmiri-food/beverages`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/kashmiri-food/street-food`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/kashmiri-food/wazwan/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/kashmiri-food/bakery/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/kashmiri-food/beverages/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/kashmiri-food/street-food/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+  ];
+
+  const categoryGuides = {
+    wazwan: [
+      "what-is-wazwan",
+      "dishes-explained",
+      "cost-guide",
+      "vegetarian-wazwan",
+      "etiquette",
+      "restaurant-vs-wedding-vs-home",
+    ],
+    bakery: ["intro-to-bakery", "types-of-bread", "breakfast-guide"],
+    beverages: ["kahwa-explained", "noon-chai-explained", "kahwa-vs-noon-chai"],
+    "street-food": ["intro", "must-try-foods", "safety-tips"],
+  };
+
+  Object.keys(categoryGuides).forEach((category) => {
+    categoryGuides[category].forEach((guideSlug) => {
+      kashmiriFoodPages.push({
+        url: `${BASE_URL}/kashmiri-food/${category}/guide/${guideSlug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    });
+  });
+
+  return [...staticPages, ...kashmiriFoodPages, ...dishPages, ...restaurantPages];
 }

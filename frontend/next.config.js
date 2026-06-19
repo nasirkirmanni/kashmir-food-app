@@ -5,6 +5,58 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/kashmiri-food',
+        has: [
+          {
+            type: 'query',
+            key: 'tab',
+            value: 'wazwan',
+          },
+        ],
+        permanent: true,
+        destination: '/kashmiri-food/wazwan',
+      },
+      {
+        source: '/kashmiri-food',
+        has: [
+          {
+            type: 'query',
+            key: 'tab',
+            value: 'bakery',
+          },
+        ],
+        permanent: true,
+        destination: '/kashmiri-food/bakery',
+      },
+      {
+        source: '/kashmiri-food',
+        has: [
+          {
+            type: 'query',
+            key: 'tab',
+            value: 'beverages',
+          },
+        ],
+        permanent: true,
+        destination: '/kashmiri-food/beverages',
+      },
+      {
+        source: '/kashmiri-food',
+        has: [
+          {
+            type: 'query',
+            key: 'tab',
+            value: 'street_food',
+          },
+        ],
+        permanent: true,
+        destination: '/kashmiri-food/street-food',
+      },
+    ];
+  },
   // NOTE: output: 'export' is only for Capacitor/Android builds.
   // DO NOT enable this for Vercel — it breaks server-side features and API routes.
   // To deploy to Android: uncomment this, run npm run build + npx cap sync, then recomment.
