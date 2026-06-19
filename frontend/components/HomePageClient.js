@@ -219,7 +219,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
       {/* Global background is now handled by layout.js */}
       {/* 2. RESTAURANTS SECTION */}
-      <section className="hidden md:block relative pt-12 md:pt-32 pb-24 z-10 mt-8">
+      <section className="hidden md:block relative pt-12 md:pt-12 pb-24 z-10 mt-2">
         <div className="page-shell relative z-10">
           <FadeInWhenVisible
             className="mb-8 md:mb-24 text-center"

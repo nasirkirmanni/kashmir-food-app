@@ -244,7 +244,7 @@ export default function HomePageHero() {
       {/* ═══════════════════════════════════════════════════════
           DESKTOP HERO (md and above)
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative hidden md:flex min-h-screen items-center justify-start pt-20 pb-32 overflow-hidden bg-transparent">
+      <section className="relative hidden md:flex min-h-screen items-center justify-start pt-20 pb-16 overflow-hidden bg-transparent">
         <div className="absolute inset-0 z-0 flex justify-end">
           <div className="relative w-full h-full">
             <Image priority fetchPriority="high" fill src="/newhome.png" alt="Kashmiri Wazwan feast" className="object-cover object-right lg:object-center" />
