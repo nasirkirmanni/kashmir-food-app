@@ -159,4 +159,114 @@ At a restaurant, you likely won't have the choice — most Wazwan thalis are pre
 
 *Ready to taste these for yourself? Check our [list of the best Wazwan restaurants in Srinagar](/restaurants/best-wazwan-srinagar), or head back to the [full Wazwan guide](/kashmiri-food/wazwan/guide) for cost breakdowns and etiquette tips.*`
   }
+  ,
+  {
+    slug: "cost-guide",
+    category: "wazwan",
+    title: "How Much Does Wazwan Cost? A Practical Price Guide",
+    description: "A breakdown of what Wazwan costs across restaurants, weddings, and fine dining in Srinagar — and what's actually driving those prices.",
+    readTime: "6 min read",
+    author: "WazwanWay Team",
+    date: "2025-06-19",
+    content: `
+# How Much Does Wazwan Cost? A Practical Price Guide
+
+Wazwan is one of the most generous meals you can eat in Kashmir — a multi-course feast shared from a single copper trami. But what does it actually cost? The honest answer: it depends entirely on where and how you're eating it. A restaurant thali and a wedding wazwan are different experiences at very different price points, and the gap between the cheapest and priciest restaurant options in Srinagar is wider than most visitors expect.
+
+This guide breaks down what you'll pay across the main contexts — and explains what's actually driving those prices.
+
+---
+
+## The Three Contexts and What They Cost
+
+### 1. Restaurant Wazwan: ₹600–₹1,200+ per person
+
+Most visitors encounter Wazwan in a restaurant setting, where it's typically served as a thali or trami — a set spread of rice, seekh kebab, rogan josh, rista, tabak maaz, gushtaba, and a few accompaniments, all on one plate.
+
+Prices across Srinagar's established restaurants currently range from around **₹600 to ₹1,200 per person**, depending on the restaurant's tier, location, and how many courses they include. Budget-friendly spots aim to be accessible to locals and students; heritage restaurants with older reputations and larger dining rooms charge more.
+
+A few things that push the price up within the restaurant category:
+
+- **Dal Lake proximity.** Restaurants on or near Boulevard Road tend to charge more than those in the city centre — you're partly paying for the setting.
+- **Number of courses.** A basic thali might include four or five dishes; a fuller trami spread with additional items like methi maaz or aab gosh costs more.
+- **Gravy refills.** Some restaurants offer unlimited rice and gravy refills; others charge per portion.
+
+> **Practical note:** At most Srinagar restaurants, one trami is designed to feed four people eating together — the traditional way. If you're dining solo, you'll typically be served a thali-style individual portion, and the per-person cost is roughly the same.
+
+---
+
+### 2. Wedding Wazwan: The Cost Is in the Mutton
+
+If you're attending a Kashmiri wedding, you're not paying directly — but understanding the economics explains why the feast feels as lavish as it does.
+
+A traditional wedding Wazwan is priced by the host almost entirely on **how much mutton is slaughtered**. Kashmiri weddings are commonly described in terms of quintals — an 8-quintal wedding, a 12-quintal wedding — because mutton quantity is the primary marker of scale and generosity. Chicken dishes, when included, are priced by wazas at roughly half the cost of mutton dishes; seasonal vegetable sides are thrown in near-free.
+
+The full spread can run to 20+ courses, and four guests share each trami. The waza (master chef) and their team are hired separately, and they charge for labour on top of the raw ingredient cost that the host provides or procures.
+
+For a guest, the wedding Wazwan is simply the fullest, most generous version of the meal you'll encounter — the standard against which restaurants are always judged.
+
+---
+
+### 3. Fine Dining and Hotel Wazwan: ₹1,500–₹2,500+ per person
+
+A handful of hotel restaurants and upscale dining venues in Srinagar offer curated Wazwan experiences at a significant premium. Here, the price reflects:
+
+- Private or semi-private dining settings
+- A larger number of courses, often presented with explanation
+- Heritage interiors or Dal Lake views
+- Service standards closer to fine dining
+
+This tier typically starts around ₹1,500 per person and can go considerably higher for packages that include Kahwa, dessert courses like phirni, and dedicated service. If you're booking for a group occasion, some hotels let you pre-book a private trami experience.
+
+---
+
+## Why Wazwan Costs What It Does
+
+The price of any Wazwan — restaurant, wedding, or hotel — ultimately traces back to two factors:
+
+**1. Mutton is the main ingredient, and it's not cheap.**
+
+Every authentic Wazwan uses freshly slaughtered lamb. The carcass is fully utilised, but a whole animal's worth of prep — manual pounding with a wooden *goshpare*, slow cooking over wood fire in large copper *degs*, hand-rolling meatballs — is hours of skilled labour. The rista and gushtaba alone require meat to be pounded to a paste by hand; there are no shortcuts in a real Wazwan kitchen.
+
+**2. The spice profile is premium.**
+
+Wazwan doesn't use everyday pantry spices. Kashmiri saffron, whole black cardamom, *mawal* (dried cockscomb flowers for natural colour), and cooking in pure ghee rather than oil all add to the cost. These aren't decorative flourishes — they're what makes the flavour profile distinct from any other mutton curry you've eaten elsewhere in India.
+
+---
+
+## Getting Value at Different Budgets
+
+**If you're on a tight budget (under ₹700):**
+Look for local restaurants in the city centre rather than tourist-facing areas near Dal Lake. A solid thali with the core dishes — kebab, rogan josh, rista, gushtaba — is available without paying a premium for ambience.
+
+**If you want a full trami experience (₹800–₹1,200):**
+Choose a restaurant that serves the meal on a shared copper trami for four and offers gravy refills. This is the closest to the authentic format — eating together from one plate is part of the Wazwan experience, not just a cost-cutting measure.
+
+**If you want the full occasion (₹1,500+):**
+A hotel or heritage restaurant with a curated spread is worth it for a special meal, especially if you want to go beyond the standard 5–6 dish thali and try less-common dishes like *daniwal korma* or *aab gosh*.
+
+---
+
+## FAQ
+
+**Is Wazwan expensive compared to other Kashmiri food?**
+Yes, relative to other meals in Srinagar. A standard Wazwan thali costs roughly 3–5x more than a plate of Kashmiri rice and daal. That's consistent with what the ingredients and preparation actually cost.
+
+**Do restaurants serve Wazwan for one person?**
+Most do — you'll get an individual thali version. The shared trami format (four people, one plate) is ideal if you're visiting with others, and some restaurants require a minimum party size for the full trami experience.
+
+**Is the hotel/fine dining version worth the extra cost?**
+It depends what you're after. Fine dining versions often include more courses and better service, but the fundamentals — how good the rista is, whether the gushtaba is properly pounded — are the same markers of quality regardless of price.
+
+**Is Wazwan available year-round in Srinagar?**
+Yes, most restaurants serve it daily. Wedding season in Kashmir peaks from August to November, so if you're visiting then and receive an invitation, consider it a rare chance to experience the feast in its original social context.
+
+**Can I get a Wazwan catered outside Kashmir?**
+Kashmiri waza teams do travel and cater events across India, though authentic ingredients (especially local lamb and fresh mawal) are harder to source outside the Valley, which affects the result.
+
+---
+
+*Want to know what dishes make up a Wazwan? See our [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained) guide. For the full cultural context, start with [What is Wazwan?](/kashmiri-food/wazwan/guide/what-is-wazwan)*
+`
+  }
 ];

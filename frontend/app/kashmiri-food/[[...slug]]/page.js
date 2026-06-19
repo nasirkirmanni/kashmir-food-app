@@ -55,19 +55,6 @@ export async function generateMetadata({ params }) {
   }
   const canonicalUrl = `${baseUrl}${canonicalPath}`;
 
-  // Check if it matches a guide article
-  if (slug.length === 3 && slug[1] === "guide") {
-    const guideSlug = slug[2];
-    const guide = wazwanGuides.find((g) => g.slug === guideSlug && g.category === slug[0]);
-    if (guide) {
-      return {
-        title: guide.title,
-        description: guide.description,
-        alternates: { canonical: canonicalUrl },
-      };
-    }
-  }
-
   const METADATA_MAPPING = {
     // Base portal
     base: {
@@ -109,8 +96,8 @@ export async function generateMetadata({ params }) {
           description: "A complete guide to the main dishes served in a traditional Trami, from Rista and Gustaba to Tabak Maaz and Lahabi Kebab.",
         },
         "cost-guide": {
-          title: "Kashmiri Wazwan Cost & Catering Planning Guide | WazwanWay",
-          description: "How much does a traditional wedding Wazwan cost? Estimate prices per Trami and planning tips for Kashmiri catering.",
+          title: "How Much Does Wazwan Cost? | WazwanWay",
+          description: "What does Wazwan cost in Srinagar? A breakdown of restaurant, wedding, and fine dining price ranges — and what's driving them.",
         },
         "vegetarian-wazwan": {
           title: "Vegetarian Wazwan: Menu, Dishes & Alternatives | WazwanWay",
@@ -181,6 +168,21 @@ export async function generateMetadata({ params }) {
       },
     },
   };
+
+  // Check if it matches a guide article
+  if (slug.length === 3 && slug[1] === "guide") {
+    const category = slug[0];
+    const guideSlug = slug[2];
+    const guide = wazwanGuides.find((g) => g.slug === guideSlug && g.category === category);
+    if (guide) {
+      const metaOverride = METADATA_MAPPING.guides[category]?.[guideSlug];
+      return {
+        title: metaOverride?.title || guide.title,
+        description: metaOverride?.description || guide.description,
+        alternates: { canonical: canonicalUrl },
+      };
+    }
+  }
 
   if (slug.length === 0) {
     return {
