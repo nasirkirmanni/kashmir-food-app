@@ -441,6 +441,15 @@ function KashmiriFoodContent({ initialDishes = [], activeTab: propTab = null, ac
                                 <span className="text-[var(--saffron)] group-hover:translate-x-1 transition-transform">&rarr;</span>
                               </div>
                             </Link>
+                            <Link href="/kashmiri-food/wazwan/guide" className="block bg-black/20 border border-[var(--saffron)]/30 rounded-xl p-4 hover:bg-black/30 transition-colors group mt-3">
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <h5 className="text-[var(--saffron)] font-bold text-sm mb-1 group-hover:text-white transition-colors">Wazwan Guidebook</h5>
+                                  <p className="text-white/60 text-xs">Read deep-dives on history, costs, and dishes.</p>
+                                </div>
+                                <span className="text-[var(--saffron)] group-hover:translate-x-1 transition-transform">&rarr;</span>
+                              </div>
+                            </Link>
                           </div>
                         </div>
 
