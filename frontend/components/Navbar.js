@@ -22,15 +22,22 @@ export default function Navbar() {
 
   /* ── Scroll-aware glass intensity ── */
   useEffect(() => {
+    let ticking = false;
     const onScroll = (e) => {
-      if (e.target && e.target.scrollTop !== undefined) {
-        setScrolled(e.target.scrollTop > 60);
-      } else if (e.target === document || e.target === window) {
-        setScrolled(window.scrollY > 60);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (e.target && e.target.scrollTop !== undefined) {
+            setScrolled(e.target.scrollTop > 60);
+          } else {
+            setScrolled(window.scrollY > 60);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener("scroll", onScroll, true);
-    return () => window.removeEventListener("scroll", onScroll, true);
+    window.addEventListener("scroll", onScroll, { capture: true, passive: true });
+    return () => window.removeEventListener("scroll", onScroll, { capture: true });
   }, []);
 
   /* ── Desktop nav links — only high-priority items visible ── */

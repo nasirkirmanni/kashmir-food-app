@@ -137,7 +137,7 @@ function DishesPageContent({ initialDishes = [] }) {
           </div>
 
           <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {coreDishes.map((dish) => (
+            {coreDishes.map((dish, index) => (
               <motion.article
                 key={dish._id}
                 initial={{ opacity: 0, scale: 0.98 }}
@@ -150,7 +150,9 @@ function DishesPageContent({ initialDishes = [] }) {
                     src={resolveImageUrl(dish.image)}
                     alt={dish.name}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={index < 2}
+                    quality={70}
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute top-4 left-4 bg-[var(--saffron)] text-black font-bold uppercase tracking-widest text-[0.6rem] px-2.5 py-1 rounded">
@@ -201,7 +203,8 @@ function DishesPageContent({ initialDishes = [] }) {
                       src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={70}
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>
@@ -239,7 +242,8 @@ function DishesPageContent({ initialDishes = [] }) {
                       src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={70}
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>
@@ -277,7 +281,8 @@ function DishesPageContent({ initialDishes = [] }) {
                       src={resolveImageUrl(dish.image)}
                       alt={dish.name}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={70}
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>

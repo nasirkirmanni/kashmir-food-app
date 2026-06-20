@@ -14,8 +14,8 @@ import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaurantTabs"), { ssr: false });
 const MobileRestaurantExplorerModal = dynamic(() => import("@/components/MobileRestaurantExplorerModal"), { ssr: false });
 const WazaAITripPlannerModal = dynamic(() => import("@/components/WazaAITripPlannerModal"), { ssr: false });
+const CustomReelPlayer = dynamic(() => import("@/components/CustomReelPlayer"), { ssr: false });
 import { endpoints, request } from "@/lib/api";
-import CustomReelPlayer from "@/components/CustomReelPlayer";
 
 const locationTabMeta = {
   Srinagar: {
