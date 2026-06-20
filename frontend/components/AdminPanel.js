@@ -38,6 +38,7 @@ const restaurantInitialState = {
 export default function AdminPanel() {
   const [dishes, setDishes] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [leads, setLeads] = useState([]);
   const [dishForm, setDishForm] = useState(dishInitialState);
   const [restaurantForm, setRestaurantForm] = useState(restaurantInitialState);
   const [editingDishId, setEditingDishId] = useState(null);
@@ -45,13 +46,41 @@ export default function AdminPanel() {
   const [message, setMessage] = useState("");
 
   const loadData = async () => {
-    const [dishData, restaurantData] = await Promise.all([
+    const [dishData, restaurantData, leadsData] = await Promise.all([
       request(endpoints.dishes()),
-      request(endpoints.restaurants())
+      request(endpoints.restaurants()),
+      request(endpoints.restaurantLeads()).catch(() => [])
     ]);
 
     setDishes(dishData);
     setRestaurants(restaurantData);
+    setLeads(leadsData);
+  };
+
+  const updateLeadStatus = async (id, status) => {
+    try {
+      await request(endpoints.restaurantLead(id), {
+        method: "PUT",
+        body: JSON.stringify({ status })
+      });
+      setMessage(`Lead status updated to ${status}.`);
+      await loadData();
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  const deleteLead = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this lead?")) return;
+    try {
+      await request(endpoints.restaurantLead(id), {
+        method: "DELETE"
+      });
+      setMessage("Lead deleted successfully.");
+      await loadData();
+    } catch (error) {
+      setMessage(error.message);
+    }
   };
 
   useEffect(() => {
@@ -434,6 +463,63 @@ export default function AdminPanel() {
                 </button>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="rounded-[32px] bg-white p-6 shadow-card">
+          <h4 className="text-lg font-semibold text-pine">Partner Requests</h4>
+          <div className="mt-4 space-y-3">
+            {leads.length === 0 ? (
+              <p className="text-xs text-slate-500">No partner requests available.</p>
+            ) : (
+              leads.map((lead) => (
+                <div key={lead._id} className="rounded-2xl bg-slate-50 p-4 text-sm relative">
+                  <div className="flex justify-between items-start">
+                    <p className="font-semibold text-slate-900">{lead.restaurantName}</p>
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
+                      lead.status === "approved" 
+                        ? "bg-green-100 text-green-800" 
+                        : lead.status === "rejected" 
+                        ? "bg-red-100 text-red-800" 
+                        : "bg-amber-100 text-amber-800"
+                    }`}>
+                      {lead.status}
+                    </span>
+                  </div>
+                  <div className="mt-2 space-y-1 text-slate-600 text-xs">
+                    <p><strong>Owner:</strong> {lead.ownerName}</p>
+                    <p><strong>Phone:</strong> {lead.phoneNumber}</p>
+                    <p><strong>Location:</strong> {lead.location}</p>
+                    {lead.description && <p><strong>Details:</strong> {lead.description}</p>}
+                    <p className="text-[10px] text-slate-400">Submitted: {new Date(lead.createdAt).toLocaleDateString()}</p>
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    {lead.status !== "approved" && (
+                      <button
+                        onClick={() => updateLeadStatus(lead._id, "approved")}
+                        className="rounded-lg bg-green-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-green-700 transition-colors"
+                      >
+                        Approve
+                      </button>
+                    )}
+                    {lead.status !== "rejected" && (
+                      <button
+                        onClick={() => updateLeadStatus(lead._id, "rejected")}
+                        className="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 transition-colors"
+                      >
+                        Reject
+                      </button>
+                    )}
+                    <button
+                      onClick={() => deleteLead(lead._id)}
+                      className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </section>
       </aside>

@@ -1,4 +1,7 @@
 import dotenv from "dotenv";
+import dns from "dns";
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
@@ -10,6 +13,7 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import restaurantLeadRoutes from "./routes/restaurantLeadRoutes.js";
 
 dotenv.config();
 
@@ -62,6 +66,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/stats", statsRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/restaurant-leads", restaurantLeadRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);
@@ -78,3 +83,6 @@ connectDB()
     console.error("Failed to start server", error);
     process.exit(1);
   });
+
+// Restart trigger comment to fix DNS database disconnect
+

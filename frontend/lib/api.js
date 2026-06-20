@@ -191,4 +191,6 @@ export const endpoints = {
   profile: "/users/profile",
   chat: "/chat",
   tripQuery: "/destinations/trip-query",
+  restaurantLeads: (query = "") => `/restaurant-leads${query}`,
+  restaurantLead: (id) => `/restaurant-leads/${id}`,
 };

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { endpoints, request } from "@/lib/api";
 
 export default function ListRestaurantPage() {
   const [loading, setLoading] = useState(false);
@@ -23,13 +24,15 @@ export default function ListRestaurantPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await request(endpoints.restaurantLeads(), {
+        method: "POST",
+        body: JSON.stringify(formData)
+      });
       setSuccess(true);
       setFormData({
         restaurantName: "",
@@ -38,7 +41,11 @@ export default function ListRestaurantPage() {
         location: "",
         description: "",
       });
-    }, 1500);
+    } catch (error) {
+      alert(error.message || "Failed to submit partner request. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

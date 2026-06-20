@@ -57,6 +57,14 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:5000/api/:path*"
+      }
+    ];
+  },
   // NOTE: output: 'export' is only for Capacitor/Android builds.
   // DO NOT enable this for Vercel — it breaks server-side features and API routes.
   // To deploy to Android: uncomment this, run npm run build + npx cap sync, then recomment.
