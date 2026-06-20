@@ -52,7 +52,7 @@ function DishCard({ dish, linkText = "View Recipe Details" }) {
   );
 }
 
-function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = null, activeGuide = null }) {
+function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = null, activeGuide = null, hideHeader = false }) {
   const router = useRouter();
   
   const [dishes] = useState(initialDishes);
@@ -226,26 +226,28 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
                 className="max-w-6xl mx-auto my-12"
               >
                 {/* Premium Header styled to match reference image */}
-                <div className="mb-8 text-left">
-                  <span className="place-eyebrow !text-[0.62rem] !mb-1.5 block !text-[var(--saffron)] tracking-[0.2em] font-bold">
-                    CULINARY IDENTITY OF THE VALLEY
-                  </span>
-                  <h1 className="text-4xl font-display font-medium tracking-tight text-white mb-3">
-                    Kashmiri food guide
-                  </h1>
-                  <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-md">
-                    Explore the authentic culinary traditions of Kashmir. Choose a category to open its catalog.
-                  </p>
-                  
-                  {/* Decorative wave separator divider */}
-                  <div className="flex items-center justify-between gap-6 my-8">
-                    <div className="h-[1px] bg-gradient-to-r from-transparent to-[var(--saffron)]/45 flex-1" />
-                    <svg className="w-10 h-4 text-[var(--saffron)] opacity-85 shrink-0" viewBox="0 0 40 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M 2 8 C 8 2, 14 14, 20 8 C 26 2, 32 14, 38 8" strokeLinecap="round" />
-                    </svg>
-                    <div className="h-[1px] bg-gradient-to-l from-transparent to-[var(--saffron)]/45 flex-1" />
+                {!hideHeader && (
+                  <div className="mb-8 text-left">
+                    <span className="place-eyebrow !text-[0.62rem] !mb-1.5 block !text-[var(--saffron)] tracking-[0.2em] font-bold">
+                      CULINARY IDENTITY OF THE VALLEY
+                    </span>
+                    <h1 className="text-4xl font-display font-medium tracking-tight text-white mb-3">
+                      Kashmiri food guide
+                    </h1>
+                    <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-md">
+                      Explore the authentic culinary traditions of Kashmir. Choose a category to open its catalog.
+                    </p>
+                    
+                    {/* Decorative wave separator divider */}
+                    <div className="flex items-center justify-between gap-6 my-8">
+                      <div className="h-[1px] bg-gradient-to-r from-transparent to-[var(--saffron)]/45 flex-1" />
+                      <svg className="w-10 h-4 text-[var(--saffron)] opacity-85 shrink-0" viewBox="0 0 40 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M 2 8 C 8 2, 14 14, 20 8 C 26 2, 32 14, 38 8" strokeLinecap="round" />
+                      </svg>
+                      <div className="h-[1px] bg-gradient-to-l from-transparent to-[var(--saffron)]/45 flex-1" />
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Grid layout with redesigned radial-gradient warm cards */}
                 <div className="grid grid-cols-2 gap-4">
@@ -262,6 +264,7 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
                             src={category.bgImage}
                             alt=""
                             fill
+                            quality={40}
                             sizes="(max-width: 768px) 50vw, 33vw"
                             className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105 z-0"
                             loading="lazy"
@@ -580,8 +583,8 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
   );
 }
 
-export default function KashmiriFoodClient({ initialDishes = dishesData, activeTab = null, activeGuide = null }) {
+export default function KashmiriFoodClient({ initialDishes = dishesData, activeTab = null, activeGuide = null, hideHeader = false }) {
   return (
-    <KashmiriFoodContent initialDishes={initialDishes} activeTab={activeTab} activeGuide={activeGuide} />
+    <KashmiriFoodContent initialDishes={initialDishes} activeTab={activeTab} activeGuide={activeGuide} hideHeader={hideHeader} />
   );
 }

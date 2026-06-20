@@ -267,7 +267,7 @@ export default function Page({ params }) {
           </section>
 
           {/* Dynamic catalog content (interactive client side) */}
-          <KashmiriFoodClient initialDishes={dishesData} activeTab={activeTab} activeGuide={null} />
+          <KashmiriFoodClient initialDishes={dishesData} activeTab={activeTab} activeGuide={null} hideHeader={true} />
         </div>
       </div>
     );

@@ -11,21 +11,41 @@ import HomePageClient from "@/components/HomePageClient";
 import HomePageHero from "@/components/HomePageHero";
 
 // Lazy-loaded: Only fetched when user navigates to them
-const RestaurantsPage = dynamic(() => import("@/app/restaurants/page"), { ssr: false });
-const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: false });
-const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: false });
-const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: false });
-const LoginPage = dynamic(() => import("@/app/login/page"), { ssr: false });
+const RestaurantsPage = dynamic(() => import("@/app/restaurants/page"), { ssr: true });
+const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: true });
+const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: true });
+const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: true });
+const LoginPage = dynamic(() => import("@/app/login/page"), { ssr: true });
 
 import { usePathname } from "next/navigation";
+
+const routeIndexMap = {
+  "/": 0,
+  "/restaurants": 1,
+  "/waza-ai": 2,
+  "/kashmiri-food": 3,
+  "/dishes": 3,
+  "/profile": 4,
+  "/login": 4,
+};
 
 export default function MobileSwipeContainer({ children }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   const { user } = useAuth();
+  const pathname = usePathname();
+  const initialIndex = pathname in routeIndexMap ? routeIndexMap[pathname] : 0;
 
   // Track which screens have been visited so they stay mounted after first load
-  // Screen 0 (Home) is always considered visited
-  const [visitedScreens, setVisitedScreens] = useState(new Set([0]));
+  const [visitedScreens, setVisitedScreens] = useState(() => {
+    const initialSet = new Set([0]);
+    if (initialIndex !== 0) {
+      initialSet.add(initialIndex);
+      // Boundary safety check for Section 1 B:
+      if (initialIndex - 1 >= 0) initialSet.add(initialIndex - 1);
+      if (initialIndex + 1 <= 4) initialSet.add(initialIndex + 1);
+    }
+    return initialSet;
+  });
 
   // Mark current and adjacent screens as visited whenever activeIndex changes
   useEffect(() => {
@@ -52,6 +72,7 @@ export default function MobileSwipeContainer({ children }) {
   const currentTranslateRef = useRef(0);
   const lastTouchTimeRef = useRef(0);
   const screenWidthRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 375);
+  const isFirstRenderRef = useRef(true);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -70,7 +91,12 @@ export default function MobileSwipeContainer({ children }) {
     
     // Only apply transition if we aren't dragging
     if (!isDraggingRef.current) {
-      container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      if (isFirstRenderRef.current) {
+        container.style.transition = 'none';
+        isFirstRenderRef.current = false;
+      } else {
+        container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      }
       currentTranslateRef.current = -activeIndex * screenWidthRef.current;
       container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
     }
@@ -230,8 +256,6 @@ export default function MobileSwipeContainer({ children }) {
   }, [activeIndex, isMobile, setActiveIndex]);
 
   // Check if current route is a swipeable tab
-  const pathname = usePathname();
-
   const isSwipeableRoute = [
     "/",
     "/restaurants",
@@ -270,9 +294,10 @@ export default function MobileSwipeContainer({ children }) {
           className="swipe-container" 
           ref={containerRef}
           style={{
+            transform: `translate3d(-${initialIndex * 100}vw, 0, 0)`,
             opacity: isSwipeableRoute ? 1 : 0,
             pointerEvents: isSwipeableRoute ? 'auto' : 'none',
-            transition: 'opacity 0.3s ease'
+            transition: 'opacity 0.3s ease, transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
           }}
         >
           <div className="screen">

@@ -25,7 +25,8 @@ const indexRouteMap = [
 
 export function MobileNavigationProvider({ children }) {
   const pathname = usePathname();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const initialIndex = pathname in routeIndexMap ? routeIndexMap[pathname] : 0;
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile viewport
