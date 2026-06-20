@@ -206,7 +206,7 @@ Additional Rules:
     }));
 
     // Calling Gemini Flash Lite
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -233,7 +233,7 @@ Additional Rules:
          return res.json({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." });
       }
       
-      return res.status(500).json({ error: "Failed to communicate with Gemini" });
+      return res.status(500).json({ error: "Failed to communicate with Gemini", details: errorData });
     }
 
     const data = await response.json();
