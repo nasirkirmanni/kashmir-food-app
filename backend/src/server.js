@@ -84,5 +84,5 @@ connectDB()
     process.exit(1);
   });
 
-// Restart trigger comment to fix DNS database disconnect
+// Restart trigger comment to reload env keys
 
