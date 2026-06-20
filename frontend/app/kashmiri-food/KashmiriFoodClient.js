@@ -124,62 +124,91 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
   const categories = [
     {
       id: "wazwan",
-      label: "Kashmiri Wazwan",
+      label: "Kashmiri wazwan",
       count: wazwanDishes.length,
-      unit: "Dishes",
-      desc: "The legendary royal feast slow-cooked by traditional Wazas and served on a copper Trami. Built around 16 authoritative dishes in strict traditional sequence.",
-      bgImage: "/images/optimized/wazwan-cover-800.avif",
+      unit: "items",
+      desc: "The legendary royal feast slow-cooked by traditional Wazas and served on a copper Trami.",
+      bgImage: "/images/originals/wazwan-cover.jpg",
       icon: (
-        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M3 20h18M12 4v4M12 8A8 8 0 0 0 4 16h16A8 8 0 0 0 12 8z" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ),
+      watermark: (
+        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
+          <ellipse cx="50" cy="55" rx="38" ry="22" />
+          <circle cx="34" cy="53" r="8" />
+          <circle cx="52" cy="58" r="6" />
+          <circle cx="66" cy="50" r="7" />
         </svg>
       )
     },
     {
       id: "beverages",
-      label: "Kashmiri Beverages",
+      label: "Kashmiri beverages",
       count: beverageDishes.length,
-      unit: "Beverages",
-      desc: "Authentic Kashmiri drinks — Noon Chai, Saffron Kahwa, Babribyol, and creamy Kashmiri Lassi.",
+      unit: "beverages",
+      desc: "Authentic Kashmiri drinks — Noon Chai, Saffron Kahwa, and Babribyol.",
+      bgImage: "/images/originals/Kashmiri-beverages.png",
       icon: (
-        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 8.5v3a3.5 3.5 0 01-7 0v-3h7z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 9h1.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-1.5 1.5h-1.5" />
+        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ),
+      watermark: (
+        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
+          <path d="M50 15 C30 50, 30 75, 50 85 C70 75, 70 50, 50 15 Z" />
+          <path d="M50 35 C42 55, 42 70, 50 78 C58 70, 58 55, 50 35 Z" />
         </svg>
       )
     },
     {
       id: "bakery",
-      label: "Kashmiri Bakery",
+      label: "Kashmiri bakery",
       count: bakeryDishes.length,
-      unit: "Breads",
-      desc: "The unique neighborhood bakery culture featuring clay-oven flatbreads like Girda, Czochworu, and Bakerkhani.",
-      bgImage: "/images/optimized/bakery-cover-800.avif",
+      unit: "breads",
+      desc: "The neighborhood bakery culture featuring flatbreads like Girda and Bakerkhani.",
+      bgImage: "/images/originals/bakery-cover.jpg",
       icon: (
-        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657a8 8 0 01-11.314 0zM12 2C8 6 6 10 6 14a6 6 0 0012 0c0-4-2-8-6-12z" />
+        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="12" cy="12" r="1.5" />
+        </svg>
+      ),
+      watermark: (
+        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
+          <circle cx="38" cy="62" r="18" />
+          <circle cx="62" cy="58" r="18" />
+          <circle cx="50" cy="42" r="16" />
         </svg>
       )
     },
     {
       id: "street_food",
-      label: "Kashmiri Street Food",
+      label: "Street food",
       count: streetFoodDishes.length,
-      unit: "Eats",
-      desc: "Rustic street treats from coal-grilled Tujji skewers to winter Harissa pastes found in Srinagar's bazaars.",
-      bgImage: "/images/optimized/street-food-cover-800.avif",
+      unit: "eats",
+      desc: "Local bazaar treats from coal-grilled Tujji to winter Harissa.",
+      bgImage: "/images/originals/street-food-cover.jpg",
       icon: (
-        <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="8" cy="8" r="1.5" />
+          <circle cx="16" cy="16" r="1.5" />
+        </svg>
+      ),
+      watermark: (
+        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
+          <rect x="25" y="35" width="50" height="35" rx="4" />
+          <circle cx="40" cy="52" r="4" />
+          <circle cx="60" cy="52" r="4" />
         </svg>
       )
     }
   ];
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 px-4 sm:px-0">
           <AnimatePresence mode="wait">
             {activeTab === null ? (
               /* PORTAL Landing Grid: 3-columns on mobile, 2-columns on desktop */
@@ -189,55 +218,91 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.25 }}
-                className="grid grid-cols-2 gap-3 sm:gap-6 max-w-6xl mx-auto my-12"
+                className="max-w-6xl mx-auto my-12"
               >
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => selectTab(category.id)}
-                    className="w-full text-left glass-panel p-3.5 sm:p-8 rounded-xl sm:rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(212,175,55,0.08)] flex flex-col justify-between h-36 sm:h-64 group relative overflow-hidden"
-                  >
-                    {/* Cover image background for categories with bgImage */}
-                    {category.bgImage && (
-                      <>
-                        <picture>
-                          <source media="(max-width: 768px)" srcSet={category.bgImage ? category.bgImage.replace('-800.avif', '-400.avif') : ''} />
+                {/* Premium Header styled to match reference image */}
+                <div className="mb-8 text-left">
+                  <span className="place-eyebrow !text-[0.62rem] !mb-1.5 block !text-[var(--saffron)] tracking-[0.2em] font-bold">
+                    CULINARY IDENTITY OF THE VALLEY
+                  </span>
+                  <h1 className="text-4xl font-display font-medium tracking-tight text-white mb-3">
+                    Kashmiri food guide
+                  </h1>
+                  <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-md">
+                    Explore the authentic culinary traditions of Kashmir. Choose a category to open its catalog.
+                  </p>
+                  
+                  {/* Decorative wave separator divider */}
+                  <div className="flex items-center justify-between gap-6 my-8">
+                    <div className="h-[1px] bg-gradient-to-r from-transparent to-[var(--saffron)]/45 flex-1" />
+                    <svg className="w-10 h-4 text-[var(--saffron)] opacity-85 shrink-0" viewBox="0 0 40 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M 2 8 C 8 2, 14 14, 20 8 C 26 2, 32 14, 38 8" strokeLinecap="round" />
+                    </svg>
+                    <div className="h-[1px] bg-gradient-to-l from-transparent to-[var(--saffron)]/45 flex-1" />
+                  </div>
+                </div>
+
+                {/* Grid layout with redesigned radial-gradient warm cards */}
+                <div className="grid grid-cols-2 gap-4">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => selectTab(category.id)}
+                      className="w-full text-left bg-gradient-to-br from-[#2E1D13] to-[#120B07] p-4 sm:p-8 rounded-[20px] border border-[#523A28]/45 hover:border-[var(--saffron)]/40 transition-all duration-300 hover:translate-y-[-4px] flex flex-col justify-between h-44 sm:h-64 group relative overflow-hidden shadow-lg shadow-black/45"
+                    >
+                      {/* Original background cover image */}
+                      {category.bgImage && (
+                        <>
                           <img
                             src={category.bgImage}
                             alt=""
-                            className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105"
+                            className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105 z-0"
                           />
-                        </picture>
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/85 z-0" />
-                      </>
-                    )}
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/55 to-black/85 z-0" />
+                        </>
+                      )}
 
-                    <div className="absolute top-0 right-0 p-3 sm:p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity z-10">
-                      {category.icon}
-                    </div>
-                    <div className="w-full z-10">
-                      <div className="mb-3 sm:mb-4">
-                        <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--saffron)]/30 transition-colors inline-flex items-center justify-center shrink-0">
+                      {/* Watermark illustrations */}
+                      {category.watermark}
+
+                      {/* Rounded icon box */}
+                      <div className="z-10">
+                        <div className="w-9 h-9 rounded-xl bg-black/45 border border-[#523A28]/50 flex items-center justify-center shrink-0">
                           {category.icon}
                         </div>
                       </div>
-                      <h3 className="text-sm sm:text-2xl font-display font-medium text-white group-hover:text-[var(--saffron)] transition-colors mb-1 sm:mb-2 line-clamp-2">
-                        {category.label}
-                      </h3>
-                      <p className="hidden sm:block text-white/60 text-xs md:text-sm leading-relaxed max-w-md">
-                        {category.desc}
-                      </p>
-                    </div>
-                    <div className="flex items-end justify-between w-full z-10">
-                      <div className="hidden sm:flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--saffron)]">
-                        Explore Catalog <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+
+                      {/* Title & Badge */}
+                      <div className="z-10 mt-auto">
+                        <h3 className="text-[15px] sm:text-xl font-display font-medium text-white leading-tight mb-2 pr-2">
+                          {category.label}
+                        </h3>
+                        <span className="place-badge !bg-black/35 !border-[#523A28]/35 !text-[var(--saffron)] text-[10px] sm:text-xs font-bold py-1 px-2.5 rounded-full inline-block">
+                          {`${category.count} ${category.unit}`}
+                        </span>
                       </div>
-                      <span className="place-badge !bg-[var(--saffron-pale)] !border-[var(--saffron)]/20 !text-[var(--saffron)] text-[0.6rem] sm:text-[0.7rem] font-bold py-0.5 sm:py-1 px-1.5 sm:px-3 ml-auto">
-                        {`${category.count} ${category.unit === "Dishes" ? "Items" : category.unit}`}
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Restored big bold branding text in the empty space below with symmetrical spirals */}
+                <div className="mt-12 mb-8 relative flex flex-col items-center justify-center text-center py-6 px-8 select-none">
+                  {/* Left spiral flourish */}
+                  <svg className="absolute left-[5%] sm:left-[15%] top-[10%] w-16 h-16 text-[#C8A46A]/8 pointer-events-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
+                    <path d="M 50 50 A 5 5 0 0 0 45 45 A 10 10 0 0 0 55 55 A 15 15 0 0 0 40 40 A 20 20 0 0 0 60 60 A 25 25 0 0 0 35 35" />
+                  </svg>
+                  {/* Right spiral flourish */}
+                  <svg className="absolute right-[5%] sm:right-[15%] top-[10%] w-16 h-16 text-[#C8A46A]/8 pointer-events-none scale-x-[-1]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
+                    <path d="M 50 50 A 5 5 0 0 0 45 45 A 10 10 0 0 0 55 55 A 15 15 0 0 0 40 40 A 20 20 0 0 0 60 60 A 25 25 0 0 0 35 35" />
+                  </svg>
+
+                  <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase tracking-[0.25em] text-[var(--saffron)] leading-tight mb-2 drop-shadow-md">
+                    All Things
+                  </h2>
+                  <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase tracking-[0.25em] text-[var(--saffron)] leading-tight drop-shadow-md">
+                    Kashmir
+                  </h2>
+                </div>
               </motion.div>
             ) : (
               /* ACTIVE TAB VIEW with Subnav and Search */
