@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
 
@@ -110,10 +111,13 @@ export default function MobileRestaurantSelector({
         >
           {/* Background Image & Overlay */}
           <div className="absolute inset-0 z-0">
-            <img
-              src="/wazwan-hero.png"
+            <Image
+              src="/wazwan-hero.jpg"
               alt="Background"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="w-full h-full object-cover object-center opacity-60 scale-105"
+              loading="lazy"
             />
             {/* Gradient fading to black on the left and bottom */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/90 to-transparent" />

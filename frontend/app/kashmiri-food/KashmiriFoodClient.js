@@ -10,17 +10,21 @@ import dishesData from "@/data/dishes.json";
 
 
 function DishCard({ dish, linkText = "View Recipe Details" }) {
+  const [imgSrc, setImgSrc] = useState(dish.image || '/placeholder-dish.jpg');
+
   return (
     <Link href={`/dishes/${dish.slug || dish._id}`} className="block">
       <div className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30 h-full">
         {/* Dish Image */}
         <div className="relative h-20 sm:h-40 w-full overflow-hidden bg-white/5 shrink-0">
-          <img
-            src={dish.image}
+          <Image
+            src={imgSrc}
             alt={dish.name}
-            loading="lazy"
+            fill
+            sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 20vw"
             className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            onError={(e) => { e.currentTarget.src = '/placeholder-dish.jpg'; e.currentTarget.onerror = null; }}
+            onError={() => setImgSrc('/placeholder-dish.jpg')}
+            loading="lazy"
           />
         </div>
         <div className="p-3 sm:p-6 flex flex-col flex-grow justify-between">
@@ -128,7 +132,7 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
       count: wazwanDishes.length,
       unit: "items",
       desc: "The legendary royal feast slow-cooked by traditional Wazas and served on a copper Trami.",
-      bgImage: "/images/originals/wazwan-cover.jpg",
+      bgImage: "/images/optimized/wazwan-cover-800.avif",
       icon: (
         <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M3 20h18M12 4v4M12 8A8 8 0 0 0 4 16h16A8 8 0 0 0 12 8z" strokeLinecap="round" strokeLinejoin="round" />
@@ -149,7 +153,7 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
       count: beverageDishes.length,
       unit: "beverages",
       desc: "Authentic Kashmiri drinks — Noon Chai, Saffron Kahwa, and Babribyol.",
-      bgImage: "/images/originals/Kashmiri-beverages.png",
+      bgImage: "/images/optimized/Kashmiri-beverages-800.avif",
       icon: (
         <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" strokeLinecap="round" strokeLinejoin="round" />
@@ -168,7 +172,7 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
       count: bakeryDishes.length,
       unit: "breads",
       desc: "The neighborhood bakery culture featuring flatbreads like Girda and Bakerkhani.",
-      bgImage: "/images/originals/bakery-cover.jpg",
+      bgImage: "/images/optimized/bakery-cover-800.avif",
       icon: (
         <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" strokeLinecap="round" strokeLinejoin="round" />
@@ -189,7 +193,7 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
       count: streetFoodDishes.length,
       unit: "eats",
       desc: "Local bazaar treats from coal-grilled Tujji to winter Harissa.",
-      bgImage: "/images/originals/street-food-cover.jpg",
+      bgImage: "/images/optimized/street-food-cover-800.avif",
       icon: (
         <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <rect x="3" y="3" width="18" height="18" rx="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -253,10 +257,13 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
                       {/* Original background cover image */}
                       {category.bgImage && (
                         <>
-                          <img
+                          <Image
                             src={category.bgImage}
                             alt=""
+                            fill
+                            sizes="(max-width: 768px) 50vw, 33vw"
                             className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105 z-0"
+                            loading="lazy"
                           />
                           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/55 to-black/85 z-0" />
                         </>

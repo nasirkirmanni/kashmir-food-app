@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ChefHat, ArrowRight } from "lucide-react";
+import { MapPin, ChefHat, ArrowRight, Utensils, Map, Info, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
@@ -418,42 +418,42 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             <div className="grid grid-cols-2 gap-3">
               <Link href="/dishes" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white"><i className="ti ti-tools-kitchen text-[22px]"></i></div>
+                  <div className="text-white"><Utensils size={22} strokeWidth={1.5} /></div>
                   <div>
                     <h4 className="font-display font-black text-white text-[14px] mb-0.5">Traditional Wazwan</h4>
                     <p className="text-[#555] font-medium text-[11px]">36 courses, one feast</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
+                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e]" />
                 </div>
               </Link>
               <Link href="/destinations" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white"><i className="ti ti-map-2 text-[22px]"></i></div>
+                  <div className="text-white"><Map size={22} strokeWidth={1.5} /></div>
                   <div>
                     <h4 className="font-display font-black text-white text-[14px] mb-0.5">Rare Destinations</h4>
                     <p className="text-[#555] font-medium text-[11px]">Beyond the tourist trail</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] text-[16px]"></i>
+                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e]" />
                 </div>
               </Link>
               <Link href="/things-to-do" className="block group" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative hover:bg-[#1a1a1a] transition-colors">
-                  <div className="text-[var(--saffron)]"><i className="ti ti-map-pin text-[22px]"></i></div>
+                  <div className="text-[var(--saffron)]"><MapPin size={22} strokeWidth={1.5} /></div>
                   <div>
                     <h4 className="font-display font-black text-white text-[14px] mb-0.5 group-hover:text-[var(--saffron)] transition-colors">Things to Do</h4>
                     <p className="text-[#555] font-medium text-[11px]">Top experiences & activities</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors text-[16px]"></i>
+                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors" />
                 </div>
               </Link>
               <Link href="/about" className="block group" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative hover:bg-[#1a1a1a] transition-colors">
-                  <div className="text-white group-hover:text-[var(--saffron)] transition-colors"><i className="ti ti-info-circle text-[22px]"></i></div>
+                  <div className="text-white group-hover:text-[var(--saffron)] transition-colors"><Info size={22} strokeWidth={1.5} /></div>
                   <div>
                     <h4 className="font-display font-black text-white text-[14px] mb-0.5 group-hover:text-[var(--saffron)] transition-colors">About Us</h4>
                     <p className="text-[#555] font-medium text-[11px]">Our mission & story</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors text-[16px]"></i>
+                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors" />
                 </div>
               </Link>
             </div>
@@ -470,21 +470,21 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             <div className="relative z-10 grid grid-cols-2 gap-3">
               <Link href="/plan" className="block" prefetch={false}>
                 <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
-                  <div className="text-[#C8A46A]"><i className="ti ti-map-2 text-[22px]"></i></div>
+                  <div className="text-[#C8A46A]"><Map size={22} strokeWidth={1.5} /></div>
                   <div>
                     <h4 className="font-display font-black text-[#1a130a] text-[14px] leading-tight mb-0.5">Visit Kashmir</h4>
                     <p className="text-[#665d50] font-medium text-[11px]">Travel Guide</p>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#C8A46A] text-[16px]"></i>
+                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
                 </div>
               </Link>
               <button onClick={() => setIsTripPlannerModalVisible(true)} className="block w-full text-left">
                 <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
-                  <div className="text-[#C8A46A]"><i className="ti ti-sparkles text-[22px]"></i></div>
+                  <div className="text-[#C8A46A]"><Sparkles size={22} strokeWidth={1.5} /></div>
                   <div>
                     <h4 className="font-display font-black text-[#1a130a] text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h4>
                   </div>
-                  <i className="ti ti-arrow-right absolute bottom-4 right-4 text-[#C8A46A] text-[16px]"></i>
+                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
                 </div>
               </button>
             </div>
@@ -509,7 +509,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               rel="noopener noreferrer" 
               className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)] bg-[rgba(212,175,55,0.1)] px-6 py-3 text-sm font-bold uppercase tracking-widest text-[var(--saffron)] shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all hover:bg-[var(--saffron)] hover:text-black"
             >
-              <i className="ti ti-brand-instagram text-xl"></i>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
               @wazwanway
             </a>
           </div>
@@ -538,7 +542,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       {/* NEXT PAGE SWIPE INDICATOR (Mobile Only) */}
       <div className="flex md:hidden pb-32 pt-6 flex-col items-center justify-center relative z-10">
         <div className="flex flex-col items-center gap-1 opacity-50 animate-pulse">
-          <i className="ti ti-arrow-right text-[28px] text-gray-400"></i>
+          <ArrowRight size={28} className="text-gray-400" strokeWidth={1.5} />
         </div>
       </div>
 
