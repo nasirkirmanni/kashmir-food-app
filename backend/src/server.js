@@ -21,6 +21,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const allowedOrigins = [
   "http://localhost:3000",
+  "http://localhost:3001",
+  "http://localhost:3002",
   "http://127.0.0.1:3000",
   "https://kashmir-food-app.vercel.app",
   "https://wazwanway.com",
