@@ -212,6 +212,7 @@ export default function WazaAI() {
               <button
                 onClick={() => setIsOpen(false)}
                 className="flex h-8 w-8 items-center justify-center rounded-full text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Close Chat Window"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -305,6 +306,7 @@ export default function WazaAI() {
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
                   className="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--saffron)] text-black disabled:opacity-50 transition-transform active:scale-95"
+                  aria-label="Send Message"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 ml-0.5">
                     <path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z" />

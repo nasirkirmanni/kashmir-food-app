@@ -117,7 +117,7 @@ function DishesPageContent({ initialDishes = [] }) {
                   <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 </div>
                 <div className="text-left">
-                  <h5 className="text-[var(--saffron)] font-bold text-sm mb-0.5 group-hover:text-white transition-colors">Wazwan Etiquette</h5>
+                  <p className="text-[var(--saffron)] font-bold text-sm mb-0.5 group-hover:text-white transition-colors">Wazwan Etiquette</p>
                   <p className="text-white/50 text-[10px] uppercase tracking-wider">7 Unwritten Rules</p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ function DishesPageContent({ initialDishes = [] }) {
             {coreDishes.map((dish, index) => (
               <motion.article
                 key={dish._id}
-                initial={{ opacity: 0, scale: 0.98 }}
+                initial={index < 4 ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 className="wazwan-dish-card flex flex-col justify-between border-[var(--saffron)]/20 shadow-[0_0_30px_rgba(212,175,55,0.05)] h-full"

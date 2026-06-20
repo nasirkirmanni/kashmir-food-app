@@ -15,13 +15,15 @@ export default function ImageWithSkeleton({
   priority = false,
   ...props
 }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [prevSrc, setPrevSrc] = useState(src);
+  const [isLoading, setIsLoading] = useState(!priority);
   const [imgSrc, setImgSrc] = useState(src || "/wazwan-hero.jpg");
 
-  useEffect(() => {
+  if (src !== prevSrc) {
+    setPrevSrc(src);
     setImgSrc(src || "/wazwan-hero.jpg");
-    setIsLoading(true);
-  }, [src]);
+    setIsLoading(!priority);
+  }
 
   return (
     <div
@@ -42,7 +44,7 @@ export default function ImageWithSkeleton({
         height={!fill ? height : undefined}
         sizes={sizes}
         priority={priority}
-        className={`relative z-10 transition-opacity duration-500 ease-in-out opacity-100 ${className}`}
+        className={`relative z-10 transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-0" : "opacity-100"} ${className}`}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setImgSrc("/wazwan-hero.jpg");

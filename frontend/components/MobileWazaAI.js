@@ -203,6 +203,7 @@ export default function MobileWazaAI({ initialPrompt }) {
             type="submit"
             disabled={!inputValue.trim() || isLoading}
             className="absolute right-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-[#ECECEC] text-[#212121] disabled:opacity-30 disabled:bg-[#444] disabled:text-[#888] transition-all"
+            aria-label="Send Message"
           >
             <SendIcon size={16} />
           </button>
