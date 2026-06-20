@@ -405,66 +405,12 @@ export default function AdminPanel() {
       </div>
 
       <aside className="space-y-6">
-        <section className="rounded-[32px] bg-white p-6 shadow-card">
-          <h3 className="font-display text-2xl text-pine">Live catalog</h3>
-          <p className="mt-2 text-sm text-slate-600">
-            Quick overview of the current dishes and restaurant entries available in the app.
-          </p>
-          {message ? <p className="mt-4 text-sm text-emerald-700">{message}</p> : null}
-        </section>
+        {message ? (
+          <section className="rounded-[32px] bg-white p-6 shadow-card border border-emerald-100">
+            <p className="text-sm font-semibold text-emerald-800">{message}</p>
+          </section>
+        ) : null}
 
-        <section className="rounded-[32px] bg-white p-6 shadow-card">
-          <h4 className="text-lg font-semibold text-pine">Dishes</h4>
-          <div className="mt-4 space-y-3">
-            {dishes.map((dish) => (
-              <div key={dish._id} className="rounded-2xl bg-slate-50 p-4 text-sm">
-                <p className="font-semibold text-slate-900">{dish.name}</p>
-                <p className="mt-1 text-slate-600">{dish.category}</p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingDishId(dish._id);
-                    setDishForm({
-                      ...dish,
-                      tags: (dish.tags || []).join(", ")
-                    });
-                  }}
-                  className="mt-3 text-xs font-semibold text-saffron"
-                >
-                  Edit dish
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-[32px] bg-white p-6 shadow-card">
-          <h4 className="text-lg font-semibold text-pine">Restaurants</h4>
-          <div className="mt-4 space-y-3">
-            {restaurants.map((restaurant) => (
-              <div key={restaurant._id} className="rounded-2xl bg-slate-50 p-4 text-sm">
-                <p className="font-semibold text-slate-900">{restaurant.name}</p>
-                <p className="mt-1 text-slate-600">{restaurant.location}</p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingRestaurantId(restaurant._id);
-                    setRestaurantForm({
-                      ...restaurant,
-                      tags: (restaurant.tags || []).join(", "),
-                      linkedDishes: (restaurant.linkedDishes || []).map((dish) =>
-                        typeof dish === "string" ? dish : dish._id
-                      )
-                    });
-                  }}
-                  className="mt-3 text-xs font-semibold text-saffron"
-                >
-                  Edit restaurant
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
 
         <section className="rounded-[32px] bg-white p-6 shadow-card">
           <h4 className="text-lg font-semibold text-pine">Partner Requests</h4>
