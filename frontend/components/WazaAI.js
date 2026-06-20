@@ -54,13 +54,16 @@ export default function WazaAI() {
     messagesRef.current = messages;
   }, [messages]);
 
+  const userJustSentRef = useRef(false);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && userJustSentRef.current) {
       scrollToBottom();
+      userJustSentRef.current = false;
     }
   }, [messages, isOpen]);
 
@@ -78,6 +81,7 @@ export default function WazaAI() {
     if (!text.trim()) return;
     
     const userMessage = { role: "user", content: text };
+    userJustSentRef.current = true;
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
     setIsLoading(true);
