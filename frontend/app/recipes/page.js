@@ -5,6 +5,7 @@ import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { createPortal } from "react-dom";
 
 import dishesData from "@/data/dishes.json";
 
@@ -19,6 +20,22 @@ export default function RecipesPage() {
   const [recipeLoading, setRecipeLoading] = useState(false);
   const [recipeResult, setRecipeResult] = useState(null);
   const [recipeError, setRecipeError] = useState(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (recipeModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [recipeModalOpen]);
 
   useEffect(() => {
     request(endpoints.dishes(""))
@@ -114,63 +131,66 @@ export default function RecipesPage() {
       </section>
 
       {/* Recipe Modal */}
-      <AnimatePresence>
-        {recipeModalOpen && selectedDish && (
-          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl bg-[#0f0f0f] border border-white/10 shadow-2xl flex flex-col"
-            >
-              <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
-                <div>
-                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">Secret Recipe</span>
-                  <h2 className="mt-1 text-2xl font-display text-white">{selectedDish.name}</h2>
-                </div>
-                <button
-                  onClick={() => setRecipeModalOpen(false)}
-                  className="rounded-full p-2 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all active:scale-90"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="p-6 md:p-8 overflow-y-auto flex-1 text-white/90 leading-relaxed">
-                {recipeLoading ? (
-                  <div className="flex flex-col items-center justify-center py-20 opacity-70">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--saffron)] mb-4"></div>
-                    <p className="animate-pulse tracking-widest uppercase text-xs font-bold text-[var(--saffron)]">
-                      finding the best secret recipe...
-                    </p>
+      {mounted && createPortal(
+        <AnimatePresence>
+          {recipeModalOpen && selectedDish && (
+            <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl bg-[#0f0f0f] border border-white/10 shadow-2xl flex flex-col"
+              >
+                <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
+                  <div>
+                    <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">Secret Recipe</span>
+                    <h2 className="mt-1 text-2xl font-display text-white">{selectedDish.name}</h2>
                   </div>
-                ) : recipeError ? (
-                  <p className="text-red-400 text-center py-10">{recipeError}</p>
-                ) : (
-                  <ReactMarkdown
-                    components={{
-                      h1: ({ node, ...props }) => <h1 className="font-display text-2xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
-                      h2: ({ node, ...props }) => <h2 className="font-display text-xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
-                      h3: ({ node, ...props }) => <h3 className="font-display text-lg font-bold text-[var(--saffron)] mt-3 mb-1.5" {...props} />,
-                      p: ({ node, ...props }) => <p className="font-body text-sm text-white/90 leading-relaxed mb-3 last:mb-0" {...props} />,
-                      ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
-                      ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
-                      li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
-                      strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
-                      code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
-                      blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
-                    }}
+                  <button
+                    onClick={() => setRecipeModalOpen(false)}
+                    className="rounded-full p-2 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all active:scale-90"
                   >
-                    {recipeResult}
-                  </ReactMarkdown>
-                )}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className="p-6 md:p-8 overflow-y-auto flex-1 text-white/90 leading-relaxed">
+                  {recipeLoading ? (
+                    <div className="flex flex-col items-center justify-center py-20 opacity-70">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--saffron)] mb-4"></div>
+                      <p className="animate-pulse tracking-widest uppercase text-xs font-bold text-[var(--saffron)]">
+                        finding the best secret recipe...
+                      </p>
+                    </div>
+                  ) : recipeError ? (
+                    <p className="text-red-400 text-center py-10">{recipeError}</p>
+                  ) : (
+                    <ReactMarkdown
+                      components={{
+                        h1: ({ node, ...props }) => <h1 className="font-display text-2xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
+                        h2: ({ node, ...props }) => <h2 className="font-display text-xl font-bold text-[var(--saffron)] mt-4 mb-2" {...props} />,
+                        h3: ({ node, ...props }) => <h3 className="font-display text-lg font-bold text-[var(--saffron)] mt-3 mb-1.5" {...props} />,
+                        p: ({ node, ...props }) => <p className="font-body text-sm text-white/90 leading-relaxed mb-3 last:mb-0" {...props} />,
+                        ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
+                        ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
+                        li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                        strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
+                        code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
+                        blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
+                      }}
+                    >
+                      {recipeResult}
+                    </ReactMarkdown>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   );
 }
