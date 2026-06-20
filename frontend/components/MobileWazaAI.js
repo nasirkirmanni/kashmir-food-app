@@ -143,9 +143,6 @@ export default function MobileWazaAI({ initialPrompt }) {
     messagesRef.current = messages;
   }, [messages]);
 
-  const [viewportHeight, setViewportHeight] = useState('100%');
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-
   // Inject Uber Move font
   useEffect(() => {
     if (typeof document !== "undefined" && !document.getElementById("uber-move-font")) {
@@ -155,27 +152,6 @@ export default function MobileWazaAI({ initialPrompt }) {
       link.rel = "stylesheet";
       link.href = "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap";
       document.head.appendChild(link);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.visualViewport) {
-      const handleResize = () => {
-        setViewportHeight(`${window.visualViewport.height}px`);
-        // If the visual viewport height is significantly less than window.innerHeight, keyboard is likely open
-        setIsKeyboardOpen(window.visualViewport.height < window.innerHeight * 0.8);
-      };
-
-      window.visualViewport.addEventListener("resize", handleResize);
-      window.visualViewport.addEventListener("scroll", handleResize);
-      
-      // Initial call
-      handleResize();
-
-      return () => {
-        window.visualViewport.removeEventListener("resize", handleResize);
-        window.visualViewport.removeEventListener("scroll", handleResize);
-      };
     }
   }, []);
 
@@ -232,9 +208,8 @@ export default function MobileWazaAI({ initialPrompt }) {
 
   return (
     <div
-      className="flex flex-col w-full overflow-hidden relative"
+      className="flex flex-col h-[100dvh] w-full overflow-hidden relative"
       style={{
-        height: viewportHeight,
         background: "#0B0B0B",
         fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif"
       }}
@@ -288,7 +263,7 @@ export default function MobileWazaAI({ initialPrompt }) {
       </motion.header>
 
       {/* ─── SCROLLABLE CONTENT ─── */}
-      <div className="flex-1 overflow-y-auto z-10 no-scrollbar" style={{ paddingBottom: "160px" }}>
+      <div className="flex-1 overflow-y-auto z-10 no-scrollbar">
         <AnimatePresence mode="wait">
           {!hasStartedChat ? (
             /* ─── WELCOME VIEW ─── */
@@ -535,10 +510,10 @@ export default function MobileWazaAI({ initialPrompt }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="absolute bottom-0 left-0 right-0 z-20 px-4 pt-2"
+        className="z-20 px-4 pt-2 pb-6 shrink-0"
         style={{
-          background: "linear-gradient(to top, #0B0B0B 70%, transparent 100%)",
-          paddingBottom: "calc(80px + env(safe-area-inset-bottom))"
+          background: "#0B0B0B",
+          paddingBottom: "calc(90px + env(safe-area-inset-bottom))"
         }}
       >
         <form
