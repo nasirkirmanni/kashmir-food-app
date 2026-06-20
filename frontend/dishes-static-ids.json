@@ -4,7 +4,7 @@
     "slug": "aab-gosht"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f1f",
+    "id": "6a36b7088b14138cbe2156cc",
     "slug": "al-hachh-mutton"
   },
   {
@@ -24,11 +24,11 @@
     "slug": "badam-phirni"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f18",
+    "id": "6a36b7088b14138cbe2156d1",
     "slug": "bakerkhani"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f1e",
+    "id": "6a36b7088b14138cbe2156d2",
     "slug": "bam-tsoonth"
   },
   {
@@ -44,7 +44,7 @@
     "slug": "cardamom-kahwa"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f17",
+    "id": "6a36b7088b14138cbe2156d6",
     "slug": "czochworu"
   },
   {
@@ -60,7 +60,7 @@
     "slug": "daniwal-korma"
   },
   {
-    "id": "6a2a49c2185d2d28b82e867e",
+    "id": "6a36b7088b14138cbe2156da",
     "slug": "doon-chetin"
   },
   {
@@ -80,11 +80,11 @@
     "slug": "ghee-batta"
   },
   {
-    "id": "6a2a49c2185d2d28b82e8680",
+    "id": "6a36b7088b14138cbe2156df",
     "slug": "girda"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f23",
+    "id": "6a36b7088b14138cbe2156e0",
     "slug": "gogji-mutton"
   },
   {
@@ -116,23 +116,23 @@
     "slug": "kabab"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f30",
+    "id": "6a36b7088b14138cbe2156e8",
     "slug": "kabargah"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f0e",
+    "id": "6a36b7088b14138cbe2156e9",
     "slug": "kashmiri-harissa"
   },
   {
-    "id": "6a2a49c2185d2d28b82e867f",
+    "id": "6a36b7088b14138cbe2156ea",
     "slug": "kashmiri-kahwa"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f11",
+    "id": "6a36b7088b14138cbe2156eb",
     "slug": "kashmiri-pulao"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f16",
+    "id": "6a36b7088b14138cbe2156ec",
     "slug": "lavas"
   },
   {
@@ -148,7 +148,7 @@
     "slug": "masoor-dal-with-ver"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f31",
+    "id": "6a36b7088b14138cbe2156f0",
     "slug": "matsgand"
   },
   {
@@ -164,7 +164,7 @@
     "slug": "muji-chetin"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f1c",
+    "id": "6a36b7088b14138cbe2156f4",
     "slug": "muji-gaad"
   },
   {
@@ -176,7 +176,7 @@
     "slug": "mutton-yakhni"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f1d",
+    "id": "6a36b7088b14138cbe2156f7",
     "slug": "nadru-gaad"
   },
   {
@@ -190,10 +190,6 @@
   {
     "id": "6a2a4978ac7d60a9cca76efc",
     "slug": "nadru-yakhni"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f0d",
-    "slug": "noon-chai-beverage"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f4e",
@@ -248,10 +244,6 @@
     "slug": "ruwangan-mutton"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f4c",
-    "slug": "saffron-kahwa"
-  },
-  {
     "id": "6a2a4978ac7d60a9cca76f53",
     "slug": "saffron-phirni"
   },
@@ -272,7 +264,7 @@
     "slug": "sheermal"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f13",
+    "id": "6a36b7088b14138cbe21570d",
     "slug": "shufta"
   },
   {
@@ -280,7 +272,7 @@
     "slug": "suji-halwa"
   },
   {
-    "id": "6a2a49c2185d2d28b82e867d",
+    "id": "6a36b7088b14138cbe21570f",
     "slug": "syoon"
   },
   {
@@ -300,7 +292,7 @@
     "slug": "trout-fish-curry"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f4a",
+    "id": "6a36b7088b14138cbe215714",
     "slug": "trout-fish-fry"
   },
   {
@@ -312,7 +304,7 @@
     "slug": "tschok-wangan"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f21",
+    "id": "6a36b7088b14138cbe215717",
     "slug": "tsoek-wangangan"
   },
   {
@@ -356,7 +348,7 @@
     "slug": "waza-paneer"
   },
   {
-    "id": "6a2bb13b06150cd84cfc8e82",
+    "id": "6a36b7088b14138cbe215722",
     "slug": "kashmiri-lassi"
   },
   {
@@ -366,5 +358,9 @@
   {
     "id": "6a2bb84bab4eecd3990bc655",
     "slug": "aloo-monji"
+  },
+  {
+    "id": "6a36b7088b14138cbe215725",
+    "slug": "noon-chai"
   }
 ]

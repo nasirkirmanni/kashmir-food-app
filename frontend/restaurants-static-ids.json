@@ -4,19 +4,11 @@
     "slug": "1860-restaurant"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f5f",
-    "slug": "ahdoos"
-  },
-  {
     "id": "6a2a4978ac7d60a9cca76f7e",
     "slug": "bakshi-restaurant-cafe"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f62",
-    "slug": "clove-the-art-of-dining"
-  },
-  {
-    "id": "6a2a49c6185d2d28b82e8681",
+    "id": "6a36b7098b14138cbe215729",
     "slug": "doodhpathri-pine-grill"
   },
   {
@@ -32,7 +24,7 @@
     "slug": "gulmarg-zaika-restaurant"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f8a",
+    "id": "6a36b7098b14138cbe21572d",
     "slug": "gurez-alpine-dhaba"
   },
   {
@@ -44,12 +36,8 @@
     "slug": "lazeez-foods"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f84",
+    "id": "6a36b7098b14138cbe215730",
     "slug": "lidder-heights-restaurant"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f5e",
-    "slug": "mughal-darbar"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f7f",
@@ -68,15 +56,15 @@
     "slug": "sifar-pahalgam"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f88",
+    "id": "6a36b7098b14138cbe215735",
     "slug": "sindh-valley-retreat"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f86",
+    "id": "6a36b7098b14138cbe215736",
     "slug": "snowland-restaurant"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f89",
+    "id": "6a36b7098b14138cbe215737",
     "slug": "tangmarg-treat"
   },
   {
@@ -84,19 +72,23 @@
     "slug": "tarboosh-foods"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f87",
+    "id": "6a36b7098b14138cbe215739",
     "slug": "thajiwas-view-point-eatery"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f85",
+    "id": "6a36b7098b14138cbe21573a",
     "slug": "trout-beat-pahalgam"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f8d",
+    "id": "6a36b7098b14138cbe21573b",
     "slug": "verinag-springs-restaurant"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f8b",
+    "id": "6a36b7098b14138cbe21573c",
     "slug": "yusmarg-meadows-cafe"
+  },
+  {
+    "id": "6a36b7098b14138cbe21573d",
+    "slug": "ahdoos"
   }
 ]

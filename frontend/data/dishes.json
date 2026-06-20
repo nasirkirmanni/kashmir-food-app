@@ -28,7 +28,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a31",
+    "_id": "6a36b7088b14138cbe2156cc",
     "name": "Al-Hachh Mutton",
     "description": "Mutton cooked with dried bottle gourd slices.",
     "fullDescription": "Al-Hachh Mutton is a classic dish combining sun-dried bottle gourd slices with tender mutton in a slow-cooked spiced gravy.",
@@ -50,8 +50,9 @@
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.477Z",
-    "updatedAt": "2026-06-18T07:06:36.477Z"
+    "createdAt": "2026-06-20T15:51:36.740Z",
+    "updatedAt": "2026-06-20T15:51:36.740Z",
+    "slug": "al-hachh-mutton"
   },
   {
     "_id": "6a2a5e67185d2d28b82e8693",
@@ -167,7 +168,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a36",
+    "_id": "6a36b7088b14138cbe2156d1",
     "name": "Bakerkhani",
     "description": "Flaky, layered baked flatbread.",
     "fullDescription": "Bakerkhani is a thick, round, flaky flatbread with a golden crust, baked in a clay tandoor.",
@@ -189,11 +190,12 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.478Z",
-    "updatedAt": "2026-06-18T07:06:36.478Z"
+    "createdAt": "2026-06-20T15:51:36.740Z",
+    "updatedAt": "2026-06-20T15:51:36.740Z",
+    "slug": "bakerkhani"
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a37",
+    "_id": "6a36b7088b14138cbe2156d2",
     "name": "Bam Tsoonth",
     "description": "Quince apples cooked in a tangy, spiced curry.",
     "fullDescription": "Bam Tsoonth is a unique sweet and sour Kashmiri dish featuring quince apples cooked with mutton or paneer in a spiced gravy.",
@@ -215,8 +217,9 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.478Z",
-    "updatedAt": "2026-06-18T07:06:36.478Z"
+    "createdAt": "2026-06-20T15:51:36.740Z",
+    "updatedAt": "2026-06-20T15:51:36.740Z",
+    "slug": "bam-tsoonth"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f3f",
@@ -304,7 +307,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a3b",
+    "_id": "6a36b7088b14138cbe2156d6",
     "name": "Czochworu",
     "description": "Bagel-like tandoor-baked bread topped with sesame.",
     "fullDescription": "Czochworu is a small, round, bagel-like bread with a soft interior and a hard crust topped with sesame seeds.",
@@ -326,8 +329,9 @@
     "touristFriendlinessScore": 4.1,
     "luxuryScore": 2.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.479Z",
-    "updatedAt": "2026-06-18T07:06:36.479Z"
+    "createdAt": "2026-06-20T15:51:36.740Z",
+    "updatedAt": "2026-06-20T15:51:36.740Z",
+    "slug": "czochworu"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f2c",
@@ -412,7 +416,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a3f",
+    "_id": "6a36b7088b14138cbe2156da",
     "name": "Doon Chetin",
     "description": "Earthy walnut chutney with green chilies.",
     "fullDescription": "Doon Chetin is a thick, textured paste of crushed walnuts, green chilies, yogurt, mint, and salt.",
@@ -435,8 +439,9 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.479Z",
-    "updatedAt": "2026-06-18T07:06:36.479Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "doon-chetin"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f09",
@@ -550,7 +555,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a44",
+    "_id": "6a36b7088b14138cbe2156df",
     "name": "Girda",
     "description": "Tandoor-baked breakfast bread.",
     "fullDescription": "Girda is a round, flat bread with finger impressions pressed into the dough, baked in a traditional clay tandoor (kandur).",
@@ -572,11 +577,12 @@
     "touristFriendlinessScore": 5,
     "luxuryScore": 4,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.479Z",
-    "updatedAt": "2026-06-18T07:06:36.479Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "girda"
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a45",
+    "_id": "6a36b7088b14138cbe2156e0",
     "name": "Gogji Mutton",
     "description": "Mutton cooked simply with fresh turnips.",
     "fullDescription": "Gogji Mutton is a rustic, home-style Kashmiri curry where mutton is slow-cooked with whole or halved turnips until meltingly soft.",
@@ -598,8 +604,9 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.479Z",
-    "updatedAt": "2026-06-18T07:06:36.479Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "gogji-mutton"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f22",
@@ -797,7 +804,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a4d",
+    "_id": "6a36b7088b14138cbe2156e8",
     "name": "Kabargah",
     "description": "Crispy fried mutton ribs cooked in milk and spices.",
     "fullDescription": "Kabargah consists of mutton ribs cooked in milk and spices, then dipped in chickpea flour batter and shallow fried in pure ghee until crispy and golden.",
@@ -820,11 +827,12 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.480Z",
-    "updatedAt": "2026-06-18T07:06:36.480Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "kabargah"
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a4e",
+    "_id": "6a36b7088b14138cbe2156e9",
     "name": "Kashmiri Harissa",
     "description": "A slow-cooked winter mutton and rice paste.",
     "fullDescription": "Harissa is a rich, smooth paste of mutton slow-cooked overnight with rice, spices, and oil, served hot with local baked flatbreads.",
@@ -846,11 +854,12 @@
     "touristFriendlinessScore": 5,
     "luxuryScore": 4,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.480Z",
-    "updatedAt": "2026-06-18T07:06:36.480Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "kashmiri-harissa"
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a4f",
+    "_id": "6a36b7088b14138cbe2156ea",
     "name": "Kashmiri Kahwa",
     "description": "Saffron-infused Kashmiri green tea with almonds.",
     "fullDescription": "Kahwa is an aromatic green tea brewed with saffron strands, cinnamon bark, cardamom pods, and served with a generous garnish of crushed almonds.",
@@ -872,11 +881,12 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.481Z",
-    "updatedAt": "2026-06-18T07:06:36.481Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "kashmiri-kahwa"
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a50",
+    "_id": "6a36b7088b14138cbe2156eb",
     "name": "Kashmiri Pulao",
     "description": "Sweet, fragrant saffron rice with nuts.",
     "fullDescription": "Kashmiri Pulao is an aromatic rice preparation cooked with milk, ghee, saffron, and loaded with nuts like almonds, walnuts, and raisins, topped with fresh fruits.",
@@ -898,11 +908,12 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.481Z",
-    "updatedAt": "2026-06-18T07:06:36.481Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "kashmiri-pulao"
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a51",
+    "_id": "6a36b7088b14138cbe2156ec",
     "name": "Lavas",
     "description": "Thin, soft baked unleavened flatbread.",
     "fullDescription": "Lavas is a thin, puffed unleavened flatbread baked in a tandoor, commonly wrapped around barbecue or harissa.",
@@ -924,8 +935,9 @@
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.481Z",
-    "updatedAt": "2026-06-18T07:06:36.481Z"
+    "createdAt": "2026-06-20T15:51:36.741Z",
+    "updatedAt": "2026-06-20T15:51:36.741Z",
+    "slug": "lavas"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f05",
@@ -1010,7 +1022,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a55",
+    "_id": "6a36b7088b14138cbe2156f0",
     "name": "Matsgand",
     "description": "Minced meatballs cooked in a spicy red gravy.",
     "fullDescription": "Matsgand is a beloved Kashmiri Pandit minced mutton meatball preparation cooked in a rich, red chili-forward gravy flavored with fennel, ginger, and asafoetida.",
@@ -1033,8 +1045,9 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.481Z",
-    "updatedAt": "2026-06-18T07:06:36.481Z"
+    "createdAt": "2026-06-20T15:51:36.742Z",
+    "updatedAt": "2026-06-20T15:51:36.742Z",
+    "slug": "matsgand"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76efd",
@@ -1122,7 +1135,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a59",
+    "_id": "6a36b7088b14138cbe2156f4",
     "name": "Muji Gaad",
     "description": "Kashmiri fish curry cooked with radish.",
     "fullDescription": "Muji Gaad is a traditional winter dish combining freshwater fish with sliced radish, cooked in a spicy red gravy flavored with Kashmiri spices.",
@@ -1144,8 +1157,9 @@
     "touristFriendlinessScore": 3.5,
     "luxuryScore": 4.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.482Z",
-    "updatedAt": "2026-06-18T07:06:36.482Z"
+    "createdAt": "2026-06-20T15:51:36.742Z",
+    "updatedAt": "2026-06-20T15:51:36.742Z",
+    "slug": "muji-gaad"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f0f",
@@ -1204,7 +1218,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a5c",
+    "_id": "6a36b7088b14138cbe2156f7",
     "name": "Nadru Gaad",
     "description": "Kashmiri fish curry cooked with lotus stems.",
     "fullDescription": "Nadru Gaad pairs tender lake fish with fresh lotus stem slices, cooked together in a rich spice-infused red gravy.",
@@ -1226,8 +1240,9 @@
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.482Z",
-    "updatedAt": "2026-06-18T07:06:36.482Z"
+    "createdAt": "2026-06-20T15:51:36.742Z",
+    "updatedAt": "2026-06-20T15:51:36.742Z",
+    "slug": "nadru-gaad"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f12",
@@ -1820,7 +1835,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a72",
+    "_id": "6a36b7088b14138cbe21570d",
     "name": "Shufta",
     "description": "A rich sweet mixture of dry fruits, paneer, and honey.",
     "fullDescription": "Shufta is a decadent dessert packed with almonds, walnuts, pistachios, cashews, raisins, dry dates, and fried paneer, all coated in a saffron-infused honey syrup.",
@@ -1843,8 +1858,9 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.483Z",
-    "updatedAt": "2026-06-18T07:06:36.483Z"
+    "createdAt": "2026-06-20T15:51:36.744Z",
+    "updatedAt": "2026-06-20T15:51:36.744Z",
+    "slug": "shufta"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f55",
@@ -1875,7 +1891,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a74",
+    "_id": "6a36b7088b14138cbe21570f",
     "name": "Syoon",
     "description": "Traditional Kashmiri Pandit lamb curry.",
     "fullDescription": "Syoon is a light, thin mutton curry cooked without onion or garlic, relying on asafoetida, yogurt, ginger, and fennel powder.",
@@ -1897,8 +1913,9 @@
     "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.483Z",
-    "updatedAt": "2026-06-18T07:06:36.483Z"
+    "createdAt": "2026-06-20T15:51:36.744Z",
+    "updatedAt": "2026-06-20T15:51:36.744Z",
+    "slug": "syoon"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f32",
@@ -2014,7 +2031,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a79",
+    "_id": "6a36b7088b14138cbe215714",
     "name": "Trout Fish Fry",
     "description": "Fresh fried mountain trout with local spices.",
     "fullDescription": "Trout Fish Fry features locally harvested mountain stream trout marinated in spices and pan-fried until crispy.",
@@ -2036,8 +2053,9 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.483Z",
-    "updatedAt": "2026-06-18T07:06:36.483Z"
+    "createdAt": "2026-06-20T15:51:36.744Z",
+    "updatedAt": "2026-06-20T15:51:36.744Z",
+    "slug": "trout-fish-fry"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f2f",
@@ -2096,7 +2114,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a7c",
+    "_id": "6a36b7088b14138cbe215717",
     "name": "Tsoek Wangangan",
     "description": "Sour and spicy baby eggplants.",
     "fullDescription": "Tsoek Wangangan consists of baby eggplants fried and cooked in a tangy tamarind and spice-based gravy.",
@@ -2119,8 +2137,9 @@
     "touristFriendlinessScore": 4.1,
     "luxuryScore": 2.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.483Z",
-    "updatedAt": "2026-06-18T07:06:36.483Z"
+    "createdAt": "2026-06-20T15:51:36.744Z",
+    "updatedAt": "2026-06-20T15:51:36.744Z",
+    "slug": "tsoek-wangangan"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f33",
@@ -2402,7 +2421,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a87",
+    "_id": "6a36b7088b14138cbe215722",
     "name": "Kashmiri Lassi",
     "description": "A creamy yogurt-based drink infused with saffron and dry fruits.",
     "fullDescription": "Kashmiri Lassi is a rich, creamy yogurt drink blended with saffron strands, crushed almonds, pistachios, and a touch of rose water. Unlike the thin lassis found in the plains, the Kashmiri version is thick, aromatic, and served chilled as a refreshing accompaniment to heavy meals or as a standalone summer cooler.",
@@ -2425,8 +2444,9 @@
     "touristFriendlinessScore": 4.1,
     "luxuryScore": 2.5,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.484Z",
-    "updatedAt": "2026-06-18T07:06:36.484Z"
+    "createdAt": "2026-06-20T15:51:36.744Z",
+    "updatedAt": "2026-06-20T15:51:36.744Z",
+    "slug": "kashmiri-lassi"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f19",
@@ -2487,7 +2507,7 @@
     "__v": 0
   },
   {
-    "_id": "6a3398fc1e0d5eb15fef6a8a",
+    "_id": "6a36b7088b14138cbe215725",
     "name": "Noon Chai",
     "description": "Traditional pink salted tea brewed with milk.",
     "fullDescription": "Noon Chai (also called Sheer Chai) is a pink salted tea brewed from special green tea leaves, baking soda, milk, and salt.",
@@ -2509,7 +2529,8 @@
     "touristFriendlinessScore": 4.4,
     "luxuryScore": 3,
     "__v": 0,
-    "createdAt": "2026-06-18T07:06:36.485Z",
-    "updatedAt": "2026-06-18T07:06:36.485Z"
+    "createdAt": "2026-06-20T15:51:36.745Z",
+    "updatedAt": "2026-06-20T15:51:36.745Z",
+    "slug": "noon-chai"
   }
 ]
