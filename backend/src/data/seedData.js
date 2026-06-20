@@ -3571,5 +3571,89 @@ export const users = [
     "password": "traveler123",
     "isAdmin": false,
     "phoneNumber": "+91 88888 88888"
+  },
+  {
+    "name": "Aamir Ahmad",
+    "email": "aamir@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00001"
+  },
+  {
+    "name": "Firdous Mir",
+    "email": "firdous@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00002"
+  },
+  {
+    "name": "Shabir Lone",
+    "email": "shabir@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00003"
+  },
+  {
+    "name": "Yasir Bhat",
+    "email": "yasir@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00004"
+  },
+  {
+    "name": "Irfan Dar",
+    "email": "irfan@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00005"
+  },
+  {
+    "name": "Mudasir Wani",
+    "email": "mudasir@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00006"
+  },
+  {
+    "name": "Sajjad Rather",
+    "email": "sajjad@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00007"
+  },
+  {
+    "name": "Arif Ganie",
+    "email": "arif@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00008"
+  },
+  {
+    "name": "Nadeem Shah",
+    "email": "nadeem@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00009"
+  },
+  {
+    "name": "Aqib Sofi",
+    "email": "aqib@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00010"
+  },
+  {
+    "name": "Faisal Bhat",
+    "email": "faisal@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00011"
+  },
+  {
+    "name": "Bilal Andrabi",
+    "email": "bilal@wazwanway.com",
+    "password": "password123",
+    "isAdmin": false,
+    "phoneNumber": "+91 90000 00012"
   }
 ];
