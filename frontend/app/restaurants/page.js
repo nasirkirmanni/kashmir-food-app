@@ -134,10 +134,23 @@ function getEnrichedMetadata(restaurant) {
   
   // Must Try dishes mapping
   let mustTry = ["Rogan Josh", "Rista", "Tabak Maaz"];
-  if (restaurant.linkedDishNames && restaurant.linkedDishNames.length > 0) {
+  if (restaurant.linkedDishes && restaurant.linkedDishes.length > 0) {
+    const dishNames = restaurant.linkedDishes
+      .map(d => typeof d === "string" ? d : (d && d.name ? d.name : null))
+      .filter(Boolean);
+    if (dishNames.length > 0) {
+      mustTry = dishNames.slice(0, 3);
+    }
+  } else if (restaurant.linkedDishNames && restaurant.linkedDishNames.length > 0) {
     mustTry = restaurant.linkedDishNames.slice(0, 3);
   } else if (restaurant.tags && restaurant.tags.length > 0) {
-    const dishTags = restaurant.tags.filter(t => !["Traditional", "Heritage", "Wazwan", "Luxury", "Highly Praised", "Fine Dining"].includes(t));
+    const excludedTags = [
+      "Traditional", "Heritage", "Wazwan", "Luxury", "Highly Praised", "Fine Dining",
+      "Iconic", "Historic", "Srinagar", "Vegetarian Friendly", "Halal", "Romantic",
+      "Casual", "Vintage", "Legendary", "Authentic", "Verified", "Signature", "Recommended",
+      "Kashmiri", "Mughlai", "Indian"
+    ];
+    const dishTags = restaurant.tags.filter(t => !excludedTags.some(ex => t.toLowerCase() === ex.toLowerCase()));
     if (dishTags.length > 0) {
       mustTry = [...dishTags, ...mustTry].slice(0, 3);
     }
@@ -349,26 +362,14 @@ const FeaturedPartnerCard = memo(({
         onMouseLeave={onMouseLeave}
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`relative flex flex-col w-full overflow-hidden rounded-[28px] border bg-gradient-to-b from-[#16120b] to-[#0A0A0A] p-5 md:p-6 group active:scale-[0.99] gap-6 ${
+        className={`relative flex flex-col w-full overflow-hidden rounded-2xl border bg-gradient-to-b from-[#16120b] to-[#0A0A0A] group active:scale-[0.99] transition-all duration-300 ${
           isHovered 
-            ? "border-[var(--saffron)] shadow-[0_0_35px_rgba(212,175,55,0.25)]" 
+            ? "border-[var(--saffron)] shadow-[0_0_35px_rgba(212,175,55,0.25)] -translate-y-1" 
             : "border-[var(--saffron)]/40 shadow-xl hover:border-[var(--saffron)]/80"
         }`}
       >
-        {/* Top Tag Row */}
-        <div className="absolute top-5 left-5 z-20 flex gap-2">
-          <div className="flex items-center gap-1 rounded-full border border-[var(--saffron)] bg-black/90 px-3.5 py-1 text-[0.65rem] font-black text-[var(--saffron)] backdrop-blur-md uppercase tracking-widest shadow-lg">
-            <Star className="w-3.5 h-3.5 fill-current text-[var(--saffron)]" />
-            Featured Partner
-          </div>
-          <div className="flex items-center gap-1 rounded-full border border-green-500/40 bg-black/90 px-3 py-1 text-[0.65rem] font-black text-green-400 backdrop-blur-md uppercase tracking-wider shadow-lg">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            Verified
-          </div>
-        </div>
-
         {/* Large Imagery Block */}
-        <div className="relative w-full h-[240px] md:h-[280px] overflow-hidden rounded-2xl bg-black/50 border border-white/5">
+        <div className="relative w-full h-[220px] md:h-[260px] overflow-hidden bg-black/50">
           {imageSrc ? (
             <ImageWithSkeleton
               src={imageSrc}
@@ -383,98 +384,123 @@ const FeaturedPartnerCard = memo(({
               <Compass className="w-16 h-16 text-white/10" />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           
-          {/* Float Name & Meta on Bottom Left of Image */}
-          <div className="absolute bottom-5 left-5 right-5 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="font-display text-2xl md:text-[2rem] font-black text-white drop-shadow-md">
-                {restaurant.name}
-              </h2>
-              <p className="mt-1 text-xs text-white/70 font-semibold flex items-center gap-1 drop-shadow">
-                <MapPin className="w-3.5 h-3.5 text-[var(--saffron)]" />
-                {restaurant.location}
-              </p>
+          {/* Top Tag Row */}
+          <div className="absolute top-4 left-4 z-20 flex gap-2">
+            <div className="flex items-center gap-1 rounded-full border border-[var(--saffron)] bg-black/95 px-3.5 py-1 text-[0.6rem] font-black text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider shadow-lg">
+              <Star className="w-3.5 h-3.5 fill-current text-[var(--saffron)]" />
+              Featured Partner
             </div>
-            
-            <div className="flex items-center gap-3 bg-black/80 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15">
-              <div className="flex items-center gap-1 bg-green-700 text-white rounded px-1.5 py-0.5 text-xs font-black">
-                <Star className="h-3.5 w-3.5 fill-current" />
-                <span>{restaurant.rating || "4.5"}</span>
-              </div>
-              <span className="text-white/40">•</span>
-              <span className="text-xs font-bold text-white/80">{enriched.reviewsCount} reviews</span>
-              <span className="text-white/40">•</span>
-              <span className="text-xs font-mono font-bold text-[var(--saffron)]">{enriched.priceRange}</span>
+            <div className="flex items-center gap-1 rounded-full border border-green-500/40 bg-black/95 px-3 py-1 text-[0.65rem] font-black text-green-400 backdrop-blur-md uppercase tracking-wider shadow-lg">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Verified
             </div>
           </div>
         </div>
 
-        {/* Bottom Details Row */}
-        <div className="flex flex-col md:flex-row justify-between gap-5 mt-2">
-          <div className="flex-1 min-w-0">
-            {/* Description */}
-            <p className="text-sm text-white/80 leading-relaxed font-body">
-              {restaurant.description || "Indulge in an authentic Kashmiri dining experience of unmatched caliber. Prepared by culinary masters utilizing traditional cooking vessels and heritage spices passed down through generations."}
-            </p>
+        {/* Bottom Content Stack */}
+        <div className="flex flex-col gap-4 p-5 md:p-6">
+          {/* Name + Rating row */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="font-display text-xl md:text-2xl font-black text-white group-hover:text-[var(--saffron)] transition-colors truncate">
+                  {restaurant.name}
+                </h2>
+              </div>
+              <p className="mt-1 text-xs text-white/50 flex items-center gap-1 truncate">
+                <MapPin className="w-3.5 h-3.5 text-white/30 shrink-0" />
+                {restaurant.location}
+              </p>
+            </div>
             
-            <div className="mt-4 flex flex-wrap gap-4 items-center">
-              {/* Cuisine Tags */}
-              <div className="flex flex-wrap gap-1.5">
-                {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).map((tag, idx) => (
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <div className="flex items-center gap-1 bg-green-700 text-white rounded px-2 py-0.5 text-xs font-black">
+                <Star className="h-3.5 w-3.5 fill-current" />
+                <span>{restaurant.rating || "4.5"}</span>
+              </div>
+              <span className="text-[10px] text-white/40 font-bold">{enriched.reviewsCount} reviews</span>
+            </div>
+          </div>
+
+          {/* Meta metrics row */}
+          <div className="flex flex-wrap items-center gap-2.5 text-xs text-white/50 border-t border-white/5 pt-3">
+            <span className="text-[var(--saffron)] font-bold font-mono">{enriched.priceRange}</span>
+            <span className="text-white/20">&bull;</span>
+            <div className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-green-500 shrink-0" />
+              <span className="text-green-500 font-bold">{openStatus.text}</span>
+              <span className="text-white/40 ml-0.5">({openStatus.hoursText})</span>
+            </div>
+            <span className="text-white/20">&bull;</span>
+            <div className="flex items-center gap-1 text-[var(--saffron)] font-bold">
+              <Navigation className="w-3 h-3 rotate-45 shrink-0" />
+              <span>{distanceMetrics.distance} ({distanceMetrics.travelTime}) away</span>
+            </div>
+          </div>
+
+          {/* Clamped Description */}
+          <p className="text-sm text-white/70 leading-relaxed font-body line-clamp-2">
+            {restaurant.description || "Indulge in an authentic Kashmiri dining experience of unmatched caliber. Prepared by culinary masters utilizing traditional cooking vessels and heritage spices passed down through generations."}
+          </p>
+
+          {/* Cuisine Tags & Signature Dishes row */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-white/5">
+            {/* Cuisine Tags */}
+            <div className="flex flex-wrap gap-1.5">
+              {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).map((tag, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => onTagClick(tag, e)}
+                  className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white/70 hover:bg-[var(--saffron)] hover:text-black transition-colors"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+
+            {/* Signature Dishes */}
+            <div className="text-xs text-white/60 flex items-center gap-1.5 min-w-0">
+              <span className="font-semibold text-white/80 shrink-0">Signature Dishes:</span>
+              <div className="flex flex-wrap gap-1 font-bold truncate">
+                {enriched.mustTry.map((dish, idx) => (
                   <button
                     key={idx}
-                    onClick={(e) => onTagClick(tag, e)}
-                    className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white/70 hover:bg-[var(--saffron)] hover:text-black transition-colors"
+                    onClick={(e) => onDishClick(dish, e)}
+                    className="text-[var(--saffron)] hover:text-white transition-colors"
                   >
-                    {tag}
+                    {dish}{idx < enriched.mustTry.length - 1 ? " •" : ""}
                   </button>
                 ))}
-              </div>
-              <span className="hidden sm:inline text-white/20">|</span>
-              {/* Must Try Dishes */}
-              <div className="text-xs text-white/60 flex items-center gap-1">
-                <span className="font-semibold text-white/80">Signature Dishes:</span>
-                <div className="flex flex-wrap gap-1 font-bold">
-                  {enriched.mustTry.map((dish, idx) => (
-                    <button
-                      key={idx}
-                      onClick={(e) => onDishClick(dish, e)}
-                      className="text-[var(--saffron)] hover:text-white transition-colors"
-                    >
-                      {dish}{idx < enriched.mustTry.length - 1 ? " •" : ""}
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
 
-          {/* Quick Actions & Hours */}
-          <div className="flex flex-row md:flex-col justify-end md:justify-between items-end shrink-0 gap-4 md:border-l border-white/10 md:pl-6">
-            <div className="flex flex-col gap-1 items-end text-xs">
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-green-500 shrink-0" />
-                <span className="text-green-500 font-bold">{openStatus.text}</span>
-                <span className="text-white/40">•</span>
-                <span className="text-white/60 font-medium">{openStatus.hoursText}</span>
-              </div>
-              <div className="flex items-center gap-1 text-[var(--saffron)] font-bold mt-1">
-                <Navigation className="w-3 h-3 rotate-45 shrink-0" />
-                <span>{distanceMetrics.distance} ({distanceMetrics.travelTime}) away</span>
-              </div>
-            </div>
+          {/* Actions & Bookmark row */}
+          <div className="flex items-center justify-between gap-4 pt-4 border-t border-white/5">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurant.googleMapsQuery || restaurant.name)}`);
+              }}
+              className="flex items-center gap-1.5 rounded-full border border-white/10 hover:border-[var(--saffron)]/40 hover:bg-white/5 text-white/75 px-4 py-2 text-xs font-bold transition-colors"
+            >
+              <Navigation className="w-3.5 h-3.5 text-[var(--saffron)] rotate-45 shrink-0" />
+              Directions
+            </button>
 
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <button
                 onClick={onToggleBookmark}
-                className={`w-11 h-11 rounded-full border border-white/10 flex items-center justify-center transition-colors ${
-                  isBookmarked ? "bg-[var(--saffron-pale)] text-[var(--saffron)] border-[var(--saffron)]/40" : "text-white/60 hover:text-[var(--saffron)] hover:border-[var(--saffron)]/50"
+                className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-colors ${
+                  isBookmarked ? "bg-[var(--saffron-pale)] text-[var(--saffron)] border-[var(--saffron)]/40" : "text-white/60 hover:text-[var(--saffron)] hover:border-[var(--saffron)]/50 bg-white/5"
                 }`}
               >
                 <Bookmark className={`w-4 h-4 ${isBookmarked ? "fill-[var(--saffron)]" : ""}`} />
               </button>
-              <button className="flex items-center justify-center gap-1.5 rounded-full bg-[var(--saffron)] hover:bg-[var(--saffron-light)] text-black px-6 py-3 text-xs font-black transition-all shadow-[0_4px_20px_rgba(212,175,55,0.25)]">
+              <button className="flex items-center justify-center gap-1.5 rounded-full bg-[var(--saffron)] hover:bg-[var(--saffron-light)] text-black px-6 py-2.5 text-xs font-black transition-all shadow-[0_4px_20px_rgba(212,175,55,0.25)]">
                 Book Experience
                 <ArrowRight className="w-4 h-4" />
               </button>
