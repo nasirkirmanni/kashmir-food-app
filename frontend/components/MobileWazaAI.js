@@ -143,28 +143,39 @@ export default function MobileWazaAI({ initialPrompt }) {
     messagesRef.current = messages;
   }, [messages]);
 
+  const [viewportHeight, setViewportHeight] = useState('100%');
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
   // Inject Uber Move font
   useEffect(() => {
     if (typeof document !== "undefined" && !document.getElementById("uber-move-font")) {
-      const style = document.createElement("style");
-      style.id = "uber-move-font";
-      style.textContent = `
-        @font-face {
-          font-family: 'UberMove';
-          src: url('https://cdn.jsdelivr.net/gh/nicholasgasior/uber-fonts@main/UberMoveMedium.otf') format('opentype');
-          font-weight: 500;
-          font-style: normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'UberMove';
-          src: url('https://cdn.jsdelivr.net/gh/nicholasgasior/uber-fonts@main/UberMoveBold.otf') format('opentype');
-          font-weight: 700;
-          font-style: normal;
-          font-display: swap;
-        }
-      `;
-      document.head.appendChild(style);
+      // Load Plus Jakarta Sans from Google Fonts (closest match to Uber Move)
+      const link = document.createElement("link");
+      link.id = "uber-move-font";
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap";
+      document.head.appendChild(link);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.visualViewport) {
+      const handleResize = () => {
+        setViewportHeight(`${window.visualViewport.height}px`);
+        // If the visual viewport height is significantly less than window.innerHeight, keyboard is likely open
+        setIsKeyboardOpen(window.visualViewport.height < window.innerHeight * 0.8);
+      };
+
+      window.visualViewport.addEventListener("resize", handleResize);
+      window.visualViewport.addEventListener("scroll", handleResize);
+      
+      // Initial call
+      handleResize();
+
+      return () => {
+        window.visualViewport.removeEventListener("resize", handleResize);
+        window.visualViewport.removeEventListener("scroll", handleResize);
+      };
     }
   }, []);
 
@@ -221,8 +232,9 @@ export default function MobileWazaAI({ initialPrompt }) {
 
   return (
     <div
-      className="flex flex-col h-full w-full overflow-hidden relative"
+      className="flex flex-col w-full overflow-hidden relative"
       style={{
+        height: viewportHeight,
         background: "#0B0B0B",
         fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif"
       }}
@@ -255,7 +267,7 @@ export default function MobileWazaAI({ initialPrompt }) {
         <WazaLeafLogo size={38} />
         <h1
           className="mt-1 text-[20px] font-bold tracking-wide"
-          style={{ color: "#ECECEC", fontFamily: "'UberMove', 'Inter', sans-serif" }}
+          style={{ color: "#ECECEC", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
         >
           Waza AI
         </h1>
@@ -375,13 +387,13 @@ export default function MobileWazaAI({ initialPrompt }) {
                   <div className="flex-1 min-w-0">
                     <h3
                       className="text-[14px] font-semibold leading-snug mb-0.5"
-                      style={{ color: "#ECECEC" }}
+                      style={{ color: "#ECECEC", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
                     >
                       {s.title}
                     </h3>
                     <p
                       className="text-[12px] leading-relaxed"
-                      style={{ color: "rgba(255,255,255,0.4)" }}
+                      style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
                     >
                       {s.subtitle}
                     </p>
@@ -553,7 +565,7 @@ export default function MobileWazaAI({ initialPrompt }) {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Message Waza AI..."
-            className="w-full bg-transparent py-3.5 pl-2 pr-14 text-[14px] outline-none"
+            className="w-full bg-transparent py-3.5 pl-2 pr-14 text-[16px] outline-none"
             style={{
               color: "#ECECEC",
               caretColor: "#D4A15A"
