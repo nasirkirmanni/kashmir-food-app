@@ -3105,7 +3105,38 @@ export const restaurants = [
     "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5
   },
-
+  {
+    "name": "Ahdoos",
+    "location": "Ahdoo's Hotel, Residency Road, Regal Chowk, Srinagar, Jammu and Kashmir 190001",
+    "city": "Srinagar",
+    "rating": 4.6,
+    "priceLevel": "Mid-range",
+    "tags": [
+      "Wazwan",
+      "Iconic",
+      "Historic",
+      "Fine Dining"
+    ],
+    "image": "/images/restaurants/ahdoos.png",
+    "description": "Established in 1918, Ahdoos is Srinagar's legendary culinary pioneer. It was the first commercial restaurant in Kashmir to serve traditional Wazwan, earning it the reputation of the ultimate gold standard for authentic Kashmiri flavors in an elegant, heritage setting.",
+    "phoneNumber": "+91 70515 10634",
+    "openingHours": "12:00 PM – 10:00 PM daily",
+    "website": "ahdooshotel.com",
+    "authentic": true,
+    "overpriced": false,
+    "touristTrapWarning": false,
+    "googleMapsQuery": "Ahdoos Restaurant Residency Road Srinagar",
+    "linkedDishNames": [
+      "Rogan Josh",
+      "Rista",
+      "Gushtaba",
+      "Tabak Maaz",
+      "Kashmiri Kahwa"
+    ],
+    "authenticityScore": 4.8,
+    "touristFriendlinessScore": 4.5,
+    "luxuryScore": 4.0
+  }
 ];
 
 export const destinations = [
@@ -3530,7 +3561,7 @@ export const users = [
   {
     "name": "Admin User",
     "email": "nasirkirmani@wazwanway.com",
-    "password": "admin123",
+    "password": "Nasir@786Ny85@$1001x1",
     "isAdmin": true,
     "phoneNumber": "+91 99999 99999"
   },
