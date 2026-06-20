@@ -156,3 +156,73 @@ export const sendTripQueryEmail = async (queryData) => {
     console.error("Error sending trip query email:", err);
   }
 };
+
+export const sendRestaurantLeadEmail = async (leadData) => {
+  const {
+    restaurantName,
+    ownerName,
+    phoneNumber,
+    location,
+    description
+  } = leadData;
+
+  const to = "nasirkirmani@wazwanway.com";
+
+  console.log(`\n============================`);
+  console.log(`[DEV MODE] Partner listing request received for ${restaurantName}`);
+  console.log(`============================\n`);
+
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not set in .env. Skipping actual email send.");
+    return;
+  }
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { data, error } = await resend.emails.send({
+      from: "Wazwan Way Partners <nasirkirmani@wazwanway.com>",
+      to: [to],
+      subject: `New Restaurant Listing Request: ${restaurantName}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+          <h2 style="color: #D4AF37; border-bottom: 2px solid #D4AF37; padding-bottom: 8px;">New Restaurant Listing Request</h2>
+          <p>A new restaurant partner listing request has been submitted on Wazwan Way. Here are the details:</p>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; width: 180px;">Restaurant Name:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${restaurantName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Owner Name:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${ownerName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Contact Number:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${phoneNumber}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Location / Address:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${location}</td>
+            </tr>
+            ${description ? `
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; vertical-align: top;">Description:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #eee;">${description}</td>
+            </tr>
+            ` : ""}
+          </table>
+          <p style="margin-top: 25px;">You can review and manage this request in the <a href="https://wazwanway.com/admin" style="color: #D4AF37; text-decoration: none; font-weight: bold;">Wazwan Way Admin Panel</a>.</p>
+          <p style="font-size: 11px; color: #888; margin-top: 30px;">Sent programmatically via Wazwan Way Partners Notification System</p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error("Resend API Error:", error);
+    } else {
+      console.log("Restaurant lead email sent successfully via Resend:", data);
+    }
+  } catch (err) {
+    console.error("Error sending restaurant lead email:", err);
+  }
+};

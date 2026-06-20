@@ -3,6 +3,7 @@ import { RestaurantLead } from "../models/RestaurantLead.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { protect } from "../middleware/auth.js";
 import { adminOnly } from "../middleware/admin.js";
+import { sendRestaurantLeadEmail } from "../utils/sendEmail.js";
 
 const router = express.Router();
 
@@ -18,6 +19,11 @@ router.post(
       phoneNumber,
       location,
       description
+    });
+
+    // Send email notification
+    await sendRestaurantLeadEmail(lead).catch((err) => {
+      console.error("Failed to send lead email:", err);
     });
 
     res.status(201).json(lead);
