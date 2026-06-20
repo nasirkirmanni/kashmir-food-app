@@ -3529,7 +3529,7 @@ export const destinations = [
 export const users = [
   {
     "name": "Admin User",
-    "email": "admin@wazwanway.com",
+    "email": "nasirkirmani@wazwanway.com",
     "password": "admin123",
     "isAdmin": true,
     "phoneNumber": "+91 99999 99999"
