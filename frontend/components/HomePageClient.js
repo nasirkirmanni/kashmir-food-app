@@ -472,7 +472,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
                   <div className="text-[#C8A46A]"><Map size={22} strokeWidth={1.5} /></div>
                   <div>
-                    <h4 className="font-display font-black text-[#1a130a] text-[14px] leading-tight mb-0.5">Visit Kashmir</h4>
+                    <h3 className="font-display font-black text-[#1a130a] text-[14px] leading-tight mb-0.5">Visit Kashmir</h3>
                     <p className="text-[#665d50] font-medium text-[11px]">Travel Guide</p>
                   </div>
                   <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
@@ -482,7 +482,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
                   <div className="text-[#C8A46A]"><Sparkles size={22} strokeWidth={1.5} /></div>
                   <div>
-                    <h4 className="font-display font-black text-[#1a130a] text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h4>
+                    <h3 className="font-display font-black text-[#1a130a] text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h3>
                   </div>
                   <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
                 </div>

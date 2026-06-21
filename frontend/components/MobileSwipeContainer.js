@@ -77,7 +77,9 @@ export default function MobileSwipeContainer({ children }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const updateWidth = () => { 
-      screenWidthRef.current = document.documentElement.clientWidth; 
+      requestAnimationFrame(() => {
+        screenWidthRef.current = document.documentElement.clientWidth; 
+      });
     };
     updateWidth(); // Call immediately on mount to ensure correct width
     window.addEventListener('resize', updateWidth);

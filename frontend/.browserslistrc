@@ -1,4 +1,3 @@
-Chrome >= 94
-Safari >= 15.4
-Firefox >= 93
-Edge >= 94
+defaults
+not IE 11
+maintained node versions

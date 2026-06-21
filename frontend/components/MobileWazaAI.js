@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { request, endpoints } from "@/lib/api";
+import Image from "next/image";
+import { request, streamRequest, endpoints } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
 
 /* ── SVG Icons ───────────────────────────────────────────── */
@@ -180,19 +181,66 @@ export default function MobileWazaAI({ initialPrompt }) {
     setIsLoading(true);
 
     try {
-      const data = await request(endpoints.chat, {
+      const response = await streamRequest(endpoints.chat, {
         method: "POST",
         body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+
+      setIsLoading(false); // Stop loading animation since response started
+      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let done = false;
+      let assistantMessage = "";
+      let buffer = "";
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const dataStr = line.replace("data: ", "").trim();
+              if (dataStr === "[DONE]") continue;
+              try {
+                const parsed = JSON.parse(dataStr);
+                if (parsed.reply) {
+                  assistantMessage += parsed.reply;
+                  setMessages((prev) => {
+                    const newMessages = [...prev];
+                    newMessages[newMessages.length - 1] = { 
+                      ...newMessages[newMessages.length - 1], 
+                      content: assistantMessage 
+                    };
+                    return newMessages;
+                  });
+                } else if (parsed.error) {
+                  assistantMessage += "\n\n*Error: " + parsed.error + "*";
+                  setMessages((prev) => {
+                    const newMessages = [...prev];
+                    newMessages[newMessages.length - 1].content = assistantMessage;
+                    return newMessages;
+                  });
+                }
+              } catch (e) {
+                // Ignore invalid JSON lines
+              }
+            }
+          }
+        }
+      }
     } catch (error) {
       console.error("Chat Error:", error);
+      setIsLoading(false);
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: "I encountered an error connecting to the server. Please try again." }
       ]);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -305,10 +353,12 @@ export default function MobileWazaAI({ initialPrompt }) {
                       boxShadow: "0 4px 16px rgba(212,161,90,0.2)"
                     }}
                   >
-                    <img
+                    <Image
                       src="/waza-profile.jpg"
                       alt="Waza AI"
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="56px"
+                      className="object-cover"
                     />
                   </div>
 
@@ -407,10 +457,12 @@ export default function MobileWazaAI({ initialPrompt }) {
                         border: "1.5px solid rgba(212,161,90,0.3)"
                       }}
                     >
-                      <img
+                      <Image
                         src="/waza-profile.jpg"
                         alt="Waza AI"
-                        className="w-full h-full object-cover"
+                        fill
+                        sizes="32px"
+                        className="object-cover"
                       />
                     </div>
                   )}
@@ -475,10 +527,12 @@ export default function MobileWazaAI({ initialPrompt }) {
                       border: "1.5px solid rgba(212,161,90,0.3)"
                     }}
                   >
-                    <img
+                    <Image
                       src="/waza-profile.jpg"
                       alt="Waza AI"
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="32px"
+                      className="object-cover"
                     />
                   </div>
                   <div className="flex items-center gap-2 px-4 py-3 rounded-[18px] rounded-tl-[4px]"

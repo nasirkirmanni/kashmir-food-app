@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { Calendar, Users, Wallet, Utensils, AlertTriangle, CheckCircle } from "lucide-react";
 
-import { request, endpoints } from "../lib/api";
+import { request, streamRequest, endpoints } from "../lib/api";
+import { jsonrepair } from "jsonrepair";
 
 // Anti-gibberish validation logic
 const isValidInput = (text) => {
@@ -170,19 +171,69 @@ You MUST return the response strictly in JSON format matching the following stru
 }`;
 
     try {
-      const data = await request(endpoints.chat, {
+      const response = await streamRequest(endpoints.chat, {
         method: "POST",
         body: JSON.stringify({ messages: [{ role: "user", content: promptText }] })
       });
 
-      if (data.reply) {
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let done = false;
+      let fullReply = "";
+      let buffer = "";
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const dataStr = line.replace("data: ", "").trim();
+              if (dataStr === "[DONE]") continue;
+              try {
+                const parsed = JSON.parse(dataStr);
+                if (parsed.reply) {
+                  fullReply += parsed.reply;
+                } else if (parsed.error) {
+                  throw new Error(parsed.error);
+                }
+              } catch (e) {
+                // Ignore invalid JSON lines
+              }
+            }
+          }
+        }
+      }
+
+      if (fullReply) {
         try {
-          let jsonString = data.reply.replace(/```json/g, '').replace(/```/g, '').trim();
-          const parsed = JSON.parse(jsonString);
-          setResult(parsed);
+          let jsonString = fullReply;
+          const startIdx = jsonString.indexOf('{');
+          const endIdx = jsonString.lastIndexOf('}');
+          
+          if (startIdx !== -1 && endIdx !== -1) {
+            jsonString = jsonString.substring(startIdx, endIdx + 1);
+          } else {
+            // Fallback to basic sanitization if no braces found (unlikely for intended JSON)
+            jsonString = jsonString.replace(/```json/gi, '').replace(/```/g, '').trim();
+          }
+          
+          try {
+            const repairedJson = jsonrepair(jsonString);
+            const parsed = JSON.parse(repairedJson);
+            setResult(parsed);
+          } catch (repairErr) {
+            console.error("jsonrepair failed, trying original JSON.parse", repairErr);
+            const parsed = JSON.parse(jsonString);
+            setResult(parsed);
+          }
         } catch (e) {
           console.error("Failed to parse JSON response:", e);
-          setResult({ fallback: data.reply });
+          setResult({ fallback: fullReply });
         }
       } else {
         setResult({ fallback: "I'm sorry, I couldn't generate a plan right now. Please try again later." });

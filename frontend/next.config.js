@@ -105,7 +105,6 @@ const nextConfig = {
     ],
   },
   experimental: {
-    optimizeCss: true,
   },
 };
 

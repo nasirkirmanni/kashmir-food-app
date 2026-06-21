@@ -205,8 +205,8 @@ Additional Rules:
       parts: [{ text: msg.content }]
     }));
 
-    // Calling Gemini Flash Lite
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+    // Calling Gemini Flash Lite (Streaming)
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -218,7 +218,7 @@ Additional Rules:
         contents: geminiMessages,
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 2048,
+          maxOutputTokens: 8192,
         }
       }),
     });
@@ -236,10 +236,57 @@ Additional Rules:
       return res.status(500).json({ error: "Failed to communicate with Gemini", details: errorData });
     }
 
-    const data = await response.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, I could not process that request.";
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
 
-    return res.json({ reply });
+    try {
+      const decoder = new TextDecoder("utf-8");
+      let buffer = "";
+
+      const processBuffer = (chunkText) => {
+        buffer += chunkText;
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+        
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const dataStr = line.replace("data: ", "").trim();
+            if (dataStr === "[DONE]") continue;
+            try {
+              const parsed = JSON.parse(dataStr);
+              const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (text) {
+                res.write(`data: ${JSON.stringify({ reply: text })}\n\n`);
+              }
+            } catch (e) {
+              // Ignore invalid JSON lines
+            }
+          }
+        }
+      };
+
+      if (response.body.getReader) {
+        const reader = response.body.getReader();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          processBuffer(decoder.decode(value, { stream: true }));
+        }
+      } else {
+        for await (const chunk of response.body) {
+          processBuffer(decoder.decode(chunk, { stream: true }));
+        }
+      }
+      if (buffer) {
+        processBuffer("\n"); // flush
+      }
+    } catch (err) {
+      console.error("Stream reading error:", err);
+      res.write(`data: ${JSON.stringify({ error: "Stream interrupted" })}\n\n`);
+    } finally {
+      res.end();
+    }
   })
 );
 

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { request, endpoints } from "@/lib/api";
+import { request, streamRequest, endpoints } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
 
 const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
@@ -78,7 +78,7 @@ export default function WazaAI() {
   };
 
   const handleSendMessage = async (text) => {
-    if (!text.trim()) return;
+    if (!text.trim() || isLoading) return;
     
     const userMessage = { role: "user", content: text };
     userJustSentRef.current = true;
@@ -87,15 +87,62 @@ export default function WazaAI() {
     setIsLoading(true);
 
     try {
-      const data = await request(endpoints.chat, {
+      const response = await streamRequest(endpoints.chat, {
         method: "POST",
         body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-    } catch (error) {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting right now." }]);
-    } finally {
+
       setIsLoading(false);
+      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let done = false;
+      let assistantMessage = "";
+      let buffer = "";
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const dataStr = line.replace("data: ", "").trim();
+              if (dataStr === "[DONE]") continue;
+              try {
+                const parsed = JSON.parse(dataStr);
+                if (parsed.reply) {
+                  assistantMessage += parsed.reply;
+                  setMessages((prev) => {
+                    const newMessages = [...prev];
+                    newMessages[newMessages.length - 1] = { 
+                      ...newMessages[newMessages.length - 1], 
+                      content: assistantMessage 
+                    };
+                    return newMessages;
+                  });
+                } else if (parsed.error) {
+                  assistantMessage += "\n\n*Error: " + parsed.error + "*";
+                  setMessages((prev) => {
+                    const newMessages = [...prev];
+                    newMessages[newMessages.length - 1].content = assistantMessage;
+                    return newMessages;
+                  });
+                }
+              } catch (e) {
+                // Ignore invalid JSON lines
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting right now." }]);
     }
   };
 
@@ -183,7 +230,8 @@ export default function WazaAI() {
                   <Image 
                     fill
                     src="/waza-profile.jpg" 
-                    alt="Waza AI Profile" 
+                    alt="Waza AI Profile"
+                    sizes="(max-width: 768px) 100vw, 420px" 
                     className="object-cover opacity-80"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end items-center pb-12">

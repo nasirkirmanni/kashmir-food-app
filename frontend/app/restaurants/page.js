@@ -208,6 +208,7 @@ const LuxuryRestaurantCard = memo(({
               alt={restaurant.name}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={80}
               className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
             />
           ) : (
@@ -230,6 +231,7 @@ const LuxuryRestaurantCard = memo(({
           {/* Top-right bookmark */}
           <button
             onClick={onToggleBookmark}
+            aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
             className={`absolute top-3 right-3 w-9 h-9 rounded-full border flex items-center justify-center transition-colors backdrop-blur-md ${
               isBookmarked ? "bg-[var(--saffron-pale)] text-[var(--saffron)] border-[var(--saffron)]/40" : "bg-black/50 text-white/70 border-white/20 hover:text-[var(--saffron)] hover:border-[var(--saffron)]/50"
             }`}
@@ -494,6 +496,7 @@ const FeaturedPartnerCard = memo(({
             <div className="flex items-center gap-2">
               <button
                 onClick={onToggleBookmark}
+                aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
                 className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-colors ${
                   isBookmarked ? "bg-[var(--saffron-pale)] text-[var(--saffron)] border-[var(--saffron)]/40" : "text-white/60 hover:text-[var(--saffron)] hover:border-[var(--saffron)]/50 bg-white/5"
                 }`}
@@ -539,8 +542,23 @@ const StatsBar = ({ total, verified, open }) => {
 
 // --- CORE DISCOVERY PAGE CONTENT ---
 
-function RestaurantsPageContent({ initialRestaurants = [] }) {
+function LocationSync({ setActiveLocation }) {
   const searchParams = useSearchParams();
+  useEffect(() => {
+    const locParam = searchParams.get("location");
+    if (locParam) {
+      const match = ["Srinagar", "Gulmarg", "Pahalgam", "Sonamarg"].find(
+        (p) => p.toLowerCase() === locParam.toLowerCase()
+      );
+      if (match) {
+        setActiveLocation(match);
+      }
+    }
+  }, [searchParams, setActiveLocation]);
+  return null;
+}
+
+function RestaurantsPageContent({ initialRestaurants = [] }) {
   const [restaurants, setRestaurants] = useState(initialRestaurants);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(initialRestaurants.length === 0);
@@ -649,18 +667,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Sync activeLocation with searchParam
-  useEffect(() => {
-    const locParam = searchParams.get("location");
-    if (locParam) {
-      const match = ["Srinagar", "Gulmarg", "Pahalgam", "Sonamarg"].find(
-        (p) => p.toLowerCase() === locParam.toLowerCase()
-      );
-      if (match) {
-        setActiveLocation(match);
-      }
-    }
-  }, [searchParams]);
+  // Sync activeLocation with searchParam (Moved to LocationSync component)
 
   useEffect(() => {
     // Only show full screen loader if no initial fallback restaurants exist
@@ -820,6 +827,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
   return (
     <div className="relative min-h-screen bg-transparent text-white pt-24 pb-16">
+      <Suspense fallback={null}>
+        <LocationSync setActiveLocation={setActiveLocation} />
+      </Suspense>
       
       {/* Subtle global dark luxury glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
@@ -1247,9 +1257,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                 {/* 2a. Featured Partner Placement (Shown at top) */}
                 {featuredPartner && (
                   <div>
-                    <h3 className="text-xs font-black tracking-[0.25em] text-[var(--saffron)] uppercase mb-3.5">
+                    <h2 className="text-xs font-black tracking-[0.25em] text-[var(--saffron)] uppercase mb-3.5">
                       Signature Experience
-                    </h3>
+                    </h2>
                     <FeaturedPartnerCard
                       restaurant={featuredPartner}
                       userCoords={userCoords}
@@ -1539,16 +1549,5 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 import restaurantsData from "@/data/restaurants.json";
 
 export default function RestaurantsPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="relative min-h-screen bg-transparent flex flex-col items-center justify-center text-white/50">
-          <div className="w-10 h-10 border-b-2 border-[var(--saffron)] rounded-full animate-spin mb-4" />
-          <span className="text-xs font-bold uppercase tracking-widest">Loading restaurants page...</span>
-        </div>
-      }
-    >
-      <RestaurantsPageContent initialRestaurants={restaurantsData} />
-    </Suspense>
-  );
+  return <RestaurantsPageContent initialRestaurants={restaurantsData} />;
 }

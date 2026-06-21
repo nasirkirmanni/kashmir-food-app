@@ -87,6 +87,36 @@ export const request = async (path, options = {}) => {
   return promise;
 };
 
+export const streamRequest = async (path, options = {}) => {
+  const token = getToken();
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const fetchOptions = {
+    ...options,
+    headers,
+  };
+
+  const response = await fetch(buildApiUrl(path), fetchOptions);
+  
+  if (!response.ok) {
+    let message = "Streaming request failed";
+    try {
+      const data = await response.json();
+      message = data.message || data.error || message;
+    } catch (e) {}
+    throw new Error(message);
+  }
+
+  return response;
+};
+
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchWithRetry(url, options = {}, retries = 3, backoff = 300, timeout = 8000) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { endpoints, request } from "@/lib/api";
+import { endpoints, request, streamRequest } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -55,11 +55,11 @@ export default function RecipesPage() {
     setSelectedDish(dish);
     setRecipeModalOpen(true);
     setRecipeLoading(true);
-    setRecipeResult(null);
+    setRecipeResult("");
     setRecipeError(null);
 
     try {
-      const data = await request(endpoints.chat, {
+      const response = await streamRequest(endpoints.chat, {
         method: "POST",
         body: JSON.stringify({
           messages: [
@@ -71,11 +71,44 @@ export default function RecipesPage() {
         }),
       });
 
-      setRecipeResult(data.reply);
+      setRecipeLoading(false);
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let done = false;
+      let fullRecipe = "";
+      let buffer = "";
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const dataStr = line.replace("data: ", "").trim();
+              if (dataStr === "[DONE]") continue;
+              try {
+                const parsed = JSON.parse(dataStr);
+                if (parsed.reply) {
+                  fullRecipe += parsed.reply;
+                  setRecipeResult(fullRecipe);
+                } else if (parsed.error) {
+                  throw new Error(parsed.error);
+                }
+              } catch (e) {
+                // Ignore invalid JSON lines
+              }
+            }
+          }
+        }
+      }
     } catch (err) {
       console.error(err);
       setRecipeError("Failed to fetch the secret recipe. Please try again.");
-    } finally {
       setRecipeLoading(false);
     }
   };
