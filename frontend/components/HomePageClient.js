@@ -197,7 +197,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     .map((name) => dishes.find((d) => d.name.toLowerCase() === name.toLowerCase()))
     .filter(Boolean);
 
-  const targetCuratedNames = ["1860 Restaurant", "Bakshi Restaurant & Cafe", "SALAM E WAZWAN Gulmarg"];
+  const targetCuratedNames = ["Ahdoos", "1860 Restaurant", "Bakshi Restaurant & Cafe", "SALAM E WAZWAN Gulmarg"];
   const curatedRestaurants = restaurants
     .filter((r) => targetCuratedNames.includes(r.name))
     .sort((a, b) => targetCuratedNames.indexOf(a.name) - targetCuratedNames.indexOf(b.name));
@@ -498,44 +498,40 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           className="mb-24 text-center"
         >
           <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Socials</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">The Instagram of Wazwanway</h2>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Follow us on social media</h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">
-            Follow our journey and explore the royal Kashmiri feast visual experience on Instagram.
+            Follow our journey and explore the royal Kashmiri feast visual experience across our platforms.
           </p>
-          <div className="mt-8">
-            <a 
-              href="https://instagram.com/wazwanway" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--saffron)] bg-[rgba(212,175,55,0.1)] px-6 py-3 text-sm font-bold uppercase tracking-widest text-[var(--saffron)] shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all hover:bg-[var(--saffron)] hover:text-black"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-              @wazwanway
-            </a>
-          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {[
-            { id: "DZu2M4gpuYC", src: "/videos/reel_1.mp4", poster: "/images/dishes/rista.jpg" },
-            { id: "DZrhoL_Jagk", src: "/videos/reel_2.mp4", poster: "/images/dishes/gushtaba.jpg" },
-            { id: "DZfIBSMJB3b", src: "/videos/reel_3.mp4", poster: "/images/dishes/rogan-josh.webp" }
-          ].map((reel, i) => (
-            <motion.div 
-              key={reel.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="w-full flex justify-center"
-            >
-              <CustomReelPlayer src={reel.src} poster={reel.poster} />
-            </motion.div>
-          ))}
+        <div className="flex justify-center items-center gap-16 max-w-5xl mx-auto">
+          <motion.a 
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0 }}
+            href="https://instagram.com/wazwanway" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[var(--saffron)] transition-colors"
+          >
+            <svg className="w-20 h-20 md:w-28 md:h-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </motion.a>
+          <motion.a 
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
+            href="https://www.facebook.com/profile.php?id=61590712421415" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[var(--saffron)] transition-colors"
+          >
+            <svg className="w-20 h-20 md:w-28 md:h-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
+          </motion.a>
+          <motion.a 
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}
+            href="https://x.com/wazwanway" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[var(--saffron)] transition-colors"
+          >
+            <svg className="w-20 h-20 md:w-28 md:h-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+              <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+            </svg>
+          </motion.a>
         </div>
       </section>
 

@@ -28,6 +28,10 @@ export default function Footer() {
         </div>
         <div className="border-t border-[#F5F5F0]/10 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-[0.7rem] uppercase tracking-widest text-[#F5F5F0]/70">
           <p>© 2026 Wazwan Way. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a href="https://www.facebook.com/profile.php?id=61590712421415" target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-[#C8A46A]">Facebook</a>
+            <a href="https://x.com/wazwanway" target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-[#C8A46A]">X</a>
+          </div>
           <p>Designed for the culture.</p>
         </div>
       </div>
