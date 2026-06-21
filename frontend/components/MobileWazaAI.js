@@ -346,7 +346,7 @@ export default function MobileWazaAI({ initialPrompt }) {
                 <div className="relative flex items-start gap-4">
                   {/* AI Avatar */}
                   <div
-                    className="shrink-0 w-14 h-14 rounded-full overflow-hidden flex items-center justify-center"
+                    className="relative shrink-0 w-14 h-14 rounded-full overflow-hidden flex items-center justify-center"
                     style={{
                       background: "linear-gradient(135deg, #D4A15A 0%, #8B6914 100%)",
                       border: "2px solid rgba(212,161,90,0.3)",
@@ -451,7 +451,7 @@ export default function MobileWazaAI({ initialPrompt }) {
                   {/* AI Avatar for assistant */}
                   {msg.role === "assistant" && (
                     <div
-                      className="mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
+                      className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
                       style={{
                         background: "linear-gradient(135deg, #D4A15A, #8B6914)",
                         border: "1.5px solid rgba(212,161,90,0.3)"
@@ -521,7 +521,7 @@ export default function MobileWazaAI({ initialPrompt }) {
                   className="flex w-full justify-start items-center gap-3"
                 >
                   <div
-                    className="shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
+                    className="relative shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
                     style={{
                       background: "linear-gradient(135deg, #D4A15A, #8B6914)",
                       border: "1.5px solid rgba(212,161,90,0.3)"
