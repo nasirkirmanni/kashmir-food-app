@@ -22,7 +22,7 @@ export const getToken = () =>
 // ─── In-memory cache with TTL + stale-while-revalidate + deduplication ────────
 
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-const _cache = new Map();        // key -> { data, timestamp }
+const _cache = new Map();        // key -> { data, timestamp } // Force cache clear v5
 const _inflight = new Map();     // key -> Promise (for deduplication)
 
 // Paths that should be cached

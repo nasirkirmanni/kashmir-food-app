@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { resolveImageUrl } from "@/lib/imageUtils";
 
 export default function ImageWithSkeleton({
   src,
@@ -17,11 +18,11 @@ export default function ImageWithSkeleton({
 }) {
   const [prevSrc, setPrevSrc] = useState(src);
   const [isLoading, setIsLoading] = useState(!priority);
-  const [imgSrc, setImgSrc] = useState(src || "/wazwan-hero.jpg");
+  const [imgSrc, setImgSrc] = useState(() => resolveImageUrl(src));
 
   if (src !== prevSrc) {
     setPrevSrc(src);
-    setImgSrc(src || "/wazwan-hero.jpg");
+    setImgSrc(resolveImageUrl(src));
     setIsLoading(!priority);
   }
 

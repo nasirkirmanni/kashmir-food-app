@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
-import { useEffect, useMemo, useState, Suspense, memo, useRef } from "react";
+import { useEffect, useMemo, useState, Suspense, memo, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
@@ -174,19 +174,15 @@ const LuxuryRestaurantCard = memo(({
   isBookmarked,
   onToggleBookmark,
   onTagClick,
-  onDishClick
+  onDishClick,
+  hasMounted
 }) => {
-  const distanceMetrics = useMemo(() => getDistanceMetrics(restaurant, userCoords), [restaurant, userCoords]);
-  const openStatus = useMemo(() => getOpenStatus(restaurant.openingHours), [restaurant.openingHours]);
+  const distanceMetrics = useMemo(() => hasMounted ? getDistanceMetrics(restaurant, userCoords) : { distance: "—", travelTime: "—", distanceVal: 0 }, [restaurant, userCoords, hasMounted]);
+  const openStatus = useMemo(() => hasMounted ? getOpenStatus(restaurant.openingHours) : { isOpen: true, text: "", hoursText: restaurant.openingHours?.replace(/[\u2013\u2014]/g, "-").replace(/daily/i, "").trim() || "11:30 AM - 10:00 PM" }, [restaurant.openingHours, hasMounted]);
   const enriched = useMemo(() => getEnrichedMetadata(restaurant), [restaurant]);
 
   // Load Mughal Darbar image from the web (TripAdvisor direct URL)
-  const imageSrc = useMemo(() => {
-    if (restaurant.name?.toLowerCase().includes("mughal darbar")) {
-      return "https://media-cdn.tripadvisor.com/media/photo-s/16/e2/2b/9a/mughal-darbar.jpg";
-    }
-    return restaurant.image;
-  }, [restaurant.name, restaurant.image]);
+  const imageSrc = restaurant.image;
 
   return (
     <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} passHref legacyBehavior prefetch={false}>
@@ -194,21 +190,21 @@ const LuxuryRestaurantCard = memo(({
         id={restaurant._id || restaurant.slug}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={`relative flex flex-col w-full overflow-hidden rounded-2xl border transition-all duration-300 bg-[#0B0B0B] group active:scale-[0.99] ${
+        className={`relative flex flex-col sm:flex-row w-full overflow-hidden rounded-2xl border transition-all duration-300 bg-[#0B0B0B] group active:scale-[0.99] ${
           isHovered 
             ? "border-[var(--saffron)]/70 shadow-[0_0_25px_rgba(212,175,55,0.15)] -translate-y-1" 
             : "border-white/10 shadow-lg hover:border-[var(--saffron)]/40"
         }`}
       >
         {/* Top: Restaurant Image */}
-        <div className="relative w-full h-[200px] overflow-hidden bg-black/50">
+        <div className="relative w-full sm:w-[200px] shrink-0 h-[200px] sm:h-auto min-h-[140px] overflow-hidden bg-black/50">
           {imageSrc ? (
             <ImageWithSkeleton
               src={imageSrc}
               alt={restaurant.name}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={80}
+              sizes="(max-width: 640px) 100vw, 200px"
+              quality={65}
               className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
             />
           ) : (
@@ -242,26 +238,30 @@ const LuxuryRestaurantCard = memo(({
           {/* Bottom-left: Open status pill */}
           <div className="absolute bottom-3 left-3">
             <div className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.6rem] font-bold backdrop-blur-md border ${
-              openStatus.isOpen 
-                ? "bg-green-900/60 text-green-400 border-green-500/30" 
-                : "bg-red-900/60 text-red-400 border-red-500/30"
+              hasMounted && openStatus.text
+                ? (openStatus.isOpen 
+                    ? "bg-green-900/60 text-green-400 border-green-500/30" 
+                    : "bg-red-900/60 text-red-400 border-red-500/30")
+                : "bg-black/60 text-white/60 border-white/10"
             }`}>
               <Clock className="w-3 h-3" />
-              {openStatus.text}
+              {hasMounted && openStatus.text ? openStatus.text : openStatus.hoursText}
             </div>
           </div>
 
           {/* Bottom-right: Distance pill */}
+          {hasMounted && (
           <div className="absolute bottom-3 right-3">
             <div className="flex items-center gap-1 rounded-full bg-black/70 backdrop-blur-md px-2.5 py-1 text-[0.6rem] font-bold text-[var(--saffron)] border border-white/10">
               <Navigation className="w-3 h-3 rotate-45" />
               {distanceMetrics.distance}
             </div>
           </div>
+          )}
         </div>
 
         {/* Bottom: Content */}
-        <div className="flex flex-col gap-3 p-4">
+        <div className="flex flex-col justify-center gap-3 p-4 flex-1 min-w-0">
           {/* Name + Rating row */}
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
@@ -284,19 +284,20 @@ const LuxuryRestaurantCard = memo(({
             <span>{enriched.reviewsCount} reviews</span>
             <span className="text-white/20">&bull;</span>
             <span className="text-white/70 font-mono">{enriched.priceRange}</span>
-            <span className="text-white/20">&bull;</span>
-            <span>{distanceMetrics.travelTime} away</span>
+            {hasMounted && (<><span className="text-white/20">&bull;</span>
+            <span>{distanceMetrics.travelTime} away</span></>)}
             <span className="text-white/20">&bull;</span>
             <span>{openStatus.hoursText}</span>
           </div>
 
           {/* Tags row */}
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).slice(0, 4).map((tag, idx) => (
               <button
                 key={idx}
                 onClick={(e) => onTagClick(tag, e)}
-                className="rounded-full bg-white/5 hover:bg-[var(--saffron)] hover:text-black border border-white/5 px-2.5 py-0.5 text-[10px] font-medium text-white/60 transition-colors"
+                aria-label={`Filter by ${tag}`}
+                className="rounded-full bg-white/5 hover:bg-[var(--saffron)] hover:text-black border border-white/5 px-3 py-1.5 min-h-[28px] text-[10px] font-medium text-white/60 transition-colors"
               >
                 {tag}
               </button>
@@ -342,19 +343,15 @@ const FeaturedPartnerCard = memo(({
   isBookmarked,
   onToggleBookmark,
   onTagClick,
-  onDishClick
+  onDishClick,
+  hasMounted
 }) => {
-  const distanceMetrics = useMemo(() => getDistanceMetrics(restaurant, userCoords), [restaurant, userCoords]);
-  const openStatus = useMemo(() => getOpenStatus(restaurant.openingHours), [restaurant.openingHours]);
+  const distanceMetrics = useMemo(() => hasMounted ? getDistanceMetrics(restaurant, userCoords) : { distance: "—", travelTime: "—", distanceVal: 0 }, [restaurant, userCoords, hasMounted]);
+  const openStatus = useMemo(() => hasMounted ? getOpenStatus(restaurant.openingHours) : { isOpen: true, text: "", hoursText: restaurant.openingHours?.replace(/[\u2013\u2014]/g, "-").replace(/daily/i, "").trim() || "11:30 AM - 10:00 PM" }, [restaurant.openingHours, hasMounted]);
   const enriched = useMemo(() => getEnrichedMetadata(restaurant), [restaurant]);
 
   // Load Mughal Darbar image from the web (TripAdvisor direct URL)
-  const imageSrc = useMemo(() => {
-    if (restaurant.name?.toLowerCase().includes("mughal darbar")) {
-      return "https://media-cdn.tripadvisor.com/media/photo-s/16/e2/2b/9a/mughal-darbar.jpg";
-    }
-    return restaurant.image;
-  }, [restaurant.name, restaurant.image]);
+  const imageSrc = restaurant.image;
 
   return (
     <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} passHref legacyBehavior prefetch={false}>
@@ -364,20 +361,21 @@ const FeaturedPartnerCard = memo(({
         onMouseLeave={onMouseLeave}
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`relative flex flex-col w-full overflow-hidden rounded-2xl border bg-gradient-to-b from-[#16120b] to-[#0A0A0A] group active:scale-[0.99] transition-all duration-300 ${
+        className={`relative flex flex-col sm:flex-row w-full overflow-hidden rounded-2xl border bg-gradient-to-r from-[#16120b] to-[#0A0A0A] group active:scale-[0.99] transition-all duration-300 ${
           isHovered 
             ? "border-[var(--saffron)] shadow-[0_0_35px_rgba(212,175,55,0.25)] -translate-y-1" 
             : "border-[var(--saffron)]/40 shadow-xl hover:border-[var(--saffron)]/80"
         }`}
       >
         {/* Large Imagery Block */}
-        <div className="relative w-full h-[220px] md:h-[260px] overflow-hidden bg-black/50">
+        <div className="relative w-full sm:w-[240px] md:w-[280px] shrink-0 h-[220px] sm:h-auto min-h-[180px] overflow-hidden bg-black/50">
           {imageSrc ? (
             <ImageWithSkeleton
               src={imageSrc}
               alt={restaurant.name}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 640px) 100vw, 280px"
+              quality={65}
               priority={true}
               className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-105"
             />
@@ -402,7 +400,7 @@ const FeaturedPartnerCard = memo(({
         </div>
 
         {/* Bottom Content Stack */}
-        <div className="flex flex-col gap-4 p-5 md:p-6">
+        <div className="flex flex-col justify-center gap-4 p-5 md:p-6 flex-1 min-w-0">
           {/* Name + Rating row */}
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
@@ -432,14 +430,14 @@ const FeaturedPartnerCard = memo(({
             <span className="text-white/20">&bull;</span>
             <div className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-green-500 shrink-0" />
-              <span className="text-green-500 font-bold">{openStatus.text}</span>
+              <span className="text-green-500 font-bold">{hasMounted && openStatus.text ? openStatus.text : "Hours"}</span>
               <span className="text-white/40 ml-0.5">({openStatus.hoursText})</span>
             </div>
-            <span className="text-white/20">&bull;</span>
+            {hasMounted && (<><span className="text-white/20">&bull;</span>
             <div className="flex items-center gap-1 text-[var(--saffron)] font-bold">
               <Navigation className="w-3 h-3 rotate-45 shrink-0" />
               <span>{distanceMetrics.distance} ({distanceMetrics.travelTime}) away</span>
-            </div>
+            </div></>)}
           </div>
 
           {/* Clamped Description */}
@@ -450,12 +448,13 @@ const FeaturedPartnerCard = memo(({
           {/* Cuisine Tags & Signature Dishes row */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-white/5">
             {/* Cuisine Tags */}
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).map((tag, idx) => (
                 <button
                   key={idx}
                   onClick={(e) => onTagClick(tag, e)}
-                  className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white/70 hover:bg-[var(--saffron)] hover:text-black transition-colors"
+                  aria-label={`Filter by ${tag}`}
+                  className="rounded-full bg-white/5 border border-white/10 px-3 py-1.5 min-h-[28px] text-[10px] font-bold uppercase tracking-wider text-white/70 hover:bg-[var(--saffron)] hover:text-black transition-colors"
                 >
                   {tag}
                 </button>
@@ -465,12 +464,13 @@ const FeaturedPartnerCard = memo(({
             {/* Signature Dishes */}
             <div className="text-xs text-white/60 flex items-center gap-1.5 min-w-0">
               <span className="font-semibold text-white/80 shrink-0">Signature Dishes:</span>
-              <div className="flex flex-wrap gap-1 font-bold truncate">
+              <div className="flex flex-wrap gap-1.5 font-bold truncate">
                 {enriched.mustTry.map((dish, idx) => (
                   <button
                     key={idx}
                     onClick={(e) => onDishClick(dish, e)}
-                    className="text-[var(--saffron)] hover:text-white transition-colors"
+                    aria-label={`Search for ${dish}`}
+                    className="text-[var(--saffron)] hover:text-white transition-colors min-h-[24px]"
                   >
                     {dish}{idx < enriched.mustTry.length - 1 ? " •" : ""}
                   </button>
@@ -562,7 +562,11 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   const [restaurants, setRestaurants] = useState(initialRestaurants);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(initialRestaurants.length === 0);
-  const [userCoords, setUserCoords] = useState(null);
+  // Default to Srinagar center — real coords only set when user clicks "Near Me"
+  const [userCoords, setUserCoords] = useState({ latitude: 34.0837, longitude: 74.7973 });
+  
+  // Client-only flag to prevent hydration mismatches
+  const [hasMounted, setHasMounted] = useState(false);
 
   // Bookmarks State
   const [bookmarks, setBookmarks] = useState([]);
@@ -600,26 +604,29 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   const [mobileShowFilters, setMobileShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState("list"); // 'list' or 'map'
 
-  // Fetch coordinates on mount
+  // Mark client mount (prevents hydration mismatch on time-dependent renders)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setUserCoords({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            });
-          },
-          () => {
-            // Fallback coordinate: Srinagar Center
-            setUserCoords({ latitude: 34.0837, longitude: 74.7973 });
-          }
-        );
-      } else {
-        // Fallback for no geolocation support
-        setUserCoords({ latitude: 34.0837, longitude: 74.7973 });
-      }
+    setHasMounted(true);
+  }, []);
+
+  // Request geolocation only when user clicks "Near Me" — never on page load
+  const requestNearMe = useCallback(() => {
+    if (typeof window !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserCoords({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+          setMaxDistance(5);
+        },
+        () => {
+          // Permission denied — keep Srinagar default, just set filter
+          setMaxDistance(5);
+        }
+      );
+    } else {
+      setMaxDistance(5);
     }
   }, []);
 
@@ -805,13 +812,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
   // Extract Featured Partner: The highest rated verified restaurant
   const { featuredPartner, standardListings } = useMemo(() => {
-    const featured = processedRestaurants.find((r) => r.authentic && r.rating >= 4.5) || processedRestaurants[0];
-    
     return {
-      featuredPartner: featured || null,
-      standardListings: featured 
-        ? processedRestaurants.filter((r) => r._id !== featured._id)
-        : processedRestaurants,
+      featuredPartner: null,
+      standardListings: processedRestaurants,
     };
   }, [processedRestaurants]);
 
@@ -820,10 +823,11 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
     const filteredByCity = restaurants.filter((r) => (r.city || "Srinagar").toLowerCase() === activeLocation.toLowerCase());
     const total = filteredByCity.length;
     const verified = filteredByCity.filter((r) => r.authentic).length;
-    const open = filteredByCity.filter((r) => getOpenStatus(r.openingHours).isOpen).length;
+    // Only compute open count after mount to avoid hydration mismatch
+    const open = hasMounted ? filteredByCity.filter((r) => getOpenStatus(r.openingHours).isOpen).length : total;
 
     return { total, verified, open };
-  }, [restaurants, activeLocation]);
+  }, [restaurants, activeLocation, hasMounted]);
 
   return (
     <div className="relative min-h-screen bg-transparent text-white pt-24 pb-16">
@@ -1014,7 +1018,11 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                     } else if (pill.tag === "Fine Dining") {
                       setSelectedPrice(selectedPrice === "₹₹₹₹" ? "All" : "₹₹₹₹");
                     } else if (pill.tag === "Near") {
-                      setMaxDistance(maxDistance <= 5 ? 20 : 5);
+                      if (maxDistance <= 5) {
+                        setMaxDistance(20);
+                      } else {
+                        requestNearMe();
+                      }
                     } else if (pill.tag === "Top") {
                       setSelectedRating(selectedRating === "4.5+" ? "All" : "4.5+");
                     } else {
@@ -1054,11 +1062,11 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
         </div>
 
         {/* --- MAIN PAGE CONTENT --- */}
-        <div className="flex gap-8 items-start">
+        <div className="flex gap-5 items-start">
           
           {/* 1. Left Sidebar Filters (Desktop only, toggle-able) */}
           {showDesktopFilters && (
-            <div className="hidden lg:block w-[17rem] shrink-0 bg-[#0B0B0B]/70 border border-white/10 rounded-3xl p-6 backdrop-blur-xl sticky top-28 h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
+            <div className="hidden lg:block w-[15rem] shrink-0 bg-[#0B0B0B]/70 border border-white/10 rounded-3xl p-5 backdrop-blur-xl sticky top-28 h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
               <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-3">
                 <span className="text-sm font-bold uppercase tracking-wider text-white">Filters</span>
                 <button 
@@ -1071,7 +1079,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
               {/* Cuisine categories */}
               <div className="mb-6">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3.5">Cuisine</h4>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3.5">Cuisine</h3>
                 <div className="flex flex-col gap-2.5">
                   {["All Cuisines", "Wazwan", "Kashmiri", "Mughlai", "Indian"].map((cuisine) => {
                     const val = cuisine === "All Cuisines" ? "All" : cuisine;
@@ -1093,7 +1101,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
               {/* Price filters */}
               <div className="mb-6 border-t border-white/5 pt-5">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3.5">Price Range</h4>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3.5">Price Range</h3>
                 <div className="grid grid-cols-5 gap-1.5 p-1 bg-black/40 rounded-xl border border-white/5">
                   {["All", "₹", "₹₹", "₹₹₹", "₹₹₹₹"].map((price) => (
                     <button
@@ -1113,7 +1121,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
               {/* Rating filters */}
               <div className="mb-6 border-t border-white/5 pt-5">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3.5">Rating</h4>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3.5">Rating</h3>
                 <div className="grid grid-cols-4 gap-1 p-1 bg-black/40 rounded-xl border border-white/5">
                   {["All", "4.0+", "4.5+", "5.0"].map((rating) => (
                     <button
@@ -1133,7 +1141,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
               {/* Distance Slider */}
               <div className="mb-6 border-t border-white/5 pt-5">
-                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-white/50 mb-2">
+                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-white/70 mb-2">
                   <span>Distance</span>
                   <span className="text-[var(--saffron)]">{maxDistance === 20 ? "Any distance" : `${maxDistance} km`}</span>
                 </div>
@@ -1143,9 +1151,11 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                   max="20"
                   value={maxDistance}
                   onChange={(e) => setMaxDistance(parseInt(e.target.value))}
+                  aria-label="Distance filter"
+                  aria-valuetext={maxDistance === 20 ? "Any distance" : `${maxDistance} kilometers`}
                   className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[var(--saffron)]"
                 />
-                <div className="flex justify-between text-[9px] text-white/30 mt-1 font-bold">
+                <div className="flex justify-between text-[9px] text-white/70 mt-1 font-bold">
                   <span>1km</span>
                   <span>20km+</span>
                 </div>
@@ -1153,12 +1163,15 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
               {/* Switch Toggles */}
               <div className="border-t border-white/5 pt-5 flex flex-col gap-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">More Filters</h4>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-1">More Filters</h3>
                 
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-white/80">Open Now</span>
                   <button
                     onClick={() => setShowOpenNowOnly(!showOpenNowOnly)}
+                    aria-label="Toggle open now filter"
+                    role="switch"
+                    aria-checked={showOpenNowOnly}
                     className={`w-9 h-5 rounded-full p-0.5 transition-colors focus:outline-none ${
                       showOpenNowOnly ? "bg-[var(--saffron)]" : "bg-white/10"
                     }`}
@@ -1175,6 +1188,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                   <span className="text-xs text-white/80">Reservations</span>
                   <button
                     onClick={() => setShowReservations(!showReservations)}
+                    aria-label="Toggle reservations filter"
+                    role="switch"
+                    aria-checked={showReservations}
                     className={`w-9 h-5 rounded-full p-0.5 transition-colors focus:outline-none ${
                       showReservations ? "bg-[var(--saffron)]" : "bg-white/10"
                     }`}
@@ -1191,6 +1207,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                   <span className="text-xs text-white/80">Family Friendly</span>
                   <button
                     onClick={() => setShowFamilyFriendly(!showFamilyFriendly)}
+                    aria-label="Toggle family friendly filter"
+                    role="switch"
+                    aria-checked={showFamilyFriendly}
                     className={`w-9 h-5 rounded-full p-0.5 transition-colors focus:outline-none ${
                       showFamilyFriendly ? "bg-[var(--saffron)]" : "bg-white/10"
                     }`}
@@ -1207,6 +1226,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                   <span className="text-xs text-white/80">Outdoor Seating</span>
                   <button
                     onClick={() => setShowOutdoorSeating(!showOutdoorSeating)}
+                    aria-label="Toggle outdoor seating filter"
+                    role="switch"
+                    aria-checked={showOutdoorSeating}
                     className={`w-9 h-5 rounded-full p-0.5 transition-colors focus:outline-none ${
                       showOutdoorSeating ? "bg-[var(--saffron)]" : "bg-white/10"
                     }`}
@@ -1263,6 +1285,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                     <FeaturedPartnerCard
                       restaurant={featuredPartner}
                       userCoords={userCoords}
+                      hasMounted={hasMounted}
                       isHovered={hoveredRestaurantId === (featuredPartner._id || featuredPartner.slug)}
                       onMouseEnter={() => setHoveredRestaurantId(featuredPartner._id || featuredPartner.slug)}
                       onMouseLeave={() => setHoveredRestaurantId(null)}
@@ -1285,7 +1308,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                 {/* 2b. Standard Listings */}
                 {standardListings.length > 0 && (
                   <div className="flex flex-col gap-5">
-                    <h3 className="text-xs font-black tracking-[0.25em] text-white/40 uppercase mb-1">
+                    <h3 className="text-xs font-black tracking-[0.25em] text-white/70 uppercase mb-1">
                       More Dining Rooms
                     </h3>
                     {standardListings.slice(0, visibleLimit).map((restaurant) => (
@@ -1293,6 +1316,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                         key={restaurant._id || restaurant.slug}
                         restaurant={restaurant}
                         userCoords={userCoords}
+                        hasMounted={hasMounted}
                         isHovered={hoveredRestaurantId === (restaurant._id || restaurant.slug)}
                         onMouseEnter={() => setHoveredRestaurantId(restaurant._id || restaurant.slug)}
                         onMouseLeave={() => setHoveredRestaurantId(null)}
@@ -1409,7 +1433,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
               <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-6 no-scrollbar">
                 {/* Cuisine */}
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3">Cuisine</h4>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3">Cuisine</h3>
                   <div className="flex flex-wrap gap-2">
                     {["All Cuisines", "Wazwan", "Kashmiri", "Mughlai", "Indian"].map((cuisine) => {
                       const val = cuisine === "All Cuisines" ? "All" : cuisine;
@@ -1433,7 +1457,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
                 {/* Price range */}
                 <div className="border-t border-white/5 pt-5">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3.5">Price Range</h4>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3.5">Price Range</h3>
                   <div className="grid grid-cols-5 gap-1.5 p-1 bg-black/40 rounded-xl border border-white/5">
                     {["All", "₹", "₹₹", "₹₹₹", "₹₹₹₹"].map((price) => (
                       <button
@@ -1453,7 +1477,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
                 {/* Rating */}
                 <div className="border-t border-white/5 pt-5">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3.5">Rating</h4>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3.5">Rating</h3>
                   <div className="grid grid-cols-4 gap-1 p-1 bg-black/40 rounded-xl border border-white/5">
                     {["All", "4.0+", "4.5+", "5.0"].map((rating) => (
                       <button
@@ -1473,7 +1497,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
                 {/* Distance range */}
                 <div className="border-t border-white/5 pt-5">
-                  <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-white/50 mb-2">
+                  <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-white/70 mb-2">
                     <span>Distance</span>
                     <span className="text-[var(--saffron)]">{maxDistance} km</span>
                   </div>
@@ -1483,6 +1507,8 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                     max="20"
                     value={maxDistance}
                     onChange={(e) => setMaxDistance(parseInt(e.target.value))}
+                    aria-label="Distance filter"
+                    aria-valuetext={`${maxDistance} kilometers`}
                     className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[var(--saffron)]"
                   />
                 </div>
@@ -1493,6 +1519,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                     <span className="text-xs text-white/80">Open Now</span>
                     <button
                       onClick={() => setShowOpenNowOnly(!showOpenNowOnly)}
+                      aria-label="Toggle open now filter"
+                      role="switch"
+                      aria-checked={showOpenNowOnly}
                       className={`w-9 h-5 rounded-full p-0.5 transition-colors focus:outline-none ${
                         showOpenNowOnly ? "bg-[var(--saffron)]" : "bg-white/10"
                       }`}
@@ -1509,6 +1538,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                     <span className="text-xs text-white/80">Reservations</span>
                     <button
                       onClick={() => setShowReservations(!showReservations)}
+                      aria-label="Toggle reservations filter"
+                      role="switch"
+                      aria-checked={showReservations}
                       className={`w-9 h-5 rounded-full p-0.5 transition-colors focus:outline-none ${
                         showReservations ? "bg-[var(--saffron)]" : "bg-white/10"
                       }`}

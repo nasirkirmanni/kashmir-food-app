@@ -5,11 +5,12 @@ import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
 import GlobalBackground from "@/components/GlobalBackground";
-import WazaAI from "@/components/WazaAI";
+import dynamic from "next/dynamic";
+const WazaAI = dynamic(() => import("@/components/WazaAI"), { ssr: false });
 import { MobileNavigationProvider } from "@/context/MobileNavigationContext";
 import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 import CapacitorListeners from "@/components/CapacitorListeners";
-import GlobalSearchModal from "@/components/GlobalSearchModal";
+const GlobalSearchModal = dynamic(() => import("@/components/GlobalSearchModal"), { ssr: false });
 import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({

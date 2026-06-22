@@ -1,6 +1,10 @@
-[
+const fs = require('fs');
+const file = fs.readFileSync('src/data/seedData.js', 'utf8');
+const start = file.indexOf('export const restaurants = [');
+const end = file.indexOf('];', start) + 2;
+
+const newData = [
   {
-    "_id": "6a36b7098b14138cbe21573d",
     "name": "Ahdoos",
     "location": "Ahdoo's Hotel, Residency Road, Regal Chowk, Srinagar, Jammu and Kashmir 190001",
     "city": "Srinagar",
@@ -12,12 +16,12 @@
       "Historic",
       "Fine Dining"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76efa",
-      "6a2a4978ac7d60a9cca76ef9",
-      "6a2a4978ac7d60a9cca76efb",
-      "6a36b7088b14138cbe2156ea"
+    "linkedDishNames": [
+      "Rogan Josh",
+      "Rista",
+      "Gushtaba",
+      "Tabak Maaz",
+      "Kashmiri Kahwa"
     ],
     "image": "/images/restaurants/ahdoos.png",
     "description": "Established in 1918, Ahdoos is Srinagar's legendary culinary pioneer. It was the first commercial restaurant in Kashmir to serve traditional Wazwan, earning it the reputation of the ultimate gold standard for authentic Kashmiri flavors in an elegant, heritage setting.",
@@ -27,18 +31,12 @@
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "Ahdoos Restaurant Residency Road Srinagar",
     "authenticityScore": 4.8,
     "touristFriendlinessScore": 4.5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-20T15:51:37.030Z",
-    "updatedAt": "2026-06-20T15:51:37.339Z",
-    "slug": "ahdoos"
+    "luxuryScore": 4.0
   },
   {
-    "_id": "6a36b7098b14138cbe21573e",
     "name": "Mughal Darbar",
     "location": "ground floor, Residency Road, near gpo, Munshi Bagh, Srinagar, Jammu and Kashmir 190001",
     "city": "Srinagar",
@@ -50,13 +48,6 @@
       "Authentic",
       "Srinagar"
     ],
-    "linkedDishes": [
-      "6a36b7088b14138cbe2156e8",
-      "6a36b7088b14138cbe2156e9",
-      "6a2a4978ac7d60a9cca76f05",
-      "6a36b7088b14138cbe2156f0",
-      "6a2a4978ac7d60a9cca76f07"
-    ],
     "image": "/images/restaurants/mughal-darbar.png",
     "description": "Mughal Darbar is renowned for its authentic Kashmiri Wazwan and Mughlai cuisine, offering a rich dining experience in the heart of Srinagar.",
     "phoneNumber": "070065 90221",
@@ -65,14 +56,17 @@
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
-    "touristTrapReason": "",
     "googleMapsQuery": "ground floor, Residency Road, near gpo, Munshi Bagh, Srinagar, Jammu and Kashmir 190001",
+    "linkedDishNames": [
+      "Rogan Josh",
+      "Rista",
+      "Gushtaba"
+    ],
     "authenticityScore": 4.5,
     "touristFriendlinessScore": 4.2,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-22T10:28:12.000Z",
-    "updatedAt": "2026-06-22T10:28:12.000Z",
-    "slug": "mughal-darbar"
+    "luxuryScore": 3.5
   }
-]
+];
+
+const newText = 'export const restaurants = ' + JSON.stringify(newData, null, 2) + ';\n';
+fs.writeFileSync('src/data/seedData.js', file.slice(0, start) + newText + file.slice(end));

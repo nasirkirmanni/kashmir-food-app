@@ -56,14 +56,14 @@ router.get(
     // Check if parameter is a valid MongoDB ObjectID
     if (req.params.idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
       restaurant = await Restaurant.findById(req.params.idOrSlug)
-        .populate("linkedDishes", "name category image slug")
+        .populate("linkedDishes", "name category image slug popularityRating priceRange")
         .lean();
     }
     
     // Fall back to slug lookup
     if (!restaurant) {
       restaurant = await Restaurant.findOne({ slug: req.params.idOrSlug })
-        .populate("linkedDishes", "name category image slug")
+        .populate("linkedDishes", "name category image slug popularityRating priceRange")
         .lean();
     }
 
