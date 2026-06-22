@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { useEffect, useMemo, useState, Suspense, memo, useRef, useCallback } from "react";
+import dishesData from "@/data/dishes.json";
 import { useSearchParams } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
@@ -136,7 +137,13 @@ function getEnrichedMetadata(restaurant) {
   let mustTry = ["Rogan Josh", "Rista", "Tabak Maaz"];
   if (restaurant.linkedDishes && restaurant.linkedDishes.length > 0) {
     const dishNames = restaurant.linkedDishes
-      .map(d => typeof d === "string" ? d : (d && d.name ? d.name : null))
+      .map(d => {
+        if (typeof d === "string") {
+          const dishObj = dishesData.find(dish => dish._id === d);
+          return dishObj ? dishObj.name : null;
+        }
+        return d && d.name ? d.name : null;
+      })
       .filter(Boolean);
     if (dishNames.length > 0) {
       mustTry = dishNames.slice(0, 3);
