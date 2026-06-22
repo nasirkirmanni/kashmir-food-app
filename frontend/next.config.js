@@ -138,7 +138,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    optimizeCss: process.env.NODE_ENV === "production",
+    optimizeCss: true,
   },
 };
 

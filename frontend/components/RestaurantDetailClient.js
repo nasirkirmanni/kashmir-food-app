@@ -111,12 +111,12 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
           </div>
 
           <div className="mt-8 rounded-[18px] border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-lg max-w-xl">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] mb-4 flex items-center gap-2">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] mb-4 flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               Waza AI Culinary Authority Scores
-            </h3>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <div>
                 <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
@@ -155,7 +155,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
               </p>
               <a
                 href={`tel:${restaurant.phoneNumber.replace(/[^\d+]/g, "")}`}
-                className="mt-2 inline-flex text-base font-medium text-[var(--crimson)]"
+                className="mt-2 inline-flex text-base font-medium text-[var(--crimson-accessible)]"
               >
                 {restaurant.phoneNumber}
               </a>
@@ -202,12 +202,12 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
         <div className="grid gap-8 grid-cols-1 lg:grid-cols-[1fr,0.95fr]">
           <div className="space-y-6">
             <article className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 shadow-2xl overflow-hidden">
-              <h3 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h3>
+              <h2 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h2>
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
                 {restaurant.linkedDishes.map((dish, index) => (
                   <div key={dish._id} className="flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg transition hover:border-[var(--saffron)] hover:bg-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
                     <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
-                      <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="100px" className="object-cover" />
+                      <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="114px" quality={60} className="object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>

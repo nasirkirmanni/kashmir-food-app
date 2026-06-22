@@ -35,6 +35,11 @@ export default function MobileSwipeContainer({ children }) {
   const pathname = usePathname();
   const initialIndex = pathname in routeIndexMap ? routeIndexMap[pathname] : 0;
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Track which screens have been visited so they stay mounted after first load
   const [visitedScreens, setVisitedScreens] = useState(() => {
     const initialSet = new Set([0]);
@@ -321,7 +326,7 @@ export default function MobileSwipeContainer({ children }) {
         </div>
 
         {/* OVERLAY FOR NON-SWIPEABLE ROUTES (e.g. Dish Details) */}
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait" initial={false}>
           {!isSwipeableRoute && (
             <motion.div
               key={pathname}
@@ -341,17 +346,33 @@ export default function MobileSwipeContainer({ children }) {
     );
   };
 
-  return (
-    <>
-      {/* Desktop view */}
-      <div className="hidden md:block w-full h-full">
-        {children}
-      </div>
+  if (!mounted) {
+    return (
+      <>
+        {/* Desktop view */}
+        <div className="hidden md:block w-full h-full">
+          {children}
+        </div>
 
-      {/* Mobile view */}
+        {/* Mobile view */}
+        <div className="block md:hidden">
+          {renderMobileContent()}
+        </div>
+      </>
+    );
+  }
+
+  if (isMobile) {
+    return (
       <div className="block md:hidden">
         {renderMobileContent()}
       </div>
-    </>
-  );
+    );
+  } else {
+    return (
+      <div className="hidden md:block w-full h-full">
+        {children}
+      </div>
+    );
+  }
 }

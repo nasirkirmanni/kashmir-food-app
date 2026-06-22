@@ -41,12 +41,13 @@ export default function ReviewForm({ restaurantId, onSuccess }) {
   return (
     <form onSubmit={submit} className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 shadow-2xl">
       <span className="place-eyebrow">Share Your Experience</span>
-      <h3 className="font-display text-3xl text-white tracking-tight">Leave a review</h3>
+      <h2 className="font-display text-3xl text-white tracking-tight">Leave a review</h2>
       <div className="mt-5 space-y-4">
         <select
           value={form.rating}
           onChange={(event) => setForm({ ...form, rating: event.target.value })}
           className="w-full rounded-md border border-white/20 bg-black/40 text-white px-4 py-3 focus:outline-none focus:border-[var(--saffron)] transition-colors"
+          aria-label="Filter by rating"
         >
           <option value="5">5 - Excellent</option>
           <option value="4">4 - Very good</option>
@@ -62,7 +63,7 @@ export default function ReviewForm({ restaurantId, onSuccess }) {
           rows={4}
           required
         />
-        {error ? <p className="text-sm text-[var(--crimson)]">{error}</p> : null}
+        {error ? <p className="text-sm text-[var(--crimson-accessible)]">{error}</p> : null}
         <button
           type="submit"
           disabled={loading}

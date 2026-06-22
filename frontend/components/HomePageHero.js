@@ -123,6 +123,7 @@ export default function HomePageHero() {
                 <button 
                   onClick={(e) => handleNavClick(e, 4)}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C8A46A]/30 bg-[#121212]/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-transform active:scale-95"
+                  aria-label="View Profile"
                 >
                   {user ? (
                     <User size={18} className="text-[#C8A46A]" strokeWidth={2} />
