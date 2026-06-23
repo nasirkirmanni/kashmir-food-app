@@ -107,8 +107,8 @@ function DishesPageContent({ initialDishes = [] }) {
               The traditional Kashmiri Wazwan is a formal 36-course banquet cooked by master chefs (Wazas). Today, the authoritative Trami sequence centers around exactly <strong>16 historical dishes</strong> served on the engraved copper platter.
             </p>
           </div>
-          <div>
-            <Link href="/kashmiri-food" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30 mb-4 block text-center">
+          <div className="flex flex-col gap-3">
+            <Link href="/kashmiri-food" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30 mb-1 block text-center">
               View All Kashmiri Food &rarr;
             </Link>
             <Link href="/etiquette" className="block bg-[#111] border border-[var(--saffron)]/30 rounded-2xl p-4 hover:border-[var(--saffron)]/60 transition-colors group">
@@ -119,6 +119,17 @@ function DishesPageContent({ initialDishes = [] }) {
                 <div className="text-left">
                   <p className="text-[var(--saffron)] font-bold text-sm mb-0.5 group-hover:text-white transition-colors">Wazwan Etiquette</p>
                   <p className="text-white/50 text-[10px] uppercase tracking-wider">7 Unwritten Rules</p>
+                </div>
+              </div>
+            </Link>
+            <Link href="/kashmiri-food/wazwan/guide" className="block bg-[#111] border border-[var(--saffron)]/30 rounded-2xl p-4 hover:border-[var(--saffron)]/60 transition-colors group">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-[var(--saffron)]/10 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                </div>
+                <div className="text-left">
+                  <p className="text-[var(--saffron)] font-bold text-sm mb-0.5 group-hover:text-white transition-colors">Wazwan Guidebook</p>
+                  <p className="text-white/50 text-[10px] uppercase tracking-wider">15 Authentic Articles</p>
                 </div>
               </div>
             </Link>

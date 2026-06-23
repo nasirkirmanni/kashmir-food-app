@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import dynamic from "next/dynamic";
 const KashmiriFoodClient = dynamic(() => import("../KashmiriFoodClient"), { ssr: true });
+import GuidebookIndexClient from "../GuidebookIndexClient";
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 
@@ -32,6 +33,20 @@ export function generateStaticParams() {
       "vegetarian-wazwan",
       "etiquette",
       "restaurant-vs-wedding-vs-home",
+      "kashmiri-wazwan-dishes",
+      "rista-vs-gushtaba",
+      "traditional-wazwan-menu",
+      "kashmiri-wedding-food",
+      "wazwan-culture",
+      "waza-meaning",
+      "how-wazwan-is-served",
+      "trami-in-kashmir",
+      "best-wazwan-dishes",
+      "history-of-wazwan",
+      "rista-deep-dive",
+      "gushtaba-the-kings-dish",
+      "rogan-josh-explained",
+      "wazwan-vs-mughlai"
     ],
     bakery: ["intro-to-bakery", "types-of-bread", "breakfast-guide"],
     beverages: ["kahwa-explained", "noon-chai-explained", "kahwa-vs-noon-chai"],
@@ -112,6 +127,62 @@ export async function generateMetadata({ params }) {
           title: "Wazwan: Restaurant vs Wedding vs Home | WazwanWay",
           description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
         },
+        "kashmiri-wazwan-dishes": {
+          title: "Kashmiri Wazwan Dishes: The Ultimate Culinary Guide | WazwanWay",
+          description: "Explore the vast and flavorful world of Kashmiri Wazwan dishes, from the succulent Seekh Kebabs to the delicate Gushtaba."
+        },
+        "rista-vs-gushtaba": {
+          title: "Rista vs Gushtaba: The Twin Meatballs of Kashmir | WazwanWay",
+          description: "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan."
+        },
+        "traditional-wazwan-menu": {
+          title: "The Traditional Wazwan Menu: A 36-Course Breakdown | WazwanWay",
+          description: "Explore the complete traditional Wazwan menu, from the opening starters to the final dessert and Kahwa."
+        },
+        "kashmiri-wedding-food": {
+          title: "Kashmiri Wedding Food: The Grandeur of Wazwan | WazwanWay",
+          description: "A deep dive into how food dictates the flow, scale, and prestige of a traditional Kashmiri wedding."
+        },
+        "wazwan-culture": {
+          title: "Wazwan Culture: The Social Fabric of Kashmir | WazwanWay",
+          description: "How the shared experience of Wazwan binds the Kashmiri community together, transcending just culinary boundaries."
+        },
+        "waza-meaning": {
+          title: "What Does Waza Mean? The Master Chefs of Kashmir | WazwanWay",
+          description: "Explore the history, skills, and societal role of the Wazas, the master chefs who guard the secrets of Kashmiri Wazwan."
+        },
+        "how-wazwan-is-served": {
+          title: "How Wazwan is Served: The Sequence and Etiquette | WazwanWay",
+          description: "A detailed look at the highly structured and ritualistic sequence of serving a traditional Kashmiri Wazwan."
+        },
+        "trami-in-kashmir": {
+          title: "The Trami: The Sacred Platter of Kashmir | WazwanWay",
+          description: "Learn about the Trami, the large copper platter that sits at the center of the Wazwan experience and Kashmiri communal dining."
+        },
+        "best-wazwan-dishes": {
+          title: "Top 5 Best Wazwan Dishes You Must Try | WazwanWay",
+          description: "A curated list of the absolute best Wazwan dishes that every visitor to Kashmir must experience."
+        },
+        "history-of-wazwan": {
+          title: "History of Wazwan: The Genesis of Kashmir's Royal Feast | WazwanWay",
+          description: "Trace the incredible journey of Wazwan from the courts of Timur in Samarkand to the grand weddings of modern Kashmir."
+        },
+        "rista-deep-dive": {
+          title: "Rista: Origins, Ingredients & Preparation | WazwanWay",
+          description: "A deep dive into Rista, the saffron-infused, hand-pounded meatball that forms the spicy heart of the Wazwan."
+        },
+        "gushtaba-the-kings-dish": {
+          title: "Gushtaba: The King's Dish and the Grand Finale | WazwanWay",
+          description: "Why Gushtaba is considered the absolute pinnacle of Kashmiri culinary artistry, and why it must always be served last."
+        },
+        "rogan-josh-explained": {
+          title: "Rogan Josh Explained: The Identity of Kashmiri Cuisine | WazwanWay",
+          description: "Uncover the truth behind authentic Rogan Josh, a dish whose global fame has led to countless misconceptions about its true ingredients."
+        },
+        "wazwan-vs-mughlai": {
+          title: "Wazwan vs Mughlai Cuisine: Understanding the Differences | WazwanWay",
+          description: "A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India."
+        }
       },
       bakery: {
         base: {
@@ -292,71 +363,7 @@ export default function Page({ params }) {
     
     const label = categoryLabels[category] || "Kashmiri Culinary";
     
-    return (
-      <div className="min-h-screen pt-28 pb-32 px-4 sm:px-6 lg:px-8 flex flex-col items-center page-shell relative">
-        <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
-        <div className="w-full max-w-4xl relative z-10">
-          <Link 
-            href={`/kashmiri-food/${category}`} 
-            className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--saffron)] transition-colors mb-10 text-xs sm:text-sm uppercase tracking-wider font-semibold"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to {label} Catalog
-          </Link>
-          
-          <div className="mb-12">
-            <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">
-              Culinary Guides & Rituals
-            </span>
-            <h1 className="font-display text-3xl sm:text-5xl text-white mb-6">
-              {label} Guidebook
-            </h1>
-            <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-2xl">
-              Deep dive articles detailing the preparation, traditions, etiquette, and secrets of {label} dining.
-            </p>
-          </div>
-          
-          {categoryArticles.length === 0 ? (
-            <div className="glass-panel p-8 rounded-2xl border border-white/5 text-center my-12">
-              <p className="text-white/40 text-sm mb-4">No articles published yet for this section.</p>
-              <p className="text-white/30 text-xs">Articles are currently being prepared by the WazwanWay Team.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
-              {categoryArticles.map((article) => (
-                <Link key={article.slug} href={`/kashmiri-food/${category}/guide/${article.slug}`}>
-                  <article className="glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-[var(--saffron)]/30 hover:shadow-[0_12px_40px_rgba(212,175,55,0.06)] group transition-all duration-300 h-full flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-[var(--saffron)] font-bold tracking-[0.15em] uppercase text-[0.6rem] bg-[var(--saffron)]/10 px-3 py-1 rounded-full border border-[var(--saffron)]/20">
-                          Guide
-                        </span>
-                        <span className="flex items-center gap-1.5 text-white/40 text-[0.65rem] uppercase tracking-wider font-semibold">
-                          <Clock className="w-3.5 h-3.5" /> {article.readTime}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-xl text-white mb-3 group-hover:text-[var(--saffron)] transition-colors line-clamp-2">
-                        {article.title}
-                      </h3>
-                      <p className="text-white/50 text-xs sm:text-sm leading-relaxed mb-6 line-clamp-3">
-                        {article.description}
-                      </p>
-                    </div>
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
-                      <span className="text-[0.65rem] uppercase tracking-wider font-bold text-white/50 flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5 text-[var(--saffron)]" /> {article.author}
-                      </span>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[var(--saffron)] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        Read Guide &rarr;
-                      </span>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    );
+    return <GuidebookIndexClient categoryArticles={categoryArticles} label={label} category={category} />;
   }
   
   // Render Individual Guide Article Page (e.g. /kashmiri-food/wazwan/guide/what-is-wazwan)
@@ -423,7 +430,22 @@ export default function Page({ params }) {
                 blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-lg sm:text-xl" {...props} />
               }}
             >
-              {article.content}
+              {(() => {
+                const categoryArticles = wazwanGuides.filter((g) => g.category === category);
+                const articleIndex = categoryArticles.findIndex((g) => g.slug === guideSlug);
+                
+                const relatedArticles = [];
+                // Pick 4 deterministic related articles based on array position
+                for (let i = 1; i <= 4; i++) {
+                  const relIndex = (articleIndex + i) % categoryArticles.length;
+                  if (categoryArticles[relIndex].slug !== guideSlug) {
+                    relatedArticles.push(categoryArticles[relIndex]);
+                  }
+                }
+                
+                const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedArticles.map(a => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`).join('\n');
+                return article.content + relatedMarkdown;
+              })()}
             </ReactMarkdown>
           </div>
         </article>
