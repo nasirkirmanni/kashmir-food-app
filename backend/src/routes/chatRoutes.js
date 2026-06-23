@@ -3,6 +3,17 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { Dish } from "../models/Dish.js";
 import { Restaurant } from "../models/Restaurant.js";
 import { Destination } from "../models/Destination.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const KASHMIR_KNOWLEDGE_BASE = fs.readFileSync(
+  path.join(__dirname, "../Knowledge/kashmir-knowledge-base.md"),
+  "utf-8"
+);
 
 const router = express.Router();
 
@@ -126,7 +137,12 @@ Additional Rules:
   * Explicitly state whether the dish is part of the traditional Wazwan feast (and its role/position in the feast progression, such as Gushtaba being the grand finale) or if it is a daily home-style dish.
 * WAZWAN & KASHMIRI FOOD RULES:
   * When users ask "What is Wazwan?" or ask about traditional Wazwan feasts, you must ONLY recommend/discuss dishes classified as categoryType = "wazwan". Do not mention or recommend everyday Kashmiri dishes, bakery items, or beverages in this context.
-  * When users ask "Tell me about Kashmiri food" or general questions about Kashmiri cuisine, you must use all categories (wazwan, kashmiri_cuisine, bakery, beverage) to present a complete, rich picture of the region's culinary culture.`;
+  * When users ask "Tell me about Kashmiri food" or general questions about Kashmiri cuisine, you must use all categories (wazwan, kashmiri_cuisine, bakery, beverage) to present a complete, rich picture of the region's culinary culture.
+
+REFERENCE KNOWLEDGE BASE
+Use the following as your factual reference for Kashmir cuisine, culture, history, handicrafts, destinations, and tourist FAQs. Treat this as ground truth and prefer it over general knowledge or assumptions. If the database context provided elsewhere in this prompt conflicts with this reference for a specific dish/restaurant/destination, prioritize the database context (it's more current), but otherwise rely on this knowledge base.
+
+${KASHMIR_KNOWLEDGE_BASE}`;
 
     // Dynamic context retrieval from database based on message queries
     let contextString = "";
@@ -136,62 +152,62 @@ Additional Rules:
 
       // Search destinations
       const dests = await Destination.find({}, "name location description bestTimeToVisit authenticityScore touristFriendlinessScore luxuryScore").lean();
-      const matchedDests = dests.filter(d => 
+      const matchedDests = dests.filter(d =>
         queryWords.some(word => d.name.toLowerCase().includes(word) || d.location.toLowerCase().includes(word))
       );
-      
+
       const finalDests = matchedDests.length > 0 ? matchedDests : (
         lastMessage.toLowerCase().match(/(visit|place|destination|tourism|travel|kashmir|go to|stay|hotel)/)
-        ? dests.slice(0, 8) : []
+          ? dests.slice(0, 8) : []
       );
 
       if (finalDests.length > 0) {
-        contextString += "\n\nKASHMIR DESTINATIONS:\n" + finalDests.map(d => 
+        contextString += "\n\nKASHMIR DESTINATIONS:\n" + finalDests.map(d =>
           `- Name: ${d.name}\n  Location: ${d.location}\n  Description: ${d.description}\n  Best Time to Visit: ${d.bestTimeToVisit}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
         ).join("\n");
       }
 
       // Search restaurants
       const rests = await Restaurant.find({}, "name location city rating priceLevel authentic authenticityScore touristFriendlinessScore luxuryScore").lean();
-      const matchedRests = rests.filter(r => 
+      const matchedRests = rests.filter(r =>
         queryWords.some(word => r.name.toLowerCase().includes(word) || r.city.toLowerCase().includes(word))
       );
-      
+
       const finalRests = matchedRests.length > 0 ? matchedRests : (
         lastMessage.toLowerCase().match(/(eat|restaurant|dine|dining|food joint|place to eat|cafe|dhaba|recommend)/)
-        ? rests.slice(0, 8) : []
+          ? rests.slice(0, 8) : []
       );
 
       if (finalRests.length > 0) {
-        contextString += "\n\nRESTAURANTS:\n" + finalRests.map(r => 
+        contextString += "\n\nRESTAURANTS:\n" + finalRests.map(r =>
           `- Name: ${r.name}\n  Location: ${r.location}, ${r.city}\n  Rating: ${r.rating}/5, Price: ${r.priceLevel}\n  Scores: Authenticity: ${r.authenticityScore}/5, Tourist Friendliness: ${r.touristFriendlinessScore}/5, Luxury: ${r.luxuryScore}/5`
         ).join("\n");
       }
 
       // Search dishes with categoryType filtering
       const dishes = await Dish.find({}, "name description category categoryType foodType authenticityScore touristFriendlinessScore luxuryScore").lean();
-      
+
       let filteredDishes = dishes;
       const lowerLastMessage = lastMessage.toLowerCase();
-      const isWazwanQuery = lowerLastMessage.includes("what is wazwan") || 
-                            lowerLastMessage.includes("wazwan only") ||
-                            (lowerLastMessage.includes("wazwan") && !lowerLastMessage.includes("kashmiri food") && !lowerLastMessage.includes("kashmiri cuisine"));
-      
+      const isWazwanQuery = lowerLastMessage.includes("what is wazwan") ||
+        lowerLastMessage.includes("wazwan only") ||
+        (lowerLastMessage.includes("wazwan") && !lowerLastMessage.includes("kashmiri food") && !lowerLastMessage.includes("kashmiri cuisine"));
+
       if (isWazwanQuery) {
         filteredDishes = dishes.filter(d => d.categoryType === "wazwan");
       }
 
-      const matchedDishes = filteredDishes.filter(d => 
+      const matchedDishes = filteredDishes.filter(d =>
         queryWords.some(word => d.name.toLowerCase().includes(word) || d.category.toLowerCase().includes(word))
       );
 
       const finalDishes = matchedDishes.length > 0 ? matchedDishes : (
         lowerLastMessage.match(/(food|dish|wazwan|veg|non-veg|eat|recipe|cook|spice|specialty)/)
-        ? filteredDishes.slice(0, 10) : []
+          ? filteredDishes.slice(0, 10) : []
       );
 
       if (finalDishes.length > 0) {
-        contextString += "\n\nDISHES:\n" + finalDishes.map(d => 
+        contextString += "\n\nDISHES:\n" + finalDishes.map(d =>
           `- Name: ${d.name}\n  Type: ${d.foodType}, Category: ${d.category}, categoryType: ${d.categoryType}\n  Description: ${d.description}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
         ).join("\n");
       }
@@ -226,13 +242,13 @@ Additional Rules:
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error("Gemini API Error:", errorData);
-      
+
       if (response.status === 429) {
-         return res.json({ reply: "I am experiencing high traffic right now and hit a rate limit. Please try again in a moment." });
+        return res.json({ reply: "I am experiencing high traffic right now and hit a rate limit. Please try again in a moment." });
       } else if (response.status === 503) {
-         return res.json({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." });
+        return res.json({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." });
       }
-      
+
       return res.status(500).json({ error: "Failed to communicate with Gemini", details: errorData });
     }
 
@@ -248,7 +264,7 @@ Additional Rules:
         buffer += chunkText;
         const lines = buffer.split("\n");
         buffer = lines.pop() || "";
-        
+
         for (const line of lines) {
           if (line.startsWith("data: ")) {
             const dataStr = line.replace("data: ", "").trim();
