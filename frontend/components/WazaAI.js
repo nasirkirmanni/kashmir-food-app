@@ -140,6 +140,18 @@ export default function WazaAI() {
           }
         }
       }
+      
+      if (!assistantMessage.trim()) {
+        assistantMessage = "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?";
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = { 
+            ...newMessages[newMessages.length - 1], 
+            content: assistantMessage 
+          };
+          return newMessages;
+        });
+      }
     } catch (error) {
       setIsLoading(false);
       setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting right now." }]);

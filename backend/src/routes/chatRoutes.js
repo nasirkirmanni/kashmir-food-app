@@ -256,6 +256,7 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
 
+    let hasSentText = false;
     try {
       const decoder = new TextDecoder("utf-8");
       let buffer = "";
@@ -273,6 +274,7 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
               const parsed = JSON.parse(dataStr);
               const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
               if (text) {
+                hasSentText = true;
                 res.write(`data: ${JSON.stringify({ reply: text })}\n\n`);
               }
             } catch (e) {
@@ -296,6 +298,10 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       }
       if (buffer) {
         processBuffer("\n"); // flush
+      }
+
+      if (!hasSentText) {
+        res.write(`data: ${JSON.stringify({ reply: "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?" })}\n\n`);
       }
     } catch (err) {
       console.error("Stream reading error:", err);

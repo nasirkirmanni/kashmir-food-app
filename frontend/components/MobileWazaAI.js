@@ -234,6 +234,18 @@ export default function MobileWazaAI({ initialPrompt }) {
           }
         }
       }
+      
+      if (!assistantMessage.trim()) {
+        assistantMessage = "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?";
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = { 
+            ...newMessages[newMessages.length - 1], 
+            content: assistantMessage 
+          };
+          return newMessages;
+        });
+      }
     } catch (error) {
       console.error("Chat Error:", error);
       setIsLoading(false);
