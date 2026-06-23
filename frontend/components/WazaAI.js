@@ -55,6 +55,7 @@ export default function WazaAI() {
   }, [messages]);
 
   const userJustSentRef = useRef(false);
+  const isLoadingRef = useRef(isLoading);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -78,13 +79,14 @@ export default function WazaAI() {
   };
 
   const handleSendMessage = async (text) => {
-    if (!text.trim() || isLoading) return;
+    if (!text.trim() || isLoadingRef.current) return;
     
+    isLoadingRef.current = true;
+    setIsLoading(true);
     const userMessage = { role: "user", content: text };
     userJustSentRef.current = true;
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
-    setIsLoading(true);
 
     try {
       const response = await streamRequest(endpoints.chat, {
@@ -92,7 +94,6 @@ export default function WazaAI() {
         body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
 
-      setIsLoading(false);
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
       const reader = response.body.getReader();
@@ -153,8 +154,11 @@ export default function WazaAI() {
         });
       }
     } catch (error) {
+      console.error("Waza AI Fetch Error:", error);
+      setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
+    } finally {
+      isLoadingRef.current = false;
       setIsLoading(false);
-      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting right now." }]);
     }
   };
 

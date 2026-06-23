@@ -412,36 +412,47 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
                               Only exactly <strong>16 authoritative dishes</strong> make up the official trami banquet sequence. Every dish is served in a strict traditional progression.
                             </p>
                           </div>
-                          <div className="lg:w-1/2 bg-[var(--saffron-pale)] border border-[var(--saffron)]/10 rounded-2xl p-6 backdrop-blur-md">
-                            <h4 className="text-[var(--saffron)] text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
-                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          <div className="lg:w-1/2 w-full bg-gradient-to-br from-white via-[#fcf8ef] to-[#f2e5c6] border border-[#C8A46A]/30 shadow-[0_8px_30px_rgba(200,164,106,0.2)] rounded-[24px] p-6 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#C8A46A]/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                            <h4 className="relative z-10 text-[#1a130a] text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
+                              <svg className="w-4 h-4 text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                               </svg>
-                              Trami Platter Etiquette
+                              All things Wazwan
                             </h4>
-                            <ul className="text-xs text-white/80 space-y-2.5 list-disc list-inside leading-relaxed mb-5">
-                              <li>Guests wash hands in a mobile copper basin, the <strong>Tash-t-Næær</strong>, brought right to their seat.</li>
-                              <li>The platter is covered by a dome lid called a <strong>Sarposh</strong>, which is removed only when all guests are seated.</li>
-                              <li>Dishes are eaten collectively with fingers directly from the trami platter, symbolizing brotherhood and equality.</li>
-                            </ul>
-                            <Link href="/etiquette" className="block bg-black/20 border border-[var(--saffron)]/30 rounded-xl p-4 hover:bg-black/30 transition-colors group">
-                              <div className="flex items-center justify-between">
-                                <div>
-                                  <h5 className="text-[var(--saffron)] font-bold text-sm mb-1 group-hover:text-white transition-colors">Wazwan Etiquette Guide</h5>
-                                  <p className="text-white/60 text-xs">Learn the 7 unwritten rules of dining.</p>
+                            <p className="relative z-10 text-xs text-[#665d50] leading-relaxed mb-5">
+                              Explore the authentic ingredients, traditional etiquette, and rich history of the Kashmiri Wazwan feast.
+                            </p>
+                            
+                            <div className="relative z-10 space-y-3">
+                              <Link href="/etiquette" className="block bg-white/70 backdrop-blur-sm border border-[#C8A46A]/20 rounded-xl p-4 hover:bg-white/90 hover:border-[#C8A46A]/40 transition-all group shadow-sm">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h5 className="text-[#1a130a] font-display font-black text-sm mb-1 group-hover:text-[#C8A46A] transition-colors">Wazwan Etiquette Guide</h5>
+                                    <p className="text-[#665d50] font-medium text-[11px]">Learn the 7 unwritten rules of dining.</p>
+                                  </div>
+                                  <svg className="w-4 h-4 text-[#C8A46A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </div>
-                                <span className="text-[var(--saffron)] group-hover:translate-x-1 transition-transform">&rarr;</span>
-                              </div>
-                            </Link>
-                            <Link href="/kashmiri-food/wazwan/guide" className="block bg-black/20 border border-[var(--saffron)]/30 rounded-xl p-4 hover:bg-black/30 transition-colors group mt-3">
-                              <div className="flex items-center justify-between">
-                                <div>
-                                  <h5 className="text-[var(--saffron)] font-bold text-sm mb-1 group-hover:text-white transition-colors">Wazwan Guidebook</h5>
-                                  <p className="text-white/60 text-xs">Read deep-dives on history, costs, and dishes.</p>
+                              </Link>
+                              <Link href="/kashmiri-food/wazwan/guide" className="block bg-white/70 backdrop-blur-sm border border-[#C8A46A]/20 rounded-xl p-4 hover:bg-white/90 hover:border-[#C8A46A]/40 transition-all group shadow-sm">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h5 className="text-[#1a130a] font-display font-black text-sm mb-1 group-hover:text-[#C8A46A] transition-colors">Wazwan Guidebook</h5>
+                                    <p className="text-[#665d50] font-medium text-[11px]">Read deep-dives on history, costs, and dishes.</p>
+                                  </div>
+                                  <svg className="w-4 h-4 text-[#C8A46A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </div>
-                                <span className="text-[var(--saffron)] group-hover:translate-x-1 transition-transform">&rarr;</span>
-                              </div>
-                            </Link>
+                              </Link>
+                              <Link href="/recipes" className="block bg-white/70 backdrop-blur-sm border border-[#C8A46A]/20 rounded-xl p-4 hover:bg-white/90 hover:border-[#C8A46A]/40 transition-all group shadow-sm">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h5 className="text-[#1a130a] font-display font-black text-sm mb-1 group-hover:text-[#C8A46A] transition-colors">Ingredients and Recipes</h5>
+                                    <p className="text-[#665d50] font-medium text-[11px]">Discover the core spices and cooking methods.</p>
+                                  </div>
+                                  <svg className="w-4 h-4 text-[#C8A46A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                </div>
+                              </Link>
+                            </div>
                           </div>
                         </div>
 

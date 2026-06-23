@@ -6,6 +6,7 @@ import { Destination } from "../models/Destination.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { openrouter } from "../config/openrouter.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,6 +18,12 @@ const KASHMIR_KNOWLEDGE_BASE = fs.readFileSync(
 
 const router = express.Router();
 
+let cachedDests = null;
+let cachedRests = null;
+let cachedDishes = null;
+let lastCacheTime = 0;
+const CACHE_TTL = 1000 * 60 * 10; // 10 minutes
+
 router.post(
   "/",
   asyncHandler(async (req, res) => {
@@ -26,13 +33,13 @@ router.post(
       return res.status(400).json({ error: "Invalid messages array" });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.OPENROUTER_API_KEY;
 
     if (!apiKey) {
       res.setHeader("Content-Type", "text/event-stream");
       res.setHeader("Cache-Control", "no-cache");
       res.setHeader("Connection", "keep-alive");
-      res.write(`data: ${JSON.stringify({ reply: "I am missing my GEMINI_API_KEY on the server. Please ensure it is set in your backend .env file." })}\n\n`);
+      res.write(`data: ${JSON.stringify({ reply: "I am missing my OPENROUTER_API_KEY on the server. Please ensure it is set in your backend .env file." })}\n\n`);
       return res.end();
     }
 
@@ -152,15 +159,27 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       const lastMessage = messages[messages.length - 1]?.content || "";
       const queryWords = lastMessage.toLowerCase().split(/\s+/);
 
+      // Fetch or use cached data
+      if (!cachedDests || Date.now() - lastCacheTime > CACHE_TTL) {
+        const [dests, rests, dishes] = await Promise.all([
+          Destination.find({}, "name location description bestTimeToVisit authenticityScore touristFriendlinessScore luxuryScore").lean(),
+          Restaurant.find({}, "name location city rating priceLevel authentic authenticityScore touristFriendlinessScore luxuryScore").lean(),
+          Dish.find({}, "name description category categoryType foodType authenticityScore touristFriendlinessScore luxuryScore").lean()
+        ]);
+        cachedDests = dests;
+        cachedRests = rests;
+        cachedDishes = dishes;
+        lastCacheTime = Date.now();
+      }
+
       // Search destinations
-      const dests = await Destination.find({}, "name location description bestTimeToVisit authenticityScore touristFriendlinessScore luxuryScore").lean();
-      const matchedDests = dests.filter(d =>
+      const matchedDests = cachedDests.filter(d =>
         queryWords.some(word => d.name.toLowerCase().includes(word) || d.location.toLowerCase().includes(word))
       );
 
       const finalDests = matchedDests.length > 0 ? matchedDests : (
         lastMessage.toLowerCase().match(/(visit|place|destination|tourism|travel|kashmir|go to|stay|hotel)/)
-          ? dests.slice(0, 8) : []
+          ? cachedDests.slice(0, 8) : []
       );
 
       if (finalDests.length > 0) {
@@ -170,14 +189,13 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       }
 
       // Search restaurants
-      const rests = await Restaurant.find({}, "name location city rating priceLevel authentic authenticityScore touristFriendlinessScore luxuryScore").lean();
-      const matchedRests = rests.filter(r =>
+      const matchedRests = cachedRests.filter(r =>
         queryWords.some(word => r.name.toLowerCase().includes(word) || r.city.toLowerCase().includes(word))
       );
 
       const finalRests = matchedRests.length > 0 ? matchedRests : (
         lastMessage.toLowerCase().match(/(eat|restaurant|dine|dining|food joint|place to eat|cafe|dhaba|recommend)/)
-          ? rests.slice(0, 8) : []
+          ? cachedRests.slice(0, 8) : []
       );
 
       if (finalRests.length > 0) {
@@ -187,16 +205,14 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       }
 
       // Search dishes with categoryType filtering
-      const dishes = await Dish.find({}, "name description category categoryType foodType authenticityScore touristFriendlinessScore luxuryScore").lean();
-
-      let filteredDishes = dishes;
+      let filteredDishes = cachedDishes;
       const lowerLastMessage = lastMessage.toLowerCase();
       const isWazwanQuery = lowerLastMessage.includes("what is wazwan") ||
         lowerLastMessage.includes("wazwan only") ||
         (lowerLastMessage.includes("wazwan") && !lowerLastMessage.includes("kashmiri food") && !lowerLastMessage.includes("kashmiri cuisine"));
 
       if (isWazwanQuery) {
-        filteredDishes = dishes.filter(d => d.categoryType === "wazwan");
+        filteredDishes = cachedDishes.filter(d => d.categoryType === "wazwan");
       }
 
       const matchedDishes = filteredDishes.filter(d =>
@@ -217,96 +233,75 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       console.error("Failed to inject DB context in chat:", dbErr);
     }
 
-    // Map the messages to the format Gemini expects
-    const geminiMessages = messages.map(msg => ({
-      role: msg.role === "assistant" ? "model" : msg.role,
-      parts: [{ text: msg.content }]
+    // Map the messages to the format OpenRouter expects
+    let validMessages = messages.map(msg => ({
+      role: msg.role === "assistant" ? "assistant" : msg.role,
+      content: msg.content
     }));
 
-    // Calling Gemini 3.5 Flash (Streaming)
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: systemPrompt + (contextString ? "\n\nCRITICAL CONTEXT FROM DATABASE (Prioritize this data over general knowledge):\n" + contextString : "") }]
-        },
-        contents: geminiMessages,
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 8192,
-        }
-      }),
+    // Filter to ensure strictly alternating user/assistant pattern starting with user
+    const filteredMessages = [];
+    let expectedRole = "user";
+    
+    // We iterate backwards to keep the most recent context
+    for (let i = validMessages.length - 1; i >= 0; i--) {
+      // If we find the expected role, add it to the front of our valid array
+      if (validMessages[i].role === expectedRole) {
+        filteredMessages.unshift(validMessages[i]);
+        // Toggle the expected role
+        expectedRole = expectedRole === "user" ? "assistant" : "user";
+      }
+    }
+
+    // Prepend the system prompt and context as the first message
+    filteredMessages.unshift({
+      role: "system",
+      content: systemPrompt + (contextString ? "\n\nCRITICAL CONTEXT FROM DATABASE (Prioritize this data over general knowledge):\n" + contextString : "")
     });
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("Gemini API Error:", errorData);
-
-      res.setHeader("Content-Type", "text/event-stream");
-      res.setHeader("Cache-Control", "no-cache");
-      res.setHeader("Connection", "keep-alive");
-
-      if (response.status === 429) {
-        res.write(`data: ${JSON.stringify({ reply: "I am experiencing high traffic right now and hit a rate limit. Please try again in a moment." })}\n\n`);
-        return res.end();
-      } else if (response.status === 503) {
-        res.write(`data: ${JSON.stringify({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." })}\n\n`);
-        return res.end();
-      }
-
-      res.write(`data: ${JSON.stringify({ error: "Failed to communicate with Gemini" })}\n\n`);
-      return res.end();
-    }
+    // Model Fallback Pool: If one hits a rate limit (429) or fails, try the next
+    const modelsToTry = [
+      "qwen/qwen3-32b", // Primary Qwen model (tested and fast)
+      "google/gemma-4-26b-a4b-it:free" // Fallback free model
+    ];
+    let stream = null;
+    let lastErrorData = null;
 
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
 
+    for (const model of modelsToTry) {
+      try {
+        stream = await openrouter.chat.completions.create({
+          model: model,
+          messages: filteredMessages,
+          stream: true,
+          temperature: 0.7,
+          max_tokens: 8192,
+        });
+        break; // Success! Break out of the fallback loop.
+      } catch (err) {
+        console.warn(`Model ${model} hit an error. Falling back... Error:`, err.message);
+        lastErrorData = err;
+        continue;
+      }
+    }
+
+    if (!stream) {
+      console.error("OpenRouter API Exhausted all models. Last Error:", lastErrorData);
+      res.write(`data: ${JSON.stringify({ reply: "All of our chef's kitchens are experiencing exceptionally high traffic right now. Please try again in a minute." })}\n\n`);
+      return res.end();
+    }
+
     let hasSentText = false;
     try {
-      const decoder = new TextDecoder("utf-8");
-      let buffer = "";
-
-      const processBuffer = (chunkText) => {
-        buffer += chunkText;
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || "";
-
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const dataStr = line.replace("data: ", "").trim();
-            if (dataStr === "[DONE]") continue;
-            try {
-              const parsed = JSON.parse(dataStr);
-              const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
-              if (text) {
-                hasSentText = true;
-                res.write(`data: ${JSON.stringify({ reply: text })}\n\n`);
-              }
-            } catch (e) {
-              // Ignore invalid JSON lines
-            }
-          }
+      for await (const chunk of stream) {
+        const text = chunk.choices[0]?.delta?.content || "";
+        if (text) {
+          hasSentText = true;
+          res.write(`data: ${JSON.stringify({ reply: text })}\n\n`);
         }
-      };
-
-      if (response.body.getReader) {
-        const reader = response.body.getReader();
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          processBuffer(decoder.decode(value, { stream: true }));
-        }
-      } else {
-        for await (const chunk of response.body) {
-          processBuffer(decoder.decode(chunk, { stream: true }));
-        }
-      }
-      if (buffer) {
-        processBuffer("\n"); // flush
       }
 
       if (!hasSentText) {

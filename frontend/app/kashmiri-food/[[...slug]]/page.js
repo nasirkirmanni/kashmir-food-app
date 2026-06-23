@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import dynamic from "next/dynamic";
 const KashmiriFoodClient = dynamic(() => import("../KashmiriFoodClient"), { ssr: true });
 import GuidebookIndexClient from "../GuidebookIndexClient";
+import AskWazaAIPrompt from "../AskWazaAIPrompt";
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 
@@ -447,6 +448,8 @@ export default function Page({ params }) {
                 return article.content + relatedMarkdown;
               })()}
             </ReactMarkdown>
+            
+            <AskWazaAIPrompt articleTitle={article.title} />
           </div>
         </article>
       </div>

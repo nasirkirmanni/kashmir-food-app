@@ -157,6 +157,7 @@ export default function MobileWazaAI({ initialPrompt }) {
   }, []);
 
   const userJustSentRef = useRef(false);
+  const isLoadingRef = useRef(isLoading);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -171,14 +172,15 @@ export default function MobileWazaAI({ initialPrompt }) {
   }, [messages, isLoading]);
 
   const handleSendMessage = async (text) => {
-    if (!text.trim() || isLoading) return;
+    if (!text.trim() || isLoadingRef.current) return;
     setHasStartedChat(true);
 
+    isLoadingRef.current = true;
+    setIsLoading(true);
     const userMessage = { role: "user", content: text };
     userJustSentRef.current = true;
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
-    setIsLoading(true);
 
     try {
       const response = await streamRequest(endpoints.chat, {
@@ -186,7 +188,6 @@ export default function MobileWazaAI({ initialPrompt }) {
         body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
 
-      setIsLoading(false); // Stop loading animation since response started
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
       const reader = response.body.getReader();
@@ -248,11 +249,13 @@ export default function MobileWazaAI({ initialPrompt }) {
       }
     } catch (error) {
       console.error("Chat Error:", error);
-      setIsLoading(false);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "I encountered an error connecting to the server. Please try again." }
+        { role: "assistant", content: `I encountered an error connecting to the server. Please try again. (${error.message})` }
       ]);
+    } finally {
+      isLoadingRef.current = false;
+      setIsLoading(false);
     }
   };
 

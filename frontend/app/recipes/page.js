@@ -47,7 +47,21 @@ export default function RecipesPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const coreDishNames = [
+    "tabak maaz",
+    "seekh kebab",
+    "methi maaz",
+    "rista",
+    "rogan josh",
+    "daniwal korma",
+    "aab gosht",
+    "marchwangan korma",
+    "yakhni",
+    "gushtaba"
+  ];
+
   const filteredDishes = dishes.filter(dish => 
+    coreDishNames.includes(dish.name.toLowerCase()) &&
     dish.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -114,52 +128,98 @@ export default function RecipesPage() {
   };
 
   return (
-    <div className="wazwan-shell min-h-screen pb-20">
-      <section className="place-hero">
-        <div>
-          <span className="place-eyebrow">The Wazwan Way</span>
-          <h1>Secret Recipes</h1>
-          <p>Discover the precise, step-by-step methods behind authentic Kashmiri dishes.</p>
+    <div className="wazwan-shell min-h-screen pb-20 bg-[#0a0a0a]">
+      <section className="pt-32 pb-8 px-4 sm:px-6 max-w-4xl mx-auto">
+        <div className="mb-10">
+          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.2em] block mb-3">
+            RECIPES <span className="opacity-50">—</span>
+          </span>
+          <h1 className="text-4xl md:text-5xl font-display text-white mb-4 leading-tight">
+            Authentic Kashmiri<br/>Recipes
+          </h1>
+          <p className="text-white/60 text-sm md:text-base max-w-lg leading-relaxed">
+            Explore traditional Wazwan delicacies, regional favorites and everyday comfort food.
+          </p>
         </div>
-      </section>
 
-      <section className="places-wrap pt-0 md:-mt-8">
-        <div className="place-section border-t-0 pt-0">
-          <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-10 mb-8">
+        <div className="bg-[#141414] rounded-3xl border border-white/5 overflow-hidden">
+          {/* Search bar inside the block to replace pills */}
+          <div className="p-4 sm:p-5 border-b border-white/5">
             <input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search recipes..."
+              placeholder="Search Wazwan recipes..."
               className="w-full rounded-xl border border-white/10 bg-black/40 text-white/90 placeholder-white/30 px-4 py-3 text-sm outline-none focus:border-[var(--saffron)] transition-colors"
             />
           </div>
-
-          <div className="bg-[#111] rounded-2xl border border-white/10 overflow-hidden">
-            {loading ? (
-              <div className="p-8 text-center text-white/50">Loading recipes...</div>
-            ) : error ? (
-              <div className="p-8 text-center text-red-400">{error}</div>
-            ) : filteredDishes.length === 0 ? (
-              <div className="p-8 text-center text-white/50">No recipes found.</div>
-            ) : (
-              <ul className="divide-y divide-white/5">
-                {filteredDishes.map((dish) => (
-                  <li key={dish._id} className="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-white/5 transition-colors">
-                    <div>
-                      <h3 className="font-display text-xl text-white tracking-wide">{dish.name}</h3>
-                      <p className="text-xs text-[var(--saffron)] uppercase tracking-widest mt-1">{dish.category}</p>
+          {loading ? (
+            <div className="p-10 text-center text-white/50">Loading recipes...</div>
+          ) : error ? (
+            <div className="p-10 text-center text-red-400">{error}</div>
+          ) : filteredDishes.length === 0 ? (
+            <div className="p-10 text-center text-white/50">No recipes found.</div>
+          ) : (
+            <ul className="flex flex-col p-4 gap-4">
+              {filteredDishes.map((dish, index) => (
+                <li key={dish._id} className="relative group bg-[#1c1c1c] border border-white/5 rounded-2xl p-5 hover:bg-[#222] hover:border-white/10 transition-all duration-300">
+                  <div className="flex gap-4 sm:gap-5">
+                    {/* Number block */}
+                    <div className="hidden sm:flex flex-shrink-0 w-14 h-14 items-center justify-center rounded-xl border border-white/10 bg-[#141414] text-[var(--saffron)] font-display text-xl">
+                      {index + 1}
                     </div>
-                    <button
-                      onClick={() => handleExploreRecipe(dish)}
-                      className="shrink-0 w-full sm:w-auto text-center rounded-full border border-[var(--saffron)] bg-[var(--saffron)]/10 px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-[var(--saffron)] transition-all hover:bg-[var(--saffron)] hover:text-black active:scale-95"
-                    >
-                      Explore Recipe
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+
+                    {/* Image Thumbnail */}
+                    {dish.image && (
+                      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border border-white/10">
+                        <img 
+                          src={dish.image.startsWith('http') ? dish.image : `https://wazwanway.com${dish.image}`} 
+                          alt={dish.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          onError={(e) => { e.target.src = '/images/dishes/rogan-josh.webp'; }}
+                        />
+                      </div>
+                    )}
+                    
+                    {/* Content */}
+                    <div className="flex-1 pr-10 sm:pr-12">
+                      <h3 className="font-display text-2xl text-white tracking-wide mb-1">{dish.name}</h3>
+                      <p className="text-[0.65rem] font-bold text-[var(--saffron)] uppercase tracking-[0.15em] mb-3">{dish.category}</p>
+                      <p className="text-sm text-white/50 leading-relaxed mb-6 max-w-lg">{dish.description}</p>
+                      
+                      {/* Metadata Row */}
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/40">
+                        <div className="flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2"/><path d="M12 6v6l4 2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {dish.time || "45 mins"}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M18 20V10m-6 10V4M6 20v-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {dish.spiceLevel || "Medium"}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {dish.servings || "4 Servings"}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bookmark Icon */}
+                  <button className="absolute top-5 right-5 text-white/30 hover:text-white transition-colors">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-7-3.5L5 21V5z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+
+                  {/* Explore Arrow Button */}
+                  <button
+                    onClick={() => handleExploreRecipe(dish)}
+                    className="absolute bottom-5 right-5 w-10 h-10 rounded-full border border-[var(--saffron)]/30 flex items-center justify-center text-[var(--saffron)] hover:bg-[var(--saffron)] hover:text-black transition-all group-hover:border-[var(--saffron)]"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
