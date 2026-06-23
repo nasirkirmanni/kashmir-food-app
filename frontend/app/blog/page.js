@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = ["All", "Heritage Cookery", "Bread Culture", "Tea Rituals", "Dine Etiquette"];
+  const categories = ["All", "Heritage Cookery", "Bread Culture", "Tea Rituals", "Dine Etiquette", "Spice Heritage"];
 
   const posts = [
     {
@@ -51,6 +51,56 @@ export default function BlogPage() {
       author: "Suhail Rather",
       category: "Dine Etiquette",
       excerpt: "To eat from a Trami is to share a bond of brotherhood. You sit in groups of four, removing shoes, and washing hands with the Tasht-naer..."
+    },
+    {
+      title: "What is Ver Masala? The Secret Spice Behind Authentic Wazwan",
+      slug: "what-is-ver-masala",
+      summary: "Discover the labor-intensive history and pungent aromatic profile of the sun-dried spice cake that defines Kashmiri cooking.",
+      readTime: "6 min read",
+      date: "June 23, 2026",
+      author: "Waza Rashid",
+      category: "Spice Heritage",
+      excerpt: "At the heart of Kashmiri culinary identity lies a closely guarded secret, a flavor profile so complex and punchy that it defines the very soul of the region's dishes..."
+    },
+    {
+      title: "Kashmiri Saffron: Why Pampore Produces the World's Finest Saffron",
+      slug: "pampore-kashmiri-saffron",
+      summary: "Explore the ancient karewa soils of Pampore and the painstaking dawn harvests that yield the world's most potent and expensive spice.",
+      readTime: "7 min read",
+      date: "June 23, 2026",
+      author: "Zoya Jan",
+      category: "Spice Heritage",
+      excerpt: "Saffron is the world's most expensive spice, a literal weight-in-gold commodity. While it is grown in countries like Iran and Spain, Kashmiri Saffron is universally recognized..."
+    },
+    {
+      title: "Kashmiri Red Chili: The Spice That Gives Wazwan Its Iconic Color",
+      slug: "kashmiri-red-chili",
+      summary: "How a surprisingly mild chili pepper creates the fiery crimson illusion that characterizes the legendary Kashmiri Rogan Josh.",
+      readTime: "5 min read",
+      date: "June 23, 2026",
+      author: "Adnan Kirmanni",
+      category: "Spice Heritage",
+      excerpt: "If you look at a traditional spread of Kashmiri Wazwan, you will be struck by a brilliant, fiery sea of crimson. Dishes like Rogan Josh and Rista sit on the copper Trami glistening..."
+    },
+    {
+      title: "Nadru (Lotus Stem): Kashmir's Most Loved Vegetable",
+      slug: "nadru-lotus-stem-kashmir",
+      summary: "Dive deep into the waters of Dal Lake to discover the crunchy, versatile lotus stem that anchors the Kashmiri vegetable diet.",
+      readTime: "5 min read",
+      date: "June 23, 2026",
+      author: "Zoya Jan",
+      category: "Heritage Cookery",
+      excerpt: "While the fame of Kashmiri cuisine often centers around the meat-heavy Wazwan, no vegetable commands as much respect, love, and cultural significance in the valley as Nadru—the lotus stem..."
+    },
+    {
+      title: "Fennel and Dry Ginger: The Flavor Foundation of Traditional Wazwan",
+      slug: "fennel-and-dry-ginger-wazwan",
+      summary: "Understanding the sweet aniseed and pungent warmth that creates the complex, aromatic backbone of Kashmiri meat dishes.",
+      readTime: "6 min read",
+      date: "June 23, 2026",
+      author: "Waza Rashid",
+      category: "Spice Heritage",
+      excerpt: "When outsiders attempt to recreate Kashmiri cuisine, they often make a critical error: they reach for the onion, garlic, and tomato. While these ingredients dominate the rest of the Indian subcontinent..."
     }
   ];
 
