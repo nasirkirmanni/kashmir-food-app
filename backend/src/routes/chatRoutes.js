@@ -29,9 +29,11 @@ router.post(
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      return res.json({
-        reply: "I am missing my GEMINI_API_KEY on the server. Please ensure it is set in your backend .env file."
-      });
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+      res.write(`data: ${JSON.stringify({ reply: "I am missing my GEMINI_API_KEY on the server. Please ensure it is set in your backend .env file." })}\n\n`);
+      return res.end();
     }
 
     const currentDateTime = new Date().toLocaleString("en-US", {
@@ -243,13 +245,20 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       const errorData = await response.json().catch(() => ({}));
       console.error("Gemini API Error:", errorData);
 
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+
       if (response.status === 429) {
-        return res.json({ reply: "I am experiencing high traffic right now and hit a rate limit. Please try again in a moment." });
+        res.write(`data: ${JSON.stringify({ reply: "I am experiencing high traffic right now and hit a rate limit. Please try again in a moment." })}\n\n`);
+        return res.end();
       } else if (response.status === 503) {
-        return res.json({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." });
+        res.write(`data: ${JSON.stringify({ reply: "The kitchen is a bit overloaded at the moment (Gemini API 503 Error). Please try again in a few seconds." })}\n\n`);
+        return res.end();
       }
 
-      return res.status(500).json({ error: "Failed to communicate with Gemini", details: errorData });
+      res.write(`data: ${JSON.stringify({ error: "Failed to communicate with Gemini" })}\n\n`);
+      return res.end();
     }
 
     res.setHeader("Content-Type", "text/event-stream");
