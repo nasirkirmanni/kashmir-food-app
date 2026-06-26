@@ -5,14 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { endpoints, request } from "@/lib/api";
 
-function getOptimizedImage(url, size = 1200) {
-  if (!url) return "/wazwan-hero.jpg";
-  if (url.includes("/images/Destinations/")) {
-    if (url.includes("/optimized/")) return url;
-    return url.replace("/images/Destinations/", "/images/Destinations/optimized/").replace(/\.(jpg|jpeg|png)$/i, `-${size}.avif`);
-  }
-  return url;
-}
+// Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
 
 export default function DestinationDetailClient({ initialDestination, params }) {
   const [destination, setDestination] = useState(initialDestination);
@@ -58,7 +51,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
       {/* Hero Image Section */}
       <div className="relative h-[50vh] min-h-[400px] w-full">
         <Image
-          src={getOptimizedImage(destination.image, 1200)}
+          src={destination.image || "/wazwan-hero.jpg"}
           alt={destination.name}
           fill
           className="object-cover"

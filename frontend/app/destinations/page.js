@@ -6,14 +6,7 @@ import { endpoints, request } from "@/lib/api";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-function getOptimizedImage(url, size = 800) {
-  if (!url) return "/wazwan-hero.jpg";
-  if (url.includes("/images/Destinations/")) {
-    if (url.includes("/optimized/")) return url;
-    return url.replace("/images/Destinations/", "/images/Destinations/optimized/").replace(/\.(jpg|jpeg|png)$/i, `-${size}.avif`);
-  }
-  return url;
-}
+// Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
 
 import destinationsData from "@/data/destinations.json";
 
@@ -170,7 +163,7 @@ export default function VisitKashmirPage() {
                 {/* Image top */}
                 <div className="relative h-16 xs:h-20 sm:h-24 md:h-48 w-full overflow-hidden bg-black/40">
                   <Image
-                    src={getOptimizedImage(dest.image, 800)}
+                    src={dest.image || "/wazwan-hero.jpg"}
                     alt={dest.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
