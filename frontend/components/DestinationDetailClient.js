@@ -21,7 +21,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
 
   useEffect(() => {
     if (!destination && params?.slug) {
-      request(endpoints.destination(params.slug))
+      request(endpoints.destination(params.slug) + "?v=" + Date.now())
         .then((data) => {
           setDestination(data);
           setLoading(false);
@@ -121,6 +121,20 @@ export default function DestinationDetailClient({ initialDestination, params }) 
           <div className="md:col-span-1 space-y-8">
             {/* Meta Info Box */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-sm">
+              
+              {/* Locate on Map Button */}
+              <a 
+                href={`https://maps.google.com/?q=${encodeURIComponent(destination.name + ' Kashmir')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-[#c8a46a]/10 border border-[#c8a46a] text-[#c8a46a] rounded-xl py-4 font-bold uppercase tracking-widest text-xs hover:bg-[#c8a46a] hover:text-black transition-all mb-8 shadow-[0_0_20px_rgba(200,164,106,0.15)]"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                Locate on Map
+              </a>
               {destination.bestTimeToVisit && (
                 <div className="mb-6 pb-6 border-b border-white/10">
                   <div className="text-[0.6rem] font-bold uppercase tracking-widest text-white/50 mb-2">Best Time To Visit</div>

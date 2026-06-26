@@ -14,11 +14,20 @@ module.exports = {
         cedar: "#214f3c",
         snow: "#f8f5ef",
         walnut: "#4a3428",
-        mist: "#dce7e1"
+        mist: "#dce7e1",
+        // Luxury Theme Colors
+        gold: "#D4AF63",
+        muted: "#B7B7B7",
+        dark: {
+          900: "#090909",
+          800: "#0F0F0F",
+          700: "#131313",
+        }
       },
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],
-        body: ["var(--font-body)", "Inter", "sans-serif"]
+        body: ["var(--font-body)", "Inter", "sans-serif"],
+        playfair: ["var(--font-playfair)", "serif"]
       },
       boxShadow: {
         card: "0 18px 50px rgba(30, 41, 59, 0.12)"

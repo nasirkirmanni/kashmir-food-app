@@ -25,7 +25,7 @@ export default function VisitKashmirPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    request(endpoints.destinations())
+    request(endpoints.destinations() + "?v=" + Date.now())
       .then((data) => {
         setDestinations(data);
         setLoading(false);

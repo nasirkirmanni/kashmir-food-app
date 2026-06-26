@@ -20,8 +20,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await fetch(`${API_BASE}/api/destinations/${params.slug}`, {
-      cache: "force-cache",
+    const res = await fetch(`${API_BASE}/api/destinations/${params.slug}?v=${Date.now()}`, {
+      cache: "no-store",
     });
     if (!res.ok) throw new Error("Not found");
     const destination = await res.json();
@@ -64,8 +64,8 @@ export async function generateMetadata({ params }) {
 export default async function DestinationDetailPage({ params }) {
   let destination = null;
   try {
-    const res = await fetch(`${API_BASE}/api/destinations/${params.slug}`, {
-      cache: "force-cache",
+    const res = await fetch(`${API_BASE}/api/destinations/${params.slug}?v=${Date.now()}`, {
+      cache: "no-store",
     });
     if (res.ok) {
       destination = await res.json();

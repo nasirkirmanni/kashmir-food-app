@@ -4,8 +4,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
+import { Tent, Mountain, Compass, SlidersHorizontal, ArrowRight } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import dynamic from "next/dynamic";
+
+import HeroSection from "@/components/visit-kashmir/HeroSection";
+import DestinationsShowcase from "@/components/visit-kashmir/DestinationsShowcase";
+import AuthenticWazwanShowcase from "@/components/visit-kashmir/AuthenticWazwanShowcase";
+import ItineraryShowcase from "@/components/visit-kashmir/ItineraryShowcase";
+import { TravelInfoGrid, TrustBar, BlogFAQSection, NewsletterBanner } from "@/components/visit-kashmir/InfoAndTrust";
 
 const WazaAITripPlannerModal = dynamic(() => import("@/components/WazaAITripPlannerModal"), { ssr: false });
 
@@ -507,45 +514,29 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
   };
 
   return (
-    <div className="wazwan-shell relative min-h-screen pb-24">
-      {/* Background gradients */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
+    <div className="bg-dark-900 text-white min-h-screen font-body overflow-x-hidden relative">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,99,0.03),transparent_50%)] pointer-events-none z-0" />
 
-      {/* Hero */}
-      <section className="place-hero !grid-cols-1 md:!grid-cols-[1fr_auto] gap-8 items-center border-b border-white/5 pb-12">
-        <div>
-          <span className="place-eyebrow">Luxury Travel Concierge</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-4">
-            Visit kashmir
-          </h1>
-          <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed mb-6">
-            Construct a personalized, score-weighted itinerary leveraging audited database reviews, local restaurants, and wazwan courses.
-          </p>
-          <button 
-            onClick={() => setIsWazaModalOpen(true)}
-            className="hidden md:inline-flex bg-gradient-to-r from-[var(--saffron)] to-[#e8c35e] text-black px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-transform shadow-[0_0_20px_rgba(212,175,55,0.3)] items-center gap-2"
-          >
-            <span>Let Waza AI Plan Your Trip ✨</span>
-          </button>
-        </div>
-        <div>
-          <Link href="/" className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold border border-white/10 px-6 py-3 rounded-full hover:border-white/30">
-            &larr; Back to Home
-          </Link>
-        </div>
-      </section>
+      <HeroSection onPlanClick={() => {
+        document.getElementById("planner-section")?.scrollIntoView({ behavior: "smooth" });
+      }} />
 
-      {/* Loading data state */}
-      {loadingData && (
-        <div className="max-w-3xl mx-auto px-4 mt-20 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--saffron)] mx-auto mb-4"></div>
-          <p className="text-white/60 text-xs font-bold uppercase tracking-widest">Querying database collections...</p>
-        </div>
-      )}
+      {/* FLOATING AI PLANNER */}
+      <div className="relative z-30 w-full max-w-[900px] mx-auto px-6 md:px-12 -mt-32 md:-mt-48 mb-32" id="planner-section">
+        <div className="bg-[#0e0d0b] border border-white/10 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] p-8 md:p-12 font-body">
+          <div className="max-w-4xl mx-auto">
+            
+            {/* Custom Progress Bar Segment */}
+            <div className="flex items-center justify-between mb-12">
+              <div className="flex-1 flex gap-2 mr-6">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map(s => (
+                  <div key={s} className={`h-0.5 w-full rounded-full ${s <= step ? 'bg-[#c8a46a]' : 'bg-[#333]'}`} />
+                ))}
+              </div>
+              <span className="text-[#888] text-sm whitespace-nowrap">Step {step} of 8</span>
+            </div>
 
-      {!loadingData && (
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-          <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait">
             {/* STEP 1: Duration Selector */}
             {step === 1 && (
               <motion.div
@@ -553,27 +544,24 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
-                className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md"
+                className="w-full"
               >
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-[var(--saffron)] text-[0.6rem] font-bold uppercase tracking-[0.25em]">
-                    Step 1 of 8: Duration
-                  </span>
-                  <span className="text-white/40 text-xs font-semibold">12% Complete</span>
+                <div className="text-[#c8a46a] text-sm font-semibold tracking-wider lowercase mb-3">
+                  duration
                 </div>
-                <h2 className="text-2xl md:text-3xl font-display font-medium text-white mb-6">
+                <h2 className="text-4xl md:text-5xl font-playfair font-medium text-white mb-10 tracking-tight">
                   How many days is your trip?
                 </h2>
 
                 {travelSeason === "Custom" && arrivalDate && leavingDate ? (
-                  <div className="mb-8 p-6 bg-black/40 border border-[var(--saffron)]/20 rounded-xl text-center">
-                    <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-widest block mb-2">
+                  <div className="mb-10 p-6 bg-[#1c1a17] border border-[#c8a46a]/20 rounded-2xl text-center">
+                    <span className="text-xs text-[#c8a46a] font-bold uppercase tracking-widest block mb-2">
                       Custom Dates Active (Read-Only)
                     </span>
-                    <div className="text-4xl font-display font-medium text-[var(--saffron)] mb-2">
+                    <div className="text-4xl font-display font-medium text-[#c8a46a] mb-2">
                       {duration} Days / {parseInt(duration) > 1 ? `${parseInt(duration) - 1} Nights` : '0 Nights'}
                     </div>
-                    <p className="text-white/70 text-xs mt-2 leading-relaxed">
+                    <p className="text-[#888] text-sm mt-2 leading-relaxed">
                       Arriving: <strong className="text-white">{arrivalDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</strong>
                       <br />
                       Departure: <strong className="text-white">{leavingDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</strong>
@@ -585,46 +573,52 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                         setArrivalDate(null);
                         setLeavingDate(null);
                       }}
-                      className="mt-4 text-[10px] text-white/50 hover:text-[var(--saffron)] underline transition-colors uppercase tracking-wider font-bold"
+                      className="mt-4 text-xs text-[#888] hover:text-[#c8a46a] underline transition-colors uppercase tracking-wider font-bold"
                     >
                       Reset to Standard Seasons
                     </button>
                   </div>
                 ) : (
                   <>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
                       {[
-                        { label: "3 Days", value: "3", desc: "Weekend getaway", mode: "predefined" },
-                        { label: "5 Days", value: "5", desc: "Classic Valley tour", mode: "predefined" },
-                        { label: "7 Days", value: "7", desc: "Wilderness explorer", mode: "predefined" },
-                        { label: "Custom Trip", value: "custom", desc: "Choose own duration", mode: "custom" }
-                      ].map((item) => (
-                        <button
-                          key={item.label}
-                          onClick={() => {
-                            setDurationMode(item.mode);
-                            if (item.value !== "custom") {
-                              setDuration(item.value);
-                            }
-                          }}
-                          className={`p-5 rounded-xl border text-center transition-all ${
-                            (item.mode === "custom" && durationMode === "custom") ||
-                            (item.mode === "predefined" && durationMode === "predefined" && duration === item.value)
-                              ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
-                              : "bg-black/30 border-white/10 text-white hover:border-white/30"
-                          }`}
-                        >
-                          <div className="text-base font-bold">{item.label}</div>
-                          <div className={`text-[0.62rem] mt-1 leading-normal ${
-                            (item.mode === "custom" && durationMode === "custom") ||
-                            (item.mode === "predefined" && durationMode === "predefined" && duration === item.value)
-                              ? "text-black/85"
-                              : "text-white/50"
-                          }`}>
-                            {item.desc}
-                          </div>
-                        </button>
-                      ))}
+                        { label: "3 days", value: "3", desc: "Weekend getaway", mode: "predefined", icon: Tent },
+                        { label: "5 days", value: "5", desc: "Classic valley tour", mode: "predefined", icon: Mountain, popular: true },
+                        { label: "7 days", value: "7", desc: "Wilderness explorer", mode: "predefined", icon: Compass },
+                        { label: "Custom", value: "custom", desc: "Choose own length", mode: "custom", icon: SlidersHorizontal }
+                      ].map((item) => {
+                        const isSelected = (item.mode === "custom" && durationMode === "custom") ||
+                                           (item.mode === "predefined" && durationMode === "predefined" && duration === item.value);
+                        
+                        return (
+                          <button
+                            key={item.label}
+                            onClick={() => {
+                              setDurationMode(item.mode);
+                              if (item.value !== "custom") {
+                                setDuration(item.value);
+                              }
+                            }}
+                            className={`relative flex flex-col items-center justify-center p-6 rounded-2xl transition-all duration-300 ${
+                              isSelected
+                                ? "bg-[#1c1a17] border border-[#c8a46a] shadow-[0_0_20px_rgba(200,164,106,0.1)]"
+                                : "bg-[#1c1a17] border border-white/5 hover:border-white/20"
+                            }`}
+                            style={{ minHeight: "160px" }}
+                          >
+                            {item.popular && (
+                              <div className="absolute -top-3 bg-[#c8a46a] text-black text-xs font-bold px-4 py-1 rounded-full z-10 shadow-lg">
+                                Popular
+                              </div>
+                            )}
+                            <item.icon className={`w-8 h-8 mb-4 ${isSelected ? "text-[#c8a46a]" : "text-[#888]"}`} strokeWidth={1.5} />
+                            <div className="text-xl font-bold text-white mb-1">{item.label}</div>
+                            <div className={`text-sm ${isSelected ? "text-[#c8a46a]" : "text-[#888]"}`}>
+                              {item.desc}
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
 
                     {/* Custom slider display (1 - 30 days) */}
@@ -632,12 +626,12 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                       <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
-                        className="mb-8 p-6 bg-black/40 border border-white/5 rounded-xl text-center"
+                        className="mb-12 p-8 bg-[#1c1a17] border border-[#c8a46a]/20 rounded-2xl text-center"
                       >
-                        <div className="text-xs uppercase tracking-widest text-white/50 mb-3">
+                        <div className="text-sm font-semibold tracking-wider text-[#888] mb-4">
                           Select Custom Duration
                         </div>
-                        <div className="text-4xl font-display font-medium text-[var(--saffron)] mb-4">
+                        <div className="text-5xl font-playfair font-medium text-[#c8a46a] mb-6">
                           {duration} Days
                         </div>
                         <input
@@ -646,9 +640,9 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                           max="30"
                           value={duration}
                           onChange={(e) => setDuration(e.target.value)}
-                          className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[var(--saffron)]"
+                          className="w-full h-1.5 bg-[#333] rounded-lg appearance-none cursor-pointer accent-[#c8a46a]"
                         />
-                        <div className="flex justify-between text-[0.6rem] text-white/40 mt-2">
+                        <div className="flex justify-between text-xs text-[#888] mt-3">
                           <span>1 Day</span>
                           <span>15 Days</span>
                           <span>30 Days</span>
@@ -658,15 +652,18 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                   </>
                 )}
 
-                <div className="flex justify-end border-t border-white/5 pt-6">
+                <div className="flex justify-between items-center border-t border-white/5 pt-8">
+                  <div className="text-[#888] text-sm">
+                    You can change this later
+                  </div>
                   <button
                     onClick={() => {
                       setInitialDuration(duration);
                       setStep(2);
                     }}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
+                    className="bg-[#9a2b3b] hover:bg-[#b03144] text-white rounded-xl px-8 py-3 text-base font-semibold transition-colors flex items-center gap-2"
                   >
-                    Next Step &rarr;
+                    Next step <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                   </button>
                 </div>
               </motion.div>
@@ -1280,10 +1277,10 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                   </button>
                   <button
                     onClick={handleGeneratePlan}
-                    disabled={selectedInterests.length === 0}
+                    disabled={selectedInterests.length === 0 || loadingData}
                     className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] disabled:opacity-50"
                   >
-                    Generate My Plan!
+                    {loadingData ? "Querying Database..." : "Generate My Plan!"}
                   </button>
                 </div>
               </motion.div>
@@ -1532,9 +1529,18 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </div>
             </motion.div>
           )}
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
         </div>
-      )}
+      </div>
+
+      <DestinationsShowcase />
+      <AuthenticWazwanShowcase />
+      <ItineraryShowcase />
+      <TravelInfoGrid />
+      <TrustBar />
+      <BlogFAQSection />
+      <NewsletterBanner />
 
       {/* PROMPT PREVIEW MODAL */}
       <AnimatePresence>
