@@ -85,7 +85,7 @@ const articles = [
   { category: "Guide", title: "A First Timer's Guide to Dal Lake Houseboats", readTime: "5 min read", date: "Oct 12, 2026", img: "/dal-lake-landscape.png" },
   { category: "Food", title: "Decoding the 36-Course Royal Wazwan", readTime: "8 min read", date: "Sep 28, 2026", img: "/wazwan-hero.jpg" },
   { category: "Culture", title: "The Art of Kashmiri Pashmina Weaving", readTime: "6 min read", date: "Sep 15, 2026", img: "/pashmina.png" },
-  { category: "Adventure", title: "Skiing in Gulmarg: What You Need to Know", readTime: "7 min read", date: "Aug 30, 2026", img: "/images/destinations/gulmarg.png" }
+  { category: "Adventure", title: "Skiing in Gulmarg: What You Need to Know", readTime: "7 min read", date: "Aug 30, 2026", img: "/images/Destinations/gulmarg.png" }
 ];
 
 const faqs = [
