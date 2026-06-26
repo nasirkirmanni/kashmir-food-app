@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { Star, MapPin } from "lucide-react";
 
 const destinations = [
-  { name: "Srinagar", subtitle: "The Heart of Kashmir", rating: 4.8, img: "/images/destinations/srinagar.png" },
-  { name: "Gulmarg", subtitle: "Snow Paradise", rating: 4.9, img: "/images/destinations/gulmarg.png" },
-  { name: "Pahalgam", subtitle: "Valley of Shepherds", rating: 4.8, img: "/images/destinations/pahalgam.png" },
-  { name: "Sonamarg", subtitle: "Meadow of Gold", rating: 4.7, img: "/images/destinations/sonamarg.png" },
-  { name: "Doodhpathri", subtitle: "Hidden Gem", rating: 4.6, img: "/images/destinations/doodhpathri.png" },
-  { name: "Gurez Valley", subtitle: "Untouched Beauty", rating: 4.7, img: "/images/destinations/gurez.png" }
+  { name: "Srinagar", subtitle: "The Heart of Kashmir", rating: 4.8, img: "/images/Destinations/srinagar.png" },
+  { name: "Gulmarg", subtitle: "Snow Paradise", rating: 4.9, img: "/images/Destinations/gulmarg.png" },
+  { name: "Pahalgam", subtitle: "Valley of Shepherds", rating: 4.8, img: "/images/Destinations/pahalgam.png" },
+  { name: "Sonamarg", subtitle: "Meadow of Gold", rating: 4.7, img: "/images/Destinations/sonamarg.png" },
+  { name: "Doodhpathri", subtitle: "Hidden Gem", rating: 4.6, img: "/images/Destinations/doodhpathri.png" },
+  { name: "Gurez Valley", subtitle: "Untouched Beauty", rating: 4.7, img: "/images/Destinations/gurez.png" }
 ];
 
 export default function DestinationsShowcase() {

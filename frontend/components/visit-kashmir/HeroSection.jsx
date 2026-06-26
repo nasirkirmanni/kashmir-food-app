@@ -101,7 +101,7 @@ export default function HeroSection({ onPlanClick }) {
             <div className="flex -space-x-3">
               {[1, 2, 3].map(i => (
                 <div key={i} className="w-8 h-8 rounded-full border-2 border-dark-900 bg-white/20 overflow-hidden relative">
-                   <Image src={`/avatar${i}.png`} alt={`Trusted User ${i}`} fill className="object-cover" />
+                   <Image src={`/avatar${i}.png`} alt={`Trusted User ${i}`} fill sizes="40px" className="object-cover" />
                 </div>
               ))}
             </div>

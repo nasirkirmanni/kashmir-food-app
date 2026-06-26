@@ -1265,10 +1265,10 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
               <div className="border border-white/10 rounded-3xl bg-white/5 py-16 text-center px-6">
                 <Info className="w-8 h-8 text-[var(--saffron)] mx-auto mb-3" />
                 {activeLocation.toLowerCase() === "srinagar" ? (
-                  <h3 className="text-lg font-bold text-white mb-2">No restaurants listed for Srinagar yet</h3>
+                  <h2 className="text-lg font-bold text-white mb-2">No restaurants listed for Srinagar yet</h2>
                 ) : (
                   <>
-                    <h3 className="text-lg font-bold text-white mb-2">No Dining Options Match</h3>
+                    <h2 className="text-lg font-bold text-white mb-2">No Dining Options Match</h2>
                     <p className="text-xs text-white/60 max-w-sm mx-auto leading-relaxed">
                       Try clearing some filter metrics or searches to view all heritage dining spaces.
                     </p>
@@ -1315,9 +1315,9 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
                 {/* 2b. Standard Listings */}
                 {standardListings.length > 0 && (
                   <div className="flex flex-col gap-5">
-                    <h3 className="text-xs font-black tracking-[0.25em] text-white/70 uppercase mb-1">
+                    <h2 className="text-xs font-black tracking-[0.25em] text-white/70 uppercase mb-1">
                       More Dining Rooms
-                    </h3>
+                    </h2>
                     {standardListings.slice(0, visibleLimit).map((restaurant) => (
                       <LuxuryRestaurantCard
                         key={restaurant._id || restaurant.slug}

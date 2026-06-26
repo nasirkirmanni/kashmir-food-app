@@ -94,7 +94,7 @@ export default function ItineraryShowcase() {
                       <div className="w-1.5 h-1.5 bg-gold rounded-full" />
                     </div>
                     <div>
-                      <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold block mb-0.5">Day {item.day}</span>
+                      <span className="text-white/70 text-[10px] uppercase tracking-widest font-bold block mb-0.5">Day {item.day}</span>
                       <span className="text-white/80 text-sm">{item.text}</span>
                     </div>
                   </div>
