@@ -52,7 +52,7 @@ export default function DesktopRestaurantTabs({
                     {location}
                   </p>
                   <p className="mt-1 flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[var(--saffron)]">
-                    {count} {count === 1 ? "Location" : "Locations"}
+                    {count === 0 ? "Coming soon" : `${count} ${count === 1 ? "Location" : "Locations"}`}
                   </p>
                 </div>
               </div>

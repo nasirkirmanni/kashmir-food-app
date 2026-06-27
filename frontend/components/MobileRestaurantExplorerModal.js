@@ -86,7 +86,7 @@ export default function MobileRestaurantExplorerModal({
                   </div>
                   <span className="font-display text-lg font-medium text-white">{location}</span>
                   <span className="mt-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)]">
-                    {count} Venues
+                    {count === 0 ? "Coming soon" : `${count} Venues`}
                   </span>
                 </div>
               </motion.a>

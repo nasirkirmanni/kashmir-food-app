@@ -6,6 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "cap-copy": "npx cap copy",
     "cap-sync": "npx cap sync"
   },
@@ -31,6 +33,7 @@
     "critters": "^0.0.23",
     "postcss": "^8.4.39",
     "sharp": "^0.35.1",
-    "tailwindcss": "^3.4.7"
+    "tailwindcss": "^3.4.7",
+    "vitest": "^3.2.6"
   }
 }
