@@ -290,7 +290,9 @@ export default function WazaAI() {
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-5 no-scrollbar scroll-smooth flex flex-col gap-4">
-              {messages.map((msg, idx) => (
+              {messages.map((msg, idx) => {
+                if (msg.role === "assistant" && !msg.content) return null;
+                return (
                 <div key={idx} className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div 
                     className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
@@ -321,9 +323,10 @@ export default function WazaAI() {
                     )}
                   </div>
                 </div>
-              ))}
+                );
+              })}
               
-              {isLoading && (
+              {isLoading && (!messages.length || messages[messages.length - 1].role === "user" || !messages[messages.length - 1].content) && (
                 <div className="flex w-full justify-start">
                   <div className="max-w-[85%] rounded-2xl rounded-bl-none bg-white/10 px-4 py-3 border border-white/5 flex items-center gap-2 text-sm text-white/70 italic">
                     Waza is thinking

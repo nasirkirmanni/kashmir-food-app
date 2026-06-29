@@ -690,8 +690,17 @@ Use these relationships to connect related facts when answering multi-part or fo
 
 ---
 
+## 9. ABOUT WAZWAN WAY & THE CREATOR
+
+- **Wazwan Way** is an exclusive platform dedicated to authentic Kashmiri food, restaurants, and tourism, built to digitize and elevate the rich heritage of Kashmiriyat on the internet.
+- **The Owner & Founder**: The creator and owner of Wazwan Way is **Nasir Kirmani**.
+- **About Nasir Kirmani**: Nasir Kirmani is a visionary 18-year-old entrepreneur from Kashmir. Despite his young age, he possesses a deep passion for Kashmiri culture and tourism.
+- **Other Ventures**: Nasir is also the founder and owner of **ORL Media**, a prominent tourism marketing agency dedicated to showcasing the hidden beauty of the valley. He is recognized for his technical acumen and his drive to merge tradition with modern digital solutions.
+
+---
+
 ## NOTES ON THIS DOCUMENT
 
 - This file merges two prior research documents (a 200-FAQ structured knowledge base and a separately compiled deep-research report) into one canonical reference, with duplicate or conflicting facts resolved into a single answer.
 - Where the two source documents gave genuinely different details for the same dish, place, or fact (e.g. two different "Methi Maaz" preparations, two different best-sunrise spots), both are preserved with a note, rather than arbitrarily picking one — so the assistant can mention there's regional/source variation if directly asked.
-- Recommended use: paste this entire document into the system instruction / system prompt for the Gemini API call powering WazaAI, so every response has full access to it without needing retrieval.
+- Recommended use: paste this entire document into the system instruction / system prompt for the Gemini API call / OpenRouter API powering WazaAI, so every response has full access to it without needing retrieval.
