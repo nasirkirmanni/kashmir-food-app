@@ -11,18 +11,166 @@ import { openrouter } from "../config/openrouter.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// ─── KNOWLEDGE BASE ───────────────────────────────────────────────────────────
+// Loaded once at startup. Never re-read from disk per request.
 const KASHMIR_KNOWLEDGE_BASE = fs.readFileSync(
   path.join(__dirname, "../Knowledge/kashmir-knowledge-base.md"),
   "utf-8"
 );
 
+// ─── STATIC SYSTEM PROMPT CORE ────────────────────────────────────────────────
+// Built ONCE at server startup, not on every request.
+// Dynamic parts (date, context) are appended at request time, keeping this
+// immutable portion out of the per-request hot path.
+const SYSTEM_PROMPT_CORE = `You are Waza AI, the Kashmiri food and culture assistant for Wazwan Way. Be warm, knowledgeable, and concise.
+
+SCOPE: Kashmiri cuisine, Wazwan dishes, recipes, restaurants, culture, tourism.
+
+FORMATTING — always use Markdown. Never write walls of text.
+
+Recipe format:
+# Recipe Name | Brief intro | ## Ingredients (bullets) | ## Instructions (numbered) | ## Times (Prep/Cook/Total) | ## Servings | ## Waza AI Tip
+
+Restaurant format:
+# Name | ## Why Visit | ## Signature Dishes | ## Location | ## Best For | ## Scores (Authenticity X/5, Tourist Friendliness X/5, Luxury X/5)
+
+Dish format:
+# Name | ## What Is It? | ## Flavor Profile | ## Cultural Significance | ## Scores (same)
+
+Destination format:
+# Name | ## Overview | ## Key Attractions | ## Best Time to Visit | ## Scores (same)
+
+RULES:
+- Prioritize injected DB context over general knowledge. Never invent restaurant/dish/destination data.
+- Use provided Authenticity / Tourist Friendliness / Luxury scores (1.0–5.0) when rating things.
+- Distinguish: (1) Traditional Wazwan dishes e.g. Rogan Josh, Gushtaba, Rista, Tabak Maaz, Yakhni. (2) Home-style dishes e.g. Gogji Mutton, Waza Haak. (3) Modern adaptations e.g. Paneer Kanti — ALWAYS label these explicitly.
+- For tourists: prioritize authentic dishes, explain cultural significance, state whether a dish is part of the Wazwan feast and its position (e.g. Gushtaba = grand finale).
+- "What is Wazwan?" → discuss ONLY categoryType="wazwan" dishes.
+- "Tell me about Kashmiri food" → use ALL categories (wazwan, kashmiri_cuisine, bakery, beverage).
+
+KNOWLEDGE BASE (ground truth — prefer DB context if it conflicts for specific items):
+${KASHMIR_KNOWLEDGE_BASE}`;
+
 const router = express.Router();
 
+// ─── IN-MEMORY CACHE ──────────────────────────────────────────────────────────
 let cachedDests = null;
 let cachedRests = null;
 let cachedDishes = null;
 let lastCacheTime = 0;
 const CACHE_TTL = 1000 * 60 * 10; // 10 minutes
+
+// Pre-built lowercase lookup maps for O(1) word matching instead of per-request .filter()
+// Rebuilt whenever cache refreshes.
+let destNameMap = new Map();    // word → [dest, ...]
+let restNameMap = new Map();    // word → [rest, ...]
+let dishNameMap = new Map();    // word → [dish, ...]
+
+// ─── QUERY INTENT DETECTION ───────────────────────────────────────────────────
+// Detect what kind of content the user is asking for to avoid injecting
+// irrelevant context and burning tokens.
+const DEST_INTENT   = /(visit|place|destination|tourism|travel|kashmir|go to|stay|hotel|srinagar|gulmarg|pahalgam|sonamarg)/i;
+const REST_INTENT   = /(eat|restaurant|dine|dining|food joint|place to eat|cafe|dhaba|recommend|where.*food|good.*food)/i;
+const DISH_INTENT   = /(food|dish|wazwan|veg|non-veg|eat|recipe|cook|spice|specialty|ingredient|how.*make|taste)/i;
+const WAZWAN_STRICT = /(what is wazwan|wazwan only|about wazwan|wazwan feast|traditional wazwan)/i;
+
+// ─── CACHE REFRESH + INDEX BUILD ─────────────────────────────────────────────
+async function refreshCache() {
+  const [dests, rests, dishes] = await Promise.all([
+    Destination.find(
+      {},
+      "name location description bestTimeToVisit authenticityScore touristFriendlinessScore luxuryScore"
+    ).lean(),
+    Restaurant.find(
+      {},
+      "name location city rating priceLevel authenticityScore touristFriendlinessScore luxuryScore"
+    ).lean(),
+    Dish.find(
+      {},
+      "name description category categoryType foodType authenticityScore touristFriendlinessScore luxuryScore"
+    ).lean(),
+  ]);
+
+  cachedDests = dests;
+  cachedRests = rests;
+  cachedDishes = dishes;
+  lastCacheTime = Date.now();
+
+  // Build inverted word → record maps for fast lookup
+  destNameMap = new Map();
+  for (const d of dests) {
+    for (const word of `${d.name} ${d.location}`.toLowerCase().split(/\s+/)) {
+      if (word.length > 2) {
+        if (!destNameMap.has(word)) destNameMap.set(word, []);
+        destNameMap.get(word).push(d);
+      }
+    }
+  }
+
+  restNameMap = new Map();
+  for (const r of rests) {
+    for (const word of `${r.name} ${r.city}`.toLowerCase().split(/\s+/)) {
+      if (word.length > 2) {
+        if (!restNameMap.has(word)) restNameMap.set(word, []);
+        restNameMap.get(word).push(r);
+      }
+    }
+  }
+
+  dishNameMap = new Map();
+  for (const d of dishes) {
+    for (const word of `${d.name} ${d.category}`.toLowerCase().split(/\s+/)) {
+      if (word.length > 2) {
+        if (!dishNameMap.has(word)) dishNameMap.set(word, []);
+        dishNameMap.get(word).push(d);
+      }
+    }
+  }
+}
+
+// ─── FAST LOOKUP via inverted index ───────────────────────────────────────────
+function lookupByWords(wordMap, queryWords) {
+  const seen = new Set();
+  const results = [];
+  for (const word of queryWords) {
+    const matches = wordMap.get(word) || [];
+    for (const item of matches) {
+      const id = item._id?.toString() || item.name;
+      if (!seen.has(id)) {
+        seen.add(id);
+        results.push(item);
+      }
+    }
+  }
+  return results;
+}
+
+// ─── CONTEXT SERIALIZERS (compact format = fewer tokens) ──────────────────────
+function serializeDest(d) {
+  return `**${d.name}** (${d.location}) — ${d.description} | Best time: ${d.bestTimeToVisit} | Auth: ${d.authenticityScore}/5, TF: ${d.touristFriendlinessScore}/5, Lux: ${d.luxuryScore}/5`;
+}
+function serializeRest(r) {
+  return `**${r.name}** (${r.city}) — Rating: ${r.rating}/5, Price: ${r.priceLevel} | Auth: ${r.authenticityScore}/5, TF: ${r.touristFriendlinessScore}/5, Lux: ${r.luxuryScore}/5`;
+}
+function serializeDish(d) {
+  return `**${d.name}** [${d.categoryType}/${d.foodType}] — ${d.description} | Auth: ${d.authenticityScore}/5, TF: ${d.touristFriendlinessScore}/5, Lux: ${d.luxuryScore}/5`;
+}
+
+// ─── MODEL CONFIG ─────────────────────────────────────────────────────────────
+// PRIMARY: gemini-flash — sub-300ms TTFT, excellent instruction following.
+// FALLBACK 1: llama-3.1-8b — extremely fast, good for scoped domains.
+// FALLBACK 2: qwen3-32b — original model, still available if others fail.
+// REMOVE :free tags when you have budget — free tier adds queue latency.
+const MODELS = [
+  "google/gemini-flash-1.5",           // ~150–400ms TTFT, highest quality/speed ratio
+  "meta-llama/llama-3.1-8b-instruct",  // ~100–250ms TTFT, blazing fast
+  "qwen/qwen3-32b",                    // original fallback — slower but proven
+];
+
+// ─── HISTORY WINDOW ───────────────────────────────────────────────────────────
+// Keep only the last N turns. Beyond 6 turns, older context rarely helps a food chatbot
+// but linearly increases the token count the model must process before writing token 1.
+const MAX_HISTORY_TURNS = 6; // 3 user + 3 assistant
 
 router.post(
   "/",
@@ -33,267 +181,152 @@ router.post(
       return res.status(400).json({ error: "Invalid messages array" });
     }
 
-    const apiKey = process.env.OPENROUTER_API_KEY;
+    // ── SSE headers set immediately so browser starts listening ─────────────
+    // Set these BEFORE doing any async work. This alone can shave ~50ms of
+    // perceived latency because the browser's SSE reader starts before the
+    // DB/LLM work begins.
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    // Disable Nginx/proxy buffering so chunks reach the browser instantly
+    res.setHeader("X-Accel-Buffering", "no");
 
+    const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
-      res.setHeader("Content-Type", "text/event-stream");
-      res.setHeader("Cache-Control", "no-cache");
-      res.setHeader("Connection", "keep-alive");
-      res.write(`data: ${JSON.stringify({ reply: "I am missing my OPENROUTER_API_KEY on the server. Please ensure it is set in your backend .env file." })}\n\n`);
+      res.write(`data: ${JSON.stringify({ reply: "Missing OPENROUTER_API_KEY on server." })}\n\n`);
       return res.end();
     }
 
+    // ── Cache refresh (async, non-blocking for hits) ─────────────────────────
+    // On a cache MISS this awaits. On a HIT (99% of requests) this is instant.
+    if (!cachedDests || Date.now() - lastCacheTime > CACHE_TTL) {
+      try {
+        await refreshCache();
+      } catch (dbErr) {
+        console.error("Cache refresh failed:", dbErr);
+        // Proceed without DB context rather than failing entirely
+      }
+    }
+
+    // ── Query analysis (all synchronous, ~0ms) ───────────────────────────────
+    const lastMessage = messages[messages.length - 1]?.content || "";
+    const lowerMsg = lastMessage.toLowerCase();
+    const queryWords = lowerMsg.split(/\s+/).filter(w => w.length > 2);
+    const isWazwanStrict = WAZWAN_STRICT.test(lowerMsg);
+
+    // ── Context retrieval via inverted index (~0–2ms) ─────────────────────────
+    let contextString = "";
+
+    // Destinations
+    if (DEST_INTENT.test(lowerMsg)) {
+      let dests = lookupByWords(destNameMap, queryWords);
+      if (dests.length === 0) dests = cachedDests?.slice(0, 5) ?? [];
+      if (dests.length > 0) {
+        contextString += "\nDESTINATIONS:\n" + dests.slice(0, 6).map(serializeDest).join("\n");
+      }
+    }
+
+    // Restaurants
+    if (REST_INTENT.test(lowerMsg)) {
+      let rests = lookupByWords(restNameMap, queryWords);
+      if (rests.length === 0) rests = cachedRests?.slice(0, 5) ?? [];
+      if (rests.length > 0) {
+        contextString += "\nRESTAURANTS:\n" + rests.slice(0, 6).map(serializeRest).join("\n");
+      }
+    }
+
+    // Dishes — with Wazwan strict mode
+    if (DISH_INTENT.test(lowerMsg) || isWazwanStrict) {
+      const dishPool = isWazwanStrict
+        ? (cachedDishes?.filter(d => d.categoryType === "wazwan") ?? [])
+        : (cachedDishes ?? []);
+
+      // For strict Wazwan queries, build a temporary map of only wazwan dishes
+      let dishes;
+      if (isWazwanStrict) {
+        // Simple filter from pool since we can't pre-build a wazwan-only map efficiently
+        dishes = dishPool.filter(d =>
+          queryWords.some(w => d.name.toLowerCase().includes(w) || d.category.toLowerCase().includes(w))
+        );
+        if (dishes.length === 0) dishes = dishPool.slice(0, 8);
+      } else {
+        dishes = lookupByWords(dishNameMap, queryWords);
+        if (dishes.length === 0) dishes = dishPool.slice(0, 8);
+      }
+
+      if (dishes.length > 0) {
+        contextString += "\nDISHES:\n" + dishes.slice(0, 10).map(serializeDish).join("\n");
+      }
+    }
+
+    // ── Build final system prompt ─────────────────────────────────────────────
+    // Date injected here (not in the static core) so the core stays cacheable.
     const currentDateTime = new Date().toLocaleString("en-US", {
       timeZone: "Asia/Kolkata",
       dateStyle: "full",
-      timeStyle: "medium"
+      timeStyle: "short", // "short" vs "medium" saves ~10 tokens
     });
 
-    const systemPrompt = `You are Waza AI, the premium Kashmiri food and culture assistant for Wazwan Way.
-The current date and time is ${currentDateTime} (Indian Standard Time).
+    const fullSystemPrompt =
+      `Today: ${currentDateTime} IST\n\n` +
+      SYSTEM_PROMPT_CORE +
+      (contextString
+        ? `\n\n--- DB CONTEXT (prioritize over general knowledge) ---\n${contextString}`
+        : "");
 
-You specialize in:
-
-* Kashmiri cuisine
-* Wazwan dishes
-* Traditional recipes
-* Kashmiri restaurants
-* Kashmiri culture
-* Kashmir tourism
-
-FORMATTING RULES
-
-Always use Markdown formatting.
-Use headings, bullet lists, numbered lists, and paragraphs.
-Never return large walls of text.
-
-When responding with recipes, ALWAYS use the following format:
-
-# Recipe Name
-Brief introduction
-
-## Ingredients
-* ingredient
-* ingredient
-
-## Instructions
-1. Step one
-2. Step two
-
-## Preparation Time
-* Prep Time:
-* Cook Time:
-* Total Time:
-
-## Servings
-* Servings:
-
-## Waza AI Tip
-Helpful cooking tip.
-
-When recommending restaurants, ALWAYS use:
-
-# Restaurant Name
-## Why Visit
-## Signature Dishes
-## Location
-## Best For
-## Ratings & Scores
-* Authenticity Score: X.X/5
-* Tourist Friendliness Score: X.X/5
-* Luxury Score: X.X/5
-
-When explaining a dish, ALWAYS use:
-
-# Dish Name
-## What Is It?
-## Flavor Profile
-## Cultural Significance
-## Ratings & Scores
-* Authenticity Score: X.X/5
-* Tourist Friendliness Score: X.X/5
-* Luxury Score: X.X/5
-
-When explaining a Kashmir destination, ALWAYS use:
-
-# Destination Name
-## Overview
-## Key Attractions
-## Best Time to Visit
-## Ratings & Scores
-* Authenticity Score: X.X/5
-* Tourist Friendliness Score: X.X/5
-* Luxury Score: X.X/5
-
-Additional Rules:
-* Keep responses clean and structured.
-* Use proper spacing between sections.
-* Prefer lists over long paragraphs.
-* Maintain a warm Kashmiri hospitality tone.
-* If information about restaurants, destinations, or dishes is provided in the request context, prioritize that information over general knowledge.
-* Do not invent restaurant, destination, or dish data.
-* Utilize the Authenticity, Tourist Friendliness, and Luxury scores (rated 1.0 to 5.0) when answering inquiries about ratings, luxury, authenticity, or tourist friendliness.
-* CULINARY AUTHENTICITY RULES:
-  * When discussing dishes, prioritize dishes marked as authentic Kashmiri and those with the highest authenticity scores from the context.
-  * Distinguish clearly between:
-    1. Traditional Kashmiri dishes (e.g., Rogan Josh, Gushtaba, Rista, Tabak Maaz, Yakhni).
-    2. Regional or home-style dishes (e.g., Gogji Mutton, Al-Hachh Mutton, Waza Haak).
-    3. Modern restaurant adaptations (e.g., Paneer Kanti, Fish Kanti, Wazwaan Mushroom, Kashmiri Naan).
-  * If a dish is classified as a modern restaurant adaptation, you MUST explicitly state this in your explanation. Never present restaurant-created adaptations as traditional Wazwan dishes.
-* TOURIST RECOMMENDATION RULES:
-  * When recommending dishes to tourists, prioritize core authentic dishes.
-  * Always explain the cultural significance of the recommended dish.
-  * Explicitly state whether the dish is part of the traditional Wazwan feast (and its role/position in the feast progression, such as Gushtaba being the grand finale) or if it is a daily home-style dish.
-* WAZWAN & KASHMIRI FOOD RULES:
-  * When users ask "What is Wazwan?" or ask about traditional Wazwan feasts, you must ONLY recommend/discuss dishes classified as categoryType = "wazwan". Do not mention or recommend everyday Kashmiri dishes, bakery items, or beverages in this context.
-  * When users ask "Tell me about Kashmiri food" or general questions about Kashmiri cuisine, you must use all categories (wazwan, kashmiri_cuisine, bakery, beverage) to present a complete, rich picture of the region's culinary culture.
-
-REFERENCE KNOWLEDGE BASE
-Use the following as your factual reference for Kashmir cuisine, culture, history, handicrafts, destinations, and tourist FAQs. Treat this as ground truth and prefer it over general knowledge or assumptions. If the database context provided elsewhere in this prompt conflicts with this reference for a specific dish/restaurant/destination, prioritize the database context (it's more current), but otherwise rely on this knowledge base.
-
-${KASHMIR_KNOWLEDGE_BASE}`;
-
-    // Dynamic context retrieval from database based on message queries
-    let contextString = "";
-    try {
-      const lastMessage = messages[messages.length - 1]?.content || "";
-      const queryWords = lastMessage.toLowerCase().split(/\s+/);
-
-      // Fetch or use cached data
-      if (!cachedDests || Date.now() - lastCacheTime > CACHE_TTL) {
-        const [dests, rests, dishes] = await Promise.all([
-          Destination.find({}, "name location description bestTimeToVisit authenticityScore touristFriendlinessScore luxuryScore").lean(),
-          Restaurant.find({}, "name location city rating priceLevel authentic authenticityScore touristFriendlinessScore luxuryScore").lean(),
-          Dish.find({}, "name description category categoryType foodType authenticityScore touristFriendlinessScore luxuryScore").lean()
-        ]);
-        cachedDests = dests;
-        cachedRests = rests;
-        cachedDishes = dishes;
-        lastCacheTime = Date.now();
-      }
-
-      // Search destinations
-      const matchedDests = cachedDests.filter(d =>
-        queryWords.some(word => d.name.toLowerCase().includes(word) || d.location.toLowerCase().includes(word))
-      );
-
-      const finalDests = matchedDests.length > 0 ? matchedDests : (
-        lastMessage.toLowerCase().match(/(visit|place|destination|tourism|travel|kashmir|go to|stay|hotel)/)
-          ? cachedDests.slice(0, 8) : []
-      );
-
-      if (finalDests.length > 0) {
-        contextString += "\n\nKASHMIR DESTINATIONS:\n" + finalDests.map(d =>
-          `- Name: ${d.name}\n  Location: ${d.location}\n  Description: ${d.description}\n  Best Time to Visit: ${d.bestTimeToVisit}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
-        ).join("\n");
-      }
-
-      // Search restaurants
-      const matchedRests = cachedRests.filter(r =>
-        queryWords.some(word => r.name.toLowerCase().includes(word) || r.city.toLowerCase().includes(word))
-      );
-
-      const finalRests = matchedRests.length > 0 ? matchedRests : (
-        lastMessage.toLowerCase().match(/(eat|restaurant|dine|dining|food joint|place to eat|cafe|dhaba|recommend)/)
-          ? cachedRests.slice(0, 8) : []
-      );
-
-      if (finalRests.length > 0) {
-        contextString += "\n\nRESTAURANTS:\n" + finalRests.map(r =>
-          `- Name: ${r.name}\n  Location: ${r.location}, ${r.city}\n  Rating: ${r.rating}/5, Price: ${r.priceLevel}\n  Scores: Authenticity: ${r.authenticityScore}/5, Tourist Friendliness: ${r.touristFriendlinessScore}/5, Luxury: ${r.luxuryScore}/5`
-        ).join("\n");
-      }
-
-      // Search dishes with categoryType filtering
-      let filteredDishes = cachedDishes;
-      const lowerLastMessage = lastMessage.toLowerCase();
-      const isWazwanQuery = lowerLastMessage.includes("what is wazwan") ||
-        lowerLastMessage.includes("wazwan only") ||
-        (lowerLastMessage.includes("wazwan") && !lowerLastMessage.includes("kashmiri food") && !lowerLastMessage.includes("kashmiri cuisine"));
-
-      if (isWazwanQuery) {
-        filteredDishes = cachedDishes.filter(d => d.categoryType === "wazwan");
-      }
-
-      const matchedDishes = filteredDishes.filter(d =>
-        queryWords.some(word => d.name.toLowerCase().includes(word) || d.category.toLowerCase().includes(word))
-      );
-
-      const finalDishes = matchedDishes.length > 0 ? matchedDishes : (
-        lowerLastMessage.match(/(food|dish|wazwan|veg|non-veg|eat|recipe|cook|spice|specialty)/)
-          ? filteredDishes.slice(0, 10) : []
-      );
-
-      if (finalDishes.length > 0) {
-        contextString += "\n\nDISHES:\n" + finalDishes.map(d =>
-          `- Name: ${d.name}\n  Type: ${d.foodType}, Category: ${d.category}, categoryType: ${d.categoryType}\n  Description: ${d.description}\n  Scores: Authenticity: ${d.authenticityScore}/5, Tourist Friendliness: ${d.touristFriendlinessScore}/5, Luxury: ${d.luxuryScore}/5`
-        ).join("\n");
-      }
-    } catch (dbErr) {
-      console.error("Failed to inject DB context in chat:", dbErr);
-    }
-
-    // Map the messages to the format OpenRouter expects
-    let validMessages = messages.map(msg => ({
-      role: msg.role === "assistant" ? "assistant" : msg.role,
-      content: msg.content
+    // ── History truncation ────────────────────────────────────────────────────
+    // Keep only the last MAX_HISTORY_TURNS messages (alternating user/assistant).
+    // Walk backward from the end, collect up to limit, preserve alternation.
+    const rawMessages = messages.map(msg => ({
+      role: msg.role === "assistant" ? "assistant" : "user",
+      content: msg.content,
     }));
 
-    // Filter to ensure strictly alternating user/assistant pattern starting with user
-    const filteredMessages = [];
+    const truncated = [];
     let expectedRole = "user";
-    
-    // We iterate backwards to keep the most recent context
-    for (let i = validMessages.length - 1; i >= 0; i--) {
-      // If we find the expected role, add it to the front of our valid array
-      if (validMessages[i].role === expectedRole) {
-        filteredMessages.unshift(validMessages[i]);
-        // Toggle the expected role
+    for (let i = rawMessages.length - 1; i >= 0 && truncated.length < MAX_HISTORY_TURNS; i--) {
+      if (rawMessages[i].role === expectedRole) {
+        truncated.unshift(rawMessages[i]);
         expectedRole = expectedRole === "user" ? "assistant" : "user";
       }
     }
 
-    // Prepend the system prompt and context as the first message
-    filteredMessages.unshift({
-      role: "system",
-      content: systemPrompt + (contextString ? "\n\nCRITICAL CONTEXT FROM DATABASE (Prioritize this data over general knowledge):\n" + contextString : "")
-    });
-
-    // Model Fallback Pool: If one hits a rate limit (429) or fails, try the next
-    const modelsToTry = [
-      "qwen/qwen3-32b", // Primary Qwen model (tested and fast)
-      "google/gemma-4-26b-a4b-it:free" // Fallback free model
+    const finalMessages = [
+      { role: "system", content: fullSystemPrompt },
+      ...truncated,
     ];
+
+    // ── LLM call with model fallback ──────────────────────────────────────────
     let stream = null;
-    let lastErrorData = null;
+    let lastError = null;
 
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
-    res.setHeader("Connection", "keep-alive");
-
-    for (const model of modelsToTry) {
+    for (const model of MODELS) {
       try {
         stream = await openrouter.chat.completions.create({
-          model: model,
-          messages: filteredMessages,
+          model,
+          messages: finalMessages,
           stream: true,
-          temperature: 0.7,
-          max_tokens: 8192,
+          temperature: 0.3,   // Lower = faster sampling + more consistent structured output
+          max_tokens: 1024,   // ⚡ KEY FIX: was 8192. Food answers rarely need >600 tokens.
+                              // This is the single biggest latency lever after model choice.
+                              // Increase to 1500 only if recipes are getting cut off.
         });
-        break; // Success! Break out of the fallback loop.
+        break;
       } catch (err) {
-        console.warn(`Model ${model} hit an error. Falling back... Error:`, err.message);
-        lastErrorData = err;
-        continue;
+        console.warn(`[WazaAI] Model ${model} failed:`, err.message);
+        lastError = err;
       }
     }
 
     if (!stream) {
-      console.error("OpenRouter API Exhausted all models. Last Error:", lastErrorData);
-      res.write(`data: ${JSON.stringify({ reply: "All of our chef's kitchens are experiencing exceptionally high traffic right now. Please try again in a minute." })}\n\n`);
+      console.error("[WazaAI] All models exhausted. Last error:", lastError);
+      res.write(
+        `data: ${JSON.stringify({ reply: "All of our chef's kitchens are very busy right now. Please try again in a moment." })}\n\n`
+      );
       return res.end();
     }
 
+    // ── Stream response back to client ───────────────────────────────────────
     let hasSentText = false;
     try {
       for await (const chunk of stream) {
@@ -305,15 +338,24 @@ ${KASHMIR_KNOWLEDGE_BASE}`;
       }
 
       if (!hasSentText) {
-        res.write(`data: ${JSON.stringify({ reply: "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?" })}\n\n`);
+        res.write(
+          `data: ${JSON.stringify({
+            reply: "I don't have enough information to answer that correctly. Ask me about Kashmiri food, recipes, restaurants, or destinations!",
+          })}\n\n`
+        );
       }
     } catch (err) {
-      console.error("Stream reading error:", err);
+      console.error("[WazaAI] Stream error:", err);
       res.write(`data: ${JSON.stringify({ error: "Stream interrupted" })}\n\n`);
     } finally {
       res.end();
     }
   })
 );
+
+// ─── CACHE WARM-UP ON IMPORT ──────────────────────────────────────────────────
+// Pre-load DB into memory when the server starts so the first user request
+// never waits for a cold MongoDB fetch. Errors are non-fatal.
+refreshCache().catch(err => console.warn("[WazaAI] Initial cache warm-up failed:", err.message));
 
 export default router;

@@ -123,3 +123,116 @@ export function buildFaqSchema(faqs) {
     })),
   };
 }
+
+export function buildArticleSchema(article) {
+  const baseUrl = "https://wazwanway.com";
+  const articleUrl = article.url || `${baseUrl}${article.path || ''}`;
+  const imageUrl = article.image || `${baseUrl}/wazwan-hero.jpg`;
+  const authorName = article.author || "Wazwan Way Team";
+  const datePublished = article.datePublished || article.date || new Date().toISOString();
+  const dateModified = article.dateModified || article.updatedDate || datePublished;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title || article.name,
+    description: article.description || article.excerpt || "",
+    image: imageUrl,
+    author: {
+      "@type": "Person",
+      name: authorName,
+      url: `${baseUrl}/author/${authorName.toLowerCase().replace(/\s+/g, '-')}`
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Wazwan Way",
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/icon.png`
+      }
+    },
+    datePublished,
+    dateModified,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl
+    },
+    articleSection: article.category || article.section || "Kashmiri Cuisine",
+    ...(article.keywords && { keywords: article.keywords }),
+    ...(article.readTime && { timeRequired: article.readTime })
+  };
+}
+
+export function buildReviewSchema(review, restaurant) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    itemReviewed: {
+      "@type": "Restaurant",
+      name: restaurant.name,
+      url: `https://wazwanway.com/restaurants/${restaurant.slug || restaurant._id}`
+    },
+    author: {
+      "@type": "Person",
+      name: review.user?.name || review.author || "Anonymous"
+    },
+    datePublished: review.createdAt || review.date || new Date().toISOString(),
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: review.rating,
+      bestRating: 5,
+      worstRating: 1
+    },
+    reviewBody: review.comment || review.text || ""
+  };
+}
+
+export function buildDestinationSchema(destination) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    name: destination.name,
+    description: destination.description || `Explore ${destination.name} in Kashmir`,
+    image: destination.image || "https://wazwanway.com/wazwan-hero.jpg",
+    url: `https://wazwanway.com/destinations/${destination.slug || destination._id}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: destination.location || destination.city || "Kashmir",
+      addressRegion: "Jammu & Kashmir",
+      addressCountry: "IN"
+    },
+    ...(destination.bestTimeToVisit && {
+      availableSeason: destination.bestTimeToVisit
+    }),
+    ...(destination.attractions && {
+      touristType: destination.attractions.join(", ")
+    }),
+    ...(destination.rating && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: destination.rating,
+        bestRating: 5,
+        worstRating: 1
+      }
+    })
+  };
+}
+
+export function buildItemListSchema(items, listName) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: listName,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": item.type || "Thing",
+        name: item.name,
+        url: item.url,
+        ...(item.image && { image: item.image }),
+        ...(item.description && { description: item.description })
+      }
+    }))
+  };
+}

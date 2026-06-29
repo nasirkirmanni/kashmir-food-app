@@ -104,8 +104,8 @@ function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = 
   // Filter items by user search query (case-insensitive on name & description)
   const filteredItems = activeItems.filter(
     (item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase())
+      (item.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (item.description || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Group Wazwan dishes by courseType

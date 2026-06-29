@@ -3,11 +3,44 @@ import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { blogPosts } from "@/data/blogPosts";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/JsonLd";
+import { buildArticleSchema } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export function generateMetadata({ params }) {
+  const post = blogPosts.find(p => p.slug === params.slug);
+  if (!post) return {};
+  
+  const canonicalUrl = `https://wazwanway.com/blog/${post.slug}`;
+  
+  return {
+    title: post.title,
+    description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title: post.title,
+      description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
+      images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: post.title }],
+      siteName: "Wazwan Way",
+      publishedTime: post.date,
+      authors: [post.author],
+      section: post.category,
+      tags: post.tags || [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
+      images: ["/wazwan-hero.jpg"],
+    },
+  };
 }
 
 export default function BlogPostPage({ params }) {
@@ -18,11 +51,25 @@ export default function BlogPostPage({ params }) {
     notFound();
   }
 
+  const canonicalUrl = `https://wazwanway.com/blog/${post.slug}`;
+  const articleSchema = buildArticleSchema({
+    title: post.title,
+    description: post.excerpt || post.summary,
+    image: "/wazwan-hero.jpg",
+    author: post.author,
+    datePublished: post.date,
+    dateModified: post.updatedDate || post.date,
+    category: post.category,
+    path: `/blog/${post.slug}`,
+    readTime: post.readTime,
+  });
+
   return (
     <div className="min-h-screen pt-28 pb-32 px-6 flex flex-col items-center page-shell">
       <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
       
       <article className="w-full max-w-3xl relative z-10">
+        <JsonLd data={articleSchema} />
         <Link href="/blog" className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--saffron)] transition-colors mb-10 text-sm uppercase tracking-wider font-semibold">
           <ArrowLeft className="w-4 h-4" /> Back to Journal
         </Link>
@@ -61,7 +108,7 @@ export default function BlogPostPage({ params }) {
               li: ({node, ...props}) => <li className="marker:text-[var(--saffron)]" {...props} />,
               strong: ({node, ...props}) => <strong className="font-bold text-white" {...props} />,
               a: ({node, ...props}) => <a className="text-[var(--saffron)] hover:text-amber-400 underline decoration-white/20 underline-offset-4" {...props} />,
-              blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-xl" {...props} />
+              blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-xl" {...props} />,
             }}
           >
             {post.content}

@@ -8,6 +8,8 @@ import GuidebookIndexClient from "../GuidebookIndexClient";
 import AskWazaAIPrompt from "../AskWazaAIPrompt";
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
+import JsonLd from "@/components/JsonLd";
+import { buildArticleSchema } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   const paths = [
