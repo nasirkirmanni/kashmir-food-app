@@ -6,6 +6,18 @@ import Image from "next/image";
 import { request, streamRequest, endpoints } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
 
+const SparkleIcon = ({ size = 18, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
+  </svg>
+);
+
+const SendIcon = ({ size = 18, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z" />
+  </svg>
+);
+
 const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   <svg
     width={size}
@@ -231,8 +243,19 @@ export default function WazaAI() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 flex h-[450px] max-h-[80vh] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 bg-black/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)] md:h-[600px] md:w-[420px]"
+              className="relative z-10 flex h-[450px] max-h-[80vh] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)] md:h-[600px] md:w-[420px]"
+              style={{
+                background: "#0B0B0B",
+                fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif"
+              }}
             >
+              {/* Subtle background pattern */}
+              <div
+                className="absolute inset-0 pointer-events-none z-0"
+                style={{
+                  background: "radial-gradient(ellipse at 50% 0%, rgba(212,161,90,0.06) 0%, transparent 60%)"
+                }}
+              />
               <AnimatePresence mode="wait">
               {isIntroMode ? (
                 <motion.div
@@ -265,7 +288,7 @@ export default function WazaAI() {
                   className="flex h-full w-full flex-col"
                 >
                   {/* Header */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-5 py-4">
+            <div className="relative z-10 flex items-center justify-between border-b border-white/5 bg-transparent px-5 py-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--saffron)]/20 border border-[var(--saffron)]/50 text-[var(--saffron)]">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
@@ -289,37 +312,70 @@ export default function WazaAI() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-5 no-scrollbar scroll-smooth flex flex-col gap-4">
+            <div className="relative z-10 flex-1 overflow-y-auto p-5 no-scrollbar scroll-smooth flex flex-col gap-5">
               {messages.map((msg, idx) => {
                 if (msg.role === "assistant" && !msg.content) return null;
                 return (
                 <div key={idx} className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                  {/* AI Avatar for assistant */}
+                  {msg.role === "assistant" && (
+                    <div
+                      className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
+                      style={{
+                        background: "linear-gradient(135deg, #D4A15A, #8B6914)",
+                        border: "1.5px solid rgba(212,161,90,0.3)"
+                      }}
+                    >
+                      <Image
+                        src="/waza-profile.jpg"
+                        alt="Waza AI"
+                        fill
+                        sizes="32px"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <div 
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
+                    className={`max-w-[82%] text-[14px] leading-relaxed ${
                       msg.role === "user" 
-                        ? "bg-[var(--saffron)] text-black rounded-br-none" 
-                        : "bg-white/10 text-white/90 border border-white/5 rounded-bl-none"
+                        ? "px-4 py-3 rounded-[18px] rounded-tr-[4px]" 
+                        : "px-4 py-3 rounded-[18px] rounded-tl-[4px]"
                     }`}
+                    style={
+                      msg.role === "user"
+                        ? {
+                            background: "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)",
+                            color: "#FFFFFF",
+                            boxShadow: "0 4px 16px rgba(212,161,90,0.2)"
+                          }
+                        : {
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid rgba(255,255,255,0.06)",
+                            color: "rgba(255,255,255,0.85)"
+                          }
+                    }
                   >
                     {msg.role === "user" ? (
                       msg.content
                     ) : (
-                      <ReactMarkdown
-                        components={{
-                          h1: ({ node, ...props }) => <h1 className="font-display text-lg font-bold text-[var(--saffron)] mt-3 mb-1.5" {...props} />,
-                          h2: ({ node, ...props }) => <h2 className="font-display text-base font-bold text-[var(--saffron)] mt-2.5 mb-1.5" {...props} />,
-                          h3: ({ node, ...props }) => <h3 className="font-display text-sm font-bold text-[var(--saffron)] mt-2 mb-1" {...props} />,
-                          p: ({ node, ...props }) => <p className="font-body text-xs text-white/90 leading-relaxed mb-2.5 last:mb-0" {...props} />,
-                          ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2.5 space-y-1 text-xs text-white/80" {...props} />,
-                          ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2.5 space-y-1 text-xs text-white/80" {...props} />,
-                          li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
-                          strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
-                          code: ({ node, ...props }) => <code className="bg-white/10 px-1 py-0.5 rounded font-mono text-[10px] text-[var(--saffron)]" {...props} />,
-                          blockquote: ({ node, ...props }) => <blockquote className="border-l border-[var(--saffron)] pl-2 italic text-white/60 my-2.5" {...props} />,
-                        }}
-                      >
-                        {msg.content}
-                      </ReactMarkdown>
+                      <div className="prose prose-invert max-w-none">
+                        <ReactMarkdown
+                          components={{
+                            p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }} {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
+                            li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                            strong: ({ node, ...props }) => <strong className="font-semibold" style={{ color: "#D4A15A" }} {...props} />,
+                            h1: ({ node, ...props }) => <h1 className="text-[16px] font-bold mt-4 mb-2" style={{ color: "#D4A15A" }} {...props} />,
+                            h2: ({ node, ...props }) => <h2 className="text-[15px] font-bold mt-3 mb-1.5" style={{ color: "#D4A15A" }} {...props} />,
+                            h3: ({ node, ...props }) => <h3 className="text-[14px] font-semibold mt-2.5 mb-1" style={{ color: "#D4A15A" }} {...props} />,
+                            code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-[11px] font-mono" style={{ color: "#D4A15A" }} {...props} />,
+                            blockquote: ({ node, ...props }) => <blockquote className="border-l-2 pl-3 italic my-3" style={{ borderColor: "#D4A15A", color: "rgba(255,255,255,0.5)" }} {...props} />,
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -327,16 +383,42 @@ export default function WazaAI() {
               })}
               
               {isLoading && (!messages.length || messages[messages.length - 1].role === "user" || !messages[messages.length - 1].content) && (
-                <div className="flex w-full justify-start">
-                  <div className="max-w-[85%] rounded-2xl rounded-bl-none bg-white/10 px-4 py-3 border border-white/5 flex items-center gap-2 text-sm text-white/70 italic">
-                    Waza is thinking
-                    <span className="flex gap-1 ml-1 items-end h-full pb-1">
-                      <span className="h-1 w-1 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "0ms" }}></span>
-                      <span className="h-1 w-1 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "150ms" }}></span>
-                      <span className="h-1 w-1 rounded-full bg-[var(--saffron)]/70 animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex w-full justify-start items-center gap-3"
+                >
+                  <div
+                    className="relative shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
+                    style={{
+                      background: "linear-gradient(135deg, #D4A15A, #8B6914)",
+                      border: "1.5px solid rgba(212,161,90,0.3)"
+                    }}
+                  >
+                    <Image
+                      src="/waza-profile.jpg"
+                      alt="Waza AI"
+                      fill
+                      sizes="32px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-3 rounded-[18px] rounded-tl-[4px]"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.06)"
+                    }}
+                  >
+                    <span className="text-[13px] italic" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      Waza is thinking
+                    </span>
+                    <span className="flex gap-1 items-center ml-1">
+                      <motion.span animate={{ scale: [0.7, 1.2, 0.7] }} transition={{ repeat: Infinity, duration: 1 }} className="h-1.5 w-1.5 rounded-full" style={{ background: "#D4A15A", opacity: 0.6 }} />
+                      <motion.span animate={{ scale: [0.7, 1.2, 0.7] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="h-1.5 w-1.5 rounded-full" style={{ background: "#D4A15A", opacity: 0.6 }} />
+                      <motion.span animate={{ scale: [0.7, 1.2, 0.7] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="h-1.5 w-1.5 rounded-full" style={{ background: "#D4A15A", opacity: 0.6 }} />
                     </span>
                   </div>
-                </div>
+                </motion.div>
               )}
               
               {/* Suggested Questions (only show if few messages) */}
@@ -358,32 +440,60 @@ export default function WazaAI() {
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-white/10 bg-white/5 p-4">
+            <div className="relative z-20 px-4 pt-2 pb-6 shrink-0 bg-transparent">
               <form 
                 onSubmit={(e) => {
                   e.preventDefault();
                   handleSendMessage(inputValue);
                 }}
-                className="relative flex items-center"
+                className="relative flex items-center w-full rounded-full overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(212,161,90,0.15)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.3)"
+                }}
               >
+                {/* Sparkle icon */}
+                <div className="pl-4 pr-1 flex items-center">
+                  <SparkleIcon size={18} className="text-[#D4A15A] opacity-50" />
+                </div>
+
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask about Wazwan..."
-                  className="w-full rounded-full border border-white/20 bg-black/50 py-3 pl-4 pr-12 text-sm text-white placeholder-white/40 outline-none focus:border-[var(--saffron)] transition-colors"
+                  placeholder="Message Waza AI..."
+                  className="w-full bg-transparent py-3.5 pl-2 pr-14 text-[14px] outline-none"
+                  style={{
+                    color: "#ECECEC",
+                    caretColor: "#D4A15A"
+                  }}
                 />
+
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-                  className="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--saffron)] text-black disabled:opacity-50 transition-transform active:scale-95"
+                  className="absolute right-2 flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200"
+                  style={{
+                    background: inputValue.trim() && !isLoading
+                      ? "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)"
+                      : "rgba(255,255,255,0.08)",
+                    color: inputValue.trim() && !isLoading ? "#0B0B0B" : "rgba(255,255,255,0.2)",
+                    boxShadow: inputValue.trim() && !isLoading ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
+                  }}
                   aria-label="Send Message"
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 ml-0.5">
-                    <path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z" />
-                  </svg>
+                  <SendIcon size={16} />
                 </button>
               </form>
+              <p
+                className="text-center mt-2 text-[10px]"
+                style={{ color: "rgba(255,255,255,0.25)" }}
+              >
+                Waza AI can make mistakes. Consider verifying info.
+              </p>
             </div>
                 </motion.div>
               )}

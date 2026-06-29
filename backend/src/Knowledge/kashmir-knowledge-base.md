@@ -699,6 +699,27 @@ Use these relationships to connect related facts when answering multi-part or fo
 
 ---
 
+## 10. URBAN ESSENTIALS: SALONS & DESSERT SPOTS
+
+### **Best Barber Shops & Salons in Srinagar**
+*   **Lakme Salon (MA Road / Lal Chowk):** Well-known national chain offering professional premium hair, skin, and makeup services for a modern experience.
+*   **Looks Salon:** A popular premium chain known for high standards in hair styling, grooming, and beauty treatments for both men and women.
+*   **Jawed Habib Salon (Rajbagh):** Focuses on scientifically backed hair techniques, professional styling, and beard grooming.
+*   **Makeover Salon & Academy (Bemina & Wazir Bagh):** Highly rated for a range of grooming and beauty services.
+*   **Hairdo Salon (Bhaghat Chowk):** Popular local establishment often recommended for trendy cuts and professional styling.
+*   **Snipz 'N' Curlz (Regal Chowk):** A trusted local salon situated in the busy Regal Chowk area, known for great grooming services.
+*   **Yes Madam (At-Home Service):** If convenience is key, this service provides professional beauticians and stylists for at-home visits in Srinagar.
+
+### **Best Ice Cream & Dessert Spots in Srinagar**
+*   **The Frosty Guys:** Highly rated for their tasty ice cream and friendly, cozy atmosphere. A great choice for a relaxed dine-in experience.
+*   **Scoops Ice Cream Parlour (Bemina):** Frequently recommended for those looking for a wide variety of flavors and a comfortable place to sit.
+*   **Epic Bites & Icy Bites:** Well-known names in the local dessert scene, frequented by locals and tourists for quick, refreshing treats.
+*   **Le Delice (Boulevard Road / Dal Lake):** A highly popular French patisserie and dessert destination offering high-quality desserts, cakes, and sweet treats after a day of sightseeing.
+*   **Dil Bahar Ice Cream:** For a more traditional experience, this is a long-standing local favorite famous for its classic, authentic Kashmiri kulfi.
+*   **Clove - The Art of Dining:** While a restaurant, their dessert menu is top-tier, offering traditional favorites like Kesar Phirni alongside classic ice cream sundaes.
+
+---
+
 ## NOTES ON THIS DOCUMENT
 
 - This file merges two prior research documents (a 200-FAQ structured knowledge base and a separately compiled deep-research report) into one canonical reference, with duplicate or conflicting facts resolved into a single answer.
