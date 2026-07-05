@@ -2,7 +2,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin, Star } from "lucide-react";
 
-export default function HeroSection({ onPlanClick }) {
+export default function HeroSection({ onPlanClick, onWazaPlanClick }) {
   const stats = [
     { label: "Destinations", value: "100+", icon: "🏔️" },
     { label: "Restaurants", value: "50+", icon: "🍽️" },
@@ -54,13 +54,16 @@ export default function HeroSection({ onPlanClick }) {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <button 
-              onClick={onPlanClick}
+              onClick={onWazaPlanClick}
               className="bg-gold text-dark-900 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,99,0.3)]"
             >
               Let Waza AI Plan Your Trip ✦
             </button>
-            <button className="border border-white/20 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:border-white/50 hover:bg-white/5 transition-all">
-              Explore Kashmir
+            <button 
+              onClick={onPlanClick}
+              className="border border-white/20 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:border-white/50 hover:bg-white/5 transition-all"
+            >
+              Plan your custom trip
             </button>
           </div>
         </motion.div>

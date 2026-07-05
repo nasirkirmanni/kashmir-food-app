@@ -117,6 +117,7 @@ export default function PlanTripPage() {
 
   // Modal / Preview state
   const [result, setResult] = useState(null);
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
   const [showPromptPreview, setShowPromptPreview] = useState(false);
 
   // Fetch collections on mount
@@ -473,6 +474,15 @@ export default function PlanTripPage() {
     return `${d}/${m}/${y}`;
   };
 
+  
+  const updateDayPlan = (dayIdx, field, value) => {
+    setResult(prev => {
+      const newDayByDay = [...prev.dayByDay];
+      newDayByDay[dayIdx] = { ...newDayByDay[dayIdx], [field]: value };
+      return { ...prev, dayByDay: newDayByDay };
+    });
+  };
+
   const handleGeneratePlan = () => {
     const params = {
       days: duration,
@@ -660,13 +670,8 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                           <span className="text-white/80 group-hover:text-white font-medium transition-colors">Facebook Page</span>
                         </a>
                       )}
-                      {viewingAgency.googleReviewLink && (
-                        <a href={viewingAgency.googleReviewLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 p-5 rounded-2xl border border-white/10 hover:border-yellow-500/50 hover:bg-yellow-500/10 transition-all group shadow-lg">
-                          <span className="text-white/50 group-hover:text-yellow-400 text-2xl transition-colors">⭐</span>
-                          <span className="text-white/80 group-hover:text-white font-medium transition-colors">Google Reviews</span>
-                        </a>
-                      )}
-                      {!viewingAgency.instagramLink && !viewingAgency.facebookLink && !viewingAgency.googleReviewLink && (
+                      
+                      {!viewingAgency.instagramLink && !viewingAgency.facebookLink &&  (
                         <div className="text-white/40 text-sm italic p-6 bg-white/5 rounded-2xl border border-white/5">
                           No social links available.
                         </div>
@@ -912,7 +917,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                           onChange={(e) => setDuration(e.target.value)}
                           className="w-full h-1.5 bg-[#333] rounded-lg appearance-none cursor-pointer accent-[#c8a46a]"
                         />
-                        <div className="flex justify-between text-xs text-[#888] mt-3">
+              <div className="flex justify-between text-xs text-[#888] mt-3">
                           <span>1 Day</span>
                           <span>15 Days</span>
                           <span>30 Days</span>
@@ -922,8 +927,8 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                   </>
                 )}
 
-                <div className="flex justify-between items-center border-t border-white/5 pt-8">
-                  <div className="text-[#888] text-sm">
+                <div className="flex justify-between items-center border-t border-white/5 pt-8 gap-4">
+                  <div className="text-[#888] text-xs md:text-sm">
                     You can change this later
                   </div>
                   <button
@@ -931,7 +936,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                       setInitialDuration(duration);
                       setStep(2);
                     }}
-                    className="bg-[#9a2b3b] hover:bg-[#b03144] text-white rounded-xl px-8 py-3 text-base font-semibold transition-colors flex items-center gap-2"
+                    className="bg-[#9a2b3b] hover:bg-[#b03144] text-white rounded-xl px-6 py-3 md:px-8 text-sm md:text-base font-semibold transition-colors flex items-center gap-2 whitespace-nowrap shrink-0"
                   >
                     Next step <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                   </button>
@@ -1033,13 +1038,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
                     onClick={() => setStep(1)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setStep(3)}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold"
                   >
                     Next Step &rarr;
                   </button>
@@ -1108,14 +1113,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
                     onClick={() => setStep(2)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setStep(4)}
                     disabled={!userName || !userPhone || !userEmail}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold disabled:opacity-50"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold disabled:opacity-50"
                   >
                     Next Step &rarr;
                   </button>
@@ -1143,33 +1148,38 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 </h2>
                 <p className="text-white/50 text-xs mb-6">Select all options that apply to your journey</p>
 
-                <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="grid grid-cols-2 gap-3 mb-8">
+
                   {[
-                    { label: "Food Lover", value: "Food Lover", desc: "Prioritizes food authenticity, heritage recipes, and Waza kitchens" },
-                    { label: "Luxury Traveler", value: "Luxury Traveler", desc: "Focuses on high-end resort lodging, comfort, and luxury dining" },
-                    { label: "Adventure Seeker", value: "Adventure Seeker", desc: "Tours active valleys, mountain hikes, and stream walks" },
-                    { label: "Family Vacation", value: "Family Vacation", desc: "Safe, highly accessible routes and tourist-friendly dining" },
-                    { label: "Couple / Honeymoon", value: "Couple / Honeymoon", desc: "Romantic lakeside scenic points and private cozy environments" },
-                    { label: "Cultural Explorer", value: "Cultural Explorer", desc: "Emphasizes historical shrines, copper craft markets, and old city walks" }
+                    { label: "Food Lover", value: "Food Lover", desc: "Authentic cuisine" },
+                    { label: "Luxury", value: "Luxury Traveler", desc: "Premium resorts" },
+                    { label: "Adventure", value: "Adventure Seeker", desc: "Active trekking" },
+                    { label: "Family", value: "Family Vacation", desc: "Kid-friendly" },
+                    { label: "Couple", value: "Couple / Honeymoon", desc: "Romantic getaways" },
+                    { label: "Culture", value: "Cultural Explorer", desc: "Heritage sites" }
                   ].map((item) => {
                     const isSelected = selectedStyles.includes(item.value);
                     return (
                       <button
                         key={item.value}
                         onClick={() => toggleStyle(item.value)}
-                        className={`p-5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        className={`relative p-4 rounded-2xl border text-left transition-all flex flex-col justify-start items-start gap-1 h-full ${
                           isSelected
-                            ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
-                            : "bg-black/30 border-white/10 text-white hover:border-white/30"
+                            ? "bg-[var(--saffron)] border-[var(--saffron)] text-black shadow-[0_0_15px_rgba(212,175,55,0.25)]"
+                            : "bg-black/40 border-white/10 hover:border-white/20 hover:bg-white/5"
                         }`}
                       >
-                        <div className="text-sm font-bold flex justify-between items-center w-full">
-                          <span>{item.label}</span>
-                          {isSelected && <span className="text-xs">✓</span>}
-                        </div>
-                        <div className={`text-[0.65rem] mt-2 leading-normal ${isSelected ? "text-black/80" : "text-white/50"}`}>
+                        {isSelected && (
+                          <div className="absolute top-3 right-3 w-4 h-4 rounded-full bg-black/10 flex items-center justify-center">
+                            <span className="text-[10px] font-bold text-black">✓</span>
+                          </div>
+                        )}
+                        <h4 className={`text-sm font-bold pr-4 leading-tight tracking-wide ${isSelected ? "text-black" : "text-white"}`}>
+                          {item.label}
+                        </h4>
+                        <p className={`text-[10px] leading-snug ${isSelected ? "text-black/80 font-semibold" : "text-white/60"}`}>
                           {item.desc}
-                        </div>
+                        </p>
                       </button>
                     );
                   })}
@@ -1178,14 +1188,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
                     onClick={() => setStep(3)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setStep(5)}
                     disabled={selectedStyles.length === 0}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold disabled:opacity-50"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold disabled:opacity-50"
                   >
                     Next Step &rarr;
                   </button>
@@ -1223,7 +1233,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     <button
                       key={item.value}
                       onClick={() => setTravelParty(item.value)}
-                      className={`p-4 rounded-xl border text-center transition-all flex flex-col justify-between items-center h-28 ${
+                      className={`p-4 rounded-xl border text-center transition-all flex flex-col justify-between items-center h-auto py-5 ${
                         travelParty === item.value
                           ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
                           : "bg-black/30 border-white/10 text-white hover:border-white/30"
@@ -1240,13 +1250,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
                     onClick={() => setStep(4)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setStep(6)}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold"
                   >
                     Next Step &rarr;
                   </button>
@@ -1275,16 +1285,16 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
                   {[
-                    { label: "Spring", value: "Spring", desc: "April to May (Badamwari blossoms & tulips)" },
-                    { label: "Summer", value: "Summer", desc: "June to August (Lush green alpine meadows)" },
-                    { label: "Autumn", value: "Autumn", desc: "September to November (Golden Chinars & saffron)" },
-                    { label: "Winter", value: "Winter", desc: "December to March (Snow resorts & warm Harissa)" },
-                    { label: "Custom Dates", value: "Custom", desc: "Select specific arrival and departure dates" }
+                    { label: "Spring", value: "Spring", desc: "April to May" },
+                    { label: "Summer", value: "Summer", desc: "June to August" },
+                    { label: "Autumn", value: "Autumn", desc: "Sept to Nov" },
+                    { label: "Winter", value: "Winter", desc: "Dec to March" },
+                    { label: "Custom Dates", value: "Custom", desc: "Custom dates" }
                   ].map((item) => (
                     <button
                       key={item.value}
                       onClick={() => setTravelSeason(item.value)}
-                      className={`p-4 rounded-xl border text-left transition-all h-36 flex flex-col justify-between ${
+                      className={`p-4 rounded-xl border text-left transition-all h-auto py-5 flex flex-col justify-between ${
                         travelSeason === item.value
                           ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
                           : "bg-black/30 border-white/10 text-white hover:border-white/30"
@@ -1381,14 +1391,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6 mt-6">
                   <button
                     onClick={() => setStep(5)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setStep(7)}
                     disabled={travelSeason === "Custom" && (!arrivalDate || !leavingDate)}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold disabled:opacity-50"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold disabled:opacity-50"
                   >
                     Next Step &rarr;
                   </button>
@@ -1417,16 +1427,16 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
                   {[
-                    { label: "Budget", value: "Budget", desc: "Local dhabas, street carts, and pocket-friendly stays" },
-                    { label: "Mid-Range", value: "Mid-Range", desc: "Standard family restaurants and cozy hotels" },
-                    { label: "Premium", value: "Premium", desc: "Comfort-focused dining and boutique lodgings" },
-                    { label: "Luxury", value: "Luxury", desc: "Fine dining wazwan, five-star heritage resorts" },
-                    { label: "Custom Budget", value: "Custom", desc: "Set a custom daily budget limit in ₹ INR" }
+                    { label: "Budget", value: "Budget", desc: "Pocket-friendly stays" },
+                    { label: "Mid-Range", value: "Mid-Range", desc: "Cozy hotels & cafes" },
+                    { label: "Premium", value: "Premium", desc: "Boutique lodgings" },
+                    { label: "Luxury", value: "Luxury", desc: "Five-star heritage resorts" },
+                    { label: "Custom Budget", value: "Custom", desc: "Custom limit" }
                   ].map((item) => (
                     <button
                       key={item.value}
                       onClick={() => setBudgetTier(item.value)}
-                      className={`p-4 rounded-xl border text-left transition-all h-36 flex flex-col justify-between ${
+                      className={`p-4 rounded-xl border text-left transition-all h-auto py-5 flex flex-col justify-between ${
                         budgetTier === item.value
                           ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
                           : "bg-black/30 border-white/10 text-white hover:border-white/30"
@@ -1472,13 +1482,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
                     onClick={() => setStep(6)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setStep(8)}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold"
                   >
                     Next Step &rarr;
                   </button>
@@ -1506,33 +1516,38 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 </h2>
                 <p className="text-white/50 text-xs mb-6">Choose one or more items to optimize dish checks</p>
 
-                <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="grid grid-cols-2 gap-3 mb-8">
+
                   {[
-                    { label: "Traditional Wazwan", value: "Traditional Wazwan", desc: "Rogan Josh, Gushtaba, and multi-course sharing platters" },
-                    { label: "Street Food & Tujji", value: "Street Food", desc: "Khayam Chowk charcoal barbecue, seekh kebabs, and wraps" },
-                    { label: "Kandur Bakery", value: "Kandur Bakery", desc: "Local baked breads (Girda, Bakerkhani) paired with morning tea" },
-                    { label: "Kahwa Experiences", value: "Kahwa Experiences", desc: "Saffron, green tea, cinnamon and almond sweet infusions" },
-                    { label: "Trout & River Fish", value: "Trout & Mountain Cuisine", desc: "Fresh mountain stream trout shallow-fried in local spices" },
-                    { label: "Vegetarian Cuisine", value: "Vegetarian Kashmiri Cuisine", desc: "Dum Aelve potatoes, Ruwangan Chaman cheese, and Haak greens" }
+                    { label: "Wazwan", value: "Traditional Wazwan", desc: "Multi-course platters" },
+                    { label: "Street Food", value: "Street Food", desc: "Charcoal barbecue" },
+                    { label: "Bakery", value: "Kandur Bakery", desc: "Local baked breads" },
+                    { label: "Kahwa", value: "Kahwa Experiences", desc: "Saffron & green tea" },
+                    { label: "Trout", value: "Trout & Mountain Cuisine", desc: "Fresh mountain trout" },
+                    { label: "Vegetarian", value: "Vegetarian Kashmiri Cuisine", desc: "Dum Aloo & Haak" }
                   ].map((item) => {
                     const isSelected = selectedInterests.includes(item.value);
                     return (
                       <button
                         key={item.value}
                         onClick={() => toggleInterest(item.value)}
-                        className={`p-5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        className={`relative p-4 rounded-2xl border text-left transition-all flex flex-col justify-start items-start gap-1 h-full ${
                           isSelected
-                            ? "bg-[var(--saffron)] border-[var(--saffron)] text-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
-                            : "bg-black/30 border-white/10 text-white hover:border-white/30"
+                            ? "bg-[var(--saffron)] border-[var(--saffron)] text-black shadow-[0_0_15px_rgba(212,175,55,0.25)]"
+                            : "bg-black/40 border-white/10 hover:border-white/20 hover:bg-white/5"
                         }`}
                       >
-                        <div className="text-sm font-bold flex justify-between items-center w-full">
-                          <span>{item.label}</span>
-                          {isSelected && <span className="text-xs">✓</span>}
-                        </div>
-                        <div className={`text-[0.65rem] mt-2 leading-normal ${isSelected ? "text-black/80" : "text-white/50"}`}>
+                        {isSelected && (
+                          <div className="absolute top-3 right-3 w-4 h-4 rounded-full bg-black/10 flex items-center justify-center">
+                            <span className="text-[10px] font-bold text-black">✓</span>
+                          </div>
+                        )}
+                        <h4 className={`text-sm font-bold pr-4 leading-tight tracking-wide ${isSelected ? "text-black" : "text-white"}`}>
+                          {item.label}
+                        </h4>
+                        <p className={`text-[10px] leading-snug ${isSelected ? "text-black/80 font-semibold" : "text-white/60"}`}>
                           {item.desc}
-                        </div>
+                        </p>
                       </button>
                     );
                   })}
@@ -1541,14 +1556,14 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                 <div className="flex justify-between border-t border-white/5 pt-6">
                   <button
                     onClick={() => setStep(7)}
-                    className="wazwan-btn-ghost text-xs uppercase tracking-widest font-bold px-6 py-3 border border-white/10 rounded-full hover:border-white/20"
+                    className="text-white/70 hover:text-[var(--crimson)] transition-colors text-[10px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 rounded-full hover:border-white/20"
                   >
                     &larr; Back
                   </button>
                   <button
                     onClick={() => setShowAgencyPicker(true)}
                     disabled={selectedInterests.length === 0}
-                    className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] disabled:opacity-50"
+                    className="bg-[var(--crimson)] text-white hover:bg-[var(--crimson-light)] transition-all rounded-full px-5 py-2.5 text-[10px] uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] disabled:opacity-50"
                   >
                     Select Travel Partner &rarr;
                   </button>
@@ -1635,58 +1650,153 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
                 {/* Day-by-Day Timeline map */}
                 <div className="space-y-5">
-                  <h3 className="text-xl font-display text-white font-medium pl-1">
-                    Day-by-Day Concierge Route
-                  </h3>
+                  <div className="flex items-center justify-between pl-1">
+                    <h3 className="text-xl font-display text-white font-medium">
+                      Day-by-Day Concierge Route
+                    </h3>
+                    <div className="text-[var(--saffron)] text-xs font-bold uppercase tracking-widest border border-[var(--saffron)]/20 px-3 py-1 rounded-full bg-[var(--saffron)]/5">
+                      {currentDayIndex < result.dayByDay.length ? `Editing ${currentDayIndex + 1} of ${result.dayByDay.length}` : 'Final Review'}
+                    </div>
+                  </div>
                   <div className="relative border-l border-white/10 pl-6 sm:pl-8 space-y-8 ml-3 sm:ml-4">
-                    {result.dayByDay.map((dayPlan) => (
-                      <div key={dayPlan.day} className="relative">
-                        {/* Day Bubble */}
-                        <div className="absolute -left-[35px] sm:-left-[43px] top-0 flex items-center justify-center w-6 h-6 rounded-full bg-[var(--saffron)] text-black font-bold font-display text-[0.7rem] shadow-[0_0_12px_rgba(212,175,55,0.35)]">
-                          {dayPlan.day}
-                        </div>
-                        <div className="rounded-xl border border-white/5 bg-white/5 hover:border-white/10 p-5 transition-all shadow-lg">
-                          <div className="flex justify-between items-start mb-3 border-b border-white/5 pb-2">
-                            <div>
-                              <span className="text-white/40 text-[0.55rem] font-bold uppercase tracking-wider block">
-                                Day 0{dayPlan.day}
-                              </span>
-                              <strong className="text-white text-base font-display">{dayPlan.destination}</strong>
-                            </div>
-                            <span className="text-[var(--saffron)] font-mono text-xs">{dayPlan.estBudget} Budget</span>
+                    {currentDayIndex < result.dayByDay.length ? (() => {
+                      const dayPlan = result.dayByDay[currentDayIndex];
+                      return (
+                        <div key={dayPlan.day} className="relative animate-fade-in">
+                          {/* Day Bubble */}
+                          <div className="absolute -left-[35px] sm:-left-[43px] top-0 flex items-center justify-center w-6 h-6 rounded-full bg-[var(--saffron)] text-black font-bold font-display text-[0.7rem] shadow-[0_0_12px_rgba(212,175,55,0.35)] transition-all">
+                            {dayPlan.day}
                           </div>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mt-3">
-                            <div className="space-y-2">
-                              <div>
-                                <span className="text-[var(--saffron)] font-bold block mb-0.5">Morning Attraction</span>
-                                <span className="text-white/80">{dayPlan.attraction}</span>
+                          <div className="rounded-xl border border-[var(--saffron)]/30 bg-white/5 hover:border-[var(--saffron)]/60 p-5 transition-all shadow-[0_0_30px_rgba(212,175,55,0.05)]">
+                            <div className="flex justify-between items-start mb-3 border-b border-white/5 pb-2">
+                              <div className="w-full mr-4">
+                                <span className="text-[var(--saffron)] text-[0.55rem] font-bold uppercase tracking-wider block mb-1">
+                                  Day 0{dayPlan.day} Destination
+                                </span>
+                                <input
+                                  type="text"
+                                  value={dayPlan.destination || ''}
+                                  onChange={(e) => updateDayPlan(currentDayIndex, 'destination', e.target.value)}
+                                  className="w-full bg-transparent text-white text-base font-display font-bold border-b border-dashed border-white/20 focus:border-[var(--saffron)] outline-none pb-0.5 transition-colors"
+                                  placeholder="Enter destination..."
+                                />
                               </div>
-                              <div>
-                                <span className="text-[var(--saffron)] font-bold block mb-0.5">Recommended Dining</span>
-                                <Link 
-                                  href={`/restaurants/${dayPlan.restaurantSlug}`} 
-                                  className="text-white hover:text-[var(--saffron)] font-medium underline underline-offset-2 transition-colors"
-                                >
-                                  {dayPlan.restaurant} &rarr;
-                                </Link>
+                              <div className="whitespace-nowrap flex flex-col items-end">
+                                <span className="text-[var(--saffron)] font-mono text-[0.65rem] uppercase tracking-wider block mb-1">Budget</span>
+                                <input 
+                                  type="text"
+                                  value={dayPlan.estBudget || ''}
+                                  onChange={(e) => updateDayPlan(currentDayIndex, 'estBudget', e.target.value)}
+                                  className="w-16 text-right bg-transparent text-white font-mono text-xs border-b border-dashed border-white/20 focus:border-[var(--saffron)] outline-none pb-0.5"
+                                />
                               </div>
                             </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs mt-4">
+                              <div className="space-y-4">
+                                <div>
+                                  <span className="text-[var(--saffron)] font-bold block mb-1.5 uppercase tracking-widest text-[0.6rem]">Morning Attraction</span>
+                                  <textarea
+                                    value={dayPlan.attraction || ''}
+                                    onChange={(e) => updateDayPlan(currentDayIndex, 'attraction', e.target.value)}
+                                    rows={2}
+                                    className="w-full bg-transparent text-white/90 border-b border-dashed border-white/20 focus:border-[var(--saffron)] outline-none resize-none transition-colors"
+                                    placeholder="Add morning activity..."
+                                  />
+                                </div>
+                                <div>
+                                  <span className="text-[var(--saffron)] font-bold block mb-1.5 uppercase tracking-widest text-[0.6rem]">Recommended Dining</span>
+                                  <input
+                                    type="text"
+                                    value={dayPlan.restaurant || ''}
+                                    onChange={(e) => updateDayPlan(currentDayIndex, 'restaurant', e.target.value)}
+                                    className="w-full bg-transparent text-white font-medium border-b border-dashed border-white/20 focus:border-[var(--saffron)] outline-none pb-0.5 transition-colors"
+                                    placeholder="Select restaurant..."
+                                  />
+                                </div>
+                              </div>
 
-                            <div className="space-y-2">
-                              <div>
-                                <span className="text-[var(--saffron)] font-bold block mb-0.5">Must-Try Dish</span>
-                                <span className="text-white/80">{dayPlan.dish}</span>
-                              </div>
-                              <div className="bg-[var(--saffron-pale)] rounded-lg p-2.5 border border-[var(--saffron)]/10">
-                                <span className="text-[var(--saffron)] font-bold block mb-0.5 uppercase tracking-widest text-[0.55rem]">Travel Tip</span>
-                                <span className="text-white/95 leading-normal text-[0.7rem]">{dayPlan.travelTip}</span>
+                              <div className="space-y-4">
+                                <div>
+                                  <span className="text-[var(--saffron)] font-bold block mb-1.5 uppercase tracking-widest text-[0.6rem]">Must-Try Dish</span>
+                                  <input
+                                    type="text"
+                                    value={dayPlan.dish || ''}
+                                    onChange={(e) => updateDayPlan(currentDayIndex, 'dish', e.target.value)}
+                                    className="w-full bg-transparent text-white/90 border-b border-dashed border-white/20 focus:border-[var(--saffron)] outline-none pb-0.5 transition-colors"
+                                    placeholder="Enter must-try dish..."
+                                  />
+                                </div>
+                                <div className="bg-[var(--saffron-pale)] rounded-lg p-3 border border-[var(--saffron)]/20 relative group">
+                                  <span className="text-[var(--saffron)] font-bold block mb-1.5 uppercase tracking-widest text-[0.55rem]">Travel Tip</span>
+                                  <textarea
+                                    value={dayPlan.travelTip || ''}
+                                    onChange={(e) => updateDayPlan(currentDayIndex, 'travelTip', e.target.value)}
+                                    rows={2}
+                                    className="w-full bg-transparent text-white/95 leading-relaxed text-[0.7rem] border-b border-dashed border-[var(--saffron)]/30 focus:border-[var(--saffron)] outline-none resize-none transition-colors"
+                                    placeholder="Enter travel tip..."
+                                  />
+                                </div>
                               </div>
                             </div>
+                          </div>
+                        </div>
+                      );
+                    })() : (
+                      /* Final Confirmation Screen integrated into timeline styling */
+                      <div className="relative animate-fade-in">
+                        <div className="absolute -left-[35px] sm:-left-[43px] top-0 flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-[#0e0d0b] font-bold shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+                          ✓
+                        </div>
+                        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 md:p-8 text-center shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                          <h2 className="text-3xl font-display font-medium text-white mb-3">
+                            Itinerary Complete
+                          </h2>
+                          <p className="text-white/60 mb-8 max-w-sm mx-auto text-xs leading-relaxed">
+                            Your custom itinerary is ready to be sent to our travel partner. They will arrange premium bookings, transport, and contact you directly.
+                          </p>
+
+                          <div className="max-w-md mx-auto w-full">
+                            {querySent ? (
+                              <div className="p-5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm rounded-xl backdrop-blur-sm">
+                                <strong className="text-emerald-400 block mb-1">Booking Request Sent!</strong>
+                                <p className="text-[10px] text-white/60 uppercase tracking-wider mt-2">The agency will contact {userEmail}</p>
+                              </div>
+                            ) : (
+                              <div className="space-y-4">
+                                {queryError && <p className="text-[10px] uppercase tracking-widest text-red-400 bg-red-500/10 p-3 rounded-lg border border-red-500/20">{queryError}</p>}
+                                <button
+                                  onClick={handleSendToTeam}
+                                  disabled={sendingQuery}
+                                  className="wazwan-btn-primary w-full py-4 rounded-full text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform disabled:opacity-50"
+                                >
+                                  {sendingQuery ? "Sending Request..." : "Send Booking Request"}
+                                </button>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )}
+                  </div>
+                  
+                  {/* Wizard Navigation */}
+                  <div className="pt-6 flex justify-between items-center pl-1 mt-4">
+                    <button
+                      onClick={() => setCurrentDayIndex(prev => prev - 1)}
+                      disabled={currentDayIndex === 0}
+                      className="px-5 py-2.5 rounded-full text-[0.65rem] font-bold uppercase tracking-widest text-white/50 border border-white/10 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                      &larr; Previous Day
+                    </button>
+                    {currentDayIndex < result.dayByDay.length && (
+                      <button
+                        onClick={() => setCurrentDayIndex(prev => prev + 1)}
+                        className="px-6 py-2.5 rounded-full text-[0.65rem] font-bold uppercase tracking-widest text-black bg-white hover:bg-white/90 shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-105 transition-transform"
+                      >
+                        {currentDayIndex === result.dayByDay.length - 1 ? 'Review Final Step &rarr;' : 'Next Day &rarr;'}
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -1738,88 +1848,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                   </div>
               </div>
 
-              {/* Grid of actions at the bottom */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                {/* BOT QUERY TRIGGER */}
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between">
-                  <div>
-                    <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-[0.25em] block mb-2">
-                      ✨ Let Waza AI Plan Everything
-                    </span>
-                    <h3 className="text-xl font-display text-white mb-2">Request custom adjustments</h3>
-                    <p className="text-white/65 text-xs max-w-lg mx-auto mb-6 leading-relaxed">
-                      Have Waza AI review your {duration}-day trip preferences and write custom restaurant reservations, transport packages, or daily timings.
-                    </p>
-                  </div>
-                  <div className="flex justify-center mt-auto">
-                    <button
-                      onClick={() => setShowPromptPreview(true)}
-                      className="wazwan-btn-primary rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform"
-                    >
-                      Ask Waza AI
-                    </button>
-                  </div>
-                </div>
-
-                {/* SELECT TRAVEL PARTNER CARD */}
-                <div className="rounded-2xl border border-emerald-500/20 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none" />
-                  <div>
-                    <span className="text-xs text-emerald-400 font-bold uppercase tracking-[0.25em] block mb-2">
-                      🤝 Book with a Local Agency
-                    </span>
-                    <h3 className="text-xl font-display text-white mb-2">Select Travel Partner</h3>
-                    <p className="text-white/65 text-xs max-w-lg mx-auto mb-6 leading-relaxed">
-                      Choose from our verified local agencies to handle your trip arrangements, bookings, and transport seamlessly.
-                    </p>
-                  </div>
-                  <div className="flex justify-center mt-auto">
-                    <button
-                      onClick={() => setShowAgencyPicker(true)}
-                      className="rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:scale-105 transition-transform"
-                    >
-                      Browse Agencies
-                    </button>
-                  </div>
-                </div>
-
-                {/* SEND QUERY TO TEAM CARD */}
-                <div className="rounded-2xl border border-[var(--saffron)]/20 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--saffron)]/5 to-transparent pointer-events-none" />
-                  <div>
-                    <span className="text-xs text-[var(--saffron)] font-bold uppercase tracking-[0.25em] block mb-2">
-                      📬 Premium Travel Service
-                    </span>
-                    <h3 className="text-xl font-display text-white mb-2">Send Itinerary to our Travel Team</h3>
-                    <p className="text-white/65 text-xs max-w-lg mx-auto mb-6 leading-relaxed">
-                      Have our team of local Kashmir experts review your custom itinerary, arrange premium bookings, transport, and contact you directly.
-                    </p>
-                  </div>
-                  
-                  <div className="flex justify-center mt-auto w-full">
-                    {querySent ? (
-                      <div className="p-4 bg-green-500/20 border border-green-500/30 text-green-200 text-xs rounded-xl w-full">
-                        <strong>✓ Query Sent Successfully!</strong>
-                        <p className="text-[11px] mt-1 text-white/80">Our team has received your details and will contact you via phone ({userPhone}) or email ({userEmail}) within 24 hours.</p>
-                      </div>
-                    ) : (
-                      <div className="space-y-3 w-full">
-                        {queryError && (
-                          <p className="text-xs text-red-400">{queryError}</p>
-                        )}
-                        <button
-                          onClick={handleSendToTeam}
-                          disabled={sendingQuery}
-                          className="wazwan-btn-primary rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform disabled:opacity-50 w-full"
-                        >
-                          {sendingQuery ? "Sending Query..." : "Send Query to our Team"}
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                          </motion.div>
           )}
             </AnimatePresence>
           </div>
