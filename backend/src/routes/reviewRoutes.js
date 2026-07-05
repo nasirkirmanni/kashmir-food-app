@@ -2,7 +2,8 @@ import express from "express";
 import { Review } from "../models/Review.js";
 import { Restaurant } from "../models/Restaurant.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { protect } from "../middleware/auth.js";
+import { protect, requireOwnerOrAdmin } from "../middleware/auth.js";
+import { validateIdParam, pick } from "../utils/validation.js";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ const refreshRestaurantRating = async (restaurantId) => {
 
 router.get(
   "/restaurant/:restaurantId",
+  validateIdParam("restaurantId"),
   asyncHandler(async (req, res) => {
     const reviews = await Review.find({ restaurant: req.params.restaurantId })
       .populate("user", "name")
@@ -32,7 +34,11 @@ router.post(
   "/",
   protect,
   asyncHandler(async (req, res) => {
-    const { restaurantId, rating, comment } = req.body;
+    const { restaurantId, rating, comment } = pick(req.body, ["restaurantId", "rating", "comment"]);
+
+    if (!restaurantId || !/^[0-9a-fA-F]{24}$/.test(restaurantId)) {
+      return res.status(400).json({ message: "Invalid restaurantId format" });
+    }
 
     const review = await Review.create({
       user: req.user._id,
@@ -50,19 +56,14 @@ router.post(
 router.put(
   "/:id",
   protect,
+  requireOwnerOrAdmin(Review),
   asyncHandler(async (req, res) => {
-    const review = await Review.findById(req.params.id);
+    const review = req.resource;
+    const updates = pick(req.body, ["rating", "comment"]);
 
-    if (!review) {
-      return res.status(404).json({ message: "Review not found" });
-    }
-
-    if (review.user.toString() !== req.user._id.toString() && !req.user.isAdmin) {
-      return res.status(403).json({ message: "Cannot edit this review" });
-    }
-
-    review.rating = req.body.rating ?? review.rating;
-    review.comment = req.body.comment ?? review.comment;
+    review.rating = updates.rating ?? review.rating;
+    review.comment = updates.comment ?? review.comment;
+    
     await review.save();
     await refreshRestaurantRating(review.restaurant);
 
@@ -74,20 +75,14 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  requireOwnerOrAdmin(Review),
   asyncHandler(async (req, res) => {
-    const review = await Review.findById(req.params.id);
-
-    if (!review) {
-      return res.status(404).json({ message: "Review not found" });
-    }
-
-    if (review.user.toString() !== req.user._id.toString() && !req.user.isAdmin) {
-      return res.status(403).json({ message: "Cannot delete this review" });
-    }
-
+    const review = req.resource;
     const restaurantId = review.restaurant;
+    
     await review.deleteOne();
     await refreshRestaurantRating(restaurantId);
+    
     res.json({ message: "Review deleted" });
   })
 );

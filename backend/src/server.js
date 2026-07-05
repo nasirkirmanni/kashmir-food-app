@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import { doubleCsrf } from "csrf-csrf";
+import mongoSanitize from "express-mongo-sanitize";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import dishRoutes from "./routes/dishRoutes.js";
@@ -11,6 +14,7 @@ import userRoutes from "./routes/userRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import restaurantLeadRoutes from "./routes/restaurantLeadRoutes.js";
+import travelAgencyRoutes from "./routes/travelAgencyRoutes.js";
 
 dotenv.config();
 
@@ -47,6 +51,28 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
+app.use(mongoSanitize());
+
+const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
+  getSecret: () => process.env.CSRF_SECRET || "wazwan-way-secret-csrf-key",
+  getSessionIdentifier: (req) => "stateless-session",
+  cookieName: "x-csrf-token",
+  cookieOptions: {
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    path: "/",
+    secure: process.env.NODE_ENV === "production"
+  },
+  size: 64,
+  ignoredMethods: ["GET", "HEAD", "OPTIONS"],
+  getTokenFromRequest: (req) => req.headers["x-csrf-token"]
+});
+
+app.get("/api/auth/csrf-token", (req, res) => {
+  res.json({ csrfToken: generateCsrfToken(req, res) });
+});
+
+app.use("/api", doubleCsrfProtection);
 
 app.use((req, res, next) => {
   console.log(`[REQUEST] ${req.method} ${req.url} - Origin: ${req.headers.origin}`);
@@ -66,8 +92,13 @@ app.use("/api/users", userRoutes);
 app.use("/api/stats", statsRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/restaurant-leads", restaurantLeadRoutes);
+app.use("/api/travel-agencies", travelAgencyRoutes);
 
-app.use((err, _req, res, _next) => {
+app.use((err, _req, res, next) => {
+  if (err.code === "EBADCSRFTOKEN") {
+    return res.status(403).json({ message: "Invalid or missing CSRF token" });
+  }
+  
   console.error(err);
   res.status(500).json({ message: err.message || "Server error" });
 });
@@ -83,5 +114,5 @@ connectDB()
     process.exit(1);
   });
 
-// Restart trigger comment to reload env keys
+// Restart trigger to clear env
 

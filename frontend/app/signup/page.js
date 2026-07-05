@@ -21,6 +21,13 @@ export default function SignupPage() {
             Log in
           </Link>
         </p>
+        
+        <div className="mt-12 text-center pt-8 border-t border-white/10">
+          <p className="text-sm text-white/50 mb-2">Are you a travel company?</p>
+          <Link href="/travel-agent/signup" className="inline-block border border-white/20 rounded-full px-6 py-2 text-sm text-white hover:bg-white/5 hover:border-[var(--saffron)] transition-all uppercase tracking-widest font-semibold">
+            List your Travel Agency
+          </Link>
+        </div>
       </section>
     </div>
   );

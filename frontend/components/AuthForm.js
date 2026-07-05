@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
 import OtpInput from "./OtpInput";
 
-export default function AuthForm({ mode = "login" }) {
+export default function AuthForm({ mode = "login", redirectPath = "/" }) {
   const router = useRouter();
   const { login } = useAuth();
   
@@ -70,7 +70,7 @@ export default function AuthForm({ mode = "login" }) {
         setCurrentView("verify");
       } else {
         login(data);
-        router.push("/");
+        router.push(redirectPath);
       }
     } catch (submitError) {
       setError(submitError.message);
@@ -94,7 +94,7 @@ export default function AuthForm({ mode = "login" }) {
       });
 
       login(data);
-      router.push("/");
+      router.push(redirectPath);
     } catch (submitError) {
       setError(submitError.message);
     } finally {

@@ -1,16 +1,28 @@
 import express from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User.js";
-import { createToken } from "../utils/createToken.js";
+import { generateAuthCookies } from "../utils/createToken.js";
 import { protect } from "../middleware/auth.js";
 import { sendOtpEmail, sendPasswordResetEmail } from "../utils/sendEmail.js";
+import crypto from "crypto";
+import rateLimit from "express-rate-limit";
+import jwt from "jsonwebtoken";
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 requests per 15 minutes
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: "Too many requests from this IP, please try again after 15 minutes." }
+});
 
 const router = express.Router();
 
-const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
+const generateOtp = () => crypto.randomInt(100000, 999999).toString();
 
 router.post(
   "/signup",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { name, email, phoneNumber, password } = req.body;
 
@@ -87,6 +99,7 @@ router.post(
 
 router.post(
   "/verify",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
 
@@ -100,10 +113,6 @@ router.post(
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (user.isVerified) {
-      return res.status(400).json({ message: "User is already verified" });
-    }
-
     if (user.otp !== otp || user.otpExpiresAt < Date.now()) {
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
@@ -113,10 +122,9 @@ router.post(
     user.otpExpiresAt = undefined;
     await user.save();
 
-    const token = createToken(user._id);
+    generateAuthCookies(res, user);
 
     res.json({
-      token,
       user: {
         id: user._id,
         name: user.name,
@@ -124,6 +132,7 @@ router.post(
         isAdmin: user.isAdmin,
         phoneNumber: user.phoneNumber,
         address: user.address,
+        role: user.role,
       }
     });
   })
@@ -131,6 +140,7 @@ router.post(
 
 router.post(
   "/login",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
@@ -144,34 +154,18 @@ router.post(
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    if (!user.isVerified) {
-      // Re-send Email OTP if they try to log in but aren't verified yet
-      const otp = generateOtp();
-      user.otp = otp;
-      user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
-      await user.save();
-      
-      sendOtpEmail(user.email, otp).catch(console.error);
+    // Send Email OTP for 2FA on every login
+    const otp = generateOtp();
+    user.otp = otp;
+    user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+    await user.save();
+    
+    sendOtpEmail(user.email, otp).catch(console.error);
 
-      return res.status(200).json({ 
-        message: "Please verify your email before logging in.", 
-        requiresOtp: true,
-        email: user.email
-      });
-    }
-
-    const token = createToken(user._id);
-
-    res.json({
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        phoneNumber: user.phoneNumber,
-        address: user.address,
-      }
+    return res.status(200).json({ 
+      message: "Please enter the OTP sent to your email.", 
+      requiresOtp: true,
+      email: user.email
     });
   })
 );
@@ -186,6 +180,7 @@ router.get(
 
 router.post(
   "/forgot-password",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { email, method } = req.body;
 
@@ -218,6 +213,7 @@ router.post(
 
 router.post(
   "/verify-reset-otp",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
     
@@ -233,6 +229,7 @@ router.post(
 
 router.post(
   "/reset-password",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { email, otp, newPassword } = req.body;
 
@@ -253,6 +250,7 @@ router.post(
     user.otp = undefined;
     user.otpExpiresAt = undefined;
     user.isVerified = true;
+    user.tokenVersion = (user.tokenVersion || 0) + 1;
     await user.save();
 
     res.status(200).json({ message: "Password reset successful" });
@@ -261,6 +259,7 @@ router.post(
 
 router.post(
   "/resend-otp",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const { email, method, flow } = req.body;
 
@@ -290,6 +289,70 @@ router.post(
     }
 
     res.json({ message: "Verification code resent successfully via email." });
+  })
+);
+
+router.post(
+  "/refresh",
+  asyncHandler(async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No refresh token provided" });
+    }
+
+    try {
+      const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || `${process.env.JWT_SECRET}_refresh`;
+      const decoded = jwt.verify(refreshToken, refreshTokenSecret);
+      
+      const user = await User.findById(decoded.userId);
+      if (!user) {
+        return res.status(401).json({ message: "User not found" });
+      }
+
+      if (user.tokenVersion !== decoded.tokenVersion) {
+        return res.status(401).json({ message: "Token has been revoked" });
+      }
+
+      generateAuthCookies(res, user);
+      res.json({ message: "Token refreshed" });
+    } catch (err) {
+      return res.status(401).json({ message: "Invalid refresh token" });
+    }
+  })
+);
+
+router.post(
+  "/logout",
+  asyncHandler(async (req, res) => {
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+      path: "/",
+    };
+    res.clearCookie("accessToken", cookieOptions);
+    res.clearCookie("refreshToken", cookieOptions);
+    res.status(200).json({ message: "Logged out successfully" });
+  })
+);
+
+router.post(
+  "/logout-all",
+  protect,
+  asyncHandler(async (req, res) => {
+    req.user.tokenVersion = (req.user.tokenVersion || 0) + 1;
+    await req.user.save();
+    
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+      path: "/",
+    };
+    res.clearCookie("accessToken", cookieOptions);
+    res.clearCookie("refreshToken", cookieOptions);
+    res.status(200).json({ message: "Logged out of all devices successfully" });
   })
 );
 

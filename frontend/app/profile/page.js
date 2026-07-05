@@ -176,6 +176,18 @@ export default function ProfilePage() {
             View Saved Dishes
           </Link>
           
+          {user.role === 'travel_agent' && (
+            <Link
+              href="/travel-agent/dashboard"
+              className="flex w-full items-center justify-center gap-3 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-blue-400 transition-all hover:bg-blue-500/20 active:scale-95"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Agent Dashboard
+            </Link>
+          )}
+          
           <button
             onClick={handleLogout}
             className="flex w-full items-center justify-center gap-3 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-red-400 transition-all hover:bg-red-500/20 active:scale-95"

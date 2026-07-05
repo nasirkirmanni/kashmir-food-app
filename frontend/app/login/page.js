@@ -32,6 +32,12 @@ function LoginContent() {
           Join now
         </Link>
       </p>
+
+      <div className="mt-12 text-center pt-8 border-t border-white/10">
+        <Link href="/travel-agent/login" className="text-xs text-white/40 hover:text-white uppercase tracking-widest font-semibold transition-colors">
+          Travel Agent Login &rarr;
+        </Link>
+      </div>
     </>
   );
 }

@@ -47,6 +47,8 @@ export default function PlanTripPage() {
   const [arrivalDate, setArrivalDate] = useState(null);
   const [leavingDate, setLeavingDate] = useState(null);
   const [calendarMonth, setCalendarMonth] = useState(new Date());
+  
+  const [showAgencyPicker, setShowAgencyPicker] = useState(false);
 
   // Pre-populate contact fields if user is authenticated
   useEffect(() => {
@@ -107,6 +109,10 @@ export default function PlanTripPage() {
   const [dbDestinations, setDbDestinations] = useState([]);
   const [dbRestaurants, setDbRestaurants] = useState([]);
   const [dbDishes, setDbDishes] = useState([]);
+  const [dbTravelAgencies, setDbTravelAgencies] = useState([]);
+  const [selectedAgencyId, setSelectedAgencyId] = useState(null);
+  const [viewingAgency, setViewingAgency] = useState(null);
+  const [confirmedBookingAgency, setConfirmedBookingAgency] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
 
   // Modal / Preview state
@@ -118,12 +124,14 @@ export default function PlanTripPage() {
     Promise.all([
       request(endpoints.destinations()).catch(() => fallbackDestinations),
       request(endpoints.restaurants()).catch(() => []),
-      request(endpoints.dishes()).catch(() => [])
+      request(endpoints.dishes()).catch(() => []),
+      request("/travel-agencies").catch(() => [])
     ])
-      .then(([destData, restData, dishData]) => {
+      .then(([destData, restData, dishData, agencyData]) => {
         setDbDestinations(destData.length ? destData : fallbackDestinations);
         setDbRestaurants(restData);
         setDbDishes(dishData);
+        setDbTravelAgencies(agencyData || []);
         setLoadingData(false);
       })
       .catch((err) => {
@@ -132,6 +140,13 @@ export default function PlanTripPage() {
         setLoadingData(false);
       });
   }, []);
+
+  // Scroll to top when transitioning into full-page takeover views
+  useEffect(() => {
+    if (showAgencyPicker || viewingAgency || confirmedBookingAgency) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [showAgencyPicker, viewingAgency, confirmedBookingAgency]);
 
   // Multi-select helpers
   const toggleStyle = (style) => {
@@ -487,13 +502,16 @@ export default function PlanTripPage() {
       ? `Custom Dates (Arrival: ${formatDateDMY(arrivalDate)} — Departure: ${formatDateDMY(leavingDate)}, Auto-derived Season: ${getDerivedSeason(arrivalDate)})`
       : `${travelSeason} Season`;
 
+    const selectedAgency = dbTravelAgencies.find(a => a._id === selectedAgencyId);
+    const agencyText = selectedAgency ? `\nRequested Travel Agency: ${selectedAgency.agencyName}` : "";
+
     return `Plan a ${duration}-day Kashmir trip.
 Registered Contact: ${userName} (${userPhone}, ${userEmail})
 Traveler Type: ${selectedStyles.length ? selectedStyles.join(" + ") : "Food Lover"}
 Travel Party: ${travelParty} (${adultsCount} Adults, ${childrenCount} Children, ${seniorsCount} Seniors over 65)
 Season: ${seasonText}
 Budget: ${budgetTier === "Custom" ? `Custom (₹${customBudgetValue.toLocaleString()}/day)` : budgetTier}
-Interests: ${selectedInterests.length ? selectedInterests.join(", ") : "Traditional Wazwan"}
+Interests: ${selectedInterests.length ? selectedInterests.join(", ") : "Traditional Wazwan"}${agencyText}
 
 Generate itinerary using destinations, restaurants, and dishes from the Wazwan Way database.`;
   };
@@ -512,6 +530,258 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
       }
     }
   };
+
+  if (confirmedBookingAgency) {
+    return (
+      <div className="bg-[#05170e] text-white min-h-screen font-body relative overflow-x-hidden pt-32 pb-16 flex flex-col items-center justify-center">
+        <div className="max-w-2xl mx-auto px-6 text-center z-10 relative">
+           {/* Success Icon */}
+           <div className="w-28 h-28 bg-emerald-500 text-[#05170e] rounded-full flex items-center justify-center mx-auto mb-10 shadow-[0_0_80px_rgba(16,185,129,0.5)]">
+             <svg className="w-14 h-14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
+             </svg>
+           </div>
+           
+           <h1 className="text-4xl md:text-6xl font-display font-medium text-white mb-6">Booking Confirmed!</h1>
+           
+           <div className="space-y-4 mb-12">
+             <p className="text-emerald-100/90 text-xl leading-relaxed">
+               Your tour arrangements have been successfully locked in with <strong className="text-emerald-400 font-bold">{confirmedBookingAgency.agencyName}</strong>. 
+             </p>
+             <p className="text-white/60 text-base max-w-lg mx-auto">
+               Their team will review your preferences and contact you as soon as possible to finalize your incredible trip!
+             </p>
+           </div>
+        </div>
+        {/* Background glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.1),transparent_70%)] pointer-events-none" />
+      </div>
+    );
+  }
+
+  if (showAgencyPicker) {
+    if (viewingAgency) {
+      return (
+        <div className="bg-[#0e0d0b] text-white min-h-screen font-body relative overflow-x-hidden pt-28">
+          
+          {/* Navigation Bar / Back Button */}
+          <div className="max-w-7xl mx-auto px-6 md:px-16 mb-6">
+            <button 
+              onClick={() => setViewingAgency(null)}
+              className="inline-flex items-center gap-3 text-white/50 hover:text-[var(--saffron)] text-sm font-bold uppercase tracking-widest transition-colors group"
+            >
+              <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Agencies
+            </button>
+          </div>
+          
+          <div className="w-full flex flex-col min-h-screen">
+            {/* Full-width Header */}
+            <div className="relative h-[40vh] md:h-[55vh] bg-white/5 flex items-end overflow-hidden">
+              {viewingAgency.thumbnailUrl ? (
+                <img src={viewingAgency.thumbnailUrl} alt={viewingAgency.agencyName} className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <Mountain className="absolute inset-0 w-full h-full object-cover opacity-10 text-white" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0b] via-[#0e0d0b]/40 to-transparent" />
+              
+              <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-16 pb-12 flex justify-between items-end">
+                <div>
+                  <span className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg text-sm font-bold text-white border border-white/10 mb-6 inline-block shadow-xl">
+                    ⭐ {viewingAgency.rating || "4.5"} Rating
+                  </span>
+                  <h2 className="text-5xl md:text-7xl font-display font-medium text-white tracking-tight drop-shadow-2xl">{viewingAgency.agencyName}</h2>
+                </div>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="max-w-7xl mx-auto px-6 md:px-16 py-16 w-full flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div className="md:col-span-2 space-y-12">
+                  {/* Description */}
+                  <section>
+                    <h4 className="text-[var(--saffron)] text-sm font-bold uppercase tracking-[0.25em] mb-6">About</h4>
+                    <p className="text-white/80 text-lg leading-relaxed">
+                      {viewingAgency.description || "Trusted local travel partner providing exceptional Kashmiri experiences. We specialize in curating custom itineraries tailored to your unique preferences."}
+                    </p>
+                  </section>
+
+                  {/* Unique Features */}
+                  {(viewingAgency.features?.length > 0 || viewingAgency.qualities?.length > 0) && (
+                    <section>
+                      <h4 className="text-[var(--saffron)] text-sm font-bold uppercase tracking-[0.25em] mb-6">Why Choose Us</h4>
+                      <div className="grid sm:grid-cols-2 gap-5">
+                        {(viewingAgency.features || []).map((feature, idx) => (
+                          <div key={`feat-${idx}`} className="flex gap-4 items-start p-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors">
+                            <span className="text-emerald-400 mt-1 text-xl">✓</span>
+                            <span className="text-white/90 font-medium leading-snug">{feature}</span>
+                          </div>
+                        ))}
+                        {(viewingAgency.qualities || []).map((quality, idx) => (
+                          <div key={`qual-${idx}`} className="flex gap-4 items-start p-6 rounded-2xl border border-[#c8a46a]/20 bg-[#c8a46a]/5 hover:bg-[#c8a46a]/10 transition-colors">
+                            <span className="text-[var(--saffron)] mt-1 text-xl">✦</span>
+                            <span className="text-white/90 font-medium leading-snug">{quality}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </div>
+
+                {/* Sidebar */}
+                <div className="space-y-12">
+                  {/* Contact details */}
+                  <section>
+                    <h4 className="text-[var(--saffron)] text-sm font-bold uppercase tracking-[0.25em] mb-6">Contact Info</h4>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4 p-5 rounded-2xl border border-white/10 bg-white/5 shadow-lg">
+                        <span className="text-white/50 text-2xl">📞</span>
+                        <div>
+                          <div className="text-white/50 text-xs font-bold uppercase tracking-wider mb-1">Phone Number</div>
+                          <div className="text-white/90 font-medium text-lg">{viewingAgency.contactNumber || "Contact details hidden"}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* Social links */}
+                  <section>
+                    <h4 className="text-[var(--saffron)] text-sm font-bold uppercase tracking-[0.25em] mb-6">Social & Reviews</h4>
+                    <div className="space-y-4">
+                      {viewingAgency.instagramLink && (
+                        <a href={viewingAgency.instagramLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 p-5 rounded-2xl border border-white/10 hover:border-pink-500/50 hover:bg-pink-500/10 transition-all group shadow-lg">
+                          <span className="text-white/50 group-hover:text-pink-400 text-2xl transition-colors">📷</span>
+                          <span className="text-white/80 group-hover:text-white font-medium transition-colors">Instagram Profile</span>
+                        </a>
+                      )}
+                      {viewingAgency.facebookLink && (
+                        <a href={viewingAgency.facebookLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 p-5 rounded-2xl border border-white/10 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all group shadow-lg">
+                          <span className="text-white/50 group-hover:text-blue-400 text-2xl transition-colors">📘</span>
+                          <span className="text-white/80 group-hover:text-white font-medium transition-colors">Facebook Page</span>
+                        </a>
+                      )}
+                      {viewingAgency.googleReviewLink && (
+                        <a href={viewingAgency.googleReviewLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 p-5 rounded-2xl border border-white/10 hover:border-yellow-500/50 hover:bg-yellow-500/10 transition-all group shadow-lg">
+                          <span className="text-white/50 group-hover:text-yellow-400 text-2xl transition-colors">⭐</span>
+                          <span className="text-white/80 group-hover:text-white font-medium transition-colors">Google Reviews</span>
+                        </a>
+                      )}
+                      {!viewingAgency.instagramLink && !viewingAgency.facebookLink && !viewingAgency.googleReviewLink && (
+                        <div className="text-white/40 text-sm italic p-6 bg-white/5 rounded-2xl border border-white/5">
+                          No social links available.
+                        </div>
+                      )}
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Actions - Sticky */}
+            <div className="sticky bottom-0 w-full p-8 md:px-16 md:py-8 border-t border-white/10 bg-[#0e0d0b]/90 backdrop-blur-xl flex flex-col sm:flex-row justify-between items-center gap-6 z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+              <div className="text-white/50 text-base">
+                Ready to lock in <strong className="text-white">{viewingAgency.agencyName}</strong>?
+              </div>
+              <div className="flex gap-4 w-full sm:w-auto">
+                <button
+                  onClick={() => {
+                    setSelectedAgencyId(viewingAgency._id);
+                    setConfirmedBookingAgency(viewingAgency);
+                    setViewingAgency(null);
+                    setShowAgencyPicker(false);
+                  }}
+                  className="wazwan-btn-primary px-16 py-5 rounded-full text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_40px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform w-full sm:w-auto"
+                >
+                  Confirm Booking
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="bg-dark-900 text-white min-h-screen font-body relative overflow-x-hidden pt-32 pb-16">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          {/* Header */}
+          <div className="mb-12">
+            <span className="text-[var(--saffron)] text-sm font-bold uppercase tracking-[0.25em] mb-2 block">
+              Final Step
+            </span>
+            <h1 className="text-4xl md:text-5xl font-display font-medium text-white mb-4">Choose a Travel Partner</h1>
+            <p className="text-white/60 text-lg max-w-2xl">
+              Select one of our highly-rated, verified local agencies to arrange your trip. They will receive your itinerary and contact you directly.
+            </p>
+          </div>
+
+          {/* Agency Grid */}
+          <div className="mb-12">
+            {dbTravelAgencies.length === 0 && (
+              <div className="p-12 text-center text-white/40 border border-white/5 rounded-3xl bg-black/20">
+                No verified travel agencies are available at the moment.
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {dbTravelAgencies.map((agency) => {
+                return (
+                  <div
+                    key={agency._id}
+                    className="relative text-left transition-all rounded-3xl overflow-hidden border border-white/10 bg-black/40 hover:border-[var(--saffron)]/50 hover:bg-[#141210] hover:-translate-y-1 flex flex-col h-full"
+                  >
+                    {/* Thumbnail */}
+                    <div className="h-48 bg-white/5 relative overflow-hidden flex items-center justify-center shrink-0">
+                      {agency.thumbnailUrl ? (
+                        <img src={agency.thumbnailUrl} alt={agency.agencyName} className="w-full h-full object-cover" />
+                      ) : (
+                        <Mountain className="w-12 h-12 text-white/10" />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                      
+                      {/* Rating Badge */}
+                      <div className="absolute bottom-4 left-4 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-sm font-bold text-white border border-white/10">
+                        ⭐ {agency.rating || "4.5"}
+                      </div>
+                    </div>
+
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="flex justify-between items-start gap-2 mb-3">
+                        <h4 className="text-xl font-display font-bold text-white leading-tight">{agency.agencyName}</h4>
+                      </div>
+                      
+                      <p className="text-white/50 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">
+                        {agency.description || "Trusted local travel partner providing exceptional Kashmiri experiences."}
+                      </p>
+
+                      <button
+                        onClick={() => setViewingAgency(agency)}
+                        className="w-full py-3 rounded-xl border border-[var(--saffron)]/30 text-[var(--saffron)] text-xs font-bold uppercase tracking-widest hover:bg-[var(--saffron)] hover:text-black transition-colors"
+                      >
+                        Explore Agency
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
+          {/* Header Action / Back button */}
+          <div className="flex justify-center mb-8">
+            <button
+              onClick={() => setShowAgencyPicker(false)}
+              className="px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest border border-white/20 text-white hover:bg-white/5 transition-colors shadow-lg"
+            >
+              &larr; Back to Planner
+            </button>
+          </div>
+        </div>
+
+
+
+      </div>
+    );
+  }
 
   return (
     <div className="bg-dark-900 text-white min-h-screen font-body overflow-x-hidden relative">
@@ -1276,11 +1546,11 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                     &larr; Back
                   </button>
                   <button
-                    onClick={handleGeneratePlan}
-                    disabled={selectedInterests.length === 0 || loadingData}
+                    onClick={() => setShowAgencyPicker(true)}
+                    disabled={selectedInterests.length === 0}
                     className="wazwan-btn-primary rounded-full px-8 py-3 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] disabled:opacity-50"
                   >
-                    {loadingData ? "Querying Database..." : "Generate My Plan!"}
+                    Select Travel Partner &rarr;
                   </button>
                 </div>
               </motion.div>
@@ -1469,7 +1739,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </div>
 
               {/* Grid of actions at the bottom */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                 {/* BOT QUERY TRIGGER */}
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between">
                   <div>
@@ -1487,6 +1757,28 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                       className="wazwan-btn-primary rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform"
                     >
                       Ask Waza AI
+                    </button>
+                  </div>
+                </div>
+
+                {/* SELECT TRAVEL PARTNER CARD */}
+                <div className="rounded-2xl border border-emerald-500/20 bg-white/5 p-6 md:p-8 backdrop-blur-md text-center flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none" />
+                  <div>
+                    <span className="text-xs text-emerald-400 font-bold uppercase tracking-[0.25em] block mb-2">
+                      🤝 Book with a Local Agency
+                    </span>
+                    <h3 className="text-xl font-display text-white mb-2">Select Travel Partner</h3>
+                    <p className="text-white/65 text-xs max-w-lg mx-auto mb-6 leading-relaxed">
+                      Choose from our verified local agencies to handle your trip arrangements, bookings, and transport seamlessly.
+                    </p>
+                  </div>
+                  <div className="flex justify-center mt-auto">
+                    <button
+                      onClick={() => setShowAgencyPicker(true)}
+                      className="rounded-full px-8 py-3.5 text-xs uppercase tracking-widest font-bold bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:scale-105 transition-transform"
+                    >
+                      Browse Agencies
                     </button>
                   </div>
                 </div>
