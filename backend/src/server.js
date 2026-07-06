@@ -20,6 +20,7 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 dotenv.config();
 
 const app = express();
+app.set("trust proxy", 1); // Trust first proxy (Render/Vercel) to correctly resolve req.secure and IP
 const port = process.env.PORT || 5000;
 const allowedOrigins = [
   "http://localhost:3000",
@@ -70,6 +71,10 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
 });
 
 app.get("/api/auth/csrf-token", (req, res) => {
+  // Prevent Vercel/Render edge from caching this GET request and stripping the Set-Cookie header
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
   res.json({ csrfToken: generateCsrfToken(req, res) });
 });
 
