@@ -101,7 +101,9 @@ app.use((err, req, res, next) => {
     console.error("CSRF Debug - Server validation failed:", {
       nodeEnv: process.env.NODE_ENV,
       cookiePresent: !!req.cookies["x-csrf-token"],
+      cookieValue: req.cookies["x-csrf-token"],
       headerPresent: !!req.headers["x-csrf-token"],
+      headerValue: req.headers["x-csrf-token"],
       origin: req.headers.origin,
       userAgent: req.headers["user-agent"]
     });
