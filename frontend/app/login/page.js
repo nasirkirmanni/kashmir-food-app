@@ -1,9 +1,9 @@
 "use client";
 
 import AuthForm from "@/components/AuthForm";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { motion } from "framer-motion";
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -16,40 +16,23 @@ function LoginContent() {
           Your password has been successfully reset. Please log in with your new password.
         </div>
       )}
-      <div className="text-center mb-8">
-        <span className="place-eyebrow mb-3 block">Welcome Back</span>
-        <h1 className="font-display text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">Log in to your account</h1>
-        <p className="text-sm leading-relaxed text-white/60">
-          Sign in to save favorite dishes, track restaurants across Kashmir, and leave practical
-          notes for fellow travelers following the Wazwan route.
-        </p>
-      </div>
       <AuthForm mode="login" />
-      
-      <p className="mt-8 text-center text-sm text-white/60">
-        Don&apos;t have an account?{" "}
-        <Link href="/signup" className="text-[var(--saffron)] font-medium hover:underline transition-all">
-          Join now
-        </Link>
-      </p>
-
-      <div className="mt-12 text-center pt-8 border-t border-white/10">
-        <Link href="/travel-agent/login" className="text-xs text-white/40 hover:text-white uppercase tracking-widest font-semibold transition-colors">
-          Travel Agent Login &rarr;
-        </Link>
-      </div>
     </>
   );
 }
 
 export default function LoginPage() {
   return (
-    <div className="wazwan-shell min-h-screen flex items-center justify-center pt-20 pb-16">
-      <div className="w-full max-w-md px-4">
+    <div className="wazwan-shell min-h-screen flex flex-col items-center pt-32 pb-16 px-4">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-lg"
+      >
         <Suspense fallback={<div className="text-center text-white/60">Loading login form...</div>}>
           <LoginContent />
         </Suspense>
-      </div>
+      </motion.section>
     </div>
   );
 }

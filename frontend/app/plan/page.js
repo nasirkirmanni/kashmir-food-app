@@ -562,6 +562,13 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                Their team will review your preferences and contact you as soon as possible to finalize your incredible trip!
              </p>
            </div>
+
+           <Link 
+             href="/"
+             className="inline-flex items-center gap-2 bg-white text-[#05170e] font-bold text-sm tracking-widest uppercase px-10 py-4 rounded-full hover:bg-emerald-400 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]"
+           >
+             Return to Home
+           </Link>
         </div>
         {/* Background glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.1),transparent_70%)] pointer-events-none" />
@@ -1857,11 +1864,7 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
 
       <DestinationsShowcase />
       <AuthenticWazwanShowcase />
-      <ItineraryShowcase />
-      <TravelInfoGrid />
-      <TrustBar />
-      <BlogFAQSection />
-      <NewsletterBanner />
+
 
       {/* PROMPT PREVIEW MODAL */}
       <AnimatePresence>

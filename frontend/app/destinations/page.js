@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { endpoints, request } from "@/lib/api";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 // Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
 
@@ -16,6 +19,35 @@ export default function VisitKashmirPage() {
   const [selectedRegion, setSelectedRegion] = useState("All");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
+  const router = useRouter();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (showAuthModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showAuthModal]);
+
+  const handleListAgencyClick = () => {
+    if (!user) {
+      setShowAuthModal("logged-out");
+    } else if (user.role === "user") {
+      setShowAuthModal("personal");
+    } else {
+      router.push("/travel-agent/dashboard");
+    }
+  };
 
   useEffect(() => {
     request(endpoints.destinations() + "?v=" + Date.now())
@@ -84,6 +116,19 @@ export default function VisitKashmirPage() {
           </Link>
         </div>
       </section>
+
+      {/* List Agency Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="bg-gradient-to-r from-[var(--saffron)]/20 to-black/40 border border-[var(--saffron)]/30 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-md shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+          <div>
+            <h3 className="text-xl md:text-2xl font-display font-medium text-white mb-2">Are you a Travel Agent?</h3>
+            <p className="text-white/70 text-sm md:text-base">List your agency with Wazwan Way to reach thousands of travelers looking for custom Kashmir itineraries.</p>
+          </div>
+          <button onClick={handleListAgencyClick} className="whitespace-nowrap wazwan-btn-primary rounded-full px-8 py-3.5 text-sm uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:scale-105 transition-transform shrink-0">
+            List Your Agency
+          </button>
+        </div>
+      </div>
 
       {/* Rare destinations section header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
@@ -265,6 +310,78 @@ export default function VisitKashmirPage() {
           </div>
         )}
       </div>
+
+      {mounted && createPortal(
+        <AnimatePresence>
+          {showAuthModal && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="relative w-full max-w-md rounded-3xl border border-white/10 bg-[#0F0F0F] p-8 shadow-2xl text-center"
+              >
+                <button
+                  onClick={() => setShowAuthModal(false)}
+                  className="absolute right-4 top-4 text-white/50 hover:text-white transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                
+                <div className="w-16 h-16 bg-[var(--saffron)]/10 text-[var(--saffron)] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+
+                <h3 className="text-2xl font-display font-medium text-white mb-2">Agent Account Required</h3>
+                <p className="text-white/60 text-sm mb-8 leading-relaxed">
+                  {showAuthModal === "logged-out" 
+                    ? "You need a Travel Agency account to list your agency on Wazwan Way."
+                    : (
+                      <>
+                        Your account is currently a Personal User account.<br/><br/>
+                        Only registered Travel Agency accounts can create and manage agency listings.
+                      </>
+                    )}
+                </p>
+
+                {showAuthModal === "logged-out" && (
+                  <button
+                    onClick={() => {
+                      setShowAuthModal(false);
+                      router.push("/login");
+                    }}
+                    className="w-full bg-white/10 text-white px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-colors mb-3"
+                  >
+                    Sign In
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    setShowAuthModal(false);
+                    router.push("/travel-agent/signup");
+                  }}
+                  className="w-full bg-[var(--saffron)] text-black px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] transition-transform"
+                >
+                  Register as Agency
+                </button>
+                
+                <button
+                  onClick={() => setShowAuthModal(false)}
+                  className="w-full mt-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-xs text-white/50 hover:text-white transition-colors"
+                >
+                  Cancel
+                </button>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   );
 }

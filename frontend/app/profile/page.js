@@ -90,7 +90,21 @@ export default function ProfilePage() {
             {initials}
           </div>
           <h1 className="font-display text-3xl text-white mb-1">{user.name || "Guest User"}</h1>
-          <p className="text-sm text-white/50">{user.email}</p>
+          <p className="text-sm text-white/50 mb-3">{user.email}</p>
+          
+          <div className="flex items-center gap-2 mb-2">
+            <span className={`px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase tracking-widest ${user.role === 'agent' ? 'bg-[var(--saffron)]/20 text-[var(--saffron)] border border-[var(--saffron)]/30' : 'bg-white/10 text-white/70 border border-white/20'}`}>
+              {user.role === 'agent' ? 'Agency Account' : 'Personal Account'}
+            </span>
+            {user.role === 'agent' && (
+              <span className="bg-[var(--saffron)] text-black px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase tracking-widest flex items-center gap-1">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Agent
+              </span>
+            )}
+          </div>
           
           <div className="mt-4 flex gap-4">
             <div className="bg-white/5 border border-white/10 rounded-2xl px-5 py-3 flex flex-col items-center min-w-[120px]">
@@ -176,15 +190,25 @@ export default function ProfilePage() {
             View Saved Dishes
           </Link>
           
-          {user.role === 'travel_agent' && (
+          {user.role === 'agent' || user.isAdmin ? (
             <Link
               href="/travel-agent/dashboard"
-              className="flex w-full items-center justify-center gap-3 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-blue-400 transition-all hover:bg-blue-500/20 active:scale-95"
+              className="flex w-full items-center justify-center gap-3 rounded-full border border-[var(--saffron)]/30 bg-[var(--saffron)]/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-[var(--saffron)] transition-all hover:bg-[var(--saffron)]/20 active:scale-95"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Agent Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/travel-agent/signup"
+              className="flex w-full items-center justify-center gap-3 rounded-full border border-green-500/30 bg-green-500/10 px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-green-400 transition-all hover:bg-green-500/20 active:scale-95"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Register Travel Agency
             </Link>
           )}
           

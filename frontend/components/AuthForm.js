@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
+import Link from "next/link";
 import OtpInput from "./OtpInput";
 
 export default function AuthForm({ mode = "login", redirectPath = "/" }) {
@@ -181,62 +182,64 @@ export default function AuthForm({ mode = "login", redirectPath = "/" }) {
   }
 
   return (
-    <form onSubmit={handleInitialSubmit} className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 sm:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-      <div className="space-y-6">
+    <form onSubmit={handleInitialSubmit} className="w-full max-w-[460px] mx-auto rounded-[24px] border border-white/10 bg-[#111111]/80 backdrop-blur-3xl p-8 sm:p-10 shadow-[0_0_80px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.02)] flex flex-col relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--saffron)]/5 to-transparent pointer-events-none rounded-[24px]" />
+      
+      <div className="text-center mb-8 relative z-10 flex flex-col items-center">
+        <img src="/icon.png" alt="Wazwan Way Logo" className="h-14 w-auto mb-6 drop-shadow-[0_0_15px_rgba(200,164,106,0.3)]" />
+        <h1 className="font-display text-3xl font-medium tracking-tight text-white mb-2">
+          {mode === "login" ? "Welcome Back" : "Create Your Account"}
+        </h1>
+        <p className="text-[13px] leading-relaxed text-white/50 px-4">
+          {mode === "login"
+            ? "Sign in to continue your Kashmir journey."
+            : "Join Wazwan Way to save favourites, build itineraries and discover authentic Kashmir."}
+        </p>
+      </div>
+
+      <div className="space-y-5 relative z-10">
         {mode === "signup" ? (
           /* Signup: Full Name, Email, Phone Number, Password, Confirm Password */
           <>
-            <label className="block text-left">
-              <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Full name</span>
+            <label className="block text-left group">
+              <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Full name</span>
               <input
                 value={form.name}
                 onChange={(event) => setForm({ ...form, name: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
             </label>
 
-            <label className="block text-left">
-              <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Email Address</span>
+            <label className="block text-left group">
+              <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Email Address</span>
               <input
                 type="email"
                 value={form.email}
                 onChange={(event) => setForm({ ...form, email: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
             </label>
 
-            <label className="block text-left">
-              <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Phone Number</span>
-              <input
-                type="tel"
-                placeholder="+91 99999 99999"
-                value={form.phoneNumber}
-                onChange={(event) => setForm({ ...form, phoneNumber: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
-                required
-              />
-            </label>
-
-            <label className="block text-left">
-              <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Password</span>
+            <label className="block text-left group">
+              <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Password</span>
               <input
                 type="password"
                 value={form.password}
                 onChange={(event) => setForm({ ...form, password: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
             </label>
 
-            <label className="block text-left">
-              <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Confirm Password</span>
+            <label className="block text-left group">
+              <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Confirm Password</span>
               <input
                 type="password"
                 value={form.confirmPassword}
                 onChange={(event) => setForm({ ...form, confirmPassword: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
             </label>
@@ -244,29 +247,26 @@ export default function AuthForm({ mode = "login", redirectPath = "/" }) {
         ) : (
           /* Login: Email & Password only */
           <>
-            <label className="block text-left">
-              <span className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Email Address</span>
+            <label className="block text-left group">
+              <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Email</span>
               <input
                 type="email"
                 value={form.email}
                 onChange={(event) => setForm({ ...form, email: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
             </label>
 
-            <label className="block text-left">
-              <span className="mb-2 flex justify-between items-center text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">
+            <label className="block text-left group">
+              <span className="mb-1.5 flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">
                 <span>Password</span>
-                <a href="/forgot-password" className="text-white/40 hover:text-white transition-colors normal-case tracking-normal font-normal">
-                  Forgot password?
-                </a>
               </span>
               <input
                 type="password"
                 value={form.password}
                 onChange={(event) => setForm({ ...form, password: event.target.value })}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none focus:border-[var(--saffron)] transition-colors"
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
             </label>
@@ -278,11 +278,54 @@ export default function AuthForm({ mode = "login", redirectPath = "/" }) {
         <button
           type="submit"
           disabled={loading}
-          className="mt-4 w-full rounded-full bg-[var(--saffron)] px-5 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
+          className="mt-6 w-full rounded-full bg-[var(--saffron)] px-5 py-3.5 text-xs font-bold uppercase tracking-[0.1em] text-black shadow-[0_4px_14px_0_rgba(200,164,106,0.39)] hover:shadow-[0_6px_20px_rgba(200,164,106,0.23)] hover:bg-[var(--saffron)]/90 transition-all active:scale-[0.98] disabled:opacity-60 disabled:hover:scale-100"
         >
-          {loading ? "Please wait..." : mode === "login" ? "Login to WazwanWay" : "Create Account"}
+          {loading ? "Please wait..." : mode === "login" ? "Sign In" : "Create Account"}
         </button>
+
+        {mode === "login" && (
+          <div className="text-center mt-4">
+            <a href="/forgot-password" className="text-[11px] font-medium text-white/40 hover:text-white transition-colors normal-case">
+              Forgot Password?
+            </a>
+          </div>
+        )}
       </div>
+
+      <div className="mt-8 relative z-10">
+        <p className="text-center text-[13px] text-white/50">
+          {mode === "login" ? "Don't have an account?" : "Already have an account?"}{" "}
+          <Link href={mode === "login" ? "/signup" : "/login"} className="text-white font-medium hover:text-[var(--saffron)] transition-colors">
+            {mode === "login" ? "Create Account" : "Sign In"}
+          </Link>
+        </p>
+      </div>
+
+      {mode === "signup" && (
+        <>
+          <div className="mt-6 flex items-center gap-4 before:h-px before:flex-1 before:bg-white/10 after:h-px after:flex-1 after:bg-white/10 relative z-10">
+            <span className="text-[10px] uppercase tracking-widest font-bold text-white/20">OR</span>
+          </div>
+
+          <div className="mt-6 text-center flex flex-col items-center gap-1.5 relative z-10">
+            <p className="text-[11px] text-white/40">Own a travel agency?</p>
+            <Link 
+              href="/travel-agent/signup" 
+              className="inline-flex items-center gap-1.5 text-white/80 font-medium hover:text-[var(--saffron)] transition-colors group text-[13px]"
+            >
+              Register as a Travel Agency
+              <svg 
+                className="w-3.5 h-3.5 transform transition-transform group-hover:translate-x-1 text-[var(--saffron)]" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        </>
+      )}
     </form>
   );
 }

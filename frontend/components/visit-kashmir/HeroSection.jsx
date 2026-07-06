@@ -1,6 +1,12 @@
+"use client";
+
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function HeroSection({ onPlanClick, onWazaPlanClick }) {
   const stats = [
@@ -9,6 +15,36 @@ export default function HeroSection({ onPlanClick, onWazaPlanClick }) {
     { label: "Authentic Dishes", value: "100+", icon: "🥘" },
     { label: "Trip Planner", value: "AI", icon: "🧠" }
   ];
+
+  const router = useRouter();
+  const { user } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (showAuthModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showAuthModal]);
+
+  const handleListAgencyClick = () => {
+    if (!user) {
+      setShowAuthModal("logged-out");
+    } else if (user.role === "user") {
+      setShowAuthModal("personal");
+    } else {
+      router.push("/travel-agent/dashboard");
+    }
+  };
 
   return (
     <section className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 pt-8 pb-40 lg:pt-12 lg:pb-48">
@@ -52,18 +88,24 @@ export default function HeroSection({ onPlanClick, onWazaPlanClick }) {
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-wrap gap-4">
             <button 
               onClick={onWazaPlanClick}
-              className="bg-gold text-dark-900 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,99,0.3)]"
+              className="bg-gold text-dark-900 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,99,0.3)] shrink-0"
             >
               Let Waza AI Plan Your Trip ✦
             </button>
             <button 
               onClick={onPlanClick}
-              className="border border-white/20 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:border-white/50 hover:bg-white/5 transition-all"
+              className="border border-white/20 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:border-white/50 hover:bg-white/5 transition-all shrink-0"
             >
               Plan your custom trip
+            </button>
+            <button 
+              onClick={handleListAgencyClick}
+              className="border border-green-500/30 text-green-400 bg-green-500/10 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-green-500/20 transition-all shrink-0"
+            >
+              List Your Agency
             </button>
           </div>
         </motion.div>
@@ -115,9 +157,80 @@ export default function HeroSection({ onPlanClick, onWazaPlanClick }) {
               </div>
             </div>
           </motion.div>
-
         </motion.div>
       </div>
+
+      {mounted && createPortal(
+        <AnimatePresence>
+          {showAuthModal && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="relative w-full max-w-md rounded-3xl border border-white/10 bg-[#0F0F0F] p-8 shadow-2xl text-center"
+              >
+                <button
+                  onClick={() => setShowAuthModal(false)}
+                  className="absolute right-4 top-4 text-white/50 hover:text-white transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                
+                <div className="w-16 h-16 bg-[var(--saffron)]/10 text-[var(--saffron)] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+
+                <h3 className="text-2xl font-display font-medium text-white mb-2">Agent Account Required</h3>
+                <p className="text-white/60 text-sm mb-8 leading-relaxed">
+                  {showAuthModal === "logged-out" 
+                    ? "You need a Travel Agency account to list your agency on Wazwan Way."
+                    : (
+                      <>
+                        Your account is currently a Personal User account.<br/><br/>
+                        Only registered Travel Agency accounts can create and manage agency listings.
+                      </>
+                    )}
+                </p>
+
+                {showAuthModal === "logged-out" && (
+                  <button
+                    onClick={() => {
+                      setShowAuthModal(false);
+                      router.push("/login");
+                    }}
+                    className="w-full bg-white/10 text-white px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-colors mb-3"
+                  >
+                    Sign In
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    setShowAuthModal(false);
+                    router.push("/travel-agent/signup");
+                  }}
+                  className="w-full bg-[var(--saffron)] text-black px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] transition-transform"
+                >
+                  Register as Agency
+                </button>
+                
+                <button
+                  onClick={() => setShowAuthModal(false)}
+                  className="w-full mt-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-xs text-white/50 hover:text-white transition-colors"
+                >
+                  Cancel
+                </button>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

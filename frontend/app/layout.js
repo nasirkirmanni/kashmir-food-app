@@ -3,7 +3,7 @@ import { Inter, Cormorant_Garamond, Playfair_Display } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
-import Footer from "@/components/Footer";
+import ConditionalFooter from "@/components/ConditionalFooter";
 import GlobalBackground from "@/components/GlobalBackground";
 import dynamic from "next/dynamic";
 const WazaAI = dynamic(() => import("@/components/WazaAI"), { ssr: false });
@@ -132,9 +132,7 @@ export default function RootLayout({ children }) {
               <MobileSwipeContainer>
                 <main>{children}</main>
               </MobileSwipeContainer>
-              <div className="hidden md:block">
-                <Footer />
-              </div>
+              <ConditionalFooter />
               <WazaAI />
               <GlobalSearchModal />
               <MobileNav />

@@ -39,6 +39,7 @@ export default function AdminPanel() {
   const [dishes, setDishes] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [leads, setLeads] = useState([]);
+  const [agencies, setAgencies] = useState([]);
   const [dishForm, setDishForm] = useState(dishInitialState);
   const [restaurantForm, setRestaurantForm] = useState(restaurantInitialState);
   const [editingDishId, setEditingDishId] = useState(null);
@@ -46,15 +47,17 @@ export default function AdminPanel() {
   const [message, setMessage] = useState("");
 
   const loadData = async () => {
-    const [dishData, restaurantData, leadsData] = await Promise.all([
+    const [dishData, restaurantData, leadsData, agenciesData] = await Promise.all([
       request(endpoints.dishes()),
       request(endpoints.restaurants()),
-      request(endpoints.restaurantLeads()).catch(() => [])
+      request(endpoints.restaurantLeads()).catch(() => []),
+      request("/travel-agencies/all").catch(() => [])
     ]);
 
     setDishes(dishData);
     setRestaurants(restaurantData);
     setLeads(leadsData);
+    setAgencies(agenciesData);
   };
 
   const updateLeadStatus = async (id, status) => {
@@ -77,6 +80,19 @@ export default function AdminPanel() {
         method: "DELETE"
       });
       setMessage("Lead deleted successfully.");
+      await loadData();
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  const updateAgencyStatus = async (id, status, notes = "") => {
+    try {
+      await request(`/travel-agencies/admin/${id}/status`, {
+        method: "PUT",
+        body: JSON.stringify({ status, notes })
+      });
+      setMessage(`Agency status updated to ${status}.`);
       await loadData();
     } catch (error) {
       setMessage(error.message);
@@ -463,6 +479,66 @@ export default function AdminPanel() {
                       Delete
                     </button>
                   </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+
+        <section className="rounded-[32px] bg-white p-6 shadow-card">
+          <h4 className="text-lg font-semibold text-pine">Agency Review</h4>
+          <div className="mt-4 space-y-3">
+            {(!agencies || agencies.length === 0) ? (
+              <p className="text-xs text-slate-500">No agencies available.</p>
+            ) : (
+              agencies.map((agency) => (
+                <div key={agency._id} className="rounded-2xl bg-slate-50 p-4 text-sm relative">
+                  <div className="flex justify-between items-start">
+                    <p className="font-semibold text-slate-900">{agency.agencyName}</p>
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
+                      agency.verificationStatus === "approved" 
+                        ? "bg-green-100 text-green-800" 
+                        : agency.verificationStatus === "rejected" 
+                        ? "bg-red-100 text-red-800" 
+                        : agency.verificationStatus === "pending"
+                        ? "bg-amber-100 text-amber-800"
+                        : "bg-slate-100 text-slate-800"
+                    }`}>
+                      {agency.verificationStatus}
+                    </span>
+                  </div>
+                  <div className="mt-2 space-y-1 text-slate-600 text-xs">
+                    <p><strong>Owner:</strong> {agency.ownerName}</p>
+                    <p><strong>Email:</strong> {agency.email}</p>
+                    <p><strong>City:</strong> {agency.city}</p>
+                    {agency.whyChooseUs && <p><strong>Why Us:</strong> {agency.whyChooseUs}</p>}
+                    <div className="flex gap-2 mt-1">
+                      {agency.thumbnailUrl && <a href={agency.thumbnailUrl} target="_blank" rel="noreferrer" className="text-blue-500 underline">Logo</a>}
+                      {agency.coverImageUrl && <a href={agency.coverImageUrl} target="_blank" rel="noreferrer" className="text-blue-500 underline">Cover</a>}
+                    </div>
+                  </div>
+                  
+                  {agency.verificationStatus === "pending" && (
+                    <div className="mt-4 flex gap-2">
+                      <button
+                        onClick={() => updateAgencyStatus(agency._id, "approved")}
+                        className="rounded-lg bg-green-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-green-700 transition-colors"
+                      >
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => {
+                          const notes = window.prompt("Rejection reason (optional):");
+                          if (notes !== null) {
+                            updateAgencyStatus(agency._id, "rejected", notes);
+                          }
+                        }}
+                        className="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 transition-colors"
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))
             )}
