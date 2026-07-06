@@ -56,8 +56,12 @@ export default function TravelAgentDashboard() {
         licenseNumber: data.agency.licenseNumber || "",
         whyChooseUs: data.agency.whyChooseUs || ""
       });
-      if (!data.agency.address || !data.agency.description) {
-        setIsEditing(true);
+      if (data.agency.verificationStatus === 'incomplete') {
+        const requiredFields = ['agencyName', 'email', 'contactNumber', 'whatsapp', 'city', 'yearsInBusiness', 'thumbnailUrl', 'coverImageUrl', 'whyChooseUs'];
+        const isMissingRequired = requiredFields.some(field => !data.agency[field]);
+        if (isMissingRequired) {
+          setIsEditing(true);
+        }
       }
     } catch (err) {
       setError(err.message || "Failed to load dashboard details");
