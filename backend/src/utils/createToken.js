@@ -12,11 +12,14 @@ export const generateAuthCookies = (res, user) => {
     { expiresIn: "7d" }
   );
 
+  const isProd = process.env.NODE_ENV === "production";
   const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax", // lax is safe because all requests flow through same-origin proxy
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     path: "/",
+    // Share cookie across wazwanway.com (frontend) and api.wazwanway.com (backend)
+    ...(isProd ? { domain: ".wazwanway.com" } : {}),
   };
 
   res.cookie("accessToken", accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });

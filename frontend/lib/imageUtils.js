@@ -20,7 +20,7 @@ import {
 } from './imageProvider';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL?.trim()?.replace(/\/+$/, '')
-  || 'https://kashmir-food-app-api.onrender.com';
+  || 'https://api.wazwanway.com';
 
 /**
  * Check if a string is an absolute URL

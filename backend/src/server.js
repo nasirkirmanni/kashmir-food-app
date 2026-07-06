@@ -61,14 +61,18 @@ app.use((req, res, next) => {
   next();
 });
 
+const isProd = process.env.NODE_ENV === "production";
+
 const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   getSecret: () => process.env.CSRF_SECRET || "wazwan-way-secret-csrf-key",
   getSessionIdentifier: (req) => "stateless-session",
   cookieName: "x-csrf-token",
   cookieOptions: {
-    sameSite: "lax", // Force lax for first-party Next.js proxies to bypass aggressive ITP
+    sameSite: isProd ? "none" : "lax",
     path: "/",
-    secure: process.env.NODE_ENV === "production"
+    secure: isProd,
+    // Share cookie across wazwanway.com (frontend) and api.wazwanway.com (backend)
+    ...(isProd ? { domain: ".wazwanway.com" } : {})
   },
   size: 64,
   ignoredMethods: ["GET", "HEAD", "OPTIONS"],

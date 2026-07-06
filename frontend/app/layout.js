@@ -109,7 +109,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="dns-prefetch" href="https://kashmir-food-app-api.onrender.com" />
+        <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} font-body bg-[#0B0B0B] text-white antialiased relative overflow-x-hidden`}>
         <NextTopLoader

@@ -64,7 +64,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://localhost:5000 http://127.0.0.1:5000 https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:5000 http://127.0.0.1:5000 https://kashmir-food-app-api.onrender.com https://*.tile.openstreetmap.org; frame-ancestors 'none'",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://localhost:5000 http://127.0.0.1:5000 https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:5000 http://127.0.0.1:5000 https://api.wazwanway.com https://kashmir-food-app-api.onrender.com https://*.tile.openstreetmap.org; frame-ancestors 'none'",
           },
           {
             key: 'Strict-Transport-Security',
@@ -122,6 +122,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'img1.wsimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.wazwanway.com',
       },
       {
         protocol: 'https',

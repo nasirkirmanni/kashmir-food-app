@@ -1,15 +1,16 @@
-const fallbackApiUrl = "https://kashmir-food-app-api.onrender.com";
+const fallbackApiUrl = "https://api.wazwanway.com";
 
 const resolveApiUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
   
-  // On web browsers (non-Capacitor), use our Next.js API route proxy at /api/proxy/...
-  // This is critical for iOS: Vercel edge rewrites strip Set-Cookie headers from upstream
-  // responses, which causes CSRF cookies to never reach the browser. Our serverless
-  // function proxy at /api/proxy/[...path] explicitly forwards Set-Cookie headers,
-  // making all cookies first-party and ITP-safe.
+  // With api.wazwanway.com as a custom domain, the backend shares the same registrable
+  // domain (wazwanway.com) as the frontend. This makes all cookies same-site and
+  // first-party, completely bypassing iOS ITP third-party cookie blocking.
+  // Capacitor (native app) uses the configured/fallback URL directly.
   if (typeof window !== "undefined" && !window.Capacitor) {
-    return ""; // Will be combined with /api/proxy prefix below
+    // Web clients: use the custom domain directly (same-site, no proxy needed)
+    if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
+    return fallbackApiUrl;
   }
 
   if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
@@ -18,14 +19,6 @@ const resolveApiUrl = () => {
 
 const buildApiUrl = (path) => {
   const baseUrl = resolveApiUrl();
-  
-  // Web clients: route through /api/proxy/... serverless function proxy
-  // e.g. path="/chat" → "/api/proxy/chat", path="/auth/csrf-token" → "/api/proxy/auth/csrf-token"
-  if (baseUrl === "") {
-    return `/api/proxy${path}`;
-  }
-  
-  // Native (Capacitor) or SSR: hit the backend directly
   const apiPrefix = baseUrl.endsWith("/api") ? "" : "/api";
   return `${baseUrl}${apiPrefix}${path}`;
 };
