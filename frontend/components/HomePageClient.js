@@ -478,7 +478,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
                 </div>
               </Link>
-              <button onClick={() => setIsTripPlannerModalVisible(true)} className="block w-full text-left">
+              <Link href="/custom-trip" className="block w-full text-left" prefetch={false}>
                 <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
                   <div className="text-[#C8A46A]"><Sparkles size={22} strokeWidth={1.5} /></div>
                   <div>
@@ -486,7 +486,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   </div>
                   <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
                 </div>
-              </button>
+              </Link>
             </div>
         </div>
         </div>
