@@ -3,8 +3,78 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { request, streamRequest, endpoints } from "@/lib/api";
+import { request, streamRequest, endpoints, fetchCsrfToken } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
+import React from "react";
+
+const markdownComponents = {
+  p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }} {...props} />,
+  ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
+  ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
+  li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+  strong: ({ node, ...props }) => <strong className="font-semibold" style={{ color: "#D4A15A" }} {...props} />,
+  h1: ({ node, ...props }) => <h1 className="text-[16px] font-bold mt-4 mb-2" style={{ color: "#D4A15A" }} {...props} />,
+  h2: ({ node, ...props }) => <h2 className="text-[15px] font-bold mt-3 mb-1.5" style={{ color: "#D4A15A" }} {...props} />,
+  h3: ({ node, ...props }) => <h3 className="text-[14px] font-semibold mt-2.5 mb-1" style={{ color: "#D4A15A" }} {...props} />,
+  code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-[11px] font-mono" style={{ color: "#D4A15A" }} {...props} />,
+  blockquote: ({ node, ...props }) => <blockquote className="border-l-2 pl-3 italic my-3" style={{ borderColor: "#D4A15A", color: "rgba(255,255,255,0.5)" }} {...props} />,
+};
+
+const MessageBubble = React.memo(({ msg }) => {
+  if (msg.role === "assistant" && !msg.content) return null;
+  return (
+    <div className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+      {/* AI Avatar for assistant */}
+      {msg.role === "assistant" && (
+        <div
+          className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
+          style={{
+            background: "linear-gradient(135deg, #D4A15A, #8B6914)",
+            border: "1.5px solid rgba(212,161,90,0.3)"
+          }}
+        >
+          <Image
+            src="/waza-profile.jpg"
+            alt="Waza AI"
+            fill
+            sizes="32px"
+            className="object-cover"
+          />
+        </div>
+      )}
+      <div 
+        className={`max-w-[82%] text-[14px] leading-relaxed ${
+          msg.role === "user" 
+            ? "px-4 py-3 rounded-[18px] rounded-tr-[4px]" 
+            : "px-4 py-3 rounded-[18px] rounded-tl-[4px]"
+        }`}
+        style={
+          msg.role === "user"
+            ? {
+                background: "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)",
+                color: "#FFFFFF",
+                boxShadow: "0 4px 16px rgba(212,161,90,0.2)"
+              }
+            : {
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.85)"
+              }
+        }
+      >
+        {msg.role === "user" ? (
+          msg.content
+        ) : (
+          <div className="prose prose-invert max-w-none">
+            <ReactMarkdown components={markdownComponents}>
+              {msg.content}
+            </ReactMarkdown>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+});
 
 const SparkleIcon = ({ size = 18, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -81,6 +151,7 @@ export default function WazaAI() {
   }, [messages, isOpen]);
 
   const handleOpenIntro = () => {
+    fetchCsrfToken().catch(() => {});
     setIsOpen(true);
     setIsIntroMode(true);
     
@@ -114,6 +185,8 @@ export default function WazaAI() {
       let assistantMessage = "";
       let buffer = "";
 
+      let rafId = null;
+
       while (!done) {
         const { value, done: readerDone } = await reader.read();
         done = readerDone;
@@ -122,6 +195,7 @@ export default function WazaAI() {
           const lines = buffer.split("\n");
           buffer = lines.pop() || "";
 
+          let addedContent = false;
           for (const line of lines) {
             if (line.startsWith("data: ")) {
               const dataStr = line.replace("data: ", "").trim();
@@ -130,29 +204,48 @@ export default function WazaAI() {
                 const parsed = JSON.parse(dataStr);
                 if (parsed.reply) {
                   assistantMessage += parsed.reply;
-                  setMessages((prev) => {
-                    const newMessages = [...prev];
-                    newMessages[newMessages.length - 1] = { 
-                      ...newMessages[newMessages.length - 1], 
-                      content: assistantMessage 
-                    };
-                    return newMessages;
-                  });
+                  addedContent = true;
                 } else if (parsed.error) {
                   assistantMessage += "\n\n*Error: " + parsed.error + "*";
-                  setMessages((prev) => {
-                    const newMessages = [...prev];
-                    newMessages[newMessages.length - 1].content = assistantMessage;
-                    return newMessages;
-                  });
+                  addedContent = true;
                 }
               } catch (e) {
                 // Ignore invalid JSON lines
               }
             }
           }
+          
+          if (addedContent && !rafId) {
+            rafId = requestAnimationFrame(() => {
+              const currentContent = assistantMessage;
+              setMessages((prev) => {
+                const newMessages = [...prev];
+                newMessages[newMessages.length - 1] = { 
+                  ...newMessages[newMessages.length - 1], 
+                  content: currentContent 
+                };
+                return newMessages;
+              });
+              rafId = null;
+            });
+          }
         }
       }
+      
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      
+      // Final flush
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        newMessages[newMessages.length - 1] = { 
+          ...newMessages[newMessages.length - 1], 
+          content: assistantMessage 
+        };
+        return newMessages;
+      });
       
       if (!assistantMessage.trim()) {
         assistantMessage = "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?";
@@ -175,6 +268,7 @@ export default function WazaAI() {
   };
 
   const handleOpenPrompt = (e) => {
+    fetchCsrfToken().catch(() => {});
     const promptText = e.detail;
     if (!promptText) return;
     setIsOpen(true);
@@ -190,6 +284,7 @@ export default function WazaAI() {
     const pendingPrompt = sessionStorage.getItem("waza_ai_pending_prompt");
     if (pendingPrompt) {
       sessionStorage.removeItem("waza_ai_pending_prompt");
+      fetchCsrfToken().catch(() => {});
       // Give page transition time to stabilize
       setTimeout(() => {
         setIsOpen(true);
@@ -313,74 +408,9 @@ export default function WazaAI() {
 
             {/* Messages Area */}
             <div className="relative z-10 flex-1 overflow-y-auto p-5 no-scrollbar scroll-smooth flex flex-col gap-5">
-              {messages.map((msg, idx) => {
-                if (msg.role === "assistant" && !msg.content) return null;
-                return (
-                <div key={idx} className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                  {/* AI Avatar for assistant */}
-                  {msg.role === "assistant" && (
-                    <div
-                      className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
-                      style={{
-                        background: "linear-gradient(135deg, #D4A15A, #8B6914)",
-                        border: "1.5px solid rgba(212,161,90,0.3)"
-                      }}
-                    >
-                      <Image
-                        src="/waza-profile.jpg"
-                        alt="Waza AI"
-                        fill
-                        sizes="32px"
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div 
-                    className={`max-w-[82%] text-[14px] leading-relaxed ${
-                      msg.role === "user" 
-                        ? "px-4 py-3 rounded-[18px] rounded-tr-[4px]" 
-                        : "px-4 py-3 rounded-[18px] rounded-tl-[4px]"
-                    }`}
-                    style={
-                      msg.role === "user"
-                        ? {
-                            background: "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)",
-                            color: "#FFFFFF",
-                            boxShadow: "0 4px 16px rgba(212,161,90,0.2)"
-                          }
-                        : {
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(255,255,255,0.06)",
-                            color: "rgba(255,255,255,0.85)"
-                          }
-                    }
-                  >
-                    {msg.role === "user" ? (
-                      msg.content
-                    ) : (
-                      <div className="prose prose-invert max-w-none">
-                        <ReactMarkdown
-                          components={{
-                            p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }} {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
-                            li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
-                            strong: ({ node, ...props }) => <strong className="font-semibold" style={{ color: "#D4A15A" }} {...props} />,
-                            h1: ({ node, ...props }) => <h1 className="text-[16px] font-bold mt-4 mb-2" style={{ color: "#D4A15A" }} {...props} />,
-                            h2: ({ node, ...props }) => <h2 className="text-[15px] font-bold mt-3 mb-1.5" style={{ color: "#D4A15A" }} {...props} />,
-                            h3: ({ node, ...props }) => <h3 className="text-[14px] font-semibold mt-2.5 mb-1" style={{ color: "#D4A15A" }} {...props} />,
-                            code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-[11px] font-mono" style={{ color: "#D4A15A" }} {...props} />,
-                            blockquote: ({ node, ...props }) => <blockquote className="border-l-2 pl-3 italic my-3" style={{ borderColor: "#D4A15A", color: "rgba(255,255,255,0.5)" }} {...props} />,
-                          }}
-                        >
-                          {msg.content}
-                        </ReactMarkdown>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                );
-              })}
+              {messages.map((msg, idx) => (
+                <MessageBubble key={idx} msg={msg} />
+              ))}
               
               {isLoading && (!messages.length || messages[messages.length - 1].role === "user" || !messages[messages.length - 1].content) && (
                 <motion.div

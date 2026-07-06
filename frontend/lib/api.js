@@ -15,16 +15,26 @@ const buildApiUrl = (path) => {
 // ─── CSRF Token Management ────────
 let csrfToken = null;
 
+let csrfTokenPromise = null;
+
 export const fetchCsrfToken = async () => {
-  try {
-    const res = await fetch(buildApiUrl("/auth/csrf-token"), { credentials: "include" });
-    const data = await res.json();
-    if (data.csrfToken) {
-      csrfToken = data.csrfToken;
+  if (csrfTokenPromise) return csrfTokenPromise;
+
+  csrfTokenPromise = (async () => {
+    try {
+      const res = await fetch(buildApiUrl("/auth/csrf-token"), { credentials: "include" });
+      const data = await res.json();
+      if (data.csrfToken) {
+        csrfToken = data.csrfToken;
+      }
+      return csrfToken;
+    } catch (err) {
+      console.error("Failed to fetch CSRF token", err);
+      return null;
     }
-  } catch (err) {
-    console.error("Failed to fetch CSRF token", err);
-  }
+  })();
+  
+  return csrfTokenPromise;
 };
 
 // ─── In-memory cache with TTL + stale-while-revalidate + deduplication ────────
@@ -76,6 +86,10 @@ export const request = async (path, options = {}) => {
 
   if (cacheable && _inflight.has(cacheKey)) return _inflight.get(cacheKey);
 
+  if (!csrfToken && options.method && ["POST", "PUT", "PATCH", "DELETE"].includes(options.method.toUpperCase())) {
+    await fetchCsrfToken();
+  }
+
   const promise = _doFetchWithRefresh(path, options, cacheKey, cacheable);
 
   if (cacheable) {
@@ -87,6 +101,9 @@ export const request = async (path, options = {}) => {
 };
 
 export const streamRequest = async (path, options = {}) => {
+  if (!csrfToken && options.method && ["POST", "PUT", "PATCH", "DELETE"].includes(options.method.toUpperCase())) {
+    await fetchCsrfToken();
+  }
   const fetchOptions = prepareFetchOptions(options);
   const response = await fetch(buildApiUrl(path), fetchOptions);
   
@@ -223,3 +240,8 @@ export const endpoints = {
   logout: "/auth/logout",
   logoutAll: "/auth/logout-all",
 };
+
+// ─── Fire and forget CSRF prefetch on app initialization ────────
+if (typeof window !== "undefined") {
+  fetchCsrfToken().catch(() => {});
+}

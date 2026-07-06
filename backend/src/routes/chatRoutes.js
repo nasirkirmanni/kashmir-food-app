@@ -8,9 +8,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { openrouter } from "../config/openrouter.js";
 import rateLimit from "express-rate-limit";
+import crypto from "crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const TTFT_TIMEOUT_MS = 4000;
 
 // ─── KNOWLEDGE BASE ───────────────────────────────────────────────────────────
 // Loaded once at startup. Never re-read from disk per request.
@@ -186,6 +189,9 @@ router.post(
   chatLimiter,
   asyncHandler(async (req, res) => {
     const { messages } = req.body;
+    const reqId = crypto.randomUUID().slice(0, 8);
+    const reqStartTime = Date.now();
+    console.log(`[WazaAI:${reqId}] Request started`);
 
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({ error: "Invalid messages array" });
@@ -211,9 +217,11 @@ router.post(
     // On a cache MISS this awaits. On a HIT (99% of requests) this is instant.
     if (!cachedDests || Date.now() - lastCacheTime > CACHE_TTL) {
       try {
+        console.time(`[WazaAI:${reqId}] Cache refresh`);
         await refreshCache();
+        console.timeEnd(`[WazaAI:${reqId}] Cache refresh`);
       } catch (dbErr) {
-        console.error("Cache refresh failed:", dbErr);
+        console.error(`[WazaAI:${reqId}] Cache refresh failed:`, dbErr);
         // Proceed without DB context rather than failing entirely
       }
     }
@@ -309,10 +317,15 @@ router.post(
     // ── LLM call with model fallback ──────────────────────────────────────────
     let stream = null;
     let lastError = null;
+    let winningModel = null;
+    let firstChunk = null;
+    let asyncIterator = null;
 
     for (const model of MODELS) {
+      console.log(`[WazaAI:${reqId}] Attempting model ${model}...`);
+      const attemptStartTime = Date.now();
       try {
-        stream = await openrouter.chat.completions.create({
+        const rawStream = await openrouter.chat.completions.create({
           model,
           messages: finalMessages,
           stream: true,
@@ -321,30 +334,74 @@ router.post(
                               // This is the single biggest latency lever after model choice.
                               // Increase to 1500 only if recipes are getting cut off.
         });
+
+        const iterator = rawStream[Symbol.asyncIterator]();
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("TTFT Timeout")), TTFT_TIMEOUT_MS)
+        );
+
+        const chunkResult = await Promise.race([iterator.next(), timeoutPromise]);
+
+        firstChunk = chunkResult;
+        stream = rawStream;
+        asyncIterator = iterator;
+        winningModel = model;
+        console.log(`[WazaAI:${reqId}] Model ${model} TTFT: ${Date.now() - attemptStartTime}ms`);
         break;
       } catch (err) {
-        console.warn(`[WazaAI] Model ${model} failed:`, err.message);
+        console.warn(`[WazaAI:${reqId}] Model ${model} failed after ${Date.now() - attemptStartTime}ms:`, err.message);
         lastError = err;
       }
     }
 
     if (!stream) {
-      console.error("[WazaAI] All models exhausted. Last error:", lastError);
+      console.error(`[WazaAI:${reqId}] All models exhausted. Last error:`, lastError);
       res.write(
         `data: ${JSON.stringify({ reply: "All of our chef's kitchens are very busy right now. Please try again in a moment." })}\n\n`
       );
-      return res.end();
+      res.end();
+      console.log(`[WazaAI:${reqId}] Request finished in ${Date.now() - reqStartTime}ms`);
+      return;
     }
 
     // ── Stream response back to client ───────────────────────────────────────
     let hasSentText = false;
+    let cachedTokens = null;
+    
+    res.on("finish", () => {
+      console.log(`[WazaAI:${reqId}] Request finished in ${Date.now() - reqStartTime}ms` + (cachedTokens != null ? ` (Cached tokens: ${cachedTokens})` : ""));
+    });
+
     try {
-      for await (const chunk of stream) {
-        const text = chunk.choices[0]?.delta?.content || "";
+      const processChunk = (chunk) => {
+        if (!chunk.value) return;
+        const text = chunk.value.choices?.[0]?.delta?.content || "";
         if (text) {
           hasSentText = true;
           res.write(`data: ${JSON.stringify({ reply: text })}\n\n`);
         }
+        
+        // TODO: OpenRouter supports Anthropic's explicit prompt caching.
+        // If switching to Claude 3.5, wrap the SYSTEM_PROMPT_CORE in a message with:
+        // { type: "text", text: fullSystemPrompt, cache_control: { type: "ephemeral" } }
+        // For Gemini Flash/Llama via OpenRouter, caching is based on implicit prefix matching 
+        // where supported. We log the usage stats below to empirically verify.
+        
+        if (chunk.value.usage?.prompt_tokens_details?.cached_tokens !== undefined) {
+          cachedTokens = chunk.value.usage.prompt_tokens_details.cached_tokens;
+        } else if (chunk.value.usage?.cached_tokens !== undefined) {
+          cachedTokens = chunk.value.usage.cached_tokens;
+        }
+      };
+
+      // Process the preserved first chunk
+      processChunk(firstChunk);
+
+      // Consume the rest of the iterator
+      while (true) {
+        const nextChunk = await asyncIterator.next();
+        if (nextChunk.done) break;
+        processChunk(nextChunk);
       }
 
       if (!hasSentText) {
@@ -355,7 +412,7 @@ router.post(
         );
       }
     } catch (err) {
-      console.error("[WazaAI] Stream error:", err);
+      console.error(`[WazaAI:${reqId}] Stream error:`, err);
       res.write(`data: ${JSON.stringify({ error: "Stream interrupted" })}\n\n`);
     } finally {
       res.end();
