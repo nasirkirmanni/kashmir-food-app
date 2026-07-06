@@ -60,7 +60,7 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   getSessionIdentifier: (req) => "stateless-session",
   cookieName: "x-csrf-token",
   cookieOptions: {
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     path: "/",
     secure: process.env.NODE_ENV === "production"
   },
