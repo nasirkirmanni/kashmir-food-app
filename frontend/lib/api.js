@@ -2,13 +2,23 @@ const fallbackApiUrl = "https://kashmir-food-app-api.onrender.com";
 
 const resolveApiUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+  
+  // Mobile browsers (Safari, iOS Chrome) strictly block third-party cookies by default (ITP).
+  // To fix CSRF token drops, web clients must use relative paths (/api/...) so Next.js 
+  // proxies the request to the backend. This converts the cookies to first-party.
+  if (typeof window !== "undefined" && !window.Capacitor) {
+    if (!configuredUrl || configuredUrl.includes("onrender.com")) {
+      return ""; // Forces relative URL -> hits Next.js rewrites proxy
+    }
+  }
+
   if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
   return fallbackApiUrl;
 };
 
 const buildApiUrl = (path) => {
   const baseUrl = resolveApiUrl();
-  const apiPrefix = baseUrl.endsWith("/api") ? "" : "/api";
+  const apiPrefix = baseUrl === "" || baseUrl.endsWith("/api") ? "" : "/api";
   return `${baseUrl}${apiPrefix}${path}`;
 };
 

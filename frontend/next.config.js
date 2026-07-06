@@ -91,10 +91,12 @@ const nextConfig = {
     ];
   },
   async rewrites() {
+    const isProd = process.env.NODE_ENV === 'production';
+    const backendUrl = process.env.BACKEND_URL || 'https://kashmir-food-app-api.onrender.com';
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:5000/api/:path*"
+        destination: isProd ? `${backendUrl}/api/:path*` : "http://localhost:5000/api/:path*"
       }
     ];
   },
