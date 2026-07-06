@@ -75,12 +75,19 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   getTokenFromRequest: (req) => req.headers["x-csrf-token"]
 });
 
-// Use POST for CSRF token to strictly bypass any edge caching/304 Not Modified behaviors
-app.post("/api/auth/csrf-token", (req, res) => {
+// GET endpoint for CSRF token — must be registered BEFORE doubleCsrfProtection
+app.get("/api/auth/csrf-token", (req, res) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Expires", "0");
-  res.json({ csrfToken: generateCsrfToken(req, res) });
+  const token = generateCsrfToken(req, res);
+  // Diagnostic: log the Set-Cookie header to confirm it's being attached
+  const setCookie = res.getHeader("set-cookie");
+  console.log("[CSRF-TOKEN] Generated token, Set-Cookie header:", setCookie ? "PRESENT" : "MISSING", 
+    "| secure:", process.env.NODE_ENV === "production",
+    "| origin:", req.headers.origin,
+    "| host:", req.headers.host);
+  res.json({ csrfToken: token });
 });
 
 app.use("/api", doubleCsrfProtection);

@@ -3,11 +3,13 @@ const fallbackApiUrl = "https://kashmir-food-app-api.onrender.com";
 const resolveApiUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
   
-  // Mobile browsers (Safari, iOS Chrome) strictly block third-party cookies by default (ITP).
-  // To fix CSRF token drops, web clients must use relative paths (/api/...) so Next.js 
-  // proxies the request to the backend. This converts the cookies to first-party.
+  // On web browsers (non-Capacitor), use our Next.js API route proxy at /api/proxy/...
+  // This is critical for iOS: Vercel edge rewrites strip Set-Cookie headers from upstream
+  // responses, which causes CSRF cookies to never reach the browser. Our serverless
+  // function proxy at /api/proxy/[...path] explicitly forwards Set-Cookie headers,
+  // making all cookies first-party and ITP-safe.
   if (typeof window !== "undefined" && !window.Capacitor) {
-    return ""; // Force relative URL on all web clients to guarantee same-origin cookies
+    return ""; // Will be combined with /api/proxy prefix below
   }
 
   if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
@@ -16,9 +18,18 @@ const resolveApiUrl = () => {
 
 const buildApiUrl = (path) => {
   const baseUrl = resolveApiUrl();
-  const apiPrefix = baseUrl === "" || baseUrl.endsWith("/api") ? "" : "/api";
+  
+  // Web clients: route through /api/proxy/... serverless function proxy
+  // e.g. path="/chat" → "/api/proxy/chat", path="/auth/csrf-token" → "/api/proxy/auth/csrf-token"
+  if (baseUrl === "") {
+    return `/api/proxy${path}`;
+  }
+  
+  // Native (Capacitor) or SSR: hit the backend directly
+  const apiPrefix = baseUrl.endsWith("/api") ? "" : "/api";
   return `${baseUrl}${apiPrefix}${path}`;
 };
+
 
 // ─── CSRF Token Management ────────
 let csrfToken = null;
@@ -31,7 +42,6 @@ export const fetchCsrfToken = async () => {
   csrfTokenPromise = (async () => {
     try {
       const res = await fetch(buildApiUrl("/auth/csrf-token"), { 
-        method: "POST",
         credentials: "include" 
       });
       const data = await res.json();

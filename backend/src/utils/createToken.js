@@ -15,7 +15,7 @@ export const generateAuthCookies = (res, user) => {
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: "lax", // lax is safe because all requests flow through same-origin proxy
     path: "/",
   };
 

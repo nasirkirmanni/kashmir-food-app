@@ -91,14 +91,12 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    const isProd = process.env.NODE_ENV === 'production';
-    const backendUrl = process.env.BACKEND_URL || 'https://kashmir-food-app-api.onrender.com';
-    return [
-      {
-        source: "/api/:path*",
-        destination: isProd ? `${backendUrl}/api/:path*` : "http://localhost:5000/api/:path*"
-      }
-    ];
+    // API proxying is handled by app/api/proxy/[...path]/route.js (serverless function).
+    // Edge rewrites were removed because they strip Set-Cookie headers from upstream
+    // responses, which broke CSRF cookies on iOS (ITP).
+    // Local dev still works because resolveApiUrl() returns the direct backend URL
+    // outside of browser contexts, and the proxy route also works locally.
+    return [];
   },
   // NOTE: output: 'export' is only for Capacitor/Android builds.
   // DO NOT enable this for Vercel — it breaks server-side features and API routes.
