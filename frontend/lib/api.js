@@ -30,6 +30,7 @@ export const fetchCsrfToken = async () => {
       return csrfToken;
     } catch (err) {
       console.error("Failed to fetch CSRF token", err);
+      csrfTokenPromise = null;
       return null;
     }
   })();
@@ -126,8 +127,12 @@ function prepareFetchOptions(options) {
   };
 
   const method = options.method ? options.method.toUpperCase() : "GET";
-  if (["POST", "PUT", "PATCH", "DELETE"].includes(method) && csrfToken) {
-    headers["x-csrf-token"] = csrfToken;
+  if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+    if (csrfToken) {
+      headers["x-csrf-token"] = csrfToken;
+    } else {
+      console.warn("CSRF Debug - prepareFetchOptions: mutating request but csrfToken is null");
+    }
   }
 
   return {

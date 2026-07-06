@@ -96,8 +96,14 @@ app.use("/api/restaurant-leads", restaurantLeadRoutes);
 app.use("/api/travel-agencies", travelAgencyRoutes);
 app.use("/api/upload", uploadRoutes);
 
-app.use((err, _req, res, next) => {
+app.use((err, req, res, next) => {
   if (err.code === "EBADCSRFTOKEN") {
+    console.error("CSRF Debug - Server validation failed:", {
+      nodeEnv: process.env.NODE_ENV,
+      cookiePresent: !!req.cookies["x-csrf-token"],
+      headerPresent: !!req.headers["x-csrf-token"],
+      origin: req.headers.origin
+    });
     return res.status(403).json({ message: "Invalid or missing CSRF token" });
   }
   
