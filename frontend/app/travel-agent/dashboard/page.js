@@ -16,7 +16,6 @@ export default function TravelAgentDashboard() {
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [uploading, setUploading] = useState({ thumbnail: false, cover: false });
-  const [showInbox, setShowInbox] = useState(false);
   
   const [formData, setFormData] = useState({});
 
@@ -384,7 +383,7 @@ export default function TravelAgentDashboard() {
                   <h3 className="text-lg font-display text-white mb-1">Trip Inquiries</h3>
                   <p className="text-white/50 text-xs">Manage requests from travelers.</p>
                 </div>
-                <button onClick={() => setShowInbox(true)} className="wazwan-btn-primary px-6 py-2 text-xs uppercase tracking-widest rounded-full hover:scale-105 transition-transform">
+                <button onClick={() => router.push('/travel-agent/inbox')} className="wazwan-btn-primary px-6 py-2 text-xs uppercase tracking-widest rounded-full hover:scale-105 transition-transform">
                   View Inbox
                 </button>
               </div>
@@ -451,63 +450,6 @@ export default function TravelAgentDashboard() {
           </div>
         )}
       </div>
-
-
-      {showInbox && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#0e0d0b] border border-[var(--saffron)]/30 rounded-3xl p-8 max-w-4xl w-full max-h-[85vh] overflow-y-auto relative shadow-[0_0_50px_rgba(212,175,55,0.15)]">
-            <button 
-              onClick={() => setShowInbox(false)}
-              className="absolute top-6 right-6 text-white/50 hover:text-white text-xl"
-            >
-              ✕
-            </button>
-            <h2 className="text-3xl font-display text-[var(--saffron)] mb-2">Agency Inbox</h2>
-            <p className="text-white/60 mb-8">View and manage booking inquiries from tourists.</p>
-            
-            {inquiries.length === 0 ? (
-              <div className="text-center py-12 text-white/40 bg-white/5 rounded-2xl border border-white/10">
-                No inquiries yet. When tourists book with you, they will appear here!
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {inquiries.map(inquiry => (
-                  <div key={inquiry._id} className="bg-white/5 border border-white/10 rounded-2xl p-6 relative">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-white mb-1">{inquiry.touristName}</h3>
-                        <p className="text-[var(--saffron)] text-sm">{inquiry.email} • {inquiry.phone}</p>
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-widest bg-[var(--saffron)]/10 text-[var(--saffron)] px-3 py-1 rounded-full border border-[var(--saffron)]/20">
-                        {new Date(inquiry.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4 text-sm mt-4 pt-4 border-t border-white/5">
-                      <div>
-                        <span className="text-white/40 block text-xs uppercase tracking-wider mb-1">Travel Party</span>
-                        <span className="text-white/80">{inquiry.travelParty}</span>
-                      </div>
-                      <div>
-                        <span className="text-white/40 block text-xs uppercase tracking-wider mb-1">Dates / Season</span>
-                        <span className="text-white/80">{inquiry.season}</span>
-                      </div>
-                      <div>
-                        <span className="text-white/40 block text-xs uppercase tracking-wider mb-1">Duration</span>
-                        <span className="text-white/80">{inquiry.duration} Days</span>
-                      </div>
-                      <div>
-                        <span className="text-white/40 block text-xs uppercase tracking-wider mb-1">Budget</span>
-                        <span className="text-white/80">{inquiry.budget}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
