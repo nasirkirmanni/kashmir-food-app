@@ -2,6 +2,7 @@ import express from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User.js";
 import { TravelAgency } from "../models/TravelAgency.js";
+import { TravelAgencyInquiry } from "../models/TravelAgencyInquiry.js";
 import { generateAuthCookies } from "../utils/createToken.js";
 import { protect } from "../middleware/auth.js";
 import rateLimit from "express-rate-limit";
@@ -137,19 +138,24 @@ router.get(
     }
     
     const agency = await TravelAgency.findOne({ user: req.user._id });
+
     if (!agency) {
-       res.status(404);
-       throw new Error("Travel agency not found");
+      res.status(404);
+      throw new Error("Travel agency not found");
     }
-    
-    // Start with 0 metrics until the booking system is implemented
+
+    const inquiries = await TravelAgencyInquiry.find({ agency: agency._id }).sort({ createdAt: -1 });
+
     const metrics = {
-      totalBookings: 0,
-      totalInquiries: 0,
-      activeListings: 1
+      totalInquiries: inquiries.length,
+      totalBookings: inquiries.filter(i => i.status === 'booked').length,
     };
-    
-    res.json({ agency, metrics });
+
+    res.json({
+      agency,
+      metrics,
+      inquiries
+    });
   })
 );
 
@@ -256,12 +262,24 @@ router.post(
       throw new Error("Agency not found");
     }
 
+    // Save inquiry to database
+    const inquiry = await TravelAgencyInquiry.create({
+      agency: agency._id,
+      touristName: req.body.userName,
+      email: req.body.userEmail,
+      phone: req.body.userPhone,
+      travelParty: req.body.travelParty,
+      season: req.body.seasonText,
+      duration: req.body.duration,
+      budget: req.body.budget
+    });
+
     // Call the email sending function
     import('../utils/sendEmail.js').then(({ sendBookingConfirmationEmails }) => {
       sendBookingConfirmationEmails(agency, req.body).catch(console.error);
     });
 
-    res.json({ message: "Booking confirmed successfully" });
+    res.json({ message: "Booking confirmed successfully", inquiry });
   })
 );
 
