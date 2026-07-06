@@ -102,7 +102,8 @@ app.use((err, req, res, next) => {
       nodeEnv: process.env.NODE_ENV,
       cookiePresent: !!req.cookies["x-csrf-token"],
       headerPresent: !!req.headers["x-csrf-token"],
-      origin: req.headers.origin
+      origin: req.headers.origin,
+      userAgent: req.headers["user-agent"]
     });
     return res.status(403).json({ message: "Invalid or missing CSRF token" });
   }

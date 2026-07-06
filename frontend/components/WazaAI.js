@@ -171,6 +171,9 @@ export default function WazaAI() {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
 
+    // Ensure we have a CSRF token before proceeding to streamRequest
+    await fetchCsrfToken();
+
     try {
       const response = await streamRequest(endpoints.chat, {
         method: "POST",
