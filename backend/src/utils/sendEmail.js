@@ -1,3 +1,4 @@
+
 import { Resend } from "resend";
 
 export const sendOtpEmail = async (to, otp) => {
@@ -54,7 +55,7 @@ export const sendPasswordResetEmail = async (to, otp) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way <nasirkirmani@wazwanway.com>", 
+      from: "Wazwan Way <nasirkirmani@wazwanway.com>",
       to: [to],
       subject: "Password Reset Request - Wazwan Way",
       html: `
@@ -366,7 +367,7 @@ export const sendAgencyApprovalEmail = async (email, status, notes) => {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const subject = status === 'approved' 
+    const subject = status === 'approved'
       ? "Welcome to Wazwan Way! Your Agency is Approved"
       : "Update on Your Wazwan Way Agency Application";
 
@@ -402,5 +403,79 @@ export const sendAgencyApprovalEmail = async (email, status, notes) => {
     else console.log("Agency status email sent successfully.");
   } catch (err) {
     console.error("Error sending agency status email:", err);
+  }
+};
+
+export const sendBookingConfirmationEmails = async (agency, touristDetails) => {
+  const adminEmail = "nasirkirmani@wazwanway.com";
+  
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not set in .env. Skipping actual email send.");
+    return;
+  }
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
+    // HTML email template
+    const htmlContent = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        <h2 style="color: #D4AF37; border-bottom: 2px solid #D4AF37; padding-bottom: 8px;">New Trip Booking!</h2>
+        <p>A new tourist has confirmed a booking with <strong>${agency.agencyName}</strong>.</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; width: 180px;">Tourist Name:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.userName || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.userEmail || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Phone:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.userPhone || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Travel Party:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.travelParty || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Dates / Season:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.seasonText || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Duration:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.duration || 'Not provided'} days</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${touristDetails.budget || 'Not provided'}</td>
+          </tr>
+        </table>
+        <p style="margin-top: 25px;">Please contact the tourist to finalize their trip!</p>
+      </div>
+    `;
+
+    // Send to Admin
+    await resend.emails.send({
+      from: "Wazwan Way Bookings <nasirkirmani@wazwanway.com>",
+      to: [adminEmail],
+      subject: `New Booking for ${agency.agencyName}`,
+      html: htmlContent,
+    });
+
+    // Send to Agency
+    if (agency.email) {
+      await resend.emails.send({
+        from: "Wazwan Way Bookings <nasirkirmani@wazwanway.com>",
+        to: [agency.email],
+        subject: `New Trip Booking - ${touristDetails.userName || 'Tourist'}`,
+        html: htmlContent,
+      });
+    }
+    
+    console.log("Booking emails sent successfully.");
+  } catch (err) {
+    console.error("Error sending booking emails:", err);
   }
 };

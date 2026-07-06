@@ -244,6 +244,27 @@ router.post(
   })
 );
 
+// @desc    Book a trip with a travel agency
+// @route   POST /api/travel-agencies/:id/book
+// @access  Public
+router.post(
+  "/:id/book",
+  asyncHandler(async (req, res) => {
+    const agency = await TravelAgency.findById(req.params.id);
+    if (!agency) {
+      res.status(404);
+      throw new Error("Agency not found");
+    }
+
+    // Call the email sending function
+    import('../utils/sendEmail.js').then(({ sendBookingConfirmationEmails }) => {
+      sendBookingConfirmationEmails(agency, req.body).catch(console.error);
+    });
+
+    res.json({ message: "Booking confirmed successfully" });
+  })
+);
+
 // @desc    Submit agency for review
 // @route   POST /api/travel-agencies/submit-for-review
 // @access  Private (Travel Agent only)

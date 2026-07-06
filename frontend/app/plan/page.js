@@ -696,7 +696,30 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
               </div>
               <div className="flex gap-4 w-full sm:w-auto">
                 <button
-                  onClick={() => {
+                  onClick={async () => {
+                    const seasonText = travelSeason === "Custom" && arrivalDate && leavingDate
+                      ? `Custom Dates (Arrival: ${formatDateDMY(arrivalDate)} — Departure: ${formatDateDMY(leavingDate)}, Auto-derived Season: ${getDerivedSeason(arrivalDate)})`
+                      : `${travelSeason} Season`;
+                      
+                    const touristDetails = {
+                      userName,
+                      userEmail,
+                      userPhone,
+                      travelParty: `${travelParty} (${adultsCount} Adults, ${childrenCount} Children, ${seniorsCount} Seniors)`,
+                      seasonText,
+                      duration,
+                      budget: budgetTier === "Custom" ? `Custom (₹${customBudgetValue.toLocaleString()}/day)` : budgetTier,
+                    };
+
+                    try {
+                      await request(`/travel-agencies/${viewingAgency._id}/book`, {
+                        method: "POST",
+                        body: JSON.stringify(touristDetails)
+                      });
+                    } catch (e) {
+                      console.error("Failed to notify agency of booking", e);
+                    }
+
                     setSelectedAgencyId(viewingAgency._id);
                     setConfirmedBookingAgency(viewingAgency);
                     setViewingAgency(null);
