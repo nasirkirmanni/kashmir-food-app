@@ -539,6 +539,21 @@ export default function AdminPanel() {
                       </button>
                     </div>
                   )}
+
+                  {agency.verificationStatus === "approved" && (
+                    <div className="mt-4 flex gap-2">
+                      <button
+                        onClick={() => {
+                          if (window.confirm("Are you sure you want to unlist this agency? It will be set to Pending status.")) {
+                            updateAgencyStatus(agency._id, "pending", "Your agency listing was removed by admin. Please contact support.");
+                          }
+                        }}
+                        className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition-colors"
+                      >
+                        Remove (Unlist)
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))
             )}

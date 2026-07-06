@@ -332,7 +332,7 @@ router.put(
     agency.verificationStatus = status;
     if (status === 'approved') {
       agency.isListed = true;
-    } else if (status === 'rejected') {
+    } else if (status === 'rejected' || status === 'pending') {
       agency.isListed = false;
     }
 
