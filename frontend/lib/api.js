@@ -7,9 +7,7 @@ const resolveApiUrl = () => {
   // To fix CSRF token drops, web clients must use relative paths (/api/...) so Next.js 
   // proxies the request to the backend. This converts the cookies to first-party.
   if (typeof window !== "undefined" && !window.Capacitor) {
-    if (!configuredUrl || configuredUrl.includes("onrender.com")) {
-      return ""; // Forces relative URL -> hits Next.js rewrites proxy
-    }
+    return ""; // Force relative URL on all web clients to guarantee same-origin cookies
   }
 
   if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
@@ -32,7 +30,10 @@ export const fetchCsrfToken = async () => {
 
   csrfTokenPromise = (async () => {
     try {
-      const res = await fetch(buildApiUrl("/auth/csrf-token"), { credentials: "include" });
+      const res = await fetch(buildApiUrl("/auth/csrf-token"), { 
+        method: "POST",
+        credentials: "include" 
+      });
       const data = await res.json();
       if (data.csrfToken) {
         csrfToken = data.csrfToken;

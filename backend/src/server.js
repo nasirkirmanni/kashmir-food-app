@@ -56,12 +56,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(mongoSanitize());
 
+app.use((req, res, next) => {
+  console.log(`[REQUEST] ${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+  next();
+});
+
 const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   getSecret: () => process.env.CSRF_SECRET || "wazwan-way-secret-csrf-key",
   getSessionIdentifier: (req) => "stateless-session",
   cookieName: "x-csrf-token",
   cookieOptions: {
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: "lax", // Force lax for first-party Next.js proxies to bypass aggressive ITP
     path: "/",
     secure: process.env.NODE_ENV === "production"
   },
@@ -70,8 +75,8 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   getTokenFromRequest: (req) => req.headers["x-csrf-token"]
 });
 
-app.get("/api/auth/csrf-token", (req, res) => {
-  // Prevent Vercel/Render edge from caching this GET request and stripping the Set-Cookie header
+// Use POST for CSRF token to strictly bypass any edge caching/304 Not Modified behaviors
+app.post("/api/auth/csrf-token", (req, res) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Expires", "0");
@@ -79,11 +84,6 @@ app.get("/api/auth/csrf-token", (req, res) => {
 });
 
 app.use("/api", doubleCsrfProtection);
-
-app.use((req, res, next) => {
-  console.log(`[REQUEST] ${req.method} ${req.url} - Origin: ${req.headers.origin}`);
-  next();
-});
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
