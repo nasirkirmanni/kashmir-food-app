@@ -431,7 +431,7 @@ Note: Kashmiri pronunciation holds vowels longer than English; native speakers s
 9. **How do I reach Srinagar?** Direct flights to Sheikh ul-Alam Airport, or by road via Jammu (NH44).
 10. **Is there a train to Kashmir?** A rail line connects Banihal to Baramulla; the through-link from Jammu has historically been under construction — check current status before relying on it.
 11. **Can I rent a self-drive car?** Yes, but mountain roads are unpredictable; hiring a local driver is generally safer and recommended.
-12. **Are Ola/Uber available?** No — local taxi unions control transport in most areas; ride-hailing apps generally don't operate.
+12. **Are Ola/Uber available?** Yes — Uber, Ola, and Rapido are available in Srinagar, though their availability heavily depends on location, time of day, and current demand. Local taxi operators, airport taxis, and hotel-arranged taxis also remain strong alternatives.
 13. **Is alcohol available?** Highly restricted; sold mainly in a few high-end hotels.
 14. **What is the local language?** Kashmiri (Koshur); Urdu and Hindi are widely understood, English is common in tourist areas.
 15. **Are hospitals well-equipped?** Srinagar has good tertiary care; remote areas only have basic clinics.

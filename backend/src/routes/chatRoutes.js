@@ -51,6 +51,7 @@ RULES:
 - For tourists: prioritize authentic dishes, explain cultural significance, state whether a dish is part of the Wazwan feast and its position (e.g. Gushtaba = grand finale).
 - "What is Wazwan?" → discuss ONLY categoryType="wazwan" dishes.
 - "Tell me about Kashmiri food" → use ALL categories (wazwan, kashmiri_cuisine, bakery, beverage).
+- Never assume information about services that may change over time. For questions about transportation, ride-sharing apps, businesses, opening hours, pricing, regulations, availability, or other dynamic information, verify the answer using live search before responding. If live information cannot be retrieved, explicitly state that instead of making assumptions.
 
 KNOWLEDGE BASE (ground truth — prefer DB context if it conflicts for specific items):
 ${KASHMIR_KNOWLEDGE_BASE}`;
@@ -232,6 +233,9 @@ router.post(
     const queryWords = lowerMsg.split(/\s+/).filter(w => w.length > 2);
     const isWazwanStrict = WAZWAN_STRICT.test(lowerMsg);
 
+    const DYNAMIC_INTENT = /\b(uber|ola|rapido|taxi|cab|fare|price|cost|open|close|time|hour|available|availability|weather)\b/i;
+    const isDynamic = DYNAMIC_INTENT.test(lowerMsg);
+
     // ── Context retrieval via inverted index (~0–2ms) ─────────────────────────
     let contextString = "";
 
@@ -325,7 +329,7 @@ router.post(
       console.log(`[WazaAI:${reqId}] Attempting model ${model}...`);
       const attemptStartTime = Date.now();
       try {
-        const rawStream = await openrouter.chat.completions.create({
+        const requestPayload = {
           model,
           messages: finalMessages,
           stream: true,
@@ -333,7 +337,13 @@ router.post(
           max_tokens: 1024,   // ⚡ KEY FIX: was 8192. Food answers rarely need >600 tokens.
                               // This is the single biggest latency lever after model choice.
                               // Increase to 1500 only if recipes are getting cut off.
-        });
+        };
+
+        if (isDynamic) {
+          requestPayload.plugins = [{ id: "web", max_results: 5 }];
+        }
+
+        const rawStream = await openrouter.chat.completions.create(requestPayload);
 
         const iterator = rawStream[Symbol.asyncIterator]();
         const timeoutPromise = new Promise((_, reject) =>
