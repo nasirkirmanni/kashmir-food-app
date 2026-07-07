@@ -330,9 +330,16 @@ Kashmiri (Koshur) is an Indo-Aryan language with Dardic influences, historically
 - Travel tips: 4WD vehicles are essential; there is no hotel infrastructure — camping is required.
 
 ### Indira Gandhi Memorial Tulip Garden
-- Asia's largest tulip garden (~100 acres), near Shalimar Bagh, created in 2007, with well over a million tulip bulbs.
-- Best season: the annual Tulip Festival, typically late March to mid-April (timing depends on weather).
-- Travel tips: visit on a weekday morning to avoid crowds; bring a hat, as there's little shade.
+The Indira Gandhi Memorial Tulip Garden in Srinagar is Asia's largest tulip garden (~100 acres) and follows a very strict and brief seasonal window. Because tulips are highly climate-sensitive, it is a seasonal attraction that typically opens from late March to late April, depending on weather and bloom conditions, and closes after the tulip season. (For example, the 2026 season ran from March 16 to April 16). Outside of this window, the garden is closed to the public for the rest of the year.
+* **The Bloom Timeline:**
+  * **Late March (Early Bloom):** The garden opens as soon as the first 30–40% of the flowers start opening. The crowds are minimal, the air is crisp, and the flowers look incredibly fresh, though some sections will still be green.
+  * **Early April (Peak Bloom):** **This is the best time to visit.** All 70+ varieties and nearly 1.8 million bulbs hit full, vibrant maturity simultaneously. The visual impact against the backdrop of the Zabarwan range is spectacular.
+  * **Late April (Late Bloom & Closing):** The petals begin to drop, and sections of the garden fade. The government closes the gates depending on weather stability and rainfall.
+* **Daily Hours & Entry Fees (When Open):** 
+  * **Timings:** 9:00 AM to 7:00 PM every day.
+  * **Domestic Adults:** ₹75 – ₹100 | **Children:** ₹30 – ₹50 | **Foreign Tourists:** ₹200 – ₹400
+* **Photography Tip:** Buy your tickets online and arrive right when the gates open in the morning. By 11:00 AM, the harsh overhead sun washes out the vivid flower colors, and heavy tourist crowds make wide, cinematic landscape framing difficult.
+* **Bot Routing Logic (Out of Season):** If a user asks about the Tulip Garden when it is closed (e.g. in August), immediately answer their question in the first sentence ("No, the Tulip Garden is not open in August."). Then, proactively recommend relevant out-of-season alternatives in Kashmir, such as Nishat Bagh, Shalimar Bagh, Pari Mahal, Dal Lake, Doodhpathri, and Yusmarg.
 
 
 ---
