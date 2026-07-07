@@ -28,6 +28,8 @@ const KASHMIR_KNOWLEDGE_BASE = fs.readFileSync(
 // immutable portion out of the per-request hot path.
 const SYSTEM_PROMPT_CORE = `You are Waza AI, the Kashmiri food and culture assistant for Wazwan Way. Be warm, knowledgeable, and concise.
 
+CONTINUITY INSTRUCTION: If the user's message is short, a reaction, or uses pronouns/vague references ('it', 'that', 'there', 'really?', 'how far'), resolve it against the subject of the immediately preceding assistant turn before answering. Do not default to a generic Kashmir overview when the recent conversation already establishes a specific topic.
+
 SCOPE: Kashmiri cuisine, Wazwan dishes, recipes, restaurants, culture, tourism.
 
 FORMATTING — always use Markdown. Never write walls of text.
@@ -164,12 +166,12 @@ function serializeDish(d) {
 }
 
 // ─── MODEL CONFIG ─────────────────────────────────────────────────────────────
-// PRIMARY: gemini-flash — sub-300ms TTFT, excellent instruction following.
+// PRIMARY: nemotron-3-ultra-550b — free, 1M context, strong multi-step reasoning, MoE architecture.
 // FALLBACK 1: llama-3.1-8b — extremely fast, good for scoped domains.
 // FALLBACK 2: qwen3-32b — original model, still available if others fail.
 // REMOVE :free tags when you have budget — free tier adds queue latency.
 const MODELS = [
-  "google/gemini-flash-1.5",           // ~150–400ms TTFT, highest quality/speed ratio
+  "nvidia/nemotron-3-ultra-550b-a55b:free",
   "meta-llama/llama-3.1-8b-instruct",  // ~100–250ms TTFT, blazing fast
   "qwen/qwen3-32b",                    // original fallback — slower but proven
 ];
@@ -231,7 +233,8 @@ router.post(
 
     // ── Query analysis (all synchronous, ~0ms) ───────────────────────────────
     const lastMessage = messages[messages.length - 1]?.content || "";
-    const lowerMsg = lastMessage.toLowerCase();
+    const prevMessage = messages.length > 1 ? messages[messages.length - 2]?.content || "" : "";
+    const lowerMsg = (prevMessage + " " + lastMessage).toLowerCase();
     const queryWords = lowerMsg.split(/\s+/).filter(w => w.length > 2);
     const isWazwanStrict = WAZWAN_STRICT.test(lowerMsg);
 
@@ -374,7 +377,11 @@ router.post(
         console.log(`[WazaAI:${reqId}] Model ${model} TTFT: ${Date.now() - attemptStartTime}ms`);
         break;
       } catch (err) {
-        console.warn(`[WazaAI:${reqId}] Model ${model} failed after ${Date.now() - attemptStartTime}ms:`, err.message);
+        if (err.status === 404 || (err.message && err.message.includes("404"))) {
+          console.error(`[WazaAI:${reqId}] Model ${model} failed with 404 (Dead/renamed slug) after ${Date.now() - attemptStartTime}ms:`, err.message);
+        } else {
+          console.warn(`[WazaAI:${reqId}] Model ${model} failed after ${Date.now() - attemptStartTime}ms:`, err.message);
+        }
         lastError = err;
       }
     }
@@ -394,7 +401,7 @@ router.post(
     let cachedTokens = null;
     
     res.on("finish", () => {
-      console.log(`[WazaAI:${reqId}] Request finished in ${Date.now() - reqStartTime}ms` + (cachedTokens != null ? ` (Cached tokens: ${cachedTokens})` : ""));
+      console.log(`[WazaAI:${reqId}] Request finished in ${Date.now() - reqStartTime}ms using ${winningModel}` + (cachedTokens != null ? ` (Cached tokens: ${cachedTokens})` : ""));
     });
 
     try {
