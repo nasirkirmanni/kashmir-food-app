@@ -188,7 +188,7 @@ export default function MobileWazaAI({ initialPrompt }) {
         body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
 
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
@@ -212,21 +212,33 @@ export default function MobileWazaAI({ initialPrompt }) {
                 const parsed = JSON.parse(dataStr);
                 if (parsed.reply) {
                   assistantMessage += parsed.reply;
-                  setMessages((prev) => {
-                    const newMessages = [...prev];
-                    newMessages[newMessages.length - 1] = { 
-                      ...newMessages[newMessages.length - 1], 
-                      content: assistantMessage 
-                    };
-                    return newMessages;
-                  });
+                  if (isLoadingRef.current) {
+                    isLoadingRef.current = false;
+                    setIsLoading(false);
+                    setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
+                  } else {
+                    setMessages((prev) => {
+                      const newMessages = [...prev];
+                      newMessages[newMessages.length - 1] = { 
+                        ...newMessages[newMessages.length - 1], 
+                        content: assistantMessage 
+                      };
+                      return newMessages;
+                    });
+                  }
                 } else if (parsed.error) {
                   assistantMessage += "\n\n*Error: " + parsed.error + "*";
-                  setMessages((prev) => {
-                    const newMessages = [...prev];
-                    newMessages[newMessages.length - 1].content = assistantMessage;
-                    return newMessages;
-                  });
+                  if (isLoadingRef.current) {
+                    isLoadingRef.current = false;
+                    setIsLoading(false);
+                    setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
+                  } else {
+                    setMessages((prev) => {
+                      const newMessages = [...prev];
+                      newMessages[newMessages.length - 1].content = assistantMessage;
+                      return newMessages;
+                    });
+                  }
                 }
               } catch (e) {
                 // Ignore invalid JSON lines
@@ -236,6 +248,12 @@ export default function MobileWazaAI({ initialPrompt }) {
         }
       }
       
+      if (isLoadingRef.current) {
+        isLoadingRef.current = false;
+        setIsLoading(false);
+        setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
+      }
+
       if (!assistantMessage.trim()) {
         assistantMessage = "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?";
         setMessages((prev) => {

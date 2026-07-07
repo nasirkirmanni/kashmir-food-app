@@ -180,7 +180,7 @@ export default function WazaAI() {
         body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
       });
 
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
@@ -218,19 +218,25 @@ export default function WazaAI() {
             }
           }
           
-          if (addedContent && !rafId) {
-            rafId = requestAnimationFrame(() => {
-              const currentContent = assistantMessage;
-              setMessages((prev) => {
-                const newMessages = [...prev];
-                newMessages[newMessages.length - 1] = { 
-                  ...newMessages[newMessages.length - 1], 
-                  content: currentContent 
-                };
-                return newMessages;
+          if (addedContent) {
+            if (isLoadingRef.current) {
+              isLoadingRef.current = false;
+              setIsLoading(false);
+              setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
+            } else if (!rafId) {
+              rafId = requestAnimationFrame(() => {
+                const currentContent = assistantMessage;
+                setMessages((prev) => {
+                  const newMessages = [...prev];
+                  newMessages[newMessages.length - 1] = { 
+                    ...newMessages[newMessages.length - 1], 
+                    content: currentContent 
+                  };
+                  return newMessages;
+                });
+                rafId = null;
               });
-              rafId = null;
-            });
+            }
           }
         }
       }
@@ -241,14 +247,20 @@ export default function WazaAI() {
       }
       
       // Final flush
-      setMessages((prev) => {
-        const newMessages = [...prev];
-        newMessages[newMessages.length - 1] = { 
-          ...newMessages[newMessages.length - 1], 
-          content: assistantMessage 
-        };
-        return newMessages;
-      });
+      if (isLoadingRef.current) {
+        isLoadingRef.current = false;
+        setIsLoading(false);
+        setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
+      } else {
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = { 
+            ...newMessages[newMessages.length - 1], 
+            content: assistantMessage 
+          };
+          return newMessages;
+        });
+      }
       
       if (!assistantMessage.trim()) {
         assistantMessage = "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?";
