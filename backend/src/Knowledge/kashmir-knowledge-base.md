@@ -809,3 +809,33 @@ For travelers who want to step away from commercialized areas and experience the
 3. 🥉 **Ahdoos** – Best heritage experience with legendary bakery items.
 4. 🏅 **Dal Lake Shikara Kahwa** – Best scenic/atmospheric experience (sunrise/sunset).
 5. 🏅 **Mr. Irani Kashmir** – Best for something slightly different.
+
+---
+
+## 13. TRANSPORTATION & TAXI FARES (2026 VERIFIED RATES)
+
+### Local Sightseeing Taxis in Srinagar
+A full-day taxi for local sightseeing in Srinagar typically costs between **₹2,200 and ₹4,500**, depending on the vehicle type. The Jammu & Kashmir Government approved an **18% taxi fare revision for 2026**, so these reflect the latest standard union rates.
+
+#### 2026 Local Sightseeing Rates (8 Hours / 80 KM)
+* **Sedan (Dzire / Etios): ₹2,200–₹3,000**
+  * Best for 1–3 passengers.
+* **SUV (Innova / Scorpio): ₹3,500–₹4,500**
+  * Best for families, groups, or travelers carrying extra luggage or camera equipment.
+* **Tempo Traveller: ₹6,500–₹8,500**
+  * Suitable for groups of 12 or more.
+
+These packages usually cover Srinagar's major attractions, including:
+* Nishat Bagh
+* Shalimar Bagh
+* Pari Mahal
+* Shankaracharya Temple
+* Hazratbal Shrine
+* The Old City
+* Dal Lake viewpoints
+
+#### Important Notes
+* **Standard package:** 8 hours / 80 km.
+* **Extra usage:** Approximately **₹200–₹500 per additional hour**, depending on vehicle type.
+* **Early morning departures:** Sunrise departures (e.g., for Dal Lake photography) should be arranged with the driver beforehand.
+* **Outstation destinations:** These fares apply **only within Srinagar**. Destinations such as Gulmarg, Pahalgam, Sonamarg, Yusmarg, and Doodhpathri have separate taxi unions and often require visitors to hire local sightseeing taxis after arrival.

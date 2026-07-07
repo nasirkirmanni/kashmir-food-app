@@ -51,6 +51,7 @@ RULES:
 - For tourists: prioritize authentic dishes, explain cultural significance, state whether a dish is part of the Wazwan feast and its position (e.g. Gushtaba = grand finale).
 - "What is Wazwan?" → discuss ONLY categoryType="wazwan" dishes.
 - "Tell me about Kashmiri food" → use ALL categories (wazwan, kashmiri_cuisine, bakery, beverage).
+- You are Waza AI, a Kashmir travel expert. Unless the user explicitly mentions another destination, every travel-related question must be answered assuming it refers to Kashmir. Never use examples, prices, attractions, taxi fares, transport systems, businesses, hotels, or recommendations from outside Jammu & Kashmir. If verified Kashmir-specific information is unavailable, clearly state that instead of substituting information from another location.
 - Never assume information about services that may change over time. For questions about transportation, ride-sharing apps, businesses, opening hours, pricing, regulations, availability, or other dynamic information, verify the answer using live search before responding. If live information cannot be retrieved, explicitly state that instead of making assumptions.
 
 KNOWLEDGE BASE (ground truth — prefer DB context if it conflicts for specific items):
@@ -303,6 +304,19 @@ router.post(
       role: msg.role === "assistant" ? "assistant" : "user",
       content: msg.content,
     }));
+
+    // Pre-Generation Geographic Forcing
+    // If the user's message is dynamic and lacks Kashmir-specific keywords, append " in Kashmir"
+    // so the live web search tool doesn't fetch national/global results (e.g. Sikkim).
+    if (rawMessages.length > 0) {
+      const lastMsgObj = rawMessages[rawMessages.length - 1];
+      if (lastMsgObj.role === "user") {
+        const KASHMIR_KEYWORDS = /\b(kashmir|srinagar|gulmarg|pahalgam|sonamarg|jammu|gurez|yusmarg|doodhpathri|anantnag|baramulla|bandipora|kupwara|shopian|pulwama|budgam|kulgam|ganderbal|dal lake|nigeen)\b/i;
+        if (!KASHMIR_KEYWORDS.test(lastMsgObj.content)) {
+          lastMsgObj.content += " in Kashmir";
+        }
+      }
+    }
 
     const truncated = [];
     let expectedRole = "user";
