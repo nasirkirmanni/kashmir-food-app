@@ -28,6 +28,7 @@ const BACKEND_URL =
   process.env.BACKEND_URL || "https://kashmir-food-app-api.onrender.com";
 
 export const runtime = "nodejs"; // Must be Node.js runtime, NOT edge
+export const dynamic = "force-dynamic"; // MUST NOT BE CACHED, otherwise Set-Cookie headers are stripped from cached responses
 
 export async function handler(req, { params }) {
   const pathSegments = params.path || [];
