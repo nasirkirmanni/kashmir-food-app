@@ -1,5 +1,9 @@
 const fallbackApiUrl = "https://kashmir-food-app-api.onrender.com";
 
+const isNativeApp = () =>
+  typeof window !== "undefined" &&
+  window.Capacitor?.isNativePlatform?.() === true;
+
 const resolveApiUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
   
@@ -7,8 +11,8 @@ const resolveApiUrl = () => {
   // To fix CSRF token drops, web clients must use relative paths (/api/...) so Next.js 
   // proxies the request to the backend. This converts the cookies to first-party.
   // Capacitor (native app) uses the configured/fallback URL directly.
-  if (typeof window !== "undefined" && !window.Capacitor) {
-    return ""; // Force relative URL on all web clients to route through /api/proxy
+  if (typeof window !== "undefined" && !isNativeApp()) {
+    return ""; // Force relative URL for real web clients (Capacitor object may exist, but isn't native)
   }
 
   if (configuredUrl) return configuredUrl.replace(/\/+$/, "");

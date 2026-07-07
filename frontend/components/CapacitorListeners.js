@@ -8,8 +8,9 @@ export default function CapacitorListeners() {
 
     const initListener = async () => {
       try {
-        // Dynamically import @capacitor/app — this will fail gracefully
-        // on web/Vercel where the package is not installed
+        if (typeof window === "undefined" || !window.Capacitor?.isNativePlatform?.()) {
+          return; // Not running in the native app — skip entirely
+        }
         const { App } = await import("@capacitor/app");
         listener = await App.addListener("backButton", ({ canGoBack }) => {
           if (canGoBack) {
