@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 const CANONICAL_BASE = "https://wazwanway.com";
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://api.wazwanway.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
 
 export async function generateStaticParams() {
   try {

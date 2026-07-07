@@ -70,9 +70,7 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   cookieOptions: {
     sameSite: isProd ? "none" : "lax",
     path: "/",
-    secure: isProd,
-    // Share cookie across wazwanway.com (frontend) and api.wazwanway.com (backend)
-    ...(isProd ? { domain: ".wazwanway.com" } : {})
+    secure: isProd
   },
   size: 64,
   ignoredMethods: ["GET", "HEAD", "OPTIONS"],

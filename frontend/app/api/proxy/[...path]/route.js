@@ -25,7 +25,7 @@
  */
 
 const BACKEND_URL =
-  process.env.BACKEND_URL || "https://api.wazwanway.com";
+  process.env.BACKEND_URL || "https://kashmir-food-app-api.onrender.com";
 
 export const runtime = "nodejs"; // Must be Node.js runtime, NOT edge
 

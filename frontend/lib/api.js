@@ -1,20 +1,30 @@
 const fallbackApiUrl = "https://api.wazwanway.com";
 
 const resolveApiUrl = () => {
-  // If we're on localhost, use the local backend
-  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-    return process.env.NEXT_PUBLIC_API_URL?.trim() || "http://localhost:5000";
-  }
+  const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
   
-  // In production, strictly enforce the custom domain.
-  // We ignore NEXT_PUBLIC_API_URL because if Vercel still has the old onrender.com 
-  // URL injected, it will cause browsers to reject the Set-Cookie header 
-  // (since the backend now sets Domain=.wazwanway.com).
-  return "https://api.wazwanway.com";
+  // Mobile browsers (Safari, iOS Chrome) strictly block third-party cookies by default (ITP).
+  // To fix CSRF token drops, web clients must use relative paths (/api/...) so Next.js 
+  // proxies the request to the backend. This converts the cookies to first-party.
+  // Capacitor (native app) uses the configured/fallback URL directly.
+  if (typeof window !== "undefined" && !window.Capacitor) {
+    return ""; // Force relative URL on all web clients to route through /api/proxy
+  }
+
+  if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
+  return fallbackApiUrl;
 };
 
 const buildApiUrl = (path) => {
   const baseUrl = resolveApiUrl();
+  
+  // Web clients: route through /api/proxy/... serverless function proxy
+  // e.g. path="/chat" → "/api/proxy/chat"
+  if (baseUrl === "") {
+    return `/api/proxy${path}`;
+  }
+  
+  // Native (Capacitor) or SSR: hit the backend directly
   const apiPrefix = baseUrl.endsWith("/api") ? "" : "/api";
   return `${baseUrl}${apiPrefix}${path}`;
 };

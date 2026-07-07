@@ -19,10 +19,8 @@ import {
   getProviderCapabilities 
 } from './imageProvider';
 
-const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-const API_BASE = isLocalhost 
-  ? (process.env.NEXT_PUBLIC_API_URL?.trim()?.replace(/\/+$/, '') || 'http://localhost:5000')
-  : 'https://api.wazwanway.com';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL?.trim()?.replace(/\/+$/, '')
+  || 'https://kashmir-food-app-api.onrender.com';
 
 /**
  * Check if a string is an absolute URL

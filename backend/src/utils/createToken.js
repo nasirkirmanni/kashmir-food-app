@@ -17,9 +17,7 @@ export const generateAuthCookies = (res, user) => {
     httpOnly: true,
     secure: isProd,
     sameSite: isProd ? "none" : "lax",
-    path: "/",
-    // Share cookie across wazwanway.com (frontend) and api.wazwanway.com (backend)
-    ...(isProd ? { domain: ".wazwanway.com" } : {}),
+    path: "/"
   };
 
   res.cookie("accessToken", accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
