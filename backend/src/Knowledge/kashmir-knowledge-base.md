@@ -764,3 +764,48 @@ For visitors wanting a scenic, relaxed dining experience, Makai Point is unmatch
 
 ### Contextual Add-ons (Upselling the Tour)
 When recommending Tujj to visitors, your bot can suggest pairing the street food trip with a formal Kashmiri dining experience the next day. A heavy street-food night at Khayam Chowk perfectly contrasts with a sit-down meal featuring rich, traditional Wazwan delicacies like *Rista* or *Gushtaba* at a heritage restaurant later in their itinerary.
+
+---
+
+## 12. TEA CULTURE: BEST KAHWA AND NOON CHAI SPOTS IN SRINAGAR
+
+Kashmir's tea culture revolves around **Kahwa** (sweet, saffron-infused green tea) and **Noon Chai** (salty, pink tea). Below is a curated breakdown of the best spots to experience both, categorized by the "vibe" the tourist is seeking.
+
+### 1. The Heritage & Aesthetic Experience (Residency Road Area)
+This area is perfect for visitors who want a comfortable, highly photogenic environment. The tea rooms here offer refined service and beautiful heritage decor.
+
+* **Chai Jaai**
+  * **The Vibe:** An iconic, upscale tea room overlooking the Jhelum River, featuring traditional papier-mâché decor and hand-painted ceramics. It is arguably the most visually stunning spot in Srinagar for travel reels.
+  * **What to Order:** Their signature saffron Kehwa or traditional pink Noon Chai, served beautifully in a samovar, paired with local breads like *sheermal* or *bakarkhani*.
+* **Ahdoos Restaurant & Ahdoos Hotel**
+  * **The Vibe:** A historic Srinagar institution. It offers an old-school, reliable, and deeply authentic Kashmiri dining experience.
+  * **What to Order:** Classic Kehwa paired with freshly baked Kashmiri *kulchas* or buttered *katlam* from their famous bakery downstairs.
+* **Lala Sheikh And Sons**
+  * **The Vibe:** One of the oldest tea spots near Lal Chowk. It has a no-frills, historic atmosphere where locals have been gathering for decades.
+  * **What to Order:** Traditional tea paired with their locally famous chicken patties.
+
+### 2. The Golden Hour Lakeside Experience (Dal Lake)
+For tourists looking to capture stunning sunset footage of the lake and mountains, nothing beats sipping tea right on the water.
+
+* **Nehru Park (Shikara Kehwa Vendors)**
+  * **The Vibe:** Highly atmospheric. Local vendors row directly up to your shikara around the ghats, brewing tea on portable charcoal samovars right on the water.
+  * **What to Order:** Lightly sweetened Kehwa. 
+  * **Bot Routing Tip:** Advise tourists to time this specifically for sunrise or the evening golden hour for the best lighting and ambiance. One of the most memorable tea experiences in Kashmir.
+
+### 3. The Raw Cultural Experience (Downtown Kandurs)
+For travelers who want to step away from commercialized areas and experience the historical heart of the city and everyday Kashmiri breakfast culture.
+
+* **Old City Kandurs (Nowhatta, Khanyar, Rainawari, Fateh Kadal, Safa Kadal)**
+  * **The Vibe:** This is where locals go every morning. The bustling heritage lanes of Downtown Srinagar (Shehr-e-Khaas) are lined with authentic street-side bakeries and samovar stalls. It is energetic and culturally rich. You'll get a far more authentic experience than at cafés.
+  * **What to Order:** Fresh, boiling hot Noon Chai by the glass, paired with fresh morning breads: Girda, Lavasa, Bakarkhani, Chochwor, or Kulcha. 
+  * **Bot Routing Tip:** Suggest pairing this tea break with a walking tour of the nearby local copper artisans for some raw, documentary-style photography.
+* **Hidden Local Spots**
+  * **Deen Tea Stall (Alamgari Bazar):** A simple, beloved local tea stop popular in the area.
+  * **Mr. Irani Kashmir:** Known more for Irani chai, but worth visiting if you enjoy trying different tea styles.
+
+### Bot Recommendation Rankings (Top 5)
+1. 🥇 **Chai Jaai** – Best overall aesthetic & premium experience.
+2. 🥈 **Old City Kandurs** – Best authentic, everyday Noon Chai and bread.
+3. 🥉 **Ahdoos** – Best heritage experience with legendary bakery items.
+4. 🏅 **Dal Lake Shikara Kahwa** – Best scenic/atmospheric experience (sunrise/sunset).
+5. 🏅 **Mr. Irani Kashmir** – Best for something slightly different.
