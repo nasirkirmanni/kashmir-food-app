@@ -1,20 +1,16 @@
 const fallbackApiUrl = "https://api.wazwanway.com";
 
 const resolveApiUrl = () => {
-  const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
-  
-  // With api.wazwanway.com as a custom domain, the backend shares the same registrable
-  // domain (wazwanway.com) as the frontend. This makes all cookies same-site and
-  // first-party, completely bypassing iOS ITP third-party cookie blocking.
-  // Capacitor (native app) uses the configured/fallback URL directly.
-  if (typeof window !== "undefined" && !window.Capacitor) {
-    // Web clients: use the custom domain directly (same-site, no proxy needed)
-    if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
-    return fallbackApiUrl;
+  // If we're on localhost, use the local backend
+  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    return process.env.NEXT_PUBLIC_API_URL?.trim() || "http://localhost:5000";
   }
-
-  if (configuredUrl) return configuredUrl.replace(/\/+$/, "");
-  return fallbackApiUrl;
+  
+  // In production, strictly enforce the custom domain.
+  // We ignore NEXT_PUBLIC_API_URL because if Vercel still has the old onrender.com 
+  // URL injected, it will cause browsers to reject the Set-Cookie header 
+  // (since the backend now sets Domain=.wazwanway.com).
+  return "https://api.wazwanway.com";
 };
 
 const buildApiUrl = (path) => {
