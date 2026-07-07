@@ -84,12 +84,15 @@ export async function handler(req, { params }) {
     // Copy all response headers from the backend
     backendRes.headers.forEach((value, key) => {
       const lower = key.toLowerCase();
-      // Skip hop-by-hop headers and set-cookie (handled separately below)
+      // Skip hop-by-hop headers, set-cookie (handled separately below),
+      // and encoding headers (Node fetch already decompresses the body)
       if (
         lower === "transfer-encoding" ||
         lower === "connection" ||
         lower === "keep-alive" ||
-        lower === "set-cookie"
+        lower === "set-cookie" ||
+        lower === "content-encoding" ||
+        lower === "content-length"
       ) {
         return;
       }
