@@ -1,4 +1,4 @@
-const fallbackApiUrl = "https://api.wazwanway.com";
+const fallbackApiUrl = "https://kashmir-food-app-api.onrender.com";
 
 const resolveApiUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_URL?.trim();

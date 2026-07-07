@@ -83,15 +83,23 @@ export async function handler(req, { params }) {
     // Copy all response headers from the backend
     backendRes.headers.forEach((value, key) => {
       const lower = key.toLowerCase();
-      // Skip hop-by-hop headers
+      // Skip hop-by-hop headers and set-cookie (handled separately below)
       if (
         lower === "transfer-encoding" ||
         lower === "connection" ||
-        lower === "keep-alive"
+        lower === "keep-alive" ||
+        lower === "set-cookie"
       ) {
         return;
       }
       responseHeaders.append(key, value);
+    });
+
+    // Properly forward Set-Cookie headers without comma-merging them
+    // (Node.js fetch merges Set-Cookies into one string by default, which Safari rejects)
+    const setCookies = backendRes.headers.getSetCookie ? backendRes.headers.getSetCookie() : [];
+    setCookies.forEach(cookie => {
+      responseHeaders.append("Set-Cookie", cookie);
     });
 
     // Stream the response body back

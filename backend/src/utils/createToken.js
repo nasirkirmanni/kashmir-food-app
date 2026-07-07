@@ -16,7 +16,7 @@ export const generateAuthCookies = (res, user) => {
   const cookieOptions = {
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? "none" : "lax",
+    sameSite: "lax",
     path: "/"
   };
 
