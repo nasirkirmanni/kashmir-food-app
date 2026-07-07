@@ -725,3 +725,42 @@ Use these relationships to connect related facts when answering multi-part or fo
 - This file merges two prior research documents (a 200-FAQ structured knowledge base and a separately compiled deep-research report) into one canonical reference, with duplicate or conflicting facts resolved into a single answer.
 - Where the two source documents gave genuinely different details for the same dish, place, or fact (e.g. two different "Methi Maaz" preparations, two different best-sunrise spots), both are preserved with a note, rather than arbitrarily picking one — so the assistant can mention there's regional/source variation if directly asked.
 - Recommended use: paste this entire document into the system instruction / system prompt for the Gemini API call / OpenRouter API powering WazaAI, so every response has full access to it without needing retrieval.
+
+---
+
+## 11. STREET FOOD DEEP DIVE: KASHMIRI TUJJ (BARBEQUE)
+
+### Core Knowledge: What is Kashmiri Tujj?
+*Tujj* (or Tujji) is the traditional Kashmiri version of street barbeque, an absolute must-try for any food tour in the valley.
+
+* **Preparation:** Bite-sized pieces of meat (mutton, chicken, beef, or fish) are marinated in a blend of local spices and slow-roasted on metal skewers over open charcoal grills.
+* **Serving Style:** It is traditionally pulled hot off the skewer directly into a fresh **lavasa** (a soft, unleavened Kashmiri flatbread).
+* **Accompaniments:** Always served with sharp, flavorful dips, most notably radish (*mooli*) chutney, walnut chutney, and mint yoghurt.
+
+### Location 1: Khayam Chowk (The Barbeque Street)
+This is the historical epicenter of Srinagar's street food scene. It transforms after sundown into a bustling, smoke-filled street lined with over 30 charcoal clay ovens. It offers a raw, authentic, and highly energetic night-market vibe.
+
+#### Key Vendors in Khayam Chowk
+* **Imran Cafeteria:** The undisputed king of Khayam Chowk. Established over 50 years ago, they are famous for **Mutton Seekh Tujj** that melts in the mouth. They are also highly rated for their Fish Tujj. Expect high foot traffic and a vibrant, noisy atmosphere.
+* **Shahee Darbar:** Easily identifiable by tall skewers strung with meat and whole roasted chickens on display at the front.
+* **Gareeb Nawaz & What's Appetite:** Excellent secondary options on the same street offering competitive flavors and authentic rumali roti combos.
+
+### Location 2: Makai Point (Dal Lake / Boulevard Road)
+For visitors wanting a scenic, relaxed dining experience, Makai Point is unmatched. Located right on the shores of Dal Lake, it provides an incredible backdrop for sunset views and capturing cinematic travel content while enjoying authentic street food.
+
+#### Key Vendors at Makai Point
+* **Mama Barbeque Point:** Run by a beloved local known as "Mama Ji," this stall is famous for its humble service and exceptional **Fish Tujj**. Visitors highly recommend eating here while taking in the mesmerizing lake views.
+* **Dar Brothers Barbeque:** Located in the busy corner of the park, offering everything from chicken and mutton to beef and fish, proving that great food doesn't need a formal restaurant setting.
+
+### Quick Comparison Table for the Bot
+| Feature | Khayam Chowk | Makai Point |
+| --- | --- | --- |
+| **Primary Vibe** | Bustling, smoky night market | Scenic, relaxed lakeside park |
+| **Best Time to Visit** | Late evening to night | Late afternoon for sunset |
+| **Aesthetic Appeal** | Gritty, authentic street hustle | Perfect for cinematic sunset shots |
+| **Hero Dishes** | Mutton Seekh at Imran Cafeteria | Fish Tujj at Mama Barbeque |
+
+> **Bot Routing Logic:** If a tourist asks for the "most famous" or "oldest" spot, program the bot to recommend **Imran Cafeteria at Khayam Chowk**. If they want a "beautiful view with their food" or are looking for aesthetic photo spots, route them to **Makai Point**.
+
+### Contextual Add-ons (Upselling the Tour)
+When recommending Tujj to visitors, your bot can suggest pairing the street food trip with a formal Kashmiri dining experience the next day. A heavy street-food night at Khayam Chowk perfectly contrasts with a sit-down meal featuring rich, traditional Wazwan delicacies like *Rista* or *Gushtaba* at a heritage restaurant later in their itinerary.
