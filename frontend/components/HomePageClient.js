@@ -13,7 +13,6 @@ import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 
 const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaurantTabs"), { ssr: false });
 const MobileRestaurantExplorerModal = dynamic(() => import("@/components/MobileRestaurantExplorerModal"), { ssr: false });
-const WazaAITripPlannerModal = dynamic(() => import("@/components/WazaAITripPlannerModal"), { ssr: false });
 const CustomReelPlayer = dynamic(() => import("@/components/CustomReelPlayer"), { ssr: false });
 import { endpoints, request } from "@/lib/api";
 
@@ -721,11 +720,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
           </motion.div>
         )}
       </AnimatePresence>
-
-      <WazaAITripPlannerModal 
-        isOpen={isTripPlannerModalVisible} 
-        onClose={() => setIsTripPlannerModalVisible(false)} 
-      />
     </div>
   );
 }
