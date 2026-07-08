@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { endpoints, request } from "@/lib/api";
+import { resolveImageUrl } from "@/lib/imageUtils";
+import StickyMobileNav from "@/components/StickyMobileNav";
 
 // Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
 
@@ -48,6 +50,8 @@ export default function DestinationDetailClient({ initialDestination, params }) 
 
   return (
     <div className="min-h-screen bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black">
+      <StickyMobileNav title={destination.name} />
+
       {/* Hero Image Section */}
       <div className="relative h-[50vh] min-h-[400px] w-full">
         <Image
@@ -60,7 +64,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
         
         {/* Back Navigation */}
-        <div className="absolute top-8 left-4 md:left-8 z-20">
+        <div className="absolute top-8 left-4 md:left-8 z-20 hidden md:block">
           <Link href="/destinations" className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-widest text-white hover:bg-[var(--saffron)] hover:text-black hover:border-[var(--saffron)] transition-all">
             &larr; Back
           </Link>

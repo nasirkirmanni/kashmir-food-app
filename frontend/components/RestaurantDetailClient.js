@@ -10,6 +10,7 @@ import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
+import StickyMobileNav from "@/components/StickyMobileNav";
 
 export default function RestaurantDetailClient({ initialRestaurant = null }) {
   const params = useParams();
@@ -85,16 +86,20 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
       {/* JSON-LD Structured Data */}
       <JsonLd data={buildRestaurantSchema(restaurant)} />
 
+      <StickyMobileNav title={restaurant.name} />
+
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1.2fr_0.8fr]">
         <div>
-          <Breadcrumbs items={[
-            { name: "Home", href: "/" },
-            { name: "Restaurants", href: "/restaurants" },
-            { name: restaurant.name, href: `/restaurants/${restaurant.slug}` },
-          ]} />
+          <div className="hidden md:block">
+            <Breadcrumbs items={[
+              { name: "Home", href: "/" },
+              { name: "Restaurants", href: "/restaurants" },
+              { name: restaurant.name, href: `/restaurants/${restaurant.slug}` },
+            ]} />
+          </div>
           <button 
             onClick={() => router.back()} 
-            className="mb-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
+            className="mb-6 hidden md:flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

@@ -14,6 +14,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
 import AuthRequiredModal from "@/components/AuthRequiredModal";
+import StickyMobileNav from "@/components/StickyMobileNav";
+import ExpandableText from "@/components/ExpandableText";
 
 export default function DishDetailClient({ initialDish = null }) {
   const { user } = useAuth();
@@ -213,16 +215,20 @@ export default function DishDetailClient({ initialDish = null }) {
       {/* JSON-LD Structured Data */}
       <JsonLd data={buildRecipeSchema(dish)} />
 
+      <StickyMobileNav title={dish.name} />
+
       <section className="place-hero">
         <div>
-          <Breadcrumbs items={[
-            { name: "Home", href: "/" },
-            { name: "Dishes", href: "/dishes" },
-            { name: dish.name, href: `/dishes/${dish.slug}` },
-          ]} />
+          <div className="hidden md:block">
+            <Breadcrumbs items={[
+              { name: "Home", href: "/" },
+              { name: "Dishes", href: "/dishes" },
+              { name: dish.name, href: `/dishes/${dish.slug}` },
+            ]} />
+          </div>
           <button 
             onClick={() => router.back()} 
-            className="mb-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
+            className="mb-6 hidden md:flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -231,7 +237,7 @@ export default function DishDetailClient({ initialDish = null }) {
           </button>
           <span className="place-eyebrow">{dish.category}</span>
           <h1>{dish.name}</h1>
-          <p>{dish.fullDescription}</p>
+          <ExpandableText text={dish.fullDescription} threshold={100} />
           <div className="mt-6 flex flex-wrap gap-2">
             <span className="place-badge">{dish.foodType}</span>
             <span className="place-badge">{dish.spiceLevel}</span>
@@ -329,8 +335,8 @@ export default function DishDetailClient({ initialDish = null }) {
           <article className="restaurant-place-card self-start">
             <span className="place-eyebrow">History</span>
             <h3>{dish.name} in Kashmiri tradition</h3>
-            <p className="restaurant-desc whitespace-pre-wrap text-justify">{dish.history}</p>
-            <div className="rounded-[16px] bg-[var(--saffron-pale)] p-5">
+            <ExpandableText text={dish.history} className="restaurant-desc whitespace-pre-wrap text-justify" threshold={150} />
+            <div className="rounded-[16px] bg-[var(--saffron-pale)] p-5 mt-6">
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
                 Tourist Tip
               </p>
