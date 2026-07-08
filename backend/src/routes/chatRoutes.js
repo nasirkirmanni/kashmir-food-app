@@ -252,7 +252,13 @@ router.post(
     // ── Guest Limit Check ───────────────────────────────────────────────────
     if (!req.user) {
       const isRecipeExplore = req.body.isRecipeExplore === true;
-      const isTripPlanner = req.body.isTripPlanner === true;
+      let isTripPlanner = req.body.isTripPlanner === true;
+      if (!isTripPlanner && messages && messages.length > 0) {
+        const lastMsg = messages[messages.length - 1]?.content || "";
+        if (lastMsg.includes("act as an expert Kashmir Trip Planner")) {
+          isTripPlanner = true;
+        }
+      }
       
       const cookieOptions = {
         httpOnly: true,
