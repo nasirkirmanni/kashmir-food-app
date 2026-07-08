@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { createPortal } from "react-dom";
+import AuthRequiredModal from "@/components/AuthRequiredModal";
 
 import dishesData from "@/data/dishes.json";
 
@@ -21,6 +22,7 @@ export default function RecipesPage() {
   const [recipeResult, setRecipeResult] = useState(null);
   const [recipeError, setRecipeError] = useState(null);
   const [mounted, setMounted] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -76,6 +78,7 @@ export default function RecipesPage() {
       const response = await streamRequest(endpoints.chat, {
         method: "POST",
         body: JSON.stringify({
+          isRecipeExplore: true,
           messages: [
             {
               role: "user",
@@ -122,7 +125,12 @@ export default function RecipesPage() {
       }
     } catch (err) {
       console.error(err);
-      setRecipeError("Failed to fetch the secret recipe. Please try again.");
+      if (err.requiresAuth) {
+        setRecipeModalOpen(false);
+        setShowAuthModal(true);
+      } else {
+        setRecipeError("Failed to fetch the secret recipe. Please try again.");
+      }
       setRecipeLoading(false);
     }
   };
@@ -283,6 +291,13 @@ export default function RecipesPage() {
           )}
         </AnimatePresence>,
         document.body
+      )}
+
+      {showAuthModal && (
+        <AuthRequiredModal
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={() => setShowAuthModal(false)}
+        />
       )}
     </div>
   );

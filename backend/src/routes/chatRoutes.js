@@ -251,15 +251,7 @@ router.post(
 
     // ── Guest Limit Check ───────────────────────────────────────────────────
     if (!req.user) {
-      const guestCount = parseInt(req.cookies.waza_guest_chat_count || '0', 10);
-      if (guestCount >= 1) {
-        console.log(`[WazaAI:${reqId}] Guest limit reached. Returning 401.`);
-        return res.status(401).json({
-          requiresAuth: true,
-          message: "Sign in to continue chatting with Waza AI"
-        });
-      }
-      
+      const isRecipeExplore = req.body.isRecipeExplore === true;
       const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -267,7 +259,28 @@ router.post(
         path: "/",
         maxAge: 86400 * 1000 // 24 hours in milliseconds
       };
-      res.cookie('waza_guest_chat_count', (guestCount + 1).toString(), cookieOptions);
+
+      if (isRecipeExplore) {
+        const recipeCount = parseInt(req.cookies.waza_guest_recipe_count || '0', 10);
+        if (recipeCount >= 2) {
+          console.log(`[WazaAI:${reqId}] Guest recipe limit reached. Returning 401.`);
+          return res.status(401).json({
+            requiresAuth: true,
+            message: "Sign in to continue exploring secret recipes."
+          });
+        }
+        res.cookie('waza_guest_recipe_count', (recipeCount + 1).toString(), cookieOptions);
+      } else {
+        const guestCount = parseInt(req.cookies.waza_guest_chat_count || '0', 10);
+        if (guestCount >= 1) {
+          console.log(`[WazaAI:${reqId}] Guest chat limit reached. Returning 401.`);
+          return res.status(401).json({
+            requiresAuth: true,
+            message: "Sign in to continue chatting with Waza AI"
+          });
+        }
+        res.cookie('waza_guest_chat_count', (guestCount + 1).toString(), cookieOptions);
+      }
     }
 
     // ── SSE headers set immediately so browser starts listening ─────────────

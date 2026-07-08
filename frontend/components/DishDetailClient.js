@@ -13,6 +13,7 @@ import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
+import AuthRequiredModal from "@/components/AuthRequiredModal";
 
 export default function DishDetailClient({ initialDish = null }) {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ export default function DishDetailClient({ initialDish = null }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authContext, setAuthContext] = useState(null);
 
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
   const [recipeLoading, setRecipeLoading] = useState(false);
@@ -57,6 +59,7 @@ export default function DishDetailClient({ initialDish = null }) {
       const response = await streamRequest(endpoints.chat, {
         method: "POST",
         body: JSON.stringify({
+          isRecipeExplore: true,
           messages: [
             {
               role: "user",
@@ -103,13 +106,20 @@ export default function DishDetailClient({ initialDish = null }) {
       }
     } catch (err) {
       console.error(err);
-      setRecipeError("Failed to fetch the secret recipe. Please try again.");
+      if (err.requiresAuth) {
+        setRecipeModalOpen(false);
+        setAuthContext("recipe");
+        setShowAuthModal(true);
+      } else {
+        setRecipeError("Failed to fetch the secret recipe. Please try again.");
+      }
       setRecipeLoading(false);
     }
   };
 
   const handleToggleFavorite = async () => {
     if (!user) {
+      setAuthContext("favorite");
       setShowAuthModal(true);
       return;
     }
@@ -398,23 +408,24 @@ export default function DishDetailClient({ initialDish = null }) {
                         </button>
                       </div>
                     ) : (
-                      <ReactMarkdown
-                        className="prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10"
-                        components={{
-                          h1: ({ node, ...props }) => <h1 className="text-2xl font-display text-[var(--saffron)] mb-6 pb-4 border-b border-white/10" {...props} />,
-                          h2: ({ node, ...props }) => <h2 className="text-xl font-display text-white mt-8 mb-4 flex items-center gap-3 before:content-[''] before:block before:w-2 before:h-2 before:bg-[var(--saffron)] before:rounded-full" {...props} />,
-                          h3: ({ node, ...props }) => <h3 className="text-lg font-bold text-white/90 mt-6 mb-3" {...props} />,
-                          p: ({ node, ...props }) => <p className="mb-4 text-white/70 leading-loose" {...props} />,
-                          ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
-                          ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
-                          li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
-                          strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
-                          code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
-                          blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
-                        }}
-                      >
-                        {recipeResult}
-                      </ReactMarkdown>
+                      <div className="prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10">
+                        <ReactMarkdown
+                          components={{
+                            h1: ({ node, ...props }) => <h1 className="text-2xl font-display text-[var(--saffron)] mb-6 pb-4 border-b border-white/10" {...props} />,
+                            h2: ({ node, ...props }) => <h2 className="text-xl font-display text-white mt-8 mb-4 flex items-center gap-3 before:content-[''] before:block before:w-2 before:h-2 before:bg-[var(--saffron)] before:rounded-full" {...props} />,
+                            h3: ({ node, ...props }) => <h3 className="text-lg font-bold text-white/90 mt-6 mb-3" {...props} />,
+                            p: ({ node, ...props }) => <p className="mb-4 text-white/70 leading-loose" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
+                            li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
+                            strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
+                            code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
+                            blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
+                          }}
+                        >
+                          {recipeResult}
+                        </ReactMarkdown>
+                      </div>
                     )}
                   </div>
                 </motion.div>
@@ -422,59 +433,22 @@ export default function DishDetailClient({ initialDish = null }) {
             )}
           </AnimatePresence>
 
-          {/* Auth Modal */}
-          <AnimatePresence>
-            {showAuthModal && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-              >
-                <motion.div
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.95, opacity: 0 }}
-                  className="relative w-full max-w-sm rounded-[24px] border border-[var(--border)] bg-[var(--background)] p-8 shadow-2xl"
-                >
-                  <button
-                    onClick={() => setShowAuthModal(false)}
-                    className="absolute right-4 top-4 text-white/50 hover:text-white transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                  
-                  <div className="text-center">
-                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--saffron-pale)]">
-                      <svg className="h-6 w-6 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                      </svg>
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold font-display text-white">You are signed out</h3>
-                    <p className="mb-6 text-sm text-[var(--muted)]">
-                      Create an account or sign in to save your favourite dishes and build your Wazwan trail.
-                    </p>
-                    <div className="flex flex-col gap-3">
-                      <Link
-                        href="/login"
-                        className="w-full rounded-full bg-[var(--saffron)] py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95 text-center"
-                      >
-                        Sign In
-                      </Link>
-                      <Link
-                        href="/signup"
-                        className="w-full rounded-full border border-white/20 py-3 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:border-white/50 text-center"
-                      >
-                        Create Account
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {showAuthModal && (
+            <AuthRequiredModal
+              titleLine1={authContext === "recipe" ? "Unlock Secret" : "Save Your"}
+              titleLine2={authContext === "recipe" ? "Recipes" : "Favorites"}
+              message={authContext === "recipe" 
+                ? "You've explored your 2 free recipes.\nSign in or create an account to unlock unlimited authentic Kashmiri recipes." 
+                : "Sign in or create an account to save dishes to your favorites."}
+              onClose={() => setShowAuthModal(false)}
+              onSuccess={() => {
+                setShowAuthModal(false);
+                if (authContext === "favorite" && !isFavorite) {
+                  handleToggleFavorite();
+                }
+              }}
+            />
+          )}
         </>,
         document.body
       )}

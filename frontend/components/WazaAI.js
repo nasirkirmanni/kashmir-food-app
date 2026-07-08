@@ -44,25 +44,12 @@ const MessageBubble = React.memo(({ msg }) => {
           />
         </div>
       )}
-      <div 
-        className={`max-w-[82%] text-[14px] leading-relaxed ${
+      <div
+        className={`relative z-10 max-w-[82%] text-[14px] leading-relaxed ${
           msg.role === "user" 
-            ? "px-4 py-3 rounded-[18px] rounded-tr-[4px]" 
-            : "px-4 py-3 rounded-[18px] rounded-tl-[4px]"
+            ? "px-4 py-3 rounded-[18px] rounded-tr-[4px] bg-gradient-to-br from-[var(--saffron)] to-[#B8892A] text-[#0B0B0B] shadow-[0_4px_16px_rgba(212,161,90,0.2)] font-medium" 
+            : "px-4 py-3 rounded-[18px] rounded-tl-[4px] bg-[#111111] border border-white/5 border-l-2 border-l-[var(--saffron)] text-white/90 shadow-sm"
         }`}
-        style={
-          msg.role === "user"
-            ? {
-                background: "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)",
-                color: "#FFFFFF",
-                boxShadow: "0 4px 16px rgba(212,161,90,0.2)"
-              }
-            : {
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                color: "rgba(255,255,255,0.85)"
-              }
-        }
       >
         {msg.role === "user" ? (
           msg.content
@@ -126,6 +113,7 @@ export default function WazaAI() {
   const [isLoading, setIsLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isChatDisabled, setIsChatDisabled] = useState(false);
+  const [hasSeenWazaAI, setHasSeenWazaAI] = useState(true);
   const messagesEndRef = useRef(null);
   
   const { user } = useAuth();
@@ -135,14 +123,29 @@ export default function WazaAI() {
     if (user) {
       setShowAuthModal(false);
       setIsChatDisabled(false);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("waza_guest_exhausted");
+      }
     }
   }, [user]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const seen = localStorage.getItem("hasSeenWazaAI");
+      if (!seen) {
+        setHasSeenWazaAI(false);
+        const timer = setTimeout(() => {
+          setHasSeenWazaAI(true);
+        }, 10000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   const suggestedQuestions = [
-    "What is Rista?",
-    "Best Wazwan dish for first timers?",
-    "Is Gushtaba spicy?",
-    "Recommend a restaurant near me."
+    "What is Rogan Josh?",
+    "Restaurants near me",
+    "Plan a Wazwan feast"
   ];
 
   const messagesRef = useRef(messages);
@@ -165,6 +168,10 @@ export default function WazaAI() {
   }, [messages, isOpen]);
 
   const handleOpenIntro = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("hasSeenWazaAI", "true");
+    }
+    setHasSeenWazaAI(true);
     fetchCsrfToken().catch(() => {});
     setIsOpen(true);
     setIsIntroMode(true);
@@ -176,7 +183,19 @@ export default function WazaAI() {
   };
 
   const handleSendMessage = async (text) => {
-    if (!text.trim() || isLoadingRef.current || isChatDisabled) return;
+    if (!text.trim() || isLoadingRef.current) return;
+    
+    // Instantly block if we already know they are exhausted
+    if (!user && typeof window !== "undefined" && localStorage.getItem("waza_guest_exhausted") === "true") {
+      setIsChatDisabled(true);
+      setShowAuthModal(true);
+      return;
+    }
+
+    if (isChatDisabled) {
+      setShowAuthModal(true);
+      return;
+    }
     
     isLoadingRef.current = true;
     setIsLoading(true);
@@ -290,8 +309,15 @@ export default function WazaAI() {
     } catch (error) {
       console.error("Waza AI Fetch Error:", error);
       if (error.requiresAuth) {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("waza_guest_exhausted", "true");
+        }
         setShowAuthModal(true);
         setIsChatDisabled(true);
+        // Remove the user's message from the UI since it was rejected
+        setMessages((prev) => prev.slice(0, -1));
+        // Restore the input value so they don't lose what they typed
+        setInputValue(text);
       } else {
         setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
       }
@@ -302,6 +328,10 @@ export default function WazaAI() {
   };
 
   const handleOpenPrompt = (e) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("hasSeenWazaAI", "true");
+    }
+    setHasSeenWazaAI(true);
     fetchCsrfToken().catch(() => {});
     const promptText = e.detail;
     if (!promptText) return;
@@ -336,48 +366,75 @@ export default function WazaAI() {
   return (
     <>
       {/* Floating Button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleOpenIntro}
-            aria-label="Open Waza AI Assistant"
-            className="hidden md:flex fixed bottom-10 right-10 z-50 h-[72px] w-[72px] items-center justify-center rounded-full bg-[var(--saffron)] text-black shadow-[0_8px_32px_rgba(212,175,55,0.4)] transition-colors hover:bg-[var(--saffron-light)]"
-          >
-            <ChefAIIcon size={36} strokeWidth={2} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      <div className="hidden md:flex fixed bottom-10 right-10 z-50 items-center gap-4">
+        {/* Tooltip */}
+        <AnimatePresence>
+          {!isOpen && !hasSeenWazaAI && (
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-[#111111] border border-[var(--saffron)]/30 text-white px-4 py-2.5 rounded-xl text-[13px] font-medium shadow-lg whitespace-nowrap"
+            >
+              Ask Waza AI about Wazwan
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {!isOpen && (
+            <div className="relative">
+              {/* Pulsing ring */}
+              {!hasSeenWazaAI && (
+                <motion.div
+                  animate={{ scale: [1, 1.4], opacity: [0.6, 0] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
+                  className="absolute inset-0 rounded-full bg-[var(--saffron)]"
+                />
+              )}
+              <motion.button
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0, opacity: 0 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleOpenIntro}
+                aria-label="Open Waza AI Assistant"
+                className="relative h-[72px] w-[72px] flex items-center justify-center rounded-full bg-gradient-to-br from-[var(--saffron)] to-[#B8892A] text-[#0B0B0B] shadow-[0_8px_32px_rgba(212,161,90,0.4)] transition-all"
+              >
+                <ChefAIIcon size={36} strokeWidth={2} />
+              </motion.button>
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Chat Window / Intro Window */}
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            {/* Blurred Backdrop */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center md:items-stretch md:justify-end">
+            {/* Subtle Overlay (No Blur) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-black/40 backdrop-blur-md"
+              className="absolute inset-0 bg-black/20"
             />
             
-            {/* Centered Modal */}
+            {/* Docked Panel (Desktop) / Centered Modal (Mobile) */}
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 flex h-[450px] max-h-[80vh] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[24px] border border-[var(--saffron)]/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)] md:h-[600px] md:w-[420px]"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 h-[450px] max-h-[80vh] w-[340px] max-w-[calc(100vw-2rem)] md:h-full md:max-h-none md:w-[420px] shadow-[-10px_0_40px_rgba(0,0,0,0.5)] outline-none focus:outline-none"
               style={{
-                background: "#0B0B0B",
                 fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif"
               }}
+              tabIndex={-1}
             >
+              <div className="flex flex-col h-full w-full overflow-hidden bg-[#0A0A0A] rounded-[24px] ring-1 ring-inset ring-[#C8A46A]/20 md:rounded-none md:rounded-l-[32px] isolate border-none outline-none">
               {/* Subtle background pattern */}
               <div
                 className="absolute inset-0 pointer-events-none z-0"
@@ -416,32 +473,47 @@ export default function WazaAI() {
                   transition={{ duration: 0.8 }}
                   className="flex h-full w-full flex-col"
                 >
-                  {/* Header */}
-            <div className="relative z-10 flex items-center justify-between border-b border-white/5 bg-transparent px-5 py-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--saffron)]/20 border border-[var(--saffron)]/50 text-[var(--saffron)]">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+          {/* Header */}
+          <div className="relative z-10 flex flex-col border-b border-white/5 bg-transparent pt-6 pb-4 px-6 shrink-0">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--saffron)]/10 border border-[var(--saffron)]/30 text-[var(--saffron)] shadow-[0_0_15px_rgba(212,161,90,0.1)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="font-display text-lg font-medium tracking-wide text-white">Waza AI</h3>
-                  <p className="text-[0.65rem] font-bold uppercase tracking-widest text-[var(--saffron)]">Your Kashmiri Food Guide</p>
+                <div className="flex flex-col justify-center">
+                  <h3 className="font-display text-[22px] font-medium tracking-wide text-white leading-tight">Waza AI</h3>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] mt-0.5">Your Kashmiri Food Guide</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/40 transition-all hover:bg-white/10 hover:text-white"
                 aria-label="Close Chat Window"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
+            {/* Decorative Motif */}
+            <div className="w-full overflow-hidden opacity-30 mt-1">
+              <svg width="100%" height="8" viewBox="0 0 400 8" fill="none" preserveAspectRatio="xMinYMid slice">
+                <path d="M0 4C20 4 20 0 40 0C60 0 60 4 80 4C100 4 100 8 120 8C140 8 140 4 160 4C180 4 180 0 200 0C220 0 220 4 240 4C260 4 260 8 280 8C300 8 300 4 320 4C340 4 340 0 360 0C380 0 380 4 400 4" stroke="var(--saffron)" strokeWidth="1" />
+              </svg>
+            </div>
+          </div>
 
             {/* Messages Area */}
             <div className="relative z-10 flex-1 overflow-y-auto p-5 no-scrollbar scroll-smooth flex flex-col gap-5">
+              {/* Subtle watermark background */}
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-0 flex items-center justify-center overflow-hidden mix-blend-screen">
+                <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[120%] h-auto max-w-none text-white">
+                  <path d="M200 0C89.54 0 0 89.54 0 200s89.54 200 200 200 200-89.54 200-200S310.46 0 200 0zm0 380c-99.41 0-180-80.59-180-180S100.59 20 200 20s180 80.59 180 180-80.59 180-180 180zM100 200c0-55.23 44.77-100 100-100s100 44.77 100 100-44.77 100-100 100-100-44.77-100-100zm180 0c0-44.18-35.82-80-80-80s-80 35.82-80 80 35.82 80 80 80 80-35.82 80-80z" fill="currentColor"/>
+                </svg>
+              </div>
+
               {messages.map((msg, idx) => (
                 <MessageBubble key={idx} msg={msg} />
               ))}
@@ -467,32 +539,24 @@ export default function WazaAI() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="flex items-center gap-2 px-4 py-3 rounded-[18px] rounded-tl-[4px]"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.06)"
-                    }}
-                  >
-                    <span className="text-[13px] italic" style={{ color: "rgba(255,255,255,0.4)" }}>
-                      Waza is thinking
-                    </span>
-                    <span className="flex gap-1 items-center ml-1">
-                      <motion.span animate={{ scale: [0.7, 1.2, 0.7] }} transition={{ repeat: Infinity, duration: 1 }} className="h-1.5 w-1.5 rounded-full" style={{ background: "#D4A15A", opacity: 0.6 }} />
-                      <motion.span animate={{ scale: [0.7, 1.2, 0.7] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="h-1.5 w-1.5 rounded-full" style={{ background: "#D4A15A", opacity: 0.6 }} />
-                      <motion.span animate={{ scale: [0.7, 1.2, 0.7] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="h-1.5 w-1.5 rounded-full" style={{ background: "#D4A15A", opacity: 0.6 }} />
+                  <div className="relative z-10 flex items-center gap-2 px-5 py-3.5 rounded-[18px] rounded-tl-[4px] bg-[#111111] border border-white/5 border-l-2 border-l-[var(--saffron)] shadow-sm">
+                    <span className="flex gap-1.5 items-center h-5">
+                      <motion.span animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1 }} className="h-1.5 w-1.5 rounded-full bg-[var(--saffron)]" />
+                      <motion.span animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="h-1.5 w-1.5 rounded-full bg-[var(--saffron)]" />
+                      <motion.span animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="h-1.5 w-1.5 rounded-full bg-[var(--saffron)]" />
                     </span>
                   </div>
                 </motion.div>
               )}
               
-              {/* Suggested Questions (only show if few messages) */}
-              {messages.length <= 2 && !isLoading && (
+              {/* Suggested Questions (only show before user sends a message) */}
+              {messages.length === 1 && !isLoading && (
                 <div className="mt-2 flex flex-wrap gap-2">
                   {suggestedQuestions.map((q) => (
                     <button
                       key={q}
                       onClick={() => handleSendMessage(q)}
-                      className="rounded-full border border-[var(--saffron)]/30 bg-[var(--saffron)]/5 px-3 py-1.5 text-[0.7rem] text-white/80 transition-colors hover:bg-[var(--saffron)] hover:text-black text-left"
+                      className="relative z-10 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-[13px] font-medium text-white/80 transition-all hover:bg-[var(--saffron)]/10 hover:border-[var(--saffron)]/40 hover:text-white"
                     >
                       {q}
                     </button>
@@ -510,42 +574,31 @@ export default function WazaAI() {
                   e.preventDefault();
                   handleSendMessage(inputValue);
                 }}
-                className="relative flex items-center w-full rounded-full overflow-hidden"
-                style={{
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(212,161,90,0.15)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.3)"
-                }}
+                className="relative flex items-center w-full rounded-full bg-[#111111] border border-white/10 shadow-sm focus-within:border-[var(--saffron)]/50 focus-within:ring-1 focus-within:ring-[var(--saffron)]/30 transition-all"
               >
-                {/* Sparkle icon */}
-                <div className="pl-4 pr-1 flex items-center">
-                  <SparkleIcon size={18} className="text-[#D4A15A] opacity-50" />
-                </div>
-
+                <SparkleIcon className="absolute left-5 text-[var(--saffron)] opacity-70" size={16} />
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Message Waza AI..."
-                  className="w-full bg-transparent py-3.5 pl-2 pr-14 text-[14px] outline-none"
+                  disabled={isLoading}
+                  className="w-full bg-transparent py-4 pl-12 pr-14 text-[14px] text-white placeholder-white/30 outline-none"
                   style={{
-                    color: "#ECECEC",
                     caretColor: "#D4A15A"
                   }}
                 />
 
                 <button
                   type="submit"
-                  disabled={!inputValue.trim() || isLoading || isChatDisabled}
+                  disabled={!inputValue.trim() || isLoading}
                   className="absolute right-2 flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200"
                   style={{
-                    background: inputValue.trim() && !isLoading && !isChatDisabled
+                    background: inputValue.trim() && !isLoading
                       ? "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)"
                       : "rgba(255,255,255,0.08)",
-                    color: inputValue.trim() && !isLoading && !isChatDisabled ? "#0B0B0B" : "rgba(255,255,255,0.2)",
-                    boxShadow: inputValue.trim() && !isLoading && !isChatDisabled ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
+                    color: inputValue.trim() && !isLoading ? "#0B0B0B" : "rgba(255,255,255,0.2)",
+                    boxShadow: inputValue.trim() && !isLoading ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
                   }}
                   aria-label="Send Message"
                 >
@@ -561,8 +614,9 @@ export default function WazaAI() {
             </div>
                 </motion.div>
               )}
-            </AnimatePresence>
-          </motion.div>
+              </AnimatePresence>
+              </div>
+            </motion.div>
           </div>
         )}
       </AnimatePresence>
