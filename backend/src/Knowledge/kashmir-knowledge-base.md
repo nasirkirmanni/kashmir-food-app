@@ -697,7 +697,7 @@ Use these relationships to connect related facts when answering multi-part or fo
 
 ---
 
-## 9. ABOUT WAZWAN WAY & THE CREATOR
+## 11. ABOUT WAZWAN WAY & THE CREATOR
 
 - **Wazwan Way** is an exclusive platform dedicated to authentic Kashmiri food, restaurants, and tourism, built to digitize and elevate the rich heritage of Kashmiriyat on the internet.
 - **The Owner & Founder**: The creator and owner of Wazwan Way is **Nasir Kirmani**.
@@ -706,7 +706,7 @@ Use these relationships to connect related facts when answering multi-part or fo
 
 ---
 
-## 10. URBAN ESSENTIALS: SALONS & DESSERT SPOTS
+## 12. URBAN ESSENTIALS: SALONS & DESSERT SPOTS
 
 ### **Best Barber Shops & Salons in Srinagar**
 *   **Lakme Salon (MA Road / Lal Chowk):** Well-known national chain offering professional premium hair, skin, and makeup services for a modern experience.
@@ -727,15 +727,9 @@ Use these relationships to connect related facts when answering multi-part or fo
 
 ---
 
-## NOTES ON THIS DOCUMENT
-
-- This file merges two prior research documents (a 200-FAQ structured knowledge base and a separately compiled deep-research report) into one canonical reference, with duplicate or conflicting facts resolved into a single answer.
-- Where the two source documents gave genuinely different details for the same dish, place, or fact (e.g. two different "Methi Maaz" preparations, two different best-sunrise spots), both are preserved with a note, rather than arbitrarily picking one — so the assistant can mention there's regional/source variation if directly asked.
-- Recommended use: paste this entire document into the system instruction / system prompt for the Gemini API call / OpenRouter API powering WazaAI, so every response has full access to it without needing retrieval.
-
 ---
 
-## 11. STREET FOOD DEEP DIVE: KASHMIRI TUJJ (BARBEQUE)
+## 13. STREET FOOD DEEP DIVE: KASHMIRI TUJJ (BARBEQUE)
 
 ### Core Knowledge: What is Kashmiri Tujj?
 *Tujj* (or Tujji) is the traditional Kashmiri version of street barbeque, an absolute must-try for any food tour in the valley.
@@ -774,7 +768,7 @@ When recommending Tujj to visitors, your bot can suggest pairing the street food
 
 ---
 
-## 12. TEA CULTURE: BEST KAHWA AND NOON CHAI SPOTS IN SRINAGAR
+## 14. TEA CULTURE: BEST KAHWA AND NOON CHAI SPOTS IN SRINAGAR
 
 Kashmir's tea culture revolves around **Kahwa** (sweet, saffron-infused green tea) and **Noon Chai** (salty, pink tea). Below is a curated breakdown of the best spots to experience both, categorized by the "vibe" the tourist is seeking.
 
@@ -819,7 +813,7 @@ For travelers who want to step away from commercialized areas and experience the
 
 ---
 
-## 13. TRANSPORTATION & TAXI FARES (2026 VERIFIED RATES)
+## 15. TRANSPORTATION & TAXI FARES (2026 VERIFIED RATES)
 
 ### Local Sightseeing Taxis in Srinagar
 A full-day taxi for local sightseeing in Srinagar typically costs between **₹2,200 and ₹4,500**, depending on the vehicle type. The Jammu & Kashmir Government approved an **18% taxi fare revision for 2026**, so these reflect the latest standard union rates.

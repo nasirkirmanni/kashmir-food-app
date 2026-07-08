@@ -7,7 +7,7 @@ import { endpoints, request } from "@/lib/api";
 import Link from "next/link";
 import OtpInput from "./OtpInput";
 
-export default function AuthForm({ mode = "login", redirectPath = "/" }) {
+export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess }) {
   const router = useRouter();
   const { login } = useAuth();
   
@@ -71,7 +71,11 @@ export default function AuthForm({ mode = "login", redirectPath = "/" }) {
         setCurrentView("verify");
       } else {
         login(data);
-        router.push(redirectPath);
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          router.push(redirectPath);
+        }
       }
     } catch (submitError) {
       setError(submitError.message);
@@ -95,7 +99,11 @@ export default function AuthForm({ mode = "login", redirectPath = "/" }) {
       });
 
       login(data);
-      router.push(redirectPath);
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        router.push(redirectPath);
+      }
     } catch (submitError) {
       setError(submitError.message);
     } finally {

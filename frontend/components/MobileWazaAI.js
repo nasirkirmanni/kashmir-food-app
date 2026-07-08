@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { request, streamRequest, endpoints } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
+import AuthRequiredModal from "./AuthRequiredModal";
+import { useAuth } from "@/context/AuthContext";
 
 /* ── SVG Icons ───────────────────────────────────────────── */
 
@@ -137,8 +139,19 @@ export default function MobileWazaAI({ initialPrompt }) {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasStartedChat, setHasStartedChat] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isChatDisabled, setIsChatDisabled] = useState(false);
   const messagesEndRef = useRef(null);
   const messagesRef = useRef(messages);
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setShowAuthModal(false);
+      setIsChatDisabled(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     messagesRef.current = messages;
@@ -172,7 +185,7 @@ export default function MobileWazaAI({ initialPrompt }) {
   }, [messages, isLoading]);
 
   const handleSendMessage = async (text) => {
-    if (!text.trim() || isLoadingRef.current) return;
+    if (!text.trim() || isLoadingRef.current || isChatDisabled) return;
     setHasStartedChat(true);
 
     isLoadingRef.current = true;
@@ -267,10 +280,15 @@ export default function MobileWazaAI({ initialPrompt }) {
       }
     } catch (error) {
       console.error("Chat Error:", error);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: `I encountered an error connecting to the server. Please try again. (${error.message})` }
-      ]);
+      if (error.requiresAuth) {
+        setShowAuthModal(true);
+        setIsChatDisabled(true);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: `I encountered an error connecting to the server. Please try again. (${error.message})` }
+        ]);
+      }
     } finally {
       isLoadingRef.current = false;
       setIsLoading(false);
@@ -636,14 +654,14 @@ export default function MobileWazaAI({ initialPrompt }) {
 
           <button
             type="submit"
-            disabled={!inputValue.trim() || isLoading}
+            disabled={!inputValue.trim() || isLoading || isChatDisabled}
             className="absolute right-2 flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200"
             style={{
-              background: inputValue.trim() && !isLoading
+              background: inputValue.trim() && !isLoading && !isChatDisabled
                 ? "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)"
                 : "rgba(255,255,255,0.08)",
-              color: inputValue.trim() && !isLoading ? "#0B0B0B" : "rgba(255,255,255,0.2)",
-              boxShadow: inputValue.trim() && !isLoading ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
+              color: inputValue.trim() && !isLoading && !isChatDisabled ? "#0B0B0B" : "rgba(255,255,255,0.2)",
+              boxShadow: inputValue.trim() && !isLoading && !isChatDisabled ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
             }}
             aria-label="Send Message"
           >
@@ -659,6 +677,18 @@ export default function MobileWazaAI({ initialPrompt }) {
           Waza AI can make mistakes. Consider verifying info.
         </p>
       </motion.div>
+
+      <AnimatePresence>
+        {showAuthModal && (
+          <AuthRequiredModal
+            onClose={() => setShowAuthModal(false)}
+            onSuccess={() => {
+              setShowAuthModal(false);
+              setIsChatDisabled(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

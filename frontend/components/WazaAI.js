@@ -6,6 +6,8 @@ import Image from "next/image";
 import { request, streamRequest, endpoints, fetchCsrfToken } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
 import React from "react";
+import AuthRequiredModal from "./AuthRequiredModal";
+import { useAuth } from "@/context/AuthContext";
 
 const markdownComponents = {
   p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }} {...props} />,
@@ -122,7 +124,19 @@ export default function WazaAI() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isChatDisabled, setIsChatDisabled] = useState(false);
   const messagesEndRef = useRef(null);
+  
+  const { user } = useAuth();
+
+  // Watch for successful login to re-enable chat automatically
+  useEffect(() => {
+    if (user) {
+      setShowAuthModal(false);
+      setIsChatDisabled(false);
+    }
+  }, [user]);
 
   const suggestedQuestions = [
     "What is Rista?",
@@ -162,7 +176,7 @@ export default function WazaAI() {
   };
 
   const handleSendMessage = async (text) => {
-    if (!text.trim() || isLoadingRef.current) return;
+    if (!text.trim() || isLoadingRef.current || isChatDisabled) return;
     
     isLoadingRef.current = true;
     setIsLoading(true);
@@ -275,7 +289,12 @@ export default function WazaAI() {
       }
     } catch (error) {
       console.error("Waza AI Fetch Error:", error);
-      setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
+      if (error.requiresAuth) {
+        setShowAuthModal(true);
+        setIsChatDisabled(true);
+      } else {
+        setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
+      }
     } finally {
       isLoadingRef.current = false;
       setIsLoading(false);
@@ -519,14 +538,14 @@ export default function WazaAI() {
 
                 <button
                   type="submit"
-                  disabled={!inputValue.trim() || isLoading}
+                  disabled={!inputValue.trim() || isLoading || isChatDisabled}
                   className="absolute right-2 flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200"
                   style={{
-                    background: inputValue.trim() && !isLoading
+                    background: inputValue.trim() && !isLoading && !isChatDisabled
                       ? "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)"
                       : "rgba(255,255,255,0.08)",
-                    color: inputValue.trim() && !isLoading ? "#0B0B0B" : "rgba(255,255,255,0.2)",
-                    boxShadow: inputValue.trim() && !isLoading ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
+                    color: inputValue.trim() && !isLoading && !isChatDisabled ? "#0B0B0B" : "rgba(255,255,255,0.2)",
+                    boxShadow: inputValue.trim() && !isLoading && !isChatDisabled ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
                   }}
                   aria-label="Send Message"
                 >
@@ -545,6 +564,18 @@ export default function WazaAI() {
             </AnimatePresence>
           </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showAuthModal && (
+          <AuthRequiredModal
+            onClose={() => setShowAuthModal(false)}
+            onSuccess={() => {
+              setShowAuthModal(false);
+              setIsChatDisabled(false);
+            }}
+          />
         )}
       </AnimatePresence>
     </>

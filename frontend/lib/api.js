@@ -134,11 +134,17 @@ export const streamRequest = async (path, options = {}) => {
   
   if (!response.ok) {
     let message = "Streaming request failed";
+    let data = {};
     try {
-      const data = await response.json();
+      data = await response.json();
       message = data.message || data.error || message;
     } catch (e) {}
-    throw new Error(message);
+    
+    const err = new Error(message);
+    if (data.requiresAuth) {
+      err.requiresAuth = true;
+    }
+    throw err;
   }
   return response;
 };
