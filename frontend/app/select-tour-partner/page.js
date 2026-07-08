@@ -1,5 +1,5 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, MapPin, Phone, Mail, Star, ShieldCheck } from "lucide-react";
 import Link from "next/link";
@@ -45,9 +45,29 @@ export default function SelectTourPartnerPage() {
     }
   ];
 
+  const [guestLead, setGuestLead] = useState(null);
+
+  useEffect(() => {
+    // Read the guest lead data if it exists
+    const leadData = sessionStorage.getItem("waza_guest_lead");
+    if (leadData) {
+      try {
+        setGuestLead(JSON.parse(leadData));
+      } catch (e) {
+        console.error("Failed to parse guest lead", e);
+      }
+    }
+  }, []);
+
   const handleSelectPartner = (partnerId) => {
     // In the future, this would save the selected partner to the booking in the DB
-    alert("Partner selected! Your itinerary has been sent to them. They will contact you shortly.");
+    if (guestLead) {
+      alert(`Quote requested from partner! We've sent your itinerary and contact info (${guestLead.email}) to them.`);
+      // Clear after successful submission
+      sessionStorage.removeItem("waza_guest_lead");
+    } else {
+      alert("Partner selected! Your itinerary has been sent to them. They will contact you shortly.");
+    }
     router.push("/");
   };
 
@@ -58,7 +78,9 @@ export default function SelectTourPartnerPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 text-green-400 mb-6 border border-green-500/30">
             <CheckCircle size={32} />
           </div>
-          <h1 className="text-3xl md:text-5xl font-display text-white mb-4">Itinerary Confirmed!</h1>
+          <h1 className="text-3xl md:text-5xl font-display text-white mb-4">
+            {guestLead ? `Thanks, ${guestLead.name}!` : "Itinerary Confirmed!"}
+          </h1>
           <p className="text-white/60 text-lg">Your custom Waza AI itinerary is ready. Select a verified local partner to fulfill your trip.</p>
         </div>
 

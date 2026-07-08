@@ -115,10 +115,14 @@ export default function CustomTripPage() {
   const [vibe, setVibe] = useState("");
   const [budget, setBudget] = useState("");
   const [extras, setExtras] = useState([]);
-  
-  const [errorMsg, setErrorMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // Guest details state
+  const [guestName, setGuestName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
 
   const toggleExtra = (extra) => {
     if (extras.includes(extra)) {
@@ -244,13 +248,29 @@ You MUST return the response strictly in JSON format matching the following stru
   };
 
   const handleBook = () => {
-    // If authenticated, go straight to select tour partner.
-    // If not, go to signup with redirect.
     if (user) {
       router.push("/select-tour-partner");
     } else {
-      router.push("/signup?redirect=/select-tour-partner");
+      setStep(7);
     }
+  };
+
+  const handleGuestSubmit = (e) => {
+    e.preventDefault();
+    if (!guestName || !guestEmail || !guestPhone) {
+      setErrorMsg("Please fill in all contact details.");
+      return;
+    }
+    
+    // Store guest details and the generated itinerary so the next page can use them
+    sessionStorage.setItem("waza_guest_lead", JSON.stringify({
+      name: guestName,
+      email: guestEmail,
+      phone: guestPhone,
+      itinerary: result
+    }));
+    
+    router.push("/select-tour-partner");
   };
 
   if (!mounted) return null;
@@ -427,6 +447,61 @@ You MUST return the response strictly in JSON format matching the following stru
                     </div>
                   )
                 )}
+              </div>
+            )}
+
+            {/* Step 7: Guest Contact Details */}
+            {step === 7 && (
+              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-xl">
+                <h3 className="text-2xl md:text-3xl font-display text-[var(--saffron)] mb-4 text-center">Almost there!</h3>
+                <p className="text-white/60 text-center mb-8">Please provide your contact details so our travel partners can send you custom quotes based on this itinerary.</p>
+                
+                <form onSubmit={handleGuestSubmit} className="max-w-md mx-auto space-y-5">
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-white/50 font-bold mb-2">Full Name</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={guestName}
+                      onChange={e => { setGuestName(e.target.value); setErrorMsg(""); }}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors" 
+                      placeholder="e.g. John Doe"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-white/50 font-bold mb-2">Email Address</label>
+                    <input 
+                      type="email" 
+                      required
+                      value={guestEmail}
+                      onChange={e => { setGuestEmail(e.target.value); setErrorMsg(""); }}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors" 
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-white/50 font-bold mb-2">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      required
+                      value={guestPhone}
+                      onChange={e => { setGuestPhone(e.target.value); setErrorMsg(""); }}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors" 
+                      placeholder="+91 98765 43210"
+                    />
+                  </div>
+
+                  {errorMsg && <p className="text-red-400 text-sm mt-4 flex items-start gap-2 bg-red-400/10 p-4 rounded-xl"><AlertTriangle size={18} className="mt-0.5 shrink-0" />{errorMsg}</p>}
+
+                  <div className="mt-10 flex flex-col items-center gap-4 pt-4 border-t border-white/10">
+                    <button type="submit" className="w-full bg-gradient-to-r from-[var(--saffron)] to-[#e8c35e] text-black px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_30px_rgba(212,175,55,0.4)] text-sm">
+                      Continue to Select Partner
+                    </button>
+                    <button type="button" onClick={() => setStep(6)} className="text-sm text-white/50 hover:text-white uppercase tracking-widest font-bold flex items-center gap-2 mt-4">
+                      <ArrowLeft size={16} /> Back to Itinerary
+                    </button>
+                  </div>
+                </form>
               </div>
             )}
           </motion.div>
