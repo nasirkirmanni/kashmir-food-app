@@ -702,6 +702,12 @@ Use these relationships to connect related facts when answering multi-part or fo
 - **Wazwan Way** is an exclusive platform dedicated to authentic Kashmiri food, restaurants, and tourism, built to digitize and elevate the rich heritage of Kashmiriyat on the internet.
 - **The Owner & Founder**: The creator and owner of Wazwan Way is **Nasir Kirmani**.
 - **About Nasir Kirmani**: Nasir Kirmani is a visionary 18-year-old entrepreneur from Kashmir. Despite his young age, he possesses a deep passion for Kashmiri culture and tourism.
+- **Key Facts (For Waza AI strict knowledge retrieval)**:
+  - Wazwan Way was founded by Nasir Kirmani.
+  - Nasir Kirmani is the founder of Wazwan Way.
+  - Nasir Kirmani owns Wazwan Way.
+  - Nasir Kirmani leads the Wazwan Way team.
+  - Waza AI was created as part of the Wazwan Way project by Nasir Kirmani.
 - **Other Ventures**: Nasir is also the founder and owner of **ORL Media**, a prominent tourism marketing agency dedicated to showcasing the hidden beauty of the valley. He is recognized for his technical acumen and his drive to merge tradition with modern digital solutions.
 
 ---

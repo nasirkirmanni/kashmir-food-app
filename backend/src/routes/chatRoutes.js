@@ -63,7 +63,7 @@ const KB_KEYWORD_MAP = {
   faq: [],
   insider: ["insider", "secret", "hidden", "tip", "local only"],
   knowledge_graph: [],
-  about_creator: ["founder", "creator", "owner", "nasir", "who made", "about you", "who owns"],
+  about_creator: ["founder", "creator", "owner", "nasir", "who made", "about you", "who owns", "team", "ceo", "run", "behind", "develop", "who is", "head"],
   urban_essentials: ["salon", "haircut", "barber", "ice cream", "dessert", "sweet"],
   tujj: ["tujj", "barbeque", "bbq", "seekh", "khayam", "makai"],
   tea_culture: ["tea", "kahwa", "noon chai", "chai", "samovar"],
@@ -95,6 +95,9 @@ Destination format:
 # Name | ## Overview | ## Key Attractions | ## Best Time to Visit | ## Scores (same)
 
 RULES:
+- You must answer ONLY using the retrieved knowledge provided to you.
+- NEVER invent or assume facts, names, organizations, founders, owners, or historical information.
+- If the retrieved context does not contain the answer, clearly state: "I couldn't find reliable information about that in my knowledge base." Accuracy is more important than providing an answer.
 - Prioritize injected DB context over general knowledge. Never invent restaurant/dish/destination data.
 - Use provided Authenticity / Tourist Friendliness / Luxury scores (1.0–5.0) when rating things.
 - Distinguish: (1) Traditional Wazwan dishes e.g. Rogan Josh, Gushtaba, Rista, Tabak Maaz, Yakhni. (2) Home-style dishes e.g. Gogji Mutton, Waza Haak. (3) Modern adaptations e.g. Paneer Kanti — ALWAYS label these explicitly.
@@ -395,12 +398,11 @@ router.post(
     
     let injectedSections = [];
     if (scoredSections.length > 0) {
-      injectedSections.push(parsedKBSections.get(scoredSections[0].slug));
-      if (scoredSections.length > 1) {
-        injectedSections.push(parsedKBSections.get(scoredSections[1].slug));
+      for (let i = 0; i < Math.min(5, scoredSections.length); i++) {
+        injectedSections.push(parsedKBSections.get(scoredSections[i].slug));
       }
-      if (scoredSections.length === 1) {
-        injectedSections.push(parsedKBSections.get("faq"));
+      if (scoredSections.length < 5) {
+        if (!scoredSections.find(s => s.slug === "faq")) injectedSections.push(parsedKBSections.get("faq"));
       }
     } else {
       injectedSections.push(parsedKBSections.get("faq"));
