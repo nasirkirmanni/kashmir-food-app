@@ -385,15 +385,15 @@ You MUST return the response strictly in JSON format matching the following stru
       
       <div className={`relative z-10 w-full max-w-3xl mx-auto flex flex-col flex-1 ${step !== 6 ? 'pb-20' : ''}`}>
         {/* Header */}
-        <div className="relative flex flex-col items-center justify-center pt-14 pb-8 px-5 w-full h-[140px] mb-6 shrink-0">
+        <div className="relative flex flex-col items-center justify-center pt-28 pb-4 px-5 w-full min-h-[160px] mb-6 shrink-0">
           {step > 1 ? (
-            <div className="absolute top-14 left-5 z-20">
+            <div className="absolute top-28 left-5 z-20">
               <button onClick={() => setStep(prev => prev - 1)} className="text-white/70 hover:text-white transition-colors p-1">
                 <ArrowLeft size={24} />
               </button>
             </div>
           ) : (
-            <Link href="/" className="absolute top-14 left-5 z-20 text-white/70 hover:text-white transition-colors p-1">
+            <Link href="/" className="absolute top-28 left-5 z-20 text-white/70 hover:text-white transition-colors p-1">
               <ArrowLeft size={24} />
             </Link>
           )}
