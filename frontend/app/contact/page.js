@@ -65,8 +65,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-1">Email Us</h3>
-                <a href="mailto:wazwanway@gmail.com" className="text-white/50 text-xs hover:text-[var(--saffron)] transition-colors">
-                  wazwanway@gmail.com
+                <a href="mailto:hello@wazwanway.com" className="text-white/50 text-xs hover:text-[var(--saffron)] transition-colors">
+                  hello@wazwanway.com
                 </a>
               </div>
             </div>

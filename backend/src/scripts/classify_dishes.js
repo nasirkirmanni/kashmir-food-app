@@ -206,11 +206,11 @@ async function run() {
   const allDestinations = await Destination.find().sort({ name: 1 }).lean();
   
   // Find clean users (avoid password hash exposure in seed file)
-  const allUsers = await User.find({ email: { $in: ["wazwanway@gmail.com", "traveler@wazwanway.com"] } }).select("-password -createdAt -updatedAt -__v").lean();
+  const allUsers = await User.find({ email: { $in: ["admin@wazwanway.com", "traveler@wazwanway.com"] } }).select("-password -createdAt -updatedAt -__v").lean();
   const mappedUsers = allUsers.map(u => ({
     name: u.name,
     email: u.email,
-    password: u.name === "Admin User" ? "admin123" : "traveler123", // default values for seeding
+    password: u.name === "Admin User" ? "Nasir@786Ny85@$1001x1" : "traveler123", // default values for seeding
     isAdmin: u.isAdmin
   }));
 

@@ -24,7 +24,7 @@ const destinations = [
 const destDir = path.join(process.cwd(), 'frontend', 'public', 'images', 'Destinations');
 
 const headers = {
-  "User-Agent": "WazwanWayScript/1.0 (nasirkirmani@wazwanway.com) Node.js/18.x"
+  "User-Agent": "WazwanWayScript/1.0 (hello@wazwanway.com) Node.js/18.x"
 };
 
 async function downloadImage(url, filename) {

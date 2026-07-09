@@ -3264,7 +3264,7 @@ export const destinations = [
 export const users = [
   {
     "name": "Admin User",
-    "email": "wazwanway@gmail.com",
+    "email": "admin@wazwanway.com",
     "password": "Nasir@786Ny85@$1001x1",
     "isAdmin": true,
     "phoneNumber": "+91 99999 99999"
