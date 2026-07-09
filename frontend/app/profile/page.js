@@ -229,25 +229,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* bottom floating nav */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-52px)] max-w-[340px] bg-[rgba(19,17,16,0.65)] backdrop-blur-[16px] border border-[rgba(201,160,99,0.12)] rounded-full flex items-center justify-around py-3.5 px-4.5 z-50">
-          <Link href="/" className="w-[18px] h-[18px] opacity-45 relative hover:opacity-100 transition-opacity">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-text)]"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-          </Link>
-          <Link href="/explore" className="w-[18px] h-[18px] opacity-45 relative hover:opacity-100 transition-opacity">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-text)]"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-6 2.5 2.5 6 3.5-6 6-2.5z"/></svg>
-          </Link>
-          <Link href="/plan" className="w-[18px] h-[18px] opacity-45 relative hover:opacity-100 transition-opacity">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-text)]"><path d="M4 18h16M6 18V9a2 2 0 012-2h8a2 2 0 012 2v9"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
-          </Link>
-          <Link href="/favorites" className="w-[18px] h-[18px] opacity-45 relative hover:opacity-100 transition-opacity">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-text)]"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>
-          </Link>
-          <Link href="/profile" className="w-[18px] h-[18px] opacity-100 relative group">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-gold)]"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-[var(--profile-gold)]"></div>
-          </Link>
-        </div>
+
 
       </div>
     </div>
