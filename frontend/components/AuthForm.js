@@ -6,17 +6,22 @@ import { useAuth } from "@/context/AuthContext";
 import { endpoints, request } from "@/lib/api";
 import Link from "next/link";
 import OtpInput from "./OtpInput";
+import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess }) {
   const router = useRouter();
   const { login } = useAuth();
   
   // form state
-  const [form, setForm] = useState({ name: "", email: "", phoneNumber: "", password: "", confirmPassword: "" });
+  const [form, setForm] = useState({ name: "", email: "", phoneNumber: "", password: "", confirmPassword: "", termsAccepted: false });
   const [otp, setOtp] = useState("");
   
   // views: "input" or "verify"
   const [currentView, setCurrentView] = useState("input");
+  
+  // Modal state
+  const [showTermsModal, setShowTermsModal] = useState(false);
   
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -42,6 +47,12 @@ export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess
 
     if (mode === "signup" && form.password !== form.confirmPassword) {
       setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    if (mode === "signup" && !form.termsAccepted) {
+      setError("You must accept the Terms and Conditions to sign up.");
       setLoading(false);
       return;
     }
@@ -190,7 +201,8 @@ export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess
   }
 
   return (
-    <form onSubmit={handleInitialSubmit} className="w-full max-w-[460px] mx-auto rounded-[24px] border border-white/10 bg-[#111111]/80 backdrop-blur-3xl p-8 sm:p-10 shadow-[0_0_80px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.02)] flex flex-col relative overflow-hidden">
+    <>
+      <form onSubmit={handleInitialSubmit} className="w-full max-w-[460px] mx-auto rounded-[24px] border border-white/10 bg-[#111111]/80 backdrop-blur-3xl p-8 sm:p-10 shadow-[0_0_80px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.02)] flex flex-col relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--saffron)]/5 to-transparent pointer-events-none rounded-[24px]" />
       
       <div className="text-center mb-8 relative z-10 flex flex-col items-center">
@@ -231,6 +243,17 @@ export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess
             </label>
 
             <label className="block text-left group">
+              <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Phone Number</span>
+              <input
+                type="tel"
+                value={form.phoneNumber}
+                onChange={(event) => setForm({ ...form, phoneNumber: event.target.value })}
+                className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
+                required
+              />
+            </label>
+
+            <label className="block text-left group">
               <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.1em] text-white/50 group-focus-within:text-[var(--saffron)] transition-colors">Password</span>
               <input
                 type="password"
@@ -250,6 +273,24 @@ export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess
                 className="w-full rounded-[14px] border border-white/10 bg-black/50 px-4 py-3 text-sm text-white outline-none focus:border-[var(--saffron)]/50 focus:bg-black/80 focus:ring-1 focus:ring-[var(--saffron)]/30 transition-all placeholder:text-white/20"
                 required
               />
+            </label>
+
+            <label className="flex items-start gap-3 mt-4 group cursor-pointer">
+              <div className="relative flex items-center justify-center mt-0.5">
+                <input
+                  type="checkbox"
+                  checked={form.termsAccepted}
+                  onChange={(event) => setForm({ ...form, termsAccepted: event.target.checked })}
+                  className="peer appearance-none w-4 h-4 border border-white/20 rounded-sm bg-black/50 checked:bg-[var(--saffron)] checked:border-[var(--saffron)] outline-none focus:ring-1 focus:ring-[var(--saffron)]/50 transition-colors cursor-pointer"
+                  required
+                />
+                <svg className="absolute w-3 h-3 text-black pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5L4.5 8.5L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <span className="text-[11px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors">
+                I agree to the <button type="button" onClick={() => setShowTermsModal(true)} className="text-[var(--saffron)] hover:underline">Terms and Conditions</button> and Privacy Policy.
+              </span>
             </label>
           </>
         ) : (
@@ -335,5 +376,77 @@ export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess
         </>
       )}
     </form>
+
+      {/* Terms and Conditions Modal */}
+      <AnimatePresence>
+        {showTermsModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setShowTermsModal(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-2xl bg-[#111] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-white/10 bg-white/5 relative z-10">
+                <h2 className="text-xl font-display text-white">Terms and Conditions</h2>
+                <button
+                  type="button"
+                  onClick={() => setShowTermsModal(false)}
+                  className="p-2 text-white/60 hover:text-[var(--saffron)] hover:bg-white/5 rounded-full transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              {/* Content */}
+              <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar text-sm text-white/70 space-y-6 relative z-10">
+                <section>
+                  <h3 className="text-[var(--saffron)] font-bold mb-2 text-base">1. Introduction</h3>
+                  <p className="leading-relaxed">Welcome to Wazwan Way. By accessing and using our website, services, and platform, you accept and agree to be bound by the terms and provisions of this agreement.</p>
+                </section>
+                <section>
+                  <h3 className="text-[var(--saffron)] font-bold mb-2 text-base">2. Intellectual Property Rights</h3>
+                  <p className="leading-relaxed">Other than the content you own, under these Terms, Wazwan Way and/or its licensors own all the intellectual property rights and materials contained in this Website. You are granted a limited license only for viewing the material.</p>
+                </section>
+                <section>
+                  <h3 className="text-[var(--saffron)] font-bold mb-2 text-base">3. User Obligations</h3>
+                  <ul className="list-disc pl-5 space-y-2 marker:text-[var(--saffron)]">
+                    <li>Provide accurate, current, and complete information during registration.</li>
+                    <li>Maintain the security of your password and accept all risks of unauthorized access.</li>
+                    <li>Not use the platform for any illegal or unauthorized purpose.</li>
+                  </ul>
+                </section>
+                <section>
+                  <h3 className="text-[var(--saffron)] font-bold mb-2 text-base">4. Limitation of Liability</h3>
+                  <p className="leading-relaxed">In no event shall Wazwan Way, nor any of its officers, directors, and employees, be held liable for anything arising out of or in any way connected with your use of this Website. Wazwan Way shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this Website.</p>
+                </section>
+              </div>
+
+              {/* Footer */}
+              <div className="p-6 border-t border-white/10 bg-white/5 flex justify-end relative z-10">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setForm({ ...form, termsAccepted: true });
+                    setShowTermsModal(false);
+                  }}
+                  className="rounded-full bg-[var(--saffron)] px-6 py-2.5 text-xs font-bold uppercase tracking-[0.1em] text-black shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all active:scale-[0.98]"
+                >
+                  Accept & Close
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
