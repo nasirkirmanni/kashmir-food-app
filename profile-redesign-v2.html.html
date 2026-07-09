@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wazwan Way — Profile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root{
+    --bg: #0B0A09;
+    --surface: #131110;
+    --gold: #C9A063;
+    --gold-dim: #8F6F45;
+    --text: #EFE9DE;
+    --text-muted: #857C6E;
+    --line: #221D17;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    background: #000;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .frame{
+    width: 390px;
+    min-height: 844px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    padding: 64px 26px 120px;
+  }
+
+  /* faint signature motif */
+  .motif{
+    position:absolute;
+    top: -40px;
+    right: -60px;
+    width: 320px;
+    height: 320px;
+    opacity: 0.06;
+    pointer-events:none;
+  }
+  .motif svg{ width:100%; height:100%; }
+
+  /* header */
+  .topbar{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    position:relative;
+    z-index:1;
+    margin-bottom: 44px;
+  }
+  .eyebrow{
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+  .topbar h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 34px;
+    letter-spacing: 0.3px;
+  }
+  .bell{
+    width: 20px; height: 20px;
+    opacity: 0.55;
+  }
+  .bell svg{ width:100%; height:100%; stroke: var(--text); }
+
+  /* identity */
+  .identity{
+    display:flex;
+    align-items:center;
+    gap: 20px;
+    position:relative;
+    z-index:1;
+  }
+  .avatar-wrap{
+    position: relative;
+    width: 76px; height: 76px;
+    flex-shrink:0;
+  }
+  .avatar-wrap img{
+    width:100%; height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow: 0 0 0 1px rgba(201,160,99,0.3);
+  }
+  .avatar-wrap .ring{
+    position:absolute;
+    top:-4px; left:-4px; right:-4px; bottom:-4px;
+    border-radius:50%;
+    border: 1px solid rgba(201,160,99,0.18);
+  }
+
+  .id-text .name{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.15;
+  }
+  .id-text .role{
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+  }
+
+  /* level + xp */
+  .level-block{
+    margin-top: 28px;
+    position:relative;
+    z-index:1;
+  }
+  .level-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom: 10px;
+  }
+  .level-tag{
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .xp-count{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .xp-track{
+    width: 100%;
+    height: 1.5px;
+    background: var(--line);
+    position:relative;
+    border-radius: 2px;
+    overflow:hidden;
+  }
+  .xp-fill{
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width: 78%;
+    background: var(--gold);
+  }
+  .xp-note{
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+  }
+
+  .member-since{
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+  }
+
+  /* divider */
+  .hr{
+    height: 1px;
+    background: var(--line);
+    margin: 36px 0;
+  }
+
+  /* stats — inline, no boxes */
+  .stats{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    z-index:1;
+  }
+  .stat{
+    text-align:center;
+    flex:1;
+  }
+  .stat .num{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold);
+  }
+  .stat .label{
+    margin-top: 6px;
+    font-size: 9.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* section title */
+  .section-title{
+    font-size: 10.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 22px;
+  }
+
+  /* actions list — quiet rows, not cards */
+  .action-list{ position:relative; z-index:1; }
+  .action-row{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    cursor:pointer;
+  }
+  .action-row:last-child{ border-bottom:none; }
+  .action-row .icon{
+    width: 18px; height: 18px;
+    color: var(--gold);
+    flex-shrink:0;
+  }
+  .action-row .icon svg{ width:100%; height:100%; stroke: var(--gold); }
+  .action-row .body{ flex:1; }
+  .action-row .title{ font-size: 15px; color: var(--text); }
+  .action-row .sub{ font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+  .action-row .chevron{
+    width: 14px; height: 14px;
+    opacity: 0.4;
+  }
+  .action-row .chevron svg{ width:100%; height:100%; stroke: var(--text); }
+
+  /* bottom floating nav */
+  .nav{
+    position:absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 52px);
+    background: rgba(19,17,16,0.65);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(201,160,99,0.12);
+    border-radius: 999px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    padding: 14px 18px;
+  }
+  .nav .icon{
+    width: 18px; height: 18px;
+    opacity: 0.45;
+    position:relative;
+  }
+  .nav .icon.active{ opacity: 1; }
+  .nav .icon.active::after{
+    content:'';
+    position:absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3.5px; height: 3.5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .nav svg{ width:100%; height:100%; stroke: var(--text); }
+  .nav .icon.active svg{ stroke: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <div class="motif">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#C9A063" stroke-width="0.6">
+        <circle cx="100" cy="100" r="70" stroke-dasharray="2 6"/>
+        <path d="M100 30 C 120 55, 120 75, 100 100 C 80 75, 80 55, 100 30 Z"/>
+        <path d="M170 100 C 145 120, 125 120, 100 100 C 125 80, 145 80, 170 100 Z"/>
+        <path d="M100 170 C 80 145, 80 125, 100 100 C 120 125, 120 145, 100 170 Z"/>
+        <path d="M30 100 C 55 80, 75 80, 100 100 C 75 120, 55 120, 30 100 Z"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Your Wazwan Journey</div>
+      <h1>Profile</h1>
+    </div>
+    <div class="bell">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+    </div>
+  </div>
+
+  <div class="identity">
+    <div class="avatar-wrap">
+      <div class="ring"></div>
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop" alt="Nasir Kirmani">
+    </div>
+    <div class="id-text">
+      <div class="name">Nasir Kirmani</div>
+      <div class="role">Cultural Explorer &middot; Srinagar</div>
+    </div>
+  </div>
+
+  <div class="level-block">
+    <div class="level-row">
+      <span class="level-tag">Level 6 · Explorer</span>
+      <span class="xp-count">1,240 XP</span>
+    </div>
+    <div class="xp-track"><div class="xp-fill"></div></div>
+    <div class="xp-note">340 XP until Master Explorer</div>
+    <div class="member-since">Member since July 2026</div>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="section-title">Overview</div>
+  <div class="stats">
+    <div class="stat"><div class="num">18</div><div class="label">Saved</div></div>
+    <div class="stat"><div class="num">31</div><div class="label">Dishes</div></div>
+    <div class="stat"><div class="num">9</div><div class="label">Restaurants</div></div>
+    <div class="stat"><div class="num">14</div><div class="label">Places</div></div>
+    <div class="stat"><div class="num">42</div><div class="label">AI Chats</div></div>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="section-title">Your Space</div>
+  <div class="action-list">
+    <div class="action-row">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 000-7.8z"/></svg></div>
+      <div class="body">
+        <div class="title">Saved</div>
+        <div class="sub">Your favorite dishes & places</div>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+    <div class="action-row">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></div>
+      <div class="body">
+        <div class="title">Trips & Plans</div>
+        <div class="sub">Your itineraries</div>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+    <div class="action-row">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+      <div class="body">
+        <div class="title">Explore History</div>
+        <div class="sub">Wazwan heritage</div>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+    <div class="action-row">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1.04 1.56V21a2 2 0 01-4 0v-.09A1.7 1.7 0 009 19.35a1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.7 1.7 0 004.65 15a1.7 1.7 0 00-1.56-1.04H3a2 2 0 010-4h.09A1.7 1.7 0 004.65 9a1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 112.83-2.83l.06.06A1.7 1.7 0 009 4.65a1.7 1.7 0 001.04-1.56V3a2 2 0 014 0v.09A1.7 1.7 0 0015 4.65a1.7 1.7 0 001.87-.34l.06-.06a2 2 0 112.83 2.83l-.06.06A1.7 1.7 0 0019.35 9c.36.62.99 1.03 1.6 1.04H21a2 2 0 010 4h-.09A1.7 1.7 0 0019.4 15z"/></svg></div>
+      <div class="body">
+        <div class="title">Settings & Preferences</div>
+        <div class="sub">Notifications, language, theme</div>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+    </div>
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-6 2.5 2.5 6 3.5-6 6-2.5z"/></svg>
+    </div>
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 18V9a2 2 0 012-2h8a2 2 0 012 2v9"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
+    </div>
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>
+    </div>
+    <div class="icon active">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

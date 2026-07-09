@@ -6,7 +6,10 @@ import { Restaurant } from "../models/Restaurant.js";
 import { Destination } from "../models/Destination.js";
 import { User } from "../models/User.js";
 import { Review } from "../models/Review.js";
+import { Trail } from "../models/Trail.js";
+import { Collection } from "../models/Collection.js";
 import { dishes, restaurants, destinations, users } from "../data/seedData.js";
+import { destinationMetadata, additionalDestinations, trailTemplates, collectionTemplates } from "../data/exploreSeedData.js";
 
 dotenv.config();
 
@@ -18,7 +21,9 @@ const seed = async () => {
     Restaurant.deleteMany({}),
     Destination.deleteMany({}),
     User.deleteMany({}),
-    Review.deleteMany({})
+    Review.deleteMany({}),
+    Trail.deleteMany({}),
+    Collection.deleteMany({})
   ]);
 
   const createdUsers = await User.insertMany(
@@ -40,8 +45,53 @@ const seed = async () => {
     }))
   );
 
-  const createdDestinations = await Destination.insertMany(destinations);
+  const enhancedDestinations = destinations.map(dest => {
+    const meta = destinationMetadata[dest.name];
+    if (meta) {
+      return { ...dest, ...meta };
+    }
+    return dest;
+  }).concat(additionalDestinations);
+
+  const createdDestinations = await Destination.insertMany(enhancedDestinations);
   console.log(`Seeded ${createdDestinations.length} destinations`);
+  const destinationMap = new Map(createdDestinations.map(d => [d.name, d._id]));
+  const restaurantMap = new Map(createdRestaurants.map(r => [r.name, r._id]));
+  const dishNameToIdMap = new Map(createdDishes.map(d => [d.name, d._id]));
+
+  // Seed Trails
+  const resolvedTrails = trailTemplates.map(trail => {
+    return {
+      ...trail,
+      stops: trail.stops.map(stop => {
+        let itemId;
+        if (stop.type === "Destination") itemId = destinationMap.get(stop.name);
+        if (stop.type === "Restaurant") itemId = restaurantMap.get(stop.name);
+        if (stop.type === "Dish") itemId = dishNameToIdMap.get(stop.name);
+        return { itemType: stop.type, item: itemId };
+      }).filter(s => s.item) // only valid ones
+    };
+  });
+  const createdTrails = await Trail.insertMany(resolvedTrails);
+  console.log(`Seeded ${createdTrails.length} trails`);
+  const trailMap = new Map(createdTrails.map(t => [t.title, t._id]));
+
+  // Seed Collections
+  const resolvedCollections = collectionTemplates.map(col => {
+    return {
+      ...col,
+      items: col.items.map(item => {
+        let itemId;
+        if (item.type === "Destination") itemId = destinationMap.get(item.name);
+        if (item.type === "Restaurant") itemId = restaurantMap.get(item.name);
+        if (item.type === "Dish") itemId = dishNameToIdMap.get(item.name);
+        if (item.type === "Trail") itemId = trailMap.get(item.name);
+        return { itemType: item.type, item: itemId };
+      }).filter(i => i.item)
+    };
+  });
+  const createdCollections = await Collection.insertMany(resolvedCollections);
+  console.log(`Seeded ${createdCollections.length} collections`);
 
   const userMap = new Map(createdUsers.map((u) => [u.name, u._id]));
   const ahdoosRestaurant = createdRestaurants.find((r) => r.name === "Ahdoos");
