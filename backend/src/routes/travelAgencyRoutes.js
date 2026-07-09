@@ -202,12 +202,12 @@ router.post(
   protect,
   asyncHandler(async (req, res) => {
     const { 
-      agencyName, ownerName, contactNumber, description,
-      instagramLink, facebookLink, googleReviewLink,
-      thumbnailUrl, rating, qualities, features
+      agencyName, ownerName, contactNumber, address, description,
+      instagramLink, facebookLink,
+      thumbnailUrl, coverImageUrl, rating, qualities, features
     } = req.body;
 
-    if (!agencyName || !ownerName || !contactNumber) {
+    if (!agencyName || !ownerName || !contactNumber || !address) {
       res.status(400);
       throw new Error("Please provide all required fields.");
     }
@@ -222,12 +222,13 @@ router.post(
       agencyName,
       ownerName,
       contactNumber,
+      address,
       email: req.user.email,
       description,
       instagramLink,
       facebookLink,
-      googleReviewLink,
       thumbnailUrl,
+      coverImageUrl,
       rating: rating || 4.5,
       qualities: qualities || [],
       features: features || [],

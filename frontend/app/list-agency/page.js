@@ -14,15 +14,18 @@ export default function ListAgencyPage() {
     agencyName: "",
     ownerName: "",
     contactNumber: "",
+    address: "",
     description: "",
     instagramLink: "",
     facebookLink: "",
-    googleReviewLink: "",
     thumbnailUrl: "",
+    coverImageUrl: "",
     rating: "",
     qualities: "",
     features: "",
   });
+  
+  const [uploading, setUploading] = useState({ thumbnailUrl: false, coverImageUrl: false });
   
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -38,6 +41,29 @@ export default function ListAgencyPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileUpload = async (e, field) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(prev => ({ ...prev, [field]: true }));
+    setError(null);
+
+    const fd = new FormData();
+    fd.append('image', file);
+
+    try {
+      const data = await request("/upload", {
+        method: "POST",
+        body: fd
+      });
+      setFormData(prev => ({ ...prev, [field]: data.image }));
+    } catch (err) {
+      setError(err.message || "Failed to upload image");
+    } finally {
+      setUploading(prev => ({ ...prev, [field]: false }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -51,11 +77,12 @@ export default function ListAgencyPage() {
           agencyName: formData.agencyName,
           ownerName: formData.ownerName,
           contactNumber: formData.contactNumber,
+          address: formData.address,
           description: formData.description,
           instagramLink: formData.instagramLink,
           facebookLink: formData.facebookLink,
-          googleReviewLink: formData.googleReviewLink,
           thumbnailUrl: formData.thumbnailUrl,
+          coverImageUrl: formData.coverImageUrl,
           rating: formData.rating ? parseFloat(formData.rating) : 4.5,
           qualities: formData.qualities ? formData.qualities.split(",").map(q => q.trim()).filter(Boolean) : [],
           features: formData.features ? formData.features.split(",").map(f => f.trim()).filter(Boolean) : [],
@@ -153,7 +180,20 @@ export default function ListAgencyPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/80 mb-2">Short Description</label>
+              <label className="block text-sm font-medium text-white/80 mb-2">Address</label>
+              <textarea
+                name="address"
+                required
+                rows={2}
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors resize-none"
+                placeholder="Full Agency Address"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">What makes you unique?</label>
               <textarea
                 name="description"
                 rows={3}
@@ -189,29 +229,43 @@ export default function ListAgencyPage() {
                 />
               </div>
 
-              <div className="relative">
-                <input
-                  type="url"
-                  name="googleReviewLink"
-                  value={formData.googleReviewLink}
-                  onChange={handleChange}
-                  placeholder="Google Review URL"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors placeholder:text-white/40"
-                />
               </div>
             </div>
 
             <div className="space-y-4 pt-4 border-t border-white/10 mt-6">
               <h3 className="text-white font-medium text-sm mb-2">Agency Details (Optional)</h3>
               
-              <input
-                type="url"
-                name="thumbnailUrl"
-                value={formData.thumbnailUrl}
-                onChange={handleChange}
-                placeholder="Thumbnail Image URL (e.g. https://example.com/logo.jpg)"
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors placeholder:text-white/40"
-              />
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-white/80 mb-2">Logo (Thumbnail)</label>
+                <div className="flex items-center gap-4">
+                  {formData.thumbnailUrl && (
+                    <img src={formData.thumbnailUrl} alt="Logo" className="w-16 h-16 rounded-xl object-cover border border-white/10" />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileUpload(e, 'thumbnailUrl')}
+                    className="flex-1 text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-[var(--saffron)]/10 file:text-[var(--saffron)] hover:file:bg-[var(--saffron)]/20 cursor-pointer"
+                  />
+                  {uploading.thumbnailUrl && <span className="text-xs text-[var(--saffron)] animate-pulse">Uploading...</span>}
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-white/80 mb-2">Cover Art</label>
+                <div className="flex items-center gap-4">
+                  {formData.coverImageUrl && (
+                    <img src={formData.coverImageUrl} alt="Cover" className="w-24 h-16 rounded-xl object-cover border border-white/10" />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileUpload(e, 'coverImageUrl')}
+                    className="flex-1 text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-[var(--saffron)]/10 file:text-[var(--saffron)] hover:file:bg-[var(--saffron)]/20 cursor-pointer"
+                  />
+                  {uploading.coverImageUrl && <span className="text-xs text-[var(--saffron)] animate-pulse">Uploading...</span>}
+                </div>
+              </div>
 
               <input
                 type="number"
