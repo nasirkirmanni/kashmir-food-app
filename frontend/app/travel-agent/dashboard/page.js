@@ -66,6 +66,11 @@ export default function TravelAgentDashboard() {
         }
       }
     } catch (err) {
+      if (err.message === "Travel agency not found" || err.message?.includes("not found")) {
+        alert("You have not listed your agency. List it now.");
+        router.push("/list-agency");
+        return;
+      }
       setError(err.message || "Failed to load dashboard details");
     } finally {
       setLoading(false);
