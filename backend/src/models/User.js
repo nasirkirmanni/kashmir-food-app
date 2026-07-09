@@ -36,6 +36,23 @@ const userSchema = new mongoose.Schema(
     favorites: [favoriteSchema],
     phoneNumber: { type: String, required: true, unique: true, trim: true },
     address: { type: String, trim: true },
+    
+    // Core Gamification
+    totalXP: { type: Number, default: 0 },
+    dailyStreak: { type: Number, default: 0 },
+    lastDailyLogin: { type: Date },
+    lastDailyAIXP: { type: Date },
+
+    // Structured Achievements & Challenges
+    achievements: [{
+      id: String,
+      unlockedAt: { type: Date, default: Date.now }
+    }],
+    challenges: [{
+      id: String,
+      progress: { type: Number, default: 0 },
+      completedAt: { type: Date }
+    }],
   },
   { timestamps: true }
 );

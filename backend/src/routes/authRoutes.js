@@ -4,6 +4,9 @@ import { User } from "../models/User.js";
 import { generateAuthCookies } from "../utils/createToken.js";
 import { protect } from "../middleware/auth.js";
 import { sendOtpEmail, sendPasswordResetEmail } from "../utils/sendEmail.js";
+import { processEvent, processDailyLogin, calculateProgression } from "../utils/explorer.js";
+import { ExplorerEvent } from "../models/ExplorerEvent.js";
+import { EXPLORER_CONFIG } from "../config/explorerConfig.js";
 import crypto from "crypto";
 import rateLimit from "express-rate-limit";
 import jwt from "jsonwebtoken";
@@ -117,10 +120,21 @@ router.post(
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
+    const isNewAccount = !user.isVerified;
     user.isVerified = true;
     user.otp = undefined;
     user.otpExpiresAt = undefined;
     await user.save();
+
+    let gamificationPayload = null;
+    let loginPayload = null;
+
+    if (isNewAccount) {
+      gamificationPayload = await processEvent(user, "CREATE_ACCOUNT");
+    }
+    
+    // Process daily login (applies to both new and returning)
+    loginPayload = await processDailyLogin(user);
 
     generateAuthCookies(res, user);
 
@@ -133,7 +147,9 @@ router.post(
         phoneNumber: user.phoneNumber,
         address: user.address,
         role: user.role,
-      }
+      },
+      gamificationPayload,
+      loginPayload
     });
   })
 );
@@ -174,7 +190,26 @@ router.get(
   "/me",
   protect,
   asyncHandler(async (req, res) => {
-    res.json({ user: req.user });
+    // Process login streak implicitly if they hit /me on app load
+    const loginPayload = await processDailyLogin(req.user);
+    
+    // Add progression stats
+    const progression = calculateProgression(req.user.totalXP);
+    
+    // Get recent activity
+    const recentActivity = await ExplorerEvent.find({ userId: req.user._id, xpAwarded: { $gt: 0 } })
+      .sort({ createdAt: -1 })
+      .limit(EXPLORER_CONFIG.MAX_RECENT_ACTIVITY)
+      .lean();
+
+    res.json({ 
+      user: {
+        ...req.user.toObject(),
+        ...progression,
+        recentActivity
+      },
+      loginPayload
+    });
   })
 );
 

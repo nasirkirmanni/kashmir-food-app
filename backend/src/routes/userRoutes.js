@@ -2,6 +2,7 @@ import express from "express";
 import { protect } from "../middleware/auth.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User.js";
+import { processEvent } from "../utils/explorer.js";
 
 const router = express.Router();
 
@@ -48,12 +49,16 @@ router.post(
         favorite.item.toString() === itemId && favorite.itemType === itemType
     );
 
+    let xpPayload = null;
     if (!exists) {
       user.favorites.push({ item: itemId, itemType, itemTypeModel });
       await user.save();
+      
+      const action = itemType === "dish" ? "SAVE_DISH" : itemType === "restaurant" ? "SAVE_RESTAURANT" : "SAVE_DESTINATION";
+      xpPayload = await processEvent(user, action, itemType, itemId);
     }
 
-    res.status(201).json(user.favorites);
+    res.status(201).json({ favorites: user.favorites, xpPayload });
   })
 );
 

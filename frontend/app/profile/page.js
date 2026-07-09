@@ -34,16 +34,16 @@ export default function ProfilePage() {
   // Generate initials for Avatar fallback
   const initials = (user.name || "User").split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
 
-  // TODO: backend field not yet implemented
-  const roleTag = "Cultural Explorer · Srinagar";
+  const roleTag = user.role === 'admin' ? "Admin" : user.role === 'agent' ? "Travel Agent" : "Explorer";
   
-  // TODO: backend field not yet implemented
-  const levelText = "Level 6 · Explorer";
-  const xpText = "1,240 XP";
-  const xpUntilNext = "340 XP until Master Explorer";
+  const levelText = `Level ${user.level || 0} · ${user.title || "New Explorer"}`;
+  const xpText = `${(user.totalXP || 0).toLocaleString()} XP`;
+  const xpUntilNext = user.nextLevel ? `${(user.xpUntilNext || 0).toLocaleString()} XP until ${user.nextTitle}` : "Max Level Reached";
   
-  // TODO: backend field not yet implemented
-  const memberSince = "Member since July 2026";
+  const memberSinceDate = user.createdAt ? new Date(user.createdAt) : new Date();
+  const memberSince = `Member since ${memberSinceDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+  
+  const progressPercentage = user.progressPercentage || 0;
   
   // Mocked counts (except savedCount which is real)
   const dishesCount = 31;
@@ -104,7 +104,7 @@ export default function ProfilePage() {
             <span className="italic text-[15px] text-[var(--profile-text-muted)]" style={{fontFamily: "'Cormorant Garamond', serif"}}>{xpText}</span>
           </div>
           <div className="w-full h-[1.5px] bg-[var(--profile-line)] relative rounded-sm overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-[78%] bg-[var(--profile-gold)]"></div>
+            <div className="absolute left-0 top-0 bottom-0 bg-[var(--profile-gold)] transition-all duration-1000 ease-out" style={{ width: `${progressPercentage}%` }}></div>
           </div>
           <div className="mt-2.5 text-[11px] text-[var(--profile-text-muted)] tracking-[0.2px]">{xpUntilNext}</div>
           <div className="mt-[18px] text-[11px] text-[var(--profile-text-muted)] tracking-[0.3px]">{memberSince}</div>
@@ -138,6 +138,27 @@ export default function ProfilePage() {
         </div>
 
         <div className="h-[1px] bg-[var(--profile-line)] my-9"></div>
+
+        {/* Recent Activity */}
+        {user.recentActivity && user.recentActivity.length > 0 && (
+          <div className="mb-9">
+            <div className="text-[10.5px] tracking-[2.5px] uppercase text-[var(--profile-gold-dim)] mb-5">Recent Activity</div>
+            <div className="flex flex-col gap-3 relative z-10">
+              {user.recentActivity.map((activity) => {
+                let actionText = activity.action.replace(/_/g, " ").toLowerCase();
+                actionText = actionText.charAt(0).toUpperCase() + actionText.slice(1);
+                
+                return (
+                  <div key={activity._id} className="flex justify-between items-center py-2 border-b border-[var(--profile-line)]">
+                    <div className="text-[14px] text-[var(--profile-text)]">{actionText}</div>
+                    <div className="text-[14px] italic text-[var(--profile-gold)]" style={{fontFamily: "'Cormorant Garamond', serif"}}>+{activity.xpAwarded} XP</div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="h-[1px] bg-[var(--profile-line)] mt-9 mb-9"></div>
+          </div>
+        )}
 
         {/* actions list */}
         <div className="text-[10.5px] tracking-[2.5px] uppercase text-[var(--profile-gold-dim)] mb-5">Your Space</div>
