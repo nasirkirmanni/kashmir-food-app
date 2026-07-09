@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const AUTH_EMAIL = "WazwanWay Auth <auth@wazwanway.com>";
+const AUTH_EMAIL = "WazwanWay <hello@wazwanway.com>";
 const SUPPORT_EMAIL = "WazwanWay <hello@wazwanway.com>";
 const ADMIN_INBOX = "hello@wazwanway.com";
 
