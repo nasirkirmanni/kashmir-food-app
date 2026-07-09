@@ -5,45 +5,10 @@ import { CheckCircle, MapPin, Phone, Mail, Star, ShieldCheck } from "lucide-reac
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { partnersData } from "@/lib/partnersData";
 
 export default function SelectTourPartnerPage() {
   const router = useRouter();
-
-  const dummyPartners = [
-    {
-      id: "tp-1",
-      name: "Kashmir Travels",
-      rating: 4.8,
-      reviews: 124,
-      location: "Srinagar, J&K",
-      verified: true,
-      description: "Premium Kashmir experiences curated by locals. Specializing in Wazwan culinary tours and houseboat stays.",
-      image: "/waza-profile.jpg", // Placeholder
-      priceLabel: "Standard to Premium"
-    },
-    {
-      id: "tp-2",
-      name: "Alpine Adventures",
-      rating: 4.9,
-      reviews: 86,
-      location: "Gulmarg, J&K",
-      verified: true,
-      description: "Your gateway to adventure. Trekking, skiing, and offbeat camping experiences.",
-      image: "/waza-profile.jpg", // Placeholder
-      priceLabel: "Budget to Standard"
-    },
-    {
-      id: "tp-3",
-      name: "Royal Concierge",
-      rating: 5.0,
-      reviews: 42,
-      location: "Srinagar, J&K",
-      verified: true,
-      description: "Luxury redefined. Private chauffeurs, 5-star heritage stays, and exclusive culinary access.",
-      image: "/waza-profile.jpg", // Placeholder
-      priceLabel: "Luxury"
-    }
-  ];
 
   const [guestLead, setGuestLead] = useState(null);
 
@@ -85,7 +50,7 @@ export default function SelectTourPartnerPage() {
         </div>
 
         <div className="grid gap-6">
-          {dummyPartners.map((partner, index) => (
+          {partnersData.map((partner, index) => (
             <motion.div
               key={partner.id}
               initial={{ opacity: 0, y: 20 }}
@@ -129,9 +94,9 @@ export default function SelectTourPartnerPage() {
                   <button onClick={() => handleSelectPartner(partner.id)} className="bg-gradient-to-r from-[var(--saffron)] to-[#e8c35e] text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform text-sm shadow-[0_0_20px_rgba(212,175,55,0.3)]">
                     Select Partner
                   </button>
-                  <button className="border border-white/20 bg-transparent text-white hover:bg-white/10 px-8 py-3 rounded-full font-bold uppercase tracking-widest transition-colors text-sm">
+                  <Link href={`/tour-partner/${partner.id}`} className="border border-white/20 bg-transparent text-white hover:bg-white/10 px-8 py-3 rounded-full font-bold uppercase tracking-widest transition-colors text-sm text-center">
                     View Profile
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.div>

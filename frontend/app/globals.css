@@ -406,6 +406,14 @@ body.is-dragging * {
     background: #1a0f08;
   }
   
+  body.is-locked-route {
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
 
   .swipe-container {
     position: fixed;
