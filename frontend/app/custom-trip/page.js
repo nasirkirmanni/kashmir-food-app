@@ -339,7 +339,7 @@ You MUST return the response strictly in JSON format matching the following stru
   if (!mounted) return null;
 
   return (
-    <div className={`wazwan-shell bg-[#0B0B0B] font-sans w-full flex flex-col relative z-10 ${step !== 6 ? 'h-[100dvh] overflow-hidden' : 'min-h-[100dvh] pb-[calc(70px+env(safe-area-inset-bottom)+24px)]'}`}>
+    <div className={`wazwan-shell bg-[#0B0B0B] font-sans w-full flex flex-col relative z-10 min-h-[100dvh] overflow-y-auto overflow-x-hidden pb-[calc(70px+env(safe-area-inset-bottom)+24px)]`}>
       {/* UNIFIED BACKGROUND SYSTEM */}
       <div className="fixed inset-0 z-0 pointer-events-none bg-[#0B0B0B]">
           
