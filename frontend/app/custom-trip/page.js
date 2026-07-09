@@ -175,7 +175,7 @@ export default function CustomTripPage() {
   }, [step]);
   const [people, setPeople] = useState(2);
   const [duration, setDuration] = useState("");
-  const [vibe, setVibe] = useState("");
+  const [vibe, setVibe] = useState([]);
   const [budget, setBudget] = useState("");
   const [extras, setExtras] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -192,6 +192,14 @@ export default function CustomTripPage() {
       setExtras(extras.filter(e => e !== extra));
     } else {
       setExtras([...extras, extra]);
+    }
+  };
+
+  const toggleVibe = (selectedVibe) => {
+    if (vibe.includes(selectedVibe)) {
+      setVibe(vibe.filter(v => v !== selectedVibe));
+    } else {
+      setVibe([...vibe, selectedVibe]);
     }
   };
 
@@ -214,7 +222,7 @@ export default function CustomTripPage() {
 Here are my trip details:
 - Number of People: ${people}
 - Travel Dates: ${duration}
-- Vibe / Interests: ${vibe}
+- Vibe / Interests: ${vibe.join(', ') || 'Any'}
 - Budget: ${budget}
 - Extras: ${extras.join(', ') || 'None'}
 
@@ -501,15 +509,19 @@ You MUST return the response strictly in JSON format matching the following stru
               <div className="flex-1 flex flex-col items-center justify-center w-full">
                 <div className="w-full max-w-[400px] mx-auto bg-[rgba(20,20,20,0.9)] border border-white/[0.05] rounded-[28px] shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-md px-5 py-8 flex flex-col z-20 relative">
                   <h3 className="text-[18px] font-display text-white mb-6 text-center">What vibe are you looking for?</h3>
-                  <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-3 mb-8">
                     {["Adventure & Trekking", "Romantic Getaway", "Family Vacation", "Cultural Deep Dive", "Luxury & Relaxation"].map(opt => (
-                      <button key={opt} onClick={() => { setVibe(opt); handleNextStep(3, opt); }} className="p-4 rounded-2xl border border-white/10 bg-black/40 text-white hover:border-[var(--saffron)] hover:bg-[var(--saffron)]/10 transition-all font-medium text-left text-[14px] shadow-md">
-                        {opt}
+                      <button key={opt} onClick={() => toggleVibe(opt)} className={`p-4 rounded-2xl border transition-all font-medium text-left flex justify-between items-center text-[14px] shadow-md ${vibe.includes(opt) ? 'border-[var(--saffron)] bg-[var(--saffron)]/15 text-[var(--saffron)]' : 'border-white/10 bg-black/40 text-white hover:border-white/30'}`}>
+                        <span>{opt}</span>
+                        {vibe.includes(opt) && <CheckCircle size={18} />}
                       </button>
                     ))}
                   </div>
-                  <div className="mt-8 flex justify-start">
+                  <div className="flex justify-between items-center pt-6 border-t border-white/10">
                     <button onClick={() => setStep(2)} className="text-[12px] text-white/50 hover:text-white uppercase tracking-[2px] font-bold flex items-center gap-2"><ArrowLeft size={14} /> Back</button>
+                    <button onClick={() => handleNextStep(3)} disabled={vibe.length === 0} className="w-[140px] h-[44px] rounded-full bg-[#1A1A1A] border border-[#333] text-white font-medium text-[12px] tracking-[2px] uppercase flex items-center justify-center gap-2 hover:bg-[#222] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                      CONTINUE <ArrowRight size={14} className="text-[var(--saffron)]" />
+                    </button>
                   </div>
                 </div>
               </div>
