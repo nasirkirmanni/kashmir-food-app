@@ -228,8 +228,6 @@ export default function ListAgencyPage() {
                   className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[var(--saffron)] transition-colors placeholder:text-white/40"
                 />
               </div>
-
-              </div>
             </div>
 
             <div className="space-y-4 pt-4 border-t border-white/10 mt-6">
