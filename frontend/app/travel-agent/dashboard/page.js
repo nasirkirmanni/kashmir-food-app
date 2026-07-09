@@ -18,6 +18,7 @@ export default function TravelAgentDashboard() {
   const [uploading, setUploading] = useState({ thumbnail: false, cover: false });
   
   const [formData, setFormData] = useState({});
+  const [needsListing, setNeedsListing] = useState(false);
 
   useEffect(() => {
     if (authLoading) return;
@@ -67,8 +68,7 @@ export default function TravelAgentDashboard() {
       }
     } catch (err) {
       if (err.message === "Travel agency not found" || err.message?.includes("not found")) {
-        alert("You have not listed your agency. List it now.");
-        router.push("/list-agency");
+        setNeedsListing(true);
         return;
       }
       setError(err.message || "Failed to load dashboard details");
@@ -157,11 +157,38 @@ export default function TravelAgentDashboard() {
 
   if (authLoading || loading) {
     return (
-      <div className="wazwan-shell min-h-screen flex items-center justify-center pt-20 pb-16">
-        <div className="text-white/60">Loading Dashboard...</div>
+      <div className="wazwan-shell min-h-screen flex flex-col items-center justify-center pt-20">
+        <div className="text-red-400 mb-4">{error}</div>
+        <button onClick={fetchDashboard} className="text-[var(--saffron)] hover:underline">Try Again</button>
       </div>
     );
   }
+
+  if (needsListing) {
+    return (
+      <div className="wazwan-shell min-h-screen flex items-center justify-center pt-32 pb-16">
+        <div className="bg-black/60 border border-[var(--saffron)]/30 rounded-2xl p-10 max-w-lg w-full text-center shadow-[0_0_50px_rgba(212,175,55,0.1)] backdrop-blur-xl">
+          <div className="w-20 h-20 mx-auto bg-[var(--saffron)]/10 rounded-full flex items-center justify-center mb-6 border border-[var(--saffron)]/20">
+            <svg className="w-10 h-10 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-display font-medium text-white mb-4 tracking-tight">Agency Not Listed</h2>
+          <p className="text-white/60 mb-8 leading-relaxed">
+            You currently do not have a travel agency listed with Wazwan Way. List your agency now to access your dashboard and start receiving inquiries.
+          </p>
+          <button 
+            onClick={() => router.push('/list-agency')} 
+            className="w-full bg-[var(--saffron)] text-black font-bold uppercase tracking-widest text-sm py-4 px-6 rounded-full hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,55,0.25)]"
+          >
+            List Your Agency Now
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!agency) return null;
 
   // Calculate profile completion
   const requiredFields = ['agencyName', 'email', 'contactNumber', 'whatsapp', 'city', 'yearsInBusiness', 'thumbnailUrl', 'coverImageUrl', 'whyChooseUs'];
