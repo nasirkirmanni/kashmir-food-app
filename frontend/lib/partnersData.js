@@ -10,11 +10,11 @@ export const partnersData = [
     image: "/waza-profile.jpg", // Placeholder
     priceLabel: "Standard to Premium",
     social: {
-      ig: "@kashmirport",
-      igLink: "https://instagram.com/kashmirport",
+      ig: "@kashmir_port",
+      igLink: "https://instagram.com/kashmir_port",
       fb: "Kashmir Port Tours",
       fbLink: "https://facebook.com/kashmirport",
-      phone: "+91 98765 43210"
+      phone: "+91 84919 62370"
     },
     uniqueSellingPoints: [
       "Exclusive access to multi-generational Wazwan chef homes.",

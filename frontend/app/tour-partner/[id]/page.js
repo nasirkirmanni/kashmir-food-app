@@ -2,14 +2,44 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle, MapPin, Star, ShieldCheck, Instagram, Facebook, Phone, Sparkles } from "lucide-react";
+import { ArrowLeft, CheckCircle, MapPin, Star, ShieldCheck, Camera, Globe, Phone, Sparkles } from "lucide-react";
 import { getPartnerById } from "@/lib/partnersData";
+import { request } from "@/lib/api";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function TourPartnerProfilePage({ params }) {
   const router = useRouter();
   const [partner, setPartner] = useState(null);
+  const [view, setView] = useState("profile"); // 'profile' | 'reconfirm' | 'success'
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  const handleConfirmBooking = async () => {
+    setIsConfirming(true);
+    try {
+      await request("/destinations/trip-query", {
+        method: "POST",
+        body: {
+          userName: "Guest User",
+          userEmail: "guest@example.com",
+          userPhone: "N/A",
+          itinerarySummary: {
+            title: `Booking confirmed with partner: ${partner.name}`,
+            summary: { totalEstCost: partner.priceLabel },
+            spots: partner.uniqueSellingPoints
+          },
+          duration: "N/A",
+          travelParty: "N/A",
+          travelSeason: "N/A",
+          budgetTier: "N/A"
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    setIsConfirming(false);
+    setView("success");
+  };
 
   useEffect(() => {
     // In a real app this would be a server fetch
@@ -32,6 +62,78 @@ export default function TourPartnerProfilePage({ params }) {
     return (
       <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-white/10 border-t-[var(--saffron)] rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (view === "success") {
+    return (
+      <div className="wazwan-shell min-h-screen bg-green-600 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('/kashmiri-floral-art.png')", backgroundSize: 'auto 100%' }}></div>
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="relative z-10 flex flex-col items-center"
+        >
+          <div className="w-20 h-20 bg-white text-green-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
+            <CheckCircle size={40} />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-display text-white mb-4">Booking Confirmed!</h1>
+          <p className="text-green-100 text-[15px] mb-10 max-w-sm leading-relaxed">
+            Your trip with <strong>{partner.name}</strong> has been successfully booked. They will reach out to you shortly to finalize details.
+          </p>
+          <button 
+            onClick={() => router.push('/')}
+            className="bg-white text-green-700 px-8 py-3.5 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-xl text-sm"
+          >
+            Return to Home
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (view === "reconfirm") {
+    return (
+      <div className="wazwan-shell min-h-screen pb-16 relative flex items-center justify-center p-4">
+        {/* Background Image / Hero */}
+        <div className="absolute top-0 left-0 w-full h-[40vh] z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${partner.gallery?.[0] || partner.image})`, opacity: 0.4 }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B]/40 via-[#0B0B0B]/80 to-[#0B0B0B]" />
+        </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative z-10 w-full max-w-md bg-black/60 border border-white/10 rounded-[32px] p-8 backdrop-blur-xl text-center shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+        >
+          <div className="w-16 h-16 mx-auto bg-[var(--saffron)]/10 text-[var(--saffron)] rounded-full flex items-center justify-center mb-6">
+            <CheckCircle size={32} />
+          </div>
+          <h2 className="text-3xl font-display text-white mb-3">Confirm Your Trip</h2>
+          <p className="text-white/70 mb-8 leading-relaxed text-[15px]">
+            You are about to lock in <strong>{partner.name}</strong> as your official local partner for this custom itinerary.
+          </p>
+          
+          <div className="flex flex-col gap-4">
+            <button 
+              onClick={handleConfirmBooking}
+              disabled={isConfirming}
+              className="w-full bg-gradient-to-r from-[var(--saffron)] to-[#e8c35e] text-black py-4 rounded-2xl font-bold uppercase tracking-widest hover:scale-105 transition-transform text-[13px] shadow-[0_0_20px_rgba(212,175,55,0.2)] disabled:opacity-50"
+            >
+              {isConfirming ? "Confirming..." : "Confirm Booking"}
+            </button>
+            <button 
+              onClick={() => setView("profile")}
+              className="w-full border border-white/20 text-white py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-white/5 transition-colors text-[13px]"
+            >
+              Go Back
+            </button>
+          </div>
+        </motion.div>
       </div>
     );
   }
@@ -158,7 +260,7 @@ export default function TourPartnerProfilePage({ params }) {
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[var(--saffron)] group-hover:text-[var(--saffron)] transition-colors">
-                    <Instagram size={18} />
+                    <Camera size={18} />
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-0.5">Instagram</p>
@@ -173,7 +275,7 @@ export default function TourPartnerProfilePage({ params }) {
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[var(--saffron)] group-hover:text-[var(--saffron)] transition-colors">
-                    <Facebook size={18} />
+                    <Globe size={18} />
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-0.5">Facebook</p>
@@ -184,7 +286,7 @@ export default function TourPartnerProfilePage({ params }) {
             </div>
             
             <button 
-              onClick={() => router.push("/select-tour-partner")} 
+              onClick={() => setView("reconfirm")} 
               className="w-full bg-gradient-to-r from-[var(--saffron)] to-[#e8c35e] text-black py-4 rounded-2xl font-bold uppercase tracking-widest hover:scale-105 transition-transform text-[13px] shadow-[0_0_20px_rgba(212,175,55,0.2)]"
             >
               Select This Partner

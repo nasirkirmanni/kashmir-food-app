@@ -206,7 +206,7 @@ async function run() {
   const allDestinations = await Destination.find().sort({ name: 1 }).lean();
   
   // Find clean users (avoid password hash exposure in seed file)
-  const allUsers = await User.find({ email: { $in: ["nasirkirmani@wazwanway.com", "traveler@wazwanway.com"] } }).select("-password -createdAt -updatedAt -__v").lean();
+  const allUsers = await User.find({ email: { $in: ["wazwanway@gmail.com", "traveler@wazwanway.com"] } }).select("-password -createdAt -updatedAt -__v").lean();
   const mappedUsers = allUsers.map(u => ({
     name: u.name,
     email: u.email,

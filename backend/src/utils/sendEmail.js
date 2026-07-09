@@ -15,7 +15,8 @@ export const sendOtpEmail = async (to, otp) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way <nasirkirmani@wazwanway.com>", // Make sure to use your verified domain
+      from: "Wazwan Way <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com", // Make sure to use your verified domain
       to: [to],
       subject: "Verify Your Wazwan Way Account",
       html: `
@@ -55,7 +56,8 @@ export const sendPasswordResetEmail = async (to, otp) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [to],
       subject: "Password Reset Request - Wazwan Way",
       html: `
@@ -100,7 +102,7 @@ export const sendTripQueryEmail = async (queryData) => {
     itinerarySummary
   } = queryData;
 
-  const to = "nasirkirmani@wazwanway.com";
+  const to = "wazwanway@gmail.com";
 
   console.log(`\n============================`);
   console.log(`[DEV MODE] Trip Query received from ${userName} (${userEmail})`);
@@ -114,7 +116,8 @@ export const sendTripQueryEmail = async (queryData) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way Concierge <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way Concierge <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [to],
       subject: `New Trip Query from ${userName}`,
       html: `
@@ -167,7 +170,7 @@ export const sendRestaurantLeadEmail = async (leadData) => {
     description
   } = leadData;
 
-  const to = "nasirkirmani@wazwanway.com";
+  const to = "wazwanway@gmail.com";
 
   console.log(`\n============================`);
   console.log(`[DEV MODE] Partner listing request received for ${restaurantName}`);
@@ -181,7 +184,8 @@ export const sendRestaurantLeadEmail = async (leadData) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way Partners <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way Partners <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [to],
       subject: `New Restaurant Listing Request: ${restaurantName}`,
       html: `
@@ -230,7 +234,7 @@ export const sendRestaurantLeadEmail = async (leadData) => {
 
 export const sendTravelAgencyLeadEmail = async (agencyData) => {
   const { agencyName, ownerName, contactNumber, email, description } = agencyData;
-  const to = "nasirkirmani@wazwanway.com";
+  const to = "wazwanway@gmail.com";
 
   console.log(`\n============================`);
   console.log(`[DEV MODE] Travel Agency listing request received for ${agencyName}`);
@@ -244,7 +248,8 @@ export const sendTravelAgencyLeadEmail = async (agencyData) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way Partners <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way Partners <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [to],
       subject: `New Travel Agency Listing Request: ${agencyName}`,
       html: `
@@ -292,7 +297,7 @@ export const sendTravelAgencyLeadEmail = async (agencyData) => {
 };
 
 export const sendAgencySubmissionEmail = async (agency) => {
-  const to = "nasirkirmani@wazwanway.com";
+  const to = "wazwanway@gmail.com";
 
   console.log(`\n============================`);
   console.log(`[DEV MODE] Agency Profile Submitted for Review: ${agency.agencyName}`);
@@ -306,7 +311,8 @@ export const sendAgencySubmissionEmail = async (agency) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way Partners <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way Partners <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [to],
       subject: `New Travel Agency Submitted for Review: ${agency.agencyName}`,
       html: `
@@ -389,7 +395,8 @@ export const sendAgencyApprovalEmail = async (email, status, notes) => {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "Wazwan Way Partners <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way Partners <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [email],
       subject: subject,
       html: `
@@ -407,7 +414,7 @@ export const sendAgencyApprovalEmail = async (email, status, notes) => {
 };
 
 export const sendBookingConfirmationEmails = async (agency, touristDetails) => {
-  const adminEmail = "nasirkirmani@wazwanway.com";
+  const adminEmail = "wazwanway@gmail.com";
   
   if (!process.env.RESEND_API_KEY) {
     console.warn("RESEND_API_KEY not set in .env. Skipping actual email send.");
@@ -458,7 +465,8 @@ export const sendBookingConfirmationEmails = async (agency, touristDetails) => {
 
     // Send to Admin
     await resend.emails.send({
-      from: "Wazwan Way Bookings <nasirkirmani@wazwanway.com>",
+      from: "Wazwan Way Bookings <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
       to: [adminEmail],
       subject: `New Booking for ${agency.agencyName}`,
       html: htmlContent,
@@ -467,7 +475,8 @@ export const sendBookingConfirmationEmails = async (agency, touristDetails) => {
     // Send to Agency
     if (agency.email) {
       await resend.emails.send({
-        from: "Wazwan Way Bookings <nasirkirmani@wazwanway.com>",
+        from: "Wazwan Way Bookings <auth@wazwanway.com>",
+      reply_to: "wazwanway@gmail.com",
         to: [agency.email],
         subject: `New Trip Booking - ${touristDetails.userName || 'Tourist'}`,
         html: htmlContent,
