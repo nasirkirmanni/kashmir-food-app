@@ -166,23 +166,31 @@ export default function TravelAgentDashboard() {
 
   if (needsListing) {
     return (
-      <div className="wazwan-shell min-h-screen flex items-center justify-center pt-32 pb-16">
-        <div className="bg-black/60 border border-[var(--saffron)]/30 rounded-2xl p-10 max-w-lg w-full text-center shadow-[0_0_50px_rgba(212,175,55,0.1)] backdrop-blur-xl">
-          <div className="w-20 h-20 mx-auto bg-[var(--saffron)]/10 rounded-full flex items-center justify-center mb-6 border border-[var(--saffron)]/20">
-            <svg className="w-10 h-10 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="wazwan-shell h-[100dvh] overflow-hidden flex flex-col items-center justify-center p-4">
+        <div className="bg-[#111] border border-white/10 rounded-2xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl z-10 relative">
+          <div className="w-16 h-16 mx-auto bg-[var(--saffron)]/10 rounded-full flex items-center justify-center mb-4 border border-[var(--saffron)]/20">
+            <svg className="w-8 h-8 text-[var(--saffron)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
-          <h2 className="text-3xl font-display font-medium text-white mb-4 tracking-tight">Agency Not Listed</h2>
-          <p className="text-white/60 mb-8 leading-relaxed">
-            You currently do not have a travel agency listed with Wazwan Way. List your agency now to access your dashboard and start receiving inquiries.
+          <h2 className="text-2xl font-display font-medium text-white mb-2 tracking-tight">Agency Not Listed</h2>
+          <p className="text-white/60 mb-6 text-sm leading-relaxed">
+            You do not have a travel agency listed with Wazwan Way. List your agency to access your dashboard.
           </p>
-          <button 
-            onClick={() => router.push('/list-agency')} 
-            className="w-full bg-[var(--saffron)] text-black font-bold uppercase tracking-widest text-sm py-4 px-6 rounded-full hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,55,0.25)]"
-          >
-            List Your Agency Now
-          </button>
+          <div className="flex flex-col gap-3">
+            <button 
+              onClick={() => router.push('/list-agency')} 
+              className="w-full bg-[var(--saffron)] text-black font-bold uppercase tracking-widest text-xs py-3 px-6 rounded-full hover:scale-105 transition-transform"
+            >
+              List Agency Now
+            </button>
+            <button 
+              onClick={() => router.back()} 
+              className="w-full bg-white/5 border border-white/10 text-white font-bold uppercase tracking-widest text-xs py-3 px-6 rounded-full hover:bg-white/10 transition-colors"
+            >
+              Go Back
+            </button>
+          </div>
         </div>
       </div>
     );
