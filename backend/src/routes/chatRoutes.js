@@ -402,7 +402,6 @@ router.post(
     // Sort descending by score
     scoredSections.sort((a, b) => b.score - a.score);
     
-    let injectedSections = [];
     if (scoredSections.length > 0) {
       for (let i = 0; i < Math.min(5, scoredSections.length); i++) {
         injectedSections.push(parsedKBSections.get(scoredSections[i].slug));
