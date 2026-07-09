@@ -444,3 +444,15 @@ body.is-dragging * {
     transform: translateZ(0); /* Force layer promotion */
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --profile-bg: #0B0A09;
+  --profile-surface: #131110;
+  --profile-gold: #C9A063;
+  --profile-gold-dim: #8F6F45;
+  --profile-text: #EFE9DE;
+  --profile-text-muted: #857C6E;
+  --profile-line: #221D17;
+}
