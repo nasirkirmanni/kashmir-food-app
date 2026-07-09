@@ -330,11 +330,17 @@ router.post(
     const queryWords = lowerMsg.split(/\s+/).filter(w => w.length > 2);
     const isWazwanStrict = WAZWAN_STRICT.test(lowerMsg);
 
+    const CONVERSATIONAL_INTENT = /^(thanks|thank you|shukriya|jazakallah|thanks a lot|appreciate it|great|nice|awesome|perfect|good job|hi|hello|hey|salaam|assalamualaikum|bye|goodbye|see you|good night|yes|no|okay|ok|alright|👍|👏|😊)[\s.!?]*$/i;
+    const isConversational = CONVERSATIONAL_INTENT.test(lastMessage.trim());
+
     const DYNAMIC_INTENT = /\b(uber|ola|rapido|taxi|cab|fare|price|cost|open|close|time|hour|available|availability|weather)\b/i;
     const isDynamic = DYNAMIC_INTENT.test(lowerMsg);
 
     // ── Context retrieval via inverted index (~0–2ms) ─────────────────────────
     let contextString = "";
+    let injectedSections = [];
+
+    if (!isConversational) {
 
     // Destinations
     if (DEST_INTENT.test(lowerMsg)) {
@@ -409,9 +415,11 @@ router.post(
       injectedSections.push(parsedKBSections.get("cuisine"));
     }
     
+    } // End of !isConversational check
+    
     injectedSections = injectedSections.filter(Boolean);
     
-    const kbContextString = "\n\nKNOWLEDGE BASE (ground truth — prefer DB context if it conflicts for specific items):\n" + injectedSections.join("\n\n");
+    const kbContextString = isConversational ? "" : "\n\nKNOWLEDGE BASE (ground truth — prefer DB context if it conflicts for specific items):\n" + injectedSections.join("\n\n");
 
     // ── Build final system prompt ─────────────────────────────────────────────
     // Date injected here (not in the static core) so the core stays cacheable.
@@ -421,13 +429,17 @@ router.post(
       timeStyle: "short", // "short" vs "medium" saves ~10 tokens
     });
 
-    const fullSystemPrompt =
-      `Today: ${currentDateTime} IST\n\n` +
-      SYSTEM_PROMPT_CORE +
-      kbContextString +
-      (contextString
-        ? `\n\n--- DB CONTEXT (prioritize over general knowledge) ---\n${contextString}`
-        : "");
+    const CONVERSATIONAL_PROMPT = `You are Waza AI, a friendly Kashmiri food and travel assistant. The user just said a greeting, thank you, or casual acknowledgement.
+Respond naturally, briefly, and warmly in 1-2 short sentences. Do NOT give long answers or unrelated facts. Do NOT ask more than one simple question at the end (e.g., "How can I help you today?").`;
+
+    const fullSystemPrompt = isConversational
+      ? CONVERSATIONAL_PROMPT
+      : `Today: ${currentDateTime} IST\n\n` +
+        SYSTEM_PROMPT_CORE +
+        kbContextString +
+        (contextString
+          ? `\n\n--- DB CONTEXT (prioritize over general knowledge) ---\n${contextString}`
+          : "");
 
     // ── History truncation ────────────────────────────────────────────────────
     // Keep only the last MAX_HISTORY_TURNS messages (alternating user/assistant).
@@ -440,7 +452,7 @@ router.post(
     // Pre-Generation Geographic Forcing
     // If the user's message is dynamic and lacks Kashmir-specific keywords, append " in Kashmir"
     // so the live web search tool doesn't fetch national/global results (e.g. Sikkim).
-    if (rawMessages.length > 0) {
+    if (!isConversational && rawMessages.length > 0) {
       const lastMsgObj = rawMessages[rawMessages.length - 1];
       if (lastMsgObj.role === "user") {
         const KASHMIR_KEYWORDS = /\b(kashmir|srinagar|gulmarg|pahalgam|sonamarg|jammu|gurez|yusmarg|doodhpathri|anantnag|baramulla|bandipora|kupwara|shopian|pulwama|budgam|kulgam|ganderbal|dal lake|nigeen)\b/i;
