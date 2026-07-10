@@ -39,7 +39,7 @@ export default async function RelatedCollections({ currentSlug }) {
   if (!collections || collections.length === 0) return null;
 
   return (
-    <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 xl:px-20 pt-32 pb-16 border-t border-[#D4A85D]/10 relative z-10">
+    <div className="hidden lg:block w-full max-w-[1440px] mx-auto px-6 md:px-12 xl:px-20 pt-32 pb-16 border-t border-[#D4A85D]/10 relative z-10">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div>
           <h2 className="text-[12px] uppercase tracking-[0.2em] text-[#D4A85D] font-bold mb-4">
