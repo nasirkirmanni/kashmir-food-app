@@ -15,10 +15,7 @@ export default function ExploreHero() {
       
       {/* Background Image Removed - Falling back to global blackish-golden background */}
 
-      {/* Atmospheric Overlays */}
-      {/* 4. Soft Vignette & Haze */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(0,0,0,0.5)_100%)] z-10 pointer-events-none mix-blend-multiply" />
-      
+      {/* Atmospheric Overlays removed for clean global background */}
       {/* 5. Subtle Gold Light Bloom from the top right */}
       <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-[radial-gradient(circle_at_top_right,_rgba(212,165,90,0.15),_transparent_60%)] z-10 pointer-events-none mix-blend-screen" />
 
