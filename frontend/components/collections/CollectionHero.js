@@ -37,7 +37,7 @@ export default function CollectionHero({ collection }) {
   });
 
   return (
-    <div className="w-full h-screen min-h-[700px] flex items-center relative overflow-hidden font-sans">
+    <div className="w-full h-auto min-h-[520px] lg:h-screen lg:min-h-[700px] flex items-center relative overflow-hidden font-sans pt-24 pb-16 lg:py-0">
       {/* Mobile background image (visible on mobile, hidden on desktop) */}
       <div className="block lg:hidden absolute inset-0 z-10 w-full h-full overflow-hidden pointer-events-none">
         <Image 
@@ -71,7 +71,7 @@ export default function CollectionHero({ collection }) {
         <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-black to-transparent z-20" />
       </motion.div>
 
-      <div className="w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-full relative z-20 pt-20 pb-12">
+      <div className="w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-auto lg:h-full relative z-20">
       <Link 
         href="/explore" 
         className="inline-flex items-center gap-2 text-[#B8B0A3] hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest font-semibold"
