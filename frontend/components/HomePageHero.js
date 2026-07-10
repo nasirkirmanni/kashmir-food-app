@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ChefHat, ArrowRight, Search, User } from "lucide-react";
+import { MapPin, ChefHat, ArrowRight, Search, User, Compass } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
@@ -203,16 +203,17 @@ export default function HomePageHero() {
                     </div>
                   </div>
                 </Link>
-                <Link href="/etiquette" className="block group" prefetch={false}>
+                <Link href="/explore" className="block group" prefetch={false}>
                   <div className="rounded-[20px] p-5 h-[120px] flex flex-col justify-between border border-[#C8A46A]/20 bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out active:scale-[0.95]">
                     <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-[#C8A46A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                      <div className="w-10 h-10 rounded-full border border-[#C8A46A]/40 flex items-center justify-center text-[#C8A46A]">
+                        <Compass size={20} strokeWidth={1.5} />
                       </div>
                       <ArrowRight size={14} className="text-[#C8A46A]/50" />
                     </div>
                     <div>
-                      <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Wazwan Etiquette</h3>
+                      <h3 className="font-display font-[500] text-[#ffffff] text-[18px] tracking-[-0.01em]">Explore Kashmir</h3>
+                      <p className="text-[#888] font-body text-[11px] mt-0.5">Destinations & treks</p>
                     </div>
                   </div>
                 </Link>
