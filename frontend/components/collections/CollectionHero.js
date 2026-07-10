@@ -21,8 +21,25 @@ export default function CollectionHero({ collection }) {
     ? collection.tags[0].charAt(0).toUpperCase() + collection.tags[0].slice(1).replace("-", " ") 
     : "Nature Lovers";
 
+  const isTrekkingCollection = collection.slug === "trekking-camping" || collection.name?.toLowerCase().includes("trek");
+  const mobileBgImage = isTrekkingCollection 
+    ? "/images/trekmobile.jpg" 
+    : (collection.coverImage || collection.image || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000");
+
   return (
     <div className="w-full h-screen min-h-[700px] flex items-center relative overflow-hidden font-sans">
+      {/* Mobile background image (visible on mobile, hidden on desktop) */}
+      <div className="block lg:hidden absolute inset-0 z-10 w-full h-full overflow-hidden pointer-events-none">
+        <Image 
+          src={mobileBgImage}
+          alt="Mobile Collection Background"
+          fill
+          className="object-cover object-center opacity-30"
+          priority
+        />
+        {/* Dark vignette overlay for text legibility */}
+        <div className="absolute inset-0 bg-black/75 bg-gradient-to-b from-black/40 via-black/70 to-black z-20" />
+      </div>
       
       {/* Right side aesthetic image */}
       <motion.div 
