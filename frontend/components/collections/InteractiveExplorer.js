@@ -1,222 +1,144 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { ArrowRight, MapPin, Mountain, Clock, ArrowUpCircle, Navigation, Map, Sun } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Compass, ArrowRight, Mountain, Clock } from "lucide-react";
 
 export default function InteractiveExplorer({ items }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   if (!items || items.length === 0) return null;
 
-  const activeItem = items[activeIndex].item;
-  if (!activeItem) return null;
-
-  const isTarsarMarsarActive = activeItem.name?.includes("Tarsar Marsar") || activeItem.title?.includes("Tarsar Marsar");
-  const activeImage = isTarsarMarsarActive 
-    ? "/images/tarsarmarsar.png"
-    : (activeItem.coverImage || activeItem.image || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop");
-
   return (
-    <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 xl:px-20 mb-32 relative z-10">
+    <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 xl:px-20 py-24 relative z-10 font-sans">
       
-      {/* Desktop Split Explorer */}
-      <div className="hidden lg:grid grid-cols-12 gap-10 xl:gap-16 min-h-[650px]">
-        
-        {/* Left: List */}
-        <div className="col-span-4 flex flex-col justify-center py-4">
-          <h3 className="text-[12px] uppercase tracking-[0.2em] text-[#D4A85D] font-bold mb-8 pl-2">
-            Curated Destinations
-          </h3>
-          
-          <div className="flex flex-col gap-3">
-            {items.map((itemObj, index) => {
-              const place = itemObj.item;
-              if (!place) return null;
-              const isActive = activeIndex === index;
-              
-              return (
-                <div
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  className={`group relative flex items-center p-5 rounded-[16px] cursor-pointer transition-all duration-300 ease-out border ${
-                    isActive 
-                      ? "bg-[#14110E] border-[#D4A85D]/50 shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
-                      : "bg-transparent border-[#D4A85D]/10 hover:bg-[#14110E]/50"
-                  }`}
-                >
-                  <div className="flex items-center gap-5 w-full">
-                    {/* Standardized Number Badge */}
-                    <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center border transition-colors duration-300 ${isActive ? 'bg-[#D4A85D] text-black border-[#D4A85D]' : 'bg-[#1A130E] text-[#D4A85D] border-[#D4A85D]/40 group-hover:border-[#D4A85D]'}`}>
-                      <span className="font-serif text-[15px]" style={{fontFamily: "'Cormorant Garamond', serif"}}>{index + 1}</span>
-                    </div>
-                    
-                    <div className="flex flex-col flex-1">
-                      <span 
-                        className={`font-serif text-[24px] leading-none transition-colors duration-300 ${
-                          isActive ? "text-white" : "text-[#B8B0A3]"
-                        }`}
-                        style={{fontFamily: "'Cormorant Garamond', serif"}}
-                      >
-                        {place.name || place.title}
-                      </span>
-                      <span 
-                        className={`text-[11px] uppercase tracking-wider mt-1.5 transition-colors duration-300 ${
-                          isActive ? "text-[#D4A85D]" : "text-white/40"
-                        }`}
-                      >
-                        {place.area || "Kashmir"}
-                      </span>
-                    </div>
+      {/* Section Header */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-2 h-2 rotate-45 bg-[#D4A85D]"></div>
+          <h4 className="text-[12px] uppercase tracking-[0.2em] text-[#D4A85D] font-bold">
+            Explore Locations ({items.length})
+          </h4>
+        </div>
+        <h2 
+          className="text-[40px] md:text-[64px] font-serif font-normal text-white leading-tight mb-4"
+          style={{ fontFamily: "'Cormorant Garamond', serif" }}
+        >
+          Choose Your Adventure
+        </h2>
+        <p className="text-[#B8B0A3] text-[16px] md:text-[18px] font-light max-w-xl">
+          Three handpicked treks that showcase the raw beauty of Kashmir.
+        </p>
+      </div>
 
-                    <ArrowRight 
-                      size={18} 
-                      className={`shrink-0 transition-all duration-300 ${
-                        isActive ? "text-[#D4A85D] opacity-100" : "text-white/10 opacity-0 -translate-x-4"
-                      }`}
-                    />
+      {/* Locations List */}
+      <div className="space-y-8 mb-12">
+        {items.map((itemObj, index) => {
+          const place = itemObj.item;
+          if (!place) return null;
+
+          const isTarsarMarsar = place.name?.includes("Tarsar Marsar") || place.title?.includes("Tarsar Marsar");
+          const image = isTarsarMarsar 
+            ? "/images/tarsarmarsar.png"
+            : (place.coverImage || place.image || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&auto=format&fit=crop");
+          
+          let routePrefix = "destinations";
+          if (itemObj.itemType === "Trail") routePrefix = "trails";
+          if (itemObj.itemType === "Restaurant") routePrefix = "restaurants";
+
+          const difficultyVal = place.difficulty || "Moderate";
+          const durationVal = place.estimatedDuration || place.duration || "4-5 Days";
+          
+          return (
+            <Link
+              key={index}
+              href={`/${routePrefix}/${place.slug || place._id}`}
+              className="group flex flex-col md:flex-row w-full rounded-[24px] overflow-hidden bg-[#14110E] border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:border-[#D4A85D]/30"
+            >
+              {/* Card Image */}
+              <div className="w-full md:w-[40%] aspect-[16/10] md:aspect-auto md:min-h-[280px] relative overflow-hidden shrink-0">
+                <img 
+                  src={image} 
+                  alt={place.name} 
+                  className="w-full h-full object-cover transition-transform duration-[4000ms] ease-out group-hover:scale-105 opacity-80 group-hover:opacity-95" 
+                />
+              </div>
+
+              {/* Card Details */}
+              <div className="w-full md:w-[60%] p-8 md:p-10 flex flex-col justify-center relative">
+                
+                {/* Header elements: number and location side-by-side */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1.5 text-[#D4A85D]">
+                    <MapPin size={14} className="text-[#D4A85D]" />
+                    <span className="text-[11px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
+                  </div>
+                  <div className="w-9 h-9 rounded-full border border-[#D4A85D]/30 flex items-center justify-center text-[#D4A85D] text-[13px] font-bold font-serif">
+                    {String(index + 1).padStart(2, "0")}
                   </div>
                 </div>
-              );
-            })}
+
+                <h3 
+                  className="font-serif text-[28px] md:text-[36px] text-white leading-tight mb-3 transition-colors group-hover:text-[#D4A85D]"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                >
+                  {place.name || place.title}
+                </h3>
+
+                <p className="text-white/70 text-[14px] md:text-[15px] font-light leading-relaxed mb-6 max-w-xl line-clamp-2">
+                  {itemObj.note || place.shortDescription || place.description}
+                </p>
+
+                <div className="w-full h-px bg-white/5 my-4" />
+
+                {/* Footer specs */}
+                <div className="flex items-center gap-6 text-[13px] text-white/60">
+                  <div className="flex items-center gap-2">
+                    <Mountain size={15} className="text-[#D4A85D]/70" />
+                    <span>{difficultyVal}</span>
+                  </div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <div className="flex items-center gap-2">
+                    <Clock size={15} className="text-[#D4A85D]/70" />
+                    <span>{durationVal}</span>
+                  </div>
+                </div>
+
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Bottom CTA Card */}
+      <div 
+        onClick={(e) => {
+          e.preventDefault();
+          if (typeof window !== 'undefined') {
+            const trigger = document.querySelector('[data-waza-trigger]');
+            if (trigger) {
+              trigger.click();
+            } else {
+              window.location.href = "/contact";
+            }
+          }
+        }}
+        className="w-full p-6 md:px-10 md:py-6 rounded-[20px] bg-[#14110E] border border-[#D4A85D]/20 flex flex-col md:flex-row items-center justify-between gap-4 cursor-pointer hover:border-[#D4A85D]/50 transition-all duration-300"
+      >
+        <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+          <div className="w-10 h-10 rounded-full bg-[#D4A85D]/10 flex items-center justify-center text-[#D4A85D]">
+            <Compass size={20} strokeWidth={1.5} />
+          </div>
+          <div>
+            <h5 className="text-[15px] font-medium text-white">Can't decide?</h5>
+            <p className="text-[13px] text-white/50">We'll help you pick the perfect trek.</p>
           </div>
         </div>
 
-        {/* Right: Dynamic Preview (Split layout) */}
-        <div className="col-span-8 relative rounded-[24px] overflow-hidden bg-[#14110E] border border-white/5 shadow-2xl flex min-h-[600px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="flex w-full h-full absolute inset-0"
-            >
-              
-              {/* Left Side Info */}
-              <div className="w-[55%] p-10 xl:p-14 flex flex-col relative z-10 h-full">
-                <div className="flex items-center gap-2 text-[#D4A85D] mb-4">
-                  <MapPin size={16} />
-                  <span className="text-[12px] font-bold uppercase tracking-widest">{activeItem.area || "Kashmir"}</span>
-                </div>
-                
-                <h3 
-                  className="font-serif text-[48px] xl:text-[56px] text-white leading-[1.1] mb-6"
-                  style={{fontFamily: "'Cormorant Garamond', serif"}}
-                >
-                  {activeItem.name || activeItem.title}
-                </h3>
-                
-                <p className="text-[#B8B0A3] text-[16px] font-light leading-relaxed line-clamp-3 mb-10">
-                  {items[activeIndex].note || activeItem.shortDescription || activeItem.description}
-                </p>
-
-                {/* Grid Stats Standardized */}
-                <div className="grid grid-cols-2 gap-y-6 gap-x-6 mb-12">
-                  <StatItem icon={<Sun size={18} strokeWidth={1.5} />} label="Best Season" value="May - Sep" />
-                  <StatItem icon={<ArrowUpCircle size={18} strokeWidth={1.5} />} label="Altitude" value={activeItem.altitude || "13,000 ft"} />
-                  <StatItem icon={<Mountain size={18} strokeWidth={1.5} />} label="Difficulty" value={activeItem.difficulty || "Moderate"} />
-                  <StatItem icon={<Map size={18} strokeWidth={1.5} />} label="Trek Distance" value={activeItem.distance || "48 Km"} />
-                  <StatItem icon={<Clock size={18} strokeWidth={1.5} />} label="Duration" value={activeItem.estimatedDuration || "3-4 Days"} />
-                  <StatItem icon={<Navigation size={18} strokeWidth={1.5} />} label="Starting Point" value={activeItem.startingPoint || "Aru Valley"} />
-                </div>
-
-                <div className="mt-auto">
-                  <Link 
-                    href={`/${items[activeIndex].itemType === "Trail" ? "trails" : items[activeIndex].itemType === "Restaurant" ? "restaurants" : "destinations"}/${activeItem.slug || activeItem._id}`}
-                    className="inline-flex items-center gap-3 px-8 py-3 bg-transparent hover:bg-white/5 border border-[#D4A85D]/40 text-[#D4A85D] rounded-[100px] font-bold text-[12px] uppercase tracking-[0.15em] transition-all duration-300"
-                  >
-                    View Full Details
-                    <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Right Side Image */}
-              <div className="w-[45%] h-full relative p-4 pl-0">
-                <div className="w-full h-full rounded-[20px] overflow-hidden relative">
-                  <motion.img 
-                    initial={{ scale: 1.05 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 6, ease: "easeOut" }}
-                    src={activeImage} 
-                    alt={activeItem.name || activeItem.title} 
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Fade mask to blend image into the dark card surface on the left edge */}
-                  <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#14110E] to-transparent" />
-                </div>
-              </div>
-
-            </motion.div>
-          </AnimatePresence>
+        <div className="flex items-center gap-2 text-[#D4A85D] text-[12px] font-bold uppercase tracking-widest group">
+          Get Guidance
+          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
 
-      {/* Mobile: Grid of Locations (Hidden on Desktop) */}
-      <div className="block lg:hidden w-full">
-        <h3 className="text-[11px] uppercase tracking-[0.2em] text-[#D4A85D] font-bold mb-6 px-1">
-          Explore Locations ({items.length})
-        </h3>
-        <div className="grid grid-cols-2 gap-4 pb-8">
-          {items.map((itemObj, index) => {
-            const place = itemObj.item;
-            if (!place) return null;
-            const isTarsarMarsar = place.name?.includes("Tarsar Marsar") || place.title?.includes("Tarsar Marsar");
-            const image = isTarsarMarsar 
-              ? "/images/tarsarmarsar.png"
-              : (place.coverImage || place.image || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&auto=format&fit=crop");
-            
-            let routePrefix = "destinations";
-            if (itemObj.itemType === "Trail") routePrefix = "trails";
-            if (itemObj.itemType === "Restaurant") routePrefix = "restaurants";
-            
-            return (
-              <Link
-                key={index}
-                href={`/${routePrefix}/${place.slug || place._id}`}
-                className="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden bg-black shadow-xl block"
-              >
-                <img src={image} alt={place.name} className="absolute inset-0 w-full h-full object-cover opacity-75" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-[#0A0705]/40 to-transparent" />
-                
-                {/* Number Badge */}
-                <div className="absolute top-3 left-3 bg-[#0A0705]/60 backdrop-blur-md w-7 h-7 rounded-full flex items-center justify-center border border-white/10">
-                  <span className="font-serif text-[13px] text-[#D4A85D]">{index + 1}</span>
-                </div>
-                
-                {/* Text Content */}
-                <div className="absolute inset-x-0 bottom-0 p-4 flex flex-col justify-end">
-                  <div className="flex items-center gap-1 text-[#D4A85D] mb-1">
-                    <MapPin size={10} />
-                    <span className="text-[8px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
-                  </div>
-                  <h3 className="font-serif text-[18px] text-white leading-tight drop-shadow-md">
-                    {place.name || place.title}
-                  </h3>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-      
-    </div>
-  );
-}
-
-function StatItem({ icon, label, value }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="text-[#D4A85D]">
-        {icon}
-      </div>
-      <div className="flex flex-col">
-        <span className="text-[10px] text-[#B8B0A3] mb-0.5">{label}</span>
-        <span className="text-[13px] text-white font-medium">{value}</span>
-      </div>
     </div>
   );
 }
