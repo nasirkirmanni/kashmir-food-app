@@ -9,18 +9,17 @@ import {
   useMotionValueEvent,
   useReducedMotion,
 } from "framer-motion";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 /* ───────────────────────────────────────────────────
-   Progress dots — extracted so we avoid calling hooks
+   Progress dots — separate component to avoid hooks
    inside a .map() loop.
    ─────────────────────────────────────────────────── */
 function ProgressDots({ scrollYProgress }) {
   const [active, setActive] = useState(0);
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (v < 0.3) setActive(0);
-    else if (v < 0.63) setActive(1);
+    if (v < 0.33) setActive(0);
+    else if (v < 0.66) setActive(1);
     else setActive(2);
   });
 
@@ -58,78 +57,103 @@ function ProgressDots({ scrollYProgress }) {
    Main Component
    ─────────────────────────────────────────────────── */
 export default function ScrollStory() {
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const sectionRef = useRef(null);
 
-  /* Preload images */
+  // Wait for mount to detect viewport — avoids mobile→desktop layout flash
   useEffect(() => {
+    setIsDesktop(window.innerWidth >= 1024);
+    setMounted(true);
+
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const handler = (e) => setIsDesktop(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+
+  /* Preload images on desktop */
+  useEffect(() => {
+    if (!isDesktop) return;
     ["/an1.jpg", "/an2.jpg", "/an3.jpg"].forEach((src) => {
       const img = new window.Image();
       img.src = src;
     });
-  }, []);
+  }, [isDesktop]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
+  /*
+   * Scroll bands — 500vh container, 100vh viewport = 400vh of scroll travel.
+   * Each image gets a dedicated ~33% band:
+   *
+   *   0.00 – 0.30  →  Image 1 fully visible (landscape full-bleed)
+   *   0.27 – 0.33  →  Crossfade from Image 1 to Image 2
+   *   0.33 – 0.63  →  Image 2 fully visible (portrait + blurred backdrop)
+   *   0.60 – 0.66  →  Crossfade from Image 2 to Image 3
+   *   0.66 – 1.00  →  Image 3 fully visible (portrait + blurred backdrop)
+   */
+
   /* ── Image 1 (landscape, full-bleed) ─────────── */
-  const o1 = useTransform(scrollYProgress, [0, 0.04, 0.25, 0.30], [1, 1, 1, 0]);
+  const o1 = useTransform(scrollYProgress, [0, 0.27, 0.33], [1, 1, 0]);
   const s1 = useTransform(
     scrollYProgress,
-    [0, 0.30],
+    [0, 0.33],
     prefersReducedMotion ? [1, 1] : [1.15, 1.0]
   );
   const y1 = useTransform(
     scrollYProgress,
-    [0, 0.30],
-    prefersReducedMotion ? [0, 0] : [0, -40]
+    [0, 0.33],
+    prefersReducedMotion ? [0, 0] : [0, -50]
   );
 
   /* ── Image 2 (portrait, blurred backdrop) ───── */
-  const o2 = useTransform(scrollYProgress, [0.25, 0.30, 0.58, 0.63], [0, 1, 1, 0]);
+  const o2 = useTransform(scrollYProgress, [0.27, 0.33, 0.60, 0.66], [0, 1, 1, 0]);
   const s2 = useTransform(
     scrollYProgress,
-    [0.25, 0.63],
-    prefersReducedMotion ? [1, 1] : [1.08, 1.0]
+    [0.33, 0.66],
+    prefersReducedMotion ? [1, 1] : [1.06, 1.0]
   );
   const y2 = useTransform(
     scrollYProgress,
-    [0.25, 0.63],
-    prefersReducedMotion ? [0, 0] : [30, -10]
+    [0.27, 0.66],
+    prefersReducedMotion ? [0, 0] : [40, -15]
   );
-  /* parallax: blurred bg moves slower */
   const bgY2 = useTransform(
     scrollYProgress,
-    [0.25, 0.63],
-    prefersReducedMotion ? [0, 0] : [10, -5]
+    [0.27, 0.66],
+    prefersReducedMotion ? [0, 0] : [15, -8]
   );
 
   /* ── Image 3 (portrait, blurred backdrop) ───── */
-  const o3 = useTransform(scrollYProgress, [0.58, 0.63, 0.95, 1.0], [0, 1, 1, 0]);
+  const o3 = useTransform(scrollYProgress, [0.60, 0.66, 1.0], [0, 1, 1]);
   const s3 = useTransform(
     scrollYProgress,
-    [0.58, 1.0],
-    prefersReducedMotion ? [1, 1] : [1.08, 1.0]
+    [0.66, 1.0],
+    prefersReducedMotion ? [1, 1] : [1.06, 1.0]
   );
   const y3 = useTransform(
     scrollYProgress,
-    [0.58, 1.0],
-    prefersReducedMotion ? [0, 0] : [30, -10]
+    [0.60, 1.0],
+    prefersReducedMotion ? [0, 0] : [40, -15]
   );
   const bgY3 = useTransform(
     scrollYProgress,
-    [0.58, 1.0],
-    prefersReducedMotion ? [0, 0] : [10, -5]
+    [0.60, 1.0],
+    prefersReducedMotion ? [0, 0] : [15, -8]
   );
 
-  /* ── Render ─────────────────────────────────── */
+  // Don't render anything until mounted — prevents mobile→desktop layout flash
+  if (!mounted) return null;
+
   return (
     <div
       ref={sectionRef}
-      style={isDesktop ? { height: "460vh", position: "relative" } : undefined}
+      style={isDesktop ? { height: "500vh", position: "relative" } : undefined}
     >
       {isDesktop ? (
         /* ═══ DESKTOP: pinned cinematic scroll ═══ */
@@ -185,7 +209,7 @@ export default function ScrollStory() {
               willChange: "opacity",
             }}
           >
-            {/* Blurred backdrop — static filter, NEVER re-animated per frame */}
+            {/* Blurred backdrop — static CSS filter, never re-animated per frame */}
             <motion.div
               style={{
                 y: bgY2,
@@ -274,7 +298,7 @@ export default function ScrollStory() {
               />
             </motion.div>
 
-            {/* Sharp centered portrait */}
+            {/* Sharp centered portrait with glass glow */}
             <motion.div
               style={{
                 position: "absolute",
@@ -290,7 +314,7 @@ export default function ScrollStory() {
               }}
             >
               <div style={{ position: "relative" }}>
-                {/* Soft glass glow behind the image */}
+                {/* Soft glass glow */}
                 <div
                   style={{
                     position: "absolute",
