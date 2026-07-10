@@ -137,26 +137,32 @@ export function ExploreTrailCard({ trail }) {
 
 // --- ExploreCollectionCard (4:3 Ratio, Editorial Style) ---
 export function ExploreCollectionCard({ collection }) {
+  const imageUrl = collection.image || getFallbackImage([collection.name], "collection");
+
   return (
     <Link
       href={`/collections/${collection.slug}`}
       className="group relative flex-shrink-0 w-[180px] sm:w-[220px] md:w-[260px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-transform duration-500 hover:-translate-y-2 shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20"
     >
-      {/* Submerging glass background */}
-      <div className="absolute inset-0 bg-[#241d18]/40 backdrop-blur-md transition-colors duration-500 group-hover:bg-[#241d18]/60" />
-      
-      {/* Glow effect */}
-      <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#966E46]/20 blur-3xl rounded-full" />
+      {/* Thumbnail Image */}
+      <img
+        src={imageUrl}
+        alt={collection.name}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+      />
+
+      {/* Dark gradient for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-[#0A0705]/50 to-[#0A0705]/20 pointer-events-none transition-colors duration-500 group-hover:from-[#0A0705] group-hover:via-[#0A0705]/40 group-hover:to-transparent" />
       
       <div className="absolute top-4 left-4 z-10">
-        <span className="px-3 py-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#0A0705]/80 rounded-full text-[#E0C097]">
+        <span className="px-3 py-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#0A0705]/80 backdrop-blur-md border border-[#D4A55A]/20 rounded-full text-[#E0C097]">
           {collection.destinations?.length || "8"} Locations
         </span>
       </div>
       
       <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col justify-end">
         <h3 
-          className="text-[20px] md:text-[24px] font-serif font-normal text-[#E0C097] leading-tight"
+          className="text-[20px] md:text-[24px] font-serif font-normal text-[#E0C097] leading-tight drop-shadow-md"
           style={{fontFamily: "'Cormorant Garamond', serif"}}
         >
           {collection.name}
