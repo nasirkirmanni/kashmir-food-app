@@ -97,7 +97,7 @@ export default function CarouselSection({ title, subtitle, items, cardType, onVi
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex overflow-x-auto gap-4 md:gap-6 px-6 md:px-12 pb-8 pt-2 no-scrollbar snap-x snap-mandatory"
+          className="flex overflow-x-auto gap-4 md:gap-6 px-6 md:px-12 pb-8 pt-2 no-scrollbar snap-x snap-mandatory group/carousel"
           style={{ 
             scrollPaddingLeft: 'clamp(1.5rem, 5vw, 3rem)',
             // Adding right padding equal to left padding so the last item isn't flush against the edge

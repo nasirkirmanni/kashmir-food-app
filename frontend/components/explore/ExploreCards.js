@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { MapPin, Clock, Camera, Mountain, Navigation, Compass, Calendar, Users, Star, Trees, Palmtree, Map, Leaf, UtensilsCrossed } from "lucide-react";
+import { MapPin, Clock, Camera, Mountain, Navigation, Compass, Calendar, Users, Star, Trees, Palmtree, Map, Leaf, UtensilsCrossed, ArrowRight } from "lucide-react";
 
 // --- Intelligent Image Fallbacks ---
 const getFallbackImage = (tags = [], type = "destination") => {
@@ -161,31 +161,46 @@ export function ExploreCollectionCard({ collection }) {
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className="group relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.04] shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:shadow-[0_20px_50px_rgba(20,15,10,0.8)]"
+      className="group/card relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-all duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] z-10 will-change-transform shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:-translate-y-[10px] hover:scale-[1.06] hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] group-hover/carousel:[&:not(:hover)]:scale-[0.98] group-hover/carousel:[&:not(:hover)]:opacity-90 cursor-pointer"
     >
       {/* Thumbnail Image */}
       <img
         src={imageUrl}
         alt={collection.name}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+        className="absolute inset-0 w-full h-full object-cover transition-all duration-[700ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80 group-hover/card:scale-[1.08] group-hover/card:brightness-[1.08] group-hover/card:saturate-[1.1] group-hover/card:contrast-[1.05] group-hover/card:opacity-100 will-change-transform"
       />
 
       {/* Dark gradient for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-[#0A0705]/50 to-[#0A0705]/20 pointer-events-none transition-colors duration-500 group-hover:from-[#0A0705] group-hover:via-[#0A0705]/40 group-hover:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-[#0A0705]/50 to-[#0A0705]/10 pointer-events-none transition-colors duration-500 group-hover/card:from-[#0A0705]/90 group-hover/card:via-[#0A0705]/50 group-hover/card:to-transparent" />
       
+      {/* Location Badge */}
       <div className="absolute top-4 left-4 z-10">
-        <span className="px-3 py-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#0A0705]/80 backdrop-blur-md border border-[#D4A55A]/20 rounded-full text-[#E0C097]">
+        <span className="px-3 py-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#0A0705]/80 backdrop-blur-md border border-[#D4A55A]/20 rounded-full text-[#E0C097] shadow-sm">
           {collection.destinations?.length || "8"} Locations
         </span>
       </div>
       
-      <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col justify-end">
-        <h3 
-          className="text-[20px] md:text-[24px] font-serif font-normal text-[#E0C097] leading-tight drop-shadow-md"
-          style={{fontFamily: "'Cormorant Garamond', serif"}}
-        >
-          {collection.name}
-        </h3>
+      {/* Animated Text Block */}
+      <div className="absolute bottom-5 left-5 right-5 z-10 flex flex-col justify-end">
+        <div className="relative w-full">
+          <h3 
+            className="text-[20px] md:text-[24px] font-serif font-normal text-[#E0C097] leading-tight drop-shadow-md pr-8 transition-transform duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/card:-translate-y-1"
+            style={{fontFamily: "'Cormorant Garamond', serif"}}
+          >
+            {collection.name}
+          </h3>
+          
+          <div className="grid grid-rows-[0fr] transition-all duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/card:grid-rows-[1fr]">
+            <div className="overflow-hidden">
+              <p className="text-white/80 text-[10px] md:text-[11.5px] font-light opacity-0 group-hover/card:opacity-100 transition-opacity duration-[400ms] pt-2 leading-[1.5]">
+                {collection.description || "Explore this curated selection of breathtaking spots in Kashmir."}
+              </p>
+            </div>
+          </div>
+
+          {/* Arrow Icon */}
+          <ArrowRight className="absolute top-[2px] right-0 w-[18px] h-[18px] text-[#D4A55A] opacity-0 -translate-x-4 transition-all duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/card:opacity-100 group-hover/card:translate-x-0" />
+        </div>
       </div>
     </Link>
   );
