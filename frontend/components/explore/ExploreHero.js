@@ -48,15 +48,19 @@ export default function ExploreHero() {
             />
           </motion.div>
           
-          {/* Seamless Gradients - No Hard Edges */}
-          <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#110C08] via-[#110C08]/80 to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-[#110C08] to-transparent pointer-events-none" />
+          {/* Seamless Gradients - No Hard Edges (Custom CSS gradient for precise blending) */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-10" 
+            style={{
+              background: 'linear-gradient(to right, #110C08 0%, rgba(17,12,8,0.8) 15%, rgba(17,12,8,0) 40%)'
+            }}
+          />
           
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#110C08] via-[#110C08]/50 to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#110C08] via-[#110C08]/50 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#110C08] via-[#110C08]/50 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#110C08] via-[#110C08]/50 to-transparent pointer-events-none z-10" />
           
-          {/* Atmospheric Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#110C08]/50 via-transparent to-black/20 pointer-events-none mix-blend-multiply" />
+          {/* Atmospheric Vignette matching panel bg (#110C08) */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#110C08]/50 via-transparent to-[#110C08]/30 pointer-events-none mix-blend-multiply z-10" />
         </div>
       </div>
 
@@ -129,7 +133,13 @@ export default function ExploreHero() {
       {/* Mobile Image (Visible only on small screens) */}
       <div className="w-full mt-10 lg:hidden relative h-[45vh] rounded-3xl overflow-hidden shadow-2xl border border-white/5 z-10 mx-6 w-[calc(100%-3rem)]">
           <Image src="/images/explore/im.jpg" fill className="object-cover" alt="Explore Kashmir" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#110C08] to-transparent pointer-events-none opacity-90" />
+          {/* Vertical gradient for mobile stack */}
+          <div 
+            className="absolute inset-0 pointer-events-none opacity-90 z-10"
+            style={{
+              background: 'linear-gradient(to bottom, #110C08 0%, rgba(17,12,8,0.8) 15%, rgba(17,12,8,0) 50%, rgba(17,12,8,0.8) 85%, #110C08 100%)'
+            }}
+          />
       </div>
 
       {/* Modern Animated Mouse Scroll Indicator */}
@@ -156,6 +166,9 @@ export default function ExploreHero() {
           </svg>
         </motion.div>
       </motion.div>
+
+      {/* Subtle Saffron Gold Vignette at base near scroll indicator */}
+      <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-[radial-gradient(circle_at_bottom_left,_rgba(201,160,99,0.06)_0%,_transparent_60%)] pointer-events-none z-20" />
       
     </div>
   );
