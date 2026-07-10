@@ -66,9 +66,7 @@ export default async function ExplorePage() {
         {/* Soft mist overlay bridging hero and content */}
         <div className="absolute w-full h-96 bg-gradient-to-b from-[#171311] via-[#171311]/50 to-transparent pointer-events-none -mt-48 z-0" />
         
-        <div className="relative z-10 pt-12 md:pt-20">
-
-      <main className="mx-auto flex flex-col gap-10 md:gap-16 pt-8 md:pt-12 pb-12">
+        <main className="relative z-10 mx-auto flex flex-col gap-10 md:gap-16 pt-12 md:pt-20 pb-12">
         
         {/* Featured Collections */}
         <CarouselSection 
