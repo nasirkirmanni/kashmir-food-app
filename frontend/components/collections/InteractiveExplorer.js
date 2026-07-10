@@ -155,12 +155,12 @@ export default function InteractiveExplorer({ items }) {
         </div>
       </div>
 
-      {/* Mobile: Swipeable Cards (Hidden on Desktop) */}
-      <div className="block lg:hidden">
+      {/* Mobile: Vertical List of Locations (Hidden on Desktop) */}
+      <div className="block lg:hidden w-full">
         <h3 className="text-[11px] uppercase tracking-[0.2em] text-[#D4A85D] font-bold mb-6 px-1">
-          Curated Destinations
+          Explore Locations ({items.length})
         </h3>
-        <div className="flex overflow-x-auto gap-4 pb-8 snap-x snap-mandatory hide-scrollbar -mx-6 px-6">
+        <div className="flex flex-col gap-6 pb-8">
           {items.map((itemObj, index) => {
             const place = itemObj.item;
             if (!place) return null;
@@ -177,24 +177,26 @@ export default function InteractiveExplorer({ items }) {
               <Link
                 key={index}
                 href={`/${routePrefix}/${place.slug || place._id}`}
-                className="snap-center shrink-0 w-[85vw] max-w-[320px] aspect-[3/4] relative rounded-[20px] overflow-hidden bg-black shadow-xl"
+                className="relative w-full h-[220px] rounded-[20px] overflow-hidden bg-black shadow-xl block"
               >
-                <img src={image} alt={place.name} className="absolute inset-0 w-full h-full object-cover opacity-80" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-[#0A0705]/40 to-transparent" />
+                <img src={image} alt={place.name} className="absolute inset-0 w-full h-full object-cover opacity-75" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-[#0A0705]/45 to-transparent" />
                 
-                <div className="absolute top-4 left-4 bg-[#0A0705]/60 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center border border-white/10">
-                  <span className="font-serif text-[18px] text-[#D4A85D]">{index + 1}</span>
+                {/* Number Badge */}
+                <div className="absolute top-4 left-4 bg-[#0A0705]/60 backdrop-blur-md w-8 h-8 rounded-full flex items-center justify-center border border-white/10">
+                  <span className="font-serif text-[15px] text-[#D4A85D]">{index + 1}</span>
                 </div>
                 
+                {/* Text Content */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                  <div className="flex items-center gap-1.5 text-[#D4A85D] mb-2">
-                    <MapPin size={12} />
-                    <span className="text-[10px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
+                  <div className="flex items-center gap-1.5 text-[#D4A85D] mb-1.5">
+                    <MapPin size={11} />
+                    <span className="text-[9px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
                   </div>
-                  <h3 className="font-serif text-[28px] text-white leading-tight mb-2 drop-shadow-md">
+                  <h3 className="font-serif text-[24px] text-white leading-tight mb-1.5 drop-shadow-md">
                     {place.name || place.title}
                   </h3>
-                  <p className="text-white/80 text-[13px] font-light line-clamp-2 drop-shadow-sm">
+                  <p className="text-white/80 text-[12px] font-light line-clamp-2 leading-relaxed drop-shadow-sm">
                     {itemObj.note || place.shortDescription}
                   </p>
                 </div>

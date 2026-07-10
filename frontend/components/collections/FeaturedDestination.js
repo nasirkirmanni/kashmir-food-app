@@ -20,7 +20,7 @@ export default function FeaturedDestination({ itemObj }) {
   if (itemObj.itemType === "Dish") routePrefix = "dishes";
 
   return (
-    <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 xl:px-20 pb-24 mb-24 border-b border-white/5 relative z-10">
+    <div className="hidden lg:block w-full max-w-[1440px] mx-auto px-6 md:px-12 xl:px-20 pb-24 mb-24 border-b border-white/5 relative z-10">
       
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-6">

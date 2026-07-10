@@ -1,8 +1,12 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { Quote } from 'lucide-react';
 
 export default function ContentSections({ data }) {
+  const [isQuoteExpanded, setIsQuoteExpanded] = useState(false);
+  const fullQuote = data.overview.twinSisters;
+  const truncatedQuote = fullQuote.slice(0, 160) + "...";
+
   return (
     <div className="space-y-20">
       {/* Overview & Introduction */}
@@ -15,11 +19,22 @@ export default function ContentSections({ data }) {
         </p>
         
         {/* Pull Quote */}
-        <div className="relative p-10 my-12 rounded-[20px] bg-gradient-to-br from-[#14110E] to-[#0A0705] border border-[#D4A85D]/20">
-          <Quote className="absolute top-6 left-6 text-[#D4A85D]/20 w-16 h-16" />
-          <p className="relative z-10 font-serif text-[24px] md:text-[28px] text-white leading-snug text-center italic">
-            {data.overview.twinSisters}
+        <div className="relative p-6 md:p-10 my-12 rounded-[20px] bg-gradient-to-br from-[#14110E] to-[#0A0705] border border-[#D4A85D]/20">
+          <Quote className="absolute top-4 left-4 md:top-6 md:left-6 text-[#D4A85D]/10 w-12 h-12 md:w-16 md:h-16" />
+          <p className="relative z-10 font-serif text-[17px] md:text-[26px] text-white/90 leading-relaxed md:leading-snug text-left md:text-center italic">
+            <span className="hidden md:inline">{fullQuote}</span>
+            <span className="inline md:hidden">
+              {isQuoteExpanded ? fullQuote : truncatedQuote}
+            </span>
           </p>
+          <div className="relative z-10 text-center mt-6 md:hidden">
+            <button 
+              onClick={() => setIsQuoteExpanded(!isQuoteExpanded)}
+              className="px-4 py-2 rounded-full border border-[#D4A85D]/30 text-[#D4A85D] text-[10px] uppercase tracking-widest font-bold bg-[#D4A85D]/5 active:bg-[#D4A85D]/10 transition-all"
+            >
+              {isQuoteExpanded ? "Show Less" : "Read Full Lore"}
+            </button>
+          </div>
         </div>
       </section>
 
