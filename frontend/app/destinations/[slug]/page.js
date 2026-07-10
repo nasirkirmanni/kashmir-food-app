@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   try {
     const res = await fetch(`${API_BASE}/api/destinations/${params.slug}`, {
-      cache: "force-cache",
+      cache: "no-store",
     });
     if (!res.ok) throw new Error("Not found");
     const destination = await res.json();
@@ -61,17 +61,27 @@ export async function generateMetadata({ params }) {
   }
 }
 
+import TarsarMarsarPage from "@/components/tarsar-marsar/TarsarMarsarPage";
+
 export default async function DestinationDetailPage({ params }) {
+  if (params.slug.toLowerCase().includes("tarsar")) {
+    return <TarsarMarsarPage />;
+  }
+
   let destination = null;
   try {
     const res = await fetch(`${API_BASE}/api/destinations/${params.slug}`, {
-      cache: "force-cache",
+      cache: "no-store",
     });
     if (res.ok) {
       destination = await res.json();
     }
   } catch (err) {
     console.error("Failed to fetch destination on server side:", err);
+  }
+
+  if (destination && (destination.name?.toLowerCase().includes("tarsar") || destination.title?.toLowerCase().includes("tarsar"))) {
+    return <TarsarMarsarPage />;
   }
 
   return <DestinationDetailClient initialDestination={destination} params={params} />;

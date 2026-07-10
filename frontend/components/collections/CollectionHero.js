@@ -1,6 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Mountain, Clock, Users, Sun } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function CollectionHero({ collection }) {
   // Try to extract some stats from the items if available, or use defaults
@@ -18,40 +22,62 @@ export default function CollectionHero({ collection }) {
     : "Nature Lovers";
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 pt-32 lg:pt-40 pb-16 relative z-10">
+    <div className="w-full h-screen min-h-[700px] flex items-center relative overflow-hidden font-sans">
+      
+      {/* Right side aesthetic image */}
+      <motion.div 
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="hidden lg:block absolute right-0 top-0 bottom-0 w-[55%] z-10 overflow-hidden pointer-events-none"
+      >
+        <Image 
+          src="/images/treking-v2.jpg"
+          alt="Collection Background"
+          fill
+          className="object-cover object-center opacity-80"
+          priority
+        />
+        {/* Soft, seamless gradient overlay to blend left panel into image */}
+        <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-black to-transparent z-20" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black to-transparent z-20" />
+        <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-black to-transparent z-20" />
+      </motion.div>
+
+      <div className="w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-full relative z-20 pt-20 pb-12">
       <Link 
         href="/explore" 
-        className="inline-flex items-center gap-2 text-[var(--profile-gold-dim)] hover:text-[var(--profile-gold)] transition-colors mb-8 text-sm uppercase tracking-widest font-semibold"
+        className="inline-flex items-center gap-2 text-[#B8B0A3] hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest font-semibold"
       >
         <ArrowLeft size={16} />
         Back to Explore
       </Link>
 
-      <div className="max-w-3xl">
-        <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#120D09]/80 backdrop-blur-md border border-[var(--profile-gold)]/20 rounded-full mb-6">
-          <span className="text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-[var(--profile-gold)]">
+      <div className="w-full">
+        <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#120D09]/80 backdrop-blur-md border border-[#D4A85D]/20 hover:bg-[#D4A55A]/10 transition-colors cursor-default rounded-full mb-6 group">
+          <span className="text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-[#D4A85D]">
             {totalLocations} Locations
           </span>
         </div>
         
         <h1 
-          className="font-serif italic font-normal text-[48px] md:text-[72px] lg:text-[84px] leading-[1.05] tracking-tight text-[var(--profile-gold)] mb-6 drop-shadow-lg" 
+          className="font-serif text-[48px] md:text-[64px] lg:text-[72px] xl:text-[80px] leading-[1.05] tracking-tight text-white mb-8 drop-shadow-lg" 
           style={{fontFamily: "'Cormorant Garamond', serif"}}
         >
           {collection.name}
         </h1>
         
-        <p className="text-[18px] md:text-[22px] text-white/80 font-light max-w-2xl leading-relaxed mb-12">
+        <p className="text-[20px] md:text-[24px] text-white font-light w-full leading-relaxed mb-12 drop-shadow-md">
           {collection.description}
         </p>
 
         {/* Premium Statistics Row */}
-        <div className="flex flex-wrap gap-4">
-          <StatPill icon={<Sun size={14} />} label="Best Season" value={season} />
-          <StatPill icon={<Mountain size={14} />} label="Difficulty" value={difficulty} />
-          <StatPill icon={<Clock size={14} />} label="Duration" value="2–5 Days" />
-          <StatPill icon={<Users size={14} />} label="Perfect For" value={perfectFor} />
+        <div className="flex flex-col sm:flex-row flex-wrap w-full gap-4 pb-12">
+          <StatPill icon={<Sun size={18} strokeWidth={1.5} />} label="Best Season" value={season} />
+          <StatPill icon={<Mountain size={18} strokeWidth={1.5} />} label="Difficulty" value={difficulty} />
+          <StatPill icon={<Clock size={18} strokeWidth={1.5} />} label="Duration" value="2–5 Days" />
         </div>
+      </div>
       </div>
     </div>
   );
@@ -59,13 +85,13 @@ export default function CollectionHero({ collection }) {
 
 function StatPill({ icon, label, value }) {
   return (
-    <div className="flex items-center gap-3 px-5 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/10 hover:border-[var(--profile-gold)]/30 transition-all duration-300">
-      <div className="text-[var(--profile-gold)]">
+    <div className="flex-1 min-w-[140px] flex items-center gap-4 px-6 py-4 bg-[#14110E]/40 backdrop-blur-md border border-[#D4A55A]/10 rounded-[16px] hover:bg-[#D4A55A]/5 hover:border-[#D4A55A]/30 transition-all duration-300">
+      <div className="text-[#D4A55A]">
         {icon}
       </div>
       <div className="flex flex-col">
-        <span className="text-[9px] uppercase tracking-wider text-white/50 font-semibold mb-0.5">{label}</span>
-        <span className="text-[13px] text-white/90 font-medium">{value}</span>
+        <span className="text-[10px] uppercase tracking-wider text-[#B8B0A3] font-semibold mb-0.5">{label}</span>
+        <span className="text-[14px] text-white font-medium whitespace-nowrap">{value}</span>
       </div>
     </div>
   );

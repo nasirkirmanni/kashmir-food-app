@@ -11,7 +11,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-ap
 async function getCollection(slug) {
   try {
     const res = await fetch(`${API_BASE}/api/collections/${slug}`, {
-      next: { revalidate: 3600 }
+      cache: "no-store"
     });
     if (!res.ok) {
       if (res.status === 404) return null;
@@ -37,18 +37,45 @@ export default async function CollectionPage({ params }) {
   const remainingItems = items.length > 1 ? items.slice(1) : [];
 
   return (
-    <div className="min-h-screen bg-[#050302] text-white font-sans flex flex-col items-center relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white font-sans flex flex-col items-center relative overflow-hidden">
       
-      {/* Immersive layered background */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Soft radial gradients */}
-        <div className="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-[var(--profile-gold)] blur-[150px] opacity-10"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#1A130E] blur-[150px] opacity-30"></div>
+      {/* Immersive animated golden glow on pure black */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-black">
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes float1 {
+            0% { transform: translate(-10vw, -10vh) scale(1); opacity: 0.04; }
+            33% { transform: translate(50vw, 40vh) scale(1.4); opacity: 0.09; }
+            66% { transform: translate(10vw, 80vh) scale(0.9); opacity: 0.05; }
+            100% { transform: translate(-10vw, -10vh) scale(1); opacity: 0.04; }
+          }
+          @keyframes float2 {
+            0% { transform: translate(10vw, 10vh) scale(1.2); opacity: 0.07; }
+            33% { transform: translate(-40vw, -20vh) scale(0.8); opacity: 0.03; }
+            66% { transform: translate(-20vw, 50vh) scale(1.5); opacity: 0.08; }
+            100% { transform: translate(10vw, 10vh) scale(1.2); opacity: 0.07; }
+          }
+          @keyframes float3 {
+            0% { transform: translate(0vw, 0vh) scale(0.9); opacity: 0.05; }
+            50% { transform: translate(-60vw, 60vh) scale(1.6); opacity: 0.1; }
+            100% { transform: translate(0vw, 0vh) scale(0.9); opacity: 0.05; }
+          }
+        `}} />
         
-        {/* Subtle grain texture overlay */}
+        {/* Uniform base tint */}
+        <div className="absolute inset-0 bg-[#D4A85D] opacity-[0.02] mix-blend-screen"></div>
+        
+        {/* Animated Orbs (GPU accelerated for 120fps smoothness) */}
         <div 
-          className="absolute inset-0 opacity-[0.03]" 
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}
+          className="absolute top-0 left-0 w-[70vw] h-[70vw] rounded-full bg-[#D4A85D] blur-[100px] will-change-transform"
+          style={{ animation: 'float1 12s infinite ease-in-out', transformStyle: 'preserve-3d' }}
+        ></div>
+        <div 
+          className="absolute bottom-0 right-0 w-[80vw] h-[80vw] rounded-full bg-[#D4A85D] blur-[120px] will-change-transform"
+          style={{ animation: 'float2 14s infinite ease-in-out reverse', transformStyle: 'preserve-3d' }}
+        ></div>
+        <div 
+          className="absolute top-[20%] left-[80%] w-[60vw] h-[60vw] rounded-full bg-[#D4A85D] blur-[90px] will-change-transform"
+          style={{ animation: 'float3 16s infinite ease-in-out', transformStyle: 'preserve-3d' }}
         ></div>
       </div>
 
@@ -60,9 +87,9 @@ export default async function CollectionPage({ params }) {
         <FeaturedDestination itemObj={featuredItem} />
       )}
 
-      {/* Interactive Explorer for remaining items */}
-      {remainingItems.length > 0 && (
-        <InteractiveExplorer items={remainingItems} />
+      {/* Interactive Explorer for all items */}
+      {items.length > 0 && (
+        <InteractiveExplorer items={items} />
       )}
 
       {/* Interactive Map */}

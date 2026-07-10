@@ -400,9 +400,15 @@ export default function WazaAI() {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleOpenIntro}
                 aria-label="Open Waza AI Assistant"
-                className="relative h-[72px] w-[72px] flex items-center justify-center rounded-full bg-gradient-to-br from-[var(--saffron)] to-[#B8892A] text-[#0B0B0B] shadow-[0_8px_32px_rgba(212,161,90,0.4)] transition-all"
+                className="relative h-[72px] w-[72px] flex items-center justify-center rounded-full overflow-hidden border border-[#D4A15A]/30 shadow-[0_8px_32px_rgba(212,161,90,0.4)] transition-all bg-[#0B0B0B]"
               >
-                <ChefAIIcon size={36} strokeWidth={2} />
+                <Image
+                  src="/waza-profile.jpg"
+                  alt="Waza AI"
+                  fill
+                  sizes="72px"
+                  className="object-cover"
+                />
               </motion.button>
             </div>
           )}
