@@ -467,7 +467,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               Plan a Kashmir Visit
             </h2>
             <div className="relative z-10 grid grid-cols-2 gap-3">
-              <Link href="/visit-kashmir" className="block" prefetch={false}>
+              <Link href="/explore" className="block" prefetch={false}>
                 <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
                   <div className="text-[#C8A46A]"><Map size={22} strokeWidth={1.5} /></div>
                   <div>
