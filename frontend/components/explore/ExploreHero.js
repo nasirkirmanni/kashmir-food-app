@@ -10,77 +10,80 @@ export default function ExploreHero() {
     <div className="relative flex flex-col justify-center min-h-[90vh] overflow-hidden bg-[#0a0806] border-b border-white/5">
       
       {/* Background Enhancements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#1c1611_0%,_transparent_50%)] opacity-80 pointer-events-none z-0"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_#110e0b_0%,_transparent_50%)] opacity-80 pointer-events-none z-0"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#16120e_0%,_transparent_60%)] opacity-70 pointer-events-none z-0"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_#110e0b_0%,_transparent_60%)] opacity-70 pointer-events-none z-0"></div>
       
       {/* Subtle Noise Texture */}
       <div 
-        className="absolute inset-0 opacity-[0.025] pointer-events-none z-0 mix-blend-overlay" 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none z-0 mix-blend-overlay" 
         style={{ 
           backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' 
         }}
       ></div>
 
-      {/* 4-petal floral motif from design */}
-      <div className="absolute top-12 left-1/2 md:top-20 md:left-[45%] w-24 h-24 md:w-32 md:h-32 opacity-[0.15] text-[#C9A063] pointer-events-none drop-shadow-lg z-0">
+      {/* 4-petal floral motif from design - faded deeply */}
+      <div className="absolute top-12 left-1/2 md:top-32 md:left-[35%] w-32 h-32 md:w-48 md:h-48 opacity-[0.03] text-[#C9A063] pointer-events-none z-0 mix-blend-screen">
         <svg viewBox="0 0 100 100" fill="currentColor" className="w-full h-full">
           <path d="M50 0 C60 20 80 40 100 50 C80 60 60 80 50 100 C40 80 20 60 0 50 C20 40 40 20 50 0 Z" />
           <circle cx="50" cy="50" r="8" fill="#0a0806" />
         </svg>
       </div>
 
-      {/* Desktop Image: Absolute full-bleed on right */}
-      <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[44%] h-[72vh] z-10">
-        <motion.div
-           initial={{ opacity: 0, x: 30 }}
-           animate={{ opacity: 1, x: 0 }}
-           transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-           className="w-full h-full"
-        >
+      {/* Desktop Image: True Full-Bleed & Integrated */}
+      <div className="hidden lg:block absolute right-0 top-0 w-[60%] h-[100%] z-0">
+        <div className="relative w-full h-full overflow-hidden">
+          {/* Cinematic Slow Zoom */}
           <motion.div
-             animate={{ y: [0, -10, 0] }}
-             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-             className="relative w-full h-full rounded-l-[32px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] border-l border-white/5"
+             animate={{ scale: [1, 1.05, 1] }}
+             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+             className="w-full h-full relative"
           >
             <Image 
               src="/images/explore/im.jpg" 
               fill 
-              className="object-cover scale-[1.02]" 
+              className="object-cover" 
               alt="Explore Kashmir" 
               priority 
-              quality={90}
+              quality={100}
             />
-            {/* Gradients to seamlessly blend image into background */}
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#0a0806] via-[#0a0806]/40 to-transparent pointer-events-none" />
-            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0806] to-transparent pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0a0806] via-[#0a0806]/60 to-transparent pointer-events-none" />
           </motion.div>
-        </motion.div>
+          
+          {/* Seamless Gradients - No Hard Edges */}
+          <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#0a0806] via-[#0a0806]/80 to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-[#0a0806] to-transparent pointer-events-none" />
+          
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0806] via-[#0a0806]/50 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0806] via-[#0a0806]/50 to-transparent pointer-events-none" />
+          
+          {/* Atmospheric Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0806]/50 via-transparent to-black/20 pointer-events-none mix-blend-multiply" />
+        </div>
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row items-center h-full pt-20 pb-32 lg:py-0">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col justify-center h-full pt-20 pb-32 lg:py-0">
         
         {/* Left Content (Text) */}
-        <div className="w-full lg:w-[52%] flex flex-col items-start lg:pr-16">
+        <div className="w-full lg:w-[48%] flex flex-col items-start lg:pr-10">
           
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-4 mb-5"
+            className="flex items-center gap-4 mb-4"
           >
             <div className="w-10 h-[1px] bg-[#C9A063]"></div>
-            <span className="text-[#C9A063] font-bold tracking-[0.25em] uppercase text-[10px] md:text-[11px]">
+            <span className="text-[#C9A063] font-bold tracking-[0.25em] uppercase text-[9px] md:text-[10px]">
               Discover Paradise
             </span>
           </motion.div>
           
+          {/* Heading tightened and slightly smaller */}
           <motion.h1 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-serif font-normal leading-[1.08] tracking-[-0.01em] mb-5 text-[#F2ECE4] drop-shadow-lg"
+            className="text-[36px] sm:text-[46px] md:text-[54px] lg:text-[58px] font-serif font-normal leading-[1.05] tracking-[-0.01em] mb-5 text-[#F2ECE4] drop-shadow-md"
             style={{fontFamily: "'Cormorant Garamond', serif"}}
           >
             What should you <br />
@@ -92,7 +95,7 @@ export default function ExploreHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[14px] md:text-[15px] text-[#A3998D] max-w-[380px] font-light leading-[1.7] mb-8"
+            className="text-[14px] md:text-[15px] text-[#A3998D] max-w-[360px] font-light leading-[1.7] mb-8"
           >
             Hidden waterfalls, quiet valleys, and the secret corners locals love. Embark on an immersive journey through the crown of India.
           </motion.p>
@@ -101,51 +104,57 @@ export default function ExploreHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto mb-4"
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
             <Link 
               href="/custom-trip" 
               prefetch={false} 
-              className="group flex items-center justify-center gap-3 bg-[#C9A063] text-[#0a0806] font-bold text-[12px] uppercase tracking-[0.15em] px-8 py-4 md:py-5 rounded-full hover:bg-[#D4AC6F] transition-all hover:shadow-[0_0_30px_rgba(201,160,99,0.3)] hover:-translate-y-0.5"
+              className="group flex items-center justify-center gap-3 bg-[#C9A063] text-[#0a0806] font-bold text-[11px] uppercase tracking-[0.15em] px-8 py-[18px] rounded-full hover:bg-[#E3BA7E] transition-all duration-300 hover:shadow-[0_0_24px_rgba(201,160,99,0.3)] hover:-translate-y-[2px]"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:rotate-45"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               Plan your trip
             </Link>
             
             <button 
               onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))} 
-              className="group flex items-center justify-center gap-3 bg-white/5 border border-white/10 backdrop-blur-md text-white font-bold text-[12px] uppercase tracking-[0.15em] px-8 py-4 md:py-5 rounded-full hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-0.5"
+              className="group flex items-center justify-center gap-3 bg-white/5 border border-white/10 backdrop-blur-md text-white font-bold text-[11px] uppercase tracking-[0.15em] px-8 py-[18px] rounded-full hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-[2px]"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#C9A063]"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="m19 5-1.1 3.5a1 1 0 0 1-.7.7L13.7 10l3.5 1.1a1 1 0 0 1 .7.7L19 15l1.1-3.5a1 1 0 0 1 .7-.7L24.3 10l-3.5-1.1a1 1 0 0 1-.7-.7Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#C9A063]"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="m19 5-1.1 3.5a1 1 0 0 1-.7.7L13.7 10l3.5 1.1a1 1 0 0 1 .7.7L19 15l1.1-3.5a1 1 0 0 1 .7-.7L24.3 10l-3.5-1.1a1 1 0 0 1-.7-.7Z"/></svg>
               Use Waza AI
             </button>
           </motion.div>
         </div>
-
-        {/* Mobile Image (Visible only on small screens) */}
-        <div className="w-full mt-10 lg:hidden relative h-[45vh] rounded-2xl overflow-hidden shadow-2xl border border-white/10 z-10">
-            <Image src="/images/explore/im.jpg" fill className="object-cover" alt="Explore Kashmir" priority />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806] to-transparent pointer-events-none opacity-80" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/40 to-transparent pointer-events-none" />
-        </div>
       </div>
 
-      {/* Animated Scroll Indicator */}
+      {/* Mobile Image (Visible only on small screens) */}
+      <div className="w-full mt-10 lg:hidden relative h-[45vh] rounded-3xl overflow-hidden shadow-2xl border border-white/5 z-10 mx-6 w-[calc(100%-3rem)]">
+          <Image src="/images/explore/im.jpg" fill className="object-cover" alt="Explore Kashmir" priority />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806] to-transparent pointer-events-none opacity-90" />
+      </div>
+
+      {/* Modern Animated Mouse Scroll Indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 left-6 md:left-12 lg:left-16 z-30 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+        className="absolute bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 lg:left-16 lg:translate-x-0 z-30 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
         onClick={() => window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' })}
       >
-        <span className="text-[9px] uppercase tracking-[0.2em] font-medium text-white rotate-180" style={{ writingMode: 'vertical-rl' }}>
-          Scroll
-        </span>
+        <div className="w-[20px] h-[32px] rounded-full border-[1.5px] border-white/40 flex justify-center pt-[4px]">
+          <motion.div 
+            animate={{ y: [0, 10, 0], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-[3px] h-[6px] bg-[#C9A063] rounded-full"
+          />
+        </div>
         <motion.div 
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent"
-        />
+          animate={{ y: [0, 4, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/40">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </motion.div>
       </motion.div>
       
     </div>
