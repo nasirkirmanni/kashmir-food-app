@@ -18,6 +18,7 @@ import travelAgencyRoutes from "./routes/travelAgencyRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import explorerRoutes from "./routes/explorerRoutes.js";
 import exploreRoutes from "./routes/exploreRoutes.js";
+import collectionRoutes from "./routes/collectionRoutes.js";
 
 dotenv.config();
 
@@ -113,6 +114,7 @@ app.use("/api/travel-agencies", travelAgencyRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/explorer", explorerRoutes);
 app.use("/api/explore", exploreRoutes);
+app.use("/api/collections", collectionRoutes);
 
 app.use((err, req, res, next) => {
   if (err.code === "EBADCSRFTOKEN") {

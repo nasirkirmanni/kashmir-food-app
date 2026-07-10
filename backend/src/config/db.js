@@ -7,6 +7,6 @@ export const connectDB = async () => {
     throw new Error("MONGODB_URI is not configured");
   }
 
-  await mongoose.connect(mongoUri);
+  await mongoose.connect(mongoUri, { family: 4 });
   console.log("MongoDB connected");
 };
