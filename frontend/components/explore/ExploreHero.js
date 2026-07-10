@@ -110,6 +110,26 @@ export default function ExploreHero() {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Right side BMW B&W aesthetic image (pex.jpg) */}
+      <motion.div 
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="hidden lg:block absolute right-0 top-0 bottom-0 w-[55%] z-10 overflow-hidden pointer-events-none"
+      >
+        <Image 
+          src="/images/explore/pex.jpg"
+          alt="Explore Kashmir"
+          fill
+          className="object-cover object-[center_30%] grayscale contrast-[1.2] brightness-[0.7] mix-blend-luminosity opacity-80"
+          priority
+        />
+        {/* Fade gradients to blend image seamlessly into the #060606 base */}
+        <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#060606] to-transparent z-20" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#060606] to-transparent z-20" />
+        <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-[#060606] to-transparent z-20" />
+      </motion.div>
       
     </div>
   );
