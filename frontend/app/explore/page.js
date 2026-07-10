@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import CarouselSection from "@/components/explore/CarouselSection";
 import ExploreHero from "@/components/explore/ExploreHero";
+import ScrollStory from "@/components/explore/ScrollStory";
 import StickyMobileNav from "@/components/StickyMobileNav";
 import { Calendar } from "lucide-react";
 
@@ -63,6 +64,9 @@ export default async function ExplorePage() {
       <div className="relative z-10">
         {/* Hero Section */}
         <ExploreHero />
+
+        {/* Cinematic Scroll Story (desktop only) */}
+        <ScrollStory />
 
       <main className="mx-auto flex flex-col gap-10 md:gap-16 pt-8 md:pt-12 pb-12">
         
