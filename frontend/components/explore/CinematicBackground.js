@@ -107,10 +107,6 @@ export default function CinematicBackground() {
       {/* Vignette & Depth Shadows to keep left side very dark */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(6,6,6,0.4)_100%)] pointer-events-none z-10" />
       <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#060606] to-transparent pointer-events-none z-10 opacity-30" />
-      
-      {/* Blend seamlessly into the page background (#110C08) at the bottom */}
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#110C08] via-[#110C08]/80 to-transparent pointer-events-none z-10" />
-
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Image from "next/image";
+import CinematicBackground from "@/components/explore/CinematicBackground";
 import CarouselSection from "@/components/explore/CarouselSection";
 import ExploreHero from "@/components/explore/ExploreHero";
 import StickyMobileNav from "@/components/StickyMobileNav";
@@ -54,11 +55,9 @@ export default async function ExplorePage() {
       {/* Back button for mobile */}
       <StickyMobileNav />
 
-      {/* Fixed immersive background */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#3A2818]/50 via-[#110C08]/90 to-[#110C08]" />
-        <div className="absolute top-[40%] left-[-20%] w-[70%] h-[500px] bg-[#4A3520]/15 blur-[150px] rounded-full" />
-        <div className="absolute bottom-0 right-[-10%] w-[60%] h-[600px] bg-[#2A1D12]/50 blur-[150px] rounded-full" />
+      {/* Fixed global cinematic background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <CinematicBackground />
       </div>
 
       <div className="relative z-10">

@@ -4,7 +4,6 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import CinematicBackground from "./CinematicBackground";
 
 export default function ExploreHero() {
   const { scrollY } = useScroll();
@@ -13,9 +12,6 @@ export default function ExploreHero() {
 
   return (
     <div className="relative w-full h-[100vh] min-h-[640px] flex items-center overflow-hidden bg-transparent font-body">
-      
-      {/* Cinematic Animated Background */}
-      <CinematicBackground />
 
       {/* Content Container */}
       <div className="relative z-20 w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-full py-16">
