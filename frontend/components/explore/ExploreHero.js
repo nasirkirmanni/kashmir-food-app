@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function ExploreHero() {
   return (
-    <div className="relative flex flex-col justify-center min-h-[90vh] overflow-hidden bg-[#0a0806] border-b border-white/5">
+    <div className="relative flex flex-col justify-center min-h-[90vh] overflow-hidden bg-transparent">
       
       {/* Background Enhancements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#16120e_0%,_transparent_60%)] opacity-70 pointer-events-none z-0"></div>
@@ -25,7 +25,7 @@ export default function ExploreHero() {
       <div className="absolute top-12 left-1/2 md:top-32 md:left-[35%] w-32 h-32 md:w-48 md:h-48 opacity-[0.03] text-[#C9A063] pointer-events-none z-0 mix-blend-screen">
         <svg viewBox="0 0 100 100" fill="currentColor" className="w-full h-full">
           <path d="M50 0 C60 20 80 40 100 50 C80 60 60 80 50 100 C40 80 20 60 0 50 C20 40 40 20 50 0 Z" />
-          <circle cx="50" cy="50" r="8" fill="#0a0806" />
+          <circle cx="50" cy="50" r="8" fill="#110C08" />
         </svg>
       </div>
 
@@ -49,14 +49,14 @@ export default function ExploreHero() {
           </motion.div>
           
           {/* Seamless Gradients - No Hard Edges */}
-          <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#0a0806] via-[#0a0806]/80 to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-[#0a0806] to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#110C08] via-[#110C08]/80 to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-[#110C08] to-transparent pointer-events-none" />
           
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0806] via-[#0a0806]/50 to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0806] via-[#0a0806]/50 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#110C08] via-[#110C08]/50 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#110C08] via-[#110C08]/50 to-transparent pointer-events-none" />
           
           {/* Atmospheric Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0806]/50 via-transparent to-black/20 pointer-events-none mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#110C08]/50 via-transparent to-black/20 pointer-events-none mix-blend-multiply" />
         </div>
       </div>
 
@@ -109,7 +109,7 @@ export default function ExploreHero() {
             <Link 
               href="/custom-trip" 
               prefetch={false} 
-              className="group flex items-center justify-center gap-3 bg-[#C9A063] text-[#0a0806] font-bold text-[11px] uppercase tracking-[0.15em] px-8 py-[18px] rounded-full hover:bg-[#E3BA7E] transition-all duration-300 hover:shadow-[0_0_24px_rgba(201,160,99,0.3)] hover:-translate-y-[2px]"
+              className="group flex items-center justify-center gap-3 bg-[#C9A063] text-[#110C08] font-bold text-[11px] uppercase tracking-[0.15em] px-8 py-[18px] rounded-full hover:bg-[#E3BA7E] transition-all duration-300 hover:shadow-[0_0_24px_rgba(201,160,99,0.3)] hover:-translate-y-[2px]"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               Plan your trip
@@ -129,7 +129,7 @@ export default function ExploreHero() {
       {/* Mobile Image (Visible only on small screens) */}
       <div className="w-full mt-10 lg:hidden relative h-[45vh] rounded-3xl overflow-hidden shadow-2xl border border-white/5 z-10 mx-6 w-[calc(100%-3rem)]">
           <Image src="/images/explore/im.jpg" fill className="object-cover" alt="Explore Kashmir" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806] to-transparent pointer-events-none opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#110C08] to-transparent pointer-events-none opacity-90" />
       </div>
 
       {/* Modern Animated Mouse Scroll Indicator */}
