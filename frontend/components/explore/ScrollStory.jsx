@@ -147,13 +147,13 @@ export default function ScrollStory() {
     prefersReducedMotion ? [0, 0] : [15, -8]
   );
 
-  // Don't render anything until mounted — prevents mobile→desktop layout flash
-  if (!mounted) return null;
-
   return (
     <div
       ref={sectionRef}
-      style={isDesktop ? { height: "500vh", position: "relative" } : undefined}
+      style={{
+        ...(isDesktop ? { height: "500vh", position: "relative" } : {}),
+        ...(mounted ? {} : { visibility: "hidden", height: 0, overflow: "hidden" }),
+      }}
     >
       {isDesktop ? (
         /* ═══ DESKTOP: pinned cinematic scroll ═══ */
