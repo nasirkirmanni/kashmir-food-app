@@ -61,6 +61,12 @@ export default async function CollectionPage({ params }) {
           }
         `}} />
         
+        {/* Subtle luxury background artwork (bluish mountain landscape) */}
+        <div 
+          className="absolute inset-0 bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.25]" 
+          style={{ filter: "blur(60px)" }}
+        />
+        
         {/* Uniform base tint */}
         <div className="absolute inset-0 bg-[#D4A85D] opacity-[0.02] mix-blend-screen"></div>
         
