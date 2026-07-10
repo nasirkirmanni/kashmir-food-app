@@ -30,7 +30,7 @@ export default function InteractiveExplorer({ items }) {
       </div>
 
       {/* Locations List */}
-      <div className="space-y-8 mb-12">
+      <div className="grid grid-cols-2 gap-4 md:gap-8 mb-12">
         {items.map((itemObj, index) => {
           const place = itemObj.item;
           if (!place) return null;
@@ -51,10 +51,10 @@ export default function InteractiveExplorer({ items }) {
             <Link
               key={index}
               href={`/${routePrefix}/${place.slug || place._id}`}
-              className="group flex flex-col md:flex-row w-full rounded-[24px] overflow-hidden bg-[#14110E] border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:border-[#D4A85D]/30"
+              className="group flex flex-col w-full rounded-[24px] overflow-hidden bg-[#14110E] border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:border-[#D4A85D]/30"
             >
               {/* Card Image */}
-              <div className="w-full md:w-[40%] aspect-[16/10] md:aspect-auto md:min-h-[280px] relative overflow-hidden shrink-0">
+              <div className="w-full aspect-[16/10] relative overflow-hidden shrink-0">
                 <img 
                   src={image} 
                   alt={place.name} 
@@ -63,42 +63,48 @@ export default function InteractiveExplorer({ items }) {
               </div>
 
               {/* Card Details */}
-              <div className="w-full md:w-[60%] p-6 md:p-10 flex flex-col justify-center relative">
+              <div className="w-full p-4 md:p-8 flex flex-col justify-between flex-1 relative">
                 
-                {/* Header elements: number and location side-by-side */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-1.5 text-[#D4A85D]">
-                    <MapPin size={14} className="text-[#D4A85D]" />
-                    <span className="text-[11px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
+                <div>
+                  {/* Header elements: number and location side-by-side */}
+                  <div className="flex items-center justify-between mb-2 md:mb-3">
+                    <div className="flex items-center gap-1.5 text-[#D4A85D]">
+                      <MapPin size={12} className="text-[#D4A85D]" />
+                      <span className="text-[9px] md:text-[11px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
+                    </div>
+                    <div className="w-7 h-7 md:w-9 md:h-9 rounded-full border border-[#D4A85D]/30 flex items-center justify-center text-[#D4A85D] text-[11px] md:text-[13px] font-bold font-serif">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
                   </div>
-                  <div className="w-9 h-9 rounded-full border border-[#D4A85D]/30 flex items-center justify-center text-[#D4A85D] text-[13px] font-bold font-serif">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
+
+                  <h3 
+                    className="font-serif text-[18px] md:text-[30px] text-white leading-tight mb-2 transition-colors group-hover:text-[#D4A85D]"
+                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                  >
+                    {place.name || place.title}
+                  </h3>
+
+                  {/* Hidden on mobile, shown on desktop */}
+                  <p className="hidden md:block text-white/70 text-[14px] md:text-[15px] font-light leading-relaxed mb-4 max-w-xl line-clamp-2">
+                    {itemObj.note || place.shortDescription || place.description}
+                  </p>
                 </div>
 
-                <h3 
-                  className="font-serif text-[28px] md:text-[36px] text-white leading-tight mb-2 transition-colors group-hover:text-[#D4A85D]"
-                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                >
-                  {place.name || place.title}
-                </h3>
+                {/* Divider and Specs - Hidden on mobile, shown on desktop */}
+                <div className="hidden md:block">
+                  <div className="w-full h-px bg-white/5 my-3" />
 
-                <p className="text-white/70 text-[14px] md:text-[15px] font-light leading-relaxed mb-4 max-w-xl line-clamp-2">
-                  {itemObj.note || place.shortDescription || place.description}
-                </p>
-
-                <div className="w-full h-px bg-white/5 my-3" />
-
-                {/* Footer specs */}
-                <div className="flex items-center gap-6 text-[13px] text-white/60">
-                  <div className="flex items-center gap-2">
-                    <Mountain size={15} className="text-[#D4A85D]/70" />
-                    <span>{difficultyVal}</span>
-                  </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
-                  <div className="flex items-center gap-2">
-                    <Clock size={15} className="text-[#D4A85D]/70" />
-                    <span>{durationVal}</span>
+                  {/* Footer specs */}
+                  <div className="flex items-center gap-6 text-[13px] text-white/60">
+                    <div className="flex items-center gap-2">
+                      <Mountain size={15} className="text-[#D4A85D]/70" />
+                      <span>{difficultyVal}</span>
+                    </div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                    <div className="flex items-center gap-2">
+                      <Clock size={15} className="text-[#D4A85D]/70" />
+                      <span>{durationVal}</span>
+                    </div>
                   </div>
                 </div>
 
