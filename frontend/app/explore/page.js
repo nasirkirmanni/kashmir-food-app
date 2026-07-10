@@ -54,16 +54,11 @@ export default async function ExplorePage() {
       {/* Back button for mobile */}
       <StickyMobileNav />
 
-      {/* Fixed immersive 4K background */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <Image 
-          src="/images/explore/4k-black-gold-bg.png" 
-          fill 
-          className="object-cover opacity-90" 
-          alt="Luxury Abstract Background" 
-          priority 
-          quality={100}
-        />
+      {/* Fixed immersive background */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#3A2818]/50 via-[#110C08]/90 to-[#110C08]" />
+        <div className="absolute top-[40%] left-[-20%] w-[70%] h-[500px] bg-[#4A3520]/15 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 right-[-10%] w-[60%] h-[600px] bg-[#2A1D12]/50 blur-[150px] rounded-full" />
       </div>
 
       <div className="relative z-10">

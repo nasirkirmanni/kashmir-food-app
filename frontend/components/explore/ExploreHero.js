@@ -4,6 +4,7 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import CinematicBackground from "./CinematicBackground";
 
 export default function ExploreHero() {
   const { scrollY } = useScroll();
@@ -13,27 +14,8 @@ export default function ExploreHero() {
   return (
     <div className="relative w-full h-[100vh] min-h-[640px] flex items-center overflow-hidden bg-transparent font-body">
       
-      {/* Background Image Removed - Falling back to global blackish-golden background */}
-
-      {/* Atmospheric Overlays removed for clean global background */}
-      {/* 5. Subtle Gold Light Bloom from the top right */}
-      <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-[radial-gradient(circle_at_top_right,_rgba(212,165,90,0.15),_transparent_60%)] z-10 pointer-events-none mix-blend-screen" />
-
-      {/* Subtle Noise Texture */}
-      <div 
-        className="absolute inset-0 opacity-[0.04] pointer-events-none z-10 mix-blend-overlay" 
-        style={{ 
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' 
-        }}
-      ></div>
-
-      {/* Faint Floral Kashmiri Watermark on the far left edge */}
-      <div className="absolute top-1/2 -translate-y-1/2 -left-24 md:-left-32 w-64 h-64 md:w-96 md:h-96 opacity-[0.03] text-[#d4a55a] pointer-events-none z-10 mix-blend-screen">
-        <svg viewBox="0 0 100 100" fill="currentColor" className="w-full h-full">
-          <path d="M50 0 C60 20 80 40 100 50 C80 60 60 80 50 100 C40 80 20 60 0 50 C20 40 40 20 50 0 Z" />
-          <circle cx="50" cy="50" r="8" fill="#110C08" />
-        </svg>
-      </div>
+      {/* Cinematic Animated Background */}
+      <CinematicBackground />
 
       {/* Content Container */}
       <div className="relative z-20 w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-full py-16">
