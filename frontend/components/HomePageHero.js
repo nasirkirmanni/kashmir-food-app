@@ -27,8 +27,8 @@ export default function HomePageHero() {
 
   useEffect(() => {
     const hour = new Date().getHours();
-    if (hour < 12) setGreeting("Good morning,");
-    else if (hour < 17) setGreeting("Good afternoon,");
+    if (hour >= 4 && hour < 12) setGreeting("Good morning,");
+    else if (hour >= 12 && hour < 17) setGreeting("Good afternoon,");
     else setGreeting("Good evening,");
   }, []);
 
