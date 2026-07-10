@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Image from "next/image";
 import CinematicBackground from "@/components/explore/CinematicBackground";
 import CarouselSection from "@/components/explore/CarouselSection";
+import CollectionMarquee from "@/components/explore/CollectionMarquee";
 import ExploreHero from "@/components/explore/ExploreHero";
 import StickyMobileNav from "@/components/StickyMobileNav";
 import { Calendar } from "lucide-react";
@@ -66,11 +67,10 @@ export default async function ExplorePage() {
         <main className="relative z-10 mx-auto flex flex-col gap-10 md:gap-16 pt-12 md:pt-20 pb-12">
         
         {/* Featured Collections */}
-        <CarouselSection 
+        <CollectionMarquee 
           title="Featured Collections" 
           subtitle="Curated experiences handpicked by local experts."
           items={collections}
-          cardType="collection"
           iconName="Star"
         />
 

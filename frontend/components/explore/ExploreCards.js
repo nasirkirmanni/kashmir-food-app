@@ -161,13 +161,14 @@ export function ExploreCollectionCard({ collection }) {
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className="group/card relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] z-10 will-change-transform shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:-translate-y-3 hover:!scale-[1.06] hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] group-hover/carousel:scale-[0.98] group-hover/carousel:opacity-90 hover:!opacity-100 cursor-pointer"
+      style={{ transition: 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease' }}
+      className="group/card relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block z-10 will-change-transform backface-hidden transform-gpu shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:scale-[1.04] hover:-translate-y-2 hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] cursor-pointer"
     >
       {/* Thumbnail Image */}
       <img
         src={imageUrl}
         alt={collection.name}
-        className="absolute inset-0 w-full h-full object-cover transition-all duration-[700ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80 group-hover/card:scale-[1.08] group-hover/card:brightness-[1.08] group-hover/card:saturate-[1.1] group-hover/card:contrast-[1.05] group-hover/card:opacity-100 will-change-transform"
+        className="absolute inset-0 w-full h-full object-cover transition-all duration-[700ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80 group-hover/card:brightness-[1.08] group-hover/card:saturate-[1.1] group-hover/card:contrast-[1.05] group-hover/card:opacity-100 will-change-transform"
       />
 
       {/* Dark gradient for text legibility */}
