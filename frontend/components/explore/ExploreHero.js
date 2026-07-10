@@ -9,19 +9,18 @@ export default function ExploreHero() {
   return (
     <div className="relative w-full h-[100vh] min-h-[640px] flex flex-col lg:flex-row overflow-hidden bg-[#050403] font-body">
       
-      {/* Right image layer (full bleed under the blend) */}
-      <div className="absolute inset-0">
-         <Image 
-           src="/images/explore/im.jpg" 
-           fill 
-           className="object-cover" 
-           style={{ filter: 'saturate(0.9)' }} 
-           alt="Explore Kashmir" 
-           priority 
-           quality={100}
-         />
-         {/* Base dark overlay to match the panel bg tone */}
-         <div className="absolute inset-0 bg-[#050403]/30" />
+      {/* Right background layer (gradients replacing the image) */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: `
+            linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%),
+            radial-gradient(circle at 68% 30%, rgba(120,150,90,0.5), transparent 55%),
+            linear-gradient(200deg, #d9a24a 0%, #6b5a34 22%, #2c3a24 45%, #14201a 70%, #0a0f0c 100%)
+          `,
+          filter: 'saturate(0.9)'
+        }}
+      >
       </div>
 
       {/* The blend: fades pure black (matching left panel) into the image */}
