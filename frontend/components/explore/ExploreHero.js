@@ -30,7 +30,7 @@ export default function ExploreHero() {
       </div>
 
       {/* Desktop Image: Absolute full-bleed on right */}
-      <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[48%] h-[85vh] z-10">
+      <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[44%] h-[72vh] z-10">
         <motion.div
            initial={{ opacity: 0, x: 30 }}
            animate={{ opacity: 1, x: 0 }}
@@ -80,7 +80,7 @@ export default function ExploreHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[42px] sm:text-[56px] md:text-[72px] lg:text-[80px] font-serif font-normal leading-[1.05] tracking-[-0.02em] mb-6 text-[#F2ECE4] drop-shadow-lg"
+            className="text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-serif font-normal leading-[1.08] tracking-[-0.01em] mb-5 text-[#F2ECE4] drop-shadow-lg"
             style={{fontFamily: "'Cormorant Garamond', serif"}}
           >
             What should you <br />
@@ -92,7 +92,7 @@ export default function ExploreHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[15px] md:text-[17px] text-[#A3998D] max-w-[420px] font-light leading-[1.7] mb-10"
+            className="text-[14px] md:text-[15px] text-[#A3998D] max-w-[380px] font-light leading-[1.7] mb-8"
           >
             Hidden waterfalls, quiet valleys, and the secret corners locals love. Embark on an immersive journey through the crown of India.
           </motion.p>
@@ -123,7 +123,7 @@ export default function ExploreHero() {
         </div>
 
         {/* Mobile Image (Visible only on small screens) */}
-        <div className="w-full mt-12 lg:hidden relative h-[50vh] rounded-3xl overflow-hidden shadow-2xl border border-white/10 z-10">
+        <div className="w-full mt-10 lg:hidden relative h-[45vh] rounded-2xl overflow-hidden shadow-2xl border border-white/10 z-10">
             <Image src="/images/explore/im.jpg" fill className="object-cover" alt="Explore Kashmir" priority />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806] to-transparent pointer-events-none opacity-80" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/40 to-transparent pointer-events-none" />
