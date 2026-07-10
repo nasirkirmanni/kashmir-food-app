@@ -304,11 +304,13 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["picnic", "family"],
     items: [
-      { name: "Yusmarg", type: "Destination" },
-      { name: "Doodhpathri", type: "Destination" },
-      { name: "Harwan", type: "Destination" },
-      { name: "Kokernag", type: "Destination" },
-      { name: "Sunday Picnic Escapes", type: "Trail" }
+
+      { name: "Yusmarg", type: "Destination" , order: 0 },
+      { name: "Doodhpathri", type: "Destination" , order: 1 },
+      { name: "Harwan", type: "Destination" , order: 2 },
+      { name: "Kokernag", type: "Destination" , order: 3 },
+      { name: "Sunday Picnic Escapes", type: "Trail" , order: 4 }
+    
     ]
   },
   {
@@ -317,11 +319,13 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["hidden-gem", "offbeat"],
     items: [
-      { name: "Chatpal", type: "Destination" },
-      { name: "Gurez Valley", type: "Destination" },
-      { name: "Lolab Valley", type: "Destination" },
-      { name: "Bangus Valley", type: "Destination" },
-      { name: "Daksum", type: "Destination" }
+
+      { name: "Chatpal", type: "Destination" , order: 0 },
+      { name: "Gurez Valley", type: "Destination" , order: 1 },
+      { name: "Lolab Valley", type: "Destination" , order: 2 },
+      { name: "Bangus Valley", type: "Destination" , order: 3 },
+      { name: "Daksum", type: "Destination" , order: 4 }
+    
     ]
   },
   {
@@ -330,11 +334,13 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["photography", "scenic"],
     items: [
-      { name: "Gulmarg", type: "Destination" },
-      { name: "Pari Mahal", type: "Destination" },
-      { name: "Astanmarg", type: "Destination" },
-      { name: "Tarsar Marsar", type: "Destination" },
-      { name: "Autumn Chinar Trail", type: "Trail" }
+
+      { name: "Gulmarg", type: "Destination" , order: 0 },
+      { name: "Pari Mahal", type: "Destination" , order: 1 },
+      { name: "Astanmarg", type: "Destination" , order: 2 },
+      { name: "Tarsar Marsar", type: "Destination" , order: 3 },
+      { name: "Autumn Chinar Trail", type: "Trail" , order: 4 }
+    
     ]
   },
   {
@@ -343,10 +349,12 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["weekend-idea", "roadtrip"],
     items: [
-      { name: "Pahalgam", type: "Destination" },
-      { name: "Sonamarg", type: "Destination" },
-      { name: "Aru Valley", type: "Destination" },
-      { name: "The Great Kashmir Road Trip", type: "Trail" }
+
+      { name: "Pahalgam", type: "Destination" , order: 0 },
+      { name: "Sonamarg", type: "Destination" , order: 1 },
+      { name: "Aru Valley", type: "Destination" , order: 2 },
+      { name: "The Great Kashmir Road Trip", type: "Trail" , order: 3 }
+    
     ]
   },
   {
@@ -355,9 +363,11 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["food", "wazwan"],
     items: [
-      { name: "Ahdoos", type: "Restaurant" },
-      { name: "Mughal Darbar", type: "Restaurant" },
-      { name: "Traditional Wazwan Trail", type: "Trail" }
+
+      { name: "Ahdoos", type: "Restaurant" , order: 0 },
+      { name: "Mughal Darbar", type: "Restaurant" , order: 1 },
+      { name: "Traditional Wazwan Trail", type: "Trail" , order: 2 }
+    
     ]
   },
   {
@@ -366,10 +376,12 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["family", "kids"],
     items: [
-      { name: "Betaab Valley", type: "Destination" },
-      { name: "Shalimar Bagh", type: "Destination" },
-      { name: "Manasbal Lake", type: "Destination" },
-      { name: "Achabal", type: "Destination" }
+
+      { name: "Betaab Valley", type: "Destination" , order: 0 },
+      { name: "Shalimar Bagh", type: "Destination" , order: 1 },
+      { name: "Manasbal Lake", type: "Destination" , order: 2 },
+      { name: "Achabal", type: "Destination" , order: 3 }
+    
     ]
   },
   {
@@ -378,9 +390,11 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["adventure", "trekking"],
     items: [
-      { name: "Tarsar Marsar", type: "Destination" },
-      { name: "Bangus Valley", type: "Destination" },
-      { name: "Gurez Valley", type: "Destination" }
+
+      { name: "Tarsar Marsar", type: "Destination" , order: 0 },
+      { name: "Bangus Valley", type: "Destination" , order: 1 },
+      { name: "Gurez Valley", type: "Destination" , order: 2 }
+    
     ]
   },
   {
@@ -389,10 +403,12 @@ export const collectionTemplates = [
     coverImage: "/wazwan-hero.jpg",
     tags: ["snow", "winter"],
     items: [
-      { name: "Gulmarg", type: "Destination" },
-      { name: "Sonamarg", type: "Destination" },
-      { name: "Sinthan Top", type: "Destination" },
-      { name: "Winter Snow Drive", type: "Trail" }
+
+      { name: "Gulmarg", type: "Destination" , order: 0 },
+      { name: "Sonamarg", type: "Destination" , order: 1 },
+      { name: "Sinthan Top", type: "Destination" , order: 2 },
+      { name: "Winter Snow Drive", type: "Trail" , order: 3 }
+    
     ]
   }
 ];

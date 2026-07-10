@@ -11,7 +11,8 @@ const collectionSchema = new mongoose.Schema(
       {
         itemType: { type: String, enum: ["Destination", "Restaurant", "Trail", "Dish"], required: true },
         item: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: "items.itemType" },
-        note: { type: String } // Optional context for why it's in the collection
+        note: { type: String }, // Optional context for why it's in the collection
+        order: { type: Number, default: 0 }
       }
     ],
   },

@@ -30,7 +30,7 @@ export default async function CollectionPage({ params }) {
 
   return (
     <div className="min-h-screen bg-[var(--profile-bg)] text-[var(--profile-text)] font-sans flex flex-col items-center">
-      <div className="w-full max-w-6xl relative overflow-hidden px-6 md:px-12 pt-16 pb-[120px]">
+      <div className="w-full max-w-6xl relative overflow-hidden px-6 md:px-12 pt-32 lg:pt-40 pb-[120px]">
         
         {/* Navigation */}
         <Link 
