@@ -49,15 +49,18 @@ export default function CarouselSection({ title, subtitle, items, cardType, onVi
               <Icon strokeWidth={1.5} size={20} />
             </div>
           )}
-          <div>
+          <div className="relative">
+            {/* Subtle radial golden glow behind the section heading */}
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-32 bg-[#d4a55a]/5 blur-[60px] pointer-events-none rounded-full" />
+            
             <h2 
-              className="text-[20px] md:text-[28px] font-serif text-[#E0C097] mb-1 leading-tight flex items-center gap-2"
+              className="relative text-[20px] md:text-[28px] font-serif text-[#E0C097] mb-1 leading-tight flex items-center gap-2 z-10"
               style={{fontFamily: "'Cormorant Garamond', serif"}}
             >
               {Icon && <Icon className="sm:hidden text-[#E0C097]" size={20} strokeWidth={2} fill="currentColor" />}
               {title}
             </h2>
-            {subtitle && <p className="text-[#A3998D] text-[13px] md:text-[14px] max-w-xl">{subtitle}</p>}
+            {subtitle && <p className="relative text-[#A3998D] text-[13px] md:text-[14px] max-w-xl z-10">{subtitle}</p>}
           </div>
         </div>
         

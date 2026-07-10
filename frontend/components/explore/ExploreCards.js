@@ -53,11 +53,11 @@ export function ExploreDestinationCard({ destination }) {
       />
       
       {/* Gradient for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#171311] via-[#171311]/40 to-transparent pointer-events-none" />
       
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
         {displayTags.map((tag) => (
-          <span key={tag} className="px-3 py-1.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-[#0B0B0B]/60 backdrop-blur-md rounded-full text-white border border-white/10">
+          <span key={tag} className="px-3 py-1.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-[#171311]/60 backdrop-blur-md rounded-full text-white border border-white/10">
             {tag}
           </span>
         ))}
@@ -109,10 +109,10 @@ export function ExploreTrailCard({ trail }) {
         alt={trail.title}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#171311] via-[#171311]/40 to-transparent pointer-events-none" />
       
       <div className="absolute top-4 right-4 z-10 flex gap-2">
-        <span className="px-3 py-1.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-[#C8A46A] text-[#0B0B0B] rounded-full">
+        <span className="px-3 py-1.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-[#C8A46A] text-[#171311] rounded-full">
           {trailType}
         </span>
       </div>
@@ -140,10 +140,10 @@ export function ExploreCollectionCard({ collection }) {
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className="group relative flex-shrink-0 w-[180px] sm:w-[220px] md:w-[260px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-transform duration-500 hover:-translate-y-2"
+      className="group relative flex-shrink-0 w-[180px] sm:w-[220px] md:w-[260px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-transform duration-500 hover:-translate-y-2 shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20"
     >
-      {/* Submerging gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#413123] via-[#2A1D12] to-[#0A0705] opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Submerging glass background */}
+      <div className="absolute inset-0 bg-[#241d18]/40 backdrop-blur-md transition-colors duration-500 group-hover:bg-[#241d18]/60" />
       
       {/* Glow effect */}
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#966E46]/20 blur-3xl rounded-full" />

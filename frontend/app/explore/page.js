@@ -48,21 +48,25 @@ export default async function ExplorePage() {
   } = data;
 
   return (
-    <div className="min-h-screen bg-[#110C08] text-white font-body pb-32 relative" id="explore-content">
+    <div className="min-h-screen bg-[#171311] text-white font-body pb-32 relative" id="explore-content">
       
       {/* Back button for mobile */}
       <StickyMobileNav />
 
       {/* Fixed immersive background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#3A2818]/50 via-[#110C08]/90 to-[#110C08]" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#3A2818]/50 via-[#171311]/90 to-[#171311]" />
         <div className="absolute top-[40%] left-[-20%] w-[70%] h-[500px] bg-[#4A3520]/15 blur-[150px] rounded-full" />
         <div className="absolute bottom-0 right-[-10%] w-[60%] h-[600px] bg-[#2A1D12]/50 blur-[150px] rounded-full" />
       </div>
 
       <div className="relative z-10">
-        {/* Hero Section */}
         <ExploreHero />
+        
+        {/* Soft mist overlay bridging hero and content */}
+        <div className="absolute w-full h-96 bg-gradient-to-b from-[#171311] via-[#171311]/50 to-transparent pointer-events-none -mt-48 z-0" />
+        
+        <div className="relative z-10 pt-12 md:pt-20">
 
       <main className="mx-auto flex flex-col gap-10 md:gap-16 pt-8 md:pt-12 pb-12">
         
