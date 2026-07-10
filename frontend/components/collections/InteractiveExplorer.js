@@ -63,10 +63,10 @@ export default function InteractiveExplorer({ items }) {
               </div>
 
               {/* Card Details */}
-              <div className="w-full md:w-[60%] p-8 md:p-10 flex flex-col justify-center relative">
+              <div className="w-full md:w-[60%] p-6 md:p-10 flex flex-col justify-center relative">
                 
                 {/* Header elements: number and location side-by-side */}
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5 text-[#D4A85D]">
                     <MapPin size={14} className="text-[#D4A85D]" />
                     <span className="text-[11px] font-semibold uppercase tracking-widest">{place.area || "Kashmir"}</span>
@@ -77,17 +77,17 @@ export default function InteractiveExplorer({ items }) {
                 </div>
 
                 <h3 
-                  className="font-serif text-[28px] md:text-[36px] text-white leading-tight mb-3 transition-colors group-hover:text-[#D4A85D]"
+                  className="font-serif text-[28px] md:text-[36px] text-white leading-tight mb-2 transition-colors group-hover:text-[#D4A85D]"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >
                   {place.name || place.title}
                 </h3>
 
-                <p className="text-white/70 text-[14px] md:text-[15px] font-light leading-relaxed mb-6 max-w-xl line-clamp-2">
+                <p className="text-white/70 text-[14px] md:text-[15px] font-light leading-relaxed mb-4 max-w-xl line-clamp-2">
                   {itemObj.note || place.shortDescription || place.description}
                 </p>
 
-                <div className="w-full h-px bg-white/5 my-4" />
+                <div className="w-full h-px bg-white/5 my-3" />
 
                 {/* Footer specs */}
                 <div className="flex items-center gap-6 text-[13px] text-white/60">
