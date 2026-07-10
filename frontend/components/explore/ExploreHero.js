@@ -11,7 +11,7 @@ export default function ExploreHero() {
   const yParallax = useTransform(scrollY, [0, 1000], [0, 150]);
 
   return (
-    <div className="relative w-full h-[100vh] min-h-[640px] flex items-center overflow-hidden bg-[#0B0B0B] font-body">
+    <div className="relative w-full h-[100vh] min-h-[640px] flex items-center overflow-hidden bg-transparent font-body">
       
       {/* Background Image Layer with Cinematic Zoom and Parallax */}
       <motion.div 
@@ -36,13 +36,13 @@ export default function ExploreHero() {
 
       {/* Atmospheric Overlays */}
       {/* 1. Left-to-right dark gradient for text legibility (matching reference) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/80 md:via-[#0B0B0B]/60 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#110C08] via-[#110C08]/80 md:via-[#110C08]/60 to-transparent z-10 pointer-events-none" />
       
       {/* 2. Bottom-to-top gradient for blending with the rest of the page */}
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0B0B0B] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#110C08] to-transparent z-10 pointer-events-none" />
 
       {/* 3. Top gradient to sit under navbar elegantly */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0B0B0B]/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#110C08]/80 to-transparent z-10 pointer-events-none" />
 
       {/* 4. Soft Vignette & Haze */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(0,0,0,0.5)_100%)] z-10 pointer-events-none mix-blend-multiply" />
@@ -62,7 +62,7 @@ export default function ExploreHero() {
       <div className="absolute top-1/2 -translate-y-1/2 -left-24 md:-left-32 w-64 h-64 md:w-96 md:h-96 opacity-[0.03] text-[#d4a55a] pointer-events-none z-10 mix-blend-screen">
         <svg viewBox="0 0 100 100" fill="currentColor" className="w-full h-full">
           <path d="M50 0 C60 20 80 40 100 50 C80 60 60 80 50 100 C40 80 20 60 0 50 C20 40 40 20 50 0 Z" />
-          <circle cx="50" cy="50" r="8" fill="#0B0B0B" />
+          <circle cx="50" cy="50" r="8" fill="#110C08" />
         </svg>
       </div>
 
@@ -113,7 +113,7 @@ export default function ExploreHero() {
             <Link 
               href="/custom-trip" 
               prefetch={false} 
-              className="group inline-flex items-center justify-center gap-3 bg-[#d4a55a] text-[#0B0B0B] font-semibold text-[13px] tracking-[1px] px-10 py-[18px] rounded-full hover:bg-[#e6bb75] transition-all duration-400 uppercase shadow-[0_4px_20px_rgba(212,165,90,0.15)] hover:shadow-[0_8px_30px_rgba(212,165,90,0.3)] hover:-translate-y-1"
+              className="group inline-flex items-center justify-center gap-3 bg-[#d4a55a] text-[#110C08] font-semibold text-[13px] tracking-[1px] px-10 py-[18px] rounded-full hover:bg-[#e6bb75] transition-all duration-400 uppercase shadow-[0_4px_20px_rgba(212,165,90,0.15)] hover:shadow-[0_8px_30px_rgba(212,165,90,0.3)] hover:-translate-y-1"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
