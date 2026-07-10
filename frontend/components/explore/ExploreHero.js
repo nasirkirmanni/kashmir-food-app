@@ -67,14 +67,14 @@ export default function ExploreHero() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-20 w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-full mt-16 md:mt-0">
+      <div className="relative z-20 w-full lg:w-[45%] max-w-[800px] flex flex-col justify-center px-6 md:px-12 lg:px-[80px] h-full py-16">
           
           {/* Eyebrow */}
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-4 text-[#d4a55a] text-[11px] md:text-[13px] font-semibold tracking-[0.2em] uppercase mb-6 md:mb-8"
+            className="flex items-center gap-4 text-[#d4a55a] text-[11px] md:text-[13px] font-semibold tracking-[0.2em] uppercase mb-4 md:mb-6"
           >
             <span className="w-8 h-[1px] bg-[#d4a55a] inline-block"></span>
             DISCOVER PARADISE
@@ -85,7 +85,7 @@ export default function ExploreHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[42px] sm:text-[56px] lg:text-[72px] xl:text-[84px] font-serif font-medium leading-[1.1] text-[#f2ede4] mb-6 md:mb-8 drop-shadow-lg"
+            className="text-[36px] sm:text-[48px] lg:text-[56px] xl:text-[64px] font-serif font-medium leading-[1.1] text-[#f2ede4] mb-5 md:mb-6 drop-shadow-lg"
             style={{fontFamily: "'Cormorant Garamond', serif"}}
           >
             What should you<br/>
@@ -98,7 +98,7 @@ export default function ExploreHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[rgba(255,255,255,0.75)] text-[16px] md:text-[18px] leading-[1.7] max-w-[550px] mb-10 md:mb-12 font-light"
+            className="text-[rgba(255,255,255,0.75)] text-[15px] md:text-[17px] leading-[1.6] max-w-[550px] mb-8 md:mb-10 font-light"
           >
             Hidden waterfalls, quiet valleys, and the secret corners locals love. Embark on an immersive journey through the crown of India.
           </motion.p>
