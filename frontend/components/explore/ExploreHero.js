@@ -13,26 +13,7 @@ export default function ExploreHero() {
   return (
     <div className="relative w-full h-[100vh] min-h-[640px] flex items-center overflow-hidden bg-transparent font-body">
       
-      {/* Background Image Layer with Cinematic Zoom and Parallax */}
-      <motion.div 
-        style={{ y: yParallax }}
-        className="absolute inset-0 w-full h-[120vh] -top-[10vh] z-0"
-      >
-        <motion.div
-          animate={{ scale: [1, 1.04] }}
-          transition={{ duration: 30, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
-          className="relative w-full h-full"
-        >
-          <Image 
-            src="/images/explore/an1.jpg" 
-            fill 
-            className="object-cover object-[70%_center] sepia-[.20] saturate-[1.1] hue-rotate-[-5deg] brightness-[0.95]" 
-            alt="Explore Kashmir Landscape" 
-            priority 
-            quality={100}
-          />
-        </motion.div>
-      </motion.div>
+      {/* Background Image Removed - Falling back to global blackish-golden background */}
 
       {/* Atmospheric Overlays */}
       {/* 1. Left-to-right dark gradient for text legibility (matching reference) */}
