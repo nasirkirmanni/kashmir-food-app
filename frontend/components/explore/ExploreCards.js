@@ -61,7 +61,7 @@ export function ExploreDestinationCard({ destination }) {
   return (
     <Link
       href={`/destinations/${destination.slug}`}
-      className="group relative flex-shrink-0 w-[260px] sm:w-[300px] md:w-[320px] aspect-[3/4] rounded-[24px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5"
+      className="group relative flex-shrink-0 w-[260px] sm:w-[300px] md:w-[320px] aspect-[3/4] rounded-[24px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
     >
       <img
         src={imageUrl}
@@ -119,7 +119,7 @@ export function ExploreTrailCard({ trail }) {
   return (
     <Link
       href={`/trails/${trail.slug}`}
-      className="group relative flex-shrink-0 w-[320px] sm:w-[380px] md:w-[440px] aspect-[16/10] rounded-[24px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5"
+      className="group relative flex-shrink-0 w-[320px] sm:w-[380px] md:w-[440px] aspect-[16/10] rounded-[24px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
     >
       <img
         src={imageUrl}
@@ -161,7 +161,7 @@ export function ExploreCollectionCard({ collection }) {
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className="group relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-transform duration-500 hover:-translate-y-2 shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20"
+      className="group relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.04] shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:shadow-[0_20px_50px_rgba(20,15,10,0.8)]"
     >
       {/* Thumbnail Image */}
       <img
