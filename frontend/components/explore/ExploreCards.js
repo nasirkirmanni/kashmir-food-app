@@ -161,7 +161,7 @@ export function ExploreCollectionCard({ collection }) {
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className="group/card relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-all duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] z-10 will-change-transform shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:-translate-y-[10px] hover:scale-[1.06] hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] group-hover/carousel:[&:not(:hover)]:scale-[0.98] group-hover/carousel:[&:not(:hover)]:opacity-90 cursor-pointer"
+      className="group/card relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] z-10 will-change-transform shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:-translate-y-3 hover:!scale-[1.06] hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] group-hover/carousel:scale-[0.98] group-hover/carousel:opacity-90 hover:!opacity-100 cursor-pointer"
     >
       {/* Thumbnail Image */}
       <img
