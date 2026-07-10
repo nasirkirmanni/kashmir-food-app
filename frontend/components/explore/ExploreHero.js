@@ -24,7 +24,7 @@ export default function ExploreHero() {
           className="relative w-full h-full"
         >
           <Image 
-            src="/images/explore/explorekashmir.png" 
+            src="/images/explore/im.jpg" 
             fill 
             className="object-cover object-[70%_center]" 
             alt="Explore Kashmir Landscape" 
