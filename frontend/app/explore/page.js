@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import CarouselSection from "@/components/explore/CarouselSection";
 import ExploreHero from "@/components/explore/ExploreHero";
+import StickyMobileNav from "@/components/StickyMobileNav";
 import { Calendar } from "lucide-react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -49,6 +50,9 @@ export default async function ExplorePage() {
   return (
     <div className="min-h-screen bg-[#110C08] text-white font-body pb-32 relative" id="explore-content">
       
+      {/* Back button for mobile */}
+      <StickyMobileNav />
+
       {/* Fixed immersive background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#3A2818]/50 via-[#110C08]/90 to-[#110C08]" />

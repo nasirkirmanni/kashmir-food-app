@@ -13,7 +13,7 @@ export default function StickyMobileNav() {
   }, []);
 
   const navContent = (
-    <div className="md:hidden fixed z-[100] top-[calc(env(safe-area-inset-top)+1rem)] left-4 pointer-events-auto">
+    <div className="md:hidden fixed z-[100] top-[calc(env(safe-area-inset-top)+1.5rem)] left-6 pointer-events-auto">
       <button 
         onClick={() => router.back()}
         className="flex items-center justify-center w-10 h-10 rounded-full bg-black/20 backdrop-blur-lg border border-white/20 shadow-md hover:bg-black/40 active:scale-95 transition-all"
