@@ -72,12 +72,17 @@ export default function ExploreHero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-4"
         >
-          <div className="w-10 h-[1px] bg-[#5F4E3A]"></div>
-          <span className="text-[#6D6356] font-semibold tracking-[0.2em] uppercase text-[9px] md:text-[10px]">
-            Scroll to explore
-          </span>
+          <motion.div
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center gap-4"
+          >
+            <div className="w-10 h-[1px] bg-[#5F4E3A]"></div>
+            <span className="text-[#6D6356] font-semibold tracking-[0.2em] uppercase text-[9px] md:text-[10px]">
+              Scroll to explore
+            </span>
+          </motion.div>
         </motion.div>
         
       </div>
