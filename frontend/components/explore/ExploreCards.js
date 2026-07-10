@@ -8,7 +8,18 @@ import { MapPin, Clock, Camera, Mountain, Navigation, Compass, Calendar, Users, 
 const getFallbackImage = (tags = [], type = "destination") => {
   const tagString = Array.isArray(tags) ? tags.join(" ").toLowerCase() : String(tags).toLowerCase();
   
-  // Specific thematic matches (works for collections and destinations)
+  // Custom AI-generated thumbnails for collections
+  if (type === "collection") {
+    if (tagString.includes("picnic")) return "/images/collections/picnic.png";
+    if (tagString.includes("hidden") || tagString.includes("gem")) return "/images/collections/hidden.png";
+    if (tagString.includes("photography") || tagString.includes("photo")) return "/images/collections/photography.png";
+    if (tagString.includes("weekend") || tagString.includes("escape")) return "/images/collections/weekend.png";
+    if (tagString.includes("wazwan") || tagString.includes("restaurant") || tagString.includes("food")) return "/images/collections/wazwan.png";
+    if (tagString.includes("family") || tagString.includes("adventure")) return "/images/collections/family.png";
+    return "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop"; // Default
+  }
+
+  // Specific thematic matches (works for destinations and trails)
   if (tagString.includes("picnic") || tagString.includes("forest") || tagString.includes("nature")) {
     return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1000&auto=format&fit=crop"; // Forest
   }
@@ -33,9 +44,6 @@ const getFallbackImage = (tags = [], type = "destination") => {
     return "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000&auto=format&fit=crop"; // Lake
   }
   
-  if (type === "collection") {
-    return "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop"; // Editorial travel
-  }
   return "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=1000&auto=format&fit=crop"; // Generic majestic landscape
 };
 
