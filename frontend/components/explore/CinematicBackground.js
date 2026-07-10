@@ -29,33 +29,33 @@ export default function CinematicBackground() {
       <motion.div 
         animate={{ 
           scale: [1, 1.1, 1],
-          opacity: [0.3, 0.4, 0.3],
+          opacity: [0.6, 0.8, 0.6],
           x: [0, -20, 0],
           y: [0, 20, 0]
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] right-[-10%] w-[60%] h-[70%] rounded-full bg-[radial-gradient(circle_at_center,_rgba(212,166,74,0.12)_0%,_transparent_70%)] pointer-events-none mix-blend-screen blur-[80px]"
+        className="absolute top-[-10%] right-[-10%] w-[60%] h-[70%] rounded-full bg-[radial-gradient(circle_at_center,_rgba(212,166,74,0.25)_0%,_transparent_70%)] pointer-events-none mix-blend-screen blur-[80px]"
       />
 
       {/* Bottom Left Glow */}
       <motion.div 
         animate={{ 
           scale: [1, 1.2, 1],
-          opacity: [0.2, 0.3, 0.2],
+          opacity: [0.5, 0.7, 0.5],
           x: [0, 30, 0],
           y: [0, -10, 0]
         }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[60%] rounded-full bg-[radial-gradient(circle_at_center,_rgba(255,200,100,0.08)_0%,_transparent_70%)] pointer-events-none mix-blend-screen blur-[100px]"
+        className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[60%] rounded-full bg-[radial-gradient(circle_at_center,_rgba(255,200,100,0.18)_0%,_transparent_70%)] pointer-events-none mix-blend-screen blur-[100px]"
       />
 
       {/* Center/Headline Glow */}
       <motion.div 
         animate={{ 
-          opacity: [0.15, 0.25, 0.15]
+          opacity: [0.3, 0.5, 0.3]
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-        className="absolute top-[30%] left-[10%] w-[40%] h-[50%] rounded-full bg-[radial-gradient(circle_at_center,_rgba(160,120,40,0.05)_0%,_transparent_60%)] pointer-events-none mix-blend-screen blur-[60px]"
+        className="absolute top-[30%] left-[10%] w-[40%] h-[50%] rounded-full bg-[radial-gradient(circle_at_center,_rgba(160,120,40,0.15)_0%,_transparent_60%)] pointer-events-none mix-blend-screen blur-[60px]"
       />
 
       {/* LAYER 4: Luxury Pattern */}
@@ -105,8 +105,8 @@ export default function CinematicBackground() {
       )}
 
       {/* Vignette & Depth Shadows to keep left side very dark */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(6,6,6,0.8)_100%)] pointer-events-none z-10" />
-      <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#060606] to-transparent pointer-events-none z-10 opacity-70" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(6,6,6,0.4)_100%)] pointer-events-none z-10" />
+      <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#060606] to-transparent pointer-events-none z-10 opacity-30" />
       
       {/* Blend seamlessly into the page background (#110C08) at the bottom */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#110C08] via-[#110C08]/80 to-transparent pointer-events-none z-10" />
