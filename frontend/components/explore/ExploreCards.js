@@ -8,11 +8,23 @@ import { MapPin, Clock, Camera, Mountain, Navigation, Compass, Calendar, Users, 
 const getFallbackImage = (tags = [], type = "destination") => {
   const tagString = Array.isArray(tags) ? tags.join(" ").toLowerCase() : String(tags).toLowerCase();
   
+  // Specific thematic matches (works for collections and destinations)
+  if (tagString.includes("picnic") || tagString.includes("forest") || tagString.includes("nature")) {
+    return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1000&auto=format&fit=crop"; // Forest
+  }
+  if (tagString.includes("photography") || tagString.includes("photo")) {
+    return "https://images.unsplash.com/photo-1542127242-4f762635a9cc?q=80&w=1000&auto=format&fit=crop"; // Picturesque landscape
+  }
+  if (tagString.includes("wazwan") || tagString.includes("food") || tagString.includes("restaurant")) {
+    return "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=1000&auto=format&fit=crop"; // Spices/Food
+  }
+  if (tagString.includes("hidden") || tagString.includes("gem") || tagString.includes("weekend") || tagString.includes("escape")) {
+    return "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000&auto=format&fit=crop"; // Lake/Hidden
+  }
+
+  // Type specific fallbacks
   if (type === "trail" || tagString.includes("scenic-drive") || tagString.includes("drive")) {
     return "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1000&auto=format&fit=crop"; // Scenic road
-  }
-  if (type === "trail" && (tagString.includes("food") || tagString.includes("wazwan"))) {
-    return "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=1000&auto=format&fit=crop"; // Food/spice market
   }
   if (tagString.includes("mountain") || tagString.includes("trek") || tagString.includes("alpine")) {
     return "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1000&auto=format&fit=crop"; // Mountains
@@ -20,12 +32,7 @@ const getFallbackImage = (tags = [], type = "destination") => {
   if (tagString.includes("lake") || tagString.includes("water")) {
     return "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000&auto=format&fit=crop"; // Lake
   }
-  if (tagString.includes("forest") || tagString.includes("nature") || tagString.includes("picnic")) {
-    return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1000&auto=format&fit=crop"; // Forest/Nature
-  }
-  if (tagString.includes("photography") || tagString.includes("hidden-gem")) {
-    return "https://images.unsplash.com/photo-1542127242-4f762635a9cc?q=80&w=1000&auto=format&fit=crop"; // Picturesque landscape
-  }
+  
   if (type === "collection") {
     return "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop"; // Editorial travel
   }
@@ -137,12 +144,14 @@ export function ExploreTrailCard({ trail }) {
 
 // --- ExploreCollectionCard (4:3 Ratio, Editorial Style) ---
 export function ExploreCollectionCard({ collection }) {
-  const imageUrl = collection.image || getFallbackImage([collection.name], "collection");
+  const imageUrl = (collection.image && collection.image.length > 5 && !collection.image.includes("null") && !collection.image.includes("undefined"))
+    ? collection.image
+    : getFallbackImage([collection.name], "collection");
 
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className="group relative flex-shrink-0 w-[180px] sm:w-[220px] md:w-[260px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-transform duration-500 hover:-translate-y-2 shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20"
+      className="group relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block transition-transform duration-500 hover:-translate-y-2 shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20"
     >
       {/* Thumbnail Image */}
       <img
