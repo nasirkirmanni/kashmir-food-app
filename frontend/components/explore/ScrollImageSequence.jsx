@@ -54,156 +54,159 @@ export default function ScrollImageSequence() {
   const opacity3 = useTransform(scrollYProgress, [0.61, 0.66, 1], [0, 1, 1]);
   const scale3 = useTransform(scrollYProgress, [0.61, 1], [prefersReducedMotion ? 1 : 1.05, 1.0]);
 
-  // Mobile: simple static vertical stack, no scroll-pinning
-  if (!isDesktop) {
-    return (
-      <div className="flex flex-col w-full">
-        <div className="relative w-full h-[60vh]">
-          <Image src="/images/explore/an1.jpg" alt="Snowy mountain valley with pine trees" fill className="object-cover" priority />
-        </div>
-        <div className="relative w-full h-[60vh]">
-          <Image src="/images/explore/an2.jpg" alt="Autumn forest path" fill className="object-cover" />
-        </div>
-        <div className="relative w-full h-[60vh]">
-          <Image src="/images/explore/an3.jpg" alt="Snowmobile rider on snowy slope" fill className="object-cover" />
-        </div>
-      </div>
-    );
-  }
-
-  // Desktop: scroll-pinned crossfade sequence
+  // Single return — always render the ref'd container so useScroll never sees an unhydrated ref
   return (
-    <div ref={sectionRef} style={{ height: "400vh", position: "relative" }}>
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflow: "hidden",
-          backgroundColor: "#000",
-        }}
-      >
-        {/* Layer 1: an1.jpg — landscape, full-bleed cover */}
-        <motion.div
+    <div
+      ref={sectionRef}
+      style={isDesktop ? { height: "400vh", position: "relative" } : undefined}
+    >
+      {isDesktop ? (
+        /* Desktop: scroll-pinned crossfade sequence */
+        <div
           style={{
-            opacity: opacity1,
-            scale: scale1,
-            position: "absolute",
-            inset: 0,
-            zIndex: 1,
-            willChange: "opacity, transform",
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflow: "hidden",
+            backgroundColor: "#000",
           }}
         >
-          <Image
-            src="/images/explore/an1.jpg"
-            alt="Snowy mountain valley with pine trees and snow-capped peaks"
-            fill
-            style={{ objectFit: "cover" }}
-            priority
-          />
-        </motion.div>
-
-        {/* Layer 2: an2.jpg — portrait with blurred backdrop */}
-        <motion.div
-          style={{
-            opacity: opacity2,
-            scale: scale2,
-            position: "absolute",
-            inset: 0,
-            zIndex: 2,
-            willChange: "opacity, transform",
-          }}
-        >
-          {/* Blurred backdrop — static filter, never re-animated */}
-          <Image
-            src="/images/explore/an2.jpg"
-            alt=""
-            fill
+          {/* Layer 1: an1.jpg — landscape, full-bleed cover */}
+          <motion.div
             style={{
-              objectFit: "cover",
-              filter: "blur(40px) brightness(0.7)",
-              transform: "scale(1.2)",
-            }}
-            aria-hidden="true"
-          />
-          {/* Sharp centered portrait */}
-          <div
-            style={{
+              opacity: opacity1,
+              scale: scale1,
               position: "absolute",
               inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              zIndex: 1,
+              willChange: "opacity, transform",
             }}
           >
+            <Image
+              src="/images/explore/an1.jpg"
+              alt="Snowy mountain valley with pine trees and snow-capped peaks"
+              fill
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </motion.div>
+
+          {/* Layer 2: an2.jpg — portrait with blurred backdrop */}
+          <motion.div
+            style={{
+              opacity: opacity2,
+              scale: scale2,
+              position: "absolute",
+              inset: 0,
+              zIndex: 2,
+              willChange: "opacity, transform",
+            }}
+          >
+            {/* Blurred backdrop — static filter, never re-animated */}
             <Image
               src="/images/explore/an2.jpg"
-              alt="Autumn forest path with a person walking under orange and red trees"
-              width={1000}
-              height={1500}
+              alt=""
+              fill
               style={{
-                objectFit: "contain",
-                maxHeight: "85vh",
-                width: "auto",
-                borderRadius: "4px",
-                boxShadow: "0 25px 60px -12px rgba(0, 0, 0, 0.6)",
+                objectFit: "cover",
+                filter: "blur(40px) brightness(0.7)",
+                transform: "scale(1.2)",
               }}
+              aria-hidden="true"
             />
-          </div>
-        </motion.div>
+            {/* Sharp centered portrait */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src="/images/explore/an2.jpg"
+                alt="Autumn forest path with a person walking under orange and red trees"
+                width={1000}
+                height={1500}
+                style={{
+                  objectFit: "contain",
+                  maxHeight: "85vh",
+                  width: "auto",
+                  borderRadius: "4px",
+                  boxShadow: "0 25px 60px -12px rgba(0, 0, 0, 0.6)",
+                }}
+              />
+            </div>
+          </motion.div>
 
-        {/* Layer 3: an3.jpg — portrait with blurred backdrop */}
-        <motion.div
-          style={{
-            opacity: opacity3,
-            scale: scale3,
-            position: "absolute",
-            inset: 0,
-            zIndex: 3,
-            willChange: "opacity, transform",
-          }}
-        >
-          {/* Blurred backdrop — static filter, never re-animated */}
-          <Image
-            src="/images/explore/an3.jpg"
-            alt=""
-            fill
+          {/* Layer 3: an3.jpg — portrait with blurred backdrop */}
+          <motion.div
             style={{
-              objectFit: "cover",
-              filter: "blur(40px) brightness(0.7)",
-              transform: "scale(1.2)",
-            }}
-            aria-hidden="true"
-          />
-          {/* Sharp centered portrait */}
-          <div
-            style={{
+              opacity: opacity3,
+              scale: scale3,
               position: "absolute",
               inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              zIndex: 3,
+              willChange: "opacity, transform",
             }}
           >
+            {/* Blurred backdrop — static filter, never re-animated */}
             <Image
               src="/images/explore/an3.jpg"
-              alt="Snowmobile rider on a snowy slope"
-              width={1000}
-              height={1500}
+              alt=""
+              fill
               style={{
-                objectFit: "contain",
-                maxHeight: "85vh",
-                width: "auto",
-                borderRadius: "4px",
-                boxShadow: "0 25px 60px -12px rgba(0, 0, 0, 0.6)",
+                objectFit: "cover",
+                filter: "blur(40px) brightness(0.7)",
+                transform: "scale(1.2)",
               }}
+              aria-hidden="true"
             />
-          </div>
-        </motion.div>
+            {/* Sharp centered portrait */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src="/images/explore/an3.jpg"
+                alt="Snowmobile rider on a snowy slope"
+                width={1000}
+                height={1500}
+                style={{
+                  objectFit: "contain",
+                  maxHeight: "85vh",
+                  width: "auto",
+                  borderRadius: "4px",
+                  boxShadow: "0 25px 60px -12px rgba(0, 0, 0, 0.6)",
+                }}
+              />
+            </div>
+          </motion.div>
 
-        {/* Progress indicator dots */}
-        <ProgressDots scrollYProgress={scrollYProgress} />
-      </div>
+          {/* Progress indicator dots */}
+          <ProgressDots scrollYProgress={scrollYProgress} />
+        </div>
+      ) : (
+        /* Mobile: simple static vertical stack, no scroll-pinning */
+        <div className="flex flex-col w-full">
+          <div className="relative w-full h-[60vh]">
+            <Image src="/images/explore/an1.jpg" alt="Snowy mountain valley with pine trees" fill className="object-cover" priority />
+          </div>
+          <div className="relative w-full h-[60vh]">
+            <Image src="/images/explore/an2.jpg" alt="Autumn forest path" fill className="object-cover" />
+          </div>
+          <div className="relative w-full h-[60vh]">
+            <Image src="/images/explore/an3.jpg" alt="Snowmobile rider on snowy slope" fill className="object-cover" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
