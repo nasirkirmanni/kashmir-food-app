@@ -44,11 +44,11 @@ export default function CollectionHero({ collection }) {
           src={mobileBgImage}
           alt="Mobile Collection Background"
           fill
-          className="object-cover object-center opacity-55"
+          className="object-cover object-bottom opacity-75"
           priority
         />
         {/* Dark vignette overlay for text legibility */}
-        <div className="absolute inset-0 bg-black/50 bg-gradient-to-b from-black/30 via-black/60 to-black z-20" />
+        <div className="absolute inset-0 bg-black/45 bg-gradient-to-b from-black/55 via-black/25 to-black z-20" />
       </div>
       
       {/* Right side aesthetic image */}
