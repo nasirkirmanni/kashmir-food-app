@@ -10,8 +10,10 @@ const getFallbackImage = (tags = [], type = "destination") => {
   
   // Custom AI-generated thumbnails for collections
   if (type === "collection") {
-    if (tagString.includes("picnic")) return "/images/collections/picnic.png";
-    if (tagString.includes("hidden") || tagString.includes("gem")) return "/images/collections/hidden.png";
+    if (tagString.includes("picnic")) return "/images/collections/picnic_real.png";
+    if (tagString.includes("hidden") || tagString.includes("gem")) return "/images/collections/hidden_real.png";
+    if (tagString.includes("trek") || tagString.includes("camp")) return "/images/collections/trekking_real.png";
+    if (tagString.includes("snow") || tagString.includes("winter")) return "/images/collections/snow_real.png";
     if (tagString.includes("photography") || tagString.includes("photo")) return "/images/collections/photography.png";
     if (tagString.includes("weekend") || tagString.includes("escape")) return "/images/collections/weekend.png";
     if (tagString.includes("wazwan") || tagString.includes("restaurant") || tagString.includes("food")) return "/images/collections/wazwan.png";
