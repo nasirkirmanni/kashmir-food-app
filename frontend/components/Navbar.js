@@ -46,14 +46,14 @@ export default function Navbar() {
     { label: "Kashmiri Food", href: "/kashmiri-food" },
     { label: "Traditional Wazwan", href: "/dishes" },
     { label: "Restaurants", href: "/restaurants" },
-    { label: "Visit Kashmir", href: "/explore" },
-    { label: "Blog", href: "/blog" },
+    { label: "Visit Kashmir", href: "/plan" },
+    { label: "Explore Kashmir", href: "/explore" },
   ];
 
   /* ── Liquid Glass pill style — desktop navbar ── */
   const desktopNav = (
     <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
-      <div className="flex h-20 items-center justify-between w-full px-6 lg:px-12 2xl:px-16">
+      <div className="flex h-20 items-center justify-between w-full pl-3 pr-6 lg:pl-6 lg:pr-12 2xl:pl-8 2xl:pr-16">
         
         {/* Left Side: Logo */}
         <Link
