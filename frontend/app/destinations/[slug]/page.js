@@ -7,7 +7,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-ap
 
 export async function generateStaticParams() {
   try {
-    const res = await fetch(`${API_BASE}/api/destinations`, { cache: 'no-store' });
+    const res = await fetch(`${API_BASE}/api/destinations`);
     if (res.ok) {
       const destinations = await res.json();
       return destinations.map(dest => ({ slug: dest.slug || dest._id }));
