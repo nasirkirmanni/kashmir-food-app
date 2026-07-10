@@ -98,6 +98,16 @@ export default async function CollectionPage({ params }) {
       {/* Related Collections */}
       <RelatedCollections currentSlug={params.slug} />
 
+      {/* Brand Signature for mobile scroll end */}
+      <div className="block lg:hidden text-center pt-8 pb-20 opacity-30 relative z-10 select-none">
+        <p className="font-serif text-[18px] tracking-[0.25em] uppercase text-white font-medium" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+          Wazwan Way
+        </p>
+        <p className="text-[8px] uppercase tracking-[0.2em] text-[#D4A85D] mt-1.5 font-semibold">
+          Discover Kashmiri Heritage
+        </p>
+      </div>
+
     </div>
   );
 }
