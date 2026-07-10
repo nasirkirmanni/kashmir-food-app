@@ -186,18 +186,18 @@ export default function ProfilePage() {
             </div>
           </Link>
           
-          <div className="flex items-center gap-4 py-4 border-b border-[var(--profile-line)] cursor-pointer hover:bg-white/5 transition-colors group">
+          <Link href="/explore" className="flex items-center gap-4 py-4 border-b border-[var(--profile-line)] cursor-pointer hover:bg-white/5 transition-colors group">
             <div className="w-[18px] h-[18px] text-[var(--profile-gold)] flex-shrink-0">
               <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-gold)]"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>
             </div>
             <div className="flex-1">
-              <div className="text-[15px] text-[var(--profile-text)]">Trips & Plans</div>
-              <div className="text-[11.5px] text-[var(--profile-text-muted)] mt-0.5">Your itineraries</div>
+              <div className="text-[15px] text-[var(--profile-text)]">Explore Kashmir</div>
+              <div className="text-[11.5px] text-[var(--profile-text-muted)] mt-0.5">Discover and plan adventures</div>
             </div>
             <div className="w-[14px] h-[14px] opacity-40 group-hover:opacity-100 transition-opacity">
               <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-text)]"><path d="M9 18l6-6-6-6"/></svg>
             </div>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-4 py-4 border-b border-[var(--profile-line)] cursor-pointer hover:bg-white/5 transition-colors group">
             <div className="w-[18px] h-[18px] text-[var(--profile-gold)] flex-shrink-0">

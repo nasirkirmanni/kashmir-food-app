@@ -46,7 +46,7 @@ export default function Navbar() {
     { label: "Kashmiri Food", href: "/kashmiri-food" },
     { label: "Traditional Wazwan", href: "/dishes" },
     { label: "Restaurants", href: "/restaurants" },
-    { label: "Visit Kashmir", href: "/plan" },
+    { label: "Explore Kashmir", href: "/explore" },
     { label: "Blog", href: "/blog" },
   ];
 

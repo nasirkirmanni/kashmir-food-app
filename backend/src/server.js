@@ -17,6 +17,7 @@ import restaurantLeadRoutes from "./routes/restaurantLeadRoutes.js";
 import travelAgencyRoutes from "./routes/travelAgencyRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import explorerRoutes from "./routes/explorerRoutes.js";
+import exploreRoutes from "./routes/exploreRoutes.js";
 
 dotenv.config();
 
@@ -111,6 +112,7 @@ app.use("/api/restaurant-leads", restaurantLeadRoutes);
 app.use("/api/travel-agencies", travelAgencyRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/explorer", explorerRoutes);
+app.use("/api/explore", exploreRoutes);
 
 app.use((err, req, res, next) => {
   if (err.code === "EBADCSRFTOKEN") {
