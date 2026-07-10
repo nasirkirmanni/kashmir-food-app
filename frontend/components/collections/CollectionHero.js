@@ -49,6 +49,8 @@ export default function CollectionHero({ collection }) {
         />
         {/* Dark vignette overlay for text legibility */}
         <div className="absolute inset-0 bg-black/45 bg-gradient-to-b from-black/55 via-black/25 to-black z-20" />
+        {/* Seamless bottom fade-out to prevent sharp cutoff lines */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent z-20" />
       </div>
       
       {/* Right side aesthetic image */}
