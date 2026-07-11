@@ -13,6 +13,7 @@ import CapacitorListeners from "@/components/CapacitorListeners";
 const GlobalSearchModal = dynamic(() => import("@/components/GlobalSearchModal"), { ssr: false });
 import NextTopLoader from "nextjs-toploader";
 
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
@@ -136,6 +137,7 @@ export default function RootLayout({ children }) {
               <WazaAI />
               <GlobalSearchModal />
               <MobileNav />
+
             </div>
           </MobileNavigationProvider>
         </AuthProvider>

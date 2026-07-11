@@ -13,9 +13,9 @@ const getFallbackImage = (tags = [], type = "destination") => {
     if (tagString.includes("picnic")) return "/images/collections/picnic_real.png";
     if (tagString.includes("hidden") || tagString.includes("gem")) return "/images/collections/hidden_real.png";
     if (tagString.includes("trek") || tagString.includes("camp")) return "/images/collections/trekking_real.png";
-    if (tagString.includes("snow") || tagString.includes("winter")) return "/images/collections/snow_real.png";
+    if (tagString.includes("snow") || tagString.includes("winter")) return "/images/collections/snow.jpg";
     if (tagString.includes("photography") || tagString.includes("photo")) return "/images/collections/photography.png";
-    if (tagString.includes("weekend") || tagString.includes("escape")) return "/images/collections/weekend.png";
+    if (tagString.includes("weekend") || tagString.includes("escape")) return "/images/collections/weekendesc.jpg";
     if (tagString.includes("wazwan") || tagString.includes("restaurant") || tagString.includes("food")) return "/images/collections/wazwan.png";
     if (tagString.includes("family") || tagString.includes("adventure")) return "/images/collections/family.png";
     return "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop"; // Default
@@ -51,9 +51,11 @@ const getFallbackImage = (tags = [], type = "destination") => {
 
 // --- ExploreDestinationCard (3:4 Ratio) ---
 export function ExploreDestinationCard({ destination }) {
-  const imageUrl = destination.image && destination.image !== "/wazwan-hero.jpg" 
+  let imageUrl = destination.image && destination.image !== "/wazwan-hero.jpg" 
     ? destination.image 
     : getFallbackImage(destination.tags, "destination");
+
+
 
   // Format tags for badges
   const displayTags = destination.tags?.slice(0, 1).map(t => typeof t === 'string' ? t.replace("-", " ") : t) || [];
@@ -61,11 +63,14 @@ export function ExploreDestinationCard({ destination }) {
   return (
     <Link
       href={`/destinations/${destination.slug}`}
-      className="group relative flex-shrink-0 w-[260px] sm:w-[300px] md:w-[320px] aspect-[3/4] rounded-[24px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+      className="group relative flex-shrink-0 w-[210px] sm:w-[250px] md:w-[270px] aspect-[3/4] rounded-[16px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: '270px 360px' }}
     >
       <img
         src={imageUrl}
         alt={destination.name}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       
@@ -74,14 +79,14 @@ export function ExploreDestinationCard({ destination }) {
       
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
         {displayTags.map((tag) => (
-          <span key={tag} className="px-3 py-1.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-[#110C08]/60 backdrop-blur-md rounded-full text-white border border-white/10">
+          <span key={tag} className="px-3 py-1.5 text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-[#110C08]/90 rounded-full text-white border border-white/10">
             {tag}
           </span>
         ))}
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-5 z-10 flex flex-col justify-end">
-        <h3 className="text-xl md:text-2xl font-display text-white mb-3 leading-tight group-hover:text-[#C8A46A] transition-colors">{destination.name}</h3>
+      <div className="absolute bottom-0 left-0 right-0 p-4 z-10 flex flex-col justify-end">
+        <h3 className="text-lg md:text-xl font-display text-white mb-2 leading-tight group-hover:text-[#C8A46A] transition-colors">{destination.name}</h3>
         
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-white/70 text-[11px] md:text-[12px] font-medium tracking-wide uppercase">
           {destination.metrics?.estimatedVisitDuration && (
@@ -119,11 +124,14 @@ export function ExploreTrailCard({ trail }) {
   return (
     <Link
       href={`/trails/${trail.slug}`}
-      className="group relative flex-shrink-0 w-[320px] sm:w-[380px] md:w-[440px] aspect-[16/10] rounded-[24px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+      className="group relative flex-shrink-0 w-[260px] sm:w-[310px] md:w-[360px] aspect-[16/10] rounded-[16px] overflow-hidden block shadow-[0_8px_30px_rgb(0,0,0,0.4)] border border-white/5 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: '360px 225px' }}
     >
       <img
         src={imageUrl}
         alt={trail.title}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#110C08] via-[#110C08]/40 to-transparent pointer-events-none" />
@@ -134,8 +142,8 @@ export function ExploreTrailCard({ trail }) {
         </span>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
-        <h3 className="text-xl md:text-2xl font-display text-white mb-2 group-hover:text-[#C8A46A] transition-colors">{trail.title}</h3>
+      <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+        <h3 className="text-lg md:text-xl font-display text-white mb-1.5 group-hover:text-[#C8A46A] transition-colors">{trail.title}</h3>
         
         <div className="flex items-center gap-4 text-white/70 text-[11px] md:text-[12px] font-medium tracking-wide uppercase">
           <div className="flex items-center gap-1.5">
@@ -161,13 +169,19 @@ export function ExploreCollectionCard({ collection }) {
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      style={{ transition: 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease' }}
-      className="group/card relative flex-shrink-0 w-[150px] sm:w-[180px] md:w-[220px] aspect-[4/5] rounded-[20px] overflow-hidden block z-10 will-change-transform backface-hidden transform-gpu shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:scale-[1.04] hover:-translate-y-2 hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] cursor-pointer"
+      style={{ 
+        transition: 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease',
+        contentVisibility: 'auto',
+        containIntrinsicSize: '180px 225px'
+      }}
+      className="group/card relative flex-shrink-0 w-[125px] sm:w-[150px] md:w-[180px] aspect-[4/5] rounded-[14px] overflow-hidden block z-10 transform-gpu shadow-[0_10px_40px_rgba(20,15,10,0.5)] border border-[#D4A55A]/20 hover:scale-[1.04] hover:-translate-y-2 hover:z-30 hover:shadow-[0_20px_60px_-15px_rgba(212,165,90,0.4)] cursor-pointer"
     >
       {/* Thumbnail Image */}
       <img
         src={imageUrl}
         alt={collection.name}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover transition-all duration-[700ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80 group-hover/card:brightness-[1.08] group-hover/card:saturate-[1.1] group-hover/card:contrast-[1.05] group-hover/card:opacity-100 will-change-transform"
       />
 
@@ -176,7 +190,7 @@ export function ExploreCollectionCard({ collection }) {
       
       {/* Location Badge */}
       <div className="absolute top-4 left-4 z-10">
-        <span className="px-3 py-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#0A0705]/80 backdrop-blur-md border border-[#D4A55A]/20 rounded-full text-[#E0C097] shadow-sm">
+        <span className="px-3 py-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#0A0705]/95 border border-[#D4A55A]/20 rounded-full text-[#E0C097] shadow-sm">
           {collection.destinations?.length || "8"} Locations
         </span>
       </div>
@@ -185,7 +199,7 @@ export function ExploreCollectionCard({ collection }) {
       <div className="absolute bottom-5 left-5 right-5 z-10 flex flex-col justify-end">
         <div className="relative w-full">
           <h3 
-            className="text-[20px] md:text-[24px] font-serif font-normal text-[#E0C097] leading-tight drop-shadow-md pr-8 transition-transform duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/card:-translate-y-1"
+            className="text-[17px] md:text-[20px] font-serif font-normal text-[#E0C097] leading-tight drop-shadow-md pr-6 transition-transform duration-[4000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/card:-translate-y-1"
             style={{fontFamily: "'Cormorant Garamond', serif"}}
           >
             {collection.name}

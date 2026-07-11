@@ -10,13 +10,13 @@ export const getExploreData = async (req, res) => {
   try {
     // 1. Hidden Gems
     const hiddenGems = await Destination.find({ tags: "hidden-gem" })
-      .select("name image metrics tags slug")
+      .select("name image metrics tags slug description")
       .limit(6)
       .lean();
 
     // 2. Picnic Spots
     const picnicSpots = await Destination.find({ tags: "picnic" })
-      .select("name image metrics tags slug")
+      .select("name image metrics tags slug description")
       .limit(6)
       .lean();
 
@@ -28,7 +28,7 @@ export const getExploreData = async (req, res) => {
 
     // 4. Photography Spots
     const photographySpots = await Destination.find({ tags: "photography" })
-      .select("name image metrics tags slug")
+      .select("name image metrics tags slug description")
       .limit(6)
       .lean();
 
@@ -40,7 +40,7 @@ export const getExploreData = async (req, res) => {
 
     // 6. Nature Escapes
     const natureEscapes = await Destination.find({ tags: "nature" })
-      .select("name image metrics tags slug")
+      .select("name image metrics tags slug description")
       .limit(6)
       .lean();
 
@@ -53,13 +53,13 @@ export const getExploreData = async (req, res) => {
     else currentSeason = "winter";
 
     const seasonalExperiences = await Destination.find({ bestSeasons: currentSeason })
-      .select("name image metrics tags slug bestSeasons")
+      .select("name image metrics tags slug bestSeasons description")
       .limit(6)
       .lean();
 
     // 8. Collections
     const collections = await Collection.find({})
-      .select("name coverImage description tags slug")
+      .select("name coverImage description tags slug items")
       .limit(8)
       .lean();
 
@@ -72,6 +72,12 @@ export const getExploreData = async (req, res) => {
         .lean();
     }
 
+    // 10. Trekking & Camping
+    const trekkingSpots = await Destination.find({ tags: { $in: ["trekking", "camping", "adventure"] } })
+      .select("name image metrics tags slug description")
+      .limit(6)
+      .lean();
+
     res.json({
       hiddenGems,
       picnicSpots,
@@ -82,6 +88,7 @@ export const getExploreData = async (req, res) => {
       seasonalExperiences,
       collections,
       myItineraries,
+      trekkingSpots,
       currentSeason
     });
   } catch (error) {

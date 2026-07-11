@@ -186,7 +186,7 @@ export const trailTemplates = [
     type: "FOOD_TRAIL",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "1-2 Days",
-    difficulty: "Easy",
+    difficulty: "easy",
     bestSeasons: ["spring", "summer", "autumn", "winter"],
     tags: ["food-trail", "wazwan", "srinagar", "cultural"],
     stops: [
@@ -201,7 +201,7 @@ export const trailTemplates = [
     type: "ROAD_TRIP",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "1 Day",
-    difficulty: "Moderate",
+    difficulty: "moderate",
     bestSeasons: ["summer", "autumn"],
     tags: ["waterfall", "nature", "roadtrip", "adventure"],
     stops: [
@@ -216,7 +216,7 @@ export const trailTemplates = [
     type: "PICNIC_TRAIL",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "Half Day",
-    difficulty: "Easy",
+    difficulty: "easy",
     bestSeasons: ["spring", "summer"],
     tags: ["picnic", "family", "weekend-idea"],
     stops: [
@@ -231,7 +231,7 @@ export const trailTemplates = [
     type: "FOOD_TRAIL",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "3 Hours",
-    difficulty: "Easy",
+    difficulty: "easy",
     bestSeasons: ["winter", "autumn", "spring"],
     tags: ["food-trail", "tea", "bakery", "cultural"],
     stops: [
@@ -242,9 +242,10 @@ export const trailTemplates = [
     title: "The Great Kashmir Road Trip",
     description: "A scenic driving route covering the best of Central and South Kashmir.",
     type: "ROAD_TRIP",
-    coverImage: "/wazwan-hero.jpg",
+    coverImage: "https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop",
     estimatedDuration: "2 Days",
-    difficulty: "Moderate",
+    estimatedDistance: "250 km",
+    difficulty: "moderate",
     bestSeasons: ["summer", "autumn"],
     tags: ["roadtrip", "scenic-drive", "photography"],
     stops: [
@@ -253,6 +254,179 @@ export const trailTemplates = [
       { name: "Kokernag", type: "Destination" },
       { name: "Verinag", type: "Destination" },
       { name: "Achabal", type: "Destination" }
+    ],
+    distanceKm: 250,
+    durationLabel: "2 days",
+    bestSeasonStart: "May",
+    bestSeasonEnd: "October",
+    roadCondition: "Mainly smooth double-lane national highways",
+    fuelInfo: "Pumps available at Srinagar, Anantnag, and Pahalgam",
+    networkInfo: "Reliable 4G/5G coverage throughout the route",
+    whereToStop: "Riverside cafes in Pahalgam and dhabas in Anantnag",
+    avoidIn: "Mid winter due to snow blockage",
+    bestTimeOfDay: "Start early by 7 AM to beat highway traffic",
+    waypoints: [
+      { name: "Srinagar", distanceKm: 0, elevationM: 1585, type: "start", note: "Start Point" },
+      { name: "Pahalgam", distanceKm: 95, elevationM: 2740, type: "stop", note: "Valley Rest Stop", chapterHeadline: "The valley of **shepherds**.", chapterBody: "Pahalgam marks the transition into South Kashmir's high country, a perfect stop for early lunch and river views.", chapterImage: "https://images.unsplash.com/photo-1601714205697-5c4e13c98ba7?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Kokernag", distanceKm: 145, elevationM: 2012, type: "stop", note: "Springs & Gardens", chapterHeadline: "Gardens fed by **springs**.", chapterBody: "The botanical gardens of Kokernag are less crowded than Srinagar's, offering a quiet, green reprieve.", chapterImage: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Verinag", distanceKm: 170, elevationM: 1876, type: "stop", note: "Source of Jhelum", chapterHeadline: "The source of the **Jhelum**.", chapterBody: "An octagonal stone basin built by Jahangir marks the mythical origin of the river that feeds the entire valley.", chapterImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Srinagar", distanceKm: 250, elevationM: 1585, type: "end", note: "Return Loop" }
+    ]
+  },
+  {
+    title: "Srinagar to Yusmarg",
+    description: "Pine forest switchbacks leading into an open golden meadow.",
+    type: "ROAD_TRIP",
+    coverImage: "https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop",
+    estimatedDuration: "2 Hours",
+    estimatedDistance: "47 km",
+    difficulty: "easy",
+    bestSeasons: ["spring", "summer", "autumn"],
+    tags: ["roadtrip", "scenic-drive"],
+    stops: [
+      { name: "Srinagar", type: "Destination" },
+      { name: "Yusmarg", type: "Destination" }
+    ],
+    distanceKm: 47,
+    durationLabel: "2h",
+    bestSeasonStart: "April",
+    bestSeasonEnd: "October",
+    roadCondition: "Paved · single lane near the shrine",
+    fuelInfo: "Last pump in Srinagar — none en route",
+    networkInfo: "Drops past km 28 — carry offline maps",
+    whereToStop: "Dhabas at Chrar-e-Sharief for Kashmiri tea",
+    avoidIn: "Heavy monsoon — final km turns to clay",
+    bestTimeOfDay: "Morning or late afternoon for the best meadow light",
+    waypoints: [
+      { name: "Srinagar", distanceKm: 0, elevationM: 1585, type: "start", note: "START · 1,585M" },
+      { name: "Chrar-e-Sharief", distanceKm: 28, elevationM: 2210, type: "stop", note: "SHRINE STOP · 20 MIN", chapterHeadline: "A stop for **reverence**.", chapterBody: "The town orbits the historic shrine of Sheikh Noor-ud-din, a testament to Kashmir's deep Sufi roots.", chapterImage: "https://images.unsplash.com/photo-1601714205697-5c4e13c98ba7?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Nilnag Lake", distanceKm: 40, elevationM: 2180, type: "stop", note: "OPTIONAL DETOUR", chapterHeadline: "A quiet **detour**.", chapterBody: "A short diversion off the main road leads to this pine-fringed lake, often entirely empty of tourists.", chapterImage: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Yusmarg", distanceKm: 47, elevationM: 2396, type: "end", note: "END · 2,396M", chapterHeadline: "The meadow of **Jesus**.", chapterBody: "Legend says Jesus once walked here. Today it remains one of the quietest major meadows in the valley, rolling endlessly toward the Pir Panjal.", chapterImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop" }
+    ]
+  },
+  {
+    title: "Srinagar to Sonamarg",
+    description: "A gorgeous drive along the Sindh river to the meadow of gold.",
+    type: "ROAD_TRIP",
+    coverImage: "https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop",
+    estimatedDuration: "2.5 Hours",
+    estimatedDistance: "80 km",
+    difficulty: "moderate",
+    bestSeasons: ["spring", "summer", "autumn"],
+    tags: ["roadtrip", "scenic-drive"],
+    stops: [
+      { name: "Srinagar", type: "Destination" },
+      { name: "Sonamarg", type: "Destination" }
+    ],
+    distanceKm: 80,
+    durationLabel: "2.5h",
+    bestSeasonStart: "May",
+    bestSeasonEnd: "September",
+    roadCondition: "Broad double-lane highway, mostly excellent",
+    fuelInfo: "Pumps available at Ganderbal and Kangan",
+    networkInfo: "Good 4G throughout, patchy near the pass",
+    whereToStop: "Riverside dhabas at Kangan for fresh trout",
+    avoidIn: "Late winter due to avalanche risks",
+    bestTimeOfDay: "Leave before 8 AM to avoid convoy traffic",
+    waypoints: [
+      { name: "Srinagar", distanceKm: 0, elevationM: 1585, type: "start", note: "START · 1,585M" },
+      { name: "Ganderbal", distanceKm: 21, elevationM: 1619, type: "stop", note: "DISTRICT HEADQUARTER", chapterHeadline: "Leaving the **valley floor**.", chapterBody: "The road winds out of Srinagar's urban sprawl, soon meeting the glacial blue waters of the Sindh River.", chapterImage: "https://images.unsplash.com/photo-1601714205697-5c4e13c98ba7?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Kangan", distanceKm: 40, elevationM: 1810, type: "stop", note: "MARKET STOP", chapterHeadline: "The mid-way **market**.", chapterBody: "A bustling town where the road begins its earnest climb. Perfect for a quick cup of noon chai or fresh trout.", chapterImage: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Sonamarg", distanceKm: 80, elevationM: 2730, type: "end", note: "END · 2,730M", chapterHeadline: "The meadow of **gold**.", chapterBody: "Tucked just beneath the Zoji La pass, the air here is noticeably thinner and colder, surrounded by jagged alpine peaks.", chapterImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop" }
+    ]
+  },
+  {
+    title: "Srinagar to Gulmarg",
+    description: "Switchbacks winding through dense deodar and pine forests.",
+    type: "ROAD_TRIP",
+    coverImage: "https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop",
+    estimatedDuration: "1.5 Hours",
+    estimatedDistance: "56 km",
+    difficulty: "easy",
+    bestSeasons: ["spring", "summer", "autumn", "winter"],
+    tags: ["roadtrip", "scenic-drive"],
+    stops: [
+      { name: "Srinagar", type: "Destination" },
+      { name: "Gulmarg", type: "Destination" }
+    ],
+    distanceKm: 56,
+    durationLabel: "1.5h",
+    bestSeasonStart: "December",
+    bestSeasonEnd: "March",
+    roadCondition: "Excellent till Tangmarg, steep winding road after",
+    fuelInfo: "Available at Tangmarg",
+    networkInfo: "Solid connectivity all along the route",
+    whereToStop: "Tangmarg for hot tea and snow chain rentals",
+    avoidIn: "Heavy snow days without 4x4 or chains",
+    bestTimeOfDay: "Anytime, but mornings offer the clearest mountain views",
+    waypoints: [
+      { name: "Srinagar", distanceKm: 0, elevationM: 1585, type: "start", note: "START · 1,585M" },
+      { name: "Magam", distanceKm: 24, elevationM: 1650, type: "stop", note: "TOWN CENTER", chapterHeadline: "Through the **orchards**.", chapterBody: "The first stretch cuts through endless apple and cherry orchards, the backbone of local agriculture.", chapterImage: "https://images.unsplash.com/photo-1601714205697-5c4e13c98ba7?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Tangmarg", distanceKm: 44, elevationM: 2010, type: "stop", note: "BASE OF HILL", chapterHeadline: "The base of the **climb**.", chapterBody: "Here the flat driving ends. In winter, this is where you stop to fit snow chains before tackling the steep switchbacks ahead.", chapterImage: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Gulmarg", distanceKm: 56, elevationM: 2650, type: "end", note: "END · 2,650M", chapterHeadline: "Above the **pines**.", chapterBody: "The road crests into a massive cup-shaped meadow that transforms into one of Asia's premier ski resorts come January.", chapterImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop" }
+    ]
+  },
+  {
+    title: "Srinagar to Leh",
+    description: "The ultimate Himalayan road trip over Zoji La into Ladakh.",
+    type: "ROAD_TRIP",
+    coverImage: "https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop",
+    estimatedDuration: "2 Days",
+    estimatedDistance: "434 km",
+    difficulty: "demanding",
+    bestSeasons: ["summer", "autumn"],
+    tags: ["roadtrip", "scenic-drive"],
+    stops: [
+      { name: "Srinagar", type: "Destination" }
+    ],
+    distanceKm: 434,
+    durationLabel: "2d",
+    bestSeasonStart: "June",
+    bestSeasonEnd: "October",
+    roadCondition: "Rough near Zoji La pass, good double-lane elsewhere",
+    fuelInfo: "Very scarce, fill up at Sonamarg and Kargil",
+    networkInfo: "BSNL postpaid only past Sonamarg",
+    whereToStop: "Drass war memorial and Kargil town",
+    avoidIn: "November to May (pass closed due to snow)",
+    bestTimeOfDay: "Start by 5 AM to cross Zoji La before ice melt",
+    waypoints: [
+      { name: "Srinagar", distanceKm: 0, elevationM: 1585, type: "start", note: "START · 1,585M" },
+      { name: "Sonamarg", distanceKm: 80, elevationM: 2730, type: "stop", note: "LAST VALLEY STOP", chapterHeadline: "The last **green**.", chapterBody: "This is the final stretch of classic Kashmiri landscape before the brutal, beautiful transition into high-altitude desert.", chapterImage: "https://images.unsplash.com/photo-1601714205697-5c4e13c98ba7?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Zoji La Pass", distanceKm: 104, elevationM: 3528, type: "stop", note: "HIGH PASS CROSSING", chapterHeadline: "Crossing the **divide**.", chapterBody: "A treacherous, unpaved pass that acts as a climatic wall, blocking the monsoons from reaching Ladakh.", chapterImage: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Drass", distanceKm: 147, elevationM: 3230, type: "stop", note: "COLDEST INHABITED PLACE", chapterHeadline: "The **coldest** place.", chapterBody: "The second coldest inhabited place on Earth. The landscape here is stark, brown, and deeply moving.", chapterImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Kargil", distanceKm: 204, elevationM: 2676, type: "stop", note: "NIGHT HALT", chapterHeadline: "The halfway **haven**.", chapterBody: "An ancient transit hub on the Silk Route, sitting on the banks of the Suru River. The perfect overnight stop.", chapterImage: "https://images.unsplash.com/photo-1601714205697-5c4e13c98ba7?q=80&w=1600&auto=format&fit=crop" },
+      { name: "Leh", distanceKm: 434, elevationM: 3500, type: "end", note: "END · 3,500M", chapterHeadline: "The high **desert**.", chapterBody: "A completely different world. Monasteries cling to barren cliffs under impossibly blue skies.", chapterImage: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?q=80&w=1600&auto=format&fit=crop" }
+    ]
+  },
+  {
+    title: "Srinagar to Doodhpathri",
+    description: "A tranquil drive through rolling green meadows and budgam villages.",
+    type: "ROAD_TRIP",
+    coverImage: "https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop",
+    estimatedDuration: "1.5 Hours",
+    estimatedDistance: "38 km",
+    difficulty: "easy",
+    bestSeasons: ["spring", "summer", "autumn"],
+    tags: ["roadtrip", "scenic-drive"],
+    stops: [
+      { name: "Srinagar", type: "Destination" },
+      { name: "Doodhpathri", type: "Destination" }
+    ],
+    distanceKm: 38,
+    durationLabel: "1.5h",
+    bestSeasonStart: "May",
+    bestSeasonEnd: "September",
+    roadCondition: "Paved but narrow in village sections",
+    fuelInfo: "Available near Srinagar, none past Khansahib",
+    networkInfo: "Airtel and Jio work fine at the meadow",
+    whereToStop: "Khansahib town for snacks",
+    avoidIn: "Winters without snow tires",
+    bestTimeOfDay: "Leave by 8 AM to have the meadow to yourself before midday tour groups arrive",
+    waypoints: [
+      { name: "Srinagar", distanceKm: 0, elevationM: 1585, type: "start", note: "START · 1,585M" },
+      { name: "Budgam", distanceKm: 15, elevationM: 1610, type: "stop", note: "DISTRICT HEAD", chapterHeadline: "Budgam, the **last** flat ground.", chapterBody: "Past Budgam the road narrows through village lanes before the real climb begins. This is the last stretch of flat driving before the grade steepens toward Khansahib.", chapterImage: "/images/routes/doodhpathri-chap1.jpg" },
+      { name: "Khansahib", distanceKm: 28, elevationM: 1980, type: "stop", note: "LAST MARKET", chapterHeadline: "The climb to the **meadow**.", chapterBody: "The final ten kilometres do most of the climbing. Switchbacks tighten, the pines thin out, and the meadow opens all at once — wide, green, and quiet.", chapterImage: "/images/routes/doodhpathri-chap2.jpg" },
+      { name: "Doodhpathri", distanceKm: 38, elevationM: 2730, type: "end", note: "END · 2,730M", chapterHeadline: "The valley of **milk**.", chapterBody: "Named for the frothing, milky-white waters of the Shaliganga river that cuts right through the center of the vast green pasture.", chapterImage: "/images/routes/doodhpathri-chap3.jpg" }
     ]
   },
   {
@@ -261,7 +435,7 @@ export const trailTemplates = [
     type: "WALKING_TRAIL",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "1 Day",
-    difficulty: "Easy",
+    difficulty: "easy",
     bestSeasons: ["autumn"],
     tags: ["photography", "nature", "seasonal"],
     stops: [
@@ -274,7 +448,7 @@ export const trailTemplates = [
     type: "ROAD_TRIP",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "1 Day",
-    difficulty: "Moderate",
+    difficulty: "moderate",
     bestSeasons: ["winter"],
     tags: ["snow", "winter", "adventure", "roadtrip"],
     stops: [
@@ -288,7 +462,7 @@ export const trailTemplates = [
     type: "WALKING_TRAIL",
     coverImage: "/wazwan-hero.jpg",
     estimatedDuration: "1 Day",
-    difficulty: "Easy",
+    difficulty: "easy",
     bestSeasons: ["spring", "summer", "autumn"],
     tags: ["heritage", "cultural", "spiritual"],
     stops: [

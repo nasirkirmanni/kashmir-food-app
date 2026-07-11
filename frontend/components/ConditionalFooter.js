@@ -7,7 +7,7 @@ export default function ConditionalFooter() {
   const pathname = usePathname();
   
   // Hide footer on authentication pages to keep them compact
-  const hideFooterRoutes = ["/login", "/signup", "/travel-agent/signup", "/travel-agent/login", "/forgot-password"];
+  const hideFooterRoutes = ["/login", "/signup", "/travel-agent/signup", "/travel-agent/login", "/forgot-password", "/explore"];
   
   if (hideFooterRoutes.includes(pathname)) {
     return null;

@@ -5,6 +5,7 @@ import HeroSection from './HeroSection';
 import QuickFacts from './QuickFacts';
 import ContentSections from './ContentSections';
 import ItineraryTimeline from './ItineraryTimeline';
+import DetailedArticle from './DetailedArticle';
 import WazaAICTA from './WazaAICTA';
 import { tarsarData } from './tarsarData';
 
@@ -23,6 +24,7 @@ export default function TarsarMarsarPage() {
         <div className="w-full lg:w-[65%] space-y-24">
           <ContentSections data={tarsarData} />
           <ItineraryTimeline itinerary={tarsarData.itinerary} />
+          <DetailedArticle />
         </div>
 
         {/* Right: Sticky Sidebar */}

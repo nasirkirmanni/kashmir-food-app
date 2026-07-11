@@ -8,7 +8,7 @@ const trailSchema = new mongoose.Schema(
     coverImage: { type: String, required: true },
     estimatedDuration: { type: String, required: true },
     estimatedDistance: { type: String },
-    difficulty: { type: String, enum: ["Easy", "Moderate", "Hard"], default: "Easy" },
+    difficulty: { type: String, enum: ["easy", "moderate", "demanding"], default: "easy" },
     bestSeasons: [{ type: String, enum: ["spring", "summer", "autumn", "winter"] }],
     tags: [{ type: String }],
     slug: { type: String, unique: true, sparse: true },
@@ -19,6 +19,29 @@ const trailSchema = new mongoose.Schema(
         note: { type: String } // Optional note for this specific stop
       }
     ],
+    // Scenic drives Route-Atlas fields
+    distanceKm: { type: Number },
+    durationLabel: { type: String },
+    bestSeasonStart: { type: String },
+    bestSeasonEnd: { type: String },
+    roadCondition: { type: String },
+    fuelInfo: { type: String },
+    networkInfo: { type: String },
+    whereToStop: { type: String },
+    avoidIn: { type: String },
+    bestTimeOfDay: { type: String },
+    waypoints: [
+      {
+        name: { type: String, required: true },
+        distanceKm: { type: Number, required: true },
+        elevationM: { type: Number, required: true },
+        type: { type: String, enum: ["start", "stop", "end"], required: true },
+        note: { type: String },
+        chapterHeadline: { type: String },
+        chapterBody: { type: String },
+        chapterImage: { type: String }
+      }
+    ]
   },
   { timestamps: true }
 );

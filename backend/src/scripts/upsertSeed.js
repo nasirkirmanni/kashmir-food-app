@@ -555,28 +555,27 @@ const newRestaurants = [
   }
 ];
 
-// 20 Kashmir Destinations
 const destinations = [
-  { name: "Srinagar", location: "Central Kashmir", bestTimeToVisit: "April to October" },
-  { name: "Gulmarg", location: "North Kashmir, Baramulla", bestTimeToVisit: "December to March (Snow), April to June (Meadows)" },
-  { name: "Pahalgam", location: "South Kashmir, Anantnag", bestTimeToVisit: "March to November" },
-  { name: "Sonamarg", location: "Central Kashmir, Ganderbal", bestTimeToVisit: "April to October" },
-  { name: "Yusmarg", location: "Budgam District", bestTimeToVisit: "May to September", image: "/images/Destinations/Yusmarg.jpg" },
-  { name: "Gurez Valley", location: "North Kashmir, Bandipora", bestTimeToVisit: "June to September", image: "/images/Destinations/Gurez_Valley.jpg" },
-  { name: "Lolab Valley", location: "North Kashmir, Kupwara", bestTimeToVisit: "April to October", image: "/images/Destinations/Lolab_Valley.JPG" },
-  { name: "Aru Valley", location: "Pahalgam, Anantnag", bestTimeToVisit: "March to November", image: "/images/Destinations/Aru_Valley.jpg" },
-  { name: "Betaab Valley", location: "Pahalgam, Anantnag", bestTimeToVisit: "March to October", image: "/images/Destinations/Betaab_Valley.jpg" },
-  { name: "Doodhpathri", location: "Budgam District", bestTimeToVisit: "May to October", image: "/images/Destinations/Doodhpathri.jpg" },
-  { name: "Kokernag", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to October", image: "/images/Destinations/Kokernag.jpg" },
-  { name: "Verinag", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to October", image: "/images/Destinations/Verinag.jpg" },
-  { name: "Achabal", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to September", image: "/images/Destinations/Achabal.jpg" },
-  { name: "Sinthan Top", location: "Kishtwar-Anantnag Border", bestTimeToVisit: "April to September", image: "/images/Destinations/Sinthan_Top.jpg" },
-  { name: "Daksum", location: "Anantnag District", bestTimeToVisit: "April to October", image: "/images/Destinations/Daksum.png" },
-  { name: "Bangus Valley", location: "North Kashmir, Kupwara", bestTimeToVisit: "May to September", image: "/images/Destinations/Bangus_Valley.png" },
-  { name: "Wular Lake", location: "Bandipora District", bestTimeToVisit: "April to October", image: "/images/Destinations/Wular_Lake.jpg" },
-  { name: "Manasbal Lake", location: "Ganderbal District", bestTimeToVisit: "May to October", image: "/images/Destinations/Manasbal_Lake.jpg" },
-  { name: "Pari Mahal", location: "Zabarwan Range, Srinagar", bestTimeToVisit: "April to October", image: "/images/Destinations/Pari_Mahal.jpg" },
-  { name: "Shalimar Bagh", location: "Dal Lake front, Srinagar", bestTimeToVisit: "April to October", image: "/images/Destinations/Shalimar_Bagh.jpg" }
+  { name: "Srinagar", location: "Central Kashmir", bestTimeToVisit: "April to October", image: "/images/destinations/srinagar.png" },
+  { name: "Gulmarg", location: "North Kashmir, Baramulla", bestTimeToVisit: "December to March (Snow), April to June (Meadows)", image: "/images/destinations/gulmarg.png" },
+  { name: "Pahalgam", location: "South Kashmir, Anantnag", bestTimeToVisit: "March to November", image: "/images/destinations/pahalgam.png" },
+  { name: "Sonamarg", location: "Central Kashmir, Ganderbal", bestTimeToVisit: "April to October", image: "/images/destinations/sonamarg.png" },
+  { name: "Yusmarg", location: "Budgam District", bestTimeToVisit: "May to September", image: "/images/destinations/yusm.png" },
+  { name: "Gurez Valley", location: "North Kashmir, Bandipora", bestTimeToVisit: "June to September", image: "/images/destinations/gurez.png" },
+  { name: "Lolab Valley", location: "North Kashmir, Kupwara", bestTimeToVisit: "April to October", image: "/images/destinations/lolab.png" },
+  { name: "Aru Valley", location: "Pahalgam, Anantnag", bestTimeToVisit: "March to November", image: "/images/destinations/aru.png" },
+  { name: "Betaab Valley", location: "Pahalgam, Anantnag", bestTimeToVisit: "March to October", image: "/images/destinations/betaab.png" },
+  { name: "Doodhpathri", location: "Budgam District", bestTimeToVisit: "May to October", image: "/images/destinations/doodhpathri.png" },
+  { name: "Kokernag", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to October", image: "/images/destinations/kokernag.png" },
+  { name: "Verinag", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to October", image: "/images/destinations/verinag.png" },
+  { name: "Achabal", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to September", image: "/images/destinations/achabal.png" },
+  { name: "Sinthan Top", location: "Kishtwar-Anantnag Border", bestTimeToVisit: "April to September", image: "/images/destinations/Sinthan_Top.jpg" },
+  { name: "Daksum", location: "Anantnag District", bestTimeToVisit: "April to October", image: "/images/destinations/daksum.jpg" },
+  { name: "Bangus Valley", location: "North Kashmir, Kupwara", bestTimeToVisit: "May to September", image: "/images/destinations/bangus.jpg" },
+  { name: "Wular Lake", location: "Bandipora District", bestTimeToVisit: "April to October", image: "/images/destinations/wular_lake.png" },
+  { name: "Manasbal Lake", location: "Ganderbal District", bestTimeToVisit: "May to October", image: "/images/destinations/Manasbal_Lake.jpg" },
+  { name: "Pari Mahal", location: "Zabarwan Range, Srinagar", bestTimeToVisit: "April to October", image: "/images/destinations/pari_mahal.png" },
+  { name: "Shalimar Bagh", location: "Dal Lake front, Srinagar", bestTimeToVisit: "April to October", image: "/images/destinations/Shalimar_Bagh.jpg" }
 ].map((d, index) => {
   let charSum = 0;
   for (let i = 0; i < d.name.length; i++) {

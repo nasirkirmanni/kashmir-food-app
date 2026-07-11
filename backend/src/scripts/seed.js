@@ -22,7 +22,6 @@ const seed = async () => {
     Destination.deleteMany({}),
     User.deleteMany({}),
     Review.deleteMany({}),
-    Trail.deleteMany({}),
     Collection.deleteMany({})
   ]);
 
@@ -59,7 +58,7 @@ const seed = async () => {
   const restaurantMap = new Map(createdRestaurants.map(r => [r.name, r._id]));
   const dishNameToIdMap = new Map(createdDishes.map(d => [d.name, d._id]));
 
-  // Seed Trails
+  // Seed Trails using slug-based upsert
   const resolvedTrails = trailTemplates.map(trail => {
     return {
       ...trail,
@@ -72,8 +71,18 @@ const seed = async () => {
       }).filter(s => s.item) // only valid ones
     };
   });
-  const createdTrails = await Trail.insertMany(resolvedTrails);
-  console.log(`Seeded ${createdTrails.length} trails`);
+
+  const createdTrails = [];
+  for (const trail of resolvedTrails) {
+    const slug = trail.slug || trail.title.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-");
+    const updatedTrail = await Trail.findOneAndUpdate(
+      { title: trail.title },
+      { ...trail, slug },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+    createdTrails.push(updatedTrail);
+  }
+  console.log(`Upserted ${createdTrails.length} trails`);
   const trailMap = new Map(createdTrails.map(t => [t.title, t._id]));
 
   // Seed Collections
