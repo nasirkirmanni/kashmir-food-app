@@ -29,19 +29,9 @@ const MessageBubble = React.memo(({ msg }) => {
       {/* AI Avatar for assistant */}
       {msg.role === "assistant" && (
         <div
-          className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
-          style={{
-            background: "linear-gradient(135deg, #D4A15A, #8B6914)",
-            border: "1.5px solid rgba(212,161,90,0.3)"
-          }}
+          className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[rgba(212,161,90,0.4)] text-[#D4A15A]"
         >
-          <Image
-            src="/waza-profile.jpg"
-            alt="Waza AI"
-            fill
-            sizes="32px"
-            className="object-cover"
-          />
+          <ChefAIIcon size={18} strokeWidth={1.5} />
         </div>
       )}
       <div
@@ -400,15 +390,10 @@ export default function WazaAI() {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleOpenIntro}
                 aria-label="Open Waza AI Assistant"
-                className="relative h-[72px] w-[72px] flex items-center justify-center rounded-full overflow-hidden border border-[#D4A15A]/30 shadow-[0_8px_32px_rgba(212,161,90,0.4)] transition-all bg-[#0B0B0B]"
+                className="relative h-[72px] w-[72px] flex flex-col items-center justify-center rounded-full overflow-hidden border border-[#D4A15A]/40 shadow-[0_8px_32px_rgba(212,161,90,0.4)] transition-all bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] text-[#D4A15A]"
               >
-                <Image
-                  src="/waza-profile.jpg"
-                  alt="Waza AI"
-                  fill
-                  sizes="72px"
-                  className="object-cover"
-                />
+                <ChefAIIcon size={28} strokeWidth={1.5} className="mb-0.5" />
+                <span className="text-[11px] font-bold tracking-[0.1em] uppercase">AI</span>
               </motion.button>
             </div>
           )}
@@ -456,15 +441,12 @@ export default function WazaAI() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="absolute inset-0 z-10 bg-black flex flex-col items-center justify-center"
+                  className="absolute inset-0 z-10 bg-[#0A0A0A] flex flex-col items-center justify-center"
                 >
-                  <Image 
-                    fill
-                    src="/waza-profile.jpg" 
-                    alt="Waza AI Profile"
-                    sizes="(max-width: 768px) 100vw, 420px" 
-                    className="object-cover opacity-80"
-                  />
+                  <div className="flex flex-col items-center text-[#D4A15A] mb-8">
+                     <ChefAIIcon size={64} strokeWidth={1} className="mb-4 opacity-80" />
+                     <span className="text-xl font-bold tracking-[0.2em] uppercase opacity-90">Waza AI</span>
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end items-center pb-12">
                      <p className="font-display text-2xl font-medium tracking-wide text-white mb-2">I am your Waza.</p>
                      <p className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)]">Preparing the kitchen...</p>
@@ -531,19 +513,9 @@ export default function WazaAI() {
                   className="flex w-full justify-start items-center gap-3"
                 >
                   <div
-                    className="relative shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
-                    style={{
-                      background: "linear-gradient(135deg, #D4A15A, #8B6914)",
-                      border: "1.5px solid rgba(212,161,90,0.3)"
-                    }}
+                    className="relative shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[rgba(212,161,90,0.4)] text-[#D4A15A]"
                   >
-                    <Image
-                      src="/waza-profile.jpg"
-                      alt="Waza AI"
-                      fill
-                      sizes="32px"
-                      className="object-cover"
-                    />
+                    <ChefAIIcon size={18} strokeWidth={1.5} />
                   </div>
                   <div className="relative z-10 flex items-center gap-2 px-5 py-3.5 rounded-[18px] rounded-tl-[4px] bg-[#111111] border border-white/5 border-l-2 border-l-[var(--saffron)] shadow-sm">
                     <span className="flex gap-1.5 items-center h-5">

@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Cormorant_Garamond, Playfair_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
@@ -33,6 +33,20 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  adjustFontFallback: false
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  adjustFontFallback: false
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
   adjustFontFallback: false
 });
@@ -112,7 +126,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} font-body bg-[#0B0B0B] text-white antialiased relative overflow-x-hidden`}>
+      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} font-body bg-[#0B0B0B] text-white antialiased relative overflow-x-hidden`}>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}
