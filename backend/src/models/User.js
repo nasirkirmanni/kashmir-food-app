@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
     otpExpiresAt: { type: Date },
     tokenVersion: { type: Number, default: 0 },
     favorites: [favoriteSchema],
+    savedRoutes: [{ type: String }],
     phoneNumber: { type: String, required: true, unique: true, trim: true },
     address: { type: String, trim: true },
     

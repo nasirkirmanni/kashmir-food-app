@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const OPT = '/images/optimized/explore';
 
@@ -32,7 +33,7 @@ export default function ScenicDrivesSection() {
       <div className="container">
         <div className="drives-grid">
           <div className="drives-media reveal tilt-card" ref={cardRef}>
-            <Image src={`${OPT}/mustard-fields.avif`} alt="Road winding through golden mustard fields in Kashmir" fill sizes="(max-width:900px) 100vw, 50vw" quality={70} loading="lazy" style={{ objectFit: 'cover' }} />
+            <Image src="/scenic.jpg" alt="Road winding through golden mustard fields in Kashmir" fill sizes="(max-width:900px) 100vw, 50vw" quality={70} loading="lazy" style={{ objectFit: 'cover' }} />
             <div className="road-svg">
               <svg viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true"><path id="road-path" d="M40,400 C60,300 220,320 200,220 C180,120 320,140 340,20" stroke="var(--paper)" strokeWidth="2" strokeDasharray="6 10" fill="none" opacity="0.55" /></svg>
             </div>
@@ -48,7 +49,7 @@ export default function ScenicDrivesSection() {
               <div className="stat-row mono" style={{ marginTop: '14px' }}>
                 <span>2 DAYS</span><span>·</span><span>MODERATE</span>
               </div>
-              <a href="#" className="btn btn-primary" style={{ marginTop: '22px' }}>View route <span>→</span></a>
+              <Link href="/scenic-drives" className="btn btn-primary" style={{ marginTop: '22px' }}>View route <span>→</span></Link>
             </div>
           </div>
         </div>

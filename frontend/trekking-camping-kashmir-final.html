@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trekking & Camping — Kashmir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:#07070a; --panel:#111014; --hair:rgba(255,255,255,0.09);
+    --gold:#C9A24D; --gold-bright:#EFCF83; --ember:#D9834A; --ember-bright:#F0A968;
+    --ivory:#F4EEDF; --dim:#948C7D; --dimmer:#544F41;
+    --accent: var(--gold); --accent-bright: var(--gold-bright);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--ink); color:var(--ivory); font-family:'Inter',sans-serif; overflow-x:hidden; }
+  .serif { font-family:'Cormorant Garamond',serif; font-weight:400; }
+  .mono { font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; }
+  a { color:inherit; text-decoration:none; }
+  img { display:block; width:100%; height:100%; object-fit:cover; }
+  ::selection { background:var(--accent); color:#0a0a0a; }
+
+  /* ============ TOP RAIL + MODE NAV ============ */
+  #rail { position:fixed; top:0; left:0; height:2px; width:0%; background:var(--accent); z-index:80; transition:width .05s linear, background .6s ease; }
+
+  .mode-nav {
+    position:fixed; top:28px; left:50%; transform:translateX(-50%); z-index:70;
+    display:flex; gap:2px; background:rgba(6,6,8,0.88); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.14); border-radius:100px; padding:5px;
+    box-shadow:0 8px 28px rgba(0,0,0,0.45);
+  }
+  .mode-nav button {
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+    color:rgba(244,238,223,0.65); background:none; border:none; padding:11px 22px; border-radius:100px; cursor:pointer;
+    transition:all .4s cubic-bezier(.16,1,.3,1); position:relative;
+  }
+  .mode-nav button.active { color:#0a0a0a; font-weight:600; }
+  .mode-nav .pill {
+    position:absolute; top:5px; bottom:5px; border-radius:100px; background:var(--accent);
+    box-shadow:0 2px 10px rgba(0,0,0,0.35);
+    transition:transform .5s cubic-bezier(.16,1,.3,1), background .6s ease, width .5s ease; z-index:-1; width:118px;
+  }
+
+  .brand-mark { position:fixed; top:34px; left:36px; z-index:70; font-family:'Cormorant Garamond',serif; font-size:18px; letter-spacing:.02em; }
+  .brand-mark span { color:var(--gold); }
+
+  /* ============ ALTIMETER ============ */
+  #altimeter {
+    position:fixed; bottom:34px; right:36px; z-index:70; display:flex; align-items:center; gap:16px;
+    opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;
+  }
+  #altimeter.show { opacity:1; transform:translateY(0); }
+  #altimeter .dial-wrap { position:relative; width:74px; height:74px; }
+  #altimeter svg { width:100%; height:100%; transform:rotate(-90deg); }
+  #altimeter .track { fill:none; stroke:var(--hair); stroke-width:3; }
+  #altimeter .fill { fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; transition:stroke-dashoffset 1s cubic-bezier(.16,1,.3,1), stroke .6s ease; }
+  #altimeter .center-label { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--dimmer); letter-spacing:.05em; }
+  #altimeter .readout-label { font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--dimmer); margin-bottom:5px; }
+  #altimeter .readout-val { font-family:'IBM Plex Mono',monospace; font-size:19px; color:var(--accent-bright); transition:color .6s ease; }
+  #altimeter .readout-name { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--dim); margin-top:4px; max-width:150px; }
+
+  /* ============ HERO ============ */
+  .hero { position:relative; height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; perspective:1200px; }
+  .hero-bg { position:absolute; inset:0; z-index:0; }
+  .hero-bg img { transform:scale(1.1); transition:transform .2s ease-out; }
+  .hero-bg::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(7,7,10,0.35) 0%, rgba(7,7,10,0.9) 78%); }
+  .hero-inner { position:relative; z-index:1; text-align:center; transform-style:preserve-3d; transition:transform .15s ease-out; }
+  .hero-kicker { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.4em; text-transform:uppercase; color:var(--gold); margin-bottom:34px; }
+  .hero h1 { font-size:clamp(52px,8.6vw,138px); line-height:.92; letter-spacing:-.01em; }
+  .hero h1 .line2 { display:block; color:var(--dim); font-style:italic; }
+  .hero-sub { font-size:15.5px; color:var(--dim); max-width:44ch; margin:36px auto 0; line-height:1.8; }
+  .scroll-hint { position:absolute; bottom:38px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .scroll-hint span { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.24em; color:var(--dim); }
+  .scroll-hint .l { width:1px; height:36px; background:linear-gradient(var(--gold),transparent); animation:pulse 1.9s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:.25} 50%{opacity:1} }
+
+  /* ============ MANIFESTO ============ */
+  .manifesto { padding:200px 40px; max-width:900px; margin:0 auto; text-align:center; border-top:1px solid var(--hair); }
+  .manifesto p { font-size:clamp(24px,3vw,38px); font-family:'Cormorant Garamond',serif; line-height:1.5; color:var(--ivory); }
+  .manifesto p em { color:var(--gold-bright); font-style:italic; }
+  .manifesto .tag { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:36px; display:block; }
+
+  /* ============ SECTION HEADERS (Trekking / Camping intro) ============ */
+  .stage-intro { padding:130px 40px 70px; border-top:1px solid var(--hair); max-width:1240px; margin:0 auto; }
+  .stage-intro .tag { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.3em; text-transform:uppercase; margin-bottom:22px; color:var(--accent); transition:color .6s ease; }
+  .stage-intro h2 { font-size:clamp(38px,5.2vw,64px); max-width:16ch; }
+  .stage-intro p { color:var(--dim); font-size:15px; max-width:52ch; margin-top:22px; line-height:1.8; }
+
+  /* ============ DESTINATION (full-bleed background) ============ */
+  .dest { position:relative; min-height:100vh; display:flex; align-items:flex-end; overflow:hidden; border-top:1px solid var(--hair); }
+  .dest-bg { position:absolute; inset:-6% -6%; z-index:0; }
+  .dest-bg img { will-change:transform; }
+  .dest-bg::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,10,0.05) 0%, rgba(7,7,10,0.35) 55%, rgba(7,7,10,0.97) 100%); }
+  .dest-content { position:relative; z-index:1; width:100%; padding:0 40px 90px; max-width:1240px; margin:0 auto; opacity:0; transform:translateY(36px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .dest.in .dest-content { opacity:1; transform:translateY(0); }
+
+  .dest-num { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.15em; color:var(--accent); display:flex; align-items:center; gap:14px; margin-bottom:24px; transition:color .6s ease; }
+  .dest-num .tick { width:32px; height:1px; background:var(--accent); transition:background .6s ease; }
+  .dest-mode-badge { font-size:9px; letter-spacing:.14em; padding:3px 10px; border:1px solid var(--accent); border-radius:100px; color:var(--accent-bright); transition:all .6s ease; }
+
+  .dest h3 { font-size:clamp(38px,5.6vw,74px); margin-bottom:18px; max-width:16ch; }
+  .dest-tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:var(--dim); margin-bottom:34px; max-width:44ch; }
+  .dest-desc { font-size:14.5px; color:var(--dim); line-height:1.85; max-width:52ch; margin-bottom:38px; }
+
+  .dest-stats { display:flex; gap:48px; flex-wrap:wrap; }
+  .stat-block .s-label { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--dimmer); margin-bottom:9px; }
+  .stat-block .s-val { font-family:'IBM Plex Mono',monospace; font-size:17px; color:var(--ivory); }
+
+  .diamonds { display:flex; gap:5px; align-items:center; }
+  .diamonds .dmd { width:8px; height:8px; border:1px solid var(--dimmer); transform:rotate(45deg); }
+  .diamonds .dmd.on { background:var(--accent); border-color:var(--accent); }
+
+  /* ============ CLOSE ============ */
+  .close { position:relative; height:70vh; display:flex; align-items:center; justify-content:center; text-align:center; border-top:1px solid var(--hair); overflow:hidden; }
+  .close-bg { position:absolute; inset:0; z-index:0; }
+  .close-bg img { filter:brightness(.6) contrast(1.05); }
+  .close-bg::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, var(--ink), rgba(7,7,10,.55) 40%, var(--ink)); }
+  .close-body { position:relative; z-index:1; }
+  .close-body p.mono { font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:var(--gold); margin-bottom:26px; }
+  .close-body h2 { font-size:clamp(36px,5vw,64px); max-width:15ch; margin:0 auto 40px; }
+  .cta { display:inline-flex; align-items:center; gap:12px; border:1px solid rgba(201,162,77,.5); color:var(--gold-bright); font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; padding:17px 32px; border-radius:2px; transition:all .35s ease; }
+  .cta:hover { background:rgba(201,162,77,.08); border-color:var(--gold-bright); transform:translateY(-2px); }
+
+  @media (max-width:880px) {
+    .mode-nav { top:20px; }
+    .brand-mark { display:none; }
+    #altimeter { right:20px; bottom:20px; }
+    .dest-stats { gap:28px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="rail"></div>
+<div class="brand-mark">WAZWAN<span>WAY</span></div>
+
+<nav class="mode-nav">
+  <div class="pill" id="navPill"></div>
+  <button class="active" data-mode="trek" id="btnTrek">Trekking</button>
+  <button data-mode="camp" id="btnCamp">Camping</button>
+</nav>
+
+<div id="altimeter">
+  <div>
+    <div class="readout-label">Elevation</div>
+    <div class="readout-val mono" id="altVal">— FT</div>
+    <div class="readout-name" id="altName">Scroll to begin</div>
+  </div>
+  <div class="dial-wrap">
+    <svg viewBox="0 0 80 80">
+      <circle class="track" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="0"/>
+      <circle class="fill" id="dialFill" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+    </svg>
+    <div class="center-label mono">FT</div>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg">
+    <!-- REPLACE: hero 4K background -->
+    <picture>
+      <source media="(max-width: 768px)" srcset="images/pexels-egojane-8985291.jpg" />
+      <img src="images/pexels-simarphotos-34571097.jpg" alt="" />
+    </picture>
+  </div>
+  <div class="hero-inner" id="heroInner">
+    <div class="hero-kicker">Kashmir &middot; Above the Tree Line</div>
+    <h1 class="serif">Two ways into<span class="line2">the wild.</span></h1>
+    <p class="hero-sub">Five legendary treks. Five untouched basecamps. Every trail and every campsite in Kashmir, mapped by elevation, distance, and the silence that waits at the top.</p>
+  </div>
+  <div class="scroll-hint"><span>SCROLL TO ASCEND</span><div class="l"></div></div>
+</section>
+
+<!-- ================= MANIFESTO ================= -->
+<section class="manifesto">
+  <span class="tag">Why here</span>
+  <p>Switzerland has its peaks. New Zealand has its trails. Kashmir has kept its wild <em>quiet</em> — for now.</p>
+</section>
+
+<!-- sections mounted by JS below -->
+<div id="mount"></div>
+
+<!-- ================= CLOSE ================= -->
+<section class="close">
+  <div class="close-bg">
+    <!-- REPLACE: closing 4K background -->
+    <picture>
+      <source media="(max-width: 768px)" srcset="images/pexels-amit-chowdhury-2402860-18318114.jpg" />
+      <img src="images/pexels-abtrvl-9144239.jpg" alt="" />
+    </picture>
+  </div>
+  <div class="close-body">
+    <p class="mono">10 destinations &middot; one wilderness</p>
+    <h2 class="serif">The altitude is real.<br/>So is the silence.</h2>
+    <a class="cta" href="#hero">BEGIN THE ASCENT &rarr;</a>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   ONE DATA ARRAY DRIVES THE ENTIRE PAGE.
+   To swap a background: replace the `bg` URL for that entry.
+   To add a destination: add an object to either array.
+   ============================================================ */
+
+const TREKS = [
+  { name:"Kashmir Great Lakes Trek", tagline:"Seven lakes, three passes, one legendary trail.", desc:"The crown jewel of Kashmir trekking. A 7-day moderate-to-difficult trek starting from Sonamarg that crosses three passes and takes you to seven distinct, stunning alpine lakes including Vishansar and Gangabal.", days:"7 Days", elevation:13750, difficulty:3, start:"Sonamarg",
+    bg:"images/pexels-yasin-onus-520099596-34993297.jpg", bgMobile:"images/pexels-diana-reyes-227887231-35893795.jpg" },
+  { name:"Tarsar Marsar Trek", tagline:"Twin lakes, shaped like almonds, cradled in stone.", desc:"Known for its twin almond-shaped lakes, this 7-day trek from Aru Valley offers some of the most serene and photogenic landscapes, with campsites right on the lake shores.", days:"7 Days", elevation:13500, difficulty:3, start:"Aru Valley",
+    bg:"images/pexels-elina-sazonova-4276016.jpg", bgMobile:"images/pexels-imadclicks-9389294.jpg" },
+  { name:"Kolahoi Glacier Trek", tagline:"Into pine and meadow, to the source of a river.", desc:"A moderate 4 to 5-day trek from Aru Valley that winds through pine forests and sprawling meadows to the base of the massive Kolahoi Glacier, the source of the Lidder River.", days:"5 Days", elevation:12200, difficulty:2, start:"Aru Valley",
+    bg:"images/pexels-fahru-pitak-389234010-35650114.jpg", bgMobile:"images/pexels-juliano-ferreira-102048601-9467306.jpg" },
+  { name:"Warwan Valley Trek", tagline:"Where Zanskar's stone gives way to Kashmir's green.", desc:"A challenging and remote expedition that crosses the massive Margan Top from Panikhar, transitioning from the stark, rugged terrain of Zanskar into the lush, untouched greenery of Kashmir.", days:"9 Days", elevation:14500, difficulty:4, start:"Panikhar",
+    bg:"images/pexels-imadclicks-8303559.jpg", bgMobile:"images/pexels-cristianpezog-18606661.jpg" },
+  { name:"Naranag to Gangabal Trek", tagline:"Ancient ruins, dense forest, the foot of Harmukh.", desc:"An easy-to-moderate 4-day trek that serves as a shorter alternative to the KGL. It climbs from ancient temple ruins through dense forests to the base of Mount Harmukh.", days:"4 Days", elevation:11500, difficulty:2, start:"Naranag",
+    bg:"images/pexels-ehaan-dewa-2149036462-32912959.jpg", bgMobile:"images/pexels-gautham-krishnan-1322437-6801787.jpg" },
+];
+
+const CAMPS = [
+  { name:"Sonamarg — Sindh Riverside", tagline:"Tents pitched beside icy, roaring water.", desc:"Offers incredibly fresh, clean air and the unique experience of pitching a tent right beside the roaring, icy waters of the Sindh River with the Thajiwas mountain range in the background.", access:"Easy Drive", elevation:8700, remoteness:1, start:"Sonamarg",
+    bg:"images/pexels-lureofadventure-11702769.jpg", bgMobile:"images/pexels-cottonbro-6003108.jpg" },
+  { name:"Gurez Valley", tagline:"The valley the maps forgot.", desc:"One of the most pristine camping experiences available. You can camp right on the banks of the Kishanganga River, looking up at the jagged Habba Khatoon peak.", access:"Remote", elevation:8000, remoteness:3, start:"Gurez",
+    bg:"images/pexels-qaarif-9448808.jpg", bgMobile:"images/pexels-dogadakisakal-77353893-12336791.jpg" },
+  { name:"Yusmarg", tagline:"Silence, pine, and a meadow of gold.", desc:"Ideal for quiet, uncrowded camping. Set up in the vast open fields near the Doodh Ganga River, surrounded by dense, silent pine forests.", access:"Easy Drive", elevation:7700, remoteness:1, start:"Yusmarg",
+    bg:"images/pexels-wanderinglenses-27435050.jpg", bgMobile:"images/pexels-sedat-taskan-914624308-20041809.jpg" },
+  { name:"Aru Valley", tagline:"Basecamp for everything beyond it.", desc:"A hub for adventure lovers near Pahalgam. The valley is vibrant green, surrounded by scenic peaks, and serves as the perfect basecamp before heading deeper into the mountains.", access:"Easy Drive", elevation:8000, remoteness:1, start:"Pahalgam",
+    bg:"images/pexels-fausto-hernandez-196511575-12326774.jpg", bgMobile:"images/pexels-alena-beliaeva-78160053-9301669.jpg" },
+  { name:"Doodhpathri", tagline:"Milk-white streams through endless green.", desc:"The 'Valley of Milk' is one of Kashmir's best-kept secrets for camping. Gentle streams run through massive, rolling green meadows that are largely free from heavy tourist crowds.", access:"Moderate", elevation:8958, remoteness:2, start:"Budgam",
+    bg:"images/pexels-imadclicks-7560181__3_.jpg" },
+];
+
+const MAX_ELEV = 15000; // dial scale ceiling
+const CIRC = 213.6;
+
+function diamondRow(level, max) {
+  let out = '<div class="diamonds">';
+  for (let i = 0; i < max; i++) out += `<span class="dmd ${i < level ? 'on' : ''}"></span>`;
+  out += '</div>';
+  return out;
+}
+
+function renderTrek(t, i) {
+  return `
+  <section class="dest" data-mode="trek" data-elevation="${t.elevation}" data-name="${t.name}">
+    <div class="dest-bg"><picture>${t.bgMobile ? `<source media="(max-width: 768px)" srcset="${t.bgMobile}" />` : ''}<img src="${t.bg}" alt="${t.name}" loading="lazy"/></picture></div>
+    <div class="dest-content">
+      <div class="dest-num"><span class="tick"></span>TREK 0${i+1} / 05<span class="dest-mode-badge">TREKKING</span></div>
+      <h3 class="serif">${t.name}</h3>
+      <p class="dest-tagline">${t.tagline}</p>
+      <p class="dest-desc">${t.desc}</p>
+      <div class="dest-stats">
+        <div class="stat-block"><div class="s-label">Duration</div><div class="s-val mono">${t.days}</div></div>
+        <div class="stat-block"><div class="s-label">High Point</div><div class="s-val mono">${t.elevation.toLocaleString()} ft</div></div>
+        <div class="stat-block"><div class="s-label">Starts From</div><div class="s-val mono">${t.start}</div></div>
+        <div class="stat-block"><div class="s-label">Difficulty</div>${diamondRow(t.difficulty,4)}</div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function renderCamp(c, i) {
+  return `
+  <section class="dest" data-mode="camp" data-elevation="${c.elevation}" data-name="${c.name}">
+    <div class="dest-bg"><picture>${c.bgMobile ? `<source media="(max-width: 768px)" srcset="${c.bgMobile}" />` : ''}<img src="${c.bg}" alt="${c.name}" loading="lazy"/></picture></div>
+    <div class="dest-content">
+      <div class="dest-num"><span class="tick"></span>CAMP 0${i+1} / 05<span class="dest-mode-badge">CAMPING</span></div>
+      <h3 class="serif">${c.name}</h3>
+      <p class="dest-tagline">${c.tagline}</p>
+      <p class="dest-desc">${c.desc}</p>
+      <div class="dest-stats">
+        <div class="stat-block"><div class="s-label">Access</div><div class="s-val mono">${c.access}</div></div>
+        <div class="stat-block"><div class="s-label">Elevation</div><div class="s-val mono">${c.elevation.toLocaleString()} ft</div></div>
+        <div class="stat-block"><div class="s-label">Near</div><div class="s-val mono">${c.start}</div></div>
+        <div class="stat-block"><div class="s-label">Remoteness</div>${diamondRow(c.remoteness,3)}</div>
+      </div>
+    </div>
+  </section>`;
+}
+
+const mount = document.getElementById('mount');
+mount.innerHTML = `
+  <section class="stage-intro" data-mode="trek">
+    <span class="tag">Chapter One</span>
+    <h2 class="serif">Five trails. Every altitude Kashmir has to offer.</h2>
+    <p>From a gentle 4-day forest climb to a 9-day crossing into Zanskar — ranked here by how hard the mountain fights back.</p>
+  </section>
+  ${TREKS.map(renderTrek).join('')}
+  <section class="stage-intro" data-mode="camp">
+    <span class="tag">Chapter Two</span>
+    <h2 class="serif">Five basecamps. Zero cities in sight.</h2>
+    <p>Some are a short drive from Srinagar. Others take real commitment to reach. All of them end the same way — silence, and a sky full of stars.</p>
+  </section>
+  ${CAMPS.map(renderCamp).join('')}
+`;
+
+/* ---------- top rail + mode-aware accent color ---------- */
+const rail = document.getElementById('rail');
+const root = document.documentElement.style;
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return; ticking = true;
+  requestAnimationFrame(() => {
+    const doc = document.documentElement;
+    const pct = window.scrollY / (doc.scrollHeight - window.innerHeight);
+    rail.style.width = (pct * 100) + '%';
+    ticking = false;
+  });
+}, { passive:true });
+
+/* ---------- mode nav pill + active state, synced to scroll ---------- */
+const btnTrek = document.getElementById('btnTrek');
+const btnCamp = document.getElementById('btnCamp');
+const navPill = document.getElementById('navPill');
+function setMode(mode, scrollTo) {
+  const isTrek = mode === 'trek';
+  btnTrek.classList.toggle('active', isTrek);
+  btnCamp.classList.toggle('active', !isTrek);
+  navPill.style.transform = isTrek ? 'translateX(0)' : 'translateX(118px)';
+  document.documentElement.style.setProperty('--accent', isTrek ? 'var(--gold)' : 'var(--ember)');
+  document.documentElement.style.setProperty('--accent-bright', isTrek ? 'var(--gold-bright)' : 'var(--ember-bright)');
+  if (scrollTo) {
+    const target = document.querySelector(`.dest[data-mode="${mode}"]`);
+    if (target) target.scrollIntoView({ behavior:'smooth' });
+  }
+}
+btnTrek.addEventListener('click', () => setMode('trek', true));
+btnCamp.addEventListener('click', () => setMode('camp', true));
+
+/* ---------- destination reveal + altimeter + mode sync, one observer ---------- */
+const altimeter = document.getElementById('altimeter');
+const altVal = document.getElementById('altVal');
+const altName = document.getElementById('altName');
+const dialFill = document.getElementById('dialFill');
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    if (e.target.classList.contains('dest')) {
+      const elev = parseInt(e.target.dataset.elevation, 10);
+      const name = e.target.dataset.name;
+      const mode = e.target.dataset.mode;
+      altimeter.classList.add('show');
+      altVal.textContent = elev.toLocaleString() + ' FT';
+      altName.textContent = name;
+      const offset = CIRC - (Math.min(elev, MAX_ELEV) / MAX_ELEV) * CIRC;
+      dialFill.style.strokeDashoffset = offset;
+      setMode(mode, false);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.dest, .manifesto, .stage-intro').forEach(el => io.observe(el));
+
+/* ---------- parallax on destination backgrounds ---------- */
+const parallaxEls = [...document.querySelectorAll('.dest-bg img')];
+window.addEventListener('scroll', () => {
+  parallaxEls.forEach(img => {
+    const section = img.closest('.dest');
+    const r = section.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    const shift = r.top * 0.12;
+    img.style.transform = `translateY(${shift}px) scale(1.08)`;
+  });
+}, { passive:true });
+
+/* ---------- hero: subtle 3D tilt + Ken Burns drift on mousemove ---------- */
+const heroInner = document.getElementById('heroInner');
+const heroBgImg = document.querySelector('#heroBg img');
+const hero = document.getElementById('hero');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduceMotion) {
+  hero.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5);
+    const y = (e.clientY / window.innerHeight - 0.5);
+    heroInner.style.transform = `rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
+    heroBgImg.style.transform = `scale(1.1) translate(${-x * 12}px, ${-y * 12}px)`;
+  });
+}
+</script>
+
+</body>
+</html>

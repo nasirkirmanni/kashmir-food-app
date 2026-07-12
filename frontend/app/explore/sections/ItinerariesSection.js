@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const OPT = '/images/optimized/explore';
 
@@ -19,7 +20,7 @@ export default function ItinerariesSection() {
           </div>
           <h2 className="serif section-title" style={{ marginBottom: '14px' }}>Your route through<br />Kashmir, saved.</h2>
           <p className="bleed-sub" style={{ color: 'var(--paper-dim)', margin: '0 auto 32px' }}>Save destinations, scenic drives, and curated collections as you go — we&apos;ll trace the trail for you.</p>
-          <a href="#" className="btn btn-primary">View saved items <span>→</span></a>
+          <Link href="/favorites" className="btn btn-primary">View saved items <span>→</span></Link>
         </div>
       </div>
     </section>

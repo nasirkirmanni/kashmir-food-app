@@ -6,14 +6,17 @@ import { endpoints, request } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
+import { scenicDrives } from "@/data/scenicDrivesData";
 
 export default function FavoritesPage() {
   const { user, loading } = useAuth();
   const [favorites, setFavorites] = useState([]);
+  const [savedRoutes, setSavedRoutes] = useState([]);
 
   useEffect(() => {
     if (!user) return;
     request(endpoints.favorites).then((data) => setFavorites(data));
+    request(endpoints.savedRoutes).then((routes) => setSavedRoutes(routes || [])).catch(console.error);
   }, [user]);
 
   const handleRemoveFavorite = async (itemId, itemType) => {
@@ -28,6 +31,21 @@ export default function FavoritesPage() {
       alert("Failed to remove from saved dishes.");
     }
   };
+
+  const handleRemoveRoute = async (slug) => {
+    try {
+      await request(endpoints.savedRoutes, {
+        method: "DELETE",
+        body: JSON.stringify({ slug })
+      });
+      setSavedRoutes(prev => prev.filter(r => r !== slug));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to remove saved route.");
+    }
+  };
+
+  const hasItems = favorites.filter(fav => fav.item != null).length > 0 || savedRoutes.length > 0;
 
   if (loading) {
     return <div className="places-wrap py-24 text-[var(--muted)]">Loading...</div>;
@@ -63,7 +81,7 @@ export default function FavoritesPage() {
       <section className="places-wrap pt-0">
         <div className="grid gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <AnimatePresence mode="popLayout">
-            {favorites.filter(fav => fav.item != null).length === 0 ? (
+            {!hasItems ? (
               <motion.div 
                 key="empty-state"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -165,6 +183,65 @@ export default function FavoritesPage() {
                 );
               })
             )}
+
+            {savedRoutes.map((slug, index) => {
+              const routeInfo = scenicDrives.find(r => r.slug === slug);
+              if (!routeInfo) return null;
+
+              return (
+                <motion.article 
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.85, rotate: (index % 2 === 0 ? 5 : -5), filter: "blur(12px)", y: 40 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  key={`route-${slug}`} 
+                  className="group overflow-hidden rounded-[20px] border border-white/10 bg-white/5 shadow-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col relative"
+                >
+                  <div className="relative h-48 shrink-0 overflow-hidden">
+                    <ImageWithSkeleton 
+                      src={routeInfo.heroImage} 
+                      alt={routeInfo.title} 
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-110" 
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="place-badge shadow-md bg-black/60 backdrop-blur-md border border-white/20 text-white">Route</span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p className="text-[0.6rem] font-medium uppercase tracking-[0.14em] text-[var(--saffron)]">
+                        {routeInfo.difficulty} • {routeInfo.distance}
+                      </p>
+                      <h3 className="font-display mt-2 text-xl text-white">{routeInfo.title}</h3>
+                      <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-3">
+                        {routeInfo.elevationTitle || "Saved for later."}
+                      </p>
+                    </div>
+                    <div className="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
+                      <Link href={`/scenic-drives/${slug}`} className="text-xs font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
+                        View details &rarr;
+                      </Link>
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleRemoveRoute(slug);
+                        }}
+                        className="text-white/40 hover:text-red-400 transition-colors p-1 relative z-10"
+                        title="Remove from saved"
+                      >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
           </AnimatePresence>
         </div>
       </section>

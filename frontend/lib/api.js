@@ -264,6 +264,7 @@ export const endpoints = {
   me: "/auth/me",
   resendOtp: "/auth/resend-otp",
   favorites: "/users/favorites",
+  savedRoutes: "/users/favorites/routes",
   reviews: "/reviews",
   restaurantReviews: (id) => `/reviews/restaurant/${id}`,
   stats: "/stats/overview",

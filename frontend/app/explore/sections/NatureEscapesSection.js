@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const OPT = '/images/optimized/explore';
 
@@ -23,7 +24,7 @@ export default function NatureEscapesSection() {
               <span className="trek-stat">3–8 day routes</span>
               <span className="trek-stat">2,400–4,200m altitude</span>
             </div>
-            <a href="#" className="btn btn-primary">Explore Treks &amp; Camps <span>→</span></a>
+            <Link href="/trekking-camping" className="btn btn-primary">Explore Treks &amp; Camps <span>→</span></Link>
           </div>
 
           <div className="route-card trek-elevation reveal tilt-card">

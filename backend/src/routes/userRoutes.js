@@ -107,4 +107,44 @@ router.put(
   })
 );
 
+router.get(
+  "/favorites/routes",
+  protect,
+  asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id).lean();
+    if (!user) return res.json([]);
+    res.json(user.savedRoutes || []);
+  })
+);
+
+router.post(
+  "/favorites/routes",
+  protect,
+  asyncHandler(async (req, res) => {
+    const { slug } = req.body;
+    const user = await User.findById(req.user._id);
+
+    if (!user.savedRoutes.includes(slug)) {
+      user.savedRoutes.push(slug);
+      await user.save();
+    }
+
+    res.status(201).json(user.savedRoutes);
+  })
+);
+
+router.delete(
+  "/favorites/routes",
+  protect,
+  asyncHandler(async (req, res) => {
+    const { slug } = req.body;
+    const user = await User.findById(req.user._id);
+
+    user.savedRoutes = user.savedRoutes.filter((r) => r !== slug);
+    await user.save();
+
+    res.json(user.savedRoutes);
+  })
+);
+
 export default router;

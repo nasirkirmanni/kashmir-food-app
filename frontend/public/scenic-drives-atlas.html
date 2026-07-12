@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scenic Drives — Route Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0A0A08;
+    --panel: #14120D;
+    --panel-raised: #1A170F;
+    --hair: rgba(255,255,255,0.07);
+    --gold: #C9A24D;
+    --gold-bright: #E8C879;
+    --ivory: #F2EAD8;
+    --dim: #8C8377;
+    --dimmer: #5C574C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--ivory);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .serif { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+  .mono { font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--hair);
+  }
+  .hero-bg-img {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .hero-bg-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0.22; filter: grayscale(60%) contrast(1.05);
+  }
+  .hero-bg-img::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(10,10,8,0.75) 40%, var(--ink) 100%);
+  }
+  .contour-layer {
+    position: absolute; inset: 0; z-index: 1; opacity: 0.5; pointer-events: none;
+  }
+  .contour-layer svg { width: 100%; height: 100%; }
+  .contour-layer path { fill: none; stroke: var(--gold); stroke-width: 0.6; opacity: 0.18; }
+
+  .hero-inner { position: relative; z-index: 2; padding: 140px 0 90px; }
+  .hero-kicker {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 30px;
+  }
+  .hero-kicker .tick { width: 26px; height: 1px; background: var(--gold); }
+  .hero h1 {
+    font-size: clamp(44px, 6.2vw, 92px); line-height: 0.98; font-weight: 400; color: var(--ivory);
+    max-width: 15ch; letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-bright); }
+  .hero-sub {
+    color: var(--dim); font-size: 16px; line-height: 1.7; max-width: 480px; margin: 30px 0 0;
+  }
+
+  .live-readout {
+    margin-top: 56px; display: flex; gap: 0; border-top: 1px solid var(--hair); padding-top: 26px; max-width: 620px;
+  }
+  .readout-item { flex: 1; padding-right: 24px; border-right: 1px solid var(--hair); }
+  .readout-item:last-child { border-right: none; }
+  .readout-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer); margin-bottom: 8px; }
+  .readout-value { font-size: 22px; color: var(--gold-bright); }
+  .readout-value small { font-size: 12px; color: var(--dim); margin-left: 4px; }
+
+  /* ============ ROUTE INDEX ============ */
+  .index-section { padding: 100px 0 60px; }
+  .index-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 44px; border-bottom: 1px solid var(--hair); padding-bottom: 28px; }
+  .index-header h2 { font-size: 34px; color: var(--ivory); font-weight: 400; }
+  .index-header p { color: var(--dim); font-size: 13.5px; margin-top: 8px; max-width: 42ch; }
+  .index-count { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--gold); text-align: right; }
+  .index-count span { display: block; font-size: 11px; color: var(--dimmer); letter-spacing: 0.1em; margin-top: 4px; }
+
+  .route-row {
+    display: grid;
+    grid-template-columns: 30px 1fr 160px 90px 100px 90px 20px;
+    align-items: center;
+    gap: 24px;
+    padding: 26px 20px;
+    border-bottom: 1px solid var(--hair);
+    transition: background 0.3s ease, padding-left 0.3s ease;
+    cursor: pointer;
+  }
+  .route-row:hover { background: var(--panel); padding-left: 28px; }
+  .route-row:hover .row-arrow { transform: translateX(4px); color: var(--gold-bright); }
+  .route-row:hover .spark path { stroke: var(--gold-bright); }
+
+  .row-index { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--dimmer); }
+  .row-main .row-name { font-size: 22px; color: var(--ivory); margin-bottom: 5px; }
+  .row-main .row-name .via { color: var(--dim); font-family: 'Inter', sans-serif; font-size: 13px; font-style: normal; margin-left: 10px; }
+  .row-main .row-tagline { font-size: 12.5px; color: var(--dim); }
+
+  .spark { width: 150px; height: 34px; }
+  .spark path { stroke: var(--dimmer); stroke-width: 1.4; fill: none; transition: stroke 0.3s ease; }
+  .spark circle { fill: var(--gold); }
+
+  .row-stat { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ivory); text-align: right; }
+  .row-stat small { display: block; font-size: 9.5px; color: var(--dimmer); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; font-family: 'Inter', sans-serif; }
+
+  .row-difficulty { text-align: right; }
+  .diff-dot { display: inline-flex; gap: 3px; }
+  .diff-dot span { width: 5px; height: 5px; border-radius: 50%; background: var(--hair); }
+  .diff-dot span.on { background: var(--gold); }
+  .diff-label { font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmer); display: block; margin-top: 6px; }
+
+  .row-arrow { color: var(--dim); transition: all 0.3s ease; }
+
+  /* ============ DETAIL / ROUTE PROFILE ============ */
+  .detail-section { padding: 110px 0 130px; border-top: 1px solid var(--hair); margin-top: 40px; }
+  .detail-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+  .detail-title-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 60px; flex-wrap: wrap; gap: 20px; }
+  .detail-title { font-size: 46px; color: var(--ivory); }
+  .detail-title .via { color: var(--dim); font-size: 20px; }
+  .detail-pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 7px 14px; border-radius: 3px;
+    border: 1px solid var(--hair); color: var(--dim); letter-spacing: 0.04em;
+  }
+  .pill.gold { border-color: rgba(201,162,77,0.4); color: var(--gold-bright); background: rgba(201,162,77,0.06); }
+
+  /* elevation chart */
+  .profile-panel { background: var(--panel); border: 1px solid var(--hair); border-radius: 4px; padding: 40px 44px 30px; margin-bottom: 70px; }
+  .profile-label-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .profile-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dimmer); }
+  .profile-chart { width: 100%; height: 260px; position: relative; }
+  .profile-chart svg { width: 100%; height: 100%; overflow: visible; }
+  .elev-fill { fill: url(#elevGrad); }
+  .elev-line { fill: none; stroke: var(--gold); stroke-width: 2; }
+  .grid-line { stroke: var(--hair); stroke-width: 1; }
+  .wp-dot { fill: var(--ink); stroke: var(--gold); stroke-width: 2; }
+  .wp-dot.term { fill: var(--gold); }
+  .wp-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; fill: var(--ivory); }
+  .wp-sub { font-family: 'Inter', sans-serif; font-size: 9px; fill: var(--dim); }
+  .km-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; fill: var(--dimmer); }
+
+  .detail-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; }
+  .detail-copy h3 { font-size: 22px; color: var(--gold-bright); margin-bottom: 16px; font-weight: 400; }
+  .detail-copy p { color: var(--dim); font-size: 14.5px; line-height: 1.85; margin-bottom: 20px; max-width: 56ch; }
+
+  .facts-list { display: flex; flex-direction: column; }
+  .fact-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid var(--hair);
+  }
+  .fact-row:first-child { padding-top: 0; }
+  .fact-label { font-size: 12.5px; color: var(--dim); }
+  .fact-value { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ivory); text-align: right; max-width: 55%; }
+
+  @media (max-width: 880px) {
+    .route-row { grid-template-columns: 1fr auto; row-gap: 10px; }
+    .row-index, .spark, .row-difficulty { display: none; }
+    .row-stat { text-align: left; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .profile-panel { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg-img">
+    <img src="https://images.unsplash.com/photo-1626621349022-d1a5233b5e97?q=80&w=1800&auto=format&fit=crop" alt="" />
+  </div>
+  <div class="contour-layer">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <path d="M-50,600 C200,520 350,650 600,560 C850,470 950,600 1250,520" />
+      <path d="M-50,660 C220,590 380,700 620,630 C860,540 970,660 1250,590" />
+      <path d="M-50,720 C240,660 400,750 640,700 C880,610 990,720 1250,660" />
+      <path d="M-50,150 C300,90 500,220 750,140 C950,80 1050,180 1250,110" />
+      <path d="M-50,210 C320,150 520,270 770,200 C960,140 1060,230 1250,170" />
+    </svg>
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-kicker"><span class="tick"></span>Route Atlas &mdash; Kashmir</div>
+    <h1 class="serif">The road climbs<br/>before the <em>view</em> does.</h1>
+    <p class="hero-sub">Every mountain pass, valley crossing, and forest drive in Kashmir &mdash; mapped by distance, elevation, and the stops worth slowing down for.</p>
+
+    <div class="live-readout">
+      <div class="readout-item">
+        <div class="readout-label">Routes mapped</div>
+        <div class="readout-value mono">14</div>
+      </div>
+      <div class="readout-item">
+        <div class="readout-label">Highest pass</div>
+        <div class="readout-value mono">11,575<small>ft &middot; Zoji La</small></div>
+      </div>
+      <div class="readout-item">
+        <div class="readout-label">Longest drive</div>
+        <div class="readout-value mono">434<small>km &middot; Leh road</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROUTE INDEX ============ -->
+<section class="wrap index-section">
+  <div class="index-header">
+    <div>
+      <h2 class="serif">Every route, by distance</h2>
+      <p>No two drives climb the same way. Scan by duration, elevation gain, or how demanding the road gets.</p>
+    </div>
+    <div class="index-count">14 ROUTES<span>SORTED BY DISTANCE</span></div>
+  </div>
+
+  <a class="route-row" href="#detail">
+    <div class="row-index mono">01</div>
+    <div class="row-main">
+      <div class="row-name serif">Srinagar <span class="via">via Chrar-e-Sharief</span></div>
+      <div class="row-tagline">Pine forest into open meadow</div>
+    </div>
+    <svg class="spark" viewBox="0 0 150 34"><path d="M2,26 C20,24 30,10 45,12 C60,14 65,20 80,18 C95,16 105,6 120,8 C132,10 140,16 148,14"/><circle cx="2" cy="26" r="2.5"/><circle cx="148" cy="14" r="2.5"/></svg>
+    <div class="row-stat mono">47<small>km</small></div>
+    <div class="row-stat mono">2h<small>drive</small></div>
+    <div class="row-difficulty">
+      <span class="diff-dot"><span class="on"></span><span></span><span></span></span>
+      <span class="diff-label">Easy</span>
+    </div>
+    <svg class="row-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+
+  <a class="route-row" href="#">
+    <div class="row-index mono">02</div>
+    <div class="row-main">
+      <div class="row-name serif">Srinagar <span class="via">via Sonamarg</span></div>
+      <div class="row-tagline">Glacier valley, high meadow air</div>
+    </div>
+    <svg class="spark" viewBox="0 0 150 34"><path d="M2,28 C20,26 25,14 40,15 C55,16 60,22 75,20 C90,18 100,4 115,6 C130,8 140,10 148,9"/><circle cx="2" cy="28" r="2.5"/><circle cx="148" cy="9" r="2.5"/></svg>
+    <div class="row-stat mono">80<small>km</small></div>
+    <div class="row-stat mono">2.5h<small>drive</small></div>
+    <div class="row-difficulty">
+      <span class="diff-dot"><span class="on"></span><span class="on"></span><span></span></span>
+      <span class="diff-label">Moderate</span>
+    </div>
+    <svg class="row-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+
+  <a class="route-row" href="#">
+    <div class="row-index mono">03</div>
+    <div class="row-main">
+      <div class="row-name serif">Srinagar <span class="via">via Gulmarg</span></div>
+      <div class="row-tagline">Switchbacks through deodar forest</div>
+    </div>
+    <svg class="spark" viewBox="0 0 150 34"><path d="M2,24 C15,22 22,8 38,9 C52,10 58,18 72,17 C86,16 92,4 108,5 C122,6 138,12 148,11"/><circle cx="2" cy="24" r="2.5"/><circle cx="148" cy="11" r="2.5"/></svg>
+    <div class="row-stat mono">56<small>km</small></div>
+    <div class="row-stat mono">1.5h<small>drive</small></div>
+    <div class="row-difficulty">
+      <span class="diff-dot"><span class="on"></span><span></span><span></span></span>
+      <span class="diff-label">Easy</span>
+    </div>
+    <svg class="row-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+
+  <a class="route-row" href="#">
+    <div class="row-index mono">04</div>
+    <div class="row-main">
+      <div class="row-name serif">Srinagar <span class="via">via Zoji La &rarr; Leh</span></div>
+      <div class="row-tagline">The high pass into Ladakh</div>
+    </div>
+    <svg class="spark" viewBox="0 0 150 34"><path d="M2,30 C20,29 28,20 42,18 C56,16 62,2 78,3 C92,4 98,14 112,13 C126,12 138,26 148,27"/><circle cx="2" cy="30" r="2.5"/><circle cx="148" cy="27" r="2.5"/></svg>
+    <div class="row-stat mono">434<small>km</small></div>
+    <div class="row-stat mono">2d<small>drive</small></div>
+    <div class="row-difficulty">
+      <span class="diff-dot"><span class="on"></span><span class="on"></span><span class="on"></span></span>
+      <span class="diff-label">Demanding</span>
+    </div>
+    <svg class="row-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+
+  <a class="route-row" href="#">
+    <div class="row-index mono">05</div>
+    <div class="row-main">
+      <div class="row-name serif">Srinagar <span class="via">via Doodhpathri</span></div>
+      <div class="row-tagline">Milk-white river through the meadow</div>
+    </div>
+    <svg class="spark" viewBox="0 0 150 34"><path d="M2,25 C18,23 24,15 40,16 C54,17 60,10 76,11 C90,12 96,20 112,19 C126,18 140,14 148,15"/><circle cx="2" cy="25" r="2.5"/><circle cx="148" cy="15" r="2.5"/></svg>
+    <div class="row-stat mono">38<small>km</small></div>
+    <div class="row-stat mono">1.5h<small>drive</small></div>
+    <div class="row-difficulty">
+      <span class="diff-dot"><span class="on"></span><span></span><span></span></span>
+      <span class="diff-label">Easy</span>
+    </div>
+    <svg class="row-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
+
+<!-- ============ DETAIL / ELEVATION PROFILE ============ -->
+<section class="wrap detail-section" id="detail">
+  <div class="detail-kicker">Route 01 &middot; Opened on click from index</div>
+  <div class="detail-title-row">
+    <div class="detail-title serif">Srinagar <span class="via">&rarr; Yusmarg</span></div>
+    <div class="detail-pills">
+      <span class="pill gold">EASY</span>
+      <span class="pill">APR &ndash; OCT</span>
+      <span class="pill">47 KM</span>
+    </div>
+  </div>
+
+  <div class="profile-panel">
+    <div class="profile-label-row">
+      <span class="profile-label">Elevation profile</span>
+      <span class="profile-label">1,585m &rarr; 2,396m</span>
+    </div>
+    <div class="profile-chart">
+      <svg viewBox="0 0 1000 260" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="elevGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C9A24D" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#C9A24D" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <line class="grid-line" x1="0" y1="60" x2="1000" y2="60" />
+        <line class="grid-line" x1="0" y1="120" x2="1000" y2="120" />
+        <line class="grid-line" x1="0" y1="180" x2="1000" y2="180" />
+
+        <path class="elev-fill" d="M20,190 C150,185 200,150 320,140 C420,132 460,90 560,70 C680,48 760,60 850,40 L850,220 L20,220 Z" />
+        <path class="elev-line" d="M20,190 C150,185 200,150 320,140 C420,132 460,90 560,70 C680,48 760,60 850,40" />
+
+        <circle class="wp-dot term" cx="20" cy="190" r="6" />
+        <text class="wp-label" x="20" y="215">SRINAGAR</text>
+        <text class="wp-sub" x="20" y="228">START &middot; 1,585M</text>
+        <text class="km-label" x="20" y="245">KM 0</text>
+
+        <circle class="wp-dot" cx="320" cy="140" r="5.5" />
+        <text class="wp-label" x="320" y="120" text-anchor="middle">CHRAR-E-SHARIEF</text>
+        <text class="wp-sub" x="320" y="133" text-anchor="middle">SHRINE STOP &middot; 20 MIN</text>
+        <text class="km-label" x="320" y="245" text-anchor="middle">KM 28</text>
+
+        <circle class="wp-dot" cx="560" cy="70" r="5.5" />
+        <text class="wp-label" x="560" y="50" text-anchor="middle">NILNAG LAKE</text>
+        <text class="wp-sub" x="560" y="63" text-anchor="middle">OPTIONAL DETOUR</text>
+        <text class="km-label" x="560" y="245" text-anchor="middle">KM 40</text>
+
+        <circle class="wp-dot term" cx="850" cy="40" r="6" />
+        <text class="wp-label" x="850" y="20" text-anchor="end">YUSMARG</text>
+        <text class="wp-sub" x="850" y="33" text-anchor="end">END &middot; 2,396M</text>
+        <text class="km-label" x="850" y="245" text-anchor="end">KM 47</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-copy">
+      <h3 class="serif">About this drive</h3>
+      <p>The road out of Srinagar climbs slowly at first, threading through pine forest before the grade steepens past Chrar-e-Sharief. Traffic thins here, and the last stretch runs beside a shallow stream into the open meadow that gives Yusmarg its name &mdash; the "Meadow of Gold."</p>
+      <p>The Nilnag Lake detour adds real elevation in a short distance; skip it after rain, when the unpaved final kilometre turns to clay.</p>
+    </div>
+
+    <div class="facts-list">
+      <div class="fact-row">
+        <span class="fact-label">Road condition</span>
+        <span class="fact-value">Paved &middot; single lane near the shrine</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Fuel</span>
+        <span class="fact-value">Last pump in Srinagar &mdash; none en route</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Mobile network</span>
+        <span class="fact-value">Drops past km 28 &mdash; carry offline maps</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Where to stop</span>
+        <span class="fact-value">Dhabas at Chrar-e-Sharief for Kashmiri tea</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Avoid in</span>
+        <span class="fact-value">Heavy monsoon &mdash; final km turns to clay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

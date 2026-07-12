@@ -216,7 +216,7 @@ export default function ExploreClient({ data }) {
       {/*  ============ LANDING UTILITY BAR ============  */}
       <div className="landing-utility-bar reveal">
         <span className="weather-chip mono">Srinagar · {temperature}°C</span>
-        <a href="#" className="btn btn-primary btn-sm">Plan a trip</a>
+        <Link href="/plan" className="btn btn-primary btn-sm">Plan a trip</Link>
       </div>
 
       {/*  ============ HERO ============  */}

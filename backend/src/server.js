@@ -20,6 +20,8 @@ import explorerRoutes from "./routes/explorerRoutes.js";
 import exploreRoutes from "./routes/exploreRoutes.js";
 import collectionRoutes from "./routes/collectionRoutes.js";
 import trailRoutes from "./routes/trailRoutes.js";
+import trekRoutes from "./routes/trekRoutes.js";
+import campRoutes from "./routes/campRoutes.js";
 
 dotenv.config();
 
@@ -117,6 +119,8 @@ app.use("/api/explorer", explorerRoutes);
 app.use("/api/explore", exploreRoutes);
 app.use("/api/collections", collectionRoutes);
 app.use("/api/trails", trailRoutes);
+app.use("/api/treks", trekRoutes);
+app.use("/api/camps", campRoutes);
 
 app.use((err, req, res, next) => {
   if (err.code === "EBADCSRFTOKEN") {
