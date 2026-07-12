@@ -41,6 +41,11 @@ export default function TrekkingCampingClient({ treks, camps }) {
   // --- Top progress rail (rAF-throttled scroll) ---
   useEffect(() => {
     setMounted(true);
+    
+    // Set initial custom properties for portaled elements
+    document.documentElement.style.setProperty("--accent", "#C9A24D");
+    document.documentElement.style.setProperty("--accent-bright", "#EFCF83");
+
     const rail = railRef.current;
     if (!rail) return;
 

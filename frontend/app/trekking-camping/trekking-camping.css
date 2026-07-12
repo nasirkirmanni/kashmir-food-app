@@ -55,7 +55,7 @@
   left: 0;
   height: 2px;
   width: 0%;
-  background: var(--accent);
+  background: var(--accent, #C9A24D);
   z-index: 100;
   transition: width 0.05s linear, background 0.6s ease;
   pointer-events: none;
@@ -92,6 +92,7 @@
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  width: 114px;
 }
 
 .tc-mode-nav button.active {
@@ -104,12 +105,12 @@
   top: 5px;
   bottom: 5px;
   border-radius: 100px;
-  background: var(--accent);
+  background: var(--accent, #C9A24D);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     background 0.6s ease, width 0.5s ease;
   z-index: -1;
-  width: 118px;
+  width: 114px;
 }
 
 /* ============ ALTIMETER ============ */
@@ -146,7 +147,7 @@
 }
 .tc-altimeter .fill {
   fill: none;
-  stroke: var(--accent);
+  stroke: var(--accent, #C9A24D);
   stroke-width: 3;
   stroke-linecap: round;
   transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1),
@@ -173,7 +174,7 @@
 .tc-altimeter .readout-val {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 19px;
-  color: var(--accent-bright);
+  color: var(--accent-bright, #EFCF83);
   transition: color 0.6s ease;
 }
 .tc-altimeter .readout-name {

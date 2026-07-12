@@ -10,7 +10,7 @@ export default function ModeToggle({ mode, onModeChange }) {
       <div
         className="tc-pill"
         style={{
-          transform: isTrek ? "translateX(0)" : "translateX(118px)"
+          transform: isTrek ? "translateX(0)" : "translateX(116px)"
         }}
       />
       <button

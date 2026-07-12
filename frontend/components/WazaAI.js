@@ -356,7 +356,7 @@ export default function WazaAI() {
   return (
     <>
       {/* Floating Button */}
-      <div className="hidden md:flex fixed bottom-10 right-10 z-50 items-center gap-4">
+      <div className="hidden md:flex fixed bottom-32 right-10 z-50 items-center gap-4">
         {/* Tooltip */}
         <AnimatePresence>
           {!isOpen && !hasSeenWazaAI && (
