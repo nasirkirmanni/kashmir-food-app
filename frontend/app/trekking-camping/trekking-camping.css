@@ -113,6 +113,36 @@
   width: 114px;
 }
 
+/* ============ BACK BUTTON ============ */
+.tc-back-btn {
+  position: fixed;
+  top: 100px;
+  left: 36px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(6, 6, 8, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px 8px 12px;
+  border-radius: 100px;
+  color: var(--ivory);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.tc-back-btn:hover {
+  background: rgba(6, 6, 8, 0.9);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.tc-back-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
 /* ============ ALTIMETER ============ */
 .tc-altimeter {
   position: fixed;
@@ -548,6 +578,14 @@
 @media (max-width: 880px) {
   .tc-mode-nav {
     top: 20px;
+  }
+  .tc-back-btn {
+    top: 20px;
+    left: 16px;
+    padding: 8px;
+  }
+  .tc-back-btn span {
+    display: none;
   }
   .tc-brand-mark {
     display: none;

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register Your Agency — Wazwan Way Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal-950: #0c0a08;
+    --charcoal-900: #16110d;
+    --charcoal-850: #1c1611;
+    --charcoal-800: #211a15;
+    --charcoal-700: #2c2319;
+    --ivory: #f4ecdf;
+    --ivory-dim: #cfc4b3;
+    --gold: #d4a256;
+    --gold-soft: rgba(212,162,86,0.45);
+    --copper: #b5693a;
+    --line: rgba(244,236,223,0.12);
+    --error: #c1613f;
+
+    --font-display: 'Cormorant Garamond', serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{ background:var(--charcoal-950); color:var(--ivory); font-family:var(--font-body); min-height:100vh; }
+  ::selection{ background:var(--gold); color:var(--charcoal-950); }
+  a{ color:inherit; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ---------------- NAV ---------------- */
+  .site-nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 48px;
+    background:linear-gradient(to bottom, rgba(12,10,8,0.9), transparent);
+    backdrop-filter:blur(2px);
+  }
+  .nav-logo{ font-family:var(--font-display); font-size:1.35rem; letter-spacing:0.02em; }
+  .nav-logo b{ font-weight:600; }
+  .nav-logo span{ color:var(--gold); font-weight:400; }
+  .nav-links{ display:flex; gap:34px; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .nav-links a{ opacity:0.8; transition:opacity .25s; white-space:nowrap; text-decoration:none; color:inherit;}
+  .nav-links a:hover{ opacity:1; color:var(--gold); }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+  .btn-nav-signin{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    background:var(--gold); color:var(--charcoal-950); padding:10px 20px; border-radius:30px; border:none;
+  }
+  .nav-menu-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    background:transparent; display:flex; align-items:center; justify-content:center; color:var(--ivory);
+  }
+  @media (max-width: 1100px){ .nav-links{display:none;} }
+
+  .layout{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:0.95fr 1.05fr;
+  }
+  @media (max-width:980px){ .layout{ grid-template-columns:1fr; } }
+
+  /* ---------------- LEFT: PITCH PANEL ---------------- */
+  .pitch-panel{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 30% 15%, rgba(212,162,86,0.08), transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(181,105,58,0.06), transparent 50%),
+      linear-gradient(165deg, #17120d 0%, #0c0a08 70%);
+    padding:110px 48px 60px;
+    border-right:1px solid var(--line);
+    display:flex; flex-direction:column;
+  }
+  @media (max-width:980px){ .pitch-panel{ border-right:none; border-bottom:1px solid var(--line); padding:104px 28px 40px; } }
+  @media (max-width:980px){ .founding-panel{ display:none; } }
+
+  .mini-seal{ width:46px; height:46px; flex-shrink:0; opacity:0; animation:fadeUp .6s ease forwards; }
+  .mini-seal circle:first-child{ fill:url(#miniSealGrad); }
+
+  .pitch-eyebrow{
+    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--gold); margin-top:22px; opacity:0;
+    animation:fadeUp 0.6s ease forwards; animation-delay:0.1s;
+  }
+  .pitch-headline{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(1.9rem, 3vw, 2.5rem); line-height:1.18; max-width:15ch;
+    margin-top:14px; opacity:0;
+    animation:fadeUp 0.6s ease forwards; animation-delay:0.2s;
+  }
+  .pitch-headline .accent{ font-style:italic; color:var(--gold); font-weight:500; }
+  .pitch-sub{
+    font-size:0.92rem; color:var(--ivory-dim); line-height:1.65; max-width:38ch;
+    margin-top:14px; opacity:0;
+    animation:fadeUp 0.6s ease forwards; animation-delay:0.3s;
+  }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+  .founding-panel{
+    margin-top:30px;
+    border:1px solid var(--gold-soft);
+    border-radius:8px;
+    padding:20px 22px;
+    background:linear-gradient(135deg, rgba(212,162,86,0.06), transparent 60%);
+    opacity:0; animation:fadeUp 0.6s ease forwards; animation-delay:0.4s;
+  }
+  .founding-badge-row{ display:flex; align-items:center; gap:9px; }
+  .founding-badge-row .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); animation:dotpulse 2s ease-in-out infinite; }
+  .founding-badge-row span{ font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); }
+  .founding-panel h4{ font-family:var(--font-display); font-weight:500; font-size:1.2rem; margin-top:10px; }
+  .founding-panel p{ font-size:0.85rem; color:var(--ivory-dim); line-height:1.6; margin-top:8px; }
+  .founding-panel p b{ color:var(--ivory); font-weight:500; }
+
+  /* ---------------- LIVE PREVIEW ---------------- */
+  .preview-block{
+    margin-top:36px;
+    display:none;
+  }
+  .preview-block.show{
+    display:block;
+    animation:fadeUp 0.5s ease forwards;
+  }
+  .preview-label{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ivory-dim);
+    margin-bottom:12px;
+  }
+  .preview-label .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); animation:dotpulse 2s ease-in-out infinite; }
+  @keyframes dotpulse{ 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+
+  .preview-card{
+    background:rgba(22,17,13,0.65);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px;
+    backdrop-filter:blur(6px);
+  }
+  .preview-top{ display:flex; align-items:center; gap:12px; }
+  .preview-avatar{
+    width:48px; height:48px; border-radius:8px; flex-shrink:0;
+    background:linear-gradient(150deg, var(--charcoal-800), var(--charcoal-900));
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:600; font-size:1.1rem; color:var(--gold);
+    overflow:hidden;
+  }
+  .preview-avatar img{ width:100%; height:100%; object-fit:cover; }
+  .preview-name{ font-family:var(--font-display); font-size:1.15rem; line-height:1.2; }
+  .preview-owner{ font-family:var(--font-body); font-size:0.74rem; color:var(--ivory-dim); margin-top:2px; }
+  .preview-badge{
+    margin-left:auto; flex-shrink:0;
+    font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--gold); border:1px solid var(--gold-soft); border-radius:20px; padding:4px 9px;
+    white-space:nowrap;
+  }
+  .preview-meta{
+    display:flex; gap:16px; margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
+  }
+  .preview-meta div{ font-family:var(--font-mono); font-size:0.68rem; color:var(--ivory-dim); }
+  .preview-meta b{ color:var(--ivory); font-weight:500; }
+  .preview-empty{ color:var(--ivory-dim); font-style:italic; font-size:0.8rem; }
+
+  .testimonial-note{
+    margin-top:22px; padding:14px 16px;
+    border:1px dashed var(--line); border-radius:6px;
+    font-family:var(--font-mono); font-size:0.66rem; color:var(--ivory-dim); line-height:1.6;
+    display:none;
+  }
+  .testimonial-note.show{
+    display:block;
+    animation:fadeUp 0.5s ease forwards;
+  }
+  .testimonial-note b{ color:var(--gold); }
+
+  /* ---------------- RIGHT: FORM PANEL ---------------- */
+  .form-panel{ display:flex; align-items:flex-start; justify-content:center; padding:110px 48px 60px; }
+  .form-wrap{ width:100%; max-width:460px; }
+
+  .form-eyebrow{ font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ivory-dim); }
+  .form-title{ font-family:var(--font-display); font-weight:500; font-size:clamp(1.8rem, 2.8vw, 2.15rem); margin-top:8px; }
+  .form-desc{ color:var(--ivory-dim); font-size:0.86rem; margin-top:8px; line-height:1.5; }
+
+  /* Stepper */
+  .stepper{ display:flex; align-items:center; gap:8px; margin-top:28px; }
+  .step-seg{ flex:1; height:2px; background:var(--line); border-radius:2px; overflow:hidden; }
+  .step-seg-fill{ height:100%; width:0%; background:var(--gold); transition:width .4s cubic-bezier(.16,1,.3,1); }
+  .step-label{
+    display:flex; justify-content:space-between; margin-top:9px;
+    font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ivory-dim);
+  }
+  .step-label .current{ color:var(--gold); }
+
+  .form-step{ display:none; margin-top:28px; }
+  .form-step.active{ display:block; animation:fadeUp .4s ease; }
+
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:520px){ .field-row{ grid-template-columns:1fr; } }
+
+  .field{ position:relative; margin-top:22px; }
+  .field input{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--ivory); font-family:var(--font-body); font-size:0.95rem; padding:9px 2px; outline:none;
+    transition:border-color .3s ease;
+  }
+  .field label{
+    position:absolute; left:2px; top:9px;
+    font-family:var(--font-body); font-size:0.95rem; color:var(--ivory-dim);
+    pointer-events:none; transition:transform .22s ease, font-size .22s ease, color .22s ease, top .22s ease;
+  }
+  .field input:focus ~ label, .field input:not(:placeholder-shown) ~ label{
+    top:-9px; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold);
+  }
+  .field .underline{ position:absolute; left:0; bottom:0; height:1px; width:0; background:var(--gold); transition:width .32s cubic-bezier(.16,1,.3,1); }
+  .field input:focus ~ .underline{ width:100%; }
+  .field input:focus{ border-bottom-color:transparent; }
+  .field.pw input{ padding-right:32px; }
+  .pw-toggle{ position:absolute; right:2px; top:7px; background:none; border:none; padding:4px; color:var(--ivory-dim); transition:color .2s ease; }
+  .pw-toggle:hover{ color:var(--gold); }
+  .field-hint{ font-family:var(--font-mono); font-size:0.6rem; color:var(--ivory-dim); margin-top:6px; opacity:0.75; }
+  .field-optional-tag{ font-size:0.6rem; color:var(--ivory-dim); opacity:0.6; text-transform:none; letter-spacing:0; }
+
+  .social-field{ position:relative; margin-top:22px; }
+  .social-field .icon{ position:absolute; left:2px; top:50%; transform:translateY(-50%); color:var(--ivory-dim); display:flex; }
+  .social-field input{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--ivory); font-family:var(--font-body); font-size:0.92rem; padding:9px 2px 9px 26px; outline:none;
+    transition:border-color .3s ease;
+  }
+  .social-field input:focus{ border-bottom-color:var(--gold); }
+  .social-field input::placeholder{ color:var(--ivory-dim); opacity:0.55; }
+
+  .file-field{ margin-top:22px; }
+  .file-field-label{ font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ivory-dim); margin-bottom:8px; display:block; }
+  .file-drop{
+    border:1px dashed var(--line); border-radius:6px; padding:14px 16px;
+    display:flex; align-items:center; gap:12px; cursor:pointer; transition:border-color .25s ease, background .25s ease;
+  }
+  .file-drop:hover{ border-color:var(--gold-soft); background:rgba(212,162,86,0.04); }
+  .file-drop input{ display:none; }
+  .file-drop-icon{ color:var(--gold); flex-shrink:0; }
+  .file-drop-text{ font-size:0.78rem; color:var(--ivory-dim); }
+  .file-drop-text b{ color:var(--ivory); font-weight:500; }
+
+  .step-nav{ display:flex; gap:12px; margin-top:34px; }
+  .btn-back{
+    flex:0 0 auto; background:transparent; border:1px solid var(--line); color:var(--ivory);
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:14px 22px; border-radius:30px; transition:border-color .25s ease, background .25s ease;
+  }
+  .btn-back:hover{ border-color:var(--gold-soft); background:rgba(212,162,86,0.05); }
+  .btn-continue, .btn-submit{
+    flex:1; background:var(--gold); color:var(--charcoal-950); border:none;
+    font-family:var(--font-mono); font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:15px; border-radius:30px; transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-continue:hover, .btn-submit:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,162,86,0.28); }
+
+  .reassure-line{
+    text-align:center; font-family:var(--font-mono); font-size:0.66rem; color:var(--ivory-dim);
+    margin-top:16px; letter-spacing:0.02em;
+  }
+  .reassure-line b{ color:var(--gold); font-weight:500; }
+
+  .signin-line{ text-align:center; font-size:0.85rem; color:var(--ivory-dim); margin-top:20px; }
+  .signin-line a{ color:var(--ivory); font-weight:500; text-decoration:none; border-bottom:1px solid var(--gold-soft); }
+
+  @media (prefers-reduced-motion: reduce){
+    .pitch-eyebrow, .pitch-headline, .pitch-sub, .founding-panel, .mini-seal{ animation:none !important; opacity:1 !important; }
+    .preview-block.show, .testimonial-note.show{ animation:none !important; }
+    .preview-label .dot{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-logo"><b>WAZWAN</b> <span>WAY</span></div>
+    <div class="nav-links">
+      <a href="#">How to Experience Wazwan</a>
+      <a href="#">Kashmiri Food</a>
+      <a href="#">Traditional Wazwan</a>
+      <a href="#">Restaurants</a>
+      <a href="#">Visit Kashmir</a>
+      <a href="#">Explore Kashmir</a>
+      <a href="#" style="color:var(--gold)">Waza AI</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-nav-signin">Sign In</button>
+      <button class="nav-menu-btn" aria-label="Menu">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="layout">
+
+    <!-- ================= PITCH PANEL ================= -->
+    <div class="pitch-panel">
+      <svg class="mini-seal" viewBox="0 0 46 46" fill="none">
+        <circle cx="23" cy="23" r="21" stroke="var(--gold-soft)" stroke-width="1"/>
+        <circle cx="23" cy="23" r="21" stroke="var(--gold)" stroke-width="1"/>
+        <text x="23" y="28" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="600" fill="#12100d">WW</text>
+        <defs>
+          <radialGradient id="miniSealGrad" cx="35%" cy="30%" r="80%">
+            <stop offset="0%" stop-color="#e6bd7a"/>
+            <stop offset="55%" stop-color="var(--gold)"/>
+            <stop offset="100%" stop-color="var(--copper)"/>
+          </radialGradient>
+        </defs>
+      </svg>
+
+      <div class="pitch-eyebrow">For Travel Partners</div>
+      <h1 class="pitch-headline">Your next booking is already <span class="accent">searching</span> for you.</h1>
+      <p class="pitch-sub">Every day, travelers use Wazwan Way and Waza AI to plan their Kashmir trip. Agencies who list here are the ones they find first.</p>
+
+      <div class="founding-panel">
+        <div class="founding-badge-row"><span class="dot"></span><span>Now Onboarding — Founding Partners</span></div>
+        <h4>Be one of the first.</h4>
+        <p>We're building our travel partner network from the ground up, starting with a small founding cohort. List now and your agency keeps <b>Founding Partner</b> status permanently — priority placement in Waza AI's recommendations and on the homepage, locked in before it's ever a paid tier.</p>
+      </div>
+
+      <div class="preview-block">
+        <div class="preview-label"><span class="dot"></span> How travelers will see you</div>
+        <div class="preview-card">
+          <div class="preview-top">
+            <div class="preview-avatar" id="previewAvatar">?</div>
+            <div>
+              <div class="preview-name" id="previewName">Your Agency Name</div>
+              <div class="preview-owner" id="previewOwner">Owner name appears here</div>
+            </div>
+            <div class="preview-badge">Founding Partner</div>
+          </div>
+          <div class="preview-meta">
+            <div>📍 <b id="previewCity">City</b></div>
+            <div>🏛 <b id="previewYears">— yrs</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-note">
+        <b>Note:</b> A real partner testimonial and photo will go here once you have one on file. We don't publish placeholder quotes as if they were real — it's the fastest way to lose a travel partner's trust before they've even signed up.
+      </div>
+    </div>
+
+    <!-- ================= FORM PANEL ================= -->
+    <div class="form-panel">
+      <div class="form-wrap">
+        <div class="form-eyebrow">Register Your Agency</div>
+        <h2 class="form-title">Start receiving enquiries</h2>
+        <p class="form-desc">Three short steps. Takes about two minutes.</p>
+
+        <div class="stepper">
+          <div class="step-seg"><div class="step-seg-fill" id="segFill1"></div></div>
+          <div class="step-seg"><div class="step-seg-fill" id="segFill2"></div></div>
+          <div class="step-seg"><div class="step-seg-fill" id="segFill3"></div></div>
+        </div>
+        <div class="step-label">
+          <span id="stepLabel1">Basics</span>
+          <span id="stepLabel2">Contact</span>
+          <span id="stepLabel3">Branding</span>
+        </div>
+
+        <form onsubmit="return false;">
+
+          <!-- STEP 1 -->
+          <div class="form-step active" data-step="1">
+            <div class="field-row">
+              <div class="field">
+                <input type="text" placeholder=" " id="ownerName" autocomplete="name">
+                <label for="ownerName">Owner Name</label>
+                <div class="underline"></div>
+              </div>
+              <div class="field">
+                <input type="text" placeholder=" " id="agencyName" autocomplete="organization">
+                <label for="agencyName">Agency Name</label>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="field">
+              <input type="email" placeholder=" " id="email" autocomplete="email">
+              <label for="email">Email Address</label>
+              <div class="underline"></div>
+            </div>
+            <div class="field-row">
+              <div class="field pw">
+                <input type="password" placeholder=" " id="password" autocomplete="new-password">
+                <label for="password">Password</label>
+                <div class="underline"></div>
+                <button type="button" class="pw-toggle" onclick="togglePw('password', this)" aria-label="Show password">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="field pw">
+                <input type="password" placeholder=" " id="confirmPassword" autocomplete="new-password">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="btn-continue" onclick="goToStep(2)">Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="form-step" data-step="2">
+            <div class="field-row">
+              <div class="field">
+                <input type="tel" placeholder=" " id="contactNumber" autocomplete="tel">
+                <label for="contactNumber">Contact Number</label>
+                <div class="underline"></div>
+              </div>
+              <div class="field">
+                <input type="tel" placeholder=" " id="whatsappNumber" autocomplete="tel">
+                <label for="whatsappNumber">WhatsApp Number</label>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <input type="text" placeholder=" " id="city" autocomplete="address-level2">
+                <label for="city">City</label>
+                <div class="underline"></div>
+              </div>
+              <div class="field">
+                <input type="number" placeholder=" " id="yearsInBusiness" min="0">
+                <label for="yearsInBusiness">Years in Business</label>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
+              <button type="button" class="btn-continue" onclick="goToStep(3)">Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="form-step" data-step="3">
+            <div class="social-field">
+              <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.5-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></span>
+              <input type="text" placeholder="Facebook page URL (optional)" id="facebook">
+            </div>
+            <div class="social-field">
+              <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
+              <input type="text" placeholder="Instagram username (optional)" id="instagram">
+            </div>
+
+            <div class="file-field">
+              <span class="file-field-label">Agency Logo <span class="field-optional-tag">(optional)</span></span>
+              <label class="file-drop">
+                <span class="file-drop-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                </span>
+                <span class="file-drop-text" id="logoFileText"><b>Upload logo</b> — shows in your preview card</span>
+                <input type="file" accept="image/*" id="logoFile" onchange="handleLogoUpload(this)">
+              </label>
+            </div>
+
+            <div class="file-field">
+              <span class="file-field-label">Cover Art <span class="field-optional-tag">(optional)</span></span>
+              <label class="file-drop">
+                <span class="file-drop-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                </span>
+                <span class="file-drop-text" id="coverFileText"><b>Upload cover art</b> — used on your listing banner</span>
+                <input type="file" accept="image/*" id="coverFile" onchange="handleCoverUpload(this)">
+              </label>
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="btn-back" onclick="goToStep(2)">← Back</button>
+              <button type="submit" class="btn-submit">Register Agency</button>
+            </div>
+            <div class="reassure-line">No listing fees to apply · Reviewed within <b>48 hours</b></div>
+          </div>
+
+        </form>
+
+        <div class="signin-line">Already have an account? <a href="#">Sign In</a></div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  function togglePw(id, btn){
+    const input = document.getElementById(id);
+    const isPw = input.type === 'password';
+    input.type = isPw ? 'text' : 'password';
+    btn.style.color = isPw ? 'var(--gold)' : '';
+  }
+
+  // ---- Stepper ----
+  let currentStep = 1;
+  const totalSteps = 3;
+  function goToStep(step){
+    document.querySelectorAll('.form-step').forEach(el=>{
+      el.classList.toggle('active', parseInt(el.dataset.step) === step);
+    });
+    for(let i=1;i<=totalSteps;i++){
+      document.getElementById('segFill'+i).style.width = (i <= step) ? '100%' : '0%';
+      document.getElementById('stepLabel'+i).classList.toggle('current', i === step);
+    }
+    currentStep = step;
+
+    // Reveal the live preview + testimonial note only once the person moves past Basics
+    const showPreview = step >= 2;
+    document.querySelector('.preview-block').classList.toggle('show', showPreview);
+    document.querySelector('.testimonial-note').classList.toggle('show', showPreview);
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  goToStep(1);
+
+  // ---- Live preview binding ----
+  function bindPreview(inputId, targetId, fallback, formatter){
+    const input = document.getElementById(inputId);
+    const target = document.getElementById(targetId);
+    input.addEventListener('input', ()=>{
+      const val = input.value.trim();
+      target.textContent = val ? (formatter ? formatter(val) : val) : fallback;
+    });
+  }
+  bindPreview('agencyName', 'previewName', 'Your Agency Name');
+  bindPreview('ownerName', 'previewOwner', 'Owner name appears here', v => 'Owned by ' + v);
+  bindPreview('city', 'previewCity', 'City');
+  bindPreview('yearsInBusiness', 'previewYears', '— yrs', v => v + ' yrs');
+
+  document.getElementById('agencyName').addEventListener('input', function(){
+    const val = this.value.trim();
+    const avatar = document.getElementById('previewAvatar');
+    if(!avatar.querySelector('img')){
+      avatar.textContent = val ? val.charAt(0).toUpperCase() : '?';
+    }
+  });
+
+  function handleLogoUpload(input){
+    const label = document.getElementById('logoFileText');
+    if(input.files && input.files[0]){
+      label.innerHTML = '<b>' + input.files[0].name + '</b> uploaded';
+      const reader = new FileReader();
+      reader.onload = (e)=>{
+        const avatar = document.getElementById('previewAvatar');
+        avatar.innerHTML = '<img src="'+ e.target.result +'" alt="Agency logo">';
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  function handleCoverUpload(input){
+    const label = document.getElementById('coverFileText');
+    if(input.files && input.files[0]){
+      label.innerHTML = '<b>' + input.files[0].name + '</b> uploaded';
+    }
+  }
+</script>
+</body>
+</html>

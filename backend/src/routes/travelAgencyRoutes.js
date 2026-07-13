@@ -8,6 +8,34 @@ import { protect } from "../middleware/auth.js";
 import rateLimit from "express-rate-limit";
 import crypto from "crypto";
 import { sendOtpEmail, sendTravelAgencyLeadEmail } from "../utils/sendEmail.js";
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const uploadDir = path.join(__dirname, '../../../frontend/public/images/agencies');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination(req, file, cb) { cb(null, uploadDir); },
+  filename(req, file, cb) { cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`); },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpg|jpeg|png|webp/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if (extname && mimetype) return cb(null, true);
+    cb("Images only! (jpg, jpeg, png, webp)");
+  },
+});
 
 const generateOtp = () => crypto.randomInt(100000, 999999).toString();
 
@@ -26,13 +54,17 @@ const router = express.Router();
 // @access  Public
 router.post(
   "/register",
+  upload.fields([{ name: 'logo', maxCount: 1 }, { name: 'coverArt', maxCount: 1 }]),
   authLimiter,
   asyncHandler(async (req, res) => {
     const { 
       email, password, phoneNumber, agencyName, 
       ownerName, contactNumber, whatsapp, city, yearsInBusiness,
-      website, instagramLink
+      facebookUsername, instagramUsername
     } = req.body;
+
+    const thumbnailUrl = req.files?.['logo']?.[0] ? `/images/agencies/${req.files['logo'][0].filename}` : undefined;
+    const coverImageUrl = req.files?.['coverArt']?.[0] ? `/images/agencies/${req.files['coverArt'][0].filename}` : undefined;
 
     if (!email || !password || !phoneNumber || !agencyName || !ownerName || !contactNumber || !city || !yearsInBusiness) {
       res.status(400);
@@ -72,11 +104,13 @@ router.post(
       whatsapp,
       city,
       yearsInBusiness,
-      website,
-      instagramLink,
+      facebookLink: facebookUsername,
+      instagramLink: instagramUsername,
+      thumbnailUrl,
+      coverImageUrl,
       user: user._id,
       isListed: false,
-      verificationStatus: 'incomplete'
+      verificationStatus: 'pending'
     });
 
     sendTravelAgencyLeadEmail({ agencyName, ownerName, contactNumber, email }).catch(console.error);

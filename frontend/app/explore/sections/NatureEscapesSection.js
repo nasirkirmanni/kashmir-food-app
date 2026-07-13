@@ -24,7 +24,9 @@ export default function NatureEscapesSection() {
               <span className="trek-stat">3–8 day routes</span>
               <span className="trek-stat">2,400–4,200m altitude</span>
             </div>
-            <Link href="/trekking-camping" className="btn btn-primary">Explore Treks &amp; Camps <span>→</span></Link>
+            <Link href="/trekking-camping" className="btn btn-primary" style={{ position: 'relative', zIndex: 50, pointerEvents: 'auto' }}>
+              Explore Treks &amp; Camps <span>→</span>
+            </Link>
           </div>
 
           <div className="route-card trek-elevation reveal tilt-card">

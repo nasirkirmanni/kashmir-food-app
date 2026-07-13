@@ -8,6 +8,7 @@
     "seed": "npm run seed --prefix backend"
   },
   "dependencies": {
-    "mongodb": "^7.4.0"
+    "mongodb": "^7.4.0",
+    "puppeteer": "^25.3.0"
   }
 }

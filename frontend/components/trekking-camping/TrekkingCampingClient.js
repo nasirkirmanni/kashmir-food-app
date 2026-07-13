@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useRouter } from "next/navigation";
 import TrekCampHero from "./TrekCampHero";
 import ModeToggle from "./ModeToggle";
 import AltimeterDial from "./AltimeterDial";
@@ -11,6 +12,7 @@ import CloseSection from "./CloseSection";
 const MAX_ELEV = 15000;
 
 export default function TrekkingCampingClient({ treks, camps }) {
+  const router = useRouter();
   const [mode, setMode] = useState("trek");
   const [altData, setAltData] = useState({ elevation: 0, name: "Scroll to begin", visible: false });
   const [mounted, setMounted] = useState(false);
@@ -121,6 +123,18 @@ export default function TrekkingCampingClient({ treks, camps }) {
     <div className="tc-page" ref={pageRef}>
       {mounted && createPortal(
         <>
+          {/* Back button */}
+          <button
+            onClick={() => router.back()}
+            className="tc-back-btn"
+            aria-label="Go back"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Back</span>
+          </button>
+
           {/* Top progress rail */}
           <div className="tc-rail" ref={railRef} />
 

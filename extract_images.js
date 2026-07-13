@@ -1,18 +1,20 @@
 const fs = require('fs');
-const html = fs.readFileSync('sd.html', 'utf8');
+const html = fs.readFileSync('kashmiri-food (8).html', 'utf8');
 
-fs.mkdirSync('frontend/public/images/optimized/scenic-drives', { recursive: true });
+const classToFilename = {
+  'bg-hero': 'hero.jpg',
+  'bg-wazwan': 'wazwan.jpg',
+  'bg-beverages': 'beverages.jpg',
+  'bg-bakery': 'bakery.jpg',
+  'bg-street': 'street-food.jpg',
+};
 
-const regex = /src="data:image\/(jpeg|png);base64,([^"]+)"/g;
-let match;
-let i = 1;
-while ((match = regex.exec(html)) !== null) {
-    const ext = match[1] === 'jpeg' ? 'jpg' : match[1];
-    const data = match[2];
-    const buffer = Buffer.from(data, 'base64');
-    fs.writeFileSync(`frontend/public/images/optimized/scenic-drives/doodhpathri-${i}.${ext}`, buffer);
-    console.log(`Saved doodhpathri-${i}.${ext}`);
-    i++;
-}
+// also the trami wheel might be embedded. Let's just extract all and rename.
+let imgIdx = 0;
+const newHtml = html.replace(/url\('data:image\/(jpeg|png);base64,([^']+)'\)/g, (match, ext, base64) => {
+  const filename = 'image_' + (++imgIdx) + '.' + (ext === 'jpeg' ? 'jpg' : ext);
+  fs.writeFileSync('frontend/public/images/kashmiri-food/' + filename, Buffer.from(base64, 'base64'));
+  return `url('/images/kashmiri-food/${filename}')`;
+});
 
-console.log('Extraction complete.');
+fs.writeFileSync('kashmiri-food-clean.html', newHtml);

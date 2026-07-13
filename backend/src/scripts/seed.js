@@ -20,19 +20,12 @@ const seed = async () => {
     Dish.deleteMany({}),
     Restaurant.deleteMany({}),
     Destination.deleteMany({}),
-    User.deleteMany({}),
     Review.deleteMany({}),
     Collection.deleteMany({})
   ]);
 
-  const createdUsers = await User.insertMany(
-    await Promise.all(
-      users.map(async (user) => ({
-        ...user,
-        password: await bcrypt.hash(user.password, 10)
-      }))
-    )
-  );
+  // Users are no longer wiped and seeded by this script to prevent deleting real registered users.
+  // The system relies on manual admin creation or standard registration for users.
 
   const createdDishes = await Dish.insertMany(dishes);
   const dishMap = new Map(createdDishes.map((dish) => [dish.name, dish._id]));

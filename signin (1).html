@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — Wazwan Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal-950: #0c0a08;
+    --charcoal-900: #16110d;
+    --charcoal-850: #1c1611;
+    --charcoal-800: #211a15;
+    --charcoal-700: #2c2319;
+    --ivory: #f4ecdf;
+    --ivory-dim: #cfc4b3;
+    --gold: #d4a256;
+    --gold-soft: rgba(212,162,86,0.45);
+    --copper: #b5693a;
+    --line: rgba(244,236,223,0.12);
+    --error: #c1613f;
+
+    --font-display: 'Cormorant Garamond', serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--charcoal-950);
+    color:var(--ivory);
+    font-family:var(--font-body);
+    min-height:100vh;
+  }
+  ::selection{background:var(--gold); color:var(--charcoal-950);}
+  a{color:inherit;}
+  button{font-family:inherit; cursor:pointer;}
+
+  /* ---------------- NAV (ported from Kashmiri Food page) ---------------- */
+  .site-nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 48px;
+    background:linear-gradient(to bottom, rgba(12,10,8,0.85), transparent);
+    backdrop-filter:blur(2px);
+  }
+  .nav-logo{ font-family:var(--font-display); font-size:1.35rem; letter-spacing:0.02em; }
+  .nav-logo b{ font-weight:600; }
+  .nav-logo span{ color:var(--gold); font-weight:400; }
+  .nav-links{ display:flex; gap:34px; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .nav-links a{ opacity:0.8; transition:opacity .25s; white-space:nowrap; text-decoration:none; color:inherit;}
+  .nav-links a:hover{ opacity:1; color:var(--gold); }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+  .nav-login{ font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; }
+  .btn-signup-nav{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    background:var(--gold); color:var(--charcoal-950); padding:10px 20px; border-radius:30px; border:none;
+  }
+  .nav-menu-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    background:transparent; display:flex; align-items:center; justify-content:center;
+    color:var(--ivory);
+  }
+  @media (max-width: 1100px){ .nav-links{display:none;} }
+
+  .layout{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:0.92fr 1.08fr;
+  }
+  @media (max-width:960px){ .layout{ grid-template-columns:1fr; } }
+
+  /* ---------------- LEFT: SEAL PANEL ---------------- */
+  .seal-panel{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 50% 38%, rgba(212,162,86,0.09), transparent 55%),
+      radial-gradient(ellipse at 20% 85%, rgba(181,105,58,0.07), transparent 50%),
+      linear-gradient(165deg, #17120d 0%, #0c0a08 70%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:100px 48px 60px;
+    border-right:1px solid var(--line);
+    overflow:hidden;
+  }
+  @media (max-width:960px){ .seal-panel{ border-right:none; border-bottom:1px solid var(--line); padding:96px 32px 44px; } }
+
+  .seal-wrap{ position:relative; width:184px; height:184px; }
+  .seal{
+    width:100%; height:100%;
+    transform:scale(0.55);
+    opacity:0;
+  }
+  .seal.stamp{
+    animation:stampIn 0.85s cubic-bezier(.2,1.4,.4,1) forwards;
+  }
+  @keyframes stampIn{
+    0%{ transform:scale(1.9); opacity:0; }
+    55%{ transform:scale(0.96); opacity:1; }
+    75%{ transform:scale(1.04); }
+    100%{ transform:scale(1); opacity:1; }
+  }
+  .seal-flash{
+    position:absolute; inset:-30%; border-radius:50%;
+    background:radial-gradient(circle, rgba(212,162,86,0.55), transparent 65%);
+    opacity:0; pointer-events:none;
+  }
+  .seal-flash.flash{ animation:flash 0.7s ease-out forwards; animation-delay:0.42s; }
+  @keyframes flash{ 0%{opacity:0;} 30%{opacity:0.9;} 100%{opacity:0;} }
+
+  .seal-rings{
+    transform-box: view-box;
+    transform-origin: 92px 92px;
+    animation: sealRotate 48s linear infinite;
+    animation-delay: 0.85s;
+  }
+  @keyframes sealRotate{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce){
+    .seal-rings{ animation:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .seal.stamp{ animation:none; transform:scale(1); opacity:1; }
+    .seal-flash.flash{ animation:none; }
+  }
+
+  .seal-tagline{
+    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--gold); margin-top:30px; opacity:0;
+    animation:fadeUp 0.7s ease forwards; animation-delay:0.6s;
+  }
+  .seal-headline{
+    font-family:var(--font-display); font-weight:500; text-align:center;
+    font-size:clamp(1.6rem, 2.4vw, 2.15rem); line-height:1.22; max-width:23ch;
+    min-height:2.5em;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:18px; opacity:0;
+    animation:fadeUp 0.7s ease forwards; animation-delay:0.72s;
+  }
+  .seal-headline .accent{ font-style:italic; color:var(--gold); font-weight:500; }
+  .seal-caret{
+    display:inline-block; width:2px; height:0.9em; background:var(--gold);
+    margin-left:3px; vertical-align:middle; animation:sealCaret 0.85s steps(1) infinite;
+  }
+  @keyframes sealCaret{ 0%,100%{opacity:1;} 50%{opacity:0;} }
+  @media (prefers-reduced-motion: reduce){ .seal-caret{ animation:none; } }
+  .seal-sub{
+    font-size:0.92rem; color:var(--ivory-dim); text-align:center; line-height:1.65;
+    max-width:34ch; margin-top:16px; opacity:0;
+    animation:fadeUp 0.7s ease forwards; animation-delay:0.84s;
+  }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    .seal-tagline, .seal-headline, .seal-sub{ animation:none; opacity:1; }
+  }
+
+  /* ---------------- RIGHT: FORM PANEL ---------------- */
+  .form-panel{
+    display:flex; align-items:center; justify-content:center;
+    padding:100px 48px 60px;
+  }
+  .form-wrap{ width:100%; max-width:400px; }
+
+  .form-eyebrow{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--ivory-dim);
+  }
+  .form-title{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(1.9rem, 3vw, 2.3rem); margin-top:10px;
+  }
+  .form-desc{ color:var(--ivory-dim); font-size:0.88rem; margin-top:10px; line-height:1.5; }
+
+  .field{
+    position:relative; margin-top:30px;
+  }
+  .field input{
+    width:100%;
+    background:transparent;
+    border:none; border-bottom:1px solid var(--line);
+    color:var(--ivory);
+    font-family:var(--font-body); font-size:0.98rem;
+    padding:10px 2px 10px;
+    outline:none;
+    transition:border-color .3s ease;
+  }
+  .field label{
+    position:absolute; left:2px; top:10px;
+    font-family:var(--font-body); font-size:0.98rem; color:var(--ivory-dim);
+    pointer-events:none;
+    transition:transform .22s ease, font-size .22s ease, color .22s ease, top .22s ease;
+    transform-origin:left top;
+  }
+  .field input:focus ~ label,
+  .field input:not(:placeholder-shown) ~ label{
+    top:-8px; font-size:0.64rem; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--gold);
+  }
+  .field .underline{
+    position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:var(--gold);
+    transition:width .32s cubic-bezier(.16,1,.3,1);
+  }
+  .field input:focus ~ .underline{ width:100%; }
+  .field input:focus{ border-bottom-color:transparent; }
+
+  .field.pw input{ padding-right:34px; }
+  .pw-toggle{
+    position:absolute; right:2px; top:9px;
+    background:none; border:none; padding:4px;
+    color:var(--ivory-dim);
+    display:flex; align-items:center;
+    transition:color .2s ease;
+  }
+  .pw-toggle:hover{ color:var(--gold); }
+
+  .field-hint{
+    font-family:var(--font-mono); font-size:0.64rem; color:var(--ivory-dim);
+    margin-top:7px; opacity:0.75;
+  }
+
+  .terms-row{
+    display:flex; align-items:flex-start; gap:10px;
+    margin-top:28px;
+  }
+  .terms-row input[type="checkbox"]{
+    appearance:none; width:16px; height:16px; margin-top:2px; flex-shrink:0;
+    border:1px solid var(--line); border-radius:3px;
+    background:transparent; cursor:pointer;
+    position:relative;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .terms-row input[type="checkbox"]:checked{
+    background:var(--gold); border-color:var(--gold);
+  }
+  .terms-row input[type="checkbox"]:checked::after{
+    content:''; position:absolute; left:4.5px; top:1.5px;
+    width:4px; height:8px;
+    border:solid var(--charcoal-950); border-width:0 1.6px 1.6px 0;
+    transform:rotate(45deg);
+  }
+  .terms-row span{ font-size:0.8rem; color:var(--ivory-dim); line-height:1.5; }
+  .terms-row a{ color:var(--gold); text-decoration:none; border-bottom:1px solid var(--gold-soft); }
+
+  .remember-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:26px;
+  }
+  .remember-check{ display:flex; align-items:center; gap:9px; cursor:pointer; }
+  .remember-check input[type="checkbox"]{
+    appearance:none; width:16px; height:16px; flex-shrink:0;
+    border:1px solid var(--line); border-radius:3px;
+    background:transparent; cursor:pointer;
+    position:relative;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .remember-check input[type="checkbox"]:checked{
+    background:var(--gold); border-color:var(--gold);
+  }
+  .remember-check input[type="checkbox"]:checked::after{
+    content:''; position:absolute; left:4.5px; top:1.5px;
+    width:4px; height:8px;
+    border:solid var(--charcoal-950); border-width:0 1.6px 1.6px 0;
+    transform:rotate(45deg);
+  }
+  .remember-check span{ font-size:0.82rem; color:var(--ivory-dim); }
+  .forgot-link{ font-size:0.82rem; color:var(--ivory-dim); text-decoration:none; border-bottom:1px solid var(--line); transition:color .2s ease, border-color .2s ease; }
+  .forgot-link:hover{ color:var(--gold); border-color:var(--gold-soft); }
+
+  .btn-create{
+    width:100%; margin-top:30px;
+    background:var(--gold); color:var(--charcoal-950); border:none;
+    font-family:var(--font-mono); font-size:0.76rem; letter-spacing:0.09em; text-transform:uppercase;
+    padding:15px; border-radius:30px;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-create:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,162,86,0.28); }
+  .btn-create:active{ transform:translateY(0); }
+
+  .signin-line{
+    text-align:center; font-size:0.85rem; color:var(--ivory-dim);
+    margin-top:22px;
+  }
+  .signin-line a{ color:var(--ivory); font-weight:500; text-decoration:none; border-bottom:1px solid var(--gold-soft); }
+
+  .form-wrap > *{ opacity:0; animation:fadeUp 0.6s ease forwards; }
+  .form-wrap > *:nth-child(1){ animation-delay:0.15s; }
+  .form-wrap > *:nth-child(2){ animation-delay:0.22s; }
+  .form-wrap > *:nth-child(3){ animation-delay:0.28s; }
+  .form-wrap > *:nth-child(4){ animation-delay:0.34s; }
+  @media (prefers-reduced-motion: reduce){
+    .form-wrap > *{ animation:none; opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-logo"><b>WAZWAN</b> <span>WAY</span></div>
+    <div class="nav-links">
+      <a href="#">How to Experience Wazwan</a>
+      <a href="#">Kashmiri Food</a>
+      <a href="#">Traditional Wazwan</a>
+      <a href="#">Restaurants</a>
+      <a href="#">Visit Kashmir</a>
+      <a href="#">Explore Kashmir</a>
+      <a href="#" style="color:var(--gold)">Waza AI</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-login" style="color:var(--gold)">Login</a>
+      <button class="btn-signup-nav">Sign Up</button>
+      <button class="nav-menu-btn" aria-label="Menu">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="layout">
+
+    <!-- ================= SEAL PANEL ================= -->
+    <div class="seal-panel">
+      <div class="seal-wrap">
+        <div class="seal-flash flash"></div>
+        <svg class="seal stamp" viewBox="0 0 184 184" fill="none">
+          <g class="seal-rings">
+            <circle cx="92" cy="92" r="88" stroke="var(--line)" stroke-width="1"/>
+            <circle cx="92" cy="92" r="74" stroke="var(--gold-soft)" stroke-width="1"/>
+            <circle cx="92" cy="92" r="60" stroke="var(--line)" stroke-width="1"/>
+            <!-- compass ticks -->
+            <g stroke="var(--gold)" stroke-width="1.4">
+              <line x1="92" y1="4" x2="92" y2="16"/>
+              <line x1="92" y1="168" x2="92" y2="180"/>
+              <line x1="4" y1="92" x2="16" y2="92"/>
+              <line x1="168" y1="92" x2="180" y2="92"/>
+            </g>
+          </g>
+          <circle cx="92" cy="92" r="44" fill="url(#sealGrad)" stroke="var(--gold)" stroke-width="1"/>
+          <defs>
+            <radialGradient id="sealGrad" cx="35%" cy="30%" r="80%">
+              <stop offset="0%" stop-color="#e6bd7a"/>
+              <stop offset="55%" stop-color="var(--gold)"/>
+              <stop offset="100%" stop-color="var(--copper)"/>
+            </radialGradient>
+          </defs>
+          <text x="92" y="102" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="34" font-weight="600" fill="#12100d">WW</text>
+        </svg>
+      </div>
+
+      <div class="seal-tagline">Wazwan Way · Est. Kashmir</div>
+      <h1 class="seal-headline"><span id="sealHeadlineText"></span><span class="seal-caret" id="sealCaret"></span></h1>
+      <p class="seal-sub">Saved routes, custom itineraries, and Waza AI — all synced the moment you sign in.</p>
+    </div>
+
+    <!-- ================= FORM PANEL ================= -->
+    <div class="form-panel">
+      <div class="form-wrap">
+        <div>
+          <div class="form-eyebrow">Welcome Back</div>
+          <h2 class="form-title">Sign in to your account</h2>
+          <p class="form-desc">Continue your Kashmir journey — saved routes, itineraries, and Waza AI are waiting.</p>
+        </div>
+
+        <form onsubmit="return false;">
+          <div class="field">
+            <input type="email" placeholder=" " id="email" autocomplete="email">
+            <label for="email">Email Address</label>
+            <div class="underline"></div>
+          </div>
+
+          <div class="field pw">
+            <input type="password" placeholder=" " id="password" autocomplete="current-password">
+            <label for="password">Password</label>
+            <div class="underline"></div>
+            <button type="button" class="pw-toggle" onclick="togglePw('password', this)" aria-label="Show password">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+
+          <div class="remember-row">
+            <label class="remember-check">
+              <input type="checkbox" id="remember">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-link">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn-create">Sign In</button>
+        </form>
+
+        <div class="signin-line">Don't have an account? <a href="#">Create Account</a></div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  function togglePw(id, btn){
+    const input = document.getElementById(id);
+    const isPw = input.type === 'password';
+    input.type = isPw ? 'text' : 'password';
+    btn.style.color = isPw ? 'var(--gold)' : '';
+  }
+
+  // Headline typewriter cycle
+  const sealPhrases = [
+    "Everything Kashmir, kept for you.",
+    "Kashmir, all in one place.",
+    "Your way to Kashmir.",
+    "Kashmir, beautifully gathered.",
+    "Kashmir, thoughtfully curated.",
+    "Where Kashmir comes together.",
+    "Kashmir, at your fingertips.",
+    "The home of everything Kashmir.",
+    "Kashmir begins here.",
+    "Discover Kashmir. Authentically.",
+    "Every corner of Kashmir, in one place.",
+    "The heart of Kashmir, made accessible.",
+    "Bringing Kashmir closer to you.",
+    "Kashmir, beyond the postcards.",
+    "More than a guide. It's Kashmir.",
+    "Crafted for those who love Kashmir."
+  ];
+
+  const headlineEl = document.getElementById('sealHeadlineText');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let phraseIdx = 0;
+
+  function cycleStatic(){
+    headlineEl.textContent = sealPhrases[phraseIdx % sealPhrases.length];
+    phraseIdx++;
+    setTimeout(cycleStatic, 2600);
+  }
+
+  function typeWriterLoop(){
+    const phrase = sealPhrases[phraseIdx % sealPhrases.length];
+    let i = 0;
+    const typeSpeed = 42, holdTime = 2000, deleteSpeed = 22, gapTime = 350;
+
+    function typeStep(){
+      headlineEl.textContent = phrase.slice(0, i);
+      i++;
+      if(i <= phrase.length){ setTimeout(typeStep, typeSpeed); }
+      else { setTimeout(deleteStep, holdTime); }
+    }
+    function deleteStep(){
+      i--;
+      headlineEl.textContent = phrase.slice(0, i);
+      if(i > 0){ setTimeout(deleteStep, deleteSpeed); }
+      else {
+        phraseIdx++;
+        setTimeout(typeWriterLoop, gapTime);
+      }
+    }
+    typeStep();
+  }
+
+  if(headlineEl){
+    if(reducedMotion){
+      document.getElementById('sealCaret').style.display = 'none';
+      cycleStatic();
+    } else {
+      setTimeout(typeWriterLoop, 900); // start once the entrance fade-in has settled
+    }
+  }
+</script>
+</body>
+</html>

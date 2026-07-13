@@ -138,23 +138,6 @@ export default function TravelAgentDashboard() {
     }
   };
 
-  const handleSubmitForReview = async () => {
-    const isConfirmed = window.confirm("By submitting your agency for listing, you acknowledge that upon approval by the Wazwan Way team, a registration fee of ₹5999 per month will be applicable to keep your listing active. Do you wish to proceed?");
-    if (!isConfirmed) return;
-
-    try {
-      setLoading(true);
-      await request("/travel-agencies/submit-for-review", {
-        method: "POST"
-      });
-      await fetchDashboard();
-      alert("Your agency profile has been submitted for review successfully!");
-    } catch (err) {
-      setError(err.message || "Failed to submit profile for review");
-      setLoading(false);
-    }
-  };
-
   if (authLoading || loading) {
     return (
       <div className="wazwan-shell min-h-screen flex flex-col items-center justify-center pt-20">
@@ -463,19 +446,7 @@ export default function TravelAgentDashboard() {
                     </div>
                   )}
 
-                  {agency.verificationStatus === 'incomplete' && (
-                    <button 
-                      onClick={handleSubmitForReview}
-                      disabled={!isProfileComplete}
-                      className={`w-full py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors ${
-                        isProfileComplete 
-                          ? "bg-[var(--saffron)] text-black hover:brightness-110" 
-                          : "bg-white/5 text-white/30 cursor-not-allowed border border-white/10"
-                      }`}
-                    >
-                      {isProfileComplete ? "Submit for Review" : "Profile Incomplete"}
-                    </button>
-                  )}
+
                   {agency.verificationStatus === 'rejected' && (
                     <button 
                       onClick={handleSubmitForReview}

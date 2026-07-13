@@ -2,600 +2,513 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import dishesData from "@/data/dishes.json";
+import WazaAITeaser from "@/components/WazaAITeaser";
+import "./kashmiri.css";
+
+const wazaExchanges = [
+  { q: "I don't do spicy food. What's safe for me?", a: 'Try <b>Daniwal Korma</b> — mild, yoghurt-coriander. Skip the Marchwangan Korma today.' },
+  { q: "Four of us, and it's pouring outside.", a: 'Kahwa first, then <b>Monje</b> — hot fish fritters are made for this weather.' },
+  { q: 'What comes last in a real wazwan?', a: "<b>Gushtaba</b>, always — it's considered too rich to serve any earlier." }
+];
+
+const overrides = {
+  // Wazwan
+  'aab-gosht': 'Mild milk-based lamb',
+  'al-hachh-mutton': 'Dried gourd mutton',
+  'aloo-bukhar-korma': 'Plum-laced meatballs',
+  'anardana-chetin': 'Pomegranate chutney',
+  'bam-tsoonth': 'Spiced quince curry',
+  'bum-tschunth-tschaman': 'Tangy paneer stew',
+  'dani-phol': 'Rich mutton drumstick',
+  'daniwal-korma': 'Coriander yogurt curry',
+  'doon-chetin': 'Walnut–green chili chutney',
+  'dum-oluv': 'Yogurt-braised potatoes',
+  'gand-t-maaz': 'Slow-simmered offal',
+  'gande-tsitin': 'Onion–chili chutney',
+  'gogji-mutton': 'Turnip mutton curry',
+  'gogji-raakh': 'Turnip greens side',
+  'haak-t-tschaman': 'Greens with paneer',
+  'haakh': 'Kashmiri collard greens',
+  'haakh-t-maaz': 'Greens with meat',
+  'kabab': 'Charcoal minced skewers',
+  'marchwangan-korma': 'Fiery red chili mutton',
+  'matsgand': 'Spicy red meatballs',
+  'methi-maaz': 'Fenugreek tripe',
+  'muji-chetin': 'Radish walnut chutney',
+  'muji-gaad': 'Radish fish curry',
+  'mutton-yakhni': 'Curd-based mutton',
+  'nadru-gaad': 'Lotus stem fish curry',
+  'palak-t-tschaman': 'Spinach paneer dish',
+  'pudin-chetin': 'Mint chutney',
+  'rice': 'Base of every trami',
+  'rista': 'Bright red meatballs',
+  'rogan-josh': 'Iconic red lamb curry',
+  'ruwangan-chaman': 'Tomato-based paneer',
+  'ruwangan-chetin': 'Tomato chutney',
+  'ruwangan-mutton': 'Tomato mutton curry',
+  'seekh-kebab': 'Traditional ground skewers',
+  'syoon': 'Kashmiri Pandit lamb',
+  'syun': 'Slow-cooked mutton',
+  'tsaman-yakhni': 'Paneer in yogurt gravy',
+  'tsoek-wangangan': 'Sour spicy eggplant',
+  'veth-chaman': 'Rich paneer curry',
+  'wangangan-chaman': 'Eggplant paneer curry',
+  'waza-kokur': 'Whole spiced chicken',
+  'waza-palak': 'Spinach with meatballs',
+  'wazwaan-mushroom': 'Mushroom Wazwan prep',
+  'yakhni': 'Curd-based gravy',
+  'zere-chetin': 'Cumin chutney',
+  'waza-paneer': 'Rich fried paneer',
+  'gushtaba': 'Velvety pounded meatballs',
+  'tabakh-maaz': 'Crispy fried lamb ribs',
+  // Street Food & Bakery
+  'bakerkhani': 'Flaky layered flatbread',
+  'basrakh': 'Sweet crispy snack',
+  'czochworu': 'Sesame tandoor bread',
+  'girda': 'Everyday round bread',
+  'kashmiri-harissa': 'Winter meat paste',
+  'lavas': 'Thin soft flatbread',
+  'masala-tsot': 'Spiced small bread',
+  'mutton-tujji': 'Coal-grilled skewers',
+  'nadur-monji': 'Lotus stem fritters',
+  'suji-halwa': 'Semolina sweet dish',
+  'tabak-maaz': 'Crispy fried lamb ribs',
+  'kashmiri-kulcha': 'Crumbly bakery biscuits',
+  'aloo-monji': 'Crispy potato fritters',
+  'tujji': 'Coal-grilled meat skewers',
+  'monje': 'Crispy lotus fritters',
+  // Beverages
+  'kahwa': 'Saffron green tea',
+  'noon-chai': 'Pink salted tea',
+  'harissa': 'Winter meat paste',
+  'tsot': 'Small everyday bread',
+  'lavasa': 'Thin blistered flatbread',
+  'riste': 'Spiced meatball curry',
+};
+
+function getShortNote(dish) {
+  if (dish.shortNote) return dish.shortNote;
+  if (overrides[dish.slug]) return overrides[dish.slug];
+  
+  if (dish.description) {
+    const phrase = dish.description.split('.')[0].split(',')[0];
+    const words = phrase.split(' ');
+    return words.slice(0, 4).join(' ');
+  }
+  return dish.category || "Traditional Kashmiri";
+}
 
 
-
-function DishCard({ dish, linkText = "View Recipe Details" }) {
+function DishCard({ dish, index }) {
   const [imgSrc, setImgSrc] = useState(dish.image || '/placeholder-dish.jpg');
+  const shortNote = getShortNote(dish);
 
   return (
-    <Link href={`/dishes/${dish.slug || dish._id}`} className="block">
-      <div className="wazwan-dish-card flex flex-col justify-between hover:border-[var(--saffron)]/30 h-full">
-        {/* Dish Image */}
-        <div className="relative h-20 sm:h-40 w-full overflow-hidden bg-white/5 shrink-0">
-          <Image
-            src={imgSrc}
-            alt={dish.name}
-            fill
-            quality={70}
-            sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            onError={() => setImgSrc('/placeholder-dish.jpg')}
-            loading="lazy"
-          />
-        </div>
-        <div className="p-3 sm:p-6 flex flex-col flex-grow justify-between">
-          <div>
-            <h4 className="font-display text-[0.65rem] sm:text-xl text-white mb-1 line-clamp-2 leading-tight">{dish.name}</h4>
-            <p className="hidden sm:block text-white/60 text-xs leading-relaxed line-clamp-3 mb-4">{dish.description}</p>
-          </div>
-          
-          <div className="flex items-center justify-between mt-auto">
-            <div className="hidden sm:flex gap-2">
-              <span className="place-badge">{dish.foodType || "Veg"}</span>
-              <span className="place-badge">{dish.spiceLevel || dish.priceRange || "Medium"}</span>
-            </div>
-            <span className="sm:hidden text-[0.55rem] font-bold uppercase tracking-wider text-[var(--saffron)]">
-              Explore &rarr;
+    <Link href={`/dishes/${dish.slug || dish._id}`} className="block focus:outline-none focus:ring-2 focus:ring-[var(--gold)] rounded-md">
+      <div className="dish-card">
+        <Image
+          src={imgSrc}
+          alt={dish.name}
+          fill
+          quality={70}
+          sizes="(max-width: 640px) 200px, 200px"
+          className="object-cover -z-20"
+          onError={() => setImgSrc('/placeholder-dish.jpg')}
+          loading="lazy"
+        />
+        <div className="shade -z-10"></div>
+        <div className="info z-0 w-full">
+          <div className="num" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <span style={{ fontSize: '0.55rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--ivory-dim)' }}>
+              {dish.courseType ? (dish.courseType.charAt(0).toUpperCase() + dish.courseType.slice(1)) : (dish.foodType || "Veg")}
             </span>
           </div>
-        </div>
-        <div className="hidden sm:flex px-6 pb-4 border-t border-white/5 pt-3 justify-between items-center bg-black/10 text-[0.65rem] font-bold uppercase tracking-wider text-[var(--saffron)]">
-          {linkText} &rarr;
+          <div className="name leading-tight">{dish.name}</div>
+          <div className="note">{shortNote}</div>
         </div>
       </div>
     </Link>
   );
 }
 
-function KashmiriFoodContent({ initialDishes = dishesData, activeTab: propTab = null, activeGuide = null, hideHeader = false }) {
-  const router = useRouter();
+export default function KashmiriFoodClient({ initialDishes = dishesData }) {
+  const [activeChapter, setActiveChapter] = useState('wazwan');
+  const [dialVisible, setDialVisible] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [portalReady, setPortalReady] = useState(false);
   
-  const [dishes] = useState(initialDishes);
-  
-  // Use propTab as the source of truth for active tab
-  const activeTab = propTab;
-  const [searchQuery, setSearchQuery] = useState("");
+  const heroSubRef = useRef(null);
+  const heroCtasRef = useRef(null);
+  const statCardRef = useRef(null);
+  const railFillRef = useRef(null);
+  const dialRef = useRef(null);
+  const wheelRef = useRef(null);
 
-
-
-  const selectTab = (tabId) => {
-    setSearchQuery("");
-    if (tabId) {
-      const urlSlug = tabId === "street_food" ? "street-food" : tabId;
-      router.push(`/kashmiri-food/${urlSlug}`, { scroll: false });
-    } else {
-      router.push(`/kashmiri-food`, { scroll: false });
-    }
-  };
-
-  // Categorize dishes using exact database enum matches for categoryType
-  const wazwanDishes = dishes.filter((d) => d.categoryType === "wazwan");
-  const beverageDishes = dishes.filter((d) => d.categoryType === "beverage");
-  const bakeryDishes = dishes.filter((d) => d.categoryType === "bakery");
-  
-  // Constrain Street Food to items explicitly classified as kashmiri_cuisine AND categorized as Street Food
-  const streetFoodDishes = dishes.filter(
-    (d) => d.categoryType === "kashmiri_cuisine" && d.category === "Street Food"
-  );
-
-  // Get selected category items
-  const getActiveItems = () => {
-    switch (activeTab) {
-      case "wazwan":
-        return wazwanDishes;
-      case "beverages":
-        return beverageDishes;
-      case "bakery":
-        return bakeryDishes;
-      case "street_food":
-        return streetFoodDishes;
-      default:
-        return [];
-    }
-  };
-
-  const activeItems = getActiveItems();
-
-  // Filter items by user search query (case-insensitive on name & description)
-  const filteredItems = activeItems.filter(
-    (item) =>
-      (item.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (item.description || "").toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Group Wazwan dishes by courseType
-  const wazwanCourses = {
-    foundation: filteredItems.filter((d) => d.courseType === "foundation"),
-    signature: filteredItems.filter((d) => d.courseType === "signature" || d.courseType === "additional_meat"),
-    vegetarian: filteredItems.filter((d) => d.courseType === "vegetarian"),
-  };
-
-  // Sort Wazwan foundation courses strictly by traditional serve sequence
-  const foundationOrder = ["rice", "seekh kebab", "methi maaz", "tabak maaz", "muji chetin"];
-  const sortedWazwanFoundation = [...wazwanCourses.foundation].sort((a, b) => {
-    const indexA = foundationOrder.indexOf(a.name.toLowerCase());
-    const indexB = foundationOrder.indexOf(b.name.toLowerCase());
-    if (indexA === -1 && indexB === -1) return 0;
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
-    return indexA - indexB;
-  });
-
-  const categories = [
-    {
-      id: "wazwan",
-      label: "Kashmiri wazwan",
-      count: wazwanDishes.length,
-      unit: "items",
-      desc: "The legendary royal feast slow-cooked by traditional Wazas and served on a copper Trami.",
-      bgImage: "/images/optimized/wazwan-cover-800.avif",
-      icon: (
-        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M3 20h18M12 4v4M12 8A8 8 0 0 0 4 16h16A8 8 0 0 0 12 8z" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      ),
-      watermark: (
-        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
-          <ellipse cx="50" cy="55" rx="38" ry="22" />
-          <circle cx="34" cy="53" r="8" />
-          <circle cx="52" cy="58" r="6" />
-          <circle cx="66" cy="50" r="7" />
-        </svg>
-      )
-    },
-    {
-      id: "beverages",
-      label: "Kashmiri beverages",
-      count: beverageDishes.length,
-      unit: "beverages",
-      desc: "Authentic Kashmiri drinks — Noon Chai, Saffron Kahwa, and Babribyol.",
-      bgImage: "/images/optimized/Kashmiri-beverages-800.avif",
-      icon: (
-        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      ),
-      watermark: (
-        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
-          <path d="M50 15 C30 50, 30 75, 50 85 C70 75, 70 50, 50 15 Z" />
-          <path d="M50 35 C42 55, 42 70, 50 78 C58 70, 58 55, 50 35 Z" />
-        </svg>
-      )
-    },
-    {
-      id: "bakery",
-      label: "Kashmiri bakery",
-      count: bakeryDishes.length,
-      unit: "breads",
-      desc: "The neighborhood bakery culture featuring flatbreads like Girda and Bakerkhani.",
-      bgImage: "/images/optimized/bakery-cover-800.avif",
-      icon: (
-        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="12" cy="12" r="1.5" />
-        </svg>
-      ),
-      watermark: (
-        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
-          <circle cx="38" cy="62" r="18" />
-          <circle cx="62" cy="58" r="18" />
-          <circle cx="50" cy="42" r="16" />
-        </svg>
-      )
-    },
-    {
-      id: "street_food",
-      label: "Street food",
-      count: streetFoodDishes.length,
-      unit: "eats",
-      desc: "Local bazaar treats from coal-grilled Tujji to winter Harissa.",
-      bgImage: "/images/optimized/street-food-cover-800.avif",
-      icon: (
-        <svg className="w-5 h-5 text-[var(--saffron)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <rect x="3" y="3" width="18" height="18" rx="2" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="8" cy="8" r="1.5" />
-          <circle cx="16" cy="16" r="1.5" />
-        </svg>
-      ),
-      watermark: (
-        <svg viewBox="0 0 100 100" fill="none" stroke="rgba(200, 164, 106, 0.08)" strokeWidth="1.5" className="absolute right-1 bottom-1 w-20 h-20 pointer-events-none select-none z-0">
-          <rect x="25" y="35" width="50" height="35" rx="4" />
-          <circle cx="40" cy="52" r="4" />
-          <circle cx="60" cy="52" r="4" />
-        </svg>
-      )
-    }
+  const chapters = [
+    { id: 'wazwan', label: 'Wazwan' },
+    { id: 'beverages', label: 'Beverages' },
+    { id: 'bakery', label: 'Bakery' },
+    { id: 'street', label: 'Street Food' },
   ];
 
+  const wazwanDishes = initialDishes.filter((d) => d.categoryType === "wazwan");
+  const beverageDishes = initialDishes.filter((d) => d.categoryType === "beverage");
+  const bakeryDishes = initialDishes.filter((d) => d.categoryType === "bakery");
+  const streetFoodDishes = initialDishes.filter((d) => d.categoryType === "kashmiri_cuisine" && d.category === "Street Food");
+
+  useEffect(() => {
+    setPortalReady(true);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+
+    // Initial load animations
+    if (!mq.matches) {
+      const spans = document.querySelectorAll('.hero h1 span.line span');
+      spans.forEach((span, i) => {
+        setTimeout(() => {
+          span.style.transition = 'transform .8s cubic-bezier(.16,1,.3,1), opacity .8s ease';
+          span.style.transform = 'translateY(0)';
+          span.style.opacity = 1;
+        }, 100 + i * 150);
+      });
+
+      setTimeout(() => {
+        if (heroSubRef.current) {
+          heroSubRef.current.style.transition = 'opacity .8s ease, transform .8s ease';
+          heroSubRef.current.style.opacity = 1;
+          heroSubRef.current.style.transform = 'translateY(0)';
+        }
+      }, 500);
+      setTimeout(() => {
+        if (statCardRef.current) {
+          statCardRef.current.style.transition = 'opacity .9s ease, transform .9s ease';
+          statCardRef.current.style.opacity = 1;
+          statCardRef.current.style.transform = 'translateX(0)';
+        }
+      }, 550);
+      setTimeout(() => {
+        if (heroCtasRef.current) {
+          heroCtasRef.current.style.transition = 'opacity .8s ease, transform .8s ease';
+          heroCtasRef.current.style.opacity = 1;
+          heroCtasRef.current.style.transform = 'translateY(0)';
+        }
+      }, 650);
+    } else {
+      const spans = document.querySelectorAll('.hero h1 span.line span');
+      spans.forEach(span => {
+        span.style.transform = 'translateY(0)';
+        span.style.opacity = 1;
+      });
+      if (heroSubRef.current) { heroSubRef.current.style.opacity = 1; heroSubRef.current.style.transform = 'translateY(0)'; }
+      if (statCardRef.current) { statCardRef.current.style.opacity = 1; statCardRef.current.style.transform = 'translateX(0)'; }
+      if (heroCtasRef.current) { heroCtasRef.current.style.opacity = 1; heroCtasRef.current.style.transform = 'translateY(0)'; }
+    }
+
+    // Progress rail
+    const handleScroll = () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+      if (railFillRef.current) {
+        railFillRef.current.style.height = Math.min(100, Math.max(0, pct)) + '%';
+      }
+
+      // Dial visibility
+      setDialVisible(window.scrollY > 600);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // Scroll reveal observer
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Chapter spy observer
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setActiveChapter(e.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    chapters.forEach(c => {
+      const el = document.getElementById(c.id);
+      if (el) spyObserver.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      revealObserver.disconnect();
+      spyObserver.disconnect();
+    };
+  }, []);
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+  };
+
+  const activeIdx = chapters.findIndex(c => c.id === activeChapter);
+  const offset = 264 - ((activeIdx + 1) / chapters.length) * 264;
+
   return (
-    <div className="mt-8 px-4 sm:px-0">
-          <AnimatePresence mode="wait">
-            {activeTab === null ? (
-              /* PORTAL Landing Grid: 3-columns on mobile, 2-columns on desktop */
-              <motion.div
-                key="portal"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.25 }}
-                className="max-w-6xl mx-auto my-12"
-              >
-                {/* Premium Header styled to match reference image */}
-                {!hideHeader && (
-                  <div className="mb-8 text-left">
-                    <span className="place-eyebrow !text-[0.62rem] !mb-1.5 block !text-[var(--saffron)] tracking-[0.2em] font-bold">
-                      CULINARY IDENTITY OF THE VALLEY
-                    </span>
-                    <h1 className="text-4xl font-display font-medium tracking-tight text-white mb-3">
-                      Kashmiri food guide
-                    </h1>
-                    <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-md">
-                      Explore the authentic culinary traditions of Kashmir. Choose a category to open its catalog.
-                    </p>
-                    
-                    {/* Decorative wave separator divider */}
-                    <div className="flex items-center justify-between gap-6 my-8">
-                      <div className="h-[1px] bg-gradient-to-r from-transparent to-[var(--saffron)]/45 flex-1" />
-                      <svg className="w-10 h-4 text-[var(--saffron)] opacity-85 shrink-0" viewBox="0 0 40 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                        <path d="M 2 8 C 8 2, 14 14, 20 8 C 26 2, 32 14, 38 8" strokeLinecap="round" />
-                      </svg>
-                      <div className="h-[1px] bg-gradient-to-l from-transparent to-[var(--saffron)]/45 flex-1" />
-                    </div>
-                  </div>
-                )}
+    <div className="kashmiri-page-wrapper">
+      {/* Progress Rail & Chapter Dial — portaled to body to escape ancestor filter:blur */}
+      {portalReady && createPortal(
+        <>
+          <div className="progress-rail">
+            <div className="progress-rail-fill" ref={railFillRef}></div>
+          </div>
 
-                {/* Grid layout with redesigned radial-gradient warm cards */}
-                <div className="grid grid-cols-2 gap-4">
-                  {categories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => selectTab(category.id)}
-                      className="w-full text-left bg-gradient-to-br from-[#2E1D13] to-[#120B07] p-4 sm:p-8 rounded-[20px] border border-[#523A28]/45 hover:border-[var(--saffron)]/40 transition-all duration-300 hover:translate-y-[-4px] flex flex-col justify-between h-44 sm:h-64 group relative overflow-hidden shadow-lg shadow-black/45"
-                    >
-                      {/* Original background cover image */}
-                      {category.bgImage && (
-                        <>
-                          <Image
-                            src={category.bgImage}
-                            alt=""
-                            fill
-                            quality={40}
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                            className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500 scale-100 group-hover:scale-105 z-0"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/55 to-black/85 z-0" />
-                        </>
-                      )}
+          <div className={`chapter-dial ${dialVisible ? 'visible' : ''}`} ref={dialRef}>
+            <svg className="dial-ring" viewBox="0 0 100 100">
+              <circle className="dial-ring-bg" cx="50" cy="50" r="42" />
+              <circle 
+                className="dial-ring-fill" 
+                cx="50" cy="50" r="42" 
+                style={{ strokeDashoffset: offset }}
+              />
+            </svg>
+            <div className="dial-face">
+              <div className="dial-name" style={{ opacity: 1, animation: 'fadeIn 0.15s ease' }}>
+                {chapters.find(c => c.id === activeChapter)?.label}
+              </div>
+              <div className="dial-count">{(activeIdx + 1)} / {chapters.length}</div>
+            </div>
+            
+            {chapters.map((c, i) => {
+              const angle = (i * 360) / chapters.length;
+              return (
+                <button
+                  key={c.id}
+                  className={`dial-stop ${activeChapter === c.id ? 'active' : ''} focus:outline-none focus:ring-2 focus:ring-[var(--gold)]`}
+                  style={{ '--angle': `${angle}deg` }}
+                  onClick={() => scrollToSection(c.id)}
+                  aria-label={`Scroll to ${c.label}`}
+                ></button>
+              );
+            })}
+          </div>
+        </>,
+        document.body
+      )}
 
-                      {/* Watermark illustrations */}
-                      {category.watermark}
+      {/* Hero Section */}
+      <section className="hero relative z-0">
+        <Image src="/images/kashmiri-food/hero.webp" alt="Hero background" fill className="object-cover object-[center_35%] -z-20" priority />
+        <div className="absolute inset-0 -z-10" style={{ background: 'radial-gradient(ellipse at 75% 20%, rgba(212,162,86,0.10), transparent 55%), linear-gradient(180deg, rgba(12,10,8,0.62) 0%, rgba(12,10,8,0.42) 45%, rgba(12,10,8,0.94) 100%)' }}></div>
+        <div className="hero-inner">
+          <h1>
+            <span className="line"><span style={{ transform: 'translateY(110%)', opacity: 0 }}>The definitive</span></span>
+            <span className="line"><span style={{ transform: 'translateY(110%)', opacity: 0 }}>guide to real</span></span>
+            <span className="line"><span style={{ transform: 'translateY(110%)', opacity: 0 }}><span className="accent">Kashmiri</span> food.</span></span>
+          </h1>
+          <p className="sub" ref={heroSubRef}>
+            From the royal 36-course Wazwan feast to the communal morning bakery runs. Discover the rules, the etiquette, and the centuries-old techniques.
+          </p>
+          <div className="hero-ctas" ref={heroCtasRef}>
+            <button className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" onClick={() => scrollToSection('wazwan')}>Begin the feast</button>
+            <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black">Browse All Dishes</Link>
+          </div>
 
-                      {/* Rounded icon box */}
-                      <div className="z-10">
-                        <div className="w-9 h-9 rounded-xl bg-black/45 border border-[#523A28]/50 flex items-center justify-center shrink-0">
-                          {category.icon}
-                        </div>
-                      </div>
-
-                      {/* Title & Badge */}
-                      <div className="z-10 mt-auto">
-                        <h3 className="text-[15px] sm:text-xl font-display font-medium text-white leading-tight mb-2 pr-2">
-                          {category.label}
-                        </h3>
-                        <span className="place-badge !bg-black/35 !border-[#523A28]/35 !text-[var(--saffron)] text-[10px] sm:text-xs font-bold py-1 px-2.5 rounded-full inline-block">
-                          {`${category.count} ${category.unit}`}
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                {/* Restored big bold branding text in the empty space below with symmetrical spirals */}
-                <div className="mt-12 mb-8 relative flex flex-col items-center justify-center text-center py-6 px-8 select-none">
-                  {/* Left spiral flourish */}
-                  <svg className="absolute left-[5%] sm:left-[15%] top-[10%] w-16 h-16 text-[#C8A46A]/8 pointer-events-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M 50 50 A 5 5 0 0 0 45 45 A 10 10 0 0 0 55 55 A 15 15 0 0 0 40 40 A 20 20 0 0 0 60 60 A 25 25 0 0 0 35 35" />
-                  </svg>
-                  {/* Right spiral flourish */}
-                  <svg className="absolute right-[5%] sm:right-[15%] top-[10%] w-16 h-16 text-[#C8A46A]/8 pointer-events-none scale-x-[-1]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M 50 50 A 5 5 0 0 0 45 45 A 10 10 0 0 0 55 55 A 15 15 0 0 0 40 40 A 20 20 0 0 0 60 60 A 25 25 0 0 0 35 35" />
-                  </svg>
-
-                  <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase tracking-[0.25em] text-[var(--saffron)] leading-tight mb-2 drop-shadow-md">
-                    All Things
-                  </h2>
-                  <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase tracking-[0.25em] text-[var(--saffron)] leading-tight drop-shadow-md">
-                    Kashmir
-                  </h2>
-                </div>
-              </motion.div>
-            ) : (
-              /* ACTIVE TAB VIEW with Subnav and Search */
-              <motion.div
-                key="tabs-view"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.25 }}
-              >
-                {/* Sticky sub-navigation & search bar */}
-                <div className="sticky top-0 z-50 bg-[#0B0B0B]/80 backdrop-blur-xl border-b border-white/10 py-4 mb-8 -mx-4 px-4 flex flex-col gap-4 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-                  <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
-                    {/* Category switcher tabs */}
-                    <div className="flex items-center gap-3 overflow-x-auto no-scrollbar scroll-smooth w-full md:w-auto">
-                      <button
-                        onClick={() => selectTab(null)}
-                        className="shrink-0 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 text-white/80 border border-white/5 hover:border-white/20 transition-all flex items-center gap-2"
-                      >
-                        &larr; Categories
-                      </button>
-                      <div className="h-6 w-px bg-white/10 hidden sm:block"></div>
-                      {categories.map((tab) => (
-                        <button
-                          key={tab.id}
-                          onClick={() => selectTab(tab.id)}
-                          className={`shrink-0 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all border shadow-sm ${
-                            activeTab === tab.id
-                              ? "bg-[var(--saffron)] text-black border-[var(--saffron)] shadow-[0_0_15px_rgba(212,175,55,0.25)]"
-                              : "bg-white/5 text-white/60 border-white/5 hover:border-white/20 hover:text-white"
-                          }`}
-                        >
-                          {tab.label} {`(${tab.count})`}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Search Bar Input */}
-                    <div className="relative w-full md:w-80 shrink-0">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-white/40">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                      </span>
-                      <input
-                        type="text"
-                        placeholder="Search within category..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs text-white placeholder-white/40 focus:outline-none focus:border-[var(--saffron)]/50 focus:bg-white/10 focus:ring-1 focus:ring-[var(--saffron)]/20 transition-all"
-                      />
-                      {searchQuery && (
-                        <button
-                          onClick={() => setSearchQuery("")}
-                          className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-white/40 hover:text-white transition-colors"
-                        >
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Dynamic content lists */}
-                {filteredItems.length === 0 ? (
-                  /* Search Not Found view */
-                  <div className="text-center py-20 border border-white/5 bg-white/5 rounded-2xl">
-                    <svg className="w-12 h-12 text-white/20 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p className="text-white/60 text-sm">No items match your search &quot;{searchQuery}&quot;</p>
-                    <button onClick={() => setSearchQuery("")} className="mt-4 text-xs font-bold text-[var(--saffron)] hover:text-white transition-colors uppercase tracking-widest">
-                      Clear Search Filter
-                    </button>
-                  </div>
-                ) : (
-                  /* Dynamic lists by selected category */
-                  <div className="mt-8">
-                    {activeTab === "wazwan" && (
-                      <div>
-                        {/* Wazwan traditional intro details */}
-                        <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
-                          <div className="lg:w-1/2">
-                            <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-                              Traditional Feast Platter
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-                              Kashmiri Wazwan Trami
-                            </h2>
-                            <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                              The traditional Wazwan is a masterclass in meat preparation, typically cooked by a master chef called a <em>Waza</em>. It is a formal social ritual where four guests sit together around a large engraved copper platter called the <strong>Trami</strong>. 
-                            </p>
-                            <p className="text-white/65 leading-relaxed text-sm mt-3">
-                              Only exactly <strong>16 authoritative dishes</strong> make up the official trami banquet sequence. Every dish is served in a strict traditional progression.
-                            </p>
-                          </div>
-                          <div className="lg:w-1/2 w-full bg-gradient-to-br from-white via-[#fcf8ef] to-[#f2e5c6] border border-[#C8A46A]/30 shadow-[0_8px_30px_rgba(200,164,106,0.2)] rounded-[24px] p-6 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#C8A46A]/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-                            <h4 className="relative z-10 text-[#1a130a] text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
-                              <svg className="w-4 h-4 text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                              </svg>
-                              All things Wazwan
-                            </h4>
-                            <p className="relative z-10 text-xs text-[#665d50] leading-relaxed mb-5">
-                              Explore the authentic ingredients, traditional etiquette, and rich history of the Kashmiri Wazwan feast.
-                            </p>
-                            
-                            <div className="relative z-10 space-y-3">
-                              <Link href="/etiquette" className="block bg-white/70 backdrop-blur-sm border border-[#C8A46A]/20 rounded-xl p-4 hover:bg-white/90 hover:border-[#C8A46A]/40 transition-all group shadow-sm">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <h5 className="text-[#1a130a] font-display font-black text-sm mb-1 group-hover:text-[#C8A46A] transition-colors">Wazwan Etiquette Guide</h5>
-                                    <p className="text-[#665d50] font-medium text-[11px]">Learn the 7 unwritten rules of dining.</p>
-                                  </div>
-                                  <svg className="w-4 h-4 text-[#C8A46A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                </div>
-                              </Link>
-                              <Link href="/kashmiri-food/wazwan/guide" className="block bg-white/70 backdrop-blur-sm border border-[#C8A46A]/20 rounded-xl p-4 hover:bg-white/90 hover:border-[#C8A46A]/40 transition-all group shadow-sm">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <h5 className="text-[#1a130a] font-display font-black text-sm mb-1 group-hover:text-[#C8A46A] transition-colors">Wazwan Guidebook</h5>
-                                    <p className="text-[#665d50] font-medium text-[11px]">Read deep-dives on history, costs, and dishes.</p>
-                                  </div>
-                                  <svg className="w-4 h-4 text-[#C8A46A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                </div>
-                              </Link>
-                              <Link href="/recipes" className="block bg-white/70 backdrop-blur-sm border border-[#C8A46A]/20 rounded-xl p-4 hover:bg-white/90 hover:border-[#C8A46A]/40 transition-all group shadow-sm">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <h5 className="text-[#1a130a] font-display font-black text-sm mb-1 group-hover:text-[#C8A46A] transition-colors">Ingredients and Recipes</h5>
-                                    <p className="text-[#665d50] font-medium text-[11px]">Discover the core spices and cooking methods.</p>
-                                  </div>
-                                  <svg className="w-4 h-4 text-[#C8A46A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                </div>
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Grouped wazwan course listings */}
-                        <div className="space-y-12">
-                          {/* Foundation Courses (sorted in serve sequence) */}
-                          {sortedWazwanFoundation.length > 0 && (
-                            <div>
-                              <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
-                                Foundation Courses <span className="text-[var(--saffron)] text-xs"> (Placed directly on the Trami on arrival)</span>
-                              </h3>
-                              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                {sortedWazwanFoundation.map((dish) => (
-                                  <DishCard key={dish._id} dish={dish} linkText="View Recipe Details" />
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Signature Meat Courses */}
-                          {wazwanCourses.signature.length > 0 && (
-                            <div>
-                              <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
-                                Signature Meat Courses <span className="text-[var(--saffron)] text-xs"> (Slow-cooked lamb masterpieces served sequentially)</span>
-                              </h3>
-                              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                {wazwanCourses.signature.map((dish) => (
-                                  <DishCard key={dish._id} dish={dish} linkText="View Recipe Details" />
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Vegetarian Accompaniments */}
-                          {wazwanCourses.vegetarian.length > 0 && (
-                            <div>
-                              <h3 className="text-lg font-bold uppercase tracking-widest text-white/50 border-b border-white/5 pb-2 mb-6">
-                                Vegetarian Accompaniments <span className="text-[var(--saffron)] text-xs"> (Earthy vegetables served to balance rich meats)</span>
-                              </h3>
-                              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                {wazwanCourses.vegetarian.map((dish) => (
-                                  <DishCard key={dish._id} dish={dish} linkText="View Recipe Details" />
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    {activeTab === "beverages" && (
-                      <div>
-                        <div className="mb-12">
-                          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-                            Warmth in a Cup
-                          </span>
-                          <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-                            Kashmiri Beverages
-                          </h2>
-                          <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
-                            The climate of Kashmir shapes its beverage customs. From the iconic pink-hued Noon Chai served with fresh bakery bread, to saffron-infused Kahwa brewed in charcoal Samovars, creamy Kashmiri Lassi, and the fragrant Babribyol — these are the authentic drinks of the valley.
-                          </p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
-                          {filteredItems.map((dish) => (
-                            <DishCard key={dish._id} dish={dish} linkText="View Beverage Profile" />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {activeTab === "bakery" && (
-                      <div>
-                        <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
-                          <div className="lg:w-1/2">
-                            <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-                              The Kandur-Wan
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-                              Kashmiri Bakery
-                            </h2>
-                            <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                              Kashmir has a unique neighborhood bakery culture. Bread is never baked in households. Instead, locals visit the community clay-oven bakery, the <strong>Kandur-wan</strong>, fresh every morning and afternoon to buy hot hand-crafted flatbreads.
-                            </p>
-                          </div>
-                          <div className="lg:w-1/2 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-xs space-y-3">
-                            <h4 className="text-[var(--saffron)] font-bold uppercase tracking-wider">Hourly Kandur Custom</h4>
-                            <div className="flex justify-between border-b border-white/5 pb-2">
-                              <span className="text-white/80"><strong>Girda:</strong> Breakfast flatbread</span>
-                              <span className="text-[var(--saffron)] font-mono">6:00 AM – 9:00 AM</span>
-                            </div>
-                            <div className="flex justify-between border-b border-white/5 pb-2">
-                              <span className="text-white/80"><strong>Czochworu:</strong> Sesame afternoon bread</span>
-                              <span className="text-[var(--saffron)] font-mono">3:30 PM – 5:30 PM</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-white/80"><strong>Bakerkhani:</strong> Golden flaky puff</span>
-                              <span className="text-[var(--saffron)] font-mono">4:00 PM – 6:00 PM</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                          {filteredItems.map((dish) => (
-                            <DishCard key={dish._id} dish={dish} linkText="View Baking Details" />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {activeTab === "street_food" && (
-                      <div>
-                        <div className="mb-12">
-                          <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.25em] block mb-2">
-                            Local Street Staples
-                          </span>
-                          <h2 className="text-3xl md:text-4xl font-display font-medium text-white mb-4">
-                            Kashmiri Street Food
-                          </h2>
-                          <p className="text-white/70 max-w-3xl text-sm md:text-base leading-relaxed">
-                            The bustling streets of Downtown Srinagar and local bazaar stalls serve incredibly rich and rustic street food. From coal-grilled Tujji skewers wrapped in tandoor Lavas to slow-cooked winter Harissa pastes.
-                          </p>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-2 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                          {filteredItems.map((dish) => (
-                            <DishCard key={dish._id} dish={dish} linkText="View Street Food Info" />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="stat-card" ref={statCardRef}>
+            <div className="stat-row">
+              <span className="label">Traditional Dishes</span>
+              <span className="val">100+</span>
+            </div>
+            <div className="stat-row">
+              <span className="label">Wazwan Courses</span>
+              <span className="val">Up to 36</span>
+            </div>
+            <div className="stat-row">
+              <span className="label">Centuries of History</span>
+              <span className="val">XV Century</span>
+            </div>
+            <p className="stat-quote">"To understand Kashmir, one must first eat with a Waza."</p>
+          </div>
+          
+          <div className="scroll-cue">Scroll to explore</div>
         </div>
-  );
-}
+      </section>
 
-export default function KashmiriFoodClient({ initialDishes = dishesData, activeTab = null, activeGuide = null, hideHeader = false }) {
-  return (
-    <KashmiriFoodContent initialDishes={initialDishes} activeTab={activeTab} activeGuide={activeGuide} hideHeader={hideHeader} />
+      {/* Trami Wheel Section */}
+      <section className="wheel-section relative z-0" id="wheel" ref={wheelRef}>
+        <Image src="/images/kashmiri-food/trami-wheel.webp" alt="Wheel background" fill className="object-cover object-[center_30%] -z-20" loading="lazy" />
+        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(180deg, rgba(12,10,8,0.93), rgba(12,10,8,0.97) 40%, rgba(12,10,8,0.93))' }}></div>
+        
+        <div className="eyebrow reveal fade-up text-center w-full justify-center">THE TRAMI, MAPPED</div>
+        <h2 className="reveal fade-up" style={{ transitionDelay: '0.1s' }}>One plate. <span className="accent">Four</span> ways in.</h2>
+        <p className="lead reveal fade-up" style={{ transitionDelay: '0.2s' }}>
+          A wazwan trami is shared four to a plate. Consider this its digital twin — every category of Kashmiri food, arranged the way the real thing is served. Tap a quarter to go there.
+        </p>
+        
+        <div className="trami reveal scale-up">
+          <div className="trami-rim"></div>
+          
+          <a className="trami-wedge" href="#wazwan" onClick={(e) => { e.preventDefault(); scrollToSection('wazwan'); }}>
+            <span className="wedge-icon">◆ FEAST</span>
+            <span className="wedge-name">Wazwan</span>
+            <span className="wedge-count">20 items</span>
+          </a>
+          <a className="trami-wedge" href="#beverages" onClick={(e) => { e.preventDefault(); scrollToSection('beverages'); }}>
+            <span className="wedge-icon">◆ WARMTH</span>
+            <span className="wedge-name">Beverages</span>
+            <span className="wedge-count">4 beverages</span>
+          </a>
+          <a className="trami-wedge" href="#bakery" onClick={(e) => { e.preventDefault(); scrollToSection('bakery'); }}>
+            <span className="wedge-icon">◆ MORNING</span>
+            <span className="wedge-name">Bakery</span>
+            <span className="wedge-count">6 breads</span>
+          </a>
+          <a className="trami-wedge" href="#street" onClick={(e) => { e.preventDefault(); scrollToSection('street'); }}>
+            <span className="wedge-icon">◆ STANDING</span>
+            <span className="wedge-name">Street Food</span>
+            <span className="wedge-count">7 eats</span>
+          </a>
+
+          <div className="trami-center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-950)" strokeWidth="1.4">
+              <path d="M6 3v6a2 2 0 0 0 2 2v10M6 3v6M9 3v6M6 9h0M18 3c-1.5 2-2 4-2 6a2 2 0 0 0 2 2v10"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      {/* Wazwan Chapter */}
+      <section className="chapter relative z-0" id="wazwan">
+        <Image src="/images/kashmiri-food/wazwan.webp" alt="Wazwan" fill className="object-cover object-center -z-20" loading="lazy" />
+        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.93) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.88) 100%), radial-gradient(ellipse at 30% 60%, rgba(181,105,58,0.10), transparent 60%)' }}></div>
+        
+        <div className="chapter-inner">
+          <div className="chapter-content">
+            <div className="chapter-index reveal fade-right">CHAPTER 01</div>
+            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The Royal <span className="accent">Wazwan</span>.</h2>
+            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>36 courses of artistry.</div>
+            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+              Cooked over smoldering wood fires through the night by master chefs (Wazas), this is not just a meal. It is a highly choreographed social ritual where every cut of lamb has a specific purpose.
+            </p>
+            <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+              <div><span className="n">36</span><span className="l">Courses</span></div>
+              <div><span className="n">4</span><span className="l">People per Trami</span></div>
+              <div><span className="n">10+</span><span className="l">Hours to prepare</span></div>
+            </div>
+            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
+              <Link href="/kashmiri-food/wazwan" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
+            </div>
+          </div>
+          <div className="chapter-gallery reveal fade-left">
+            <div className="dish-rail">
+              {wazwanDishes.map((dish, idx) => (
+                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Beverages Chapter */}
+      <section className="chapter relative z-0" id="beverages">
+        <Image src="/images/kashmiri-food/beverages.webp" alt="Beverages" fill className="object-cover object-[center_30%] -z-20" loading="lazy" />
+        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.85) 100%), radial-gradient(ellipse at 70% 30%, rgba(212,162,86,0.08), transparent 60%)' }}></div>
+        
+        <div className="chapter-inner">
+          <div className="chapter-content">
+            <div className="chapter-index reveal fade-right">CHAPTER 02</div>
+            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>Pink tea & <span className="accent">Saffron</span>.</h2>
+            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>A culture of warmth.</div>
+            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+              From the savory, blush-pink Noon Chai brewed with baking soda and salt, to the aromatic Kahwa steeped with saffron, almonds, and cardamom. Beverages here are about hospitality.
+            </p>
+            <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+              <div><span className="n">Salt</span><span className="l">In daily tea</span></div>
+              <div><span className="n">Samovar</span><span className="l">Copper brewing pot</span></div>
+            </div>
+            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
+              <Link href="/kashmiri-food/beverages" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore beverages</Link>
+            </div>
+          </div>
+          <div className="chapter-gallery reveal fade-left">
+            <div className="dish-rail">
+              {beverageDishes.map((dish, idx) => (
+                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bakery Chapter */}
+      <section className="chapter relative z-0" id="bakery">
+        <Image src="/images/kashmiri-food/bakery.webp" alt="Bakery" fill className="object-cover object-[center_38%] -z-20" loading="lazy" />
+        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.48) 55%, rgba(12,10,8,0.82) 100%), radial-gradient(ellipse at 30% 40%, rgba(212,162,86,0.08), transparent 60%)' }}></div>
+        
+        <div className="chapter-inner">
+          <div className="chapter-content">
+            <div className="chapter-index reveal fade-right">CHAPTER 03</div>
+            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The local <span className="accent">Kandur</span>.</h2>
+            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Fresh bread on the hour.</div>
+            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+              No Kashmiri bakes bread at home. Every neighborhood has a Kandur (baker) who fires up the tandoor at dawn. Different breads are baked at specific hours of the day.
+            </p>
+            <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+              <div><span className="n">Girda</span><span className="l">Morning staple</span></div>
+              <div><span className="n">Lavasa</span><span className="l">Afternoon wrap</span></div>
+            </div>
+            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
+              <Link href="/kashmiri-food/bakery" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore bakery</Link>
+            </div>
+          </div>
+          <div className="chapter-gallery reveal fade-left">
+            <div className="dish-rail">
+              {bakeryDishes.map((dish, idx) => (
+                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Street Food Chapter */}
+      <section className="chapter relative z-0" id="street">
+        <Image src="/images/kashmiri-food/street-food.webp" alt="Street Food" fill className="object-cover object-[center_40%] -z-20" loading="lazy" />
+        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.85) 100%), radial-gradient(ellipse at 65% 65%, rgba(181,105,58,0.10), transparent 60%)' }}></div>
+        
+        <div className="chapter-inner">
+          <div className="chapter-content">
+            <div className="chapter-index reveal fade-right">CHAPTER 04</div>
+            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>Srinagar's <span className="accent">Streets</span>.</h2>
+            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Smoke & spice.</div>
+            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+              Outside the formal feasts lies a bustling street food culture. Coal-grilled Tujji skewers, deep-fried lotus stems, and rich winter Harissa paste cooked overnight.
+            </p>
+            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+              <Link href="/kashmiri-food/street-food" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore street food</Link>
+            </div>
+          </div>
+          <div className="chapter-gallery reveal fade-left">
+            <div className="dish-rail">
+              {streetFoodDishes.map((dish, idx) => (
+                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Waza AI Teaser */}
+      <WazaAITeaser qaData={wazaExchanges} />
+    </div>
   );
 }

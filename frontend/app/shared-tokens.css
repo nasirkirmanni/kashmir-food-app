@@ -1,0 +1,19 @@
+/* Shared design tokens for Kashmiri Food and Signup pages */
+:root {
+  --charcoal-950: #0c0a08;
+  --charcoal-900: #16110d;
+  --charcoal-850: #1c1611;
+  --charcoal-800: #211a15;
+  --charcoal-700: #2c2319;
+  --ivory: #f4ecdf;
+  --ivory-dim: #cfc4b3;
+  --gold: #d4a256;
+  --gold-soft: rgba(212,162,86,0.45);
+  --copper: #b5693a;
+  --line: rgba(244,236,223,0.12);
+  --error: #c1613f;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}

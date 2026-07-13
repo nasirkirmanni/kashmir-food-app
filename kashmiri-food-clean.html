@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kashmiri Food Guide — Wazwan Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     BACKGROUND IMAGE SLOTS
+     Every section below has a class like .bg-hero, .bg-wazwan,
+     .bg-beverages, .bg-bakery, .bg-street. To drop in a real photo,
+     just add this to the CSS block for that class:
+       background-image: linear-gradient(...same overlay...), url('your-image.jpg');
+       background-size: cover;
+       background-position: center;
+     The overlay gradients are already tuned for text contrast —
+     keep them layered on top of whatever photo goes in.
+     ============================================================ */
+
+  :root{
+    --charcoal-950: #0c0a08;
+    --charcoal-900: #16110d;
+    --charcoal-800: #211a15;
+    --charcoal-700: #2c2319;
+    --ivory: #f4ecdf;
+    --ivory-dim: #cfc4b3;
+    --gold: #d4a256;
+    --gold-soft: rgba(212,162,86,0.45);
+    --copper: #b5693a;
+    --line: rgba(244,236,223,0.12);
+
+    --font-display: 'Cormorant Garamond', serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--charcoal-950);
+    color:var(--ivory);
+    font-family:var(--font-body);
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold); color:var(--charcoal-950);}
+
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+
+  .eyebrow{
+    display:flex; align-items:center; gap:12px;
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .eyebrow::before{
+    content:'';
+    display:inline-block;
+    width:28px; height:1px;
+    background:var(--gold);
+    flex-shrink:0;
+  }
+
+  .accent{ font-style:italic; color:var(--gold); font-weight:500; }
+
+  /* ---------------- NAV (matches existing site) ---------------- */
+  .site-nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 48px;
+    background:linear-gradient(to bottom, rgba(12,10,8,0.85), transparent);
+    backdrop-filter:blur(2px);
+  }
+  .logo{ font-family:var(--font-display); font-size:1.35rem; letter-spacing:0.02em; }
+  .logo b{ font-weight:600; }
+  .logo span{ color:var(--gold); font-weight:400; }
+  .nav-links{ display:flex; gap:34px; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .nav-links a{ opacity:0.8; transition:opacity .25s; white-space:nowrap;}
+  .nav-links a:hover{ opacity:1; color:var(--gold); }
+  .nav-links a.current{ color:var(--gold); opacity:1;}
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+  .btn-signup{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    background:var(--gold); color:var(--charcoal-950); padding:10px 20px; border-radius:30px; border:none;
+  }
+  @media (max-width: 1100px){ .nav-links{display:none;} }
+
+  /* ---------------- PROGRESS RAIL ---------------- */
+  .progress-rail{
+    position:fixed; right:22px; top:50%; transform:translateY(-50%);
+    z-index:90; width:2px; height:220px;
+    background:var(--line);
+  }
+  .progress-rail-fill{
+    width:100%; height:0%;
+    background:var(--gold);
+    box-shadow:0 0 10px var(--gold-soft);
+    transition:height .1s linear;
+  }
+  @media (max-width: 900px){ .progress-rail{display:none;} }
+
+  /* ---------------- HERO ---------------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:140px 48px 80px;
+    background:
+      radial-gradient(ellipse at 75% 20%, rgba(212,162,86,0.10), transparent 55%),
+      linear-gradient(180deg, rgba(12,10,8,0.62) 0%, rgba(12,10,8,0.42) 45%, rgba(12,10,8,0.94) 100%),
+      url('/images/kashmiri-food/image_1.jpg');
+    background-size:cover;
+    background-position:center 35%;
+  }
+  .hero-inner{ max-width:1500px; margin:0 auto; width:100%; position:relative; }
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:clamp(2.6rem, 6vw, 5.4rem);
+    line-height:1.04;
+    max-width:14ch;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 span.line{ display:block; overflow:hidden; }
+  .hero h1 span.line span{ display:inline-block; transform:translateY(110%); opacity:0; }
+  .hero .sub{
+    margin-top:28px; max-width:46ch;
+    color:var(--ivory-dim); font-size:1.02rem; line-height:1.65;
+    opacity:0; transform:translateY(14px);
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:38px; opacity:0; transform:translateY(14px); }
+  .btn-primary{
+    background:var(--gold); color:var(--charcoal-950);
+    font-family:var(--font-mono); font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:15px 26px; border-radius:30px; border:none;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(212,162,86,0.3); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--ivory);
+    font-family:var(--font-mono); font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:15px 26px; border-radius:30px; background:transparent;
+    transition:border-color .25s, background .25s;
+  }
+  .btn-ghost:hover{ border-color:var(--gold); background:rgba(212,162,86,0.08); }
+
+  .stat-card{
+    position:absolute; top:20px; right:0;
+    width:300px;
+    border:1px solid var(--line);
+    background:rgba(22,17,13,0.55);
+    backdrop-filter:blur(10px);
+    border-radius:4px;
+    padding:26px 26px 24px;
+    opacity:0; transform:translateX(24px);
+  }
+  .stat-row{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px solid var(--line); font-size:0.86rem; }
+  .stat-row:last-of-type{ border-bottom:none; }
+  .stat-row .label{ color:var(--ivory-dim); font-size:0.78rem; }
+  .stat-row .val{ font-family:var(--font-mono); color:var(--gold); }
+  .stat-quote{ margin-top:16px; font-family:var(--font-display); font-style:italic; font-size:0.98rem; color:var(--ivory-dim); line-height:1.5; }
+  @media (max-width:900px){ .stat-card{ position:static; width:100%; margin-top:40px; transform:none; } }
+
+  .scroll-cue{
+    position:absolute; bottom:-40px; left:0;
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ivory-dim);
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-cue::after{ content:''; width:1px; height:26px; background:linear-gradient(var(--gold), transparent); animation:cue 1.8s ease-in-out infinite; }
+  @keyframes cue{ 0%,100%{opacity:0.2;} 50%{opacity:1;} }
+
+  /* ---------------- TRAMI WHEEL (signature element) ---------------- */
+  .wheel-section{
+    padding:120px 48px 140px;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    background:
+      linear-gradient(180deg, rgba(12,10,8,0.93), rgba(12,10,8,0.97) 40%, rgba(12,10,8,0.93)),
+      url('/images/kashmiri-food/image_2.jpg');
+    background-size:cover;
+    background-position:center 30%;
+    position:relative;
+    border-top:1px solid var(--line);
+  }
+  .wheel-section h2{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(1.9rem, 3.2vw, 2.7rem);
+    margin:20px 0 14px;
+  }
+  .wheel-section p.lead{ color:var(--ivory-dim); max-width:52ch; line-height:1.65; margin-bottom:64px; }
+
+  .trami{
+    position:relative;
+    width:min(560px, 84vw); aspect-ratio:1/1;
+    border-radius:50%;
+  }
+  .trami-rim{
+    position:absolute; inset:0; border-radius:50%;
+    background:
+      repeating-radial-gradient(circle at center, rgba(212,162,86,0.05) 0 2px, transparent 2px 14px),
+      radial-gradient(circle at 50% 50%, #241a10 0%, #17110a 60%, #0e0b08 100%);
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.6), 0 30px 80px rgba(0,0,0,0.5);
+    border:1px solid rgba(212,162,86,0.25);
+  }
+  .trami-rim::before{
+    content:''; position:absolute; inset:8%; border-radius:50%;
+    border:1px solid rgba(212,162,86,0.18);
+  }
+  .trami-center{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:26%; aspect-ratio:1/1; border-radius:50%;
+    background:radial-gradient(circle, var(--gold) 0%, var(--copper) 70%, #7a441f 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 40px rgba(212,162,86,0.35);
+    animation:spin 90s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .trami-center{ animation:none; } }
+  @keyframes spin{ from{ transform:translate(-50%,-50%) rotate(0deg);} to{ transform:translate(-50%,-50%) rotate(360deg);} }
+  .trami-center svg{ width:38%; height:38%; }
+
+  .trami-wedge{
+    position:absolute; width:50%; height:50%;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    padding-top:14%;
+    cursor:pointer;
+    transition:transform .35s ease;
+  }
+  .trami-wedge:nth-child(2){ top:0; left:0; transform-origin:bottom right; }
+  .trami-wedge:nth-child(3){ top:0; right:0; transform-origin:bottom left; }
+  .trami-wedge:nth-child(4){ bottom:0; left:0; transform-origin:top right; }
+  .trami-wedge:nth-child(5){ bottom:0; right:0; transform-origin:top left; }
+  .trami-wedge:hover{ transform:scale(1.06); }
+  .wedge-icon{ font-family:var(--font-mono); font-size:0.7rem; color:var(--gold); letter-spacing:0.1em; }
+  .wedge-name{ font-family:var(--font-display); font-size:1.25rem; margin-top:6px; }
+  .wedge-count{ font-family:var(--font-mono); font-size:0.68rem; color:var(--ivory-dim); margin-top:4px; }
+
+  /* ---------------- CHAPTER DIAL (floating round nav) ---------------- */
+  .chapter-dial{
+    position:fixed; top:96px; right:40px; z-index:85;
+    width:104px; height:104px;
+    opacity:0; transform:translateY(-12px) scale(0.94);
+    pointer-events:none;
+    transition:opacity .45s ease, transform .45s ease;
+  }
+  .chapter-dial.visible{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .dial-ring{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
+  .dial-ring-bg{ fill:none; stroke:var(--line); stroke-width:2.5; }
+  .dial-ring-fill{
+    fill:none; stroke:var(--gold); stroke-width:2.5; stroke-linecap:round;
+    stroke-dasharray:264; stroke-dashoffset:264;
+    transition:stroke-dashoffset .6s cubic-bezier(.16,1,.3,1);
+  }
+  .dial-face{
+    position:absolute; inset:16px; border-radius:50%;
+    background:rgba(18,14,11,0.72);
+    backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:2px;
+  }
+  .dial-name{ font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--gold); transition:opacity .2s ease; }
+  .dial-count{ font-family:var(--font-mono); font-size:0.52rem; color:var(--ivory-dim); }
+  .dial-stop{
+    position:absolute; top:50%; left:50%; width:11px; height:11px;
+    margin:-5.5px; border-radius:50%;
+    background:var(--charcoal-900); border:1.5px solid var(--gold-soft);
+    transform:translate(-50%,-50%) rotate(var(--angle)) translate(52px) rotate(calc(-1 * var(--angle)));
+    cursor:pointer; padding:0;
+    transition:background .25s ease, border-color .25s ease, transform .3s ease;
+  }
+  .dial-stop:hover{ border-color:var(--gold); }
+  .dial-stop.active{ background:var(--gold); border-color:var(--gold); }
+  @media (max-width:900px){ .chapter-dial{ display:none; } }
+
+  /* ---------------- CHAPTER SECTIONS ---------------- */
+  .chapter{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding:100px 48px;
+    scroll-margin-top:90px;
+    overflow:hidden;
+  }
+  .chapter-inner{
+    max-width:1500px; margin:0 auto; width:100%;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:end;
+  }
+  @media (max-width:1000px){ .chapter-inner{ grid-template-columns:1fr; } }
+
+  .bg-wazwan{
+    background:
+      linear-gradient(100deg, rgba(12,10,8,0.93) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.88) 100%),
+      radial-gradient(ellipse at 30% 60%, rgba(181,105,58,0.10), transparent 60%),
+      url('/images/kashmiri-food/image_3.jpg');
+    background-size:cover;
+    background-position:center;
+  }
+  .bg-beverages{
+    background:
+      linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.85) 100%),
+      radial-gradient(ellipse at 70% 30%, rgba(212,162,86,0.08), transparent 60%),
+      url('/images/kashmiri-food/image_4.jpg');
+    background-size:cover;
+    background-position:center 30%;
+  }
+  .bg-bakery{
+    background:
+      linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.48) 55%, rgba(12,10,8,0.82) 100%),
+      radial-gradient(ellipse at 30% 40%, rgba(212,162,86,0.08), transparent 60%),
+      url('/images/kashmiri-food/image_5.jpg');
+    background-size:cover;
+    background-position:center 38%;
+  }
+  .bg-street{
+    background:
+      linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.85) 100%),
+      radial-gradient(ellipse at 65% 65%, rgba(181,105,58,0.10), transparent 60%),
+      url('/images/kashmiri-food/image_6.jpg');
+    background-size:cover;
+    background-position:center 40%;
+  }
+
+  .chapter-index{ font-family:var(--font-mono); font-size:0.72rem; color:var(--gold); letter-spacing:0.1em; margin-bottom:18px; }
+  .chapter h2{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(2.2rem, 4.4vw, 3.6rem); line-height:1.06; max-width:12ch;
+  }
+  .chapter .tagline{ font-family:var(--font-display); font-style:italic; color:var(--ivory-dim); font-size:1.15rem; margin-top:16px; }
+  .chapter p.desc{ color:var(--ivory-dim); line-height:1.7; margin-top:22px; max-width:52ch; font-size:0.98rem; }
+
+  .chapter-stats{ display:flex; gap:34px; margin-top:34px; flex-wrap:wrap; }
+  .chapter-stats div{ display:flex; flex-direction:column; }
+  .chapter-stats .n{ font-family:var(--font-mono); color:var(--gold); font-size:1.15rem; }
+  .chapter-stats .l{ font-family:var(--font-mono); color:var(--ivory-dim); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;}
+
+  .chapter-cta{ margin-top:38px; }
+
+  /* Dish gallery */
+  .dish-rail{
+    display:flex; gap:16px; overflow-x:auto; padding-bottom:14px;
+    scrollbar-width:thin; scrollbar-color:var(--gold) transparent;
+  }
+  .dish-rail::-webkit-scrollbar{ height:5px; }
+  .dish-rail::-webkit-scrollbar-thumb{ background:var(--gold-soft); border-radius:10px; }
+  .dish-card{
+    flex:0 0 200px; height:260px; border-radius:6px; position:relative;
+    background:linear-gradient(160deg, var(--charcoal-800), var(--charcoal-900));
+    border:1px solid var(--line);
+    overflow:hidden;
+    display:flex; align-items:flex-end;
+    transition:transform .3s ease, border-color .3s ease;
+    /* dish-photo slot: add background-image + background-size:cover here per card via inline style or data-bg attr */
+  }
+  .dish-card:hover{ transform:translateY(-6px); border-color:var(--gold-soft); }
+  .dish-card .shade{
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(12,10,8,0.9) 20%, transparent 65%);
+  }
+  .dish-card .info{ position:relative; padding:18px; }
+  .dish-card .num{ font-family:var(--font-mono); font-size:0.66rem; color:var(--gold); }
+  .dish-card .name{ font-family:var(--font-display); font-size:1.2rem; margin-top:4px; }
+  .dish-card .note{ font-family:var(--font-body); font-size:0.74rem; color:var(--ivory-dim); margin-top:4px; }
+
+  /* ---------------- WAZA AI TEASER (compact) ---------------- */
+  .waza-teaser{
+    padding:96px 48px;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(212,162,86,0.06), transparent 55%),
+      radial-gradient(ellipse at 85% 70%, rgba(181,105,58,0.05), transparent 50%),
+      var(--charcoal-900);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .waza-inner{
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+  }
+  @media (max-width:900px){ .waza-inner{ grid-template-columns:1fr; gap:40px; } }
+
+  .waza-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ivory-dim);
+    border:1px solid var(--line); border-radius:30px;
+    padding:7px 14px;
+  }
+  .waza-badge .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); animation:dotpulse 2s ease-in-out infinite; }
+  @keyframes dotpulse{ 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+  @media (prefers-reduced-motion: reduce){ .waza-badge .dot{ animation:none; } }
+
+  .waza-copy h3{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(1.9rem, 3.4vw, 2.6rem); line-height:1.12;
+    margin-top:18px; max-width:11ch;
+  }
+  .waza-copy p{ color:var(--ivory-dim); line-height:1.65; margin-top:16px; max-width:42ch; font-size:0.95rem; }
+  .waza-copy .btn-primary{ margin-top:26px; }
+
+  /* chat mock card */
+  .waza-card{
+    background:rgba(12,10,8,0.6);
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    backdrop-filter:blur(6px);
+  }
+  .waza-card-head{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--ivory-dim);
+  }
+  .waza-card-head .traffic{ display:flex; gap:5px; margin-right:6px; }
+  .waza-card-head .traffic span{ width:7px; height:7px; border-radius:50%; background:var(--charcoal-700); }
+  .waza-card-body{ padding:20px; min-height:150px; }
+  .waza-msg{
+    font-family:var(--font-body); font-size:0.86rem; line-height:1.55;
+    border-radius:6px; padding:12px 15px; margin-bottom:12px;
+    opacity:0; transform:translateY(6px);
+    transition:opacity .4s ease, transform .4s ease;
+  }
+  .waza-msg.show{ opacity:1; transform:translateY(0); }
+  .waza-msg.user{ background:rgba(244,236,223,0.06); color:var(--ivory); border:1px solid var(--line); }
+  .waza-msg.reply{ background:rgba(212,162,86,0.08); color:var(--ivory-dim); border:1px solid var(--gold-soft); }
+  .waza-msg.reply b{ color:var(--gold); font-weight:500; }
+  .waza-caret{ display:inline-block; width:2px; height:12px; background:var(--gold); margin-left:2px; vertical-align:middle; animation:caret 0.9s steps(1) infinite; }
+  @keyframes caret{ 0%,100%{opacity:1;} 50%{opacity:0;} }
+  .closing{
+    padding:130px 48px; text-align:center;
+    border-top:1px solid var(--line);
+    background:var(--charcoal-950);
+  }
+  .closing .eyebrow{ justify-content:center; }
+  .closing .eyebrow::before{ display:none; }
+  .closing h3{
+    font-family:var(--font-display); font-weight:400; letter-spacing:0.03em;
+    font-size:clamp(2rem, 5vw, 3.6rem); margin-top:18px;
+  }
+  .closing h3 i{ color:var(--gold); }
+  .back-home{ display:inline-block; margin-top:40px; }
+
+  /* AI button */
+  .ai-btn{
+    position:fixed; bottom:28px; right:28px; z-index:95;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--charcoal-900); border:1px solid var(--gold-soft);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow:0 0 22px rgba(212,162,86,0.18);
+  }
+  .ai-btn span{ font-family:var(--font-mono); font-size:0.55rem; color:var(--gold); margin-top:2px; }
+
+  /* reveal utility */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress-rail"><div class="progress-rail-fill" id="railFill"></div></div>
+
+  <nav class="site-nav">
+    <div class="logo"><b>WAZWAN</b> <span>WAY</span></div>
+    <div class="nav-links">
+      <a href="#">How to Experience Wazwan</a>
+      <a href="#" class="current">Kashmiri Food</a>
+      <a href="#">Traditional Wazwan</a>
+      <a href="#">Restaurants</a>
+      <a href="#">Visit Kashmir</a>
+      <a href="#">Explore Kashmir</a>
+      <a href="#" style="color:var(--gold)">Waza AI</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" style="font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Login</a>
+      <button class="btn-signup">Sign Up</button>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero bg-hero">
+    <div class="hero-inner">
+      <div class="eyebrow">CULINARY IDENTITY OF THE VALLEY</div>
+      <h1 style="margin-top:22px;">
+        <span class="line"><span>Four hands, one plate,</span></span>
+        <span class="line"><span>a thousand years of <span class="accent">practice</span>.</span></span>
+      </h1>
+      <p class="sub">From the copper trami of a wazwan feast to a paper cone of hot monje on a rainy street corner — this is how the valley eats, course by course, cup by cup.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('wheel').scrollIntoView({behavior:'smooth'})">Explore the Trami</button>
+        <button class="btn-ghost" onclick="document.getElementById('wazwan').scrollIntoView({behavior:'smooth'})">Browse Categories</button>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-row"><span class="label">Courses in a full wazwan</span><span class="val">up to 36</span></div>
+        <div class="stat-row"><span class="label">Categories catalogued</span><span class="val">4</span></div>
+        <div class="stat-row"><span class="label">Signature closing dish</span><span class="val">Gushtaba</span></div>
+        <div class="stat-quote">"Wazwan — waza (cook) + wan (craft) — the cook's art, said to trace back to Persia."</div>
+      </div>
+
+      <div class="scroll-cue">SCROLL TO THE TABLE</div>
+    </div>
+  </header>
+
+  <!-- ================= TRAMI WHEEL ================= -->
+  <section class="wheel-section" id="wheel">
+    <div class="eyebrow" style="justify-content:center;">THE TRAMI, MAPPED</div>
+    <h2 class="reveal">One plate. <span class="accent">Four</span> ways in.</h2>
+    <p class="lead reveal">A wazwan trami is shared four to a plate. Consider this its digital twin — every category of Kashmiri food, arranged the way the real thing is served. Tap a quarter to go there.</p>
+
+    <div class="trami reveal">
+      <div class="trami-rim"></div>
+      <a class="trami-wedge" href="#wazwan">
+        <span class="wedge-icon">◆ FEAST</span>
+        <span class="wedge-name">Wazwan</span>
+        <span class="wedge-count">20 items</span>
+      </a>
+      <a class="trami-wedge" href="#beverages">
+        <span class="wedge-icon">◆ WARMTH</span>
+        <span class="wedge-name">Beverages</span>
+        <span class="wedge-count">4 beverages</span>
+      </a>
+      <a class="trami-wedge" href="#bakery">
+        <span class="wedge-icon">◆ MORNING</span>
+        <span class="wedge-name">Bakery</span>
+        <span class="wedge-count">6 breads</span>
+      </a>
+      <a class="trami-wedge" href="#street">
+        <span class="wedge-icon">◆ STANDING</span>
+        <span class="wedge-name">Street Food</span>
+        <span class="wedge-count">7 eats</span>
+      </a>
+      <div class="trami-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#12100d" stroke-width="1.4">
+          <path d="M6 3v6a2 2 0 0 0 2 2v10M6 3v6M9 3v6M6 9h0M18 3c-1.5 2-2 4-2 6a2 2 0 0 0 2 2v10"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FLOATING CHAPTER DIAL ================= -->
+  <div class="chapter-dial" id="chapterDial">
+    <svg class="dial-ring" viewBox="0 0 92 92">
+      <circle class="dial-ring-bg" cx="46" cy="46" r="42"></circle>
+      <circle class="dial-ring-fill" id="dialRingFill" cx="46" cy="46" r="42"></circle>
+    </svg>
+    <div class="dial-face">
+      <span class="dial-name" id="dialName">Wazwan</span>
+      <span class="dial-count" id="dialCount">1 / 4</span>
+    </div>
+    <button class="dial-stop" style="--angle:-90deg" data-target="wazwan" title="Wazwan"></button>
+    <button class="dial-stop" style="--angle:0deg" data-target="beverages" title="Beverages"></button>
+    <button class="dial-stop" style="--angle:90deg" data-target="bakery" title="Bakery"></button>
+    <button class="dial-stop" style="--angle:180deg" data-target="street" title="Street Food"></button>
+  </div>
+
+  <!-- ================= CHAPTER: WAZWAN ================= -->
+  <section class="chapter bg-wazwan" id="wazwan">
+    <div class="chapter-inner">
+      <div>
+        <div class="chapter-index reveal">— THE FEAST · 20 DISHES</div>
+        <h2 class="reveal">Thirty-six courses,<br>one <span class="accent">copper</span> plate.</h2>
+        <p class="tagline reveal">Meat is the language. The waza is fluent.</p>
+        <p class="desc reveal">A traditional wazwan is cooked overnight by a head waza and his team, then carried out course by course on a shared trami. Guests sit four to a plate; the meal ends, always, with gushtaba — pounded mutton balls in a whipped yoghurt gravy — served last because it's considered the richest.</p>
+        <div class="chapter-stats reveal">
+          <div><span class="n">20</span><span class="l">Dishes catalogued</span></div>
+          <div><span class="n">2–4 hrs</span><span class="l">Typical feast length</span></div>
+          <div><span class="n">4</span><span class="l">Guests per trami</span></div>
+        </div>
+        <div class="chapter-cta reveal"><button class="btn-ghost">Open Full Catalog →</button></div>
+      </div>
+
+      <div class="dish-rail reveal">
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">01</div><div class="name">Rista</div><div class="note">Pounded mutton balls, red gravy</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">02</div><div class="name">Rogan Josh</div><div class="note">Kashmiri red chilli lamb curry</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">03</div><div class="name">Tabak Maaz</div><div class="note">Twice-cooked crisp lamb ribs</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">04</div><div class="name">Daniwal Korma</div><div class="note">Yoghurt-coriander lamb curry</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">05</div><div class="name">Marchwangan Korma</div><div class="note">Fiery red-chilli lamb</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">06</div><div class="name">Gushtaba</div><div class="note">The closing course, always</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHAPTER: BEVERAGES ================= -->
+  <section class="chapter bg-beverages" id="beverages">
+    <div class="chapter-inner">
+      <div>
+        <div class="chapter-index reveal">— WARMTH IN A CUP · 4 BEVERAGES</div>
+        <h2 class="reveal">Kahwa keeps<br>the cold <span class="accent">honest</span>.</h2>
+        <p class="tagline reveal">Poured from a samovar, not a kettle.</p>
+        <p class="desc reveal">Saffron, cinnamon, cardamom, and crushed almonds, kept simmering in a copper samovar through the day. Kahwa is the everyday cup; noon chai — salted, pink, and served with bread — is the one that shows up at weddings and Friday breakfasts alike.</p>
+        <div class="chapter-stats reveal">
+          <div><span class="n">4</span><span class="l">Beverages catalogued</span></div>
+          <div><span class="n">Samovar</span><span class="l">Traditional vessel</span></div>
+          <div><span class="n">Daily</span><span class="l">How often it's made</span></div>
+        </div>
+        <div class="chapter-cta reveal"><button class="btn-ghost">Open Full Catalog →</button></div>
+      </div>
+      <div class="dish-rail reveal">
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">01</div><div class="name">Kahwa</div><div class="note">Saffron &amp; almond green tea</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">02</div><div class="name">Noon Chai</div><div class="note">Salted pink tea</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">03</div><div class="name">Sheer Chai</div><div class="note">Milk tea, everyday version</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">04</div><div class="name">Modur Chai</div><div class="note">Sweetened pink tea</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHAPTER: BAKERY ================= -->
+  <section class="chapter bg-bakery" id="bakery">
+    <div class="chapter-inner">
+      <div>
+        <div class="chapter-index reveal">— THE MORNING BREAD · 6 VARIETIES</div>
+        <h2 class="reveal">Bread that's bought,<br>never <span class="accent">baked</span> at home.</h2>
+        <p class="tagline reveal">Every mohalla has its kandur.</p>
+        <p class="desc reveal">Kashmiri bread is a bakery good, not a kitchen one — fetched fresh each morning from the neighbourhood kandur (baker), still warm, in a cloth or a bare hand. Girda for everyday chai, sheermal for something sweeter, bakarkhani for weekends.</p>
+        <div class="chapter-stats reveal">
+          <div><span class="n">6</span><span class="l">Breads catalogued</span></div>
+          <div><span class="n">Kandur</span><span class="l">The neighbourhood baker</span></div>
+          <div><span class="n">Twice daily</span><span class="l">Fresh bakes</span></div>
+        </div>
+        <div class="chapter-cta reveal"><button class="btn-ghost">Open Full Catalog →</button></div>
+      </div>
+      <div class="dish-rail reveal">
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">01</div><div class="name">Girda</div><div class="note">Everyday round bread</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">02</div><div class="name">Czot</div><div class="note">Thick, dense flatbread</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">03</div><div class="name">Bakarkhani</div><div class="note">Flaky, layered, slightly sweet</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">04</div><div class="name">Sheermal</div><div class="note">Saffron-milk enriched bread</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">05</div><div class="name">Lavasa</div><div class="note">Thin, soft flatbread</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">06</div><div class="name">Kulcha</div><div class="note">Crisp, biscuit-like round</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHAPTER: STREET FOOD ================= -->
+  <section class="chapter bg-street" id="street">
+    <div class="chapter-inner">
+      <div>
+        <div class="chapter-index reveal">— THE OTHER TABLE · 7 EATS</div>
+        <h2 class="reveal">The valley's second<br><span class="accent">menu</span>, eaten standing.</h2>
+        <p class="tagline reveal">No trami here. Just a paper plate.</p>
+        <p class="desc reveal">Away from the formality of a wazwan is a looser, faster table — fried fish by the river, monje pakodas on a rainy afternoon, nadru fritters from a cart outside school. Cheaper, quicker, and just as particular about getting it right.</p>
+        <div class="chapter-stats reveal">
+          <div><span class="n">7</span><span class="l">Eats catalogued</span></div>
+          <div><span class="n">Fried</span><span class="l">Most common technique</span></div>
+          <div><span class="n">On foot</span><span class="l">How it's meant to be eaten</span></div>
+        </div>
+        <div class="chapter-cta reveal"><button class="btn-ghost">Open Full Catalog →</button></div>
+      </div>
+      <div class="dish-rail reveal">
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">01</div><div class="name">Monje</div><div class="note">Fried fish fritters</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">02</div><div class="name">Nadru Fritters</div><div class="note">Battered lotus stem</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">03</div><div class="name">Muji Chetin</div><div class="note">Sharp radish-yoghurt chutney</div></div></div>
+        <div class="dish-card"><div class="shade"></div><div class="info"><div class="num">04</div><div class="name">Chochwor</div><div class="note">Ring-shaped fried snack</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WAZA AI TEASER ================= -->
+  <section class="waza-teaser">
+    <div class="waza-inner">
+      <div class="waza-copy reveal">
+        <div class="waza-badge"><span class="dot"></span> Waza AI · Food Mode</div>
+        <h3>Tell Waza what you're <span class="accent">craving</span>.</h3>
+        <p>Spice tolerance, guest count, the weather outside — describe it in one line and Waza matches you to the right dish, drink, or bakery run. No menu required.</p>
+        <button class="btn-primary" onclick="window.location.hash='wazwan'">Ask Waza AI →</button>
+      </div>
+      <div class="waza-card reveal">
+        <div class="waza-card-head">
+          <span class="traffic"><span></span><span></span><span></span></span>
+          waza-ai · food
+        </div>
+        <div class="waza-card-body" id="wazaCardBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section class="closing">
+    <div class="eyebrow">ALL THINGS KASHMIR</div>
+    <h3 class="reveal">A valley, best understood <i>one course</i> at a time.</h3>
+    <a class="back-home" href="#"><button class="btn-primary">← Back to Home</button></a>
+  </section>
+
+  <div class="ai-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a256" stroke-width="1.6"><path d="M6 3v6a2 2 0 0 0 2 2v10M6 3v6M9 3v6M18 3c-1.5 2-2 4-2 6a2 2 0 0 0 2 2v10"/></svg>
+    <span>AI</span>
+  </div>
+
+<script>
+  // Hero load-in sequence
+  window.addEventListener('DOMContentLoaded', () => {
+    const lines = document.querySelectorAll('.hero h1 .line span');
+    lines.forEach((el, i) => {
+      setTimeout(() => { el.style.transition = 'transform .9s cubic-bezier(.16,1,.3,1), opacity .9s ease'; el.style.transform='translateY(0)'; el.style.opacity='1'; }, 150 + i*140);
+    });
+    const sub = document.querySelector('.hero .sub');
+    const ctas = document.querySelector('.hero-ctas');
+    const card = document.querySelector('.stat-card');
+    setTimeout(()=>{ sub.style.transition='opacity .8s ease, transform .8s ease'; sub.style.opacity=1; sub.style.transform='translateY(0)'; }, 500);
+    setTimeout(()=>{ ctas.style.transition='opacity .8s ease, transform .8s ease'; ctas.style.opacity=1; ctas.style.transform='translateY(0)'; }, 650);
+    setTimeout(()=>{ card.style.transition='opacity .9s ease, transform .9s ease'; card.style.opacity=1; card.style.transform='translateX(0)'; }, 550);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // Progress rail
+  const rail = document.getElementById('railFill');
+  window.addEventListener('scroll', ()=>{
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    rail.style.height = Math.min(100, Math.max(0, pct)) + '%';
+  });
+
+  // Floating chapter dial: labels, stops, ring, scrollspy, click-to-navigate
+  const chapterOrder = ['wazwan','beverages','bakery','street'];
+  const chapterLabels = { wazwan:'Wazwan', beverages:'Beverages', bakery:'Bakery', street:'Street Food' };
+  const sections = chapterOrder.map(id=>document.getElementById(id));
+  const dial = document.getElementById('chapterDial');
+  const dialName = document.getElementById('dialName');
+  const dialCount = document.getElementById('dialCount');
+  const dialRingFill = document.getElementById('dialRingFill');
+  const dialStops = document.querySelectorAll('.dial-stop');
+  const RING_CIRCUMFERENCE = 264;
+
+  function setActiveChapter(id){
+    const idx = chapterOrder.indexOf(id);
+    if(idx === -1) return;
+    dialName.style.opacity = 0;
+    setTimeout(()=>{ dialName.textContent = chapterLabels[id]; dialName.style.opacity = 1; }, 150);
+    dialCount.textContent = (idx+1) + ' / ' + chapterOrder.length;
+    const offset = RING_CIRCUMFERENCE - ((idx+1)/chapterOrder.length) * RING_CIRCUMFERENCE;
+    dialRingFill.style.strokeDashoffset = offset;
+    dialStops.forEach(s=>s.classList.toggle('active', s.dataset.target === id));
+  }
+
+  dialStops.forEach(s=>{
+    s.addEventListener('click', ()=>{
+      document.getElementById(s.dataset.target).scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  const spy = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ setActiveChapter(e.target.id); }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s=>spy.observe(s));
+
+  // Show the dial only once the user has scrolled a bit — never on first landing
+  const wheelSection = document.getElementById('wheel');
+  function updateDialVisibility(){
+    const showAfter = wheelSection.offsetTop + wheelSection.offsetHeight * 0.35;
+    dial.classList.toggle('visible', window.scrollY > showAfter);
+  }
+  window.addEventListener('scroll', updateDialVisibility);
+  updateDialVisibility();
+
+  setActiveChapter('wazwan');
+
+  // Waza AI teaser — cycling typewriter chat mock
+  const wazaExchanges = [
+    { q: "I don't do spicy food. What's safe for me?", a: 'Try <b>Daniwal Korma</b> — mild, yoghurt-coriander. Skip the Marchwangan Korma today.' },
+    { q: "Four of us, and it's pouring outside.", a: 'Kahwa first, then <b>Monje</b> — hot fish fritters are made for this weather.' },
+    { q: 'What comes last in a real wazwan?', a: '<b>Gushtaba</b>, always — it\'s considered too rich to serve any earlier.' }
+  ];
+  const wazaBody = document.getElementById('wazaCardBody');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let wazaIdx = 0;
+
+  function typeInto(el, text, speed, done){
+    let i = 0;
+    el.innerHTML = '';
+    const caret = document.createElement('span');
+    caret.className = 'waza-caret';
+    function step(){
+      el.textContent = text.slice(0, i);
+      el.appendChild(caret);
+      i++;
+      if(i <= text.length){ setTimeout(step, speed); } else { caret.remove(); if(done) done(); }
+    }
+    step();
+  }
+
+  function runWazaExchange(){
+    if(!wazaBody) return;
+    const ex = wazaExchanges[wazaIdx % wazaExchanges.length];
+    wazaBody.innerHTML = '';
+    const userMsg = document.createElement('div');
+    userMsg.className = 'waza-msg user show';
+    wazaBody.appendChild(userMsg);
+
+    if(reducedMotion){
+      userMsg.textContent = ex.q;
+      const replyMsg = document.createElement('div');
+      replyMsg.className = 'waza-msg reply show';
+      replyMsg.innerHTML = ex.a;
+      wazaBody.appendChild(replyMsg);
+      wazaIdx++;
+      setTimeout(runWazaExchange, 4500);
+      return;
+    }
+
+    typeInto(userMsg, ex.q, 26, ()=>{
+      setTimeout(()=>{
+        const replyMsg = document.createElement('div');
+        replyMsg.className = 'waza-msg reply';
+        replyMsg.innerHTML = ex.a;
+        wazaBody.appendChild(replyMsg);
+        requestAnimationFrame(()=> replyMsg.classList.add('show'));
+        setTimeout(()=>{ wazaIdx++; runWazaExchange(); }, 3200);
+      }, 450);
+    });
+  }
+
+  if(wazaBody){
+    const wazaObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ runWazaExchange(); wazaObserver.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    wazaObserver.observe(document.querySelector('.waza-teaser'));
+  }
+</script>
+</body>
+</html>

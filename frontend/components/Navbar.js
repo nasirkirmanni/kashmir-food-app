@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +9,9 @@ import HamburgerMenu from "./HamburgerMenu";
 import { User } from "lucide-react";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isSignupPage = pathname === "/signup" || pathname === "/travel-agent/signup";
+  const isLoginPage = pathname === "/login";
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState(null);
@@ -27,9 +31,9 @@ export default function Navbar() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           if (e.target && e.target.scrollTop !== undefined) {
-            setScrolled(e.target.scrollTop > 60);
+            setScrolled(e.target.scrollTop > window.innerHeight);
           } else {
-            setScrolled(window.scrollY > 60);
+            setScrolled(window.scrollY > window.innerHeight);
           }
           ticking = false;
         });
@@ -52,7 +56,15 @@ export default function Navbar() {
 
   /* ── Liquid Glass pill style — desktop navbar ── */
   const desktopNav = (
-    <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-[#0B0B0B]/80 backdrop-blur-xl">
+    <nav 
+      className="hidden md:flex fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out border-b border-white/5"
+      style={{
+        background: scrolled 
+          ? 'rgba(12, 10, 8, 0.95)' 
+          : 'linear-gradient(to bottom, rgba(12,10,8,0.85), transparent)',
+        backdropFilter: 'blur(2px)'
+      }}
+    >
       <div className="flex h-20 items-center justify-between w-full pl-3 pr-6 lg:pl-6 lg:pr-12 2xl:pl-8 2xl:pr-16">
         
         {/* Left Side: Logo */}
@@ -108,18 +120,31 @@ export default function Navbar() {
             </div>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="text-[0.65rem] font-bold uppercase tracking-widest text-white transition-colors hover:text-[#C8A46A] whitespace-nowrap"
-              >
-                Login
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
-              >
-                Sign up
-              </Link>
+              {isSignupPage ? (
+                <>
+                  <Link
+                    href="/login"
+                    className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
+                  >
+                    Sign In
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className={`text-[0.65rem] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${isLoginPage ? 'text-[#C8A46A]' : 'text-white hover:text-[#C8A46A]'}`}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
             </>
           )}
           <HamburgerMenu />
