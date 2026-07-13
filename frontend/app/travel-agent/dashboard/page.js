@@ -368,7 +368,12 @@ export default function TravelAgentDashboard() {
                       {agency.address && <span className="text-white/70">{agency.address}</span>}
                     </div>
                     <div className="flex flex-col pt-4 border-t border-white/10">
-                      <span className="text-white/40 uppercase tracking-widest text-[0.65rem] font-bold mb-2">Agency Description</span>
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-white/40 uppercase tracking-widest text-[0.65rem] font-bold">Agency Description</span>
+                        <button onClick={() => setIsEditing(true)} className="text-[var(--saffron)] text-xs font-semibold hover:underline">
+                          {agency.description ? "Edit" : "Add Description"}
+                        </button>
+                      </div>
                       <p className="text-white/80 leading-relaxed">{agency.description || "No description provided."}</p>
                     </div>
                     {agency.whyChooseUs && (
