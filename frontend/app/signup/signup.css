@@ -24,7 +24,8 @@
 }
 
 @media (max-width: 960px) {
-  .seal-panel { border-right: none; border-bottom: 1px solid var(--line); padding: 96px 32px 44px; }
+  .seal-panel { display: none; }
+  .form-panel { padding-top: 100px; padding-bottom: 80px; }
 }
 
 .seal-wrap { position: relative; width: 184px; height: 184px; }

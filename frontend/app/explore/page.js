@@ -9,17 +9,22 @@ import StickyMobileNav from "@/components/StickyMobileNav";
 import { Calendar, Car, Clock, Compass, Mountain, ArrowRight } from "lucide-react";
 import ExploreClient from "./ExploreClient";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
+const getApiBase = () => {
+  if (typeof window === "undefined" && process.env.NEXT_PUBLIC_API_URL?.includes("localhost")) {
+    return process.env.NEXT_PUBLIC_API_URL.replace("localhost", "127.0.0.1");
+  }
+  return process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
+};
 
 async function getExploreData() {
   try {
-    const res = await fetch(`${API_BASE}/api/explore`, {
+    const res = await fetch(`${getApiBase()}/api/explore`, {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
-    if (!res.ok) throw new Error("Failed to fetch data");
+    if (!res.ok) throw new Error("Failed to fetch data, status: " + res.status);
     return await res.json();
   } catch (error) {
-    console.error(error);
+    console.error("Explore Fetch Error:", error.message || error);
     return null;
   }
 }
