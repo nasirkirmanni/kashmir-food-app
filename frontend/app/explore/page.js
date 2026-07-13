@@ -22,10 +22,10 @@ async function getExploreData() {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
     if (!res.ok) throw new Error("Failed to fetch data, status: " + res.status);
-    return await res.json();
+    return { data: await res.json(), error: null };
   } catch (error) {
     console.error("Explore Fetch Error:", error.message || error);
-    return null;
+    return { data: null, error: error.message || String(error) };
   }
 }
 
@@ -35,12 +35,15 @@ export const metadata = {
 };
 
 export default async function ExplorePage() {
-  const data = await getExploreData();
+  const { data, error } = await getExploreData();
 
-  if (!data) {
+  if (error || !data) {
     return (
-      <div className="min-h-screen bg-[#0B0B0B] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0B0B0B] text-white flex items-center justify-center flex-col p-4">
         <p>Failed to load explore data.</p>
+        <pre className="text-red-500 mt-4 text-xs max-w-full overflow-auto">
+          {error}
+        </pre>
       </div>
     );
   }
