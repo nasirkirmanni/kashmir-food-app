@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Experience Wazwan — Wazwan Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal-900:#0c0a08; --charcoal-800:#16110d; --charcoal-700:#1f1811;
+    --gold:#d4a256; --gold-soft:rgba(212,162,86,.45); --gold-dim:rgba(212,162,86,.16);
+    --ivory:#f4ecdf; --ivory-dim:rgba(244,236,223,.62); --ivory-faint:rgba(244,236,223,.3);
+    --copper:#b5693a;
+    --serif:'Cormorant Garamond', serif; --mono:'IBM Plex Mono', monospace; --sans:'Inter', sans-serif;
+    --ease:cubic-bezier(.16,.8,.24,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{background:var(--charcoal-900); scroll-behavior:smooth;}
+  body{background:var(--charcoal-900); color:var(--ivory); font-family:var(--sans); font-weight:300; overflow-x:hidden; -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--gold); color:var(--charcoal-900);}
+  :focus-visible{outline:1.5px solid var(--gold); outline-offset:3px;}
+
+  .grain{position:fixed; inset:0; z-index:999; pointer-events:none; opacity:.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+
+  #nav{position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-items:center; justify-content:space-between;
+    padding:26px 48px; transition:all .5s var(--ease); border-bottom:1px solid transparent;}
+  #nav.solid{background:rgba(12,10,8,.92); backdrop-filter:blur(10px); padding:16px 48px; border-bottom:1px solid rgba(212,162,86,.15);}
+  .logo{font-family:var(--serif); font-size:1.5rem;}
+  .logo b{font-weight:600;} .logo span{font-weight:500; font-style:italic; color:var(--gold);}
+  .nav-links{display:flex; align-items:center; gap:28px; list-style:none;}
+  .nav-links a{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; color:var(--ivory-dim); transition:color .3s;}
+  .nav-links a:hover{color:var(--ivory);} .nav-links a.ai{color:var(--gold);}
+  .nav-right{display:flex; align-items:center; gap:20px;}
+  .btn-signup{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; background:var(--gold); color:var(--charcoal-900); padding:10px 20px; border-radius:999px;}
+  .menu-dot{width:40px; height:40px; border:1px solid rgba(244,236,223,.3); border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  .menu-dot span{width:13px; height:1px; background:var(--ivory-dim);}
+  @media(max-width:980px){ .nav-links{display:none;} #nav{padding:20px 22px;} }
+
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; color:var(--gold); text-transform:uppercase; margin-bottom:20px;}
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--gold);}
+
+  /* ---------- HERO ---------- */
+  #hero{min-height:78vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:160px 24px 60px; position:relative; overflow:hidden;}
+  #hero .ghost-plate{
+    position:absolute; top:50%; left:50%; width:900px; height:900px; transform:translate(-50%,-50%);
+    border-radius:50%; border:1px solid rgba(212,162,86,.08); pointer-events:none;
+  }
+  #hero .ghost-plate::before{content:''; position:absolute; inset:60px; border-radius:50%; border:1px solid rgba(212,162,86,.06);}
+  #hero .ghost-plate::after{content:''; position:absolute; inset:130px; border-radius:50%; border:1px dashed rgba(212,162,86,.05);}
+  #hero h1{font-family:var(--serif); font-weight:500; font-size:clamp(2.6rem,6vw,4.6rem); line-height:1.05; position:relative; z-index:2;}
+  #hero .sub{font-size:1.05rem; color:var(--ivory-dim); margin-top:20px; max-width:520px; position:relative; z-index:2;}
+  .scroll-cue{margin-top:60px; display:flex; flex-direction:column; align-items:center; gap:10px; font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; color:var(--ivory-faint); position:relative; z-index:2;}
+  .scroll-cue .line{width:1px; height:40px; background:linear-gradient(var(--gold), transparent);}
+
+  /* ---------- TIMELINE ---------- */
+  #timeline{position:relative; max-width:1100px; margin:0 auto; padding:60px 24px 140px;}
+  #stitch-svg{position:absolute; top:0; left:50%; transform:translateX(-50%); height:100%; width:100%; z-index:0; pointer-events:none;}
+  #stitch-path{fill:none; stroke:var(--gold); stroke-width:1.4; stroke-dasharray:10 9; stroke-linecap:round;}
+
+  .step{
+    position:relative; z-index:2; display:flex; width:50%; margin-bottom:14vh;
+  }
+  .step:nth-child(odd){justify-content:flex-end; padding-right:64px;}
+  .step:nth-child(even){justify-content:flex-start; padding-left:64px; margin-left:50%;}
+  .step:last-of-type{margin-bottom:0;}
+
+  .card{
+    max-width:380px; width:100%; position:relative; cursor:pointer;
+    opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease), transform .9s var(--ease);
+  }
+  .card.in{opacity:1; transform:translateY(0);}
+
+  .badge{
+    width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 35% 30%, #c98a4a, var(--copper) 60%, #7a3d1e);
+    box-shadow:0 6px 18px rgba(0,0,0,.4), inset 0 0 0 1px rgba(244,236,223,.15);
+    font-family:var(--serif); font-weight:600; font-style:italic; font-size:1.3rem; color:var(--ivory);
+    margin-bottom:18px; transition:box-shadow .4s, transform .4s var(--ease);
+  }
+  .card.in .badge{box-shadow:0 6px 18px rgba(0,0,0,.4), inset 0 0 0 1px rgba(244,236,223,.15), 0 0 22px var(--gold-soft);}
+  .card:hover .badge{transform:scale(1.08) rotate(-4deg);}
+
+  .icon{width:20px; height:20px; margin-bottom:14px; opacity:.8;}
+  .icon svg{width:100%; height:100%; stroke:var(--gold); fill:none; stroke-width:1.3;}
+
+  .card h3{font-family:var(--serif); font-weight:500; font-size:1.7rem; margin-bottom:12px; line-height:1.15;}
+  .card p{font-size:.92rem; line-height:1.7; color:var(--ivory-dim); font-weight:300;}
+
+  .flip{
+    max-height:0; overflow:hidden; transition:max-height .55s var(--ease), margin-top .55s var(--ease);
+    margin-top:0;
+  }
+  .card.open .flip{max-height:120px; margin-top:16px;}
+  .flip-inner{border-top:1px solid rgba(212,162,86,.25); padding-top:14px; font-family:var(--mono); font-size:.72rem; letter-spacing:.02em; color:var(--gold); line-height:1.6;}
+
+  .expand-cue{display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; color:var(--ivory-faint); transition:color .3s;}
+  .card:hover .expand-cue{color:var(--gold);}
+  .expand-cue .plus{display:inline-block; transition:transform .4s var(--ease);}
+  .card.open .expand-cue .plus{transform:rotate(45deg);}
+
+  @media(max-width:900px){
+    #timeline{padding:40px 20px 100px;}
+    .step, .step:nth-child(even){width:100%; margin-left:0; padding:0; justify-content:flex-start; margin-bottom:60px;}
+    .card{max-width:100%;}
+    .badge{position:relative; z-index:2;}
+  }
+
+  /* ---------- CTA ---------- */
+  #cta{text-align:center; padding:0 24px 140px; position:relative;}
+  #cta .rule{width:60px; height:1px; background:var(--gold-soft); margin:0 auto 40px;}
+  #cta h2{font-family:var(--serif); font-style:italic; font-weight:500; font-size:clamp(1.6rem,3.2vw,2.4rem); margin-bottom:34px;}
+  .btn-primary{
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; background:var(--gold); color:var(--charcoal-900);
+    padding:17px 32px; border-radius:999px; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .35s var(--ease), box-shadow .35s;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(212,162,86,.28);}
+
+  #ai-fab{position:fixed; bottom:28px; right:28px; z-index:500; width:56px; height:56px; border-radius:50%;
+    background:var(--charcoal-800); border:1px solid var(--gold-soft); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 24px rgba(212,162,86,.18);}
+  #ai-fab span{font-family:var(--mono); font-size:.55rem; color:var(--gold);}
+
+  /* ---------- WAZA AI SECTION ---------- */
+  #waza-ai{position:relative; padding:60px 24px 150px; overflow:hidden;}
+  #waza-ai::before{
+    content:''; position:absolute; top:10%; right:-10%; width:600px; height:600px; border-radius:50%;
+    background:radial-gradient(circle, rgba(212,162,86,.07), transparent 70%); pointer-events:none;
+  }
+  .waza-grid{
+    position:relative; z-index:2; max-width:1180px; margin:0 auto; display:grid;
+    grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+  }
+  .ai-status{
+    display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.66rem; letter-spacing:.12em;
+    color:var(--gold); border:1px solid var(--gold-soft); border-radius:999px; padding:7px 16px; margin-bottom:26px;
+  }
+  .ai-status-dot{width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 8px var(--gold); animation:pulseDot 1.8s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(.75);}}
+  .waza-heading{font-family:var(--serif); font-weight:500; font-size:clamp(2.1rem,4.4vw,3.1rem); line-height:1.12;}
+  .waza-name{font-style:italic; color:var(--gold); font-weight:600;}
+  .waza-sub{font-size:1rem; line-height:1.75; color:var(--ivory-dim); max-width:440px; margin:22px 0 34px;}
+
+  .waza-demo{position:relative;}
+  .cat-ring{
+    position:absolute; top:-64px; right:24px; z-index:3; width:128px; height:128px; border-radius:50%;
+    border:1px solid var(--gold-soft); display:flex; align-items:center; justify-content:center;
+    background:rgba(12,10,8,.5); backdrop-filter:blur(4px);
+  }
+  .cat-ring-orbit{position:absolute; inset:-14px; animation:ringSpin 14s linear infinite;}
+  @keyframes ringSpin{to{transform:rotate(360deg);}}
+  .cat-dot{position:absolute; width:8px; height:8px; border-radius:50%; border:1px solid var(--ivory-faint); background:transparent;}
+  .cat-dot-top{top:0; left:50%; transform:translate(-50%,-50%); background:var(--gold); border-color:var(--gold); box-shadow:0 0 9px var(--gold-soft);}
+  .cat-dot-right{top:50%; right:0; transform:translate(50%,-50%);}
+  .cat-dot-bottom{bottom:0; left:50%; transform:translate(-50%,50%);}
+  .cat-dot-left{top:50%; left:0; transform:translate(-50%,-50%);}
+  .cat-ring-center{text-align:center;}
+  .cat-name{display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.09em; color:var(--gold); margin-bottom:5px; transition:opacity .3s;}
+  .cat-count{display:block; font-family:var(--mono); font-size:.9rem; color:var(--ivory); transition:opacity .3s;}
+
+  .terminal{
+    background:var(--charcoal-800); border:1px solid rgba(212,162,86,.16); border-radius:14px; overflow:hidden;
+    box-shadow:0 30px 70px rgba(0,0,0,.45);
+  }
+  .terminal-bar{display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(212,162,86,.12);}
+  .tdots{display:flex; gap:7px;}
+  .td{width:11px; height:11px; border-radius:50%; display:inline-block;}
+  .td.red{background:#e5675f;} .td.amber{background:#e6b559;} .td.green{background:#61c454;}
+  .terminal-label{font-family:var(--mono); font-size:.68rem; color:var(--ivory-faint);}
+  .terminal-body{min-height:170px; padding:22px; display:flex; flex-direction:column; gap:14px; justify-content:center;}
+  .msg{
+    font-size:.92rem; line-height:1.6; padding:15px 18px; border-radius:10px; opacity:0; transform:translateY(8px);
+    animation:msgIn .5s var(--ease) forwards;
+  }
+  @keyframes msgIn{to{opacity:1; transform:translateY(0);}}
+  .msg.user{background:rgba(244,236,223,.05); border:1px solid rgba(244,236,223,.08); align-self:stretch;}
+  .msg.ai{background:rgba(212,162,86,.06); border:1px solid var(--gold-soft); align-self:stretch;}
+  .msg.ai em{color:var(--gold); font-style:italic; font-weight:500;}
+  .msg .cursor{display:inline-block; width:2px; height:1em; background:var(--gold); vertical-align:-2px; margin-left:2px; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .waza-btn{margin-top:4px;}
+
+  #ai-fab{flex-direction:column; gap:2px; text-align:center;}
+  #ai-fab .fab-icon{width:18px; height:18px; stroke:var(--gold); fill:none; stroke-width:1.4;}
+  #ai-fab span{line-height:1;}
+
+  @media(max-width:900px){
+    .waza-grid{grid-template-columns:1fr; gap:56px;}
+    .waza-demo{padding-top:70px;}
+    .cat-ring{position:static; margin:0 auto 26px; width:104px; height:104px;}
+    .waza-sub{max-width:100%;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition-duration:.15s !important; animation-duration:0s !important;}
+    .card{opacity:1; transform:none;}
+    #stitch-path{stroke-dashoffset:0 !important;}
+    .cat-ring-orbit{animation:none;}
+    .msg{opacity:1; transform:none;}
+    .cursor{display:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav id="nav">
+  <div class="logo"><b>WAZWAN</b> <span>WAY</span></div>
+  <ul class="nav-links">
+    <li><a href="#">How to Experience Wazwan</a></li>
+    <li><a href="#">Kashmiri Food</a></li>
+    <li><a href="#">Traditional Wazwan</a></li>
+    <li><a href="#">Restaurants</a></li>
+    <li><a href="#">Visit Kashmir</a></li>
+    <li><a href="#">Explore Kashmir</a></li>
+    <li><a href="#waza-ai" class="ai">Waza AI</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" style="font-family:var(--mono); font-size:.66rem; color:var(--ivory-dim);">Login</a>
+    <a href="#" class="btn-signup">Sign Up</a>
+    <div class="menu-dot"><span></span></div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="ghost-plate"></div>
+  <div class="eyebrow">Visitor Guide</div>
+  <h1>How to Experience<br>Wazwan</h1>
+  <p class="sub">Everything you should know before you sit at the trami.</p>
+  <div class="scroll-cue"><span>SIX THINGS TO KNOW</span><div class="line"></div></div>
+</section>
+
+<section id="timeline">
+  <svg id="stitch-svg" preserveAspectRatio="none">
+    <path id="stitch-path" d=""></path>
+  </svg>
+
+  <div class="step" data-side="l">
+    <div class="card">
+      <div class="badge">01</div>
+      <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></div>
+      <h3>Book in Advance</h3>
+      <p>A full Wazwan is often prepared overnight, so call ahead if you want the ceremonial feast experience rather than a standard menu order.</p>
+      <div class="expand-cue"><span class="plus">+</span> Why it matters</div>
+      <div class="flip"><div class="flip-inner">Most kitchens need a headcount, not a card number — booking is really about giving the kitchen lead time.</div></div>
+    </div>
+  </div>
+
+  <div class="step" data-side="r">
+    <div class="card">
+      <div class="badge">02</div>
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2 21c0-4 3-6 6-6s6 2 6 6M14 21c.5-3 2-5 5-5.2"/></svg></div>
+      <h3>Come Hungry, Come Many</h3>
+      <p>Wazwan is best enjoyed in a group. The shared trami experience makes the meal feel cultural, social, and complete.</p>
+      <div class="expand-cue"><span class="plus">+</span> Why it matters</div>
+      <div class="flip"><div class="flip-inner">Four to a trami is traditional — fewer guests means more courses go untouched.</div></div>
+    </div>
+  </div>
+
+  <div class="step" data-side="l">
+    <div class="card">
+      <div class="badge">03</div>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L21 9.3l-5 4.5 1.4 6.8L12 17.4l-5.4 3.2L8 13.8l-5-4.5 6.4-.7z"/></svg></div>
+      <h3>Start with the Classics</h3>
+      <p>If you are new to Kashmiri food, begin with Rogan Josh, Gushtaba, Rista, and Tabak Maaz before branching into rarer specialties.</p>
+      <div class="expand-cue"><span class="plus">+</span> Why it matters</div>
+      <div class="flip"><div class="flip-inner">These four give you the full range of Wazwan's textures before anything more adventurous.</div></div>
+    </div>
+  </div>
+
+  <div class="step" data-side="r">
+    <div class="card">
+      <div class="badge">04</div>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0z"/><path d="M4 12h16"/></svg></div>
+      <h3>Respect the Finale</h3>
+      <p>Dishes like Gushtaba are traditionally served at the end of a Wazwan, so knowing the order makes the experience far more immersive.</p>
+      <div class="expand-cue"><span class="plus">+</span> Why it matters</div>
+      <div class="flip"><div class="flip-inner">Save room — Gushtaba closing the feast is, quite literally, the whole point.</div></div>
+    </div>
+  </div>
+
+  <div class="step" data-side="l">
+    <div class="card">
+      <div class="badge">05</div>
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg></div>
+      <h3>Ask About Authenticity</h3>
+      <p>Some restaurants are polished for tourists, while others preserve older cooking styles. Use the authenticity notes in the app.</p>
+      <div class="expand-cue"><span class="plus">+</span> Why it matters</div>
+      <div class="flip"><div class="flip-inner">A place proud of its history will usually tell you, unprompted — it's worth asking if it doesn't.</div></div>
+    </div>
+  </div>
+
+  <div class="step" data-side="r">
+    <div class="card">
+      <div class="badge">06</div>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 12 2a7 7 0 0 1 7 7.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.2"/></svg></div>
+      <h3>Pair Food with the Place</h3>
+      <p>A Dal Lake setting, an old city dining hall, and a heritage restaurant each create a very different mood around the same dish.</p>
+      <div class="expand-cue"><span class="plus">+</span> Why it matters</div>
+      <div class="flip"><div class="flip-inner">Same recipe, different room — the setting changes what the dish means.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="waza-ai">
+  <div class="waza-grid">
+    <div class="waza-copy">
+      <div class="ai-status"><span class="ai-status-dot"></span>WAZA AI ACTIVE</div>
+      <h2 class="waza-heading">Your personal<br><span class="waza-name">Waza</span></h2>
+      <p class="waza-sub">Not sure what to order? Our Waza AI understands the weather, your spice tolerance, and the traditional course rules to guide you perfectly.</p>
+      <a href="#" class="btn-primary waza-btn">Ask Waza AI</a>
+    </div>
+
+    <div class="waza-demo">
+      <div class="cat-ring">
+        <div class="cat-ring-orbit">
+          <span class="cat-dot cat-dot-top"></span>
+          <span class="cat-dot cat-dot-right"></span>
+          <span class="cat-dot cat-dot-bottom"></span>
+          <span class="cat-dot cat-dot-left"></span>
+        </div>
+        <div class="cat-ring-center">
+          <span class="cat-name" id="catName">STREET FOOD</span>
+          <span class="cat-count" id="catCount">1 / 4</span>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="tdots"><span class="td red"></span><span class="td amber"></span><span class="td green"></span></div>
+          <span class="terminal-label">waza_agent.exe</span>
+        </div>
+        <div class="terminal-body" id="terminalBody"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="rule"></div>
+  <h2>Ready to experience the royal feast?</h2>
+  <a href="#" class="btn-primary">Plan Your Visit →</a>
+</section>
+
+<a id="ai-fab" href="#waza-ai">
+  <svg class="fab-icon" viewBox="0 0 24 24"><path d="M12 3c-2 0-3.6 1.4-3.9 3.2C6.3 6.7 5 8.3 5 10.2 5 12 6.3 13.5 8 14v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-5c1.7-.5 3-2 3-3.8 0-1.9-1.3-3.5-3.1-4C15.6 4.4 14 3 12 3z"/><path d="M8 19h8"/></svg>
+  <span>AI</span>
+</a>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 60), {passive:true});
+
+  // reveal cards
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        // badges shift slightly during the .9s reveal transition; re-measure
+        // once it settles so the stitch path stays aligned to every badge.
+        setTimeout(()=>{
+          stitchPath = buildPath();
+          pathLength = stitchPath.getTotalLength ? stitchPath.getTotalLength() : 0;
+          stitchPath.style.strokeDasharray = pathLength;
+          onScroll();
+        }, 950);
+      }
+    });
+  }, {threshold:.25});
+  cards.forEach(c=>io.observe(c));
+
+  // click to open flip
+  cards.forEach(c=>{
+    c.addEventListener('click', ()=> c.classList.toggle('open'));
+  });
+
+  // build stitched path connecting the badge centers of alternating steps
+  function buildPath(){
+    const svg = document.getElementById('stitch-svg');
+    const path = document.getElementById('stitch-path');
+    const timeline = document.getElementById('timeline');
+    const rect = timeline.getBoundingClientRect();
+    svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
+
+    const isMobile = window.innerWidth <= 900;
+    const badges = document.querySelectorAll('.badge');
+    let d = '';
+    let prevX = null, prevY = null;
+    badges.forEach((b, i)=>{
+      const br = b.getBoundingClientRect();
+      const x = br.left + br.width/2 - rect.left;
+      const y = br.top + br.height/2 - rect.top;
+      if(i===0){
+        d += `M ${x} ${y}`;
+      } else if(isMobile){
+        // single-column layout: gentle S-curve that hugs each badge's own x
+        // position instead of swinging out to the (no-longer-meaningful)
+        // center of the section.
+        const midY = (prevY + y) / 2;
+        d += ` C ${prevX} ${midY}, ${x} ${midY}, ${x} ${y}`;
+      } else {
+        d += ` Q ${rect.width/2} ${y - 60} ${x} ${y}`;
+      }
+      prevX = x; prevY = y;
+    });
+    path.setAttribute('d', d);
+    return path;
+  }
+
+  let stitchPath = buildPath();
+  let pathLength = stitchPath.getTotalLength ? stitchPath.getTotalLength() : 0;
+  stitchPath.style.strokeDasharray = pathLength;
+  stitchPath.style.strokeDashoffset = pathLength;
+
+  function onScroll(){
+    const timeline = document.getElementById('timeline');
+    const rect = timeline.getBoundingClientRect();
+    const viewH = window.innerHeight;
+    // Progress reaches 1 once the section's bottom edge nears the bottom of the
+    // viewport, so the stitch always finishes drawing by the last card —
+    // previously the formula needed extra scroll room *after* the section that
+    // the page didn't have, so the line stalled around 80% and never reached
+    // the final cards.
+    const progressed = Math.min(1, Math.max(0, (viewH - rect.top) / rect.height));
+    stitchPath.style.strokeDashoffset = pathLength * (1 - progressed);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', ()=>{
+    stitchPath = buildPath();
+    pathLength = stitchPath.getTotalLength ? stitchPath.getTotalLength() : 0;
+    stitchPath.style.strokeDasharray = pathLength;
+    onScroll();
+  });
+  onScroll();
+</script>
+
+<script>
+  // ---------- WAZA AI DEMO ----------
+  const wazaCategories = [
+    { name:'STREET FOOD', items:[
+      { q:"Four of us, and it's pouring outside.", a:"Kahwa first, then <em>Monje</em> — hot fish fritters are made for this weather." },
+      { q:"Something quick, we only have 20 minutes.", a:"Try <em>Tsochvoru</em> — skewered mutton, off the grill in minutes." },
+      { q:"I don't eat spicy food at all.", a:"Go for <em>Modur Pulao</em> — sweet saffron rice, gentle on the palate." },
+      { q:"Anything vegetarian from a street stall?", a:"<em>Nadru Yakhni</em> — lotus stem in a mild yogurt gravy, sold by the bowl." }
+    ]},
+    { name:'WAZWAN FEAST', items:[
+      { q:"We're six people, first time trying Wazwan.", a:"Book a full trami — <em>Rista</em> and <em>Rogan Josh</em> open the feast." },
+      { q:"What comes right before Gushtaba?", a:"<em>Aab Gosht</em> — milk-braised lamb, the quiet dish before the finale." },
+      { q:"Is there a vegetarian trami option?", a:"Ask for the <em>Vegetarian Wazwan</em> — built around paneer and lotus stem." },
+      { q:"How many courses should we expect?", a:"A ceremonial Wazwan runs <em>seven courses</em>, sometimes more for weddings." },
+      { q:"What's the etiquette at the trami?", a:"Wait for the eldest guest — <em>they</em> eat first, by tradition." }
+    ]},
+    { name:'KAHWA & SWEETS', items:[
+      { q:"What's a good after-dinner drink?", a:"<em>Kahwa</em> — saffron and cinnamon green tea, served from a samovar." },
+      { q:"Anything sweet to finish the meal?", a:"<em>Phirni</em> — chilled rice pudding, traditionally set in clay bowls." },
+      { q:"Is Kahwa served with anything?", a:"Usually with <em>Kulcha</em> or <em>Bakarkhani</em> bread on the side." }
+    ]},
+    { name:'SPICE LEVEL', items:[
+      { q:"I want the boldest dish on the menu.", a:"<em>Rista</em> — minced mutton balls in a fiery red Kashmiri chili gravy." },
+      { q:"Something rich but not too spicy?", a:"<em>Gushtaba</em> — pounded meatballs in a mild yogurt curry." },
+      { q:"What's the mildest dish available?", a:"<em>Dahi Phulki</em> — soft dumplings in cool spiced yogurt." },
+      { q:"Can the kitchen adjust spice for me?", a:"Yes — just mention it when you <em>book</em>, and they'll tone it down." }
+    ]}
+  ];
+
+  const catNameEl = document.getElementById('catName');
+  const catCountEl = document.getElementById('catCount');
+  const terminalBody = document.getElementById('terminalBody');
+  const wazaSection = document.getElementById('waza-ai');
+
+  let catIdx = 0, itemIdx = 0, wazaRunning = false, wazaTimer = null;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function sleep(ms){ return new Promise(res => wazaTimer = setTimeout(res, ms)); }
+
+  function typeInto(el, html){
+    return new Promise(resolve=>{
+      const plain = html.replace(/<[^>]+>/g, '');
+      if(reduceMotion){ el.innerHTML = html; resolve(); return; }
+      let i = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      el.textContent = '';
+      el.appendChild(cursor);
+      const step = ()=>{
+        if(i < plain.length){
+          cursor.insertAdjacentText('beforebegin', plain[i]);
+          i++;
+          wazaTimer = setTimeout(step, 14 + Math.random()*22);
+        } else {
+          el.innerHTML = html;
+          resolve();
+        }
+      };
+      step();
+    });
+  }
+
+  async function wazaLoop(){
+    while(wazaRunning){
+      const cat = wazaCategories[catIdx];
+      const item = cat.items[itemIdx];
+
+      catNameEl.style.opacity = 0;
+      catCountEl.style.opacity = 0;
+      await sleep(160);
+      catNameEl.textContent = cat.name;
+      catCountEl.textContent = `${itemIdx+1} / ${cat.items.length}`;
+      catNameEl.style.opacity = 1;
+      catCountEl.style.opacity = 1;
+
+      terminalBody.innerHTML = '';
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.textContent = item.q;
+      terminalBody.appendChild(userMsg);
+      await sleep(600);
+
+      const aiMsg = document.createElement('div');
+      aiMsg.className = 'msg ai';
+      terminalBody.appendChild(aiMsg);
+      await typeInto(aiMsg, item.a);
+
+      await sleep(2800);
+      if(!wazaRunning) break;
+
+      // Advance to the next question, looping through every category
+      // continuously (this is the counter that previously stalled at a
+      // fixed number instead of rolling over to the next category).
+      itemIdx++;
+      if(itemIdx >= cat.items.length){
+        itemIdx = 0;
+        catIdx = (catIdx + 1) % wazaCategories.length;
+      }
+    }
+  }
+
+  function startWaza(){
+    if(wazaRunning) return;
+    wazaRunning = true;
+    wazaLoop();
+  }
+  function stopWaza(){
+    wazaRunning = false;
+    clearTimeout(wazaTimer);
+  }
+
+  const wazaObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=> e.isIntersecting ? startWaza() : stopWaza());
+  }, {threshold:.2});
+  wazaObserver.observe(wazaSection);
+</script>
+
+</body>
+</html>

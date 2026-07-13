@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
@@ -47,6 +47,14 @@ const fraunces = Fraunces({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
+  adjustFontFallback: false
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-ibm-plex",
+  weight: ["400", "500"],
   display: "swap",
   adjustFontFallback: false
 });
@@ -126,7 +134,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} font-body bg-[#0B0B0B] text-white antialiased relative overflow-x-hidden`}>
+      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`}>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}
