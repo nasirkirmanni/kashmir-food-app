@@ -8,8 +8,10 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { openrouter } from "../config/openrouter.js";
-import rateLimit from "express-rate-limit";
 import crypto from "crypto";
+import { aiChatLimiter } from "../middleware/rateLimiter.js";
+import { validate } from "../middleware/validate.js";
+import { chatSchema } from "../validations/chatValidations.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -230,17 +232,12 @@ const MODELS = [
 // but linearly increases the token count the model must process before writing token 1.
 const MAX_HISTORY_TURNS = 6; // 3 user + 3 assistant
 
-const chatLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 10, // Limit each IP to 10 requests per window (here, per minute)
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { reply: "Too many messages sent. Please wait a minute and try again." } // Return JSON matching the frontend's expected format
-});
+
 
 router.post(
   "/",
-  chatLimiter,
+  validate({ body: chatSchema }),
+  aiChatLimiter,
   optionalAuth,
   asyncHandler(async (req, res) => {
     const { messages } = req.body;

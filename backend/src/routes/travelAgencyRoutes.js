@@ -5,7 +5,14 @@ import { TravelAgency } from "../models/TravelAgency.js";
 import { TravelAgencyInquiry } from "../models/TravelAgencyInquiry.js";
 import { generateAuthCookies } from "../utils/createToken.js";
 import { protect } from "../middleware/auth.js";
-import rateLimit from "express-rate-limit";
+import { adminOnly } from "../middleware/admin.js";
+import { validate } from "../middleware/validate.js";
+import { 
+  agencyRegistrationSchema, 
+  agencyUpdateSchema, 
+  agencyStatusSchema 
+} from "../validations/agencyValidations.js";
+import { registrationLimiter } from "../middleware/rateLimiter.js";
 import crypto from "crypto";
 import { sendOtpEmail, sendTravelAgencyLeadEmail } from "../utils/sendEmail.js";
 import multer from "multer";
@@ -13,9 +20,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 
+import { fileTypeFromFile } from "file-type";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const uploadDir = path.join(__dirname, '../../../frontend/public/images/agencies');
+const uploadDir = path.join(__dirname, '../../uploads/agencies');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -39,13 +48,7 @@ const upload = multer({
 
 const generateOtp = () => crypto.randomInt(100000, 999999).toString();
 
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { message: "Too many registration attempts, please try again later." }
-});
+
 
 const router = express.Router();
 
@@ -55,16 +58,30 @@ const router = express.Router();
 router.post(
   "/register",
   upload.fields([{ name: 'logo', maxCount: 1 }, { name: 'coverArt', maxCount: 1 }]),
-  authLimiter,
+  registrationLimiter,
+  validate({ body: agencyRegistrationSchema }),
   asyncHandler(async (req, res) => {
+    // Deep content validation (magic bytes) for both fields
+    for (const field of ['logo', 'coverArt']) {
+      if (req.files?.[field]?.[0]) {
+        const fileObj = req.files[field][0];
+        const meta = await fileTypeFromFile(fileObj.path);
+        if (!meta || !['image/jpeg', 'image/png', 'image/webp'].includes(meta.mime)) {
+          fs.unlinkSync(fileObj.path);
+          res.status(400);
+          throw new Error("Invalid file content! Images only.");
+        }
+      }
+    }
+
     const { 
       email, password, phoneNumber, agencyName, 
       ownerName, contactNumber, whatsapp, city, yearsInBusiness,
       facebookUsername, instagramUsername
     } = req.body;
 
-    const thumbnailUrl = req.files?.['logo']?.[0] ? `/images/agencies/${req.files['logo'][0].filename}` : undefined;
-    const coverImageUrl = req.files?.['coverArt']?.[0] ? `/images/agencies/${req.files['coverArt'][0].filename}` : undefined;
+    const thumbnailUrl = req.files?.['logo']?.[0] ? `/api/uploads/agencies/${req.files['logo'][0].filename}` : undefined;
+    const coverImageUrl = req.files?.['coverArt']?.[0] ? `/api/uploads/agencies/${req.files['coverArt'][0].filename}` : undefined;
 
     if (!email || !password || !phoneNumber || !agencyName || !ownerName || !contactNumber || !city || !yearsInBusiness) {
       res.status(400);
@@ -199,6 +216,7 @@ router.get(
 router.put(
   "/me",
   protect,
+  validate({ body: agencyUpdateSchema }),
   asyncHandler(async (req, res) => {
     if (req.user.role !== 'agent' && !req.user.isAdmin) {
        res.status(403);
@@ -385,6 +403,8 @@ router.get(
 router.put(
   "/admin/:id/status",
   protect,
+  adminOnly,
+  validate({ body: agencyStatusSchema }),
   asyncHandler(async (req, res) => {
     if (!req.user.isAdmin) {
        res.status(403);

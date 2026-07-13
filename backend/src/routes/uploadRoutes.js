@@ -4,14 +4,17 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { protect } from '../middleware/auth.js';
+import { fileUploadLimiter } from '../middleware/rateLimiter.js';
+
+import { fileTypeFromFile } from 'file-type';
 
 const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define upload directory relative to frontend
-const uploadDir = path.join(__dirname, '../../../frontend/public/images/agencies');
+// Define isolated upload directory inside backend
+const uploadDir = path.join(__dirname, '../../uploads/agencies');
 
 // Ensure directory exists
 if (!fs.existsSync(uploadDir)) {
@@ -50,14 +53,23 @@ const upload = multer({
   },
 });
 
-router.post('/', protect, upload.single('image'), (req, res) => {
+router.post('/', protect, fileUploadLimiter, upload.single('image'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send({ message: 'No file uploaded' });
   }
-  // Return the path relative to the public directory
+
+  // Deep content validation (magic bytes)
+  const meta = await fileTypeFromFile(req.file.path);
+  if (!meta || !['image/jpeg', 'image/png', 'image/webp'].includes(meta.mime)) {
+    // Malicious or invalid file detected -> delete it
+    fs.unlinkSync(req.file.path);
+    return res.status(400).send({ message: 'Invalid file content! Images only.' });
+  }
+
+  // Return the secure backend static serving path
   res.send({
     message: 'Image Uploaded Successfully',
-    image: `/images/agencies/${req.file.filename}`,
+    image: `/api/uploads/agencies/${req.file.filename}`,
   });
 });
 

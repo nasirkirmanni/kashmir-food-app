@@ -5,11 +5,21 @@ import { Dish } from "../models/Dish.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { protect } from "../middleware/auth.js";
 import { adminOnly } from "../middleware/admin.js";
+import { userActionLimiter } from "../middleware/rateLimiter.js";
+import { validate } from "../middleware/validate.js";
+import { 
+  restaurantSearchQuerySchema, 
+  restaurantCreateSchema, 
+  restaurantUpdateSchema, 
+  restaurantIdParamSchema, 
+  restaurantSlugParamSchema 
+} from "../validations/restaurantValidations.js";
 
 const router = express.Router();
 
 router.get(
   "/",
+  validate({ query: restaurantSearchQuerySchema }),
   asyncHandler(async (req, res) => {
     const { search, budget, location, foodType } = req.query;
     const query = {};
@@ -49,6 +59,7 @@ router.get(
 
 router.get(
   "/:idOrSlug",
+  validate({ params: restaurantSlugParamSchema }),
   asyncHandler(async (req, res) => {
     res.setHeader("Cache-Control", "public, max-age=30, stale-while-revalidate=300");
     let restaurant;
@@ -85,6 +96,8 @@ router.post(
   "/",
   protect,
   adminOnly,
+  validate({ body: restaurantCreateSchema }),
+  userActionLimiter,
   asyncHandler(async (req, res) => {
     const restaurant = await Restaurant.create(req.body);
     res.status(201).json(restaurant);
@@ -95,6 +108,8 @@ router.put(
   "/:id",
   protect,
   adminOnly,
+  validate({ params: restaurantIdParamSchema, body: restaurantUpdateSchema }),
+  userActionLimiter,
   asyncHandler(async (req, res) => {
     const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -113,6 +128,8 @@ router.delete(
   "/:id",
   protect,
   adminOnly,
+  validate({ params: restaurantIdParamSchema }),
+  userActionLimiter,
   asyncHandler(async (req, res) => {
     const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
 

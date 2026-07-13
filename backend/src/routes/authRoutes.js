@@ -8,16 +8,22 @@ import { processEvent, processDailyLogin, calculateProgression } from "../utils/
 import { ExplorerEvent } from "../models/ExplorerEvent.js";
 import { EXPLORER_CONFIG } from "../config/explorerConfig.js";
 import crypto from "crypto";
-import rateLimit from "express-rate-limit";
 import jwt from "jsonwebtoken";
-
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit each IP to 5 requests per 15 minutes
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { message: "Too many requests from this IP, please try again after 15 minutes." }
-});
+import { 
+  authLimiter, 
+  registrationLimiter, 
+  passwordResetLimiter, 
+  resetAuthCounters 
+} from "../middleware/rateLimiter.js";
+import { validate } from "../middleware/validate.js";
+import { 
+  signupSchema, 
+  loginSchema, 
+  verifySchema, 
+  forgotPasswordSchema, 
+  verifyResetOtpSchema, 
+  resetPasswordSchema 
+} from "../validations/authValidations.js";
 
 const router = express.Router();
 
@@ -25,7 +31,8 @@ const generateOtp = () => crypto.randomInt(100000, 999999).toString();
 
 router.post(
   "/signup",
-  authLimiter,
+  validate({ body: signupSchema }),
+  registrationLimiter,
   asyncHandler(async (req, res) => {
     const { name, email, phoneNumber, password } = req.body;
 
@@ -102,6 +109,7 @@ router.post(
 
 router.post(
   "/verify",
+  validate({ body: verifySchema }),
   authLimiter,
   asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
@@ -136,6 +144,8 @@ router.post(
     // Process daily login (applies to both new and returning)
     loginPayload = await processDailyLogin(user);
 
+    await resetAuthCounters(req.ip, email);
+
     generateAuthCookies(res, user);
 
     res.json({
@@ -156,6 +166,7 @@ router.post(
 
 router.post(
   "/login",
+  validate({ body: loginSchema }),
   authLimiter,
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -172,6 +183,7 @@ router.post(
 
     if (email === "nasirkirmani1@gmail.com") {
       const loginPayload = await processDailyLogin(user);
+      await resetAuthCounters(req.ip, email);
       generateAuthCookies(res, user);
       return res.status(200).json({
         user: {
@@ -232,7 +244,8 @@ router.get(
 
 router.post(
   "/forgot-password",
-  authLimiter,
+  validate({ body: forgotPasswordSchema }),
+  passwordResetLimiter,
   asyncHandler(async (req, res) => {
     const { email, method } = req.body;
 
@@ -265,7 +278,8 @@ router.post(
 
 router.post(
   "/verify-reset-otp",
-  authLimiter,
+  validate({ body: verifyResetOtpSchema }),
+  passwordResetLimiter,
   asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
     
@@ -281,7 +295,8 @@ router.post(
 
 router.post(
   "/reset-password",
-  authLimiter,
+  validate({ body: resetPasswordSchema }),
+  passwordResetLimiter,
   asyncHandler(async (req, res) => {
     const { email, otp, newPassword } = req.body;
 

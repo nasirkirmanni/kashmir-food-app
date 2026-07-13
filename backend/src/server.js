@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { doubleCsrf } from "csrf-csrf";
 import mongoSanitize from "express-mongo-sanitize";
 import { connectDB } from "./config/db.js";
+import { errorHandler } from "./middleware/errorMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
 import dishRoutes from "./routes/dishRoutes.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
@@ -22,8 +23,15 @@ import collectionRoutes from "./routes/collectionRoutes.js";
 import trailRoutes from "./routes/trailRoutes.js";
 import trekRoutes from "./routes/trekRoutes.js";
 import campRoutes from "./routes/campRoutes.js";
+import { optionalAuth } from "./middleware/auth.js";
+import { globalSafetyLimiter, publicLimiter, authenticatedLimiter } from "./middleware/rateLimiter.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.set("trust proxy", 1); // Trust first proxy (Render/Vercel) to correctly resolve req.secure and IP
@@ -61,7 +69,9 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(mongoSanitize());
+app.use(globalSafetyLimiter);
 
+// ... existing request logger ...
 app.use((req, res, next) => {
   console.log(`[REQUEST] ${req.method} ${req.url} - Origin: ${req.headers.origin}`);
   next();
@@ -100,9 +110,32 @@ app.get("/api/auth/csrf-token", (req, res) => {
 
 app.use("/api", doubleCsrfProtection);
 
+// Apply public/authenticated tiered limiters
+app.use("/api", optionalAuth);
+app.use("/api", (req, res, next) => {
+  // Exclude health checks from tiered limits (already covered by globalSafetyLimiter)
+  if (req.path === '/health') return next();
+  
+  if (req.user) {
+    return authenticatedLimiter(req, res, next);
+  }
+  return publicLimiter(req, res, next);
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
 });
+
+// Secure file serving for uploads
+app.use(
+  "/api/uploads",
+  express.static(path.join(__dirname, "../uploads"), {
+    setHeaders: (res, path) => {
+      // Prevent browsers from guessing the MIME type and potentially executing malicious files
+      res.setHeader("X-Content-Type-Options", "nosniff");
+    },
+  })
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/dishes", dishRoutes);
@@ -122,23 +155,7 @@ app.use("/api/trails", trailRoutes);
 app.use("/api/treks", trekRoutes);
 app.use("/api/camps", campRoutes);
 
-app.use((err, req, res, next) => {
-  if (err.code === "EBADCSRFTOKEN") {
-    console.error("CSRF Debug - Server validation failed:", {
-      nodeEnv: process.env.NODE_ENV,
-      cookiePresent: !!req.cookies["x-csrf-token"],
-      cookieValue: req.cookies["x-csrf-token"],
-      headerPresent: !!req.headers["x-csrf-token"],
-      headerValue: req.headers["x-csrf-token"],
-      origin: req.headers.origin,
-      userAgent: req.headers["user-agent"]
-    });
-    return res.status(403).json({ message: "Invalid or missing CSRF token" });
-  }
-  
-  console.error(err);
-  res.status(500).json({ message: err.message || "Server error" });
-});
+app.use(errorHandler);
 
 connectDB()
   .then(() => {
