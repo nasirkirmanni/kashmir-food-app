@@ -130,11 +130,11 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark overflow-x-hidden w-full" suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`}>
+      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}

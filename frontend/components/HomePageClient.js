@@ -425,12 +425,14 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                   <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e]" />
                 </div>
               </Link>
-              <Link href="/destinations" className="block" prefetch={false}>
+              <Link href="/history" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white"><Map size={22} strokeWidth={1.5} /></div>
+                  <div className="text-white">
+                    <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+                  </div>
                   <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5">Rare Destinations</h4>
-                    <p className="text-[#555] font-medium text-[11px]">Beyond the tourist trail</p>
+                    <h4 className="font-display font-black text-white text-[14px] mb-0.5">History</h4>
+                    <p className="text-[#555] font-medium text-[11px]">14th-century</p>
                   </div>
                   <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e]" />
                 </div>
