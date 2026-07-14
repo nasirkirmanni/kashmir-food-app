@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import usePinnedProgress from "@/hooks/usePinnedProgress";
+import useScrollScrubVideo from "@/hooks/useScrollScrubVideo";
 import useSceneMode from "@/hooks/useSceneMode";
 import { scenicDrives } from "@/data/scenicDrivesData";
 
@@ -19,6 +20,11 @@ import { scenicDrives } from "@/data/scenicDrivesData";
 const DRIVE = scenicDrives[0]; // Srinagar → Doodhpathri
 const PROFILE = DRIVE.profile;
 const TOTAL_KM = PROFILE[PROFILE.length - 1].dist;
+
+/* Scroll-scrubbed opening footage — same mechanic as the landing hero. */
+const VIDEO_SRC = "/redesign/chapter4-video.mp4";
+const VIDEO_DURATION = 10.91; // seconds (measured from the source file)
+const VIDEO_SCROLL_VH = 300; // scroll distance mapped to the full drive-in
 
 /* Chart geometry */
 const W = 900;
@@ -161,6 +167,128 @@ function ProfileChart({ progress, scene }) {
   );
 }
 
+/**
+ * The overture — scroll-scrubbed drive footage, same physics as the landing
+ * hero: the stage pins, scrolling plays the film forward (and back), the
+ * frame fades in from black and back out before the atlas takes the stage.
+ * The 28MB footage is fetched only once the chapter approaches.
+ */
+function VideoOverture({ scene }) {
+  const wrapperRef = useRef(null);
+  const stageRef = useRef(null);
+  const videoRef = useRef(null);
+  const progress = useMotionValue(0);
+  const [videoReady, setVideoReady] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  // Defer the heavy fetch until the user is within two screens of the chapter.
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el || !scene) return undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200% 0px 200% 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [scene]);
+
+  useScrollScrubVideo({
+    wrapperRef,
+    stageRef,
+    videoRef,
+    progress,
+    duration: VIDEO_DURATION,
+    pin: scene,
+  });
+
+  /* Slow fade in from black, slow fade back out as the drive completes */
+  const videoFade = useTransform(progress, [0, 0.12, 0.86, 1], [0, 1, 1, 0]);
+  const textOpacity = useTransform(progress, [0, 0.06, 0.3, 0.42], [1, 1, 1, 0]);
+  const textY = useTransform(progress, [0.3, 0.45], [0, -44]);
+  const hintOpacity = useTransform(progress, [0, 0.08], [1, 0]);
+
+  return (
+    <div ref={wrapperRef} className="relative bg-[#050505]" style={{ height: `${VIDEO_SCROLL_VH}vh` }}>
+      <div ref={stageRef} className="absolute inset-x-0 top-0 h-screen w-full overflow-hidden">
+        <div className="absolute inset-0 bg-[#050505]" />
+
+        {/* The drive — scrubbed by scroll */}
+        <motion.div style={{ opacity: videoFade }} className="absolute inset-0">
+          {shouldLoad && (
+            <video
+              ref={videoRef}
+              src={VIDEO_SRC}
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              tabIndex={-1}
+              disablePictureInPicture
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+                videoReady ? "opacity-100" : "opacity-0"
+              }`}
+              onLoadedData={() => {
+                const v = videoRef.current;
+                if (v) {
+                  v.pause();
+                  try {
+                    v.currentTime = 0;
+                  } catch {
+                    /* ignore */
+                  }
+                }
+                setVideoReady(true);
+              }}
+            />
+          )}
+          {/* Legibility grading over the footage */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-transparent to-[#050505]/80" />
+        </motion.div>
+
+        {/* Chapter title, riding the footage */}
+        <motion.div
+          style={{ opacity: textOpacity, y: textY }}
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center"
+        >
+          <span
+            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+            className="text-[0.62rem] font-medium uppercase tracking-[0.44em] text-[#C8A46A]"
+          >
+            Chapter IV — The Roads
+          </span>
+          <h2
+            style={{
+              fontFamily: "var(--font-bodoni)",
+              textShadow: "0 2px 36px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.5)",
+            }}
+            className="mx-auto mt-6 max-w-3xl text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.01em] text-white"
+          >
+            The road climbs before <span className="italic text-[#E6C875]">the view</span> does.
+          </h2>
+          <p className="mx-auto mt-6 max-w-md font-body text-base leading-relaxed text-white/65">
+            Every pass and valley crossing in Kashmir, mapped by distance, altitude and the stops
+            worth slowing down for.
+          </p>
+        </motion.div>
+
+        {/* Scroll hint */}
+        <motion.div
+          style={{ opacity: hintOpacity, fontFamily: "var(--font-jetbrains-mono)" }}
+          className="pointer-events-none absolute bottom-10 left-1/2 z-10 -translate-x-1/2 text-[0.55rem] font-medium uppercase tracking-[0.3em] text-white/50"
+        >
+          Scroll to drive
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 export default function TheRoads() {
   const wrapperRef = useRef(null);
   const stageRef = useRef(null);
@@ -208,7 +336,8 @@ export default function TheRoads() {
 
   return (
     <section aria-label="The Roads — Kashmir's route atlas" className="hidden md:block">
-      {Prologue}
+      {/* Opening act: scroll-scrubbed drive footage (static text intro otherwise) */}
+      {scene ? <VideoOverture scene={scene} /> : Prologue}
 
       {scene ? (
         <div ref={wrapperRef} className="relative bg-[#050505]" style={{ height: "380vh" }}>
