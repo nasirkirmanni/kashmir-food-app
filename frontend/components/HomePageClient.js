@@ -1,21 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ChefHat, ArrowRight, Utensils, Map, Info, Sparkles } from "lucide-react";
+import { MapPin, ArrowRight, Utensils, Map, Info, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-
-import Image from "next/image";
-import ImageWithSkeleton from "@/components/ImageWithSkeleton";
-import { resolveImageUrl } from "@/lib/imageUtils";
+import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
-import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 
 const DesktopRestaurantTabs = dynamic(() => import("@/components/DesktopRestaurantTabs"), { ssr: false });
-const MobileRestaurantExplorerModal = dynamic(() => import("@/components/MobileRestaurantExplorerModal"), { ssr: false });
-const CustomReelPlayer = dynamic(() => import("@/components/CustomReelPlayer"), { ssr: false });
-import { endpoints, request } from "@/lib/api";
 
+/* ─── The cinematic chapters (desktop ≥768px; code-split, SSR'd for SEO) ─── */
+const RestaurantChapters = dynamic(() => import("@/components/home/RestaurantChapters"));
+const TheManners = dynamic(() => import("@/components/home/TheManners"));
+const TheCraft = dynamic(() => import("@/components/home/TheCraft"));
+const TheRoads = dynamic(() => import("@/components/home/TheRoads"));
+const PassportStrip = dynamic(() => import("@/components/home/PassportStrip"));
+const ChapterRail = dynamic(() => import("@/components/home/ChapterRail"), { ssr: false });
+const ChooseKashmir = dynamic(() => import("@/components/home/ChooseKashmir"));
+const SeasonsJourney = dynamic(() => import("@/components/home/SeasonsJourney"));
+const WazaFinale = dynamic(() => import("@/components/home/WazaFinale"));
+
+/* ─── Location metadata for the browse-by-location tabs ─── */
 const locationTabMeta = {
   Srinagar: {
     icon: (
@@ -53,90 +57,15 @@ const locationTabMeta = {
   }
 };
 
-const dishImageOverrides = {
-  "Methi Maaz": "/images/dishes/methi-maaz.jpg",
-  "Waza Kokur": "/images/dishes/waza-kokur.jpg",
-  "Dani Phol": "/images/dishes/dani-phol.jpg",
-  "Daniwal Korma": "/images/dishes/daniwal-korma.jpg",
-  "Waza Palak": "/images/dishes/waza-palak.jpg",
-  "Waza Haak": "/images/dishes/waza-haak.jpg",
-  "Wazwaan Mushroom": "/images/dishes/wazwaan-mushroom.jpg",
-  "Aab Gosh": "/images/dishes/aab-gosht.jpg",
-  "Aab Gosht": "/images/dishes/aab-gosht.jpg",
-  "Marchwangan Korma": "/images/dishes/marchwangan-korma.jpg",
-  "Ruwangan Chaman": "/images/dishes/ruwangan-chaman.jpg",
-  "Dum Aelve": "/images/dishes/dum-aelve.jpg",
-  "Gande Tsitin": "/images/dishes/gande-tsitin.jpg",
-  "Muji Chetin": "/images/dishes/muji-chetin.jpg"
-};
-
-const dishResearchSummaries = {
-  "Rogan Josh": "Rogan Josh is a classic Kashmiri lamb dish known for tender meat in a deeply aromatic red gravy built with fennel, dry ginger, and Kashmiri spices.",
-  Gushtaba: "Gushtaba is the grand finale of a Wazwan, made from finely pounded mutton meatballs simmered in a creamy yogurt gravy with a soft, velvety texture.",
-  Rista: "Rista features hand-shaped meatballs cooked in a fiery red Kashmiri gravy and is one of the most iconic ceremonial dishes in Wazwan.",
-  "Tabak Maaz": "Tabak Maaz is made from lamb ribs that are simmered until tender, then fried for a rich, crisp finish that often opens a traditional feast.",
-  "Methi Maaz": "Methi Maaz is a traditional tripe dish flavored with spices and fenugreek, valued for its deep savory taste and old-school Wazwan character.",
-  "Waza Kokur": "Waza Kokur is a Kashmiri whole-chicken preparation cooked in the style of the waza, bringing a festive chicken course into the largely meat-heavy spread.",
-  "Dani Phol": "Dani Phol is a mutton drumstick dish prized for its rich cut of meat and its place among the more traditional courses of Wazwan.",
-  "Daniwal Korma": "Daniwal Korma is a coriander-finished mutton curry with yogurt, spices, and onion puree, offering a fragrant and balanced break from hotter gravies.",
-  "Waza Palak": "Waza Palak is a spinach-based Wazwan preparation that brings a greener, lighter note to the feast without leaving the traditional Kashmiri flavor profile.",
-  "Waza Haak": "Waza Haak highlights Kashmiri collard greens cooked simply and skillfully, adding an earthy vegetal dish to the Wazwan table.",
-  "Wazwaan Mushroom": "Wazwaan Mushroom is a mushroom-based Wazwan preparation, appreciated as a rarer vegetarian-style course with earthy flavor and softer texture.",
-  "Aab Gosh": "Aab Gosh is a Kashmiri lamb curry cooked in a milk-based gravy, known for its gentle richness, cardamom warmth, and softer seasoning.",
-  "Marchwangan Korma": "Marchwangan Korma is an intensely spiced Wazwan korma, recognized for a bold browned-onion sauce and a noticeably hotter flavor profile.",
-  Kabab: "Kabab in Wazwan uses minced meat roasted on skewers over hot coals, adding smoky flavor and a familiar starter-like course to the feast.",
-  Yakhin: "Yakhin is a curd-based Kashmiri gravy, most closely associated with meat dishes like gushtaba and valued for its mild, aromatic character.",
-  "Ruwangan Chaman": "Ruwangan Chaman is a paneer dish in tomato-based gravy that adds color, contrast, and a recognizable vegetarian option to the Wazwan lineup.",
-  "Dum Aelve": "Dum Aelve is a Kashmiri potato preparation cooked in yogurt gravy, offering a milder and comforting vegetarian counterpoint within the feast.",
-  "Gande Tsitin": "Gande Tsitin is an onion chutney mixed with chilies, yogurt, salt, and spices, used to sharpen and refresh heavier bites of Wazwan.",
-  "Muji Chetin": "Muji Chetin is a radish-and-walnut chutney that brings crunch, pungency, and freshness alongside the richer gravies of Kashmiri cuisine."
-};
-
-const AuroraBackground = ({ colors }) => (
-  <div className="absolute inset-0 z-0 opacity-40">
-    <motion.div
-      animate={{
-        scale: [1, 1.2, 1],
-        x: [0, 20, 0],
-        y: [0, 30, 0],
-      }}
-      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute -top-[20%] -left-[20%] w-[70%] h-[70%] rounded-full blur-2xl mix-blend-screen"
-      style={{ backgroundColor: colors[0] }}
-    />
-    <motion.div
-      animate={{
-        scale: [1, 1.3, 1],
-        x: [0, -30, 0],
-        y: [0, -20, 0],
-      }}
-      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="absolute top-[30%] -right-[20%] w-[80%] h-[80%] rounded-full blur-2xl mix-blend-screen"
-      style={{ backgroundColor: colors[1] }}
-    />
-    <motion.div
-      animate={{
-        scale: [1, 1.1, 1],
-        x: [0, 20, 0],
-        y: [0, -30, 0],
-      }}
-      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      className="absolute -bottom-[20%] left-[10%] w-[60%] h-[60%] rounded-full blur-2xl mix-blend-screen"
-      style={{ backgroundColor: colors[2] }}
-    />
-  </div>
-);
-
+/* ═══════════════════════════════════════════════════════
+   MAIN HOMEPAGE CLIENT COMPONENT
+   Desktop: a four-chapter cinematic narrative after the hero.
+   Mobile:  the preserved swipe architecture (unchanged below).
+   ═══════════════════════════════════════════════════════ */
 export default function HomePageClient({ initialDishes = [], initialRestaurants = [] }) {
-  const { scrollY } = useScroll();
-  const scrollOpacity = useTransform(scrollY, [0, 100], [1, 0]);
-  const [dishes, setDishes] = useState(initialDishes);
-  const [restaurants, setRestaurants] = useState(initialRestaurants);
-  const [selectedDish, setSelectedDish] = useState(null);
+  const [restaurants] = useState(initialRestaurants);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isRestaurantModalVisible, setIsRestaurantModalVisible] = useState(false);
-  const [isDishModalVisible, setIsDishModalVisible] = useState(false);
-  const [isTripPlannerModalVisible, setIsTripPlannerModalVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
 
@@ -150,36 +79,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
 
-  // Home page featured sections are fully supported by static fallback data.
-  // We disable on-mount live API calls here to achieve instant load times (0ms delay) and prevent cold start lag.
-  // useEffect(() => {
-  //   request(endpoints.dishes())
-  //     .then((data) => setDishes(data))
-  //     .catch((err) => console.error("Failed to fetch dishes:", err));
-  //   request(endpoints.restaurants())
-  //     .then((data) => setRestaurants(data))
-  //     .catch((err) => console.error("Failed to fetch restaurants:", err));
-  // }, []);
-
-
-  useEffect(() => {
-    if (!selectedDish) return undefined;
-    const onKeyDown = (e) => { if (e.key === "Escape") setIsDishModalVisible(false); };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [selectedDish]);
-
-  useEffect(() => {
-    if (!isDishModalVisible) {
-      const timer = setTimeout(() => setSelectedDish(null), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isDishModalVisible]);
-
   useEffect(() => {
     if (!isRestaurantModalVisible) return undefined;
     const onKeyDown = (e) => { if (e.key === "Escape") setIsRestaurantModalVisible(false); };
@@ -190,18 +89,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [isRestaurantModalVisible]);
-
-  const targetFeaturedNames = ["Rista", "Gushtaba", "Kabab", "Aab Gosht"];
-  const featuredDishes = targetFeaturedNames
-    .map((name) => dishes.find((d) => d.name.toLowerCase() === name.toLowerCase()))
-    .filter(Boolean);
-
-  const targetCuratedNames = ["Ahdoos", "Mughal Darbar", "1860 Restaurant", "Bakshi Restaurant & Cafe", "SALAM E WAZWAN Gulmarg"];
-  const curatedRestaurants = restaurants
-    .filter((r) => targetCuratedNames.includes(r.name))
-    .sort((a, b) => targetCuratedNames.indexOf(a.name) - targetCuratedNames.indexOf(b.name));
-  console.log("Restaurants count:", restaurants.length);
-  console.log("Curated restaurants:", curatedRestaurants.map(r => r.name));
 
   const locationCounts = locationTabs.reduce((counts, location) => {
     counts[location] = restaurants.filter(
@@ -216,20 +103,37 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
 
   return (
     <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
-      {/* Global background is now handled by layout.js */}
-      {/* 2. RESTAURANTS SECTION */}
-      <section className="hidden md:block relative pt-12 md:pt-12 pb-24 z-10 mt-2">
-        <div className="page-shell relative z-10">
-          <FadeInWhenVisible
-            className="mb-8 md:mb-24 text-center"
-          >
-            <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Where To Eat</span>
-            <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Discover the best restaurants</h2>
-            <p className="mx-auto mt-4 px-6 max-w-sm md:max-w-2xl text-sm md:text-lg text-white/60">Curated from Residency Road, Dal Lake, and Srinagar&apos;s most prestigious dining rooms.</p>
-          </FadeInWhenVisible>
 
-          {/* ── DESKTOP: 4-tab grid (md and above) ─────────────── */}
-          <div className="hidden md:block">
+      {/* ═══════════════════════════════════════════════════════
+          DESKTOP — THE FOUR CHAPTERS
+          I.   The Table (pinned restaurant storytelling)
+          II.  Choose Your Kashmir (expanding doors)
+          III. The Seasons (pinned time passage)
+          IV.  Meet Waza (the finale)
+          ═══════════════════════════════════════════════════════ */}
+      {/* The chapter rail — the film's index, fixed to the right edge */}
+      <ChapterRail />
+
+      <div data-ww-chapter="I">
+        <RestaurantChapters />
+      </div>
+
+      {/* Interlude — browse every table by destination (preserved functionality) */}
+      <section className="hidden md:block border-t border-white/5 bg-[#050505] py-24">
+        <div className="page-shell">
+          <span
+            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+            className="text-[0.62rem] font-medium uppercase tracking-[0.44em] text-[#C8A46A]"
+          >
+            The full ledger
+          </span>
+          <h3
+            style={{ fontFamily: "var(--font-bodoni)" }}
+            className="mt-5 text-4xl font-semibold tracking-[-0.01em] text-white lg:text-5xl"
+          >
+            Every table, by <span className="italic text-[#E6C875]">destination</span>.
+          </h3>
+          <div className="mt-12">
             {isMounted && isDesktop && (
               <DesktopRestaurantTabs
                 locationTabs={locationTabs}
@@ -243,165 +147,52 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               />
             )}
           </div>
-
-          {/* ── MOBILE: compact selector with inline results (below md) */}
-          <div className="block md:hidden">
-            <MobileRestaurantExplorerModal
-              locationTabs={locationTabs}
-              locationTabMeta={locationTabMeta}
-              locationCounts={locationCounts}
-              restaurants={restaurants}
-            />
-
-          </div>
         </div>
       </section>
 
-      {/* 3. CURATED SELECTION */}
-      <section className="hidden md:block relative overflow-hidden border-t border-white/10 bg-transparent py-24 md:py-32 z-10">
-        
-        <div className="page-shell relative z-10">
-          <FadeInWhenVisible
-            className="mb-24 text-center lg:text-left"
-          >
-            <span className="inline-block rounded-full border border-[var(--saffron)] bg-[rgba(212,175,55,0.1)] px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-              Editor&apos;s Choice
-            </span>
-            <h2 className="mt-6 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Curated Selection</h2>
-            <p className="mt-6 text-lg text-white/60 lg:max-w-xl">
-              Handpicked dining experiences representing the finest flavors and uncompromising luxury of Kashmir.
-            </p>
-          </FadeInWhenVisible>
-
-          <div className="flex flex-col max-w-4xl lg:mx-0">
-            {curatedRestaurants.map((restaurant, i) => {
-              let label = "Trending";
-              if (i === 0) label = "Most Famous";
-              else if (i === 1) label = "High Demand";
-              else if (i === 2) label = "Editor's Pick";
-
-              return (
-                <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} key={restaurant._id}>
-                  <FadeInWhenVisible
-                    delay={i * 0.1}
-                    className="group flex flex-row items-center justify-between border-b border-white/10 py-6 transition-all hover:border-[var(--saffron)]"
-                  >
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-3 md:gap-4">
-                        <h3 className="font-display text-2xl md:text-4xl font-medium text-white group-hover:text-[var(--saffron)] transition-colors">
-                          {restaurant.name}
-                        </h3>
-                        <span className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-2.5 py-0.5 text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-wider text-white/70">
-                          {restaurant.location.split(",")[0]}
-                        </span>
-                      </div>
-                      <p className="mt-1 md:mt-2 text-xs md:text-sm text-white/50">{restaurant.cuisineType || "Premium Kashmiri Cuisine"}</p>
-                    </div>
-                    <div className="text-right flex flex-col items-end justify-center">
-                      <span className="text-[0.6rem] md:text-xs font-bold uppercase tracking-[0.2em] text-[var(--saffron)]">
-                        {label}
-                      </span>
-                      <div className="mt-3 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all group-hover:bg-[var(--saffron)] group-hover:text-black group-hover:border-[var(--saffron)]">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 md:w-5 md:h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
-                      </div>
-                    </div>
-                  </FadeInWhenVisible>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. WAZWAN DISHES */}
-      <section className="hidden md:block page-shell py-32 relative z-10">
-        <FadeInWhenVisible 
-          className="mb-24 text-center"
-        >
-          <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">The Courses</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Signature Wazwan Dishes</h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">A cinematic journey through the dishes that define Kashmir&apos;s grandest culinary tradition.</p>
-        </FadeInWhenVisible>
-
-        <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-4xl mx-auto">
-          {featuredDishes.slice(0, 4).map((dish, i) => (
-            <FadeInWhenVisible
-              key={dish._id}
-              delay={i * 0.1}
-              scaleOffset={0.95}
-              className="group cursor-pointer overflow-hidden rounded-[16px] md:rounded-[20px] border border-white/10 bg-white/5 shadow-xl backdrop-blur-xl transition-all hover:border-[var(--saffron)] hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col"
-            >
-              <div onClick={() => {
-                setSelectedDish(dish);
-                setIsDishModalVisible(true);
-              }} className="flex flex-col h-full">
-              <div className="relative h-28 md:h-40 shrink-0 overflow-hidden">
-                <div className="absolute inset-0 z-10 bg-black/20 transition duration-500 group-hover:bg-transparent" />
-                <ImageWithSkeleton
-                  src={resolveImageUrl(dishImageOverrides[dish.name] || dish.image)}
-                  alt={dish.name}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover transition duration-700 group-hover:scale-110"
-                />
-              </div>
-              <div className="p-4 md:p-6 flex flex-col flex-1 justify-between">
-                <div>
-                  <p className="text-[0.55rem] md:text-[0.65rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] line-clamp-1">
-                    {dish.category}
-                  </p>
-                  <h3 className="mt-1 md:mt-2 font-display text-lg md:text-2xl font-medium tracking-tight text-white line-clamp-1 md:line-clamp-none">{dish.name}</h3>
-                  <p className="mt-1.5 md:mt-3 line-clamp-2 text-[0.6rem] md:text-xs leading-relaxed text-white/60">{dish.description}</p>
-                </div>
-                <div className="mt-3 md:mt-4">
-                  <span className="inline-flex items-center gap-1.5 md:gap-2 text-[0.55rem] md:text-[0.65rem] font-bold uppercase tracking-widest text-white transition-colors group-hover:text-[var(--saffron)]">
-                    View Details
-                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">&rarr;</span>
-                  </span>
-                </div>
-              </div>
-              </div>
-            </FadeInWhenVisible>
-          ))}
-        </div>
-        
-        <div className="mt-16 text-center">
-          <Link
-            href="/dishes"
-            className="inline-flex rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(212,175,55,0.25)] transition-transform hover:scale-105 active:scale-95"
-          >
-            Explore all the dishes of wazwan
-          </Link>
-        </div>
-      </section>
-
-      {/* 5. QUOTES & TIPS */}
-      <div className="hidden md:block bg-[#111111]/30 backdrop-blur-md py-24 text-center border-y border-white/5 relative z-10">
-        <p className="mx-auto max-w-4xl px-4 font-display text-3xl md:text-4xl lg:text-5xl font-normal italic leading-tight text-white/90">
-          &quot;To be invited to a Wazwan is to be welcomed into someone&apos;s heart. The feast is not cooked, it is composed like music.&quot;
-        </p>
-        <span className="mt-8 block text-[0.8rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">A Kashmiri Elder, Srinagar</span>
+      {/* Chapter II — the Code of the Trami: learn the manners before you eat */}
+      <div data-ww-chapter="II">
+        <TheManners />
       </div>
 
+      {/* Chapter III — the handmade things the table rests on */}
+      <div data-ww-chapter="III">
+        <TheCraft />
+      </div>
 
+      {/* Chapter IV — the route atlas, alive */}
+      <div data-ww-chapter="IV">
+        <TheRoads />
+      </div>
+
+      <div data-ww-chapter="V">
+        <ChooseKashmir />
+      </div>
+      <div data-ww-chapter="VI">
+        <SeasonsJourney />
+      </div>
+
+      {/* Interlude — the journey is being recorded */}
+      <PassportStrip />
+
+      <div data-ww-chapter="VII">
+        <WazaFinale />
+      </div>
 
       {/* ═══════════════════════════════════════════════════════
-          PAGE 2 CONTENT (Mobile Only)
+          MOBILE CONTENT (Page 2 — below md)
+          Preserved from existing architecture
           ═══════════════════════════════════════════════════════ */}
       <section className="relative block md:hidden w-full min-h-[100vh] flex-col overflow-visible snap-start snap-always page pb-10">
-        {/* Top bar spacer */}
         <div className="h-[52px] shrink-0" />
-
-        {/* Page 2 content (flex: 1) */}
         <div className="flex-1 flex flex-col justify-center px-5 relative z-10 w-full gap-8 mt-10">
-          
-          {/* Section 1 — About Wazwan */}
+          {/* About Wazwan */}
           <div className="w-full text-left">
             <div className="inline-flex items-center rounded-sm bg-white/5 border border-[#C8A46A]/20 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#C8A46A] mb-4">
               THE WAZWAN
             </div>
             <h2 className="font-display font-[500] text-[40px] tracking-[-0.03em] text-[#fff] leading-[1.05] mb-5">
-              Not just a meal.<br/>A <span className="text-[#C8A46A]">ceremony.</span>
+              Not just a meal.<br />A <span className="text-[#C8A46A]">ceremony.</span>
             </h2>
             <p className="font-medium text-[#555] text-[12px] leading-[1.6]">
               Wazwan is a 36-course royal feast from Kashmir, cooked by master chefs called Wazas. Every dish tells a story of culture, fire, and hospitality.
@@ -409,7 +200,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             <div className="w-full h-[1px] bg-[#1e1e1e] mt-8"></div>
           </div>
 
-          {/* Section 2 — All Things Kashmir */}
+          {/* All Things Kashmir */}
           <div className="w-full">
             <h3 className="text-[10px] font-bold tracking-[0.16em] text-[#C8A46A] uppercase mb-4 pl-1">
               ALL THINGS KASHMIR
@@ -428,7 +219,7 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               <Link href="/history" className="block" prefetch={false}>
                 <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
                   <div className="text-white">
-                    <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+                    <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" /></svg>
                   </div>
                   <div>
                     <h4 className="font-display font-black text-white text-[14px] mb-0.5">History</h4>
@@ -460,11 +251,9 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
             </div>
           </div>
 
-          {/* Section 3 — Plan Kashmir Visit */}
+          {/* Plan Kashmir Visit */}
           <div className="w-full bg-gradient-to-br from-white via-[#fcf8ef] to-[#f2e5c6] border border-[#C8A46A]/30 shadow-[0_8px_30px_rgba(200,164,106,0.2)] rounded-[24px] p-5 relative overflow-hidden">
-            {/* Subtle gold glow in the corner */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#C8A46A]/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-            
             <h2 className="relative z-10 font-body font-black text-[24px] tracking-[-0.04em] leading-tight text-[#1a130a] mb-4">
               Plan a Kashmir Visit
             </h2>
@@ -489,85 +278,20 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                 </div>
               </Link>
             </div>
-        </div>
-        </div>
-      </section>
-
-      <section className="hidden md:block page-shell py-32 relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
-          className="mb-24 text-center"
-        >
-          <span className="text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Socials</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">Follow us on social media</h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">
-            Follow our journey and explore the royal Kashmiri feast visual experience across our platforms.
-          </p>
-        </motion.div>
-
-        <div className="flex justify-center items-center gap-16 max-w-5xl mx-auto">
-          <motion.a 
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0 }}
-            href="https://instagram.com/wazwanway" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[var(--saffron)] transition-colors"
-          >
-            <svg className="w-20 h-20 md:w-28 md:h-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-            </svg>
-          </motion.a>
-          <motion.a 
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
-            href="https://www.facebook.com/profile.php?id=61590712421415" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[var(--saffron)] transition-colors"
-          >
-            <svg className="w-20 h-20 md:w-28 md:h-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-          </motion.a>
-          <motion.a 
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}
-            href="https://x.com/wazwanway" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[var(--saffron)] transition-colors"
-          >
-            <svg className="w-20 h-20 md:w-28 md:h-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-              <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-            </svg>
-          </motion.a>
+          </div>
         </div>
       </section>
 
-      {/* NEXT PAGE SWIPE INDICATOR (Mobile Only) */}
+      {/* MOBILE: Swipe indicator */}
       <div className="flex md:hidden pb-32 pt-6 flex-col items-center justify-center relative z-10">
         <div className="flex flex-col items-center gap-1 opacity-50 animate-pulse">
           <ArrowRight size={28} className="text-gray-400" strokeWidth={1.5} />
         </div>
       </div>
 
-      <section className="hidden md:block border-t border-white/10 bg-transparent py-24 relative z-10">
-        <div className="page-shell">
-          <div className="flex flex-col items-center justify-between gap-10 rounded-[32px] border border-[var(--saffron)] bg-[rgba(212,175,55,0.05)] p-12 text-center lg:flex-row lg:text-left shadow-[0_0_60px_rgba(212,175,55,0.1)]">
-            <div>
-              <p className="mb-4 text-[0.75rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Plan Your Visit</p>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white">
-                The Complete Experience
-              </h2>
-              <p className="mt-4 max-w-xl text-lg text-white/60">
-                Browse all dishes, discover every restaurant listing, save favorites, and build your Kashmir food trail.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row w-full sm:w-auto justify-center gap-4">
-              <Link href="/kashmiri-food" className="w-full sm:w-auto text-center rounded-full bg-[var(--saffron)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-black transition-transform hover:scale-105">
-                View all dishes
-              </Link>
-              <Link href="/restaurants" className="w-full sm:w-auto text-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-wide text-white backdrop-blur transition hover:bg-white/10">
-                View all restaurants &rarr;
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* RESTAURANT MODAL */}
+      {/* ═══════════════════════════════════════════════════════
+          RESTAURANT LOCATION MODAL — preserved functionality
+          ═══════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {isRestaurantModalVisible && (
           <motion.div
@@ -594,17 +318,11 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
               </button>
 
               <div className="border-b border-white/10 bg-white/5 px-8 py-8 backdrop-blur-md">
-                <p className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">
-                  Location Dining Guide
-                </p>
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Location Dining Guide</p>
                 <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                   <div>
-                    <h3 className="font-display text-3xl md:text-5xl font-medium tracking-tight text-white">
-                      {selectedLocation || "Restaurants"}
-                    </h3>
-                    <p className="mt-2 max-w-2xl text-white/60">
-                      Browse every luxury restaurant currently listed for this destination.
-                    </p>
+                    <h3 className="font-display text-3xl md:text-5xl font-medium tracking-tight text-white">{selectedLocation || "Restaurants"}</h3>
+                    <p className="mt-2 max-w-2xl text-white/60">Browse every luxury restaurant currently listed for this destination.</p>
                   </div>
                   <div className="self-start rounded-full border border-[var(--saffron)] bg-[rgba(212,175,55,0.1)] px-5 py-2 text-sm font-bold text-[var(--saffron)] shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                     {featuredRestaurants.length} Destinations
@@ -619,16 +337,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                       <article key={restaurant._id} className="flex flex-col justify-between rounded-[24px] border border-white/10 bg-white/5 p-8 backdrop-blur transition hover:border-white/30">
                         <div>
                           <h3 className="font-display text-3xl font-medium tracking-tight text-white">
-                            <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="transition-colors hover:text-[var(--saffron)]">
-                              {restaurant.name}
-                            </Link>
+                            <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="transition-colors hover:text-[var(--saffron)]">{restaurant.name}</Link>
                           </h3>
-                          <p className="mt-2 text-sm font-medium uppercase tracking-widest text-[var(--saffron)]">
-                            {restaurant.location}
-                          </p>
-                          <p className="mt-4 text-sm leading-relaxed text-white/60">
-                            {restaurant.description}
-                          </p>
+                          <p className="mt-2 text-sm font-medium uppercase tracking-widest text-[var(--saffron)]">{restaurant.location}</p>
+                          <p className="mt-4 text-sm leading-relaxed text-white/60">{restaurant.description}</p>
                         </div>
                         <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
                           <div className="flex items-center gap-4">
@@ -650,73 +362,6 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
                     <p className="text-lg text-white/50">No dining spots found in this location.</p>
                   </div>
                 )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* DISH MODAL */}
-      <AnimatePresence>
-        {isDishModalVisible && selectedDish && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 py-8 backdrop-blur-xl"
-            onClick={() => setIsDishModalVisible(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 20, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.95, y: 20, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-md overflow-hidden rounded-[24px] border border-white/20 bg-[#111111] shadow-[0_0_50px_rgba(0,0,0,0.8)]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={() => setIsDishModalVisible(false)}
-                className="absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/40 text-lg text-white backdrop-blur-md transition hover:bg-[var(--saffron)] hover:text-black hover:border-[var(--saffron)]"
-              >
-                &times;
-              </button>
-
-              <div className="relative h-48 w-full overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent z-10" />
-                <ImageWithSkeleton
-                  src={resolveImageUrl(dishImageOverrides[selectedDish.name] || selectedDish.image || '/wazwan-hero.jpg')}
-                  alt={selectedDish.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-
-              <div className="relative z-20 -mt-12 p-6 md:p-8">
-                <div className="flex flex-wrap gap-2">
-                  <span className="rounded-full border border-[var(--saffron)] bg-black/60 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)] backdrop-blur-md">
-                    {selectedDish.category}
-                  </span>
-                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-white backdrop-blur-md">
-                    {selectedDish.foodType}
-                  </span>
-                </div>
-
-                <h3 className="mt-4 font-display text-2xl md:text-3xl font-medium tracking-tight text-white">{selectedDish.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/70">
-                  {dishResearchSummaries[selectedDish.name] || selectedDish.fullDescription || selectedDish.description}
-                </p>
-
-                <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between border-t border-white/10 pt-6 gap-4">
-                  <div>
-                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)]">Pricing</p>
-                    <p className="mt-1 text-xs text-white/60">{selectedDish.priceRange}</p>
-                  </div>
-                  <Link href="/dishes" className="rounded-full bg-[var(--saffron)] px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-black transition hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.2)] text-center">
-                    Explore Menu
-                  </Link>
-                </div>
               </div>
             </motion.div>
           </motion.div>

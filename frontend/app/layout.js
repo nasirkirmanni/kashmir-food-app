@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
@@ -25,6 +25,18 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  adjustFontFallback: false
+});
+
+// Bodoni Moda — high-fashion Didone for the homepage display headlines
+// (hero + section titles). Its high stroke contrast reads as luxury-magazine
+// at large sizes; kept scoped to the homepage via --font-bodoni.
+const bodoni = Bodoni_Moda({
+  subsets: ["latin"],
+  variable: "--font-bodoni",
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
   display: "swap",
   adjustFontFallback: false
 });
@@ -134,7 +146,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}

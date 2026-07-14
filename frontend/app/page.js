@@ -37,16 +37,16 @@ const homeFaqs = [
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
-      {/* Fixed subtle luxury background artwork */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-[5] bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.22]" 
-        style={{ filter: "blur(60px)" }}
+      {/* Subtle ambient background — softened for new design */}
+      <div
+        className="pointer-events-none fixed inset-0 z-[5] bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.15]"
+        style={{ filter: "blur(80px)" }}
       />
 
-      {/* Scrolling gradient overlay to mask the background as user scrolls down */}
-      <div 
-        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-[6]" 
-        style={{ background: "linear-gradient(to bottom, rgba(11, 11, 11, 0.2) 0%, rgba(11, 11, 11, 0.65) 1200px, rgba(11, 11, 11, 0.78) 100%)" }}
+      {/* Scrolling gradient overlay */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-[6]"
+        style={{ background: "linear-gradient(to bottom, rgba(5, 5, 5, 0.1) 0%, rgba(5, 5, 5, 0.7) 800px, rgba(5, 5, 5, 0.85) 100%)" }}
       />
 
       <div className="relative z-10">

@@ -3,7 +3,7 @@ export const scenicDrives = [
     slug: 'srinagar-to-doodhpathri',
     kicker: 'Road Trip · Route Detail',
     title: 'Srinagar to Doodhpathri',
-    distance: '38 km',
+    distance: '43.5 km',
     duration: '1.5 hrs',
     difficulty: 'Easy',
     bestSeason: 'May – Sep',
@@ -13,7 +13,7 @@ export const scenicDrives = [
       { name: 'SRINAGAR', subtext: 'START · 1,585M', km: 'KM 0', dist: 0, alt: 1585 },
       { name: 'BUDGAM', subtext: 'DISTRICT HEAD', km: 'KM 15', dist: 15, alt: 1750 },
       { name: 'KHANSAHIB', subtext: 'LAST MARKET', km: 'KM 28', dist: 28, alt: 2200 },
-      { name: 'DOODHPATHRI', subtext: 'END · 2,730M', km: 'KM 38', dist: 38, alt: 2730 }
+      { name: 'DOODHPATHRI', subtext: 'END · 2,730M', km: 'KM 43.5', dist: 43.5, alt: 2730 }
     ],
     chapters: [
       {
@@ -33,9 +33,9 @@ export const scenicDrives = [
       {
         num: '03',
         title: 'The climb to the meadow.',
-        description: 'The final ten kilometres do most of the climbing. Switchbacks tighten, the pines thin out, and the meadow opens all at once — wide, green, and quiet, ringed by peaks that hold snow well into June.',
+        description: 'The final fifteen kilometres do most of the climbing. Switchbacks tighten, the pines thin out, and the meadow opens all at once — wide, green, and quiet, ringed by peaks that hold snow well into June.',
         media: '/images/optimized/scenic-drives/doodhpathri-1.jpg',
-        meta: [ { label: 'Distance covered', value: 'KM 28–38' }, { label: 'Elevation', value: '2,730M' } ]
+        meta: [ { label: 'Distance covered', value: 'KM 28–43.5' }, { label: 'Elevation', value: '2,730M' } ]
       }
     ],
     notes: [
