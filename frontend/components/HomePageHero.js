@@ -262,6 +262,36 @@ export default function HomePageHero({ initialDishes = [] }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   // Home is swipe screen 0 — rotations elsewhere freeze while the user is away.
   const awayFromHome = isMobile && activeIndex !== 0;
+
+  // Winner-takes-all focus: with 56vh doors, two can be on screen at once —
+  // only the MOST-visible door may rotate, so the one the user is "on"
+  // animates and its neighbours hold still.
+  const [focusedDoor, setFocusedDoor] = useState(null);
+  const doorRatiosRef = useRef({});
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip || typeof IntersectionObserver === "undefined") return undefined;
+    const hosts = strip.querySelectorAll("[data-ws-door-key]");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          doorRatiosRef.current[entry.target.dataset.wsDoorKey] = entry.intersectionRatio;
+        });
+        let best = null;
+        let bestRatio = 0.35; // a door must be meaningfully on screen to win
+        Object.entries(doorRatiosRef.current).forEach(([key, ratio]) => {
+          if (ratio > bestRatio) {
+            best = key;
+            bestRatio = ratio;
+          }
+        });
+        setFocusedDoor(best);
+      },
+      { threshold: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1] }
+    );
+    hosts.forEach((host) => io.observe(host));
+    return () => io.disconnect();
+  }, []);
   const { reducedMotion } = useSceneMode();
   const stripRef = useRef(null);
   const coverVideoRef = useRef(null);
@@ -495,9 +525,14 @@ export default function HomePageHero({ initialDishes = [] }) {
               onClick={door.navIndex != null ? (e) => handleNavClick(e, door.navIndex) : undefined}
               className="ws-door ws-reveal relative block h-[56vh] min-h-[420px]"
               aria-label={`${door.eyebrow} — ${door.title} ${door.line}`}
+              data-ws-door-key={door.cycleImages && door.cycleImages.length ? door.key : undefined}
             >
               {door.cycleImages && door.cycleImages.length ? (
-                <DoorCycler images={door.cycleImages} reducedMotion={reducedMotion} paused={awayFromHome} />
+                <DoorCycler
+                  images={door.cycleImages}
+                  reducedMotion={reducedMotion}
+                  paused={awayFromHome || focusedDoor !== door.key}
+                />
               ) : (
                 <Image src={door.image} alt="" fill sizes="100vw" className="object-cover" />
               )}
