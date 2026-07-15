@@ -1,4 +1,5 @@
 export const metadata = {
+  alternates: { canonical: "https://wazwanway.com/list-restaurant" },
   title: "List Your Restaurant | Wazwan Way",
   description: "Are you a restaurant owner in Kashmir serving authentic Wazwan? List your business on Wazwan Way to reach culinary travelers.",
 };

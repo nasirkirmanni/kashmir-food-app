@@ -837,7 +837,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   }, [restaurants, activeLocation, hasMounted]);
 
   return (
-    <div className="relative min-h-screen bg-transparent text-white pt-24 pb-16">
+    <div className="relative min-h-screen bg-transparent text-white pt-24 pb-[calc(90px+env(safe-area-inset-bottom))] md:pb-16">
       <Suspense fallback={null}>
         <LocationSync setActiveLocation={setActiveLocation} />
       </Suspense>

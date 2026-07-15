@@ -148,7 +148,7 @@ function SeasonLayer({ season, index, progress, active }) {
     <>
       <motion.div style={{ opacity }} className="absolute inset-0">
         <motion.div style={{ scale }} className="absolute inset-0 will-change-transform">
-          <Image src={season.image} alt="" fill className="object-cover" sizes="100vw" />
+          <Image src={season.image} alt={`${season.label} in Kashmir — ${season.line}`} fill className="object-cover" sizes="100vw" />
         </motion.div>
         {/* Season colour grade + legibility */}
         <div className="absolute inset-0" style={{ background: season.grade }} />

@@ -1,82 +1,102 @@
 [
   {
-    "id": "6a36b7098b14138cbe21573f",
+    "id": "6a5247d82519b282b5997703",
     "slug": "srinagar"
   },
   {
-    "id": "6a36b7098b14138cbe215740",
-    "slug": "gulmarg"
-  },
-  {
-    "id": "6a36b7098b14138cbe215741",
-    "slug": "pahalgam"
-  },
-  {
-    "id": "6a36b7098b14138cbe215742",
-    "slug": "sonamarg"
-  },
-  {
-    "id": "6a36b7098b14138cbe215743",
-    "slug": "yusmarg"
-  },
-  {
-    "id": "6a36b7098b14138cbe215744",
-    "slug": "gurez-valley"
-  },
-  {
-    "id": "6a36b7098b14138cbe215745",
-    "slug": "lolab-valley"
-  },
-  {
-    "id": "6a36b7098b14138cbe215746",
-    "slug": "aru-valley"
-  },
-  {
-    "id": "6a36b7098b14138cbe215747",
-    "slug": "betaab-valley"
-  },
-  {
-    "id": "6a36b7098b14138cbe215748",
-    "slug": "doodhpathri"
-  },
-  {
-    "id": "6a36b7098b14138cbe215749",
+    "id": "6a5247d82519b282b599770d",
     "slug": "kokernag"
   },
   {
-    "id": "6a36b7098b14138cbe21574a",
-    "slug": "verinag"
-  },
-  {
-    "id": "6a36b7098b14138cbe21574b",
-    "slug": "achabal"
-  },
-  {
-    "id": "6a36b7098b14138cbe21574c",
-    "slug": "sinthan-top"
-  },
-  {
-    "id": "6a36b7098b14138cbe21574d",
-    "slug": "daksum"
-  },
-  {
-    "id": "6a36b7098b14138cbe21574e",
-    "slug": "bangus-valley"
-  },
-  {
-    "id": "6a36b7098b14138cbe21574f",
-    "slug": "wular-lake"
-  },
-  {
-    "id": "6a36b7098b14138cbe215750",
-    "slug": "manasbal-lake"
-  },
-  {
-    "id": "6a36b7098b14138cbe215751",
+    "id": "6a5247d82519b282b5997715",
     "slug": "pari-mahal"
   },
   {
-    "id": "6a36b7098b14138cbe215752",
+    "id": "6a5247d82519b282b599771a",
+    "slug": "harwan"
+  },
+  {
+    "id": "6a5247d82519b282b5997706",
+    "slug": "sonamarg"
+  },
+  {
+    "id": "6a5247d82519b282b5997707",
+    "slug": "yusmarg"
+  },
+  {
+    "id": "6a5247d82519b282b599770a",
+    "slug": "aru-valley"
+  },
+  {
+    "id": "6a5247d82519b282b5997711",
+    "slug": "daksum"
+  },
+  {
+    "id": "6a5247d82519b282b599770e",
+    "slug": "verinag"
+  },
+  {
+    "id": "6a5247d82519b282b5997718",
+    "slug": "aharbal-waterfall"
+  },
+  {
+    "id": "6a5247d82519b282b5997719",
+    "slug": "astanmarg"
+  },
+  {
+    "id": "6a5247d82519b282b5997716",
     "slug": "shalimar-bagh"
+  },
+  {
+    "id": "6a5247d82519b282b5997717",
+    "slug": "chatpal"
+  },
+  {
+    "id": "6a5247d82519b282b5997713",
+    "slug": "wular-lake"
+  },
+  {
+    "id": "6a5247d82519b282b599770b",
+    "slug": "betaab-valley"
+  },
+  {
+    "id": "6a5247d82519b282b5997714",
+    "slug": "manasbal-lake"
+  },
+  {
+    "id": "6a5247d82519b282b5997705",
+    "slug": "pahalgam"
+  },
+  {
+    "id": "6a5247d82519b282b5997708",
+    "slug": "gurez-valley"
+  },
+  {
+    "id": "6a5247d82519b282b599770c",
+    "slug": "doodhpathri"
+  },
+  {
+    "id": "6a5247d82519b282b5997712",
+    "slug": "bangus-valley"
+  },
+  {
+    "id": "6a5247d82519b282b599770f",
+    "slug": "achabal"
+  },
+  {
+    "id": "6a5247d82519b282b5997709",
+    "slug": "lolab-valley"
+  },
+  {
+    "id": "6a5247d82519b282b599771b",
+    "slug": "tarsar-marsar"
+  },
+  {
+    "id": "6a5247d82519b282b5997704",
+    "slug": "gulmarg"
+  },
+  {
+    "id": "6a5247d82519b282b5997710",
+    "slug": "sinthan-top"
   }
 ]

@@ -64,7 +64,12 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://localhost:5000 http://127.0.0.1:5000 https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:5000 http://127.0.0.1:5000 https://api.wazwanway.com https://kashmir-food-app-api.onrender.com https://*.tile.openstreetmap.org https://wttr.in; frame-ancestors 'none'",
+            // Dev-only origins must never ship in the production header
+            value: (() => {
+              const devOrigins =
+                process.env.NODE_ENV === 'production' ? '' : ' http://localhost:5000 http://127.0.0.1:5000';
+              return `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:${devOrigins} https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${devOrigins} https://api.wazwanway.com https://kashmir-food-app-api.onrender.com https://*.tile.openstreetmap.org https://wttr.in; frame-ancestors 'none'`;
+            })(),
           },
           {
             key: 'Strict-Transport-Security',

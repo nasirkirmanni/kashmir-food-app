@@ -1,84 +1,89 @@
 import fs from "fs";
 import path from "path";
+import { blogPosts } from "@/data/blogPosts";
+import { scenicDrives } from "@/data/scenicDrivesData";
+import { wazwanGuides } from "@/data/wazwanGuides";
 
 const BASE_URL = "https://wazwanway.com";
 
+// Slug-only: id entries would emit duplicate URLs that canonicalize elsewhere.
 function loadSlugs(filename) {
   try {
     const jsonPath = path.join(process.cwd(), filename);
     if (fs.existsSync(jsonPath)) {
-      return JSON.parse(fs.readFileSync(jsonPath, "utf-8")).map((item) => item.slug || item.id);
+      return JSON.parse(fs.readFileSync(jsonPath, "utf-8"))
+        .map((item) => item.slug)
+        .filter(Boolean);
     }
   } catch {}
   return [];
 }
 
+const entry = (urlPath, lastModified) => ({
+  url: `${BASE_URL}${urlPath}`,
+  ...(lastModified ? { lastModified } : {}),
+});
+
 export default function sitemap() {
-  const dishSlugs = loadSlugs("dishes-static-ids.json");
-  const restaurantSlugs = loadSlugs("restaurants-static-ids.json");
-
   const staticPages = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
-    { url: `${BASE_URL}/dishes`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/restaurants`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/recipes`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/history`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/waza-ai`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/list-restaurant`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/login`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/signup`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-  ];
-
-  const dishPages = dishSlugs.map((slug) => ({
-    url: `${BASE_URL}/dishes/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
-
-  const restaurantPages = restaurantSlugs.map((slug) => ({
-    url: `${BASE_URL}/restaurants/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
+    "",
+    "/dishes",
+    "/restaurants",
+    "/recipes",
+    "/history",
+    "/destinations",
+    "/scenic-drives",
+    "/explore",
+    "/blog",
+    "/waza-ai",
+    "/list-restaurant",
+    "/about",
+    "/contact",
+    "/privacy",
+    "/terms",
+  ].map((p) => entry(p));
 
   const kashmiriFoodPages = [
-    { url: `${BASE_URL}/kashmiri-food`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/kashmiri-food/wazwan`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/kashmiri-food/bakery`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/kashmiri-food/beverages`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/kashmiri-food/street-food`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/kashmiri-food/wazwan/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/kashmiri-food/bakery/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/kashmiri-food/beverages/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/kashmiri-food/street-food/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-  ];
+    "/kashmiri-food",
+    "/kashmiri-food/wazwan",
+    "/kashmiri-food/bakery",
+    "/kashmiri-food/beverages",
+    "/kashmiri-food/street-food",
+    "/kashmiri-food/wazwan/guide",
+    "/kashmiri-food/bakery/guide",
+    "/kashmiri-food/beverages/guide",
+    "/kashmiri-food/street-food/guide",
+  ].map((p) => entry(p));
 
-  const categoryGuides = {
-    wazwan: [
-      "what-is-wazwan",
-      "dishes-explained",
-      "cost-guide",
-      "vegetarian-wazwan",
-      "etiquette",
-      "restaurant-vs-wedding-vs-home",
-    ],
-    bakery: ["intro-to-bakery", "types-of-bread", "breakfast-guide"],
-    beverages: ["kahwa-explained", "noon-chai-explained", "kahwa-vs-noon-chai"],
-    "street-food": ["intro", "must-try-foods", "safety-tips"],
-  };
+  // Guide articles come from the same data that renders them, so the sitemap
+  // can never list a guide that doesn't exist as a page.
+  const guidePages = wazwanGuides.map((g) =>
+    entry(`/kashmiri-food/${g.category}/guide/${g.slug}`)
+  );
 
-  Object.keys(categoryGuides).forEach((category) => {
-    categoryGuides[category].forEach((guideSlug) => {
-      kashmiriFoodPages.push({
-        url: `${BASE_URL}/kashmiri-food/${category}/guide/${guideSlug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      });
-    });
+  const dishPages = loadSlugs("dishes-static-ids.json").map((slug) => entry(`/dishes/${slug}`));
+  const restaurantPages = loadSlugs("restaurants-static-ids.json").map((slug) =>
+    entry(`/restaurants/${slug}`)
+  );
+  const destinationPages = loadSlugs("destinations-static-ids.json").map((slug) =>
+    entry(`/destinations/${slug}`)
+  );
+
+  const scenicDrivePages = scenicDrives.map((route) => entry(`/scenic-drives/${route.slug}`));
+
+  const blogPages = blogPosts.map((post) => {
+    const d = new Date(post.updatedDate || post.date);
+    return entry(`/blog/${post.slug}`, isNaN(d.getTime()) ? undefined : d);
   });
 
-  return [...staticPages, ...kashmiriFoodPages, ...dishPages, ...restaurantPages];
+  return [
+    ...staticPages,
+    ...kashmiriFoodPages,
+    ...guidePages,
+    ...dishPages,
+    ...restaurantPages,
+    ...destinationPages,
+    ...scenicDrivePages,
+    ...blogPages,
+  ];
 }

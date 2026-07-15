@@ -166,6 +166,14 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
               </a>
             </div>
           ) : null}
+          {restaurant.openingHours ? (
+            <div className="mt-4">
+              <p className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-[var(--saffron)]">
+                Opening Hours
+              </p>
+              <p className="mt-2 text-base font-medium text-white/80">{restaurant.openingHours}</p>
+            </div>
+          ) : null}
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(

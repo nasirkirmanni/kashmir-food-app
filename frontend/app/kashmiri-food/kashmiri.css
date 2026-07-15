@@ -21,6 +21,12 @@
     font-family:var(--font-body);
     overflow-x:hidden;
   }
+  /* Reserve space for the fixed mobile nav pill (same formula as .mobile-safe-bottom) */
+  @media (max-width: 767px) {
+    .kashmiri-page-wrapper {
+      padding-bottom: calc(90px + env(safe-area-inset-bottom));
+    }
+  }
   ::selection{background:var(--gold); color:var(--charcoal-950);}
 
   a{color:inherit; text-decoration:none;}

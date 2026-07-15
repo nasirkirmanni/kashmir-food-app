@@ -31,7 +31,8 @@ async function getExploreData() {
 
 export const metadata = {
   title: "Explore Kashmir | Hidden Gems & Trails",
-  description: "Discover the best hidden gems, scenic drives, picnic spots, and food trails across Kashmir."
+  description: "Discover the best hidden gems, scenic drives, picnic spots, and food trails across Kashmir.",
+  alternates: { canonical: "https://wazwanway.com/explore" },
 };
 
 export default async function ExplorePage() {

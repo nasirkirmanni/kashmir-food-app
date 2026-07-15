@@ -4,6 +4,19 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { scenicDrives } from '@/data/scenicDrivesData';
 
+export const metadata = {
+  title: "Scenic Drives | Kashmir Road Trip Atlas",
+  description:
+    "Kashmir's most beautiful road trips, mapped — Srinagar to Sonamarg, Gulmarg, Doodhpathri, and the Leh highway, with distances, road conditions, and elevation profiles.",
+  alternates: { canonical: "https://wazwanway.com/scenic-drives" },
+  openGraph: {
+    title: "Scenic Drives | Wazwan Way",
+    description: "Kashmir's most beautiful road trips, mapped with distances, road conditions, and elevation profiles.",
+    url: "https://wazwanway.com/scenic-drives",
+    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Kashmir Scenic Drives" }],
+  },
+};
+
 export default function ScenicDrivesAtlas() {
   return (
     <main className="scenic-drives-page">

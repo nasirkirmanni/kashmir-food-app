@@ -1,94 +1,18 @@
 [
   {
-    "id": "6a2a4978ac7d60a9cca76f7d",
-    "slug": "1860-restaurant"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f7e",
-    "slug": "bakshi-restaurant-cafe"
-  },
-  {
-    "id": "6a36b7098b14138cbe215729",
-    "slug": "doodhpathri-pine-grill"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f8c",
-    "slug": "doodhpathri-tea-stall-grill"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f7a",
-    "slug": "eat-more-restaurant"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f80",
-    "slug": "gulmarg-zaika-restaurant"
-  },
-  {
-    "id": "6a36b7098b14138cbe21572d",
-    "slug": "gurez-alpine-dhaba"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f8e",
-    "slug": "kokernag-botanist-cafe"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f7b",
-    "slug": "lazeez-foods"
-  },
-  {
-    "id": "6a36b7098b14138cbe215730",
-    "slug": "lidder-heights-restaurant"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f7f",
-    "slug": "panjabi-dhaba-and-kashmiri-wazwan"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f78",
-    "slug": "real-kashmiri-wazwan"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f7c",
-    "slug": "salam-e-wazwan-gulmarg"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f79",
-    "slug": "sifar-pahalgam"
-  },
-  {
-    "id": "6a36b7098b14138cbe215735",
-    "slug": "sindh-valley-retreat"
-  },
-  {
-    "id": "6a36b7098b14138cbe215736",
-    "slug": "snowland-restaurant"
-  },
-  {
-    "id": "6a36b7098b14138cbe215737",
-    "slug": "tangmarg-treat"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f81",
-    "slug": "tarboosh-foods"
-  },
-  {
-    "id": "6a36b7098b14138cbe215739",
-    "slug": "thajiwas-view-point-eatery"
-  },
-  {
-    "id": "6a36b7098b14138cbe21573a",
-    "slug": "trout-beat-pahalgam"
-  },
-  {
-    "id": "6a36b7098b14138cbe21573b",
-    "slug": "verinag-springs-restaurant"
-  },
-  {
-    "id": "6a36b7098b14138cbe21573c",
-    "slug": "yusmarg-meadows-cafe"
-  },
-  {
-    "id": "6a36b7098b14138cbe21573d",
+    "id": "6a5247d82519b282b59976f3",
     "slug": "ahdoos"
+  },
+  {
+    "id": "6a5247d82519b282b59976f4",
+    "slug": "mughal-darbar"
+  },
+  {
+    "id": "6a57c1a88fd85587836865dc",
+    "slug": "shamyana"
+  },
+  {
+    "id": "6a57c1a88fd85587836865df",
+    "slug": "clove"
   }
 ]

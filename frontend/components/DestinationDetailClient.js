@@ -6,6 +6,7 @@ import Link from "next/link";
 import { endpoints, request } from "@/lib/api";
 import { resolveImageUrl } from "@/lib/imageUtils";
 import StickyMobileNav from "@/components/StickyMobileNav";
+import JsonLd, { buildDestinationSchema } from "@/components/JsonLd";
 
 // Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
 
@@ -50,6 +51,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
 
   return (
     <div className="min-h-screen bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black">
+      <JsonLd data={buildDestinationSchema(destination)} />
       <StickyMobileNav title={destination.name} />
 
       {/* Hero Image Section */}

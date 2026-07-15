@@ -8,3 +8,7 @@ frontend/out/
 app-debug.apk
 *.env
 *.env.local
+
+# Internal audit/work-product — never publish
+wazwanway.com-audit/
+backend/backups/

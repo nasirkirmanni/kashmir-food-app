@@ -1,0 +1,32 @@
+# Wazwan Way
+
+> Wazwan Way (wazwanway.com) is a premium guide to Kashmiri cuisine and travel: the 36-course Wazwan feast, authentic dishes, trusted restaurants in Srinagar and the Kashmir valley, traditional recipes, offbeat destinations, and scenic drives. Content is curated and locally researched.
+
+Wazwan is the traditional multi-course Kashmiri feast prepared by master chefs called Wazas, served on a shared copper platter called the trami. Wazwan Way documents its dishes, history, etiquette, and where to experience it authentically.
+
+## Core Guides
+
+- [What is Wazwan?](https://wazwanway.com/kashmiri-food/wazwan/guide/what-is-wazwan): The 36-course feast explained — courses, sequence, and meaning
+- [Wazwan Dishes Explained](https://wazwanway.com/kashmiri-food/wazwan/guide/dishes-explained): Every major trami dish from Rista to Gushtaba
+- [History of Wazwan](https://wazwanway.com/history): 700 years of Kashmir's royal culinary heritage, from Central Asian origins to today
+- [Wazwan Cost Guide](https://wazwanway.com/kashmiri-food/wazwan/guide/cost-guide): What a Wazwan actually costs at restaurants and weddings
+- [Kashmiri Food Overview](https://wazwanway.com/kashmiri-food): Wazwan, bakery, beverages, and street food traditions
+
+## Dishes & Restaurants
+
+- [All Kashmiri Dishes](https://wazwanway.com/dishes): 90+ dishes with history, spice levels, and where to try them
+- [Rogan Josh](https://wazwanway.com/dishes/rogan-josh): Kashmir's signature lamb curry
+- [Restaurants](https://wazwanway.com/restaurants): Curated authentic Wazwan restaurants — Ahdoos, Mughal Darbar, Shamyana, Clove
+
+## Travel
+
+- [Rare Destinations](https://wazwanway.com/destinations): Offbeat Kashmir — Gurez, Bangus, Lolab, Doodhpathri, and more
+- [Scenic Drives](https://wazwanway.com/scenic-drives): Road-trip routes with conditions and elevation profiles
+
+## Journal
+
+- [Blog](https://wazwanway.com/blog): Long-form stories — saffron, breads, spice blends, etiquette
+
+## Optional
+
+- [Sitemap](https://wazwanway.com/sitemap.xml)

@@ -1,9 +1,20 @@
 import DestinationDetailClient from "@/components/DestinationDetailClient";
+import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
+
+// Mongo ObjectId params can't be turned into a readable name
+function slugToName(slug) {
+  if (!slug || /^[a-f0-9]{24}$/i.test(slug)) return null;
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
 
 export async function generateStaticParams() {
   try {
@@ -21,7 +32,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   try {
     const res = await fetch(`${API_BASE}/api/destinations/${params.slug}`, {
-      cache: "no-store",
+      cache: "force-cache",
     });
     if (!res.ok) throw new Error("Not found");
     const destination = await res.json();
@@ -54,9 +65,28 @@ export async function generateMetadata({ params }) {
       },
     };
   } catch {
+    // Fallback when the API is unreachable: the canonical must still point at
+    // this page so it can never be treated as a duplicate of the hub.
+    const canonicalUrl = `${CANONICAL_BASE}/destinations/${params.slug}`;
+    const name = slugToName(params.slug);
+    const title = name ? `${name} | Kashmir Rare Destinations` : "Rare Destinations | Kashmir";
+    const description = name
+      ? `Explore ${name}, a handpicked offbeat destination in Kashmir.`
+      : "Explore authentic offbeat destinations in Kashmir.";
     return {
-      title: "Rare Destinations | Kashmir",
-      description: "Explore authentic offbeat destinations in Kashmir.",
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        type: "article",
+        url: canonicalUrl,
+        title,
+        description,
+        images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+        siteName: "Wazwan Way",
+      },
     };
   }
 }
@@ -71,12 +101,16 @@ export default async function DestinationDetailPage({ params }) {
   let destination = null;
   try {
     const res = await fetch(`${API_BASE}/api/destinations/${params.slug}`, {
-      cache: "no-store",
+      cache: "force-cache",
     });
     if (res.ok) {
       destination = await res.json();
+    } else if (res.status === 404) {
+      // The record genuinely doesn't exist — return a real 404, not a stub.
+      notFound();
     }
   } catch (err) {
+    if (err?.digest === "NEXT_NOT_FOUND") throw err;
     console.error("Failed to fetch destination on server side:", err);
   }
 

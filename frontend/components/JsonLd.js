@@ -55,7 +55,7 @@ export function buildRestaurantSchema(restaurant) {
     name: restaurant.name,
     description: restaurant.description || `${restaurant.name} — authentic Kashmiri restaurant`,
     url: `https://wazwanway.com/restaurants/${restaurant.slug || restaurant._id}`,
-    image: restaurant.image || "https://wazwanway.com/wazwan-hero.jpg",
+    image: absoluteUrl(restaurant.image),
     servesCuisine: "Kashmiri",
     priceRange: restaurant.priceLevel || "$$",
     address: {
@@ -65,18 +65,35 @@ export function buildRestaurantSchema(restaurant) {
       addressCountry: "IN",
       streetAddress: restaurant.location || "",
     },
-    ...(restaurant.rating && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: restaurant.rating,
-        bestRating: 5,
-        worstRating: 1,
-        ratingCount: restaurant.reviewCount || 1,
-      },
-    }),
+    // Only claim an aggregate rating when real review counts exist
+    ...(restaurant.rating &&
+      restaurant.reviewCount > 0 && {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: restaurant.rating,
+          bestRating: 5,
+          worstRating: 1,
+          ratingCount: restaurant.reviewCount,
+        },
+      }),
     ...(restaurant.phoneNumber && { telephone: restaurant.phoneNumber }),
-    ...(restaurant.website && { sameAs: restaurant.website }),
+    ...(restaurant.website && {
+      sameAs: restaurant.website.startsWith("http")
+        ? restaurant.website
+        : `https://${restaurant.website}`,
+    }),
   };
+}
+
+function absoluteUrl(url) {
+  if (!url) return "https://wazwanway.com/wazwan-hero.jpg";
+  return url.startsWith("http") ? url : `https://wazwanway.com${url.startsWith("/") ? "" : "/"}${url}`;
+}
+
+function isoDate(value) {
+  if (!value) return undefined;
+  const d = new Date(value);
+  return isNaN(d.getTime()) ? undefined : d.toISOString().slice(0, 10);
 }
 
 export function buildRecipeSchema(dish) {
@@ -85,7 +102,7 @@ export function buildRecipeSchema(dish) {
     "@type": "Recipe",
     name: dish.name,
     description: dish.description || `Traditional Kashmiri ${dish.category}`,
-    image: dish.image || "https://wazwanway.com/wazwan-hero.jpg",
+    image: absoluteUrl(dish.image),
     author: { "@type": "Organization", name: "Wazwan Way" },
     recipeCategory: dish.category || "Kashmiri Cuisine",
     recipeCuisine: "Kashmiri",
@@ -93,6 +110,20 @@ export function buildRecipeSchema(dish) {
     url: `https://wazwanway.com/dishes/${dish.slug || dish._id}`,
     ...(dish.prepTime && { prepTime: dish.prepTime }),
     ...(dish.cookTime && { cookTime: dish.cookTime }),
+    ...(dish.totalTime && { totalTime: dish.totalTime }),
+    ...(dish.recipeYield && { recipeYield: dish.recipeYield }),
+    // Google-required for Recipe rich results — emitted as soon as the dish
+    // record carries authored recipe data (see audit CR-7: content pending).
+    ...(Array.isArray(dish.ingredients) &&
+      dish.ingredients.length > 0 && { recipeIngredient: dish.ingredients }),
+    ...(Array.isArray(dish.instructions) &&
+      dish.instructions.length > 0 && {
+        recipeInstructions: dish.instructions.map((step, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          text: typeof step === "string" ? step : step.text,
+        })),
+      }),
   };
 }
 
@@ -127,10 +158,11 @@ export function buildFaqSchema(faqs) {
 export function buildArticleSchema(article) {
   const baseUrl = "https://wazwanway.com";
   const articleUrl = article.url || `${baseUrl}${article.path || ''}`;
-  const imageUrl = article.image || `${baseUrl}/wazwan-hero.jpg`;
+  const imageUrl = absoluteUrl(article.image);
   const authorName = article.author || "Wazwan Way Team";
-  const datePublished = article.datePublished || article.date || new Date().toISOString();
-  const dateModified = article.dateModified || article.updatedDate || datePublished;
+  const datePublished =
+    isoDate(article.datePublished || article.date) || new Date().toISOString().slice(0, 10);
+  const dateModified = isoDate(article.dateModified || article.updatedDate) || datePublished;
 
   return {
     "@context": "https://schema.org",

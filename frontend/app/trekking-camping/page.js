@@ -30,6 +30,7 @@ async function getCamps() {
 }
 
 export const metadata = {
+  alternates: { canonical: "https://wazwanway.com/trekking-camping" },
   title: "Trekking & Camping in Kashmir | Alpine Trails & Wild Basecamps",
   description: "Five legendary treks and five untouched basecamps in Kashmir — mapped by elevation, difficulty, and the silence that waits at the top."
 };

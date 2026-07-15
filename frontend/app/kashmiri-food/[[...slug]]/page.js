@@ -27,41 +27,12 @@ export function generateStaticParams() {
     { slug: ["street-food", "guide"] },
   ];
   
-  // Add all nested guides
-  const categoryGuides = {
-    wazwan: [
-      "what-is-wazwan",
-      "dishes-explained",
-      "cost-guide",
-      "vegetarian-wazwan",
-      "etiquette",
-      "restaurant-vs-wedding-vs-home",
-      "kashmiri-wazwan-dishes",
-      "rista-vs-gushtaba",
-      "traditional-wazwan-menu",
-      "kashmiri-wedding-food",
-      "wazwan-culture",
-      "waza-meaning",
-      "how-wazwan-is-served",
-      "trami-in-kashmir",
-      "best-wazwan-dishes",
-      "history-of-wazwan",
-      "rista-deep-dive",
-      "gushtaba-the-kings-dish",
-      "rogan-josh-explained",
-      "wazwan-vs-mughlai"
-    ],
-    bakery: ["intro-to-bakery", "types-of-bread", "breakfast-guide"],
-    beverages: ["kahwa-explained", "noon-chai-explained", "kahwa-vs-noon-chai"],
-    "street-food": ["intro", "must-try-foods", "safety-tips"],
-  };
-  
-  Object.keys(categoryGuides).forEach((category) => {
-    categoryGuides[category].forEach((guideSlug) => {
-      paths.push({ slug: [category, "guide", guideSlug] });
-    });
+  // Guide article routes come from the same data that renders them, so we can
+  // never prerender a guide URL that has no content (they used to 404).
+  wazwanGuides.forEach((guide) => {
+    paths.push({ slug: [guide.category, "guide", guide.slug] });
   });
-  
+
   return paths;
 }
 

@@ -80,7 +80,7 @@ function DishesPageContent({ initialDishes = [] }) {
   }
 
   return (
-    <div className="wazwan-shell relative min-h-screen pb-24 pt-8 md:pt-0">
+    <div className="wazwan-shell relative min-h-screen pb-[calc(90px+env(safe-area-inset-bottom))] md:pb-24 pt-8 md:pt-0">
       {/* Background gradients */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.06),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none" />

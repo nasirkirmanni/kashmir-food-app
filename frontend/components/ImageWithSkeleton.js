@@ -80,7 +80,7 @@ export default function ImageWithSkeleton({
       {/* Actual Image */}
       <Image
         src={imgSrc}
-        alt={alt || "Image"}
+        alt={alt || ""}
         fill={fill}
         width={!fill ? width : undefined}
         height={!fill ? height : undefined}
