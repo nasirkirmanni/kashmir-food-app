@@ -101,7 +101,10 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
     : [];
 
   return (
-    <div className="bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
+    // hidden below md: every section in here is desktop-only, and the
+    // min-h-screen wrapper was leaving a blank screen at the end of the
+    // mobile strip.
+    <div className="hidden md:block bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
 
       {/* ═══════════════════════════════════════════════════════
           DESKTOP — THE FOUR CHAPTERS

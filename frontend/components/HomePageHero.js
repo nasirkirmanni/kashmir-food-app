@@ -146,6 +146,39 @@ const STRIP_CSS = `
   from { transform: scale(1); }
   to { transform: scale(1.06); }
 }
+/* Waza chat demo — conversation swap + typing dots */
+.ws-chat-in {
+  animation: ws-chat-in 450ms var(--ws-ease) both;
+}
+@keyframes ws-chat-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ws-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ws-gold);
+  animation: ws-dot 1.1s ease-in-out infinite;
+}
+.ws-dot:nth-child(2) { animation-delay: 0.18s; }
+.ws-dot:nth-child(3) { animation-delay: 0.36s; }
+@keyframes ws-dot {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+.ws-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--ws-gold-2);
+  animation: ws-caret 0.9s steps(1) infinite;
+}
+@keyframes ws-caret {
+  50% { opacity: 0; }
+}
 /* Scroll reveal — gated so the finished state is the default everywhere else */
 @media (prefers-reduced-motion: no-preference) {
   .ws-reveal .ws-content {
@@ -169,8 +202,94 @@ const STRIP_CSS = `
 @media (prefers-reduced-motion: reduce) {
   .ws-glow { animation: none; opacity: 0.5; }
   .ws-cycle-layer { transition: none; animation: none; }
+  .ws-chat-in { animation: none; }
+  .ws-dot { animation: none; opacity: 0.6; }
+  .ws-caret { animation: none; opacity: 0; }
 }
 `;
+
+/* The staged conversation for the Waza demo — real app answers, no fluff. */
+const WAZA_DEMO_PAIRS = [
+  {
+    q: "Where should I eat wazwan tonight in Srinagar?",
+    a: "Ahdoos on Residency Road — order the rista and tabak maaz. Locals' pick, no tourist markup.",
+  },
+  {
+    q: "Is Doodhpathri worth a day trip in July?",
+    a: "Absolutely. 43.5 km from Srinagar and the meadows are at their greenest — leave by 8 AM.",
+  },
+  {
+    q: "What is noon chai?",
+    a: "Kashmir's pink salted tea from the samovar. Have it at dawn with a warm czochworu.",
+  },
+];
+
+/**
+ * "How Waza works" — a staged chat that loops: the question appears, Waza
+ * types, the answer streams in like the real SSE widget. Runs only while
+ * visible on the active screen; reduced motion shows a finished exchange.
+ */
+function WazaDemo({ active, reducedMotion }) {
+  const [pairIdx, setPairIdx] = useState(0);
+  const [phase, setPhase] = useState("q"); // q → typing → a → hold
+  const [typed, setTyped] = useState(0);
+  const pair = WAZA_DEMO_PAIRS[pairIdx];
+
+  useEffect(() => {
+    if (reducedMotion || !active) return undefined; // frozen mid-state; resumes when active
+    let t;
+    if (phase === "q") t = setTimeout(() => setPhase("typing"), 1200);
+    else if (phase === "typing") t = setTimeout(() => { setTyped(0); setPhase("a"); }, 1000);
+    else if (phase === "a") {
+      if (typed < pair.a.length) t = setTimeout(() => setTyped((v) => Math.min(v + 2, pair.a.length)), 26);
+      else t = setTimeout(() => setPhase("hold"), 3000);
+    } else {
+      t = setTimeout(() => {
+        setPairIdx((i) => (i + 1) % WAZA_DEMO_PAIRS.length);
+        setTyped(0);
+        setPhase("q");
+      }, 250);
+    }
+    return () => clearTimeout(t);
+  }, [phase, typed, pairIdx, active, reducedMotion, pair.a.length]);
+
+  const showTyping = !reducedMotion && phase === "typing";
+  const answerText = reducedMotion ? pair.a : phase === "a" || phase === "hold" ? pair.a.slice(0, typed) : "";
+  const answerDone = reducedMotion || (typed >= pair.a.length && (phase === "a" || phase === "hold"));
+
+  return (
+    <div
+      key={pairIdx}
+      className="ws-chat-in flex min-h-[196px] flex-col gap-3"
+      aria-hidden="true"
+    >
+      {/* The traveller asks */}
+      <div className="max-w-[82%] self-end rounded-2xl rounded-br-md border border-white/10 bg-white/[0.07] px-4 py-3">
+        <p className="font-body text-[13.5px] leading-relaxed text-[#F4ECDF]/90">{pair.q}</p>
+      </div>
+      {/* Waza answers */}
+      {(showTyping || answerText) && (
+        <div className="max-w-[88%] self-start rounded-2xl rounded-bl-md border border-[#C8A46A]/25 bg-[#C8A46A]/[0.06] px-4 py-3">
+          <span className="ws-eyebrow flex items-center gap-1.5 text-[#C8A46A]">
+            <Sparkles size={10} strokeWidth={1.75} aria-hidden="true" /> Waza
+          </span>
+          {showTyping ? (
+            <span className="mt-2.5 flex gap-1.5 py-1">
+              <span className="ws-dot" />
+              <span className="ws-dot" />
+              <span className="ws-dot" />
+            </span>
+          ) : (
+            <p className="mt-2 font-body text-[13.5px] leading-relaxed text-white/85">
+              {answerText}
+              {!answerDone && <span className="ws-caret" />}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 /* The dining rooms behind door 01 — curated editorial interiors. */
 const INTERIOR_IMAGES = [
@@ -268,6 +387,17 @@ export default function HomePageHero({ initialDishes = [] }) {
   // animates and its neighbours hold still.
   const [focusedDoor, setFocusedDoor] = useState(null);
   const doorRatiosRef = useRef({});
+
+  // The Waza demo animates only while its section is actually on screen.
+  const wazaDemoRef = useRef(null);
+  const [wazaDemoInView, setWazaDemoInView] = useState(false);
+  useEffect(() => {
+    const el = wazaDemoRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return undefined;
+    const io = new IntersectionObserver(([entry]) => setWazaDemoInView(entry.isIntersecting), { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip || typeof IntersectionObserver === "undefined") return undefined;
@@ -352,7 +482,7 @@ export default function HomePageHero({ initialDishes = [] }) {
   const userName = user && user.name ? user.name.split(" ")[0] : null;
 
   // User-curated exclusions — these photos must never enter the rotation.
-  const BLOCKED_DISH_IMAGES = /marchwangan|daniwal-korma|waza-kokur/i;
+  const BLOCKED_DISH_IMAGES = /marchwangan|daniwal-korma|waza-kokur|czochworu/i;
   const dishImages = initialDishes
     .map((dish) => dish.image)
     .filter((img) => img && !BLOCKED_DISH_IMAGES.test(img));
@@ -534,7 +664,7 @@ export default function HomePageHero({ initialDishes = [] }) {
                   paused={awayFromHome || focusedDoor !== door.key}
                 />
               ) : (
-                <Image src={door.image} alt="" fill sizes="100vw" className="object-cover" />
+                <Image src={door.image} alt={door.title || ""} fill sizes="100vw" className="object-cover" />
               )}
               <div className="pointer-events-none absolute inset-0" style={{ background: WASH }} />
               <div className="ws-content absolute inset-x-0 bottom-0 px-6 pb-8">
@@ -548,32 +678,50 @@ export default function HomePageHero({ initialDishes = [] }) {
             </Link>
           ))}
 
-          {/* Ask Waza — the closing plate, always lit */}
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event("open-waza-ai-intro"))}
-            className="ws-door ws-reveal relative block h-[52vh] min-h-[400px] w-full"
-            aria-label="Ask Waza — the concierge that has eaten everywhere and slept nowhere"
-          >
-            <Image src="/redesign/img/night-dal.webp" alt="" fill sizes="100vw" className="object-cover" />
-            <div className="pointer-events-none absolute inset-0" style={{ background: WASH }} />
-            <div className="ws-content absolute inset-x-0 bottom-0 px-6 pb-9">
-              <span className="ws-index">
-                <span className="ws-glow" aria-hidden="true" />
-                <Sparkles size={11} strokeWidth={1.75} aria-hidden="true" />
-                The concierge · Always awake
-                <span className="ws-rule" />
-              </span>
-              <h2 className="ws-title ws-door-title mt-4 text-[34px]">
-                Ask <em>Waza</em>.
-              </h2>
-              <p className="ws-line mt-2.5 max-w-[300px]">Has eaten everywhere. Slept nowhere.</p>
-              <span className="ws-eyebrow mt-6 inline-flex items-center gap-2.5 text-[#E6C875]">
-                Wake the concierge <ArrowRight size={12} strokeWidth={1.75} aria-hidden="true" />
-              </span>
-            </div>
-          </button>
         </nav>
+
+        {/* The finale — Need help? Waza is here. A staged conversation shows
+            exactly how the concierge answers, then one decisive CTA. */}
+        <section
+          ref={wazaDemoRef}
+          aria-label="Waza AI — the concierge"
+          className="relative border-t border-[rgba(200,164,106,0.16)] px-6 pb-16 pt-14"
+        >
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(200,164,106,0.07), transparent 60%)" }}
+          />
+          <div className="relative">
+            <span className="ws-index">
+              <span className="ws-glow" aria-hidden="true" />
+              <Sparkles size={11} strokeWidth={1.75} aria-hidden="true" />
+              Need help?
+              <span className="ws-rule" />
+            </span>
+            <h2 className="ws-title mt-4 text-[34px]">
+              Waza is <em>here</em>.
+            </h2>
+            <p className="ws-line mt-2.5 max-w-[310px]">
+              A concierge that has eaten everywhere and slept nowhere — ask it anything about Kashmir.
+            </p>
+
+            <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+              <WazaDemo active={wazaDemoInView && !awayFromHome} reducedMotion={reducedMotion} />
+            </div>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                if (isMobile) handleNavClick(e, 2);
+                else window.dispatchEvent(new Event("open-waza-ai-intro"));
+              }}
+              className="mt-8 flex h-[52px] w-full items-center justify-center gap-2.5 rounded-full bg-[#C8A46A] text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[#050505] transition-transform active:scale-[0.97]"
+            >
+              Try it now
+              <ArrowRight size={13} strokeWidth={2} aria-hidden="true" />
+            </button>
+          </div>
+        </section>
 
         {/* Clearance for the floating nav pill */}
         <div className="h-28 shrink-0" />
