@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda, Instrument_Serif, Hanken_Grotesk } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
@@ -10,6 +10,8 @@ const WazaAI = dynamic(() => import("@/components/WazaAI"), { ssr: false });
 import { MobileNavigationProvider } from "@/context/MobileNavigationContext";
 import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 import CapacitorListeners from "@/components/CapacitorListeners";
+import dishesData from "@/data/dishes.json";
+import { pickCoverDishes } from "@/lib/dailyTable";
 const GlobalSearchModal = dynamic(() => import("@/components/GlobalSearchModal"), { ssr: false });
 import NextTopLoader from "nextjs-toploader";
 
@@ -67,6 +69,25 @@ const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-ibm-plex",
   weight: ["400", "500"],
+  display: "swap",
+  adjustFontFallback: false
+});
+
+// Mobile-home voice: Instrument Serif carries the display type (ivory caps +
+// gold italic accent) and Hanken Grotesk the micro-labels — deliberately
+// distinct from the desktop Bodoni/Cormorant film. Scoped via .mh-* classes.
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+  adjustFontFallback: false
+});
+
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-hanken",
   display: "swap",
   adjustFontFallback: false
 });
@@ -146,7 +167,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${instrument.variable} ${hanken.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}
@@ -164,7 +185,7 @@ export default function RootLayout({ children }) {
           <MobileNavigationProvider>
             <div className="min-h-screen relative z-10 pb-24 md:pb-0">
               <Navbar />
-              <MobileSwipeContainer>
+              <MobileSwipeContainer coverDishes={pickCoverDishes(dishesData)}>
                 <main>{children}</main>
               </MobileSwipeContainer>
               <ConditionalFooter />

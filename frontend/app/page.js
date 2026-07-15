@@ -53,7 +53,7 @@ export default function HomePage() {
         <JsonLd data={buildWebsiteSchema()} />
         <JsonLd data={buildOrganizationSchema()} />
         <JsonLd data={buildFaqSchema(homeFaqs)} />
-        <HomePageHero />
+        <HomePageHero initialDishes={dishesData} />
         <HomePageClient initialDishes={dishesData} initialRestaurants={restaurantsData} />
       </div>
     </div>

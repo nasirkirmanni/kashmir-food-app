@@ -22,9 +22,9 @@ const PROFILE = DRIVE.profile;
 const TOTAL_KM = PROFILE[PROFILE.length - 1].dist;
 
 /* Scroll-scrubbed opening footage — same mechanic as the landing hero. */
-const VIDEO_SRC = "/redesign/chapter4-video.mp4";
-const VIDEO_DURATION = 10.91; // seconds (measured from the source file)
-const VIDEO_SCROLL_VH = 300; // scroll distance mapped to the full drive-in
+const VIDEO_SRC = "/redesign/chapter4-video-v2.mp4";
+const VIDEO_DURATION = 3.8; // seconds (measured from the source file)
+const VIDEO_SCROLL_VH = 240; // scroll distance mapped to the full drive-in
 
 /* Chart geometry */
 const W = 900;

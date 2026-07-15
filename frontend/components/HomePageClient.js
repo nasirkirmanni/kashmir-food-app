@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ArrowRight, Utensils, Map, Info, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -179,115 +178,8 @@ export default function HomePageClient({ initialDishes = [], initialRestaurants 
         <WazaFinale />
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          MOBILE CONTENT (Page 2 — below md)
-          Preserved from existing architecture
-          ═══════════════════════════════════════════════════════ */}
-      <section className="relative block md:hidden w-full min-h-[100vh] flex-col overflow-visible snap-start snap-always page pb-10">
-        <div className="h-[52px] shrink-0" />
-        <div className="flex-1 flex flex-col justify-center px-5 relative z-10 w-full gap-8 mt-10">
-          {/* About Wazwan */}
-          <div className="w-full text-left">
-            <div className="inline-flex items-center rounded-sm bg-white/5 border border-[#C8A46A]/20 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#C8A46A] mb-4">
-              THE WAZWAN
-            </div>
-            <h2 className="font-display font-[500] text-[40px] tracking-[-0.03em] text-[#fff] leading-[1.05] mb-5">
-              Not just a meal.<br />A <span className="text-[#C8A46A]">ceremony.</span>
-            </h2>
-            <p className="font-medium text-[#555] text-[12px] leading-[1.6]">
-              Wazwan is a 36-course royal feast from Kashmir, cooked by master chefs called Wazas. Every dish tells a story of culture, fire, and hospitality.
-            </p>
-            <div className="w-full h-[1px] bg-[#1e1e1e] mt-8"></div>
-          </div>
-
-          {/* All Things Kashmir */}
-          <div className="w-full">
-            <h3 className="text-[10px] font-bold tracking-[0.16em] text-[#C8A46A] uppercase mb-4 pl-1">
-              ALL THINGS KASHMIR
-            </h3>
-            <div className="grid grid-cols-2 gap-3">
-              <Link href="/dishes" className="block" prefetch={false}>
-                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white"><Utensils size={22} strokeWidth={1.5} /></div>
-                  <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5">Traditional Wazwan</h4>
-                    <p className="text-[#555] font-medium text-[11px]">36 courses, one feast</p>
-                  </div>
-                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e]" />
-                </div>
-              </Link>
-              <Link href="/history" className="block" prefetch={false}>
-                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative">
-                  <div className="text-white">
-                    <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 18v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" /></svg>
-                  </div>
-                  <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5">History</h4>
-                    <p className="text-[#555] font-medium text-[11px]">14th-century</p>
-                  </div>
-                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e]" />
-                </div>
-              </Link>
-              <Link href="/things-to-do" className="block group" prefetch={false}>
-                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative hover:bg-[#1a1a1a] transition-colors">
-                  <div className="text-[var(--saffron)]"><MapPin size={22} strokeWidth={1.5} /></div>
-                  <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5 group-hover:text-[var(--saffron)] transition-colors">Things to Do</h4>
-                    <p className="text-[#555] font-medium text-[11px]">Top experiences & activities</p>
-                  </div>
-                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors" />
-                </div>
-              </Link>
-              <Link href="/about" className="block group" prefetch={false}>
-                <div className="bg-[#111] rounded-[18px] p-4 h-[120px] flex flex-col justify-between border-[0.5px] border-[#1e1e1e] relative hover:bg-[#1a1a1a] transition-colors">
-                  <div className="text-white group-hover:text-[var(--saffron)] transition-colors"><Info size={22} strokeWidth={1.5} /></div>
-                  <div>
-                    <h4 className="font-display font-black text-white text-[14px] mb-0.5 group-hover:text-[var(--saffron)] transition-colors">About Us</h4>
-                    <p className="text-[#555] font-medium text-[11px]">Our mission & story</p>
-                  </div>
-                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#2e2e2e] group-hover:text-[var(--saffron)] transition-colors" />
-                </div>
-              </Link>
-            </div>
-          </div>
-
-          {/* Plan Kashmir Visit */}
-          <div className="w-full bg-gradient-to-br from-white via-[#fcf8ef] to-[#f2e5c6] border border-[#C8A46A]/30 shadow-[0_8px_30px_rgba(200,164,106,0.2)] rounded-[24px] p-5 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#C8A46A]/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-            <h2 className="relative z-10 font-body font-black text-[24px] tracking-[-0.04em] leading-tight text-[#1a130a] mb-4">
-              Plan a Kashmir Visit
-            </h2>
-            <div className="relative z-10 grid grid-cols-2 gap-3">
-              <Link href="/explore" className="block" prefetch={false}>
-                <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
-                  <div className="text-[#C8A46A]"><Map size={22} strokeWidth={1.5} /></div>
-                  <div>
-                    <h3 className="font-display font-black text-[#1a130a] text-[14px] leading-tight mb-0.5">Visit Kashmir</h3>
-                    <p className="text-[#665d50] font-medium text-[11px]">Travel Guide</p>
-                  </div>
-                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
-                </div>
-              </Link>
-              <Link href="/custom-trip" className="block w-full text-left" prefetch={false}>
-                <div className="bg-white/70 backdrop-blur-sm rounded-[18px] p-4 h-[120px] flex flex-col justify-between relative border border-[#C8A46A]/20 hover:bg-white/90 hover:border-[#C8A46A]/40 hover:shadow-md transition-all">
-                  <div className="text-[#C8A46A]"><Sparkles size={22} strokeWidth={1.5} /></div>
-                  <div>
-                    <h3 className="font-display font-black text-[#1a130a] text-[13px] leading-tight mb-0.5">Let Waza AI plan a trip for you</h3>
-                  </div>
-                  <ArrowRight size={16} strokeWidth={1.5} className="absolute bottom-4 right-4 text-[#C8A46A]" />
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MOBILE: Swipe indicator */}
-      <div className="flex md:hidden pb-32 pt-6 flex-col items-center justify-center relative z-10">
-        <div className="flex flex-col items-center gap-1 opacity-50 animate-pulse">
-          <ArrowRight size={28} className="text-gray-400" strokeWidth={1.5} />
-        </div>
-      </div>
+      {/* MOBILE: the home is a single scroll — "The Daily Trami" lives
+          entirely in HomePageHero; no second snap-screen. */}
 
       {/* ═══════════════════════════════════════════════════════
           RESTAURANT LOCATION MODAL — preserved functionality

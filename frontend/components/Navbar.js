@@ -13,6 +13,7 @@ export default function Navbar() {
   const isSignupPage = pathname === "/signup" || pathname === "/travel-agent/signup";
   const isLoginPage = pathname === "/login";
   const { user, logout } = useAuth();
+  const navRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState(null);
   const [greeting, setGreeting] = useState("Good evening,");
@@ -44,6 +45,29 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll, { capture: true });
   }, []);
 
+  /* ── Liquid glass refraction on the bar (Chromium; frosted fallback elsewhere).
+     Overrides .topbar-glass's CSS backdrop-filter inline; the CSS stays as the
+     pre-hydration baseline. Blur/saturate mirror the existing 22px/180% look. ── */
+  useEffect(() => {
+    let glass;
+    let cancelled = false;
+    import("@/lib/liquid-glass").then(() => {
+      if (cancelled || !navRef.current) return;
+      glass = window.liquidGlass(navRef.current, {
+        scale: -70,
+        chroma: 5,
+        mapBlur: 10,
+        blur: 20,
+        saturate: 1.8,
+        fallbackBlur: 22,
+      });
+    });
+    return () => {
+      cancelled = true;
+      if (glass) glass.destroy();
+    };
+  }, []);
+
   /* ── Desktop nav links — only high-priority items visible ── */
   const desktopNavLinks = [
     { label: "How to experience wazwan", href: "/how-to-experience" },
@@ -56,14 +80,11 @@ export default function Navbar() {
 
   /* ── Liquid Glass pill style — desktop navbar ── */
   const desktopNav = (
-    <nav 
-      className="hidden md:flex fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out border-b border-white/5"
-      style={{
-        background: scrolled 
-          ? 'rgba(12, 10, 8, 0.95)' 
-          : 'linear-gradient(to bottom, rgba(12,10,8,0.85), transparent)',
-        backdropFilter: 'blur(2px)'
-      }}
+    <nav
+      ref={navRef}
+      className={`topbar-glass hidden md:flex fixed top-0 left-0 right-0 z-50 w-full border-b border-white/5 ${
+        scrolled ? "topbar-glass--scrolled" : ""
+      }`}
     >
       <div className="flex h-20 items-center justify-between w-full pl-3 pr-6 lg:pl-6 lg:pr-12 2xl:pl-8 2xl:pr-16">
         

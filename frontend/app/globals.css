@@ -345,6 +345,134 @@ body.is-dragging * {
   }
 }
 
+/* ═══ Desktop navbar — Apple-style liquid glass ═══
+   Low-opacity ink + heavy blur + saturation lift so the page's colour
+   bleeds through the bar, with a hairline inner highlight for the glass
+   edge. Scroll deepens the ink slightly for legibility over content. */
+.topbar-glass {
+  background: rgba(8, 8, 8, 0.32);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: background 400ms ease, box-shadow 400ms ease;
+}
+.topbar-glass--scrolled {
+  background: rgba(8, 8, 8, 0.52);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 40px rgba(0, 0, 0, 0.35);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .topbar-glass,
+  .topbar-glass--scrolled {
+    background: rgba(10, 10, 10, 0.96);
+  }
+}
+
+/* ═══ Mobile home — "The Index" ═══
+   Type-led minimal redesign (below md only): Instrument Serif display in
+   ivory caps with a gold italic accent, Hanken Grotesk letterspaced
+   micro-labels, hairline list rows. Deliberately image-free and blur-free —
+   the typography is the design. */
+.mh-label {
+  font-family: var(--font-hanken), ui-sans-serif, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.mh-body {
+  font-family: var(--font-hanken), ui-sans-serif, sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  color: #8a8a8a;
+}
+.mh-display {
+  font-family: var(--font-instrument), serif;
+  font-weight: 400;
+  font-size: clamp(38px, 11.5vw, 48px);
+  line-height: 1.05;
+  letter-spacing: 0.05em;
+  color: #f4ecdf;
+}
+.mh-display em {
+  font-style: italic;
+  color: #c8a46a;
+  letter-spacing: 0.015em;
+}
+.mh-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 56px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+.mh-row-title {
+  display: block;
+  font-family: var(--font-instrument), serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.1;
+  color: #f4ecdf;
+  transition: color 200ms ease;
+}
+.mh-row-sub {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-hanken), ui-sans-serif, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+.mh-row:active .mh-row-title {
+  color: #c8a46a;
+}
+.mh-row:focus-visible {
+  outline: 1px solid rgba(200, 164, 106, 0.7);
+  outline-offset: 4px;
+}
+.mh-card-title {
+  display: block;
+  font-family: var(--font-instrument), serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.15;
+  color: #f4ecdf;
+}
+.mh-scroll {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.mh-scroll::-webkit-scrollbar {
+  display: none;
+}
+.mh-rise {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: mh-rise 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+@keyframes mh-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .nav-pill.nav-compact {
   transform: translateX(-50%) scale(0.92) translateY(4px);
   opacity: 0.72;
@@ -399,16 +527,18 @@ body.is-dragging * {
 
 @media (max-width: 767px) {
   body.is-swipeable-route {
-    width: 100vw;
+    /* 100% (not 100vw) — 100vw includes the scrollbar gutter in some
+       browsers, overflowing clientWidth and clipping right-edge UI. */
+    width: 100%;
     height: 100vh;
     overflow: hidden;
     position: fixed;
     top: 0; left: 0;
     background: #1a0f08;
   }
-  
+
   body.is-locked-route {
-    width: 100vw !important;
+    width: 100% !important;
     height: 100dvh !important;
     overflow: hidden !important;
     position: fixed !important;

@@ -29,7 +29,7 @@ const routeIndexMap = {
   "/login": 4,
 };
 
-export default function MobileSwipeContainer({ children }) {
+export default function MobileSwipeContainer({ children, coverDishes = [] }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   const { user } = useAuth();
   const pathname = usePathname();
@@ -308,7 +308,7 @@ export default function MobileSwipeContainer({ children }) {
           }}
         >
           <div className="screen">
-            <HomePageHero />
+            <HomePageHero initialDishes={coverDishes} />
             <HomePageClient />
           </div>
           <div className="screen">
