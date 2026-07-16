@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { CHIPS, dishMatchesChip } from "./recipeFilters";
+import { CHIPS, dishMatchesChip, isRecipeDish } from "./recipeFilters";
 
 const mk = (categoryType, category) => ({ categoryType, category });
 
@@ -28,5 +28,15 @@ describe("dishMatchesChip", () => {
   });
   it("CHIPS exposes six options in order", () => {
     expect(CHIPS.map((c) => c.key)).toEqual(["all", "wazwan", "street", "bakery", "beverages", "home"]);
+  });
+});
+
+describe("isRecipeDish", () => {
+  it("excludes syun — it's the Kashmiri word for gravy, not a dish", () => {
+    expect(isRecipeDish({ slug: "syun", name: "Syun" })).toBe(false);
+  });
+  it("keeps real dishes", () => {
+    expect(isRecipeDish({ slug: "rogan-josh", name: "Rogan Josh" })).toBe(true);
+    expect(isRecipeDish({ slug: "syoon", name: "Syoon" })).toBe(true);
   });
 });

@@ -7,7 +7,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { createPortal } from "react-dom";
 import AuthRequiredModal from "@/components/AuthRequiredModal";
-import { CHIPS, dishMatchesChip } from "@/lib/recipeFilters";
+import { CHIPS, dishMatchesChip, isRecipeDish } from "@/lib/recipeFilters";
 
 import dishesData from "@/data/dishes.json";
 import "./recipes.css";
@@ -15,7 +15,7 @@ import "./recipes.css";
 const EASE = [0.22, 1, 0.36, 1];
 
 export default function RecipesPage() {
-  const [dishes, setDishes] = useState(dishesData);
+  const [dishes, setDishes] = useState(() => dishesData.filter(isRecipeDish));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,7 +59,7 @@ export default function RecipesPage() {
   useEffect(() => {
     request(endpoints.dishes(""))
       .then((data) => {
-        setDishes(data);
+        setDishes(data.filter(isRecipeDish));
         setRecipesResolved(true);
       })
       .catch((err) => {

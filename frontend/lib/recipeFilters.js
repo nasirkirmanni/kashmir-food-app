@@ -1,3 +1,11 @@
+/* Catalog entries that aren't actual dishes and must never appear on the
+   recipes page — "syun" is just the Kashmiri word for gravy/meat curry. */
+const NON_RECIPE_SLUGS = new Set(["syun"]);
+
+export function isRecipeDish(dish) {
+  return !NON_RECIPE_SLUGS.has(dish.slug);
+}
+
 export const CHIPS = [
   { key: "all", label: "All" },
   { key: "wazwan", label: "Wazwan" },
