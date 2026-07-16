@@ -1,0 +1,13 @@
+/* /recipes route styles.
+   The chips rail owns its horizontal touch gesture so the mobile swipe
+   container leaves it alone. The JS side of the [data-h-scroll] exemption
+   is global (MobileSwipeContainer), but the companion touch-action CSS in
+   kashmiri.css is scoped to that route — so /recipes carries its own rule. */
+.recipes-chip-rail {
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.recipes-chip-rail::-webkit-scrollbar {
+  display: none;
+}
