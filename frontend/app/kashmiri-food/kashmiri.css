@@ -359,7 +359,10 @@
     overflow:hidden;
     display:flex; align-items:flex-end;
     transition:transform .3s ease, border-color .3s ease;
-    /* dish-photo slot: add background-image + background-size:cover here per card via inline style or data-bg attr */
+    /* own stacking context: the fill Image (-z-20) and .shade (-z-10) inside the
+       card must paint above this card's background, not escape to the section
+       stacking context where the chapter overlay/backdrop buries them */
+    isolation:isolate;
   }
   .dish-card:hover{ transform:translateY(-6px); border-color:var(--gold-soft); }
   .dish-card .shade{
