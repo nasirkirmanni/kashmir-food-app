@@ -413,6 +413,16 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
               {wazwanDishes.map((dish, idx) => (
                 <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
               ))}
+              <Link
+                href="/dishes"
+                className="shrink-0 flex flex-col items-center justify-center gap-3 rounded-md border border-[var(--gold)]/40 bg-white/[0.03] hover:border-[var(--gold)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                style={{ flex: "0 0 200px", height: "260px" }}
+              >
+                <span className="text-[var(--gold)] text-2xl">→</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--ivory)]/80 text-center px-3">
+                  Explore all {wazwanDishes.length}
+                </span>
+              </Link>
             </div>
           </div>
         </div>
