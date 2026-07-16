@@ -22,6 +22,7 @@ after deploy, then a drift comparison.
 | A1 | Kashmiri-food dish thumbnails don't load (mobile + desktop) | Stale image paths in the static `dishes.json` mirror (out of sync with the catalog); secondary: `/placeholder-dish.jpg` fallback 404s; tertiary: zero-height `fill` container | Reproduce with network capture; regenerate the static mirror as part of the fix regardless (it is verifiably stale) |
 | A2 | Wazwan dish strip won't scroll horizontally on phones | `MobileSwipeContainer` owns horizontal gestures (`touch-action: pan-y` + swipe handler) and starves inner horizontal scrollers | Gesture guard: swipe handler ignores touches starting inside `[data-h-scroll]` elements; strip gets `touch-action: pan-x`. Future-proofs all mobile carousels |
 | A3 | "Explore Recipe" on mobile still opens Waza AI | Dish-page button fixed & deployed 2026-07-16 (probable stale client cache); the remaining genuine instance is `/recipes`' hardcoded rows without recipes | Verify dish page live; the `/recipes` instance is eliminated by sub-project C |
+| A5 | Duplicate dish docs: "Syoon" vs "Syun" | Variant spellings of the same dish (same pattern as the merged razma-goagji/rajma-t-gogji pair) | Verify both docs; if duplicates, merge with reference re-pointing + 301 redirect (reuse merge_duplicate_dishes.js pattern); if genuinely distinct, document and leave |
 | A4 | Login/signup slow on mobile, UI renders broken | Double render: on mobile the login UI mounts both as the route and inside swipe-screen 5 (logged-out state), doubling hydration on the heaviest-JS pages; secondary: route-scoped CSS timing | Mobile performance trace first; fix accordingly (likely: don't mount the route copy inside the swipe screen context, or defer the inactive copy) with before/after traces as the acceptance evidence |
 
 ## Sub-project B — Recipe content (parallel with A)
@@ -29,7 +30,11 @@ after deploy, then a drift comparison.
 **Scope: 14 dishes** — bakery 6 (Girda, Kulcha, Lavas, Bakerkhani, Czochworu, Sheermal),
 street food 5 (Mutton Tujji, Masala Tsot, Aloo Monji, Basrakh, Suji Halwa), beverages 2
 (Kashmiri Lassi, Babribyol), plus **Guchhi Yakhni ("Waza Mushrooms")** — Kashmir's wild morels
-(kanaguchhi) in waza-style yogurt-fennel gravy — as a **new dish document + recipe**.
+(kanaguchhi) in waza-style yogurt-fennel gravy. The catalog already contains a
+"Wazwaan Mushroom" dish (no recipe): the guchhi recipe **attaches to that existing
+document**, whose name is normalized to "Waza Mushroom (Guchhi)". Renaming regenerates the
+slug via the pre-save hook, so the old `wazwaan-mushroom` slug gets a 301 redirect and the
+static snapshots are regenerated. No new dish document; no interim-image question.
 
 - Pipeline: the existing recipe SPEC and research-agent process (multi-source corroboration,
   modern measurements + traditional cues, sourcing notes, disagreement flags). Two agents:
@@ -39,12 +44,9 @@ street food 5 (Mutton Tujji, Masala Tsot, Aloo Monji, Basrakh, Suji Halwa), beve
 - **Editorial gate:** REVIEW.md addendum with flags; nothing seeds until the owner approves.
   Prior archive decisions stand (Shufta et al. stay archived; Kabargah stays folded into
   Tabak Maaz).
-- Guchhi Yakhni dish doc follows the Pandit Rogan Josh precedent: content from the reviewed
-  recipe entry; luxury price band; `foodType: Veg`; interim image (owner may supply a photo
-  any time).
 - Post-seed: dish pages/schema/sitemap update automatically; regenerate `*-static-ids.json`
   and the `dishes.json` static mirror.
-- End state: ~41/90 dishes with written recipes; all owner-named categories fully covered.
+- End state: ~41/89 dishes with written recipes; all owner-named categories fully covered.
 
 ## Sub-project C — Recipes page rebuild + Explore-all (final release)
 
