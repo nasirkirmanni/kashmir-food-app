@@ -291,7 +291,16 @@ export default function DishDetailClient({ initialDish = null }) {
 
           <div className="mt-8 flex flex-wrap gap-4 items-center">
             <button
-              onClick={handleExploreRecipe}
+              onClick={() => {
+                // Written recipe lives on this page — scroll to it. Waza AI
+                // stays the fallback for dishes without an authored recipe.
+                if (dish.recipe?.instructions?.length) {
+                  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                  document.getElementById("recipe")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+                } else {
+                  handleExploreRecipe();
+                }
+              }}
               className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95"
             >
               Explore Recipe
