@@ -23,7 +23,7 @@ router.get(
     const dishes = await Dish.find()
       .sort({ popularityRating: -1 })
       .limit(5)
-      .select("name description category image popularityRating priceRange slug foodType categoryType courseType spiceLevel recipe.difficulty")
+      .select("name description category image popularityRating priceRange slug foodType categoryType courseType spiceLevel recipe.difficulty recipe.servings")
       .lean();
     res.json(dishes);
   })
@@ -64,7 +64,7 @@ router.get(
 
     const dishes = await Dish.find(query)
       .sort({ popularityRating: -1 })
-      .select("name description category image popularityRating priceRange slug foodType categoryType courseType spiceLevel recipe.difficulty")
+      .select("name description category image popularityRating priceRange slug foodType categoryType courseType spiceLevel recipe.difficulty recipe.servings")
       .lean();
     res.json(dishes);
   })
