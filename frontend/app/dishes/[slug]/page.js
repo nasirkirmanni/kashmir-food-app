@@ -38,7 +38,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   try {
     const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
-      cache: "force-cache",
+      next: { revalidate: 3600 },
     });
     if (!res.ok) throw new Error("Not found");
     const dish = await res.json();
@@ -104,7 +104,7 @@ export default async function DishDetailPage({ params }) {
   let dish = null;
   try {
     const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
-      cache: "force-cache",
+      next: { revalidate: 3600 },
     });
     if (res.ok) {
       dish = await res.json();
