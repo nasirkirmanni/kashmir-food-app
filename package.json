@@ -8,7 +8,11 @@
     "seed": "npm run seed --prefix backend"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
+    "framer-motion": "^12.42.2",
+    "gsap": "^3.15.0",
     "mongodb": "^7.4.0",
+    "motion": "^12.42.2",
     "puppeteer": "^25.3.0"
   }
 }
