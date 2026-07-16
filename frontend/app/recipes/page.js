@@ -135,7 +135,7 @@ export default function RecipesPage() {
 
   return (
     <div className="wazwan-shell min-h-screen bg-[#0a0a0a] pb-[calc(90px_+_env(safe-area-inset-bottom))] md:pb-20">
-      <section className="pt-32 pb-8 px-4 sm:px-6 max-w-4xl mx-auto">
+      <section id="recipes-library" className="pt-32 pb-8 px-4 sm:px-6 max-w-4xl mx-auto">
         <div className="mb-8 md:mb-10">
           <span className="text-[var(--saffron)] text-[0.65rem] font-bold uppercase tracking-[0.2em] block mb-3">
             <span className="md:hidden">The Recipe Library</span>
