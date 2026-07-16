@@ -51,8 +51,9 @@
   "luxuryScore": 3,
   "slug": "dani-phol",
   "createdAt": "2026-06-11T05:36:56.222Z",
-  "updatedAt": "2026-07-16T21:07:59.175Z",
-  "__v": 0
+  "updatedAt": "2026-07-16T21:19:07.378Z",
+  "__v": 0,
+  "courseType": "signature"
  },
  {
   "_id": "6a2a4978ac7d60a9cca76f00",
@@ -162,8 +163,9 @@
   "luxuryScore": 3,
   "__v": 0,
   "createdAt": "2026-07-11T13:40:39.816Z",
-  "updatedAt": "2026-07-16T21:07:59.317Z",
-  "slug": "kashmiri-pulao"
+  "updatedAt": "2026-07-16T21:19:07.821Z",
+  "slug": "kashmiri-pulao",
+  "courseType": "foundation"
  },
  {
   "_id": "6a2a4978ac7d60a9cca76f05",
@@ -357,8 +359,9 @@
   "luxuryScore": 4,
   "slug": "ruwangan-chaman",
   "createdAt": "2026-06-11T05:36:56.222Z",
-  "updatedAt": "2026-07-16T21:07:59.103Z",
-  "__v": 0
+  "updatedAt": "2026-07-16T21:19:07.883Z",
+  "__v": 0,
+  "courseType": "vegetarian"
  },
  {
   "_id": "6a2a4978ac7d60a9cca76f06",
@@ -415,8 +418,9 @@
   "luxuryScore": 3.5,
   "slug": "shami-kabab",
   "createdAt": "2026-07-16T20:35:00.904Z",
-  "updatedAt": "2026-07-16T20:35:00.904Z",
-  "__v": 0
+  "updatedAt": "2026-07-16T21:19:07.943Z",
+  "__v": 0,
+  "courseType": "foundation"
  },
  {
   "_id": "6a2a4978ac7d60a9cca76efb",
@@ -470,8 +474,9 @@
   "luxuryScore": 3,
   "slug": "waza-kokur",
   "createdAt": "2026-06-11T05:36:56.222Z",
-  "updatedAt": "2026-07-16T21:07:58.517Z",
-  "__v": 0
+  "updatedAt": "2026-07-16T21:19:08.014Z",
+  "__v": 0,
+  "courseType": "signature"
  },
  {
   "_id": "6a2a4978ac7d60a9cca76f01",
@@ -497,8 +502,9 @@
   "luxuryScore": 2.5,
   "slug": "waza-palak",
   "createdAt": "2026-06-11T05:36:56.222Z",
-  "updatedAt": "2026-07-16T21:07:59.242Z",
-  "__v": 0
+  "updatedAt": "2026-07-16T21:19:08.073Z",
+  "__v": 0,
+  "courseType": "vegetarian"
  },
  {
   "_id": "6a2a4978ac7d60a9cca76f03",
@@ -524,8 +530,9 @@
   "luxuryScore": 3,
   "slug": "wazwan-mushroom-guchhi-yakhni",
   "createdAt": "2026-06-11T05:36:56.222Z",
-  "updatedAt": "2026-07-16T21:07:59.025Z",
-  "__v": 0
+  "updatedAt": "2026-07-16T21:19:08.135Z",
+  "__v": 0,
+  "courseType": "vegetarian"
  },
  {
   "_id": "6a2a49c1185d2d28b82e867c",

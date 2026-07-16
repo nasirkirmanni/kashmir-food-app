@@ -111,7 +111,7 @@ export const dishes = [
     "luxuryScore": 3,
     "slug": "dani-phol",
     "createdAt": "2026-06-11T05:36:56.222Z",
-    "updatedAt": "2026-07-16T21:07:59.175Z",
+    "updatedAt": "2026-07-16T21:19:07.378Z",
     "__v": 0,
     "recipe": {
       "kashmiriName": "Dani Phol",
@@ -161,7 +161,8 @@ export const dishes = [
         "aab-gosht",
         "mutton-tujji"
       ]
-    }
+    },
+    "courseType": "signature"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f00",
@@ -456,7 +457,7 @@ export const dishes = [
     "luxuryScore": 3,
     "__v": 0,
     "createdAt": "2026-07-11T13:40:39.816Z",
-    "updatedAt": "2026-07-16T21:07:59.317Z",
+    "updatedAt": "2026-07-16T21:19:07.821Z",
     "slug": "kashmiri-pulao",
     "recipe": {
       "kashmiriName": "Modur Pulao",
@@ -518,7 +519,8 @@ export const dishes = [
       "relatedDishes": [],
       "sourcingNote": "Corroborated across the 2006 Wazwan booklet ('Modur Polav', with the dough-sealed dum method) and multiple Kashmiri and Indian food blogs. Where the booklet and modern sources disagree (sugar ratio, milk vs water), the disagreement is flagged rather than averaged away silently.",
       "reviewedAt": "2026-07-16T14:01:12.781Z"
-    }
+    },
+    "courseType": "foundation"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f05",
@@ -1037,7 +1039,7 @@ export const dishes = [
     "luxuryScore": 4,
     "slug": "ruwangan-chaman",
     "createdAt": "2026-06-11T05:36:56.222Z",
-    "updatedAt": "2026-07-16T21:07:59.103Z",
+    "updatedAt": "2026-07-16T21:19:07.883Z",
     "__v": 0,
     "recipe": {
       "kashmiriName": "Ruwangan Tsaman",
@@ -1097,7 +1099,8 @@ export const dishes = [
       "relatedDishes": [],
       "sourcingNote": "Corroborated across Saveur (Ruangan Chaman), the Ruwangan tsaman Wikipedia entry, Kavey Eats, Archana's Kitchen (Tamatar Chaman) and Slurrp/Puri Oil Mills for the sun-dried Ruwangan Hachi variant. Not in the reference booklet; written from web sources.",
       "reviewedAt": "2026-07-16T14:01:11.813Z"
-    }
+    },
+    "courseType": "vegetarian"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f06",
@@ -1258,8 +1261,9 @@ export const dishes = [
       ]
     },
     "createdAt": "2026-07-16T20:35:00.904Z",
-    "updatedAt": "2026-07-16T20:35:00.904Z",
-    "__v": 0
+    "updatedAt": "2026-07-16T21:19:07.943Z",
+    "__v": 0,
+    "courseType": "foundation"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76efb",
@@ -1371,7 +1375,7 @@ export const dishes = [
     "luxuryScore": 3,
     "slug": "waza-kokur",
     "createdAt": "2026-06-11T05:36:56.222Z",
-    "updatedAt": "2026-07-16T21:07:58.517Z",
+    "updatedAt": "2026-07-16T21:19:08.014Z",
     "__v": 0,
     "recipe": {
       "kashmiriName": "Dum Kokur",
@@ -1435,7 +1439,8 @@ export const dishes = [
       "relatedDishes": [],
       "sourcingNote": "Primary structure corroborated from Reena Moza's Kashmiri Dum Kokur (a Kashmiri Pandit family recipe site) and cross-checked against wazwan-style chicken recipes (aktualfoodz, Food Fusion) for technique context; the naming distinctions were verified against multiple sources treating Waze Kokur and Dhaniwal Korma as separate preparations. Not present in the booklet reference.",
       "reviewedAt": "2026-07-16T14:01:11.363Z"
-    }
+    },
+    "courseType": "signature"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f01",
@@ -1461,7 +1466,7 @@ export const dishes = [
     "luxuryScore": 2.5,
     "slug": "waza-palak",
     "createdAt": "2026-06-11T05:36:56.222Z",
-    "updatedAt": "2026-07-16T21:07:59.242Z",
+    "updatedAt": "2026-07-16T21:19:08.073Z",
     "__v": 0,
     "recipe": {
       "kashmiriName": "Waza Palak",
@@ -1504,7 +1509,8 @@ export const dishes = [
       ],
       "servingSuggestions": "Serve alongside rogan josh or yakhni with rice; it also pairs naturally with fried paneer.",
       "relatedDishes": []
-    }
+    },
+    "courseType": "vegetarian"
   },
   {
     "_id": "6a2a4978ac7d60a9cca76f03",
@@ -1530,7 +1536,7 @@ export const dishes = [
     "luxuryScore": 3,
     "slug": "wazwan-mushroom-guchhi-yakhni",
     "createdAt": "2026-06-11T05:36:56.222Z",
-    "updatedAt": "2026-07-16T21:07:59.025Z",
+    "updatedAt": "2026-07-16T21:19:08.135Z",
     "__v": 0,
     "recipe": {
       "kashmiriName": "Kanaguchhi Yakhni",
@@ -1593,7 +1599,8 @@ export const dishes = [
       "relatedDishes": [],
       "sourcingNote": "Recipe corroborated across Anaisha's Kitchen (Kashmiri kanguchhi recipe: yogurt, fennel, dried ginger, asafoetida, mustard oil, hot-water soak, finish with black cardamom and black cumin, served with rice), Food For The Soul's Kashmiri gucchi curry, Reena Moza's Kashmiri Pandit recipe archive (kan gucch pulao), Wikipedia's list of Kashmiri dishes (kanaguchhi yakhean, gucchi pulao), and a published lamb-and-morel yakhni (kanaguchhi gosht, via Eat Your Books). Price and foraging claims attributed to Village Square, Himalayan Kart and Kashmiri retailer listings. Morel-cleaning method follows standard dried-morel practice consistent with the Kashmiri sources' soak-and-rinse instructions.",
       "reviewedAt": "2026-07-16T14:01:15.311Z"
-    }
+    },
+    "courseType": "vegetarian"
   },
   {
     "_id": "6a2a49c1185d2d28b82e867c",

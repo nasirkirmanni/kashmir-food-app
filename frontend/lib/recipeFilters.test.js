@@ -5,29 +5,23 @@ const mk = (categoryType, category) => ({ categoryType, category });
 
 describe("dishMatchesChip", () => {
   it("all matches everything", () => {
-    expect(dishMatchesChip(mk("bakery", "Street Food"), "all")).toBe(true);
+    expect(dishMatchesChip(mk("bakery", "Bakery"), "all")).toBe(true);
   });
-  it("wazwan chip = categoryType wazwan", () => {
+  it("each chip matches its category", () => {
     expect(dishMatchesChip(mk("wazwan", "Wazwan"), "wazwan")).toBe(true);
-    expect(dishMatchesChip(mk("kashmiri_cuisine", "Wazwan"), "wazwan")).toBe(false);
-  });
-  it("street chip = category Street Food regardless of categoryType", () => {
-    expect(dishMatchesChip(mk("bakery", "Street Food"), "street")).toBe(true);
+    expect(dishMatchesChip(mk("kashmiri_cuisine", "Kashmiri Cuisine"), "kashmiri")).toBe(true);
+    expect(dishMatchesChip(mk("bakery", "Bakery"), "bakery")).toBe(true);
     expect(dishMatchesChip(mk("kashmiri_cuisine", "Street Food"), "street")).toBe(true);
-    expect(dishMatchesChip(mk("kashmiri_cuisine", "Budget Eats"), "street")).toBe(false);
+    expect(dishMatchesChip(mk("kashmiri_cuisine", "Desserts"), "desserts")).toBe(true);
+    expect(dishMatchesChip(mk("beverage", "Beverages"), "beverages")).toBe(true);
   });
-  it("bakery chip = categoryType bakery (breads appear under street AND bakery)", () => {
-    expect(dishMatchesChip(mk("bakery", "Street Food"), "bakery")).toBe(true);
+  it("a chip does not match a different category", () => {
+    expect(dishMatchesChip(mk("kashmiri_cuisine", "Desserts"), "kashmiri")).toBe(false);
+    expect(dishMatchesChip(mk("kashmiri_cuisine", "Kashmiri Cuisine"), "desserts")).toBe(false);
+    expect(dishMatchesChip(mk("wazwan", "Wazwan"), "street")).toBe(false);
   });
-  it("beverages chip = categoryType beverage", () => {
-    expect(dishMatchesChip(mk("beverage", "Cafes"), "beverages")).toBe(true);
-  });
-  it("home chip = kashmiri_cuisine minus street food", () => {
-    expect(dishMatchesChip(mk("kashmiri_cuisine", "Budget Eats"), "home")).toBe(true);
-    expect(dishMatchesChip(mk("kashmiri_cuisine", "Street Food"), "home")).toBe(false);
-  });
-  it("CHIPS exposes six options in order", () => {
-    expect(CHIPS.map((c) => c.key)).toEqual(["all", "wazwan", "street", "bakery", "beverages", "home"]);
+  it("CHIPS exposes the seven category options in order", () => {
+    expect(CHIPS.map((c) => c.key)).toEqual(["all", "wazwan", "kashmiri", "bakery", "street", "desserts", "beverages"]);
   });
 });
 
