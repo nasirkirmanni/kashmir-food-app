@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import MapPreview from "@/components/MapPreview";
 import { endpoints, request, streamRequest } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import ReactMarkdown from "react-markdown";
@@ -373,7 +372,6 @@ export default function DishDetailClient({ initialDish = null }) {
               </div>
             </article>
 
-            {dish.restaurants && dish.restaurants[0] ? <MapPreview query={dish.restaurants[0].location} /> : null}
           </div>
         </div>
       </section>
