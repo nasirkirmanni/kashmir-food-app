@@ -3,7 +3,7 @@ import { objectIdSchema, paginationSchema } from './common.js';
 
 export const dishSearchQuerySchema = z.object({
   search: z.string().max(100).optional(),
-  category: z.enum(["Wazwan", "Street Food", "Cafes", "Budget Eats", "Luxury Dining"]).optional(),
+  category: z.enum(["Wazwan", "Kashmiri Cuisine", "Bakery", "Street Food", "Desserts", "Beverages"]).optional(),
   foodType: z.enum(["Veg", "Non-veg"]).optional(),
   categoryType: z.enum(["wazwan", "kashmiri_cuisine", "bakery", "beverage"]).optional()
 }).merge(paginationSchema).strip();
@@ -14,7 +14,7 @@ export const dishCreateSchema = z.object({
   fullDescription: z.string().min(10).max(3000).transform(val => val.trim()),
   history: z.string().max(2000).transform(val => val.trim()),
   touristTip: z.string().max(500).transform(val => val.trim()),
-  category: z.enum(["Wazwan", "Street Food", "Cafes", "Budget Eats", "Luxury Dining"]),
+  category: z.enum(["Wazwan", "Kashmiri Cuisine", "Bakery", "Street Food", "Desserts", "Beverages"]),
   categoryType: z.enum(["wazwan", "kashmiri_cuisine", "bakery", "beverage"]),
   courseType: z.enum(["foundation", "starter", "main", "finale", "dessert"]).optional(),
   foodType: z.enum(["Veg", "Non-veg"]),

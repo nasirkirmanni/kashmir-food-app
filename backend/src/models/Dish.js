@@ -35,7 +35,7 @@ const dishSchema = new mongoose.Schema(
     touristTip: { type: String, required: true },
     category: {
       type: String,
-      enum: ["Wazwan", "Street Food", "Cafes", "Budget Eats", "Luxury Dining"],
+      enum: ["Wazwan", "Kashmiri Cuisine", "Bakery", "Street Food", "Desserts", "Beverages"],
       required: true,
     },
     categoryType: {
