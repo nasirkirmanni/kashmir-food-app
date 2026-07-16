@@ -11,7 +11,10 @@ dotenv.config();
 
 const run = async () => {
   await connectDB();
-  const dishes = await Dish.find({}).lean();
+  // Exclude authored recipe bodies: the mirror is imported client-side
+  // (app/recipes/page.js) and full recipes would bloat the bundle; every
+  // consumer needs only catalog fields.
+  const dishes = await Dish.find({}, { recipe: 0 }).lean();
   const out = path.join("..", "frontend", "data", "dishes.json");
   fs.writeFileSync(out, JSON.stringify(dishes, null, 1));
   console.log(`Wrote ${dishes.length} dishes to ${out}`);

@@ -67,6 +67,11 @@ const nextConfig = {
         destination: '/dishes/razma-goagji',
       },
       {
+        source: '/dishes/wazwaan-mushroom',
+        permanent: true,
+        destination: '/dishes/wazwan-mushroom-guchhi-yakhni',
+      },
+      {
         source: '/dishes/kabab',
         permanent: true,
         destination: '/dishes/seekh-kebab',
