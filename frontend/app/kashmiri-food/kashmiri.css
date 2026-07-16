@@ -338,6 +338,14 @@
     display:flex; gap:16px; overflow-x:auto; overflow-y:hidden; padding-bottom:14px;
     scrollbar-width:thin; scrollbar-color:var(--gold) transparent;
   }
+  /* Any horizontally-scrolling strip tagged with data-h-scroll owns its own touch
+     gestures — exempted from the mobile swipe-screen container's gesture capture
+     (see MobileSwipeContainer.js). touch-action:pan-x lets the browser handle the
+     horizontal drag natively instead of the JS swipe handler intercepting it. */
+  [data-h-scroll]{
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
   .dish-rail::after {
     content: '';
     flex: 0 0 32px;

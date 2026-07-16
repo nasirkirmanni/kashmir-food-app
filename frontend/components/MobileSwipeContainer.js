@@ -125,7 +125,12 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
 
     const onStart = (e) => {
       if (e.target.closest('[data-explore-carousel]') || document.body.classList.contains('restaurant-modal-open')) return;
-      
+
+      // Inner horizontal scrollers (e.g. dish strips) own their own gestures —
+      // let them handle touchstart/touchmove natively instead of the screen-swiper.
+      const inHorizontalScroller = e.target.closest?.("[data-h-scroll]");
+      if (inHorizontalScroller) return;
+
       startXRef.current = e.touches[0].clientX;
       startYRef.current = e.touches[0].clientY;
       lastTouchTimeRef.current = Date.now();

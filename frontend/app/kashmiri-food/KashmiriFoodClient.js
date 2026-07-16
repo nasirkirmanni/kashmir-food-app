@@ -409,7 +409,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
             </div>
           </div>
           <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail">
+            <div className="dish-rail" data-h-scroll>
               {wazwanDishes.map((dish, idx) => (
                 <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
               ))}
@@ -440,7 +440,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
             </div>
           </div>
           <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail">
+            <div className="dish-rail" data-h-scroll>
               {beverageDishes.map((dish, idx) => (
                 <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
               ))}
@@ -471,7 +471,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
             </div>
           </div>
           <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail">
+            <div className="dish-rail" data-h-scroll>
               {bakeryDishes.map((dish, idx) => (
                 <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
               ))}
@@ -498,7 +498,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
             </div>
           </div>
           <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail">
+            <div className="dish-rail" data-h-scroll>
               {streetFoodDishes.map((dish, idx) => (
                 <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
               ))}
