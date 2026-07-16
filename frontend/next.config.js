@@ -76,6 +76,11 @@ const nextConfig = {
         permanent: true,
         destination: '/dishes/seekh-kebab',
       },
+      {
+        source: '/dishes/syoon',
+        permanent: true,
+        destination: '/dishes/syun',
+      },
     ];
   },
   async headers() {

@@ -18,9 +18,11 @@ dotenv.config();
 
 // [loserSlug, winnerSlug, fieldsToCopyWhenWinnerIsBoilerplate]
 const MERGES = [
-  ["tsoek-wangangan", "tschok-wangan", ["description"]],
-  ["rajma-t-gogji", "razma-goagji", []],
-  ["kabab", "seekh-kebab", ["description", "fullDescription", "history", "touristTip"]],
+  // 2026-07-16 batch already executed: tsoek-wangangan, rajma-t-gogji, kabab
+  // ["tsoek-wangangan", "tschok-wangan", ["description"]],
+  // ["rajma-t-gogji", "razma-goagji", []],
+  // ["kabab", "seekh-kebab", ["description", "fullDescription", "history", "touristTip"]],
+  ["syoon", "syun", ["description"]],
 ];
 
 const BOILER = /^A traditional Kashmiri (veg|non-veg) dish prepared in the authentic/;

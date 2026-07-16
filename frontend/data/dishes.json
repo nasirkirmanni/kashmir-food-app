@@ -361,33 +361,6 @@
   "__v": 0
  },
  {
-  "_id": "6a5247d72519b282b59976d8",
-  "name": "Syoon",
-  "description": "Traditional Kashmiri Pandit lamb curry.",
-  "fullDescription": "Syoon is a light, thin mutton curry cooked without onion or garlic, relying on asafoetida, yogurt, ginger, and fennel powder.",
-  "history": "As a foundational daily meat dish of the Kashmiri Pandit community, Syoon represents a centuries-old culinary style defined by strict dietary preferences and local spices.",
-  "touristTip": "It has a lighter and more herbal flavor than the heavier Muslim Wazwan Rogan Josh.",
-  "category": "Wazwan",
-  "categoryType": "kashmiri_cuisine",
-  "foodType": "Non-veg",
-  "image": "/images/dishes/rogan-josh.webp",
-  "priceRange": "INR 380-750",
-  "popularityRating": 4.4,
-  "spiceLevel": "Medium",
-  "tags": [
-   "lamb",
-   "pandit-style",
-   "traditional"
-  ],
-  "authenticityScore": 4.4,
-  "touristFriendlinessScore": 4.7,
-  "luxuryScore": 3.5,
-  "__v": 0,
-  "createdAt": "2026-07-11T13:40:39.817Z",
-  "updatedAt": "2026-07-11T16:05:36.504Z",
-  "slug": "syoon"
- },
- {
   "_id": "6a2a4978ac7d60a9cca76f03",
   "name": "Wazwan Mushroom + Guchhi Yakhni",
   "description": "A mushroom-based Wazwan preparation that adds a softer vegetarian note to the feast.",
@@ -755,7 +728,7 @@
   "fullDescription": "Tabak Maaz is prepared by simmering ribs in milk and spices before shallow frying them until the exterior turns deeply golden and crisp.",
   "history": "Tabak Maaz traces its roots back to Central Asian and Persian culinary techniques, adapting them to the local ingredients of the Kashmir valley. The process of slow-simmering the lamb ribs in a bath of milk and aromatic spices before flash-frying them to a crisp golden brown was historically a way to tenderize tougher cuts while ensuring a rich, decadent finish. It became a prized appetizer in royal Kashmiri feasts, admired for perfectly balancing the delicacy of the tender inner meat with the rich, smoky crispness of the exterior.",
   "touristTip": "Best enjoyed hot as a shared starter. Pair it with noon chai or order it before a larger Wazwan meal.",
-  "category": "Street Food",
+  "category": "Wazwan",
   "categoryType": "wazwan",
   "courseType": "foundation",
   "foodType": "Non-veg",
@@ -2227,7 +2200,7 @@
  {
   "_id": "6a2a4978ac7d60a9cca76f32",
   "name": "Syun",
-  "description": "A traditional Kashmiri non-veg dish prepared in the authentic Wazwan style.",
+  "description": "Traditional Kashmiri Pandit lamb curry.",
   "fullDescription": "Syun is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this non-veg item delivers the deep flavor profile typical of Wazwan cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
   "history": "The history of Syun stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
   "touristTip": "When ordering Syun, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
@@ -2249,7 +2222,7 @@
   "luxuryScore": 4,
   "slug": "syun",
   "createdAt": "2026-06-11T05:36:56.224Z",
-  "updatedAt": "2026-07-11T16:05:36.566Z",
+  "updatedAt": "2026-07-16T15:07:37.632Z",
   "__v": 0
  },
  {
