@@ -187,7 +187,9 @@ export default function RecipesPage() {
           ) : error ? (
             <div className="p-10 text-center text-red-400">{error}</div>
           ) : (
-            <AnimatePresence mode="wait" initial={false}>
+            // NOTE: no initial={false} on AnimatePresence — it propagates to the whole
+            // subtree and would suppress the cards' staggered entrance on first load.
+            <AnimatePresence mode="wait">
               <motion.div
                 key={`${activeChip}|${searchQuery}`}
                 initial={reduceMotion ? false : { opacity: 0 }}
