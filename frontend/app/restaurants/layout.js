@@ -1,3 +1,17 @@
+import fs from "fs";
+import path from "path";
+import JsonLd, { buildSlugItemListSchema } from "@/components/JsonLd";
+
+function loadSlugs(filename) {
+  try {
+    const p = path.join(process.cwd(), filename);
+    if (fs.existsSync(p)) {
+      return JSON.parse(fs.readFileSync(p, "utf-8")).map((i) => i.slug).filter(Boolean);
+    }
+  } catch {}
+  return [];
+}
+
 export const metadata = {
   title: "Kashmiri Restaurants | Find Wazwan Dining in Kashmir",
   description:
@@ -17,5 +31,11 @@ export const metadata = {
 };
 
 export default function RestaurantsLayout({ children }) {
-  return children;
+  const slugs = loadSlugs("restaurants-static-ids.json");
+  return (
+    <>
+      {slugs.length > 0 ? <JsonLd data={buildSlugItemListSchema("/restaurants", slugs, "Kashmiri Restaurants on Wazwan Way")} /> : null}
+      {children}
+    </>
+  );
 }

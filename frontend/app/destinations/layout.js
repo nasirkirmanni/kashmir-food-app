@@ -1,3 +1,17 @@
+import fs from "fs";
+import path from "path";
+import JsonLd, { buildSlugItemListSchema } from "@/components/JsonLd";
+
+function loadSlugs(filename) {
+  try {
+    const p = path.join(process.cwd(), filename);
+    if (fs.existsSync(p)) {
+      return JSON.parse(fs.readFileSync(p, "utf-8")).map((i) => i.slug).filter(Boolean);
+    }
+  } catch {}
+  return [];
+}
+
 export const metadata = {
   title: "Rare Destinations | Offbeat Kashmir Travel Guide",
   description:
@@ -12,5 +26,11 @@ export const metadata = {
 };
 
 export default function DestinationsLayout({ children }) {
-  return children;
+  const slugs = loadSlugs("destinations-static-ids.json");
+  return (
+    <>
+      {slugs.length > 0 ? <JsonLd data={buildSlugItemListSchema("/destinations", slugs, "Rare Kashmir Destinations on Wazwan Way")} /> : null}
+      {children}
+    </>
+  );
 }

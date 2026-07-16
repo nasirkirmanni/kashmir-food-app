@@ -9,7 +9,7 @@ import MapPreview from "@/components/MapPreview";
 import { endpoints, request, streamRequest } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import ReactMarkdown from "react-markdown";
-import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
+import JsonLd, { buildRecipeSchema, buildDishFaqSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
@@ -214,6 +214,7 @@ export default function DishDetailClient({ initialDish = null }) {
     <div className="wazwan-shell">
       {/* JSON-LD Structured Data */}
       <JsonLd data={buildRecipeSchema(dish)} />
+      {buildDishFaqSchema(dish) ? <JsonLd data={buildDishFaqSchema(dish)} /> : null}
 
       <StickyMobileNav title={dish.name} />
 

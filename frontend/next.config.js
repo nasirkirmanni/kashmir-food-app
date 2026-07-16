@@ -55,6 +55,22 @@ const nextConfig = {
         permanent: true,
         destination: '/kashmiri-food/street-food',
       },
+      // Merged duplicate dish slugs (2026-07 catalog cleanup)
+      {
+        source: '/dishes/tsoek-wangangan',
+        permanent: true,
+        destination: '/dishes/tschok-wangan',
+      },
+      {
+        source: '/dishes/rajma-t-gogji',
+        permanent: true,
+        destination: '/dishes/razma-goagji',
+      },
+      {
+        source: '/dishes/kabab',
+        permanent: true,
+        destination: '/dishes/seekh-kebab',
+      },
     ];
   },
   async headers() {

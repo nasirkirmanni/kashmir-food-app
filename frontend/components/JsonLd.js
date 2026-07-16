@@ -265,6 +265,44 @@ export function buildDestinationSchema(destination) {
   };
 }
 
+// FAQ derived strictly from authored dish fields — never invented answers.
+export function buildDishFaqSchema(dish) {
+  const faqs = [];
+  if (dish.description || dish.fullDescription) {
+    faqs.push({
+      question: `What is ${dish.name}?`,
+      answer: [dish.description, dish.fullDescription].filter(Boolean).join(" "),
+    });
+  }
+  if (dish.recipe?.intro) {
+    faqs.push({ question: `How is ${dish.name} made?`, answer: dish.recipe.intro });
+  }
+  if (dish.touristTip) {
+    faqs.push({ question: `Where can you try ${dish.name} in Kashmir?`, answer: dish.touristTip });
+  }
+  if (dish.recipe?.significance) {
+    faqs.push({
+      question: `What is the significance of ${dish.name} in Kashmiri cuisine?`,
+      answer: dish.recipe.significance,
+    });
+  }
+  return faqs.length >= 2 ? buildFaqSchema(faqs) : null;
+}
+
+export function buildSlugItemListSchema(basePath, slugs, listName) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: listName,
+    numberOfItems: slugs.length,
+    itemListElement: slugs.map((slug, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `https://wazwanway.com${basePath}/${slug}`,
+    })),
+  };
+}
+
 export function buildItemListSchema(items, listName) {
   return {
     "@context": "https://schema.org",

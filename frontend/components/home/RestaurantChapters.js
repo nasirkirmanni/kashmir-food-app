@@ -42,7 +42,7 @@ const CHAPTERS = [
   },
   {
     name: "Clove",
-    href: "/restaurants",
+    href: "/restaurants/clove",
     tagline: "The art of dining, facing the Zabarwan.",
     story:
       "Modern Kashmiri fine dining — heritage recipes composed like paintings, served in a room of walnut wood and candlelight beneath the mountains.",
@@ -53,7 +53,7 @@ const CHAPTERS = [
   },
   {
     name: "Shamyana",
-    href: "/restaurants",
+    href: "/restaurants/shamyana",
     tagline: "Dinner beside the still water.",
     story:
       "A boulevard institution where houseboat lights flicker across your table. Come at dusk, order Yakhni, and let the lake do the talking.",
