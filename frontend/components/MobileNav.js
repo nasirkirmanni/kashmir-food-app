@@ -58,13 +58,15 @@ export default function MobileNav() {
 
   const isProfileIncomplete = user && (!user.phoneNumber || !user.address);
 
+  // NOTE: "/login" is intentionally excluded — it's an auth route rendered via
+  // the route overlay (LoginClient), not a swipeable tab screen. See
+  // MobileSwipeContainer.js for the matching exclusion.
   const isSwipeableRoute = [
     "/",
     "/restaurants",
     "/waza-ai",
     "/kashmiri-food",
     "/profile",
-    "/login",
   ].includes(pathname);
 
   const isActiveTab = (index) => isSwipeableRoute && activeIndex === index;

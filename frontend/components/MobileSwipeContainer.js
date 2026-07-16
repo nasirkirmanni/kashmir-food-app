@@ -26,13 +26,29 @@ const routeIndexMap = {
   "/kashmiri-food": 3,
   "/dishes": 3,
   "/profile": 4,
-  "/login": 4,
 };
+
+// Auth routes render their own dedicated page (via the overlay `children` below),
+// not the screen-5 profile/login swipe copy. Previously "/login" was also listed
+// in routeIndexMap + isSwipeableRoute, which forced initialIndex=4 on direct loads
+// of /login — mounting screen 3 (KashmiriFoodClient) and screen 4 (LoginPage) as
+// hidden adjacent screens *and* leaving the screen-swipe touch handlers live on
+// what's supposed to be a static auth page (dragging on /login revealed the
+// adjacent screen). Traced: this was the confirmed cause of both the slow
+// loadEvent and the "broken UI" (swipe-leak) symptom on mobile /login.
+const AUTH_ROUTES = [
+  "/login",
+  "/signup",
+  "/travel-agent/login",
+  "/travel-agent/signup",
+  "/forgot-password",
+];
 
 export default function MobileSwipeContainer({ children, coverDishes = [] }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   const { user } = useAuth();
   const pathname = usePathname();
+  const authRoute = AUTH_ROUTES.includes(pathname);
   const initialIndex = pathname in routeIndexMap ? routeIndexMap[pathname] : 0;
 
   const [mounted, setMounted] = useState(false);
@@ -274,7 +290,6 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
     "/waza-ai",
     "/kashmiri-food",
     "/profile",
-    "/login",
   ].includes(pathname);
 
   // Safety net: Since swipeable pages never unmount, modal scroll locks
@@ -326,7 +341,11 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
             {shouldMount(3) ? <KashmiriFoodClient /> : null}
           </div>
           <div className="screen">
-            {shouldMount(4) ? (user ? <ProfilePage /> : <LoginPage />) : null}
+            {/* Skip on auth routes: visitedScreens is sticky (never unmounts once
+                visited), so if the user swiped to this tab earlier in the session
+                and then client-navigated to /login, /signup, etc., this would
+                still force-mount behind the route's own overlay copy. */}
+            {shouldMount(4) && !authRoute ? (user ? <ProfilePage /> : <LoginPage />) : null}
           </div>
         </div>
 

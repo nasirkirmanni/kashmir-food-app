@@ -12,7 +12,6 @@ const routeIndexMap = {
   "/kashmiri-food": 3,
   "/dishes": 3,
   "/profile": 4,
-  "/login": 4,
 };
 
 const indexRouteMap = [
