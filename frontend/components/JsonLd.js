@@ -96,29 +96,44 @@ function isoDate(value) {
   return isNaN(d.getTime()) ? undefined : d.toISOString().slice(0, 10);
 }
 
+function isoMinutes(mins) {
+  const n = Array.isArray(mins) ? mins[1] : mins;
+  return Number.isFinite(n) && n > 0 ? `PT${Math.round(n)}M` : undefined;
+}
+
 export function buildRecipeSchema(dish) {
+  const r = dish.recipe || {};
+  const prep = isoMinutes(r.prepTimeMinutes);
+  const cook = isoMinutes(r.cookTimeMinutes);
+  const total =
+    Number.isFinite(r.prepTimeMinutes) && Number.isFinite(r.cookTimeMinutes)
+      ? isoMinutes(r.prepTimeMinutes + r.cookTimeMinutes)
+      : undefined;
+  const ingredients = r.ingredients?.length ? r.ingredients : dish.ingredients;
+  const instructions = r.instructions?.length ? r.instructions : dish.instructions;
+
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
     name: dish.name,
-    description: dish.description || `Traditional Kashmiri ${dish.category}`,
+    description: r.intro || dish.description || `Traditional Kashmiri ${dish.category}`,
     image: absoluteUrl(dish.image),
     author: { "@type": "Organization", name: "Wazwan Way" },
     recipeCategory: dish.category || "Kashmiri Cuisine",
     recipeCuisine: "Kashmiri",
     keywords: `${dish.name}, Kashmiri food, Wazwan, ${dish.category}`,
     url: `https://wazwanway.com/dishes/${dish.slug || dish._id}`,
-    ...(dish.prepTime && { prepTime: dish.prepTime }),
-    ...(dish.cookTime && { cookTime: dish.cookTime }),
-    ...(dish.totalTime && { totalTime: dish.totalTime }),
-    ...(dish.recipeYield && { recipeYield: dish.recipeYield }),
+    ...(prep && { prepTime: prep }),
+    ...(cook && { cookTime: cook }),
+    ...(total && { totalTime: total }),
+    ...(r.servings && { recipeYield: String(r.servings) }),
     // Google-required for Recipe rich results — emitted as soon as the dish
-    // record carries authored recipe data (see audit CR-7: content pending).
-    ...(Array.isArray(dish.ingredients) &&
-      dish.ingredients.length > 0 && { recipeIngredient: dish.ingredients }),
-    ...(Array.isArray(dish.instructions) &&
-      dish.instructions.length > 0 && {
-        recipeInstructions: dish.instructions.map((step, i) => ({
+    // record carries authored recipe data.
+    ...(Array.isArray(ingredients) &&
+      ingredients.length > 0 && { recipeIngredient: ingredients }),
+    ...(Array.isArray(instructions) &&
+      instructions.length > 0 && {
+        recipeInstructions: instructions.map((step, i) => ({
           "@type": "HowToStep",
           position: i + 1,
           text: typeof step === "string" ? step : step.text,

@@ -12,3 +12,4 @@ app-debug.apk
 # Internal audit/work-product — never publish
 wazwanway.com-audit/
 backend/backups/
+recipes-draft/

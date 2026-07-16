@@ -368,6 +368,95 @@ export default function DishDetailClient({ initialDish = null }) {
         </div>
       </section>
 
+      {dish.recipe?.ingredients?.length > 0 && dish.recipe?.instructions?.length > 0 && (
+        <section className="places-wrap pt-0" id="recipe">
+          <div className="mb-8 border-l-2 border-[var(--saffron)] pl-4">
+            <span className="place-eyebrow">The Recipe</span>
+            <h2 className="text-2xl md:text-4xl font-display font-medium text-white">
+              How to make {dish.name}
+              {dish.recipe.kashmiriName ? (
+                <span className="text-white/40 text-lg md:text-2xl ml-3">({dish.recipe.kashmiriName})</span>
+              ) : null}
+            </h2>
+            {dish.recipe.intro ? (
+              <p className="restaurant-desc mt-3 max-w-3xl">{dish.recipe.intro}</p>
+            ) : null}
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/60">
+              {dish.recipe.prepTimeMinutes ? <span>Prep {dish.recipe.prepTimeMinutes} min</span> : null}
+              {dish.recipe.cookTimeMinutes ? <span>Cook {dish.recipe.cookTimeMinutes} min</span> : null}
+              {dish.recipe.servings ? <span>Serves {dish.recipe.servings}</span> : null}
+              {dish.recipe.difficulty ? <span className="text-[var(--saffron)]">{dish.recipe.difficulty}</span> : null}
+              {dish.recipe.tradition ? <span>{dish.recipe.tradition}</span> : null}
+            </div>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-[0.8fr,1.2fr]">
+            <article className="restaurant-place-card self-start">
+              <span className="place-eyebrow">Ingredients</span>
+              <ul className="mt-4 space-y-2.5">
+                {dish.recipe.ingredients.map((ing, i) => (
+                  <li key={i} className="restaurant-desc flex gap-3">
+                    <span className="text-[var(--saffron)] shrink-0 mt-[2px]">·</span>
+                    <span>{ing}</span>
+                  </li>
+                ))}
+              </ul>
+              {dish.recipe.wazaTips?.length > 0 && (
+                <div className="rounded-[16px] bg-[var(--saffron-pale)] p-5 mt-6">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
+                    Waza Tips
+                  </p>
+                  <ul className="mt-3 space-y-2">
+                    {dish.recipe.wazaTips.map((tip, i) => (
+                      <li key={i} className="restaurant-desc">{tip}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </article>
+
+            <article className="restaurant-place-card">
+              <span className="place-eyebrow">Method</span>
+              <ol className="mt-4 space-y-5">
+                {dish.recipe.instructions.map((step, i) => (
+                  <li key={i} className="flex gap-4">
+                    <span className="shrink-0 w-8 h-8 rounded-full border border-[var(--saffron)]/40 text-[var(--saffron)] flex items-center justify-center text-sm font-semibold">
+                      {i + 1}
+                    </span>
+                    <p className="restaurant-desc pt-1">{step}</p>
+                  </li>
+                ))}
+              </ol>
+              {dish.recipe.commonMistakes?.length > 0 && (
+                <div className="mt-8">
+                  <span className="place-eyebrow">Common Mistakes</span>
+                  <ul className="mt-3 space-y-2">
+                    {dish.recipe.commonMistakes.map((m, i) => (
+                      <li key={i} className="restaurant-desc flex gap-3">
+                        <span className="text-white/30 shrink-0 mt-[2px]">×</span>
+                        <span>{m}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {dish.recipe.homeAdaptation ? (
+                <div className="mt-8">
+                  <span className="place-eyebrow">At Home</span>
+                  <p className="restaurant-desc mt-3">{dish.recipe.homeAdaptation}</p>
+                </div>
+              ) : null}
+              {dish.recipe.servingSuggestions ? (
+                <div className="mt-8">
+                  <span className="place-eyebrow">Serving</span>
+                  <p className="restaurant-desc mt-3">{dish.recipe.servingSuggestions}</p>
+                </div>
+              ) : null}
+            </article>
+          </div>
+        </section>
+      )}
+
       {mounted && createPortal(
         <>
           {/* Recipe Modal */}

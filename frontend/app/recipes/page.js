@@ -190,7 +190,15 @@ export default function RecipesPage() {
                     
                     {/* Content */}
                     <div className="flex-1 pr-10 sm:pr-12">
-                      <h3 className="font-display text-2xl text-white tracking-wide mb-1">{dish.name}</h3>
+                      <h3 className="font-display text-2xl text-white tracking-wide mb-1">
+                        {dish.slug ? (
+                          <Link href={`/dishes/${dish.slug}${dish.recipe?.instructions?.length ? "#recipe" : ""}`} className="hover:text-[var(--saffron)] transition-colors">
+                            {dish.name}
+                          </Link>
+                        ) : (
+                          dish.name
+                        )}
+                      </h3>
                       <p className="text-[0.65rem] font-bold text-[var(--saffron)] uppercase tracking-[0.15em] mb-3">{dish.category}</p>
                       <p className="text-sm text-white/50 leading-relaxed mb-6 max-w-lg">{dish.description}</p>
                       
@@ -217,13 +225,24 @@ export default function RecipesPage() {
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-7-3.5L5 21V5z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
 
-                  {/* Explore Arrow Button */}
-                  <button
-                    onClick={() => handleExploreRecipe(dish)}
-                    className="absolute bottom-5 right-5 w-10 h-10 rounded-full border border-[var(--saffron)]/30 flex items-center justify-center text-[var(--saffron)] hover:bg-[var(--saffron)] hover:text-black transition-all group-hover:border-[var(--saffron)]"
-                  >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                  </button>
+                  {/* Explore Arrow: written recipe when it exists, Waza AI otherwise */}
+                  {dish.recipe?.instructions?.length > 0 && dish.slug ? (
+                    <Link
+                      href={`/dishes/${dish.slug}#recipe`}
+                      aria-label={`Read the ${dish.name} recipe`}
+                      className="absolute bottom-5 right-5 w-10 h-10 rounded-full border border-[var(--saffron)]/30 flex items-center justify-center text-[var(--saffron)] hover:bg-[var(--saffron)] hover:text-black transition-all group-hover:border-[var(--saffron)]"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleExploreRecipe(dish)}
+                      aria-label={`Ask Waza AI for a ${dish.name} recipe`}
+                      className="absolute bottom-5 right-5 w-10 h-10 rounded-full border border-[var(--saffron)]/30 flex items-center justify-center text-[var(--saffron)] hover:bg-[var(--saffron)] hover:text-black transition-all group-hover:border-[var(--saffron)]"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

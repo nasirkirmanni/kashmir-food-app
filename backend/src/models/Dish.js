@@ -1,5 +1,31 @@
 import mongoose from "mongoose";
 
+// Authored, human-reviewed recipe content. Optional per dish — pages and
+// Recipe JSON-LD only render the sections that exist.
+const recipeSchema = new mongoose.Schema(
+  {
+    kashmiriName: { type: String, trim: true },
+    altSpellings: [{ type: String }],
+    tradition: { type: String, trim: true },
+    intro: { type: String },
+    significance: { type: String },
+    prepTimeMinutes: { type: Number, min: 0 },
+    cookTimeMinutes: { type: Number, min: 0 },
+    servings: { type: String, trim: true },
+    difficulty: { type: String, enum: ["Easy", "Moderate", "Involved", "Expert"] },
+    ingredients: [{ type: String }],
+    instructions: [{ type: String }],
+    wazaTips: [{ type: String }],
+    homeAdaptation: { type: String },
+    commonMistakes: [{ type: String }],
+    servingSuggestions: { type: String },
+    relatedDishes: [{ type: String }],
+    sourcingNote: { type: String },
+    reviewedAt: { type: Date },
+  },
+  { _id: false }
+);
+
 const dishSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -42,6 +68,7 @@ const dishSchema = new mongoose.Schema(
     touristFriendlinessScore: { type: Number, default: 4.0, min: 1, max: 5 },
     luxuryScore: { type: Number, default: 3.0, min: 1, max: 5 },
     slug: { type: String, unique: true, sparse: true },
+    recipe: { type: recipeSchema, default: undefined },
   },
   { timestamps: true }
 );
