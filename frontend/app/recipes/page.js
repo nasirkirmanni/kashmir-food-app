@@ -28,11 +28,21 @@ export default function RecipesPage() {
   const [recipeError, setRecipeError] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [recipesResolved, setRecipesResolved] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -48,7 +58,10 @@ export default function RecipesPage() {
 
   useEffect(() => {
     request(endpoints.dishes(""))
-      .then((data) => setDishes(data))
+      .then((data) => {
+        setDishes(data);
+        setRecipesResolved(true);
+      })
       .catch((err) => {
         console.error(err);
         if (dishesData.length === 0) setError("Failed to load dishes.");
@@ -145,7 +158,7 @@ export default function RecipesPage() {
             Authentic Kashmiri<br/>Recipes
           </h1>
           <p className="md:hidden text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/40">
-            {dishes.length} dishes · {writtenRecipeCount} written recipes
+            {dishes.length} dishes{recipesResolved ? ` · ${writtenRecipeCount} written recipes` : ""}
           </p>
           <p className="hidden md:block text-white/60 text-sm md:text-base max-w-lg leading-relaxed">
             Explore traditional Wazwan delicacies, regional favorites and everyday comfort food.
@@ -154,7 +167,7 @@ export default function RecipesPage() {
 
         {/* Sticky search + chips on mobile (solid backdrop, no blur);
             on md+ this doubles as the header of the original list block. */}
-        <div className="sticky top-0 z-30 -mx-4 px-4 py-3 bg-[#0a0a0a] sm:-mx-6 sm:px-6 md:static md:z-auto md:mx-0 md:bg-[#141414] md:rounded-t-3xl md:border md:border-white/5 md:p-5">
+        <div className="sticky top-0 z-30 -mx-4 px-4 py-3 bg-[#0a0a0a] max-md:border-b max-md:border-white/10 sm:-mx-6 sm:px-6 md:static md:z-auto md:mx-0 md:bg-[#141414] md:rounded-t-3xl md:border md:border-white/5 md:p-5">
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -191,7 +204,7 @@ export default function RecipesPage() {
             // subtree and would suppress the cards' staggered entrance on first load.
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${activeChip}|${searchQuery}`}
+                key={activeChip}
                 initial={reduceMotion ? false : { opacity: 0 }}
                 animate={reduceMotion ? undefined : { opacity: 1, transition: { duration: 0.18, ease: "easeOut" } }}
                 exit={reduceMotion ? undefined : { opacity: 0, transition: { duration: 0.12, ease: "easeOut" } }}
@@ -214,7 +227,7 @@ export default function RecipesPage() {
                         initial={reduceMotion ? false : { opacity: 0, y: 14 }}
                         whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+                        whileTap={reduceMotion || !isMobile ? undefined : { scale: 0.97 }}
                         transition={{ duration: 0.25, ease: EASE, delay: index < 6 ? index * 0.04 : 0 }}
                         className="relative group overflow-hidden rounded-2xl border border-white/10 bg-[#111] md:bg-[#1c1c1c] md:border-white/5 md:p-5 hover:bg-[#222] hover:border-white/10 transition-colors duration-300"
                       >
@@ -257,20 +270,23 @@ export default function RecipesPage() {
                           {/* Content */}
                           <div className="flex-1 p-4 md:p-0 md:pr-12">
                             <h3 className="font-display text-xl md:text-2xl text-white tracking-wide mb-1">
+                              <span className="md:hidden">{dish.name}</span>
                               {dish.slug ? (
-                                <Link href={`/dishes/${dish.slug}${dish.recipe ? "#recipe" : ""}`} className="hover:text-[var(--saffron)] transition-colors">
+                                <Link href={`/dishes/${dish.slug}${dish.recipe ? "#recipe" : ""}`} className="hidden md:inline hover:text-[var(--saffron)] transition-colors">
                                   {dish.name}
                                 </Link>
                               ) : (
-                                dish.name
+                                <span className="hidden md:inline">{dish.name}</span>
                               )}
                             </h3>
                             <div className="flex flex-wrap items-center mb-3">
                               <span className="text-[0.65rem] font-bold text-[var(--saffron)] uppercase tracking-[0.15em]">{dish.category}</span>
-                              {dish.recipe ? (
-                                <span className="ml-3 rounded-full border border-[var(--saffron)]/40 px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Recipe</span>
-                              ) : (
-                                <span className="ml-3 rounded-full border border-white/10 px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.15em] text-white/35">Ask Waza AI</span>
+                              {recipesResolved && (
+                                dish.recipe ? (
+                                  <span className="ml-3 rounded-full border border-[var(--saffron)]/40 px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Recipe</span>
+                                ) : (
+                                  <span className="ml-3 rounded-full border border-white/10 px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.15em] text-white/35">Ask Waza AI</span>
+                                )
                               )}
                             </div>
                             <p className="hidden md:block text-sm text-white/50 leading-relaxed mb-6 max-w-lg">{dish.description}</p>
