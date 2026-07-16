@@ -9,7 +9,7 @@ import AskWazaAIPrompt from "../AskWazaAIPrompt";
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import JsonLd from "@/components/JsonLd";
-import { buildArticleSchema } from "@/components/JsonLd";
+import { buildArticleSchema, buildBreadcrumbSchema } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   const paths = [
@@ -328,8 +328,26 @@ export default function Page({ params }) {
         <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
         
         <article className="w-full max-w-3xl relative z-10">
-          <Link 
-            href={`/kashmiri-food/${category}/guide`} 
+          <JsonLd
+            data={buildArticleSchema({
+              title: article.title,
+              description: article.description || article.excerpt,
+              author: article.author,
+              datePublished: article.date,
+              category: `Kashmiri ${category.replace("-", " ")}`,
+              path: `/kashmiri-food/${category}/guide/${article.slug}`,
+              readTime: article.readTime,
+            })}
+          />
+          <JsonLd
+            data={buildBreadcrumbSchema([
+              { name: "Kashmiri Food", url: "https://wazwanway.com/kashmiri-food" },
+              { name: `${category.replace("-", " ")} guide`, url: `https://wazwanway.com/kashmiri-food/${category}/guide` },
+              { name: article.title, url: `https://wazwanway.com/kashmiri-food/${category}/guide/${article.slug}` },
+            ])}
+          />
+          <Link
+            href={`/kashmiri-food/${category}/guide`}
             className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--saffron)] transition-colors mb-10 text-xs sm:text-sm uppercase tracking-wider font-semibold"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Guide Index
