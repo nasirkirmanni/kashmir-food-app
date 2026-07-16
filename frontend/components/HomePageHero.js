@@ -511,8 +511,13 @@ export default function HomePageHero({ initialDishes = [] }) {
   const userName = user && user.name ? user.name.split(" ")[0] : null;
 
   // User-curated exclusions — these photos must never enter the rotation.
-  const BLOCKED_DISH_IMAGES = /marchwangan|daniwal-korma|waza-kokur|czochworu/i;
+  // Door 02 rotates cooked-dish photography only — no bakery/bread imagery
+  // (the ledger keeps bakery entries for the Today's Table cover, so filter
+  // here, by slug and by filename as a fallback).
+  const BAKERY_SLUGS = new Set(["czochworu", "girda", "sheermal", "kulcha", "bakerkhani", "lavas", "kashmiri-kulcha"]);
+  const BLOCKED_DISH_IMAGES = /marchwangan|daniwal-korma|waza-kokur|czochworu|bakerkhani|girda|lavas|sheermal|kulcha/i;
   const dishImages = initialDishes
+    .filter((dish) => !BAKERY_SLUGS.has(dish.slug))
     .map((dish) => dish.image)
     .filter((img) => img && !BLOCKED_DISH_IMAGES.test(img));
 
