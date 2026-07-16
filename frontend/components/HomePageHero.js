@@ -427,11 +427,40 @@ export default function HomePageHero({ initialDishes = [] }) {
   const coverVideoRef = useRef(null);
   const [coverVideoOk, setCoverVideoOk] = useState(true);
   const [coverVideoPlaying, setCoverVideoPlaying] = useState(false);
+  const [coverVideoReady, setCoverVideoReady] = useState(false);
+
+  // Defer the video fetch until the page has finished loading (plus a beat of
+  // idle) so its ~1.4MB never competes with the LCP image or hydration. The
+  // still cover shows first and the video fades in over it, so the delay is
+  // invisible to the user.
+  useEffect(() => {
+    let idleId, timeoutId;
+    const arm = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        idleId = window.requestIdleCallback(() => setCoverVideoReady(true), { timeout: 2500 });
+      } else {
+        timeoutId = window.setTimeout(() => setCoverVideoReady(true), 1500);
+      }
+    };
+    if (document.readyState === "complete") arm();
+    else {
+      window.addEventListener("load", arm, { once: true });
+      return () => {
+        window.removeEventListener("load", arm);
+        if (idleId) window.cancelIdleCallback?.(idleId);
+        if (timeoutId) window.clearTimeout(timeoutId);
+      };
+    }
+    return () => {
+      if (idleId) window.cancelIdleCallback?.(idleId);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, []);
 
   // Mount the video only on actual mobile viewports (the strip is display:none
   // on desktop but a hidden <video autoplay> would still download) and never
   // under reduced motion — the still cover serves both cases.
-  const showCoverVideo = isMobile && coverVideoOk && !reducedMotion;
+  const showCoverVideo = isMobile && coverVideoOk && !reducedMotion && coverVideoReady;
 
   // The Wazwan cover video is the one exception to screen-gating: per the
   // user's direction it plays continuously, wherever they are in the app.
