@@ -192,7 +192,7 @@ export default function RecipesPage() {
                     <div className="flex-1 pr-10 sm:pr-12">
                       <h3 className="font-display text-2xl text-white tracking-wide mb-1">
                         {dish.slug ? (
-                          <Link href={`/dishes/${dish.slug}${dish.recipe?.instructions?.length ? "#recipe" : ""}`} className="hover:text-[var(--saffron)] transition-colors">
+                          <Link href={`/dishes/${dish.slug}${dish.recipe ? "#recipe" : ""}`} className="hover:text-[var(--saffron)] transition-colors">
                             {dish.name}
                           </Link>
                         ) : (
@@ -226,7 +226,7 @@ export default function RecipesPage() {
                   </button>
 
                   {/* Explore Arrow: written recipe when it exists, Waza AI otherwise */}
-                  {dish.recipe?.instructions?.length > 0 && dish.slug ? (
+                  {dish.recipe && dish.slug ? (
                     <Link
                       href={`/dishes/${dish.slug}#recipe`}
                       aria-label={`Read the ${dish.name} recipe`}
