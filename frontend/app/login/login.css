@@ -16,8 +16,9 @@
   padding: 100px 48px 60px;
 }
 
+/* Seal panel styles live in components/AuthSealPanel.css (shared with /signup).
+   On mobile the panel stacks above the form instead of hiding. */
 @media (max-width: 960px) {
-  .seal-panel { display: none; }
   .form-panel { padding-top: 100px; padding-bottom: 80px; }
 }
 .form-wrap { width: 100%; max-width: 400px; }
@@ -75,6 +76,21 @@
 .field input:focus ~ .underline { width: 100%; }
 .field input:focus { border-bottom-color: transparent; }
 .field input.error:focus ~ .underline { background: var(--error); }
+
+/* Browser autofill: keep the transparent underline look instead of the
+   default filled box, and float the label like a typed value */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ivory);
+  -webkit-box-shadow: 0 0 0 1000px var(--charcoal-950) inset;
+  box-shadow: 0 0 0 1000px var(--charcoal-950) inset;
+  caret-color: var(--ivory);
+}
+.field input:-webkit-autofill ~ label {
+  top: -8px; font-size: 0.64rem; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--gold);
+}
 
 .field.pw input { padding-right: 34px; }
 .pw-toggle {

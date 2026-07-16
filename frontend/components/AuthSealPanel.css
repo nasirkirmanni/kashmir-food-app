@@ -1,0 +1,102 @@
+@import url('../app/shared-tokens.css');
+
+/* ---------------- AUTH SEAL PANEL ----------------
+   Shared by /login and /signup (rendered by AuthSealPanel.js).
+   Desktop: left column of the auth split layout.
+   Mobile (≤960px): stacks above the form panel, per the design mockup. */
+.seal-panel {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(212,162,86,0.09), transparent 55%),
+    radial-gradient(ellipse at 20% 85%, rgba(181,105,58,0.07), transparent 50%),
+    linear-gradient(165deg, #17120d 0%, #0c0a08 70%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 100px 48px 60px;
+  border-right: 1px solid var(--line);
+  overflow: hidden;
+}
+
+@media (max-width: 960px) {
+  .seal-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 96px 32px 44px;
+  }
+}
+
+.seal-wrap { position: relative; width: 184px; height: 184px; }
+.seal {
+  width: 100%; height: 100%;
+  transform: scale(0.55);
+  opacity: 0;
+}
+.seal.stamp {
+  animation: stampIn 0.85s cubic-bezier(.2,1.4,.4,1) forwards;
+}
+
+@keyframes stampIn {
+  0% { transform: scale(1.9); opacity: 0; }
+  55% { transform: scale(0.96); opacity: 1; }
+  75% { transform: scale(1.04); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.seal-flash {
+  position: absolute; inset: -30%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,162,86,0.55), transparent 65%);
+  opacity: 0; pointer-events: none;
+}
+.seal-flash.flash { animation: flash 0.7s ease-out forwards; animation-delay: 0.42s; }
+
+@keyframes flash { 0% {opacity: 0;} 30% {opacity: 0.9;} 100% {opacity: 0;} }
+
+.seal-rings {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sealRotate 48s linear infinite;
+  animation-delay: 0.85s;
+}
+
+@keyframes sealRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-rings { animation: none; }
+  .seal.stamp { animation: none; transform: scale(1); opacity: 1; }
+  .seal-flash.flash { animation: none; }
+}
+
+.seal-tagline {
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold); margin-top: 30px; opacity: 0;
+  animation: sealFadeUp 0.7s ease forwards; animation-delay: 0.6s;
+}
+
+.seal-headline {
+  font-family: var(--font-display); font-weight: 500; text-align: center;
+  font-size: clamp(1.6rem, 2.4vw, 2.15rem); line-height: 1.22; max-width: 23ch;
+  min-height: 2.5em;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 18px; opacity: 0;
+  animation: sealFadeUp 0.7s ease forwards; animation-delay: 0.72s;
+}
+
+.seal-headline .accent { font-style: italic; color: var(--gold); font-weight: 500; }
+.seal-caret {
+  display: inline-block; width: 2px; height: 0.9em; background: var(--gold);
+  margin-left: 3px; vertical-align: middle; animation: sealCaret 0.85s steps(1) infinite;
+}
+
+@keyframes sealCaret { 0%,100% {opacity: 1;} 50% {opacity: 0;} }
+@media (prefers-reduced-motion: reduce) { .seal-caret { animation: none; display: none; } }
+
+.seal-sub {
+  font-size: 0.92rem; color: var(--ivory-dim); text-align: center; line-height: 1.65;
+  max-width: 34ch; margin-top: 16px; opacity: 0;
+  animation: sealFadeUp 0.7s ease forwards; animation-delay: 0.84s;
+}
+
+@keyframes sealFadeUp { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-tagline, .seal-headline, .seal-sub { animation: none; opacity: 1; }
+}
