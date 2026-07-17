@@ -21,15 +21,19 @@ export const validate = (schemas) => (req, res, next) => {
     next();
   } catch (error) {
     if (error instanceof ZodError) {
-      // Map Zod errors to a clean, consistent format
-      const details = error.errors.map((err) => ({
+      // zod v4 renamed `.errors` -> `.issues`; fall back to `.errors` for v3.
+      const issues = error.issues || error.errors || [];
+      const details = issues.map((err) => ({
         field: err.path.join('.'),
         message: err.message
       }));
-      
+
       return res.status(400).json({
         success: false,
         error: "Validation failed",
+        // Surface a human-readable message so clients (which read `message`)
+        // show the actual reason instead of a generic "Request failed".
+        message: details[0]?.message || "Validation failed",
         details
       });
     }
