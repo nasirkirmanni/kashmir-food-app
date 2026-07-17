@@ -43,14 +43,25 @@ export default function SignupClient() {
     const errors = {};
     if (!form.name.trim()) errors.name = "Full name is required";
     if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) errors.email = "Valid email is required";
-    
-    // Password: at least 8 chars, 1 number
-    if (form.password.length < 8) {
-      errors.password = "Must be at least 8 characters";
-    } else if (!/\d/.test(form.password)) {
-      errors.password = "Must include at least one number";
+
+    // Phone is required (it's the account's unique identifier server-side).
+    const phoneDigits = form.phone.replace(/\s+/g, "");
+    if (!phoneDigits) {
+      errors.phone = "Phone number is required";
+    } else if (phoneDigits.length < 8) {
+      errors.phone = "Enter a valid phone number";
     }
-    
+
+    // Password must satisfy the backend policy: 8+ chars with an uppercase,
+    // lowercase, number, and special character (@$!%*?&). Keep this in sync
+    // with backend signupSchema so users aren't rejected after submitting.
+    const pw = form.password;
+    if (pw.length < 8) {
+      errors.password = "Must be at least 8 characters";
+    } else if (!/[a-z]/.test(pw) || !/[A-Z]/.test(pw) || !/\d/.test(pw) || !/[@$!%*?&]/.test(pw)) {
+      errors.password = "Add an uppercase, lowercase, number, and special character (@$!%*?&)";
+    }
+
     if (form.password !== form.confirm) errors.confirm = "Passwords do not match";
     if (!form.terms) errors.terms = "You must agree to the Terms and Privacy Policy";
 
@@ -190,11 +201,14 @@ export default function SignupClient() {
                       id="phone" 
                       placeholder=" " 
                       autoComplete="tel"
+                      inputMode="tel"
                       value={form.phone}
-                      onChange={(e) => { setForm({ ...form, phone: e.target.value }); }}
+                      onChange={(e) => { setForm({ ...form, phone: e.target.value }); setFieldErrors({ ...fieldErrors, phone: null }); }}
+                      className={fieldErrors.phone ? 'error' : ''}
                     />
-                    <label htmlFor="phone">Phone Number (Optional)</label>
+                    <label htmlFor="phone">Phone Number</label>
                     <div className="underline"></div>
+                    {fieldErrors.phone && <div className="field-error">{fieldErrors.phone}</div>}
                   </div>
 
                   <div className="field pw">
@@ -214,7 +228,7 @@ export default function SignupClient() {
                     </button>
                     {fieldErrors.password 
                       ? <div className="field-error">{fieldErrors.password}</div> 
-                      : <div className="field-hint">At least 8 characters, one number.</div>}
+                      : <div className="field-hint">8+ chars with uppercase, lowercase, number &amp; special (@$!%*?&amp;).</div>}
                   </div>
 
                   <div className="field pw" style={{ marginTop: '26px' }}>
