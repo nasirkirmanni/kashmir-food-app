@@ -31,7 +31,7 @@ export const itineraryIntakeSchema = [
     required: true,
     presets: [3, 5, 7, 10],
     min: 1,
-    max: 21,
+    max: 20,
     unit: "days",
     default: 5,
   },

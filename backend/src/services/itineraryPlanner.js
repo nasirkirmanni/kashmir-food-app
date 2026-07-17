@@ -97,15 +97,17 @@ function budgetAligned(nodeLevel, tier) {
 function normalizePreferences(prefs = {}) {
   const p = { ...prefs };
 
-  // Length: explicit lengthDays, else derived from dates, else 5.
-  let lengthDays = parseInt(p.lengthDays, 10);
-  if (!lengthDays && p.startDate && p.endDate) {
+  // Length: exact dates take PRIORITY when both are provided (the traveler's
+  // real trip length), otherwise the explicit duration, otherwise 5. Inclusive
+  // of both arrival and departure days. Capped at 20 days.
+  let lengthDays = parseInt(p.lengthDays, 10) || 0;
+  if (p.startDate && p.endDate) {
     const start = new Date(p.startDate);
     const end = new Date(p.endDate);
     const diff = Math.round((end - start) / 86400000) + 1;
-    if (diff > 0) lengthDays = diff;
+    if (Number.isFinite(diff) && diff > 0) lengthDays = diff;
   }
-  lengthDays = Math.min(Math.max(lengthDays || 5, 1), 21);
+  lengthDays = Math.min(Math.max(lengthDays || 5, 1), 20);
 
   // Season: explicit, else from startDate month, else summer.
   let season = p.season && p.season.toString().toLowerCase();

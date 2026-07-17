@@ -89,18 +89,10 @@ function DayCard({ day }) {
           ))}
         </ul>
 
-        {/* Meals + stay */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4 pt-3 border-t border-white/8">
-          <div className="flex items-start gap-2">
-            <Icon path={ICON.food} className="w-4 h-4 mt-0.5" style={{ color: GOLD }} />
-            <div className="text-[0.72rem] text-white/70">
-              {day.meals.map((m) => `${m.type}: ${m.suggestion}`).join(" · ")}
-            </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <Icon path={ICON.bed} className="w-4 h-4 mt-0.5" style={{ color: GOLD }} />
-            <div className="text-[0.72rem] text-white/70">{day.stay.type} · {day.stay.area}</div>
-          </div>
+        {/* Stay (dining intentionally omitted until the restaurant catalog grows) */}
+        <div className="flex items-start gap-2 mt-4 pt-3 border-t border-white/8">
+          <Icon path={ICON.bed} className="w-4 h-4 mt-0.5" style={{ color: GOLD }} />
+          <div className="text-[0.72rem] text-white/70">{day.stay.type} · {day.stay.area}</div>
         </div>
 
         {day.bestTimeToLeave && (

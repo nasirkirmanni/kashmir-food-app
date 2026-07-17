@@ -22,6 +22,28 @@ test("produces exactly the requested number of days", () => {
   }
 });
 
+test("exact dates drive trip length and override the duration step (inclusive)", () => {
+  // Aug 1 -> Aug 12 is a 12-day trip; must win over an explicit lengthDays: 5.
+  const plan = generateItinerary({ lengthDays: 5, startDate: "2025-08-01", endDate: "2025-08-12" });
+  assert.equal(plan.lengthDays, 12);
+  assert.equal(plan.days.length, 12);
+});
+
+test("trip length is capped at 20 days (from dates or explicit)", () => {
+  const fromDates = generateItinerary({ startDate: "2025-08-01", endDate: "2025-09-15" }); // ~46 days
+  assert.equal(fromDates.days.length, 20);
+  const fromExplicit = generateItinerary({ lengthDays: 25 });
+  assert.equal(fromExplicit.days.length, 20);
+});
+
+test("supports long stays up to 20 days without breaking", () => {
+  for (const n of [12, 15, 20]) {
+    const plan = generateItinerary({ lengthDays: n, season: "summer", interests: ["mountains", "lakes", "meadows"] });
+    assert.equal(plan.days.length, n, `expected ${n} days`);
+    assert.deepEqual(plan.days.map((d) => d.dayNumber), Array.from({ length: n }, (_, i) => i + 1));
+  }
+});
+
 test("anchors on Srinagar and the first day has no inbound travel leg", () => {
   const plan = generateItinerary({ lengthDays: 5, interests: ["lakes", "food"] });
   assert.equal(plan.days[0].baseTown, "Srinagar");

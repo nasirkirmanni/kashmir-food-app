@@ -12,7 +12,7 @@ const travelers = z
 // Preferences payload for POST /generate and POST /claim. All fields optional;
 // the engine applies sensible defaults. Unknown keys are stripped by Zod.
 export const generateItinerarySchema = z.object({
-  lengthDays: z.coerce.number().int().min(1).max(21).optional(),
+  lengthDays: z.coerce.number().int().min(1).max(20).optional(),
   startDate: z.string().max(40).optional(),
   endDate: z.string().max(40).optional(),
   flexibleDates: z.coerce.boolean().optional(),
