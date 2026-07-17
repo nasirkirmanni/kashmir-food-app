@@ -71,6 +71,19 @@ export default function sitemap() {
 
   const scenicDrivePages = scenicDrives.map((route) => entry(`/scenic-drives/${route.slug}`));
 
+  // Canonical (SEO) itineraries — stable, engine-generated indexable pages.
+  const itinerarySlugs = [
+    "3-day-kashmir-itinerary",
+    "5-day-kashmir-itinerary",
+    "7-day-kashmir-itinerary",
+    "kashmir-honeymoon-itinerary",
+    "family-kashmir-trip-5-days",
+    "kashmir-winter-snow-itinerary",
+    "kashmir-adventure-trekking-itinerary",
+    "kashmir-food-trail-wazwan-itinerary",
+  ];
+  const itineraryPages = [entry("/itineraries"), ...itinerarySlugs.map((s) => entry(`/itineraries/${s}`))];
+
   const blogPages = blogPosts.map((post) => {
     const d = new Date(post.updatedDate || post.date);
     return entry(`/blog/${post.slug}`, isNaN(d.getTime()) ? undefined : d);
@@ -84,6 +97,7 @@ export default function sitemap() {
     ...restaurantPages,
     ...destinationPages,
     ...scenicDrivePages,
+    ...itineraryPages,
     ...blogPages,
   ];
 }

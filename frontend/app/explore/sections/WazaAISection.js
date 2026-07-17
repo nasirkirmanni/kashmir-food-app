@@ -1,26 +1,33 @@
 "use client";
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
+import WazaAITeaser from '@/components/WazaAITeaser';
 
 const OPT = '/images/optimized/explore';
 
+// General Kashmir/Wazwan Q&A (NOT the itinerary planner — that lives at
+// /itinerary-builder, reached from the hero button). Answers render as HTML.
+const WAZA_QA = [
+  {
+    q: "What's the most iconic Wazwan dish to try first?",
+    a: "Start with <strong>Rogan Josh</strong> and <strong>Rista</strong> — they open a traditional trami and show the full range of Kashmiri spice.",
+  },
+  {
+    q: "Is Kahwa worth trying?",
+    a: "Always. <strong>Kahwa</strong> is saffron-and-cinnamon green tea poured from a samovar — the perfect close to a Wazwan meal.",
+  },
+  {
+    q: "Where do locals eat in Srinagar's Old City?",
+    a: "The lanes around <strong>Maharaj Gunj</strong> — visit a <strong>Kandur</strong> bakery at dawn for hot Girda and salted Noon Chai.",
+  },
+];
+
 export default function WazaAISection() {
-  useEffect(() => {
-    const wazaMsg = document.getElementById('waza-ai-msg');
-    if (!wazaMsg) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          setTimeout(() => {
-            wazaMsg.innerHTML = '<p>Found it — <strong>Gurez Valley</strong> for the lake, camping under deodar for the budget, and a wazwan stop in Bandipora on the way back. Building your 3-day route now →</p>';
-          }, 1600);
-          io.unobserve(wazaMsg);
-        }
-      });
-    }, { threshold: 0.6 });
-    io.observe(wazaMsg);
-    return () => io.disconnect();
-  }, []);
+  const askWaza = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("open-waza-ai-intro"));
+    }
+  };
 
   return (
     <section id="waza" className="section waza-section section-ambient waypoint-target" data-wp="Waza AI">
@@ -32,35 +39,25 @@ export default function WazaAISection() {
       <div className="container">
         <div className="waza-grid">
           <div className="waza-copy reveal">
-            <span className="status-pill mono"><span className="dot"></span> In active development</span>
-            <h2 className="serif section-title" style={{ marginTop: '20px' }}>Tell Waza where<br />you want to <em>feel</em> something.</h2>
-            <p className="bleed-sub" style={{ color: 'var(--paper-dim)' }}>No forms, no filters. Describe your people, your budget, your mood — Waza drafts a real Kashmir itinerary in seconds, like having a local expert in your pocket.</p>
+            <span className="status-pill mono"><span className="dot"></span> Waza AI · live</span>
+            <h2 className="serif section-title" style={{ marginTop: '20px' }}>
+              Ask Waza anything<br />about <em>Kashmir</em>.
+            </h2>
+            <p className="bleed-sub" style={{ color: 'var(--paper-dim)' }}>
+              Dishes, etiquette, seasons, hidden gems — Waza AI answers like a local expert in your pocket. Ready to plan? The hero button builds you a full day-by-day itinerary.
+            </p>
             <div className="waza-features mono">
-              <div><span>01</span> Reads mood, not just dates</div>
-              <div><span>02</span> Balances budget across stays, food &amp; travel</div>
-              <div><span>03</span> Routes around crowds automatically</div>
+              <div><span>01</span> Real Kashmiri food &amp; culture knowledge</div>
+              <div><span>02</span> Honest, tourist-trap-aware answers</div>
+              <div><span>03</span> Instant — no forms, no waiting</div>
             </div>
-            <a href="#" className="btn btn-primary" style={{ marginTop: '32px' }}>Join the waitlist</a>
+            <button type="button" onClick={askWaza} className="btn btn-primary" style={{ marginTop: '32px' }}>
+              Ask Waza AI
+            </button>
           </div>
 
           <div className="waza-demo reveal">
-            <div className="waza-window">
-              <div className="waza-window-head">
-                <span className="wdot" style={{ background: '#e0a15e' }}></span>
-                <span className="wdot" style={{ background: '#a8543a' }}></span>
-                <span className="wdot" style={{ background: '#4a5d46' }}></span>
-                <span className="mono waza-window-title">waza-ai · planning</span>
-              </div>
-              <div className="waza-window-body">
-                <div className="waza-msg user">
-                  <p>&quot;We&apos;re five friends. Our budget is ₹3000 pp. We want hidden alpine lakes and real wazwan.&quot;</p>
-                </div>
-                <div className="waza-msg ai" id="waza-ai-msg">
-                  <div className="waza-typing"><span></span><span></span><span></span></div>
-                </div>
-              </div>
-            </div>
-            <div className="waza-glow"></div>
+            <WazaAITeaser qaData={WAZA_QA} />
           </div>
         </div>
       </div>

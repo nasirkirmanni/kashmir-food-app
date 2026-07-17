@@ -3,6 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User.js";
 import { TravelAgency } from "../models/TravelAgency.js";
 import { TravelAgencyInquiry } from "../models/TravelAgencyInquiry.js";
+import { Review } from "../models/Review.js";
 import { generateAuthCookies } from "../utils/createToken.js";
 import { protect } from "../middleware/auth.js";
 import { adminOnly } from "../middleware/admin.js";
@@ -151,6 +152,39 @@ router.get(
   asyncHandler(async (req, res) => {
     const agencies = await TravelAgency.find({ isListed: true }).select("-user");
     res.json(agencies);
+  })
+);
+
+// @desc    Public operator cards for the Itinerary Builder booking flow
+// @route   GET /api/travel-agencies/operators
+// @access  Public
+router.get(
+  "/operators",
+  asyncHandler(async (req, res) => {
+    // isListed is the operational display gate (set true on approval), matching
+    // the existing public GET / endpoint.
+    const agencies = await TravelAgency.find({ isListed: true })
+      .select(
+        "agencyName thumbnailUrl coverImageUrl rating yearsInBusiness description whyChooseUs qualities features specializations languages startingPrice city"
+      )
+      .lean();
+
+    const ids = agencies.map((a) => a._id);
+    const counts = ids.length
+      ? await Review.aggregate([
+          { $match: { agency: { $in: ids } } },
+          { $group: { _id: "$agency", count: { $sum: 1 }, avg: { $avg: "$rating" } } },
+        ])
+      : [];
+    const byId = new Map(counts.map((c) => [String(c._id), c]));
+
+    const operators = agencies.map((a) => ({
+      ...a,
+      reviewCount: byId.get(String(a._id))?.count || 0,
+    }));
+
+    res.set("Cache-Control", "public, max-age=300, stale-while-revalidate=600");
+    res.json({ operators });
   })
 );
 

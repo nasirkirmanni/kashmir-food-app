@@ -23,6 +23,7 @@ import collectionRoutes from "./routes/collectionRoutes.js";
 import trailRoutes from "./routes/trailRoutes.js";
 import trekRoutes from "./routes/trekRoutes.js";
 import campRoutes from "./routes/campRoutes.js";
+import itineraryRoutes from "./routes/itineraryRoutes.js";
 import { optionalAuth } from "./middleware/auth.js";
 import { globalSafetyLimiter, publicLimiter, authenticatedLimiter } from "./middleware/rateLimiter.js";
 import path from "path";
@@ -154,6 +155,7 @@ app.use("/api/collections", collectionRoutes);
 app.use("/api/trails", trailRoutes);
 app.use("/api/treks", trekRoutes);
 app.use("/api/camps", campRoutes);
+app.use("/api/itineraries", itineraryRoutes);
 
 app.use(errorHandler);
 

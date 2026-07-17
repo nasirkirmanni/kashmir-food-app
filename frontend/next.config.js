@@ -7,6 +7,14 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      // Itinerary Builder absorbs the old /custom-trip flow (permanent 308).
+      // The old page's code is left intact per the migration plan; this just
+      // repoints the URL so bookmarks/links keep working.
+      {
+        source: '/custom-trip',
+        permanent: true,
+        destination: '/itinerary-builder',
+      },
       {
         source: '/kashmiri-food',
         has: [
