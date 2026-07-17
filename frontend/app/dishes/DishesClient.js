@@ -34,9 +34,9 @@ function DishesPageContent({ initialDishes = [] }) {
     "methi maaz",
     "rista",
     "rogan josh",
-    "daniwal korma",
+    "dhaniwal korma",
     "aab gosht",
-    "marchwangan korma",
+    "marchhwangan korma",
     "yakhni",
     "gushtaba"
   ];

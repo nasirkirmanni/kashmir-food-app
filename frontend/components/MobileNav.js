@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Home, MapPin, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
+import { liquidGlass } from "@/lib/liquidGlass";
 
 const BowlFoodIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   <svg
@@ -55,8 +56,28 @@ export default function MobileNav() {
   const pathname = usePathname();
   const { user } = useAuth();
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
+  const navRef = useRef(null);
 
   const isProfileIncomplete = user && (!user.phoneNumber || !user.address);
+
+  // Apple-style liquid-glass refraction on the pill (Chromium/Android WebView;
+  // iOS Safari & Firefox fall back to frosted blur automatically). Tuned for a
+  // thin bar: gentle bulge, extra interior blur so page content behind stays
+  // legible, explicit stadium radius so the map matches the pill.
+  useEffect(() => {
+    if (!navRef.current) return;
+    const glass = liquidGlass(navRef.current, {
+      scale: -70,
+      chroma: 5,
+      border: 0.09,
+      mapBlur: 8,
+      blur: 5,
+      saturate: 1.7,
+      radius: 28,
+      fallbackBlur: 24,
+    });
+    return () => glass.destroy();
+  }, []);
 
   // NOTE: "/login" is intentionally excluded — it's an auth route rendered via
   // the route overlay (LoginClient), not a swipeable tab screen. See
@@ -126,7 +147,7 @@ export default function MobileNav() {
   }, [activeIndex, isSwipeableRoute]);
 
   return (
-    <nav id="mobile-nav-pill" className="md:hidden nav-pill">
+    <nav ref={navRef} id="mobile-nav-pill" className="md:hidden nav-pill">
       <Link 
         href="/" 
         prefetch={false}

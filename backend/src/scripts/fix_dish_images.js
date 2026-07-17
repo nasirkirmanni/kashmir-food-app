@@ -9,7 +9,7 @@ import { connectDB } from "../config/db.js";
 import { Dish } from "../models/Dish.js";
 dotenv.config();
 
-const PLACEHOLDER = "/images/dishes/pixel-logo-placeholder.webp";
+const PLACEHOLDER = "/images/dishes/dish-placeholder.webp";
 
 const updates = [
   { slug: "tsaman-yakhni", set: { image: PLACEHOLDER } },

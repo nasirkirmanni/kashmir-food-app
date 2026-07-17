@@ -23,6 +23,10 @@ const travelAgencySchema = new mongoose.Schema(
     rating: { type: Number, default: 4.5, min: 1, max: 5 },
     qualities: [{ type: String, trim: true }],
     features: [{ type: String, trim: true }],
+    // --- Operator card fields for the Itinerary Builder booking flow (Phase 2, additive) ---
+    startingPrice: { type: Number }, // per-person starting price (INR); shown when set
+    languages: [{ type: String, trim: true }],
+    specializations: [{ type: String, trim: true }],
     isListed: { type: Boolean, default: false },
     verificationStatus: { type: String, enum: ['incomplete', 'pending', 'approved', 'rejected'], default: 'incomplete' },
     whyChooseUs: { type: String, trim: true, maxLength: 500 },

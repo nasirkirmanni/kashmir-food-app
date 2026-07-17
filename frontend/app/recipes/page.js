@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { createPortal } from "react-dom";
 import AuthRequiredModal from "@/components/AuthRequiredModal";
 import { CHIPS, dishMatchesChip, isRecipeDish } from "@/lib/recipeFilters";
+import { buildImageUrl } from "@/lib/imageProvider";
 
 import dishesData from "@/data/dishes.json";
 import "./recipes.css";
@@ -257,12 +258,12 @@ export default function RecipesPage() {
                           {dish.image && (
                             <div className="w-full aspect-[16/10] overflow-hidden md:w-24 md:h-24 md:aspect-auto md:flex-shrink-0 md:rounded-xl md:border md:border-white/10">
                               <img
-                                src={dish.image.startsWith('http') ? dish.image : `https://wazwanway.com${dish.image}`}
+                                src={buildImageUrl(dish.image, { width: 400 })}
                                 alt={dish.name}
                                 loading="lazy"
                                 decoding="async"
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                onError={(e) => { e.target.src = '/images/dishes/rogan-josh.webp'; }}
+                                onError={(e) => { e.target.onerror = null; e.target.src = '/images/dishes/dish-placeholder.webp'; }}
                               />
                             </div>
                           )}

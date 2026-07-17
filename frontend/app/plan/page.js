@@ -11,7 +11,7 @@ export default function PlanTripPage() {
   const router = useRouter();
 
   const handlePlanClick = () => {
-    router.push("/custom-trip");
+    router.push("/itinerary-builder");
   };
 
   return (

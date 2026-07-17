@@ -1,0 +1,46 @@
+/* Itinerary Builder — route-scoped polish (T5) */
+
+.ib-shell {
+  padding-bottom: calc(8rem + env(safe-area-inset-bottom));
+  overflow-x: hidden;
+}
+
+.ib-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(200, 164, 106, 0.07), transparent 55%);
+}
+
+/* Gold range thumb (duration slider) across engines */
+.ib-shell input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ib-shell input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #c8a46a;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(200, 164, 106, 0.5);
+}
+.ib-shell input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: #c8a46a;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(200, 164, 106, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ib-shell * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.05s !important;
+  }
+}

@@ -197,13 +197,15 @@ export default function ExploreClient({ data }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* ---- Hero plan button scroll ---- */
+  /* ---- Hero plan button -> Itinerary Builder (Part 1) ---- */
   useEffect(() => {
     const btn = document.getElementById('hero-plan-btn');
     if (!btn) return;
     const handler = (e) => {
       e.preventDefault();
-      document.getElementById('waza')?.scrollIntoView({ behavior: 'smooth' });
+      // Navigate to the dedicated Itinerary Builder (no longer scrolls to a
+      // waitlist section, and does not open the Waza AI chat).
+      window.location.href = '/itinerary-builder';
     };
     btn.addEventListener('click', handler);
     return () => btn.removeEventListener('click', handler);
@@ -216,6 +218,7 @@ export default function ExploreClient({ data }) {
       {/*  ============ LANDING UTILITY BAR ============  */}
       <div className="landing-utility-bar reveal">
         <span className="weather-chip mono">Srinagar · {temperature}°C</span>
+        <Link href="/itineraries" className="btn btn-ghost btn-sm">Itineraries</Link>
         <Link href="/plan" className="btn btn-primary btn-sm">Plan a trip</Link>
       </div>
 
