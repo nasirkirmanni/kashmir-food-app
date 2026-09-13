@@ -6,8 +6,6 @@ import Image from "next/image";
 import { request, streamRequest, endpoints, fetchCsrfToken } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
 import React from "react";
-import AuthRequiredModal from "./AuthRequiredModal";
-import { useAuth } from "@/context/AuthContext";
 
 const markdownComponents = {
   p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }} {...props} />,
@@ -101,23 +99,8 @@ export default function WazaAI() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [isChatDisabled, setIsChatDisabled] = useState(false);
   const [hasSeenWazaAI, setHasSeenWazaAI] = useState(true);
   const messagesEndRef = useRef(null);
-  
-  const { user } = useAuth();
-
-  // Watch for successful login to re-enable chat automatically
-  useEffect(() => {
-    if (user) {
-      setShowAuthModal(false);
-      setIsChatDisabled(false);
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("waza_guest_exhausted");
-      }
-    }
-  }, [user]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -174,18 +157,6 @@ export default function WazaAI() {
 
   const handleSendMessage = async (text) => {
     if (!text.trim() || isLoadingRef.current) return;
-    
-    // Instantly block if we already know they are exhausted
-    if (!user && typeof window !== "undefined" && localStorage.getItem("waza_guest_exhausted") === "true") {
-      setIsChatDisabled(true);
-      setShowAuthModal(true);
-      return;
-    }
-
-    if (isChatDisabled) {
-      setShowAuthModal(true);
-      return;
-    }
     
     isLoadingRef.current = true;
     setIsLoading(true);
@@ -298,19 +269,7 @@ export default function WazaAI() {
       }
     } catch (error) {
       console.error("Waza AI Fetch Error:", error);
-      if (error.requiresAuth) {
-        if (typeof window !== "undefined") {
-          localStorage.setItem("waza_guest_exhausted", "true");
-        }
-        setShowAuthModal(true);
-        setIsChatDisabled(true);
-        // Remove the user's message from the UI since it was rejected
-        setMessages((prev) => prev.slice(0, -1));
-        // Restore the input value so they don't lose what they typed
-        setInputValue(text);
-      } else {
-        setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
-      }
+      setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
     } finally {
       isLoadingRef.current = false;
       setIsLoading(false);
@@ -596,18 +555,6 @@ export default function WazaAI() {
               </div>
             </motion.div>
           </div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {showAuthModal && (
-          <AuthRequiredModal
-            onClose={() => setShowAuthModal(false)}
-            onSuccess={() => {
-              setShowAuthModal(false);
-              setIsChatDisabled(false);
-            }}
-          />
         )}
       </AnimatePresence>
     </>
