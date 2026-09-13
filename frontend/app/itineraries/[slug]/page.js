@@ -103,7 +103,9 @@ export default async function CanonicalItineraryPage({ params }) {
         <span className="text-white/60">{plan.lengthDays}-day plan</span>
       </nav>
 
-      <ItineraryArtifact plan={plan} planHref="/itinerary-builder" />
+      {/* The generated plan title repeats across presets ("6-Day Summer Kashmir Itinerary
+          for a Couple"); head each canonical page with its own name instead. */}
+      <ItineraryArtifact plan={plan} planHref="/itinerary-builder" title={meta.seoTitle.replace(/ —.*$/, "")} />
 
       {/* Related itineraries (internal linking) */}
       {related.length > 0 && (

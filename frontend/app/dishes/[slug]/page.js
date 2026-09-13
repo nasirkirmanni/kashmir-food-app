@@ -102,6 +102,7 @@ export async function generateMetadata({ params }) {
         images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
+      twitter: { card: "summary_large_image", title, description, images: ["/wazwan-hero.jpg"] },
     };
   }
 }

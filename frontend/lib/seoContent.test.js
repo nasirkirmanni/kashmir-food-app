@@ -13,7 +13,7 @@ import {
   resolveContentImage,
   resolveContentPhoto,
 } from "./contentImages";
-import { toMetaDescription } from "./metaText";
+import { markdownSummary, toMetaDescription } from "./metaText";
 
 describe("dishContent", () => {
   const templated = {
@@ -117,5 +117,15 @@ describe("toMetaDescription", () => {
     const out = toMetaDescription(long);
     expect(out.length).toBeLessThanOrEqual(158);
     expect(out.endsWith(".") || out.endsWith("…")).toBe(true);
+  });
+});
+
+describe("markdownSummary", () => {
+  it("uses the first real paragraph and strips markdown formatting", () => {
+    const md = "# Title\n\n- a list item\n\nGushtaba is the **velvety** finale of the [Wazwan](/kashmiri-food), pounded by hand for hours and simmered in yogurt.\n\nMore text.";
+    expect(markdownSummary(md)).toBe(
+      "Gushtaba is the velvety finale of the Wazwan, pounded by hand for hours and simmered in yogurt."
+    );
+    expect(markdownSummary("")).toBe("");
   });
 });

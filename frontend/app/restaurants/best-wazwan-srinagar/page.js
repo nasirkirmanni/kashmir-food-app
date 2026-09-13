@@ -30,6 +30,10 @@ export const metadata = {
 
 export default function BestWazwanSrinagarPage() {
   const article = restaurantGuides[0]; // best-wazwan-srinagar is the first guide
+  // The markdown opens with the same headline the page renders as its <h1>.
+  const body = article.content.replace(/^\s*#\s+([^\n]*)\n/, (line, heading) =>
+    heading.trim() === article.title.trim() ? "" : line
+  );
 
   return (
     <div className="min-h-screen pt-28 pb-32 px-4 sm:px-6 flex flex-col items-center page-shell relative">
@@ -82,7 +86,7 @@ export default function BestWazwanSrinagarPage() {
               blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-lg sm:text-xl" {...props} />
             }}
           >
-            {article.content}
+            {body}
           </ReactMarkdown>
         </div>
       </article>

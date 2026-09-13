@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, ChefHat } from "lucide-react";
+import RelatedDishLinks from "@/components/RelatedDishLinks";
+import { toMetaDescription } from "@/lib/metaText";
 
 const CANONICAL_URL = "https://wazwanway.com/blog/gushtaba";
 
 export const metadata = {
   title: "Gushtaba: The Royal Finale of the Wazwan",
-  description: "Discover the rich history, intricate preparation, and cultural significance of Gushtaba, the velvety meatball dish that serves as the grand finale of the traditional Kashmiri Wazwan.",
+  description: toMetaDescription("Discover the rich history, intricate preparation, and cultural significance of Gushtaba, the velvety meatball dish that serves as the grand finale of the traditional Kashmiri Wazwan."),
   keywords: "Gushtaba, Wazwan, Kashmiri cuisine, meatball, royal feast, Kashmiri recipes, food blog",
   // Without these the page inherits the /blog canonical and og tags from the layout.
   alternates: { canonical: CANONICAL_URL },
@@ -100,6 +102,9 @@ export default function GushtabaBlogPage() {
             It is a dish that leaves a lingering taste of fennel and mint, a soothing finish to the heavily spiced courses that preceded it. The next time you find yourself in Kashmir, wait for the Gushtaba. It is worth every minute.
           </p>
         </article>
+        <div className="mt-12">
+          <RelatedDishLinks articlePath="/blog/gushtaba" />
+        </div>
       </main>
     </div>
   );

@@ -5,6 +5,8 @@ import { blogPosts } from "@/data/blogPosts";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import { buildArticleSchema } from "@/components/JsonLd";
+import RelatedDishLinks from "@/components/RelatedDishLinks";
+import { markdownSummary } from "@/lib/metaText";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -32,16 +34,18 @@ export function generateMetadata({ params }) {
   if (!post) return {};
   
   const canonicalUrl = `https://wazwanway.com/blog/${post.slug}`;
+  // The post's own summary, or its opening paragraph — never a generic sentence.
+  const description = post.excerpt || post.summary || markdownSummary(post.content) || `Read about ${post.title} on Wazwan Way.`;
   
   return {
     title: SEARCH_TITLES[post.slug] || post.title,
-    description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
+    description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
       type: "article",
       url: canonicalUrl,
       title: post.title,
-      description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
+      description,
       images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: post.title }],
       siteName: "Wazwan Way",
       publishedTime: post.date,
@@ -52,7 +56,7 @@ export function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
+      description,
       images: ["/wazwan-hero.jpg"],
     },
   };
@@ -129,6 +133,7 @@ export default function BlogPostPage({ params }) {
             {post.content}
           </ReactMarkdown>
         </div>
+        <RelatedDishLinks articlePath={`/blog/${post.slug}`} />
       </article>
     </div>
   );

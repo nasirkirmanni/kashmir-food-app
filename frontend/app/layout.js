@@ -145,9 +145,8 @@ export const metadata = {
     card: "summary_large_image",
     site: "@wazwanway",
     creator: "@wazwanway",
-    title: "Wazwan Way | Discover Authentic Kashmiri Cuisine",
-    description:
-      "Your premium guide to Kashmir's royal culinary heritage — dishes, restaurants, recipes, and culture.",
+    // No title/description here: they would be inherited by every page. Next.js
+    // fills them from each page's own title and description instead.
     images: ["/wazwan-hero.jpg"],
   },
   icons: {

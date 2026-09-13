@@ -8,6 +8,7 @@ import ExploreHero from "@/components/explore/ExploreHero";
 import StickyMobileNav from "@/components/StickyMobileNav";
 import { Calendar, Car, Clock, Compass, Mountain, ArrowRight } from "lucide-react";
 import ExploreClient from "./ExploreClient";
+import DestinationIndex from "@/components/explore/DestinationIndex";
 
 const getApiBase = () => {
   if (typeof window === "undefined" && process.env.NEXT_PUBLIC_API_URL?.includes("localhost")) {
@@ -71,7 +72,9 @@ export default async function ExplorePage() {
   return (
     <>
       <StickyMobileNav />
-      <ExploreClient data={data} />
+      <ExploreClient data={data}>
+        <DestinationIndex />
+      </ExploreClient>
     </>
   );
 }
