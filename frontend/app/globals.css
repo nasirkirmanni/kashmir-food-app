@@ -729,6 +729,15 @@ body.is-dragging * {
   50%, 95% { opacity: 0; }
   100% { opacity: 1; }
 }
+@keyframes ww-flicker {
+  0%, 100% { transform: scaleY(1); opacity: 0.85; }
+  50%      { transform: scaleY(1.14); opacity: 1; }
+}
+@keyframes ww-steam {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translate3d(6px, -46px, 0); opacity: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
   .ww-particle { animation: none !important; opacity: 0 !important; }
 }

@@ -8,7 +8,7 @@ import usePinnedProgress from "@/hooks/usePinnedProgress";
 import useSceneMode from "@/hooks/useSceneMode";
 
 /**
- * Chapter VII — Meet Waza. The emotional finale.
+ * Chapter IX — Meet Waza. The emotional finale.
  * The stage darkens; a headline types itself in as you scroll; real traveller
  * requests arrive and bloom into itinerary previews stitched by a drawn gold
  * thread — revealing Waza as the intelligence behind everything above.
@@ -206,7 +206,7 @@ export default function WazaFinale() {
                 style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                 className="mb-8 text-[0.62rem] font-medium uppercase tracking-[0.44em] text-[#C8A46A]"
               >
-                Chapter VII — Meet Waza
+                Chapter IX — Meet Waza
               </span>
               <p
                 style={{ fontFamily: "var(--font-bodoni)" }}
@@ -262,7 +262,7 @@ export default function WazaFinale() {
               style={{ fontFamily: "var(--font-jetbrains-mono)" }}
               className="text-[0.62rem] uppercase tracking-[0.44em] text-[#C8A46A]"
             >
-              Chapter VII — Meet Waza
+              Chapter IX — Meet Waza
             </span>
             <h2 style={{ fontFamily: "var(--font-bodoni)" }} className="mt-6 text-5xl font-semibold leading-[1.05] text-white">
               You&apos;ve seen Kashmir.

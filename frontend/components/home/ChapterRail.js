@@ -4,20 +4,24 @@ import { useEffect, useRef, useState } from "react";
 import useSceneMode from "@/hooks/useSceneMode";
 
 /**
- * The chapter rail — seven roman numerals fixed to the right edge, telling
+ * The chapter rail — nine roman numerals fixed to the right edge, telling
  * the visitor this is a composed film and where in it they stand. The gold
  * thread fills with overall progress; numerals ignite as their chapter plays;
  * clicking one travels there. Appears only while the chapters are on stage.
+ * Keep CHAPTERS in the same order as the data-ww-chapter blocks in
+ * HomePageClient.js.
  */
 
 const CHAPTERS = [
-  { n: "I", label: "The Table" },
+  { n: "I", label: "The Trami" },
   { n: "II", label: "The Manners" },
   { n: "III", label: "The Craft" },
-  { n: "IV", label: "The Roads" },
-  { n: "V", label: "Four Doors" },
-  { n: "VI", label: "The Seasons" },
-  { n: "VII", label: "Meet Waza" },
+  { n: "IV", label: "The Waza's Night" },
+  { n: "V", label: "The Samovar" },
+  { n: "VI", label: "Speak Wazwan" },
+  { n: "VII", label: "Four Doors" },
+  { n: "VIII", label: "The Seasons" },
+  { n: "IX", label: "Meet Waza" },
 ];
 
 export default function ChapterRail() {

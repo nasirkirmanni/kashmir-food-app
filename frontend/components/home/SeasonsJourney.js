@@ -9,7 +9,7 @@ import usePinnedProgress from "@/hooks/usePinnedProgress";
 import useSceneMode from "@/hooks/useSceneMode";
 
 /**
- * Chapter III — Journey Through the Seasons.
+ * Chapter VIII — Journey Through the Seasons.
  * One pinned valley; scrolling is time passing. Spring → Summer → Autumn →
  * Winter crossfade with per-season colour grading and drifting atmospheric
  * particles, closing on "One Valley. Four Masterpieces."
@@ -258,7 +258,7 @@ export default function SeasonsJourney() {
           style={{ fontFamily: "var(--font-jetbrains-mono)" }}
           className="text-[0.62rem] font-medium uppercase tracking-[0.44em] text-[#C8A46A]"
         >
-          Chapter VI — The Seasons
+          Chapter VIII — The Seasons
         </span>
         <h2
           style={{ fontFamily: "var(--font-bodoni)" }}
