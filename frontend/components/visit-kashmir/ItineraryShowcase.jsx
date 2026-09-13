@@ -6,7 +6,7 @@ const itineraries = [
   {
     days: 3,
     title: "Perfect Weekend Escape",
-    img: "/images/Destinations/srinagar.png",
+    img: "/images/destinations/srinagar.png",
     timeline: [
       { day: 1, text: "Srinagar Local Sightseeing" },
       { day: 2, text: "Gulmarg Adventure" },
@@ -16,7 +16,7 @@ const itineraries = [
   {
     days: 5,
     title: "Classic Kashmir Tour",
-    img: "/images/Destinations/gulmarg.png",
+    img: "/images/destinations/gulmarg.png",
     timeline: [
       { day: 1, text: "Srinagar Arrival & Shikara" },
       { day: 2, text: "Gulmarg Gondola Ride" },
@@ -28,7 +28,7 @@ const itineraries = [
   {
     days: 7,
     title: "Wilderness Explorer",
-    img: "/images/Destinations/gurez.png",
+    img: "/images/destinations/gurez.png",
     timeline: [
       { day: 1, text: "Srinagar Arrival" },
       { day: 2, text: "Gulmarg Ski Resort" },

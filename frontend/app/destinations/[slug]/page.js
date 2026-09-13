@@ -1,7 +1,8 @@
 import DestinationDetailClient from "@/components/DestinationDetailClient";
 import { notFound } from "next/navigation";
-import fs from "fs";
-import path from "path";
+import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
+import { resolveContentPhoto } from "@/lib/contentImages";
+import { toMetaDescription } from "@/lib/metaText";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -35,15 +36,32 @@ export async function generateMetadata({ params }) {
       next: { revalidate: 3600 },
     });
     if (!res.ok) throw new Error("Not found");
-    const destination = await res.json();
+    const destination = sanitizeDestination(await res.json());
 
-    const title = `${destination.name} | Kashmir Rare Destinations`;
-    const description = destination.description || `Explore ${destination.name}, a handpicked destination in Kashmir.`;
+    const title = `${destination.name}, Kashmir`;
+    // Written copy when it exists; otherwise only facts the record really holds.
+    const description = toMetaDescription(
+      (destination.description &&
+        (destination.description.length >= 90 || !destination.bestTimeToVisit
+          ? destination.description
+          : `${destination.description} Best time to visit: ${destination.bestTimeToVisit}.`)) ||
+        [
+          `${destination.name} is in ${destination.location || "Kashmir"}.`,
+          destination.bestTimeToVisit && `Best time to visit: ${destination.bestTimeToVisit}.`,
+          destination.travelAdvisory,
+        ]
+          .filter(Boolean)
+          .join(" ")
+    );
     const canonicalUrl = `${CANONICAL_BASE}/destinations/${destination.slug || destination._id}`;
+    const photo = resolveContentPhoto(destination.image);
 
     return {
       title,
       description,
+      // Records with nothing written about the place yet stay out of the index
+      // until real content is added (they become indexable automatically).
+      ...(!hasWrittenDestinationContent(destination) && { robots: { index: false, follow: true } }),
       alternates: {
         canonical: canonicalUrl,
       },
@@ -52,8 +70,8 @@ export async function generateMetadata({ params }) {
         url: canonicalUrl,
         title,
         description,
-        images: destination.image
-          ? [{ url: destination.image, width: 1200, height: 630, alt: destination.name }]
+        images: photo
+          ? [{ url: photo, width: 1200, height: 630, alt: destination.name }]
           : [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
@@ -61,7 +79,7 @@ export async function generateMetadata({ params }) {
         card: "summary_large_image",
         title,
         description,
-        images: destination.image ? [destination.image] : ["/wazwan-hero.jpg"],
+        images: photo ? [photo] : ["/wazwan-hero.jpg"],
       },
     };
   } catch {
@@ -69,7 +87,7 @@ export async function generateMetadata({ params }) {
     // this page so it can never be treated as a duplicate of the hub.
     const canonicalUrl = `${CANONICAL_BASE}/destinations/${params.slug}`;
     const name = slugToName(params.slug);
-    const title = name ? `${name} | Kashmir Rare Destinations` : "Rare Destinations | Kashmir";
+    const title = name ? `${name}, Kashmir` : "Kashmir Destinations";
     const description = name
       ? `Explore ${name}, a handpicked offbeat destination in Kashmir.`
       : "Explore authentic offbeat destinations in Kashmir.";
@@ -87,6 +105,7 @@ export async function generateMetadata({ params }) {
         images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
+      twitter: { card: "summary_large_image", title, description, images: ["/wazwan-hero.jpg"] },
     };
   }
 }

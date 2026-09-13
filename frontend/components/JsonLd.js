@@ -1,3 +1,5 @@
+import { resolveContentImage, resolveContentPhoto } from "@/lib/contentImages";
+
 /**
  * JsonLd — injects JSON-LD structured data into the page <head>
  * Usage: <JsonLd data={schemaObject} />
@@ -39,7 +41,8 @@ export function buildOrganizationSchema() {
     name: "Wazwan Way",
     url: "https://wazwanway.com",
     logo: "https://wazwanway.com/icon.png",
-    sameAs: [],
+    // The brand profiles linked from the site's own footer (components/Footer.js).
+    sameAs: ["https://www.facebook.com/profile.php?id=61590712421415", "https://x.com/wazwanway"],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
@@ -55,9 +58,9 @@ export function buildRestaurantSchema(restaurant) {
     name: restaurant.name,
     description: restaurant.description || `${restaurant.name} — authentic Kashmiri restaurant`,
     url: `https://wazwanway.com/restaurants/${restaurant.slug || restaurant._id}`,
-    image: absoluteUrl(restaurant.image),
+    image: absoluteUrl(resolveContentImage(restaurant.image)),
     servesCuisine: "Kashmiri",
-    priceRange: restaurant.priceLevel || "$$",
+    ...(priceRangeFor(restaurant.priceLevel) && { priceRange: priceRangeFor(restaurant.priceLevel) }),
     address: {
       "@type": "PostalAddress",
       addressLocality: restaurant.city || "Kashmir",
@@ -83,6 +86,14 @@ export function buildRestaurantSchema(restaurant) {
         : `https://${restaurant.website}`,
     }),
   };
+}
+
+// Same ₹ scale the restaurants page shows for each stored price level.
+function priceRangeFor(priceLevel) {
+  if (!priceLevel) return undefined;
+  if (priceLevel === "Luxury" || priceLevel === "Fine Dining") return "₹₹₹₹";
+  if (priceLevel === "Mid-range") return "₹₹₹";
+  return "₹₹";
 }
 
 function absoluteUrl(url) {
@@ -111,14 +122,22 @@ export function buildRecipeSchema(dish) {
       : undefined;
   const ingredients = r.ingredients?.length ? r.ingredients : dish.ingredients;
   const instructions = r.instructions?.length ? r.instructions : dish.instructions;
+  // Only a real photo of the dish belongs in `image` — never a placeholder.
+  const photo = resolveContentPhoto(dish.image);
+  // Real record timestamps: when the dish was published, and when its recipe was
+  // last reviewed (or the record last updated).
+  const datePublished = isoDate(dish.createdAt);
+  const dateModified = isoDate(r.reviewedAt || dish.updatedAt);
 
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
     name: dish.name,
     description: r.intro || dish.description || `Traditional Kashmiri ${dish.category}`,
-    image: absoluteUrl(dish.image),
-    author: { "@type": "Organization", name: "Wazwan Way" },
+    ...(photo && { image: absoluteUrl(photo) }),
+    author: { "@type": "Organization", name: "Wazwan Way", url: "https://wazwanway.com" },
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
     recipeCategory: dish.category || "Kashmiri Cuisine",
     recipeCuisine: "Kashmiri",
     keywords: `${dish.name}, Kashmiri food, Wazwan, ${dish.category}`,
@@ -175,21 +194,24 @@ export function buildArticleSchema(article) {
   const articleUrl = article.url || `${baseUrl}${article.path || ''}`;
   const imageUrl = absoluteUrl(article.image);
   const authorName = article.author || "Wazwan Way Team";
-  const datePublished =
-    isoDate(article.datePublished || article.date) || new Date().toISOString().slice(0, 10);
+  // Dates come only from the content itself — never the build date.
+  const datePublished = isoDate(article.datePublished || article.date);
   const dateModified = isoDate(article.dateModified || article.updatedDate) || datePublished;
+  // Team bylines are the publisher; named bylines are people. There are no author
+  // profile pages on the site, so no author URL is claimed.
+  const isTeamByline = /\bteam\b/i.test(authorName) || /^wazwan\s?way$/i.test(authorName);
+  const author = isTeamByline
+    ? { "@type": "Organization", name: "Wazwan Way", url: baseUrl }
+    : { "@type": "Person", name: authorName };
+  const description = article.description || article.excerpt;
 
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title || article.name,
-    description: article.description || article.excerpt || "",
+    ...(description && { description }),
     image: imageUrl,
-    author: {
-      "@type": "Person",
-      name: authorName,
-      url: `${baseUrl}/author/${authorName.toLowerCase().replace(/\s+/g, '-')}`
-    },
+    author,
     publisher: {
       "@type": "Organization",
       name: "Wazwan Way",
@@ -198,8 +220,8 @@ export function buildArticleSchema(article) {
         url: `${baseUrl}/icon.png`
       }
     },
-    datePublished,
-    dateModified,
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": articleUrl
@@ -234,13 +256,17 @@ export function buildReviewSchema(review, restaurant) {
   };
 }
 
+// Expects a destination already passed through sanitizeDestination()
+// (lib/destinationContent.js), so generated placeholder text never reaches it.
 export function buildDestinationSchema(destination) {
+  const photo = resolveContentPhoto(destination.image);
+  const attractions = (destination.attractions || []).filter(Boolean);
   return {
     "@context": "https://schema.org",
     "@type": "TouristDestination",
     name: destination.name,
-    description: destination.description || `Explore ${destination.name} in Kashmir`,
-    image: destination.image || "https://wazwanway.com/wazwan-hero.jpg",
+    ...(destination.description && { description: destination.description }),
+    ...(photo && { image: absoluteUrl(photo) }),
     url: `https://wazwanway.com/destinations/${destination.slug || destination._id}`,
     address: {
       "@type": "PostalAddress",
@@ -248,20 +274,9 @@ export function buildDestinationSchema(destination) {
       addressRegion: "Jammu & Kashmir",
       addressCountry: "IN"
     },
-    ...(destination.bestTimeToVisit && {
-      availableSeason: destination.bestTimeToVisit
+    ...(attractions.length > 0 && {
+      includesAttraction: attractions.map((name) => ({ "@type": "TouristAttraction", name })),
     }),
-    ...(destination.attractions && {
-      touristType: destination.attractions.join(", ")
-    }),
-    ...(destination.rating && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: destination.rating,
-        bestRating: 5,
-        worstRating: 1
-      }
-    })
   };
 }
 

@@ -2,10 +2,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const dishes = [
-  { name: "Rogan Josh", desc: "The Crown Jewel", img: "/images/dishes/rogan-josh.webp" },
-  { name: "Rista", desc: "A Royal Delight", img: "/images/dishes/rista.jpg" },
-  { name: "Gushtaba", desc: "Kashmir's Pride", img: "/images/dishes/gushtaba.jpg" },
-  { name: "Tabak Maaz", desc: "Slow Cooked Perfection", img: "/images/dishes/tabak-maaz.jpg" },
+  { name: "Rogan Josh", desc: "The Crown Jewel", img: "/images/scroll/ROGAN.png" },
+  { name: "Rista", desc: "A Royal Delight", img: "/images/scroll/RISTA.png" },
+  { name: "Gushtaba", desc: "Kashmir's Pride", img: "/images/scroll/GUSHTABA.png" },
+  { name: "Tabak Maaz", desc: "Slow Cooked Perfection", img: "/images/scroll/TABAKH.png" },
   { name: "Yakhni", desc: "The Signature Taste", img: "/images/dishes/mughal-yakhni.jpg" }
 ];
 

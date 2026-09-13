@@ -31,8 +31,14 @@ async function getCamps() {
 
 export const metadata = {
   alternates: { canonical: "https://wazwanway.com/trekking-camping" },
-  title: "Trekking & Camping in Kashmir | Alpine Trails & Wild Basecamps",
-  description: "Five legendary treks and five untouched basecamps in Kashmir — mapped by elevation, difficulty, and the silence that waits at the top."
+  title: "Trekking & Camping in Kashmir | Alpine Trails",
+  description: "Five legendary treks and five untouched basecamps in Kashmir — mapped by elevation, difficulty, and the silence that waits at the top.",
+  openGraph: {
+    type: "website",
+    url: "https://wazwanway.com/trekking-camping",
+    siteName: "Wazwan Way",
+    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+  },
 };
 
 export default async function TrekkingCampingPage() {

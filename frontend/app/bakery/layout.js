@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Kashmiri Bakery | Traditional Breads & Bakarkhani",
+  title: "Kandur Bakery Guide: Traditional Kashmiri Bread",
   description:
     "Kashmir's bakery tradition — czot, girda, bakarkhani, and the morning kandur-wan ritual of fresh bread and noon chai.",
   alternates: { canonical: "https://wazwanway.com/bakery" },

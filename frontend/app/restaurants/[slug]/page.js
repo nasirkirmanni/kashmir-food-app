@@ -2,6 +2,7 @@ import RestaurantDetailClient from "@/components/RestaurantDetailClient";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import { toMetaDescription } from "@/lib/metaText";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -43,10 +44,12 @@ export async function generateMetadata({ params }) {
     if (!res.ok) throw new Error("Not found");
     const restaurant = await res.json();
 
-    const title = `${restaurant.name} ${restaurant.city ? `${restaurant.city} ` : ""}| Kashmiri Restaurant`;
-    const description =
+    // No brand here: the restaurants layout's title template appends " | Wazwan Way".
+    const title = `${restaurant.name}${restaurant.city ? `, ${restaurant.city}` : ""}: Kashmiri Restaurant`;
+    const description = toMetaDescription(
       restaurant.description ||
-      `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`;
+      `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`
+    );
 
     const canonicalUrl = `${CANONICAL_BASE}/restaurants/${restaurant.slug || params.slug}`;
 
@@ -78,7 +81,7 @@ export async function generateMetadata({ params }) {
     // this page, never at the /restaurants hub inherited from the layout metadata.
     const canonicalUrl = `${CANONICAL_BASE}/restaurants/${params.slug}`;
     const name = slugToName(params.slug);
-    const title = name ? `${name} | Kashmiri Restaurant` : "Kashmiri Restaurant | Wazwan Way";
+    const title = name ? `${name}: Kashmiri Restaurant` : "Kashmiri Restaurant";
     const description = name
       ? `${name} is an authentic Kashmiri restaurant. Discover the menu, ambiance, and Wazwan specialties.`
       : "Explore authentic Kashmiri restaurants on Wazwan Way.";
@@ -95,6 +98,13 @@ export async function generateMetadata({ params }) {
         description,
         images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
+      },
+      // Otherwise the /restaurants hub's twitter tags are inherited from the layout.
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: ["/wazwan-hero.jpg"],
       },
     };
   }

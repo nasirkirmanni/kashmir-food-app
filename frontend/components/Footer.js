@@ -20,10 +20,16 @@ export default function Footer() {
           <Link href="/restaurants" className="transition-colors duration-300 hover:text-[#C8A46A]">Restaurants</Link>
           <Link href="/recipes" className="transition-colors duration-300 hover:text-[#C8A46A]">Recipes</Link>
           <Link href="/plan" className="transition-colors duration-300 hover:text-[#C8A46A]">Visit Kashmir</Link>
+          <Link href="/destinations" className="transition-colors duration-300 hover:text-[#C8A46A]">Destinations</Link>
+          <Link href="/itineraries" className="transition-colors duration-300 hover:text-[#C8A46A]">Itineraries</Link>
+          <Link href="/explore" className="transition-colors duration-300 hover:text-[#C8A46A]">Explore Kashmir</Link>
+          <Link href="/history" className="transition-colors duration-300 hover:text-[#C8A46A]">History of Wazwan</Link>
           <Link href="/blog" className="transition-colors duration-300 hover:text-[#C8A46A]">Blog</Link>
           <Link href="/about" className="transition-colors duration-300 hover:text-[#C8A46A]">About</Link>
           <Link href="/contact" className="transition-colors duration-300 hover:text-[#C8A46A]">Contact</Link>
+          <Link href="/list-restaurant" className="transition-colors duration-300 hover:text-[#C8A46A]">List Your Restaurant</Link>
           <Link href="/privacy" className="transition-colors duration-300 hover:text-[#C8A46A]">Privacy Policy</Link>
+          <Link href="/terms" className="transition-colors duration-300 hover:text-[#C8A46A]">Terms</Link>
           <Link href="/login" className="transition-colors duration-300 hover:text-[#C8A46A]">Login</Link>
         </div>
         <div className="border-t border-[#F5F5F0]/10 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-[0.7rem] uppercase tracking-widest text-[#F5F5F0]/70">

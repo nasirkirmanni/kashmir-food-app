@@ -12,5 +12,6 @@ app-debug.apk
 # Internal audit/work-product — never publish
 wazwanway.com-audit/
 backend/backups/
+backend/src/scripts/backups/
 recipes-draft/
 *-raw.mp4

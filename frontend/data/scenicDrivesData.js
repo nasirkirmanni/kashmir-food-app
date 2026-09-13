@@ -7,7 +7,12 @@ export const scenicDrives = [
     duration: '1.5 hrs',
     difficulty: 'Easy',
     bestSeason: 'May – Sep',
-    heroImage: '/images/optimized/scenic-drives/doodhpathri-1.jpg',
+    heroImage: '/images/optimized/scenic-drives/doodhpathri-1-1920.webp',
+    // Width-keyed WebP derivatives for srcset, written by scripts/optimize-route-images.mjs.
+    heroImageVariants: {
+      1080: '/images/optimized/scenic-drives/doodhpathri-1-1080.webp',
+      1920: '/images/optimized/scenic-drives/doodhpathri-1-1920.webp'
+    },
     elevationTitle: 'One road, one steady climb into the meadow.',
     profile: [
       { name: 'SRINAGAR', subtext: 'START · 1,585M', km: 'KM 0', dist: 0, alt: 1585 },
@@ -20,21 +25,33 @@ export const scenicDrives = [
         num: '01',
         title: 'Out of the city, into pine.',
         description: 'The road leaves Srinagar quietly, the traffic thinning within the first few kilometres as the land begins to fold into forest. This is the easy part of the drive — wide, paved, forgiving.',
-        media: '/images/optimized/scenic-drives/doodhpathri-2.jpg',
+        media: '/images/optimized/scenic-drives/doodhpathri-2-1920.webp',
+        mediaVariants: {
+          1080: '/images/optimized/scenic-drives/doodhpathri-2-1080.webp',
+          1920: '/images/optimized/scenic-drives/doodhpathri-2-1920.webp'
+        },
         meta: [ { label: 'Distance covered', value: 'KM 0–15' }, { label: 'Elevation', value: '1,585M' } ]
       },
       {
         num: '02',
         title: 'Budgam, the last flat ground.',
         description: 'Past Budgam the road narrows through village lanes before the real climb begins. This is the last stretch of flat driving before the grade steepens toward Khansahib.',
-        media: '/images/optimized/scenic-drives/doodhpathri-3.jpg',
+        media: '/images/optimized/scenic-drives/doodhpathri-3-1920.webp',
+        mediaVariants: {
+          1080: '/images/optimized/scenic-drives/doodhpathri-3-1080.webp',
+          1920: '/images/optimized/scenic-drives/doodhpathri-3-1920.webp'
+        },
         meta: [ { label: 'Distance covered', value: 'KM 15–28' }, { label: 'Elevation', value: '1,940M' } ]
       },
       {
         num: '03',
         title: 'The climb to the meadow.',
         description: 'The final fifteen kilometres do most of the climbing. Switchbacks tighten, the pines thin out, and the meadow opens all at once — wide, green, and quiet, ringed by peaks that hold snow well into June.',
-        media: '/images/optimized/scenic-drives/doodhpathri-1.jpg',
+        media: '/images/optimized/scenic-drives/doodhpathri-1-1920.webp',
+        mediaVariants: {
+          1080: '/images/optimized/scenic-drives/doodhpathri-1-1080.webp',
+          1920: '/images/optimized/scenic-drives/doodhpathri-1-1920.webp'
+        },
         meta: [ { label: 'Distance covered', value: 'KM 28–43.5' }, { label: 'Elevation', value: '2,730M' } ]
       }
     ],

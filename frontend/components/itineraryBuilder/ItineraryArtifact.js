@@ -117,7 +117,9 @@ function DayCard({ day }) {
   );
 }
 
-export default function ItineraryArtifact({ plan, onPlanTrip, planHref }) {
+// `title` overrides the generated plan title (e.g. a canonical itinerary page
+// passes its own name, so "Kashmir Honeymoon Itinerary" heads that page).
+export default function ItineraryArtifact({ plan, onPlanTrip, planHref, title }) {
   if (!plan) return null;
   const cost = plan.estimatedCost || {};
 
@@ -127,7 +129,7 @@ export default function ItineraryArtifact({ plan, onPlanTrip, planHref }) {
       <header className="mb-6">
         <Eyebrow>Your Kashmir Itinerary</Eyebrow>
         <h1 className="text-3xl sm:text-4xl font-medium text-white mt-2 leading-tight" style={{ fontFamily: "var(--font-bodoni, serif)" }}>
-          {plan.title}
+          {title || plan.title}
         </h1>
         <p className="text-white/60 text-sm mt-2">{plan.summary}</p>
         <div className="flex flex-wrap gap-2 mt-4">

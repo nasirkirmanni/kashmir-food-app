@@ -64,6 +64,7 @@ export default function useScrollScrubVideo({
 
     const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
     let rafId = null;
+    let running = false;
     let lastSeek = 0;
 
     const applyPinState = (rect) => {
@@ -96,6 +97,7 @@ export default function useScrollScrubVideo({
     };
 
     const sync = (now) => {
+      if (!running) return;
       rafId = requestAnimationFrame(sync);
 
       const rect = wrapper.getBoundingClientRect();
@@ -122,17 +124,51 @@ export default function useScrollScrubVideo({
       }
     };
 
-    // Prime once so the very first paint is correct before any frame runs.
-    {
+    // Settle progress and pin state from the current layout.
+    const settle = () => {
       const rect = wrapper.getBoundingClientRect();
       const denom = rect.height - window.innerHeight;
       progress.set(denom > 0 ? clamp01(-rect.top / denom) : 0);
       applyPinState(rect);
+    };
+    const start = () => {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(sync);
+    };
+    const stop = () => {
+      running = false;
+      if (rafId != null) cancelAnimationFrame(rafId);
+      rafId = null;
+    };
+
+    // Prime once so the very first paint is correct before any frame runs.
+    settle();
+
+    // Run the per-frame loop only while the hero is on or near the screen. When
+    // it leaves (or is display:none on phones) the loop stops, after one last
+    // settle so the pin lands in its final before/after state.
+    let observer;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            start();
+          } else {
+            settle();
+            stop();
+          }
+        },
+        { rootMargin: "200px 0px" }
+      );
+      observer.observe(wrapper);
+    } else {
+      start();
     }
-    rafId = requestAnimationFrame(sync);
 
     return () => {
-      if (rafId != null) cancelAnimationFrame(rafId);
+      stop();
+      if (observer) observer.disconnect();
     };
   }, [wrapperRef, stageRef, videoRef, progress, duration, ease, epsilon, seekIntervalMs]);
 }

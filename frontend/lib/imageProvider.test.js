@@ -257,7 +257,9 @@ describe('Image Provider Abstraction Layer', () => {
       expect(resolveImageUrl('')).toBe('/wazwan-hero.jpg');
       expect(resolveImageUrl(null)).toBe('/wazwan-hero.jpg');
       expect(resolveImageUrl('https://external.com/img.jpg')).toBe('https://external.com/img.jpg');
-      expect(resolveImageUrl('/images/dishes/test.jpg')).toContain('/images/dishes/test.jpg');
+      expect(resolveImageUrl('/images/dishes/mughal-yakhni.jpg')).toContain('/images/dishes/mughal-yakhni.jpg');
+      // A stored dish image whose file doesn't exist resolves to the illustrated placeholder.
+      expect(resolveImageUrl('/images/dishes/test.jpg')).toContain('/images/dishes/dish-placeholder.webp');
     });
 
     it('should pass transformation options to provider', async () => {

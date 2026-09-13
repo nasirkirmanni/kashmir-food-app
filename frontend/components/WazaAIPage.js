@@ -41,12 +41,17 @@ function WazaAIContent() {
 
 export default function WazaAIPage() {
   return (
-    <Suspense fallback={
+    <>
+      {/* The page heading lives outside the Suspense boundary so it is in the server
+          HTML (the chat UI below renders on the client). */}
+      <h1 className="sr-only">Waza AI — Ask About Kashmiri Food and Travel</h1>
+      <Suspense fallback={
       <div className="min-h-screen w-full flex items-center justify-center bg-[#0B0B0B] text-white/50">
         Loading Waza AI...
       </div>
     }>
       <WazaAIContent />
     </Suspense>
+    </>
   );
 }

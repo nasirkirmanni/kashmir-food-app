@@ -39,12 +39,19 @@ export async function generateStaticParams() {
   return list.map((i) => ({ slug: i.slug }));
 }
 
+// The layout's title template appends " | Wazwan Way", so a search title must fit
+// ~47 characters to stay under ~60. Longer SEO titles keep the part before " — "
+// (the short name the related-itineraries rail shows); og:title keeps the full one.
+function searchTitle(seoTitle) {
+  return seoTitle.length <= 47 ? seoTitle : seoTitle.replace(/ —.*$/, "");
+}
+
 export async function generateMetadata({ params }) {
   const data = await getItinerary(params.slug);
-  if (!data) return { title: "Kashmir Itinerary | Wazwan Way" };
+  if (!data) return { title: "Kashmir Itinerary" };
   const url = `${BASE_URL}/itineraries/${params.slug}`;
   return {
-    title: `${data.meta.seoTitle} | Wazwan Way`,
+    title: searchTitle(data.meta.seoTitle),
     description: data.meta.seoDescription,
     alternates: { canonical: url },
     openGraph: {
@@ -96,7 +103,9 @@ export default async function CanonicalItineraryPage({ params }) {
         <span className="text-white/60">{plan.lengthDays}-day plan</span>
       </nav>
 
-      <ItineraryArtifact plan={plan} planHref="/itinerary-builder" />
+      {/* The generated plan title repeats across presets ("6-Day Summer Kashmir Itinerary
+          for a Couple"); head each canonical page with its own name instead. */}
+      <ItineraryArtifact plan={plan} planHref="/itinerary-builder" title={meta.seoTitle.replace(/ —.*$/, "")} />
 
       {/* Related itineraries (internal linking) */}
       {related.length > 0 && (

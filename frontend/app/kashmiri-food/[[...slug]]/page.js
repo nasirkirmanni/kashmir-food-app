@@ -10,6 +10,16 @@ import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import JsonLd from "@/components/JsonLd";
 import { buildArticleSchema, buildBreadcrumbSchema } from "@/components/JsonLd";
+import { toMetaDescription } from "@/lib/metaText";
+
+// Article markdown often opens with "# <title>", which the page already renders as
+// its <h1>; drop that line so the heading isn't repeated.
+function stripLeadingTitle(markdown, title) {
+  const normalise = (s) => (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  return (markdown || "").replace(/^\s*#\s+([^\n]*)\n/, (line, heading) =>
+    normalise(heading) === normalise(title) ? "" : line
+  );
+}
 
 export function generateStaticParams() {
   const paths = [
@@ -45,28 +55,30 @@ export async function generateMetadata({ params }) {
   }
   const canonicalUrl = `${baseUrl}${canonicalPath}`;
 
+  // Titles carry no brand: the root layout's "%s | Wazwan Way" template adds it,
+  // so each title stays within ~47 characters to keep the result under ~60.
   const METADATA_MAPPING = {
     // Base portal
     base: {
-      title: "Kashmiri Food Guide | Wazwan, Bakery & Street Food | WazwanWay",
+      title: "Kashmiri Food: Wazwan, Bakery & Street Food",
       description: "Explore the authentic culinary traditions of Kashmir. Discover the legendary 36-course royal Wazwan feast, hourly Kandur bakery culture, hot street Tujji, and saffron beverages.",
     },
     // Top-level categories
     categories: {
       wazwan: {
-        title: "Kashmiri Wazwan Feast & Trami Sequence Guide | WazwanWay",
+        title: "Kashmiri Wazwan Feast & Trami Sequence Guide",
         description: "Discover the authentic 36-course Kashmiri Wazwan feast. Learn about the traditional serve sequence, copper Trami etiquette, and classic dishes cooked by master Wazas.",
       },
       beverages: {
-        title: "Kashmiri Beverages | Noon Chai, Kahwa & Babribyol | WazwanWay",
+        title: "Kashmiri Drinks: Noon Chai, Kahwa & Babribyol",
         description: "Explore traditional Kashmiri drinks. Learn the difference between pink Noon Chai, saffron-infused Kahwa, Babribyol, and creamy Lassi.",
       },
       bakery: {
-        title: "Kashmiri Bakery | Girda, Czot & Bakerkhani Bread | WazwanWay",
+        title: "Kashmiri Bakery: Girda, Czot & Bakerkhani",
         description: "Step into the neighborhood Kandur-wan. Discover hourly baked Kashmiri breads like Girda for breakfast, sesame Czochworu, and flaky Bakerkhani.",
       },
       "street-food": {
-        title: "Kashmiri Street Food | Tujji, Harissa & Local Eats | WazwanWay",
+        title: "Kashmiri Street Food: Tujji, Harissa & More",
         description: "Savor the rustic street foods of Srinagar's bazaars. From coal-grilled Tujji mutton skewers to winter Harissa pastes and crispy snacks.",
       },
     },
@@ -74,146 +86,161 @@ export async function generateMetadata({ params }) {
     guides: {
       wazwan: {
         base: {
-          title: "Kashmiri Wazwan Dining & Culinary Guides | WazwanWay",
+          title: "Kashmiri Wazwan Dining & Culinary Guides",
           description: "Comprehensive guides to the traditional Wazwan feast. Understand the cooking methods, history, and sequence.",
         },
         "what-is-wazwan": {
-          title: "What is Wazwan? The Complete Guide to Kashmir's Legendary Feast",
+          title: "What Is Wazwan? Kashmir's Legendary Feast",
           description: "Discover the origins, history, and cultural significance of the legendary 36-course Kashmiri Wazwan feast cooked by traditional Wazas.",
         },
         "dishes-explained": {
-          title: "Wazwan Dishes Explained: The 16 Main Courses | WazwanWay",
+          title: "Wazwan Dishes Explained: The Saat Rang & Beyond",
           description: "A complete guide to the main dishes served in a traditional Trami, from Rista and Gustaba to Tabak Maaz and Lahabi Kebab.",
         },
         "cost-guide": {
-          title: "How Much Does Wazwan Cost? | WazwanWay",
+          title: "How Much Does Wazwan Cost? A Price Guide",
           description: "What does Wazwan cost in Srinagar? A breakdown of restaurant, wedding, and fine dining price ranges — and what's driving them.",
         },
         "vegetarian-wazwan": {
-          title: "Vegetarian Wazwan: What to Expect and What to Order | WazwanWay",
+          title: "Vegetarian Wazwan: What to Expect & Order",
           description: "A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
         },
         etiquette: {
-          title: "Wazwan Dining Etiquette: Tash-t-Næær & Trami Rules | WazwanWay",
+          title: "Wazwan Etiquette: Tash-t-Næær & Trami Rules",
           description: "Master the social dining etiquette of a Kashmiri Wazwan. Learn about sharing the Trami, washing hands, and traditional protocols.",
         },
         "restaurant-vs-wedding-vs-home": {
-          title: "Wazwan: Restaurant vs Wedding vs Home | WazwanWay",
+          title: "Wazwan: Restaurant vs Wedding vs Home",
           description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
         },
         "kashmiri-wazwan-dishes": {
-          title: "Kashmiri Wazwan Dishes: The Ultimate Culinary Guide | WazwanWay",
-          description: "Explore the vast and flavorful world of Kashmiri Wazwan dishes, from the succulent Seekh Kebabs to the delicate Gushtaba."
+          title: "Kashmiri Wazwan Dishes: A Culinary Guide",
+          description: "Explore the vast and flavorful world of Kashmiri Wazwan dishes, from the succulent Seekh Kebabs to the delicate Gushtaba.",
         },
         "rista-vs-gushtaba": {
-          title: "Rista vs Gushtaba: The Twin Meatballs of Kashmir | WazwanWay",
-          description: "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan."
+          title: "Rista vs Gushtaba: Kashmir's Twin Meatballs",
+          description: "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan.",
         },
         "traditional-wazwan-menu": {
-          title: "The Traditional Wazwan Menu: A 36-Course Breakdown | WazwanWay",
-          description: "Explore the complete traditional Wazwan menu, from the opening starters to the final dessert and Kahwa."
+          title: "Traditional Wazwan Menu: A 36-Course Breakdown",
+          description: "Explore the complete traditional Wazwan menu, from the opening starters to the final dessert and Kahwa.",
         },
         "kashmiri-wedding-food": {
-          title: "Kashmiri Wedding Food: The Grandeur of Wazwan | WazwanWay",
-          description: "A deep dive into how food dictates the flow, scale, and prestige of a traditional Kashmiri wedding."
+          title: "Kashmiri Wedding Food: The Grandeur of Wazwan",
+          description: "A deep dive into how food dictates the flow, scale, and prestige of a traditional Kashmiri wedding.",
         },
         "wazwan-culture": {
-          title: "Wazwan Culture: The Social Fabric of Kashmir | WazwanWay",
-          description: "How the shared experience of Wazwan binds the Kashmiri community together, transcending just culinary boundaries."
+          title: "Wazwan Culture: The Social Fabric of Kashmir",
+          description: "How the shared experience of Wazwan binds the Kashmiri community together, transcending just culinary boundaries.",
         },
         "waza-meaning": {
-          title: "What Does Waza Mean? The Master Chefs of Kashmir | WazwanWay",
-          description: "Explore the history, skills, and societal role of the Wazas, the master chefs who guard the secrets of Kashmiri Wazwan."
+          title: "What Does Waza Mean? Kashmir's Master Chefs",
+          description: "Explore the history, skills, and societal role of the Wazas, the master chefs who guard the secrets of Kashmiri Wazwan.",
         },
         "how-wazwan-is-served": {
-          title: "How Wazwan is Served: The Sequence and Etiquette | WazwanWay",
-          description: "A detailed look at the highly structured and ritualistic sequence of serving a traditional Kashmiri Wazwan."
+          title: "How Wazwan Is Served: Sequence & Etiquette",
+          description: "A detailed look at the highly structured and ritualistic sequence of serving a traditional Kashmiri Wazwan.",
         },
         "trami-in-kashmir": {
-          title: "The Trami: The Sacred Platter of Kashmir | WazwanWay",
-          description: "Learn about the Trami, the large copper platter that sits at the center of the Wazwan experience and Kashmiri communal dining."
+          title: "The Trami: The Sacred Platter of Kashmir",
+          description: "Learn about the Trami, the large copper platter that sits at the center of the Wazwan experience and Kashmiri communal dining.",
         },
         "best-wazwan-dishes": {
-          title: "Top 5 Best Wazwan Dishes You Must Try | WazwanWay",
-          description: "A curated list of the absolute best Wazwan dishes that every visitor to Kashmir must experience."
+          title: "Top 5 Best Wazwan Dishes You Must Try",
+          description: "A curated list of the absolute best Wazwan dishes that every visitor to Kashmir must experience.",
         },
         "history-of-wazwan": {
-          title: "History of Wazwan: The Genesis of Kashmir's Royal Feast | WazwanWay",
-          description: "Trace the incredible journey of Wazwan from the courts of Timur in Samarkand to the grand weddings of modern Kashmir."
+          title: "History of Wazwan: From Timur to Modern Kashmir",
+          description: "Trace the incredible journey of Wazwan from the courts of Timur in Samarkand to the grand weddings of modern Kashmir.",
         },
         "rista-deep-dive": {
-          title: "Rista: Origins, Ingredients & Preparation | WazwanWay",
-          description: "A deep dive into Rista, the saffron-infused, hand-pounded meatball that forms the spicy heart of the Wazwan."
+          title: "Rista: Origins, Ingredients & Preparation",
+          description: "A deep dive into Rista, the saffron-infused, hand-pounded meatball that forms the spicy heart of the Wazwan.",
         },
         "gushtaba-the-kings-dish": {
-          title: "Gushtaba: The King's Dish and the Grand Finale | WazwanWay",
-          description: "Why Gushtaba is considered the absolute pinnacle of Kashmiri culinary artistry, and why it must always be served last."
+          title: "Gushtaba: The King's Dish and the Grand Finale",
+          description: "Why Gushtaba is considered the absolute pinnacle of Kashmiri culinary artistry, and why it must always be served last.",
         },
         "rogan-josh-explained": {
-          title: "Rogan Josh Explained: The Identity of Kashmiri Cuisine | WazwanWay",
-          description: "Uncover the truth behind authentic Rogan Josh, a dish whose global fame has led to countless misconceptions about its true ingredients."
+          title: "Rogan Josh Explained: Authentic Ingredients",
+          description: "Uncover the truth behind authentic Rogan Josh, a dish whose global fame has led to countless misconceptions about its true ingredients.",
         },
         "wazwan-vs-mughlai": {
-          title: "Wazwan vs Mughlai Cuisine: Understanding the Differences | WazwanWay",
-          description: "A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India."
-        }
+          title: "Wazwan vs Mughlai Cuisine: Key Differences",
+          description: "A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India.",
+        },
       },
       bakery: {
         base: {
-          title: "Kashmiri Bakery & Bread Culture Guides | WazwanWay",
+          title: "Kashmiri Bakery & Bread Culture Guides",
           description: "Guides to the neighborhood Kandur-wan bakery tradition in Kashmir.",
         },
         "intro-to-bakery": {
-          title: "Introduction to Kashmiri Kandur-wan Bakery Culture | WazwanWay",
+          title: "Intro to Kashmiri Kandur-wan Bakery Culture",
           description: "Discover why Kashmiris never bake bread at home. Learn about the community wood-fired tandoor ovens and morning Kandur rituals.",
         },
         "types-of-bread": {
-          title: "Every Kashmiri Bread Explained: Girda to Bakerkhani | WazwanWay",
+          title: "Kashmiri Breads Explained: Girda to Bakerkhani",
           description: "A glossary of all traditional Kashmiri breads including Girda, Czot, Czochworu, Bakerkhani, and Sheermal.",
         },
         "breakfast-guide": {
-          title: "Kashmiri Breakfast Guide: Breads, Chai & Pairings | WazwanWay",
+          title: "Kashmiri Breakfast: Breads, Chai & Pairings",
           description: "Start your day like a local in Kashmir. The ultimate guide to morning flatbreads, butter pairings, and hot pink Noon Chai.",
         },
       },
       beverages: {
         base: {
-          title: "Kashmiri Beverages & Tea Brewing Guides | WazwanWay",
+          title: "Kashmiri Beverages & Tea Brewing Guides",
           description: "Guides to authentic Kashmiri hot and cold drinks.",
         },
         "kahwa-explained": {
-          title: "Kashmiri Kahwa Guide: Ingredients, Benefits & Recipe | WazwanWay",
+          title: "Kashmiri Kahwa: Ingredients, Benefits & Recipe",
           description: "Learn how to brew authentic green tea Kahwa with saffron, green cardamom, cinnamon, and crushed almonds.",
         },
         "noon-chai-explained": {
-          title: "Kashmiri Noon Chai: The Pink Salt Tea Guide | WazwanWay",
+          title: "Kashmiri Noon Chai: The Pink Salt Tea Guide",
           description: "Discover the science and culture behind Kashmiri pink tea. Learn the ingredients, brewing method, and salty taste.",
         },
         "kahwa-vs-noon-chai": {
-          title: "Kahwa vs. Noon Chai: Differences & Occasions | WazwanWay",
+          title: "Kahwa vs. Noon Chai: Differences & Occasions",
           description: "Compare Kashmir's two iconic teas. Learn when to serve sweet saffron Kahwa versus salty pink Noon Chai.",
         },
       },
       "street-food": {
         base: {
-          title: "Kashmiri Street Food & Bazaar Dining Guides | WazwanWay",
+          title: "Kashmiri Street Food & Bazaar Dining Guides",
           description: "Guides to the street foods and local bazaars of Kashmir.",
         },
         intro: {
-          title: "Kashmiri Street Food Culture: An Introduction | WazwanWay",
+          title: "Kashmiri Street Food Culture: An Introduction",
           description: "An introduction to the street food culture of Srinagar. Learn where to find the best local delicacies and snacks.",
         },
         "must-try-foods": {
-          title: "10 Must-Try Kashmiri Street Foods: Tujji to Monjji | WazwanWay",
+          title: "10 Must-Try Kashmiri Street Foods",
           description: "The ultimate bucket list of Kashmiri street foods. Try coal-grilled Tujji skewers, crispy Monjji fritters, and Masala Lavas.",
         },
         "safety-tips": {
-          title: "Srinagar Street Food Safety & Hygiene Guide | WazwanWay",
+          title: "Srinagar Street Food Safety & Hygiene Guide",
           description: "Tips for enjoying Kashmiri street food safely. Learn how to select vendors and avoid common travel stomach issues.",
         },
       },
     },
   };
+
+  // Self-canonical plus this page's og:url and the default share image. Next.js
+  // fills og:title and og:description from the title and description.
+  const pageMetadata = (meta, { ogType = "website", robots } = {}) => ({
+    ...(meta?.title && { title: meta.title }),
+    ...(meta?.description && { description: toMetaDescription(meta.description) }),
+    ...(robots && { robots }),
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      type: ogType,
+      url: canonicalUrl,
+      siteName: "Wazwan Way",
+      images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+    },
+  });
 
   // Check if it matches a guide article
   if (slug.length === 3 && slug[1] === "guide") {
@@ -222,20 +249,18 @@ export async function generateMetadata({ params }) {
     const guide = wazwanGuides.find((g) => g.slug === guideSlug && g.category === category);
     if (guide) {
       const metaOverride = METADATA_MAPPING.guides[category]?.[guideSlug];
-      return {
-        title: metaOverride?.title || guide.title,
-        description: metaOverride?.description || guide.description,
-        alternates: { canonical: canonicalUrl },
-      };
+      return pageMetadata(
+        {
+          title: metaOverride?.title || guide.title,
+          description: toMetaDescription(metaOverride?.description || guide.description),
+        },
+        { ogType: "article" }
+      );
     }
   }
 
   if (slug.length === 0) {
-    return {
-      title: METADATA_MAPPING.base.title,
-      description: METADATA_MAPPING.base.description,
-      alternates: { canonical: canonicalUrl },
-    };
+    return pageMetadata(METADATA_MAPPING.base);
   }
 
   const category = slug[0];
@@ -245,31 +270,22 @@ export async function generateMetadata({ params }) {
   }
 
   if (slug.length === 1) {
-    const meta = METADATA_MAPPING.categories[category];
-    return {
-      title: meta?.title,
-      description: meta?.description,
-      alternates: { canonical: canonicalUrl },
-    };
+    return pageMetadata(METADATA_MAPPING.categories[category]);
   }
 
   if (slug.length === 2 && slug[1] === "guide") {
-    const meta = METADATA_MAPPING.guides[category]?.base;
-    return {
-      title: meta?.title,
-      description: meta?.description,
-      alternates: { canonical: canonicalUrl },
-    };
+    // A category guide index with no articles renders an empty list, so it stays
+    // out of the index until wazwanGuides has an article in that category.
+    const hasArticles = wazwanGuides.some((g) => g.category === category);
+    return pageMetadata(
+      METADATA_MAPPING.guides[category]?.base,
+      hasArticles ? {} : { robots: { index: false, follow: true } }
+    );
   }
 
   if (slug.length === 3 && slug[1] === "guide") {
     const guideSlug = slug[2];
-    const meta = METADATA_MAPPING.guides[category]?.[guideSlug];
-    return {
-      title: meta?.title,
-      description: meta?.description,
-      alternates: { canonical: canonicalUrl },
-    };
+    return pageMetadata(METADATA_MAPPING.guides[category]?.[guideSlug]);
   }
 
   return {};
@@ -380,7 +396,8 @@ export default function Page({ params }) {
           <div className="max-w-none text-white/70 leading-relaxed font-body pb-16 wazwan-article-body">
             <ReactMarkdown
               components={{
-                h1: ({node, ...props}) => <h1 className="font-display text-3xl sm:text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
+                // Any other top-level markdown heading renders as <h2>: the page has one <h1>.
+                h1: ({node, ...props}) => <h2 className="font-display text-3xl sm:text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
                 h2: ({node, ...props}) => <h2 className="font-display text-2xl sm:text-3xl text-[var(--saffron)] mt-12 mb-6" {...props} />,
                 h3: ({node, ...props}) => <h3 className="font-display text-xl sm:text-2xl text-white mt-10 mb-4" {...props} />,
                 p: ({node, ...props}) => <p className="mb-6 text-sm sm:text-base md:text-lg leading-relaxed text-white/70" {...props} />,
@@ -406,7 +423,7 @@ export default function Page({ params }) {
                 }
                 
                 const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedArticles.map(a => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`).join('\n');
-                return article.content + relatedMarkdown;
+                return stripLeadingTitle(article.content, article.title) + relatedMarkdown;
               })()}
             </ReactMarkdown>
             

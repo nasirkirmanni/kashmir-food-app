@@ -63,17 +63,10 @@ const nextConfig = {
         permanent: true,
         destination: '/kashmiri-food/street-food',
       },
-      // Merged duplicate dish slugs (2026-07 catalog cleanup)
-      {
-        source: '/dishes/tsoek-wangangan',
-        permanent: true,
-        destination: '/dishes/tschok-wangan',
-      },
-      {
-        source: '/dishes/rajma-t-gogji',
-        permanent: true,
-        destination: '/dishes/razma-goagji',
-      },
+      // Merged duplicate dish slugs (2026-07 catalog cleanup). Only redirects whose
+      // destination is still a live dish belong here: tsoek-wangangan, rajma-t-gogji
+      // and syoon pointed at dishes that were later removed from the catalogue, so
+      // those old URLs now return a plain 404 instead of redirecting to one.
       {
         source: '/dishes/wazwaan-mushroom',
         permanent: true,
@@ -84,15 +77,18 @@ const nextConfig = {
         permanent: true,
         destination: '/dishes/seekh-kebab',
       },
-      {
-        source: '/dishes/syoon',
-        permanent: true,
-        destination: '/dishes/syun',
-      },
     ];
   },
   async headers() {
     return [
+      // Only wazwanway.com should be indexed. The same deployment is also reachable
+      // at kashmir-food-app.vercel.app and at preview URLs; those hosts send noindex
+      // so they can't compete with (or duplicate) the production domain.
+      {
+        source: '/:path*',
+        missing: [{ type: 'host', value: '(www\\.)?wazwanway\\.com' }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
       {
         source: '/(.*)',
         headers: [

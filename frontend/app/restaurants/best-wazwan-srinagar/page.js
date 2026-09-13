@@ -3,16 +3,37 @@ import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { restaurantGuides } from "@/data/restaurantGuides";
 
+const CANONICAL_URL = "https://wazwanway.com/restaurants/best-wazwan-srinagar";
+
 export const metadata = {
-  title: "Best Kashmiri Food in Srinagar: Wazwan, Bakery, Tea, and Street Food",
+  // The headline is too long for search results once the restaurants layout's
+  // template appends " | Wazwan Way"; og:title and twitter:title keep it in full.
+  title: "Best Kashmiri Food in Srinagar: A Local Guide",
   description: "Where to eat Wazwan, which bakery to visit, the best spot for Noon Chai and Kahwa, and where Srinagar's street food actually lives — a locally grounded guide.",
   alternates: {
-    canonical: "https://wazwanway.com/restaurants/best-wazwan-srinagar",
+    canonical: CANONICAL_URL,
+  },
+  // Own og/twitter tags instead of the /restaurants hub's, inherited from the layout.
+  openGraph: {
+    type: "article",
+    url: CANONICAL_URL,
+    title: restaurantGuides[0].title,
+    siteName: "Wazwan Way",
+    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: restaurantGuides[0].title,
+    images: ["/wazwan-hero.jpg"],
   },
 };
 
 export default function BestWazwanSrinagarPage() {
   const article = restaurantGuides[0]; // best-wazwan-srinagar is the first guide
+  // The markdown opens with the same headline the page renders as its <h1>.
+  const body = article.content.replace(/^\s*#\s+([^\n]*)\n/, (line, heading) =>
+    heading.trim() === article.title.trim() ? "" : line
+  );
 
   return (
     <div className="min-h-screen pt-28 pb-32 px-4 sm:px-6 flex flex-col items-center page-shell relative">
@@ -65,7 +86,7 @@ export default function BestWazwanSrinagarPage() {
               blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-lg sm:text-xl" {...props} />
             }}
           >
-            {article.content}
+            {body}
           </ReactMarkdown>
         </div>
       </article>

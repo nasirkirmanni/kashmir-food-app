@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/generate-content-image-manifest.mjs",
     "dev": "next dev --turbo",
+    "prebuild": "node scripts/generate-content-image-manifest.mjs && node scripts/check-image-refs.mjs",
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest",
     "cap-copy": "npx cap copy",
-    "cap-sync": "npx cap sync"
+    "cap-sync": "npx cap sync",
+    "check:images": "node scripts/check-image-refs.mjs --with-backend"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.0",

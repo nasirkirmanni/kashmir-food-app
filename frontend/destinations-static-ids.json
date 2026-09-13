@@ -1,102 +1,127 @@
 [
   {
-    "id": "6a5247d82519b282b5997703",
-    "slug": "srinagar"
-  },
-  {
-    "id": "6a5247d82519b282b599770d",
-    "slug": "kokernag"
-  },
-  {
-    "id": "6a5247d82519b282b5997715",
-    "slug": "pari-mahal"
-  },
-  {
-    "id": "6a5247d82519b282b599771a",
-    "slug": "harwan"
-  },
-  {
-    "id": "6a5247d82519b282b5997706",
-    "slug": "sonamarg"
-  },
-  {
-    "id": "6a5247d82519b282b5997707",
-    "slug": "yusmarg"
-  },
-  {
-    "id": "6a5247d82519b282b599770a",
-    "slug": "aru-valley"
-  },
-  {
-    "id": "6a5247d82519b282b5997711",
-    "slug": "daksum"
-  },
-  {
-    "id": "6a5247d82519b282b599770e",
-    "slug": "verinag"
+    "id": "6a5247d82519b282b599770f",
+    "slug": "achabal",
+    "updatedAt": "2026-07-11T16:05:39.785Z"
   },
   {
     "id": "6a5247d82519b282b5997718",
-    "slug": "aharbal-waterfall"
+    "slug": "aharbal-waterfall",
+    "updatedAt": "2026-07-11T13:40:40.255Z"
+  },
+  {
+    "id": "6a5247d82519b282b599770a",
+    "slug": "aru-valley",
+    "updatedAt": "2026-07-17T09:20:27.593Z"
   },
   {
     "id": "6a5247d82519b282b5997719",
-    "slug": "astanmarg"
-  },
-  {
-    "id": "6a5247d82519b282b5997716",
-    "slug": "shalimar-bagh"
-  },
-  {
-    "id": "6a5247d82519b282b5997717",
-    "slug": "chatpal"
-  },
-  {
-    "id": "6a5247d82519b282b5997713",
-    "slug": "wular-lake"
-  },
-  {
-    "id": "6a5247d82519b282b599770b",
-    "slug": "betaab-valley"
-  },
-  {
-    "id": "6a5247d82519b282b5997714",
-    "slug": "manasbal-lake"
-  },
-  {
-    "id": "6a5247d82519b282b5997705",
-    "slug": "pahalgam"
-  },
-  {
-    "id": "6a5247d82519b282b5997708",
-    "slug": "gurez-valley"
-  },
-  {
-    "id": "6a5247d82519b282b599770c",
-    "slug": "doodhpathri"
+    "slug": "astanmarg",
+    "updatedAt": "2026-07-11T13:40:40.255Z"
   },
   {
     "id": "6a5247d82519b282b5997712",
-    "slug": "bangus-valley"
+    "slug": "bangus-valley",
+    "updatedAt": "2026-07-17T09:20:26.392Z"
   },
   {
-    "id": "6a5247d82519b282b599770f",
-    "slug": "achabal"
+    "id": "6a5247d82519b282b599770b",
+    "slug": "betaab-valley",
+    "updatedAt": "2026-07-17T09:20:27.463Z"
   },
   {
-    "id": "6a5247d82519b282b5997709",
-    "slug": "lolab-valley"
+    "id": "6a5247d82519b282b5997717",
+    "slug": "chatpal",
+    "updatedAt": "2026-07-11T13:40:40.255Z"
   },
   {
-    "id": "6a5247d82519b282b599771b",
-    "slug": "tarsar-marsar"
+    "id": "6a5247d82519b282b5997711",
+    "slug": "daksum",
+    "updatedAt": "2026-07-11T16:05:39.919Z"
+  },
+  {
+    "id": "6a5247d82519b282b599770c",
+    "slug": "doodhpathri",
+    "updatedAt": "2026-07-17T09:20:26.122Z"
   },
   {
     "id": "6a5247d82519b282b5997704",
-    "slug": "gulmarg"
+    "slug": "gulmarg",
+    "updatedAt": "2026-07-17T09:20:25.725Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997708",
+    "slug": "gurez-valley",
+    "updatedAt": "2026-07-17T09:20:26.524Z"
+  },
+  {
+    "id": "6a5247d82519b282b599771a",
+    "slug": "harwan",
+    "updatedAt": "2026-07-11T13:40:40.255Z"
+  },
+  {
+    "id": "6a5247d82519b282b599770d",
+    "slug": "kokernag",
+    "updatedAt": "2026-07-11T16:05:39.624Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997709",
+    "slug": "lolab-valley",
+    "updatedAt": "2026-07-17T09:20:26.662Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997714",
+    "slug": "manasbal-lake",
+    "updatedAt": "2026-07-17T09:20:28.122Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997705",
+    "slug": "pahalgam",
+    "updatedAt": "2026-07-17T09:20:25.992Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997715",
+    "slug": "pari-mahal",
+    "updatedAt": "2026-07-11T16:05:40.175Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997716",
+    "slug": "shalimar-bagh",
+    "updatedAt": "2026-07-11T16:05:40.241Z"
   },
   {
     "id": "6a5247d82519b282b5997710",
-    "slug": "sinthan-top"
+    "slug": "sinthan-top",
+    "updatedAt": "2026-07-11T16:05:39.852Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997706",
+    "slug": "sonamarg",
+    "updatedAt": "2026-07-17T09:20:25.852Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997703",
+    "slug": "srinagar",
+    "updatedAt": "2026-07-17T09:20:25.578Z"
+  },
+  {
+    "id": "6a5247d82519b282b599771b",
+    "slug": "tarsar-marsar",
+    "updatedAt": "2026-07-11T13:40:40.255Z"
+  },
+  {
+    "id": "6a5247d82519b282b599770e",
+    "slug": "verinag",
+    "updatedAt": "2026-07-11T16:05:39.689Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997713",
+    "slug": "wular-lake",
+    "updatedAt": "2026-07-17T09:20:28.245Z"
+  },
+  {
+    "id": "6a5247d82519b282b5997707",
+    "slug": "yusmarg",
+    "updatedAt": "2026-07-17T09:20:26.243Z"
   }
 ]

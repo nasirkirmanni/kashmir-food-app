@@ -1,7 +1,7 @@
 import MyItineraryClient from "./MyItineraryClient";
 
 export const metadata = {
-  title: "My Itinerary | Wazwan Way",
+  title: "My Itinerary",
   // Personalized/owned itineraries are private — never indexed.
   robots: { index: false, follow: false },
 };

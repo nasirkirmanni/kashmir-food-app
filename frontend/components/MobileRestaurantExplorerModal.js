@@ -58,10 +58,10 @@ export default function MobileRestaurantExplorerModal({
         {locationTabs.map((location, i) => {
           const count = locationCounts[location] || 0;
           const locationImages = {
-            Srinagar: "/images/Destinations/optimized/Srinagar-400.avif",
-            Gulmarg: "/images/Destinations/optimized/Gulmarg-400.avif",
-            Pahalgam: "/images/Destinations/optimized/Pahalgam-400.avif",
-            Sonamarg: "/images/Destinations/optimized/Sonmarg-400.avif"
+            Srinagar: "/images/destinations/srinagar.png",
+            Gulmarg: "/images/destinations/gulmarg.png",
+            Pahalgam: "/images/destinations/pahalgam.png",
+            Sonamarg: "/images/destinations/sonamarg.png"
           };
           const imgUrl = locationImages[location] || "/wazwan-hero.jpg";
 

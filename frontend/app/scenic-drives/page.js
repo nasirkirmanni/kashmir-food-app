@@ -7,7 +7,7 @@ import { scenicDrives } from '@/data/scenicDrivesData';
 export const metadata = {
   title: "Scenic Drives | Kashmir Road Trip Atlas",
   description:
-    "Kashmir's most beautiful road trips, mapped — Srinagar to Sonamarg, Gulmarg, Doodhpathri, and the Leh highway, with distances, road conditions, and elevation profiles.",
+    "Kashmir's most beautiful road trips, mapped: Srinagar to Sonamarg, Gulmarg, Doodhpathri and Leh, with distances, road conditions and elevation profiles.",
   alternates: { canonical: "https://wazwanway.com/scenic-drives" },
   openGraph: {
     title: "Scenic Drives | Wazwan Way",

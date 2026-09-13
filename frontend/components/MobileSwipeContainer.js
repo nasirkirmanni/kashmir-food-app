@@ -1,41 +1,33 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { usePathname, useSelectedLayoutSegments } from "next/navigation";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
 import { useAuth } from "@/context/AuthContext";
-import { motion, AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
 
-// Eagerly loaded: Home screen (index 0) — always rendered first
-import HomePageClient from "@/components/HomePageClient";
-import HomePageHero from "@/components/HomePageHero";
+// Swipe screens other than the current route's own page are client-only copies.
+// They mount after hydration, on mobile, and only when needed — never on the
+// server — so every URL's HTML contains its own page exactly once and never
+// another route's content (e.g. the homepage hero on a dish page).
+const HomePageHero = dynamic(() => import("@/components/HomePageHero"), { ssr: false });
+const HomePageClient = dynamic(() => import("@/components/HomePageClient"), { ssr: false });
+const RestaurantsPage = dynamic(() => import("@/app/restaurants/page"), { ssr: false });
+const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: false });
+const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: false });
+const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: false });
+const LoginPage = dynamic(() => import("@/app/login/page"), { ssr: false });
 
-// Lazy-loaded: Only fetched when user navigates to them
-const RestaurantsPage = dynamic(() => import("@/app/restaurants/page"), { ssr: true });
-const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: true });
-const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: true });
-const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: true });
-const LoginPage = dynamic(() => import("@/app/login/page"), { ssr: true });
+// Screen order of the mobile swipe deck (array index = screen index).
+const TAB_ROUTES = ["/", "/restaurants", "/waza-ai", "/kashmiri-food", "/profile"];
+const LAST_SCREEN = TAB_ROUTES.length - 1;
 
-import { usePathname } from "next/navigation";
-
-const routeIndexMap = {
-  "/": 0,
-  "/restaurants": 1,
-  "/waza-ai": 2,
-  "/kashmiri-food": 3,
-  "/dishes": 3,
-  "/profile": 4,
-};
-
-// Auth routes render their own dedicated page (via the overlay `children` below),
-// not the screen-5 profile/login swipe copy. Previously "/login" was also listed
-// in routeIndexMap + isSwipeableRoute, which forced initialIndex=4 on direct loads
-// of /login — mounting screen 3 (KashmiriFoodClient) and screen 4 (LoginPage) as
-// hidden adjacent screens *and* leaving the screen-swipe touch handlers live on
-// what's supposed to be a static auth page (dragging on /login revealed the
-// adjacent screen). Traced: this was the confirmed cause of both the slow
-// loadEvent and the "broken UI" (swipe-leak) symptom on mobile /login.
+// Auth routes render their own dedicated page (as the route content below), not
+// the screen-5 profile/login swipe copy. Previously "/login" was also treated as
+// a tab, which forced initialIndex=4 on direct loads of /login — mounting screen 3
+// (KashmiriFoodClient) and screen 4 (LoginPage) as hidden adjacent screens *and*
+// leaving the screen-swipe touch handlers live on what's supposed to be a static
+// auth page (dragging on /login revealed the adjacent screen).
 const AUTH_ROUTES = [
   "/login",
   "/signup",
@@ -44,47 +36,80 @@ const AUTH_ROUTES = [
   "/forgot-password",
 ];
 
+const SWIPE_TRANSITION = "transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+// Last scroll offset of each swipe screen for this session, so a tab page that
+// remounts (e.g. after returning from a detail page) reopens where it was left.
+const screenScrollMemory = new Map();
+
+function routeFromSegments(segments) {
+  const parts = (segments || []).filter(Boolean);
+  return parts.length ? `/${parts.join("/")}` : "/";
+}
+
 export default function MobileSwipeContainer({ children, coverDishes = [] }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   const { user } = useAuth();
   const pathname = usePathname();
+  // The URL and the rendered page can differ: a swipe updates the URL with
+  // history.pushState, which Next.js reflects in usePathname() while keeping the
+  // current route tree. The selected segments identify the page in `children`.
+  const childrenRoute = routeFromSegments(useSelectedLayoutSegments());
+  const childrenTab = TAB_ROUTES.indexOf(childrenRoute);
+  const isSwipeableRoute = TAB_ROUTES.includes(pathname);
   const authRoute = AUTH_ROUTES.includes(pathname);
-  const initialIndex = pathname in routeIndexMap ? routeIndexMap[pathname] : 0;
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Track which screens have been visited so they stay mounted after first load
-  const [visitedScreens, setVisitedScreens] = useState(() => {
-    const initialSet = new Set([0]);
-    if (initialIndex !== 0) {
-      initialSet.add(initialIndex);
-      // Boundary safety check for Section 1 B:
-      if (initialIndex - 1 >= 0) initialSet.add(initialIndex - 1);
-      if (initialIndex + 1 <= 4) initialSet.add(initialIndex + 1);
-    }
-    return initialSet;
-  });
+  // The deck exists only after hydration on mobile tab routes. Server HTML and
+  // desktop always render just `children`, in normal document flow.
+  const deckActive = mounted && isMobile && isSwipeableRoute;
+  // On a tab route the page itself fills its screen slot inside the deck.
+  const routeInDeck = deckActive && childrenTab !== -1;
 
-  // Mark current and adjacent screens as visited whenever activeIndex changes
+  // Once shown, the deck stays mounted (hidden) so visited screens keep their
+  // state and scroll position while the user is on a detail page.
+  const [deckMounted, setDeckMounted] = useState(false);
   useEffect(() => {
-    setVisitedScreens(prev => {
+    if (deckActive) setDeckMounted(true);
+  }, [deckActive]);
+  const showDeck = deckActive || deckMounted;
+
+  // Neighbouring screens preload only after the first user interaction, so
+  // rendering a single URL (as a crawler does) never mounts other screens.
+  const [hasInteracted, setHasInteracted] = useState(false);
+  useEffect(() => {
+    if (hasInteracted) return undefined;
+    const markInteracted = () => setHasInteracted(true);
+    const options = { capture: true, passive: true };
+    const events = ["touchstart", "pointerdown", "keydown", "wheel"];
+    events.forEach((type) => window.addEventListener(type, markInteracted, options));
+    return () => events.forEach((type) => window.removeEventListener(type, markInteracted, options));
+  }, [hasInteracted]);
+
+  // Track which screens have been visited so they stay mounted after first load.
+  const [visitedScreens, setVisitedScreens] = useState(() => new Set());
+  useEffect(() => {
+    if (!deckActive) return;
+    setVisitedScreens((prev) => {
       const next = new Set(prev);
       next.add(activeIndex);
-      // Also preload adjacent screen
-      if (activeIndex > 0) next.add(activeIndex - 1);
-      if (activeIndex < 4) next.add(activeIndex + 1);
-      if (next.size === prev.size) return prev; // no change
-      return next;
+      if (hasInteracted) {
+        if (activeIndex > 0) next.add(activeIndex - 1);
+        if (activeIndex < LAST_SCREEN) next.add(activeIndex + 1);
+      }
+      return next.size === prev.size ? prev : next;
     });
-  }, [activeIndex]);
+  }, [deckActive, activeIndex, hasInteracted]);
 
-  // Helper: should a screen be mounted?
-  const shouldMount = useCallback((index) => visitedScreens.has(index), [visitedScreens]);
-
-  const containerRef = useRef(null);
+  const rootRef = useRef(null);
+  const deckRef = useRef(null);
+  const routeRef = useRef(null);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
   const startYRef = useRef(0);
@@ -92,55 +117,92 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
   const rafIdRef = useRef(null);
   const currentTranslateRef = useRef(0);
   const lastTouchTimeRef = useRef(0);
-  const screenWidthRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 375);
-  const isFirstRenderRef = useRef(true);
+  const screenWidthRef = useRef(typeof window !== "undefined" ? window.innerWidth : 375);
+  const deckPositionedRef = useRef(false);
+  const routeEnteredDeckRef = useRef(false);
+  const routeInDeckRef = useRef(false);
+  const childrenTabRef = useRef(childrenTab);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const updateWidth = () => { 
+    const updateWidth = () => {
       requestAnimationFrame(() => {
-        screenWidthRef.current = document.documentElement.clientWidth; 
+        screenWidthRef.current = document.documentElement.clientWidth;
       });
     };
     updateWidth(); // Call immediately on mount to ensure correct width
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // Apply transition when activeIndex changes from navigation taps
-  useEffect(() => {
-    if (!isMobile || !containerRef.current) return;
-    const container = containerRef.current;
-    
-    // Only apply transition if we aren't dragging
-    if (!isDraggingRef.current) {
-      if (isFirstRenderRef.current) {
-        container.style.transition = 'none';
-        isFirstRenderRef.current = false;
-      } else {
-        container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-      }
-      currentTranslateRef.current = -activeIndex * screenWidthRef.current;
-      container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+  // Moves the deck; when the route page fills a slot it moves in lockstep.
+  const applyTranslate = useCallback((px, transition) => {
+    const deck = deckRef.current;
+    const route = routeInDeckRef.current ? routeRef.current : null;
+    if (deck) {
+      if (transition !== undefined) deck.style.transition = transition;
+      deck.style.transform = `translate3d(${px}px, 0, 0)`;
     }
-  }, [activeIndex, isMobile]);
+    if (route) {
+      if (transition !== undefined) route.style.transition = transition;
+      route.style.transform = `translate3d(${px + childrenTabRef.current * screenWidthRef.current}px, 0, 0)`;
+    }
+  }, []);
 
+  // Position the deck (and the route page) for the active screen before paint.
+  useIsomorphicLayoutEffect(() => {
+    const wasInDeck = routeInDeckRef.current;
+    routeInDeckRef.current = routeInDeck;
+    childrenTabRef.current = childrenTab;
+    const route = routeRef.current;
 
+    if (route && !routeInDeck) {
+      route.style.transform = "";
+      route.style.transition = "";
+    }
+    if (!deckActive) {
+      deckPositionedRef.current = false;
+      return;
+    }
+    if (route && routeInDeck && !wasInDeck) {
+      // Entering the deck: keep the reading position — the window scroll on first
+      // load, or the screen's remembered offset when returning to it.
+      const remembered = screenScrollMemory.get(childrenTab);
+      route.scrollTop = remembered ?? (routeEnteredDeckRef.current ? 0 : window.scrollY);
+      routeEnteredDeckRef.current = true;
+    }
+    if (isDraggingRef.current) return;
+    currentTranslateRef.current = -activeIndex * screenWidthRef.current;
+    applyTranslate(currentTranslateRef.current, deckPositionedRef.current ? SWIPE_TRANSITION : "none");
+    deckPositionedRef.current = true;
+  }, [deckActive, routeInDeck, childrenTab, activeIndex, showDeck, applyTranslate]);
 
-  // Touch logic based on explicit prompt instructions
+  // Remember each screen's scroll offset (scroll events don't bubble; capture them).
   useEffect(() => {
-    if (!isMobile || !containerRef.current) return;
-    const container = containerRef.current;
+    const root = rootRef.current;
+    if (!root) return undefined;
+    const onScroll = (e) => {
+      const index = e.target?.dataset?.screenIndex;
+      if (index !== undefined) screenScrollMemory.set(Number(index), e.target.scrollTop);
+    };
+    root.addEventListener("scroll", onScroll, { capture: true, passive: true });
+    return () => root.removeEventListener("scroll", onScroll, { capture: true });
+  }, []);
+
+  // Touch logic. Listeners sit on the root so gestures that start on the route
+  // page (outside the deck element) swipe too.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!deckActive || !root) return undefined;
 
     const updateTransform = () => {
-      if (containerRef.current && isDraggingRef.current) {
-        containerRef.current.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+      if (isDraggingRef.current) {
+        applyTranslate(currentTranslateRef.current);
       }
       rafIdRef.current = null;
     };
 
     const onStart = (e) => {
-      if (e.target.closest('[data-explore-carousel]') || document.body.classList.contains('restaurant-modal-open')) return;
+      if (e.target.closest("[data-explore-carousel]") || document.body.classList.contains("restaurant-modal-open")) return;
 
       // Inner horizontal scrollers (e.g. dish strips) own their own gestures —
       // let them handle touchstart/touchmove natively instead of the screen-swiper.
@@ -152,26 +214,23 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
       lastTouchTimeRef.current = Date.now();
       isDraggingRef.current = true;
       isHorizontalDragRef.current = null;
-      container.style.transition = 'none';
-      
+      if (deckRef.current) deckRef.current.style.transition = "none";
+      if (routeInDeckRef.current && routeRef.current) routeRef.current.style.transition = "none";
+
       // Paint reduction: toggle dragging class on body
-      document.body.classList.add('is-dragging');
+      document.body.classList.add("is-dragging");
     };
 
     const onMove = (e) => {
       if (!isDraggingRef.current) return;
-      
+
       const deltaX = e.touches[0].clientX - startXRef.current;
       const deltaY = e.touches[0].clientY - startYRef.current;
 
       // Determine drag direction after a small threshold to avoid accidental swipes
       if (isHorizontalDragRef.current === null) {
         if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
-          if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            isHorizontalDragRef.current = true;
-          } else {
-            isHorizontalDragRef.current = false;
-          }
+          isHorizontalDragRef.current = Math.abs(deltaX) > Math.abs(deltaY);
         } else {
           // Wait for more movement before deciding
           return;
@@ -183,220 +242,160 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
         return;
       }
 
-      // If horizontal drag, move container and prevent vertical scroll
-      if (isHorizontalDragRef.current === true) {
-        e.preventDefault();
-        const base = -activeIndex * screenWidthRef.current;
-        currentTranslateRef.current = base + deltaX;
-        
-        // Schedule transform update using requestAnimationFrame
-        if (!rafIdRef.current) {
-          rafIdRef.current = requestAnimationFrame(updateTransform);
-        }
+      // Horizontal drag: move the deck and prevent vertical scroll
+      e.preventDefault();
+      const base = -activeIndex * screenWidthRef.current;
+      currentTranslateRef.current = base + deltaX;
+
+      // Schedule transform update using requestAnimationFrame
+      if (!rafIdRef.current) {
+        rafIdRef.current = requestAnimationFrame(updateTransform);
       }
     };
 
     const onEnd = (e) => {
-      let decision = "stay";
       let nextIndex = activeIndex;
-      let delta = 0;
-      let velocity = 0;
-      let touchTime = 0;
 
       try {
         // Paint reduction: remove dragging class from body
-        document.body.classList.remove('is-dragging');
-        
+        document.body.classList.remove("is-dragging");
+
         if (rafIdRef.current) {
           cancelAnimationFrame(rafIdRef.current);
           rafIdRef.current = null;
         }
-        
+
         if (!isDraggingRef.current || isHorizontalDragRef.current === false) {
           return;
         }
-        
+
         // Handle cases where changedTouches might be empty (e.g. touchcancel)
         if (!e.changedTouches || e.changedTouches.length === 0) {
-          decision = "cancel (no touches)";
           return;
         }
 
-        delta = e.changedTouches[0].clientX - startXRef.current;
-        touchTime = Date.now() - lastTouchTimeRef.current;
-        
+        const delta = e.changedTouches[0].clientX - startXRef.current;
+        const touchTime = Date.now() - lastTouchTimeRef.current;
+
         // Calculate velocity (pixels per ms)
-        velocity = touchTime > 0 ? Math.abs(delta) / touchTime : 0;
-        
+        const velocity = touchTime > 0 ? Math.abs(delta) / touchTime : 0;
+
         // Navigation threshold: distance > 80px OR high velocity (> 0.5 px/ms)
         const isSignificantSwipe = Math.abs(delta) > 80;
         const isFastSwipe = velocity > 0.5 && Math.abs(delta) > 30; // minimum distance to avoid accidental taps
 
-        if ((isSignificantSwipe || isFastSwipe) && delta < 0 && activeIndex < 4) {
+        if ((isSignificantSwipe || isFastSwipe) && delta < 0 && activeIndex < LAST_SCREEN) {
           nextIndex = activeIndex + 1;
-          decision = "navigate next";
         } else if ((isSignificantSwipe || isFastSwipe) && delta > 0 && activeIndex > 0) {
           nextIndex = activeIndex - 1;
-          decision = "navigate prev";
-        } else {
-          decision = "snap back";
         }
-
-        console.log(`[Swipe] translateX: ${currentTranslateRef.current.toFixed(1)}px, distance: ${delta}px, velocity: ${velocity.toFixed(2)}px/ms, decision: ${decision}`);
 
         if (nextIndex !== activeIndex) {
           setActiveIndex(nextIndex);
         }
       } catch (err) {
         console.error("[Swipe] Error during dragEnd logic:", err);
-        decision = "error fallback";
       } finally {
-        // Ultimate safety fallback: 
-        // Synchronously apply the transform and transition for BOTH navigation and snap-back scenarios.
-        // This ensures the container never remains visually stuck between pages.
-        container.style.transition = 'transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        
-        // Always enforce the container's physical position to the decided index (which may just be the current one)
-        const targetIndex = nextIndex !== undefined ? nextIndex : activeIndex;
-        currentTranslateRef.current = -targetIndex * screenWidthRef.current;
-        
-        // Apply immediately bypassing React's render bottleneck
-        container.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
-
+        // Always settle on the decided index (which may be the current one) so the
+        // deck never remains visually stuck between screens.
+        currentTranslateRef.current = -nextIndex * screenWidthRef.current;
+        applyTranslate(currentTranslateRef.current, SWIPE_TRANSITION);
         isDraggingRef.current = false;
       }
     };
 
-    container.addEventListener('touchstart', onStart, { passive: true });
-    container.addEventListener('touchmove', onMove, { passive: false });
-    container.addEventListener('touchend', onEnd, { passive: true });
-    container.addEventListener('touchcancel', onEnd, { passive: true });
+    root.addEventListener("touchstart", onStart, { passive: true });
+    root.addEventListener("touchmove", onMove, { passive: false });
+    root.addEventListener("touchend", onEnd, { passive: true });
+    root.addEventListener("touchcancel", onEnd, { passive: true });
 
     return () => {
-      container.removeEventListener('touchstart', onStart);
-      container.removeEventListener('touchmove', onMove);
-      container.removeEventListener('touchend', onEnd);
-      container.removeEventListener('touchcancel', onEnd);
+      root.removeEventListener("touchstart", onStart);
+      root.removeEventListener("touchmove", onMove);
+      root.removeEventListener("touchend", onEnd);
+      root.removeEventListener("touchcancel", onEnd);
       if (rafIdRef.current) {
         cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
       }
     };
-  }, [activeIndex, isMobile, setActiveIndex]);
+  }, [deckActive, activeIndex, setActiveIndex, applyTranslate]);
 
-  // Check if current route is a swipeable tab
-  const isSwipeableRoute = [
-    "/",
-    "/restaurants",
-    "/waza-ai",
-    "/kashmiri-food",
-    "/profile",
-  ].includes(pathname);
-
-  // Safety net: Since swipeable pages never unmount, modal scroll locks
-  // might persist after a user clicks a link inside them. Reset on route change.
+  // Safety net: since swipe screens never unmount, modal scroll locks might
+  // persist after a user clicks a link inside them. Reset on route change.
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "";
-      if (isSwipeableRoute) {
-        document.body.classList.add("is-swipeable-route");
-      } else {
-        document.body.classList.remove("is-swipeable-route");
-      }
+    document.body.style.overflow = "";
+    if (isSwipeableRoute) {
+      document.body.classList.add("is-swipeable-route");
+    } else {
+      document.body.classList.remove("is-swipeable-route");
     }
   }, [pathname, isSwipeableRoute]);
 
-  // We intentionally do NOT return early based on `isMobile` here.
-  // Returning early causes a hydration mismatch where the DOM is destroyed
-  // and recreated, devastating the LCP metric. We render both and use CSS to toggle.
-
-
-
-  // If mobile and on a non-swipeable route, we must render standard children.
-  // Otherwise, user can never see sub-pages like /visit-kashmir, /history, or /restaurants/[id]
-  const renderMobileContent = () => {
-    return (
-      <div className="relative w-full h-full min-h-screen">
-        {/* SWIPE CONTAINER: Always mounted to preserve state/scroll, hidden via CSS on subpages */}
-        <div 
-          className="swipe-container" 
-          ref={containerRef}
-          style={{
-            transform: `translate3d(-${initialIndex * 100}vw, 0, 0)`,
-            opacity: isSwipeableRoute ? 1 : 0,
-            pointerEvents: isSwipeableRoute ? 'auto' : 'none',
-            transition: 'opacity 0.3s ease, transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-          }}
-        >
-          <div className="screen">
-            <HomePageHero initialDishes={coverDishes} />
+  const renderScreenCopy = (index) => {
+    if (!visitedScreens.has(index)) return null;
+    switch (index) {
+      case 0:
+        return (
+          <>
+            <HomePageHero initialDishes={coverDishes} isRoutePage={false} />
             <HomePageClient />
-          </div>
-          <div className="screen">
-            {shouldMount(1) ? <RestaurantsPage /> : null}
-          </div>
-          <div className="screen">
-            {shouldMount(2) ? <MobileWazaAI /> : null}
-          </div>
-          <div className="screen">
-            {shouldMount(3) ? <KashmiriFoodClient /> : null}
-          </div>
-          <div className="screen">
-            {/* Skip on auth routes: visitedScreens is sticky (never unmounts once
-                visited), so if the user swiped to this tab earlier in the session
-                and then client-navigated to /login, /signup, etc., this would
-                still force-mount behind the route's own overlay copy. */}
-            {shouldMount(4) && !authRoute ? (user ? <ProfilePage /> : <LoginPage />) : null}
-          </div>
-        </div>
-
-        {/* OVERLAY FOR NON-SWIPEABLE ROUTES (e.g. Dish Details) */}
-        <AnimatePresence mode="wait" initial={false}>
-          {!isSwipeableRoute && (
-            <motion.div
-              key={pathname}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 15 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute top-0 left-0 w-full min-h-screen z-50 bg-[#0B0B0B]"
-            >
-              <div className="w-full min-h-full pb-24">
-                {children}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    );
+          </>
+        );
+      case 1:
+        return <RestaurantsPage />;
+      case 2:
+        return <MobileWazaAI />;
+      case 3:
+        return <KashmiriFoodClient />;
+      case 4:
+        // Skip on auth routes: visited screens stay mounted, so if the user swiped
+        // to this tab earlier and then navigated to /login, /signup, etc., this
+        // would still force-mount behind the route's own page.
+        if (authRoute) return null;
+        return user ? <ProfilePage /> : <LoginPage />;
+      default:
+        return null;
+    }
   };
 
-  if (!mounted) {
-    return (
-      <>
-        {/* Desktop view */}
-        <div className="hidden md:block w-full h-full">
-          {children}
-        </div>
+  const routeClassName = routeInDeck
+    ? "swipe-route-screen"
+    : deckActive
+      ? // A tab URL was pushed ahead of a pending navigation; the deck shows that screen.
+        "hidden"
+      : "w-full min-h-screen bg-[#0B0B0B] md:h-full md:min-h-0 md:bg-transparent";
 
-        {/* Mobile view */}
-        <div className="block md:hidden">
-          {renderMobileContent()}
+  return (
+    <div ref={rootRef} className="relative w-full">
+      {showDeck ? (
+        <div
+          ref={deckRef}
+          className="swipe-container"
+          style={{
+            visibility: deckActive ? "visible" : "hidden",
+            pointerEvents: deckActive ? "auto" : "none",
+          }}
+        >
+          {TAB_ROUTES.map((route, index) => {
+            // The route's own page renders this screen; leave the slot empty.
+            const slotHoldsRoute = routeInDeck && index === childrenTab;
+            return (
+              <div key={route} className="screen" data-screen-index={slotHoldsRoute ? undefined : index}>
+                {slotHoldsRoute ? null : renderScreenCopy(index)}
+              </div>
+            );
+          })}
         </div>
-      </>
-    );
-  }
+      ) : null}
 
-  if (isMobile) {
-    return (
-      <div className="block md:hidden">
-        {renderMobileContent()}
-      </div>
-    );
-  } else {
-    return (
-      <div className="hidden md:block w-full h-full">
+      <div
+        ref={routeRef}
+        className={routeClassName}
+        data-screen-index={routeInDeck ? childrenTab : undefined}
+      >
         {children}
       </div>
-    );
-  }
+    </div>
+  );
 }

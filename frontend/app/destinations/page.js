@@ -12,9 +12,11 @@ import { useRouter } from "next/navigation";
 // Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
 
 import destinationsData from "@/data/destinations.json";
+import { sanitizeDestination } from "@/lib/destinationContent";
+import { resolveContentImage } from "@/lib/contentImages";
 
 export default function VisitKashmirPage() {
-  const [destinations, setDestinations] = useState(destinationsData);
+  const [destinations, setDestinations] = useState(() => destinationsData.map(sanitizeDestination));
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("All");
   const [loading, setLoading] = useState(false);
@@ -52,7 +54,7 @@ export default function VisitKashmirPage() {
   useEffect(() => {
     request(endpoints.destinations() + "?v=" + Date.now())
       .then((data) => {
-        setDestinations(data);
+        setDestinations(data.map(sanitizeDestination));
         setLoading(false);
       })
       .catch((err) => {
@@ -81,8 +83,8 @@ export default function VisitKashmirPage() {
   const filteredDestinations = useMemo(() => {
     return destinations.filter((dest) => {
       const matchesSearch = dest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        dest.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        dest.location.toLowerCase().includes(searchQuery.toLowerCase());
+        (dest.description || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (dest.location || "").toLowerCase().includes(searchQuery.toLowerCase());
 
       const regionPrefix = dest.location ? dest.location.split(",")[0].trim() : "";
       const matchesRegion = selectedRegion === "All" || regionPrefix === selectedRegion;
@@ -104,7 +106,7 @@ export default function VisitKashmirPage() {
             Rare Destinations
           </h1>
           <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
-            Explore Kashmir's most iconic valleys, pristine alpine lakes, and heritage sites. Fully audited for local culinary authenticity, tourist accessibility, and premium luxury accommodation.
+            Explore Kashmir's valleys, alpine lakes and heritage sites — where each place is, when to go, and what to know before you set out.
           </p>
         </div>
         <div className="flex gap-4">
@@ -136,7 +138,7 @@ export default function VisitKashmirPage() {
           Rare destinations
         </h2>
         <p className="text-white/45 text-xs md:text-sm mt-1">
-          Discover handpicked, offbeat destinations audited for culture, friendliness, and luxury.
+          Browse every destination in the guide, or filter by region.
         </p>
       </div>
 
@@ -208,7 +210,7 @@ export default function VisitKashmirPage() {
                 {/* Image top */}
                 <div className="relative h-16 xs:h-20 sm:h-24 md:h-48 w-full overflow-hidden bg-black/40">
                   <Image
-                    src={dest.image || "/wazwan-hero.jpg"}
+                    src={resolveContentImage(dest.image) || "/wazwan-hero.jpg"}
                     alt={dest.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -226,9 +228,11 @@ export default function VisitKashmirPage() {
                     <h3 className="font-display text-[11px] xs:text-xs sm:text-sm md:text-2xl font-medium text-white mb-0.5 md:mb-2 group-hover:text-[var(--saffron)] transition-colors line-clamp-1 md:line-clamp-none">
                       {dest.name}
                     </h3>
-                    <p className="hidden md:block text-white/60 text-sm leading-relaxed mb-4">
-                      {dest.description}
-                    </p>
+                    {dest.description && (
+                      <p className="hidden md:block text-white/60 text-sm leading-relaxed mb-4">
+                        {dest.description}
+                      </p>
+                    )}
 
                     {/* Meta Indicators */}
                     {dest.bestTimeToVisit && (
@@ -239,46 +243,6 @@ export default function VisitKashmirPage() {
                         <span>Best: {dest.bestTimeToVisit}</span>
                       </div>
                     )}
-
-                    {/* Scores Panel */}
-                    <div className="hidden md:block space-y-3 mb-6 bg-black/30 p-4 rounded-xl border border-white/5">
-                      <div className="text-[0.62rem] font-bold uppercase tracking-wider text-[var(--saffron)] mb-2">
-                        Waza AI Scores
-                      </div>
-                      
-                      {/* Authenticity Score */}
-                      <div>
-                        <div className="flex justify-between text-[0.68rem] text-white/70 mb-1">
-                          <span>Authentic Kashmiri Culture</span>
-                          <span className="text-[var(--saffron)] font-bold">{dest.authenticityScore || "4.0"}/5</span>
-                        </div>
-                        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dest.authenticityScore || 4.0) / 5) * 100}%` }}></div>
-                        </div>
-                      </div>
-
-                      {/* Tourist Friendliness */}
-                      <div>
-                        <div className="flex justify-between text-[0.68rem] text-white/70 mb-1">
-                          <span>Tourist Friendliness</span>
-                          <span className="text-[var(--saffron)] font-bold">{dest.touristFriendlinessScore || "4.0"}/5</span>
-                        </div>
-                        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dest.touristFriendlinessScore || 4.0) / 5) * 100}%` }}></div>
-                        </div>
-                      </div>
-
-                      {/* Luxury */}
-                      <div>
-                        <div className="flex justify-between text-[0.68rem] text-white/70 mb-1">
-                          <span>Luxury Accommodations</span>
-                          <span className="text-[var(--saffron)] font-bold">{dest.luxuryScore || "3.0"}/5</span>
-                        </div>
-                        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dest.luxuryScore || 3.0) / 5) * 100}%` }}></div>
-                        </div>
-                      </div>
-                    </div>
 
                     {/* Attractions list */}
                     {dest.attractions && dest.attractions.length > 0 && (

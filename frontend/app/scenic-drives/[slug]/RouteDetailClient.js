@@ -7,6 +7,13 @@ import { useAuth } from '@/context/AuthContext';
 import { endpoints, request } from '@/lib/api';
 import './scenic-drive-detail.css';
 
+// "path 1080w, path 1920w" from a route image's width-keyed variants
+// (heroImageVariants / mediaVariants in data/scenicDrivesData.js).
+const toSrcSet = (variants) =>
+  variants
+    ? Object.entries(variants).map(([width, src]) => `${src} ${width}w`).join(', ')
+    : undefined;
+
 export default function RouteDetailClient({ route }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
@@ -220,7 +227,16 @@ export default function RouteDetailClient({ route }) {
       {/* HERO */}
       <section className="hero">
         <div className="hero-media">
-          <img src={route.heroImage} alt={route.title} />
+          {/* Lowercase fetchpriority: React 18 warns on the camelCase prop. src goes last:
+              React sets attributes in order, and Safari fetches as soon as src is set. */}
+          <img
+            alt={route.title}
+            fetchpriority="high"
+            decoding="async"
+            sizes={route.heroImageVariants ? '100vw' : undefined}
+            srcSet={toSrcSet(route.heroImageVariants)}
+            src={route.heroImage}
+          />
         </div>
         <div className="hero-body">
           <div className="hero-kicker" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
@@ -286,7 +302,14 @@ export default function RouteDetailClient({ route }) {
       {route.chapters.map((chap, i) => (
         <section className={`chapter ${i % 2 !== 0 ? 'right' : ''}`} key={i}>
           <div className="chapter-media">
-            <img src={chap.media} alt={chap.title} />
+            <img
+              alt={chap.title}
+              loading="lazy"
+              decoding="async"
+              sizes={chap.mediaVariants ? '100vw' : undefined}
+              srcSet={toSrcSet(chap.mediaVariants)}
+              src={chap.media}
+            />
           </div>
           <div className="chapter-body">
             <div className="chapter-num"><span className="tick"></span>CHAPTER {chap.num}</div>

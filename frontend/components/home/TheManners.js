@@ -49,7 +49,7 @@ const BACKDROPS = [
   { src: "/redesign/img/ritual-tashnaer.webp", start: INTRO_END, end: INTRO_END + RULE_W }, // I — wash first
   { src: "/images/kashmiri-food/trami-wheel.webp", start: INTRO_END + RULE_W, end: INTRO_END + 2 * RULE_W }, // II — your quarter
   { src: "/redesign/img/ritual-elder.webp", start: INTRO_END + 2 * RULE_W, end: INTRO_END + 3 * RULE_W }, // III — eldest first
-  { src: "/images/dishes/gushtaba.jpg", start: INTRO_END + 3 * RULE_W, end: 1 }, // IV — the gushtaba
+  { src: "/images/scroll/GUSHTABA.png", start: INTRO_END + 3 * RULE_W, end: 1 }, // IV — the gushtaba
 ];
 
 function Backdrop({ layer, index, progress }) {

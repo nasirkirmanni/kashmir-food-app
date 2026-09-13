@@ -48,6 +48,19 @@ export default function ScrollVideoHero() {
 
   const scrub = canEnhance && !reducedMotion;
 
+  // The scrub video is ~15 MB. Fetch only its metadata on arrival and buffer the
+  // whole file once the visitor engages (scroll, wheel, key or pointer), so a
+  // bounce or a crawler render doesn't download it.
+  const [engaged, setEngaged] = useState(false);
+  useEffect(() => {
+    if (engaged) return undefined;
+    const markEngaged = () => setEngaged(true);
+    const options = { capture: true, passive: true };
+    const events = ["scroll", "wheel", "keydown", "pointerdown", "touchstart"];
+    events.forEach((type) => window.addEventListener(type, markEngaged, options));
+    return () => events.forEach((type) => window.removeEventListener(type, markEngaged, options));
+  }, [engaged]);
+
   // Self-driven progress (0..1). The hook writes to it from rAF + layout reads,
   // so text choreography stays declarative without depending on scroll events.
   const scrollYProgress = useMotionValue(0);
@@ -104,7 +117,7 @@ export default function ScrollVideoHero() {
             src={VIDEO_SRC}
             muted
             playsInline
-            preload="auto"
+            preload={engaged ? "auto" : "metadata"}
             aria-hidden="true"
             tabIndex={-1}
             disablePictureInPicture
@@ -184,10 +197,7 @@ export default function ScrollVideoHero() {
             </p>
           </motion.div>
 
-          {/* SEO heading — visually hidden; the page's single <h1>. */}
-          <h1 className="sr-only">
-            Where Tradition Meets the Table — Kashmir&apos;s Royal 36-Course Wazwan Feast
-          </h1>
+          {/* The homepage's single <h1> lives in HomePageHero, shared with mobile. */}
         </div>
 
         {/* Scroll hint */}
