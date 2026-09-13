@@ -321,6 +321,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
           <div className="hero-ctas" ref={heroCtasRef}>
             <button className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" onClick={() => scrollToSection('wazwan')}>Begin the feast</button>
             <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black">Browse All Dishes</Link>
+            <Link href="/blog" className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" style={{ backgroundColor: 'var(--gold)', color: 'black', borderColor: 'var(--gold)' }}>Read Our Blogs</Link>
           </div>
 
           <div className="stat-card" ref={statCardRef}>
