@@ -181,8 +181,8 @@ function OvertureScrub(props) {
  * The overture — scroll-scrubbed drive footage, same physics as the landing
  * hero: the stage pins, scrolling plays the film forward (and back), the
  * frame fades in from black and back out before the atlas takes the stage.
- * The 28MB footage mounts with metadata only two screens out and buffers in
- * full once the chapter is a screen away.
+ * The footage mounts with metadata only two screens out and buffers in full
+ * once the chapter is a screen away.
  */
 function VideoOverture({ scene }) {
   const wrapperRef = useRef(null);

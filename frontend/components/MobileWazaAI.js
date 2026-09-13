@@ -321,12 +321,13 @@ export default function MobileWazaAI({ initialPrompt }) {
 
         {/* Logo + Title */}
         <WazaLeafLogo size={38} />
-        <h1
+        {/* Styled title, not a heading: the /waza-ai page provides its own <h1>. */}
+        <p
           className="mt-1 text-[20px] font-bold tracking-wide"
           style={{ color: "#ECECEC", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
         >
           Waza AI
-        </h1>
+        </p>
         <p
           className="text-[11px] tracking-widest uppercase mt-0.5"
           style={{ color: "rgba(212,161,90,0.7)" }}
