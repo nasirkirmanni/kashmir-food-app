@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { SITE_SECTIONS } from "@/lib/siteSections";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -136,6 +137,24 @@ export default function HamburgerMenu() {
 
             <div className="flex-1 overflow-y-auto no-scrollbar p-6">
               <motion.div variants={containerVars} initial="hidden" animate="show" className="flex flex-col gap-3">
+
+                {/* The site's main sections. The top bar only shows as many as fit, so all of them live here too. */}
+                <motion.div variants={itemVars} className="mb-2">
+                  <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.2em] text-white/40">Explore the site</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {SITE_SECTIONS.map((section) => (
+                      <Link
+                        key={section.href}
+                        href={section.href}
+                        prefetch={false}
+                        onClick={() => setIsOpen(false)}
+                        className="rounded-xl border border-white/5 bg-white/5 px-3 py-3 text-[0.62rem] font-bold uppercase leading-snug tracking-[0.12em] text-white/80 transition-colors hover:border-white/20 hover:text-[var(--saffron)]"
+                      >
+                        {section.label}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
 
                 {[
                   { label: "Your Profile", sub: "Manage your details", href: "/profile", iconColor: "blue" },
