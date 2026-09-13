@@ -48,9 +48,14 @@ export async function generateMetadata({ params }) {
     const dish = sanitizeDish(await res.json());
     const categoryLabel = dishCategoryLabel(dish.category);
 
-    const title = `${dish.name}: Traditional ${categoryLabel}`;
+    // " | Wazwan Way" (13 characters) is appended by the layout template.
+    const fullTitle = `${dish.name}: Traditional ${categoryLabel}`;
+    const title = fullTitle.length <= 47 ? fullTitle : `${dish.name}: ${categoryLabel}`;
+    // One-line descriptions make thin snippets; the hand-written recipe intro is fuller.
+    const intro = dish.recipe?.intro || "";
+    const summary = (dish.description || "").length >= 70 || intro.length <= (dish.description || "").length ? dish.description : intro;
     const description = toMetaDescription(
-      dish.description || `${dish.name} is a traditional ${categoryLabel.toLowerCase()}. Read about it on Wazwan Way.`
+      summary || `${dish.name} is a traditional ${categoryLabel.toLowerCase()}. Read about it on Wazwan Way.`
     );
     const photo = resolveContentPhoto(dish.image);
 

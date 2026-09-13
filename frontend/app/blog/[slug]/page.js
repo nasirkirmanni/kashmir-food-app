@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import { buildArticleSchema } from "@/components/JsonLd";
 import RelatedDishLinks from "@/components/RelatedDishLinks";
-import { markdownSummary } from "@/lib/metaText";
+import { markdownSummary, toMetaDescription } from "@/lib/metaText";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -35,7 +35,7 @@ export function generateMetadata({ params }) {
   
   const canonicalUrl = `https://wazwanway.com/blog/${post.slug}`;
   // The post's own summary, or its opening paragraph — never a generic sentence.
-  const description = post.excerpt || post.summary || markdownSummary(post.content) || `Read about ${post.title} on Wazwan Way.`;
+  const description = toMetaDescription(post.excerpt || post.summary || markdownSummary(post.content) || `Read about ${post.title} on Wazwan Way.`);
   
   return {
     title: SEARCH_TITLES[post.slug] || post.title,

@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | Wazwan Way",
   },
   description:
-    "Explore Kashmir beyond the postcards — hidden valleys, alpine lakes, and offbeat destinations like Gurez, Bangus, Lolab, and Doodhpathri, with practical travel metrics for each.",
+    "Kashmir beyond the postcards: hidden valleys, alpine lakes and offbeat places like Gurez, Bangus, Lolab and Doodhpathri, with practical travel details.",
   alternates: { canonical: "https://wazwanway.com/destinations" },
   openGraph: {
     title: "Rare Destinations | Wazwan Way",

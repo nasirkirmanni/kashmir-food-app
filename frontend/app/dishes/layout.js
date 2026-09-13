@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | Wazwan Way",
   },
   description:
-    "Explore signature Kashmiri dishes from the royal Wazwan table — Rogan Josh, Gushtaba, Rista, Tabak Maaz and more. Discover history, spice levels, and where to taste them.",
+    "Signature dishes of the royal Wazwan table — Rogan Josh, Gushtaba, Rista, Tabak Maaz and more — with their history, spice levels and where to taste them.",
   alternates: { canonical: "https://wazwanway.com/dishes" },
   openGraph: {
     title: "Kashmiri Dishes | Explore Wazwan Cuisine | Wazwan Way",

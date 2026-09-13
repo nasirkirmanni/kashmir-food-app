@@ -10,6 +10,16 @@ import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import JsonLd from "@/components/JsonLd";
 import { buildArticleSchema, buildBreadcrumbSchema } from "@/components/JsonLd";
+import { toMetaDescription } from "@/lib/metaText";
+
+// Article markdown often opens with "# <title>", which the page already renders as
+// its <h1>; drop that line so the heading isn't repeated.
+function stripLeadingTitle(markdown, title) {
+  const normalise = (s) => (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  return (markdown || "").replace(/^\s*#\s+([^\n]*)\n/, (line, heading) =>
+    normalise(heading) === normalise(title) ? "" : line
+  );
+}
 
 export function generateStaticParams() {
   const paths = [
@@ -221,7 +231,7 @@ export async function generateMetadata({ params }) {
   // fills og:title and og:description from the title and description.
   const pageMetadata = (meta, { ogType = "website", robots } = {}) => ({
     ...(meta?.title && { title: meta.title }),
-    ...(meta?.description && { description: meta.description }),
+    ...(meta?.description && { description: toMetaDescription(meta.description) }),
     ...(robots && { robots }),
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -242,7 +252,7 @@ export async function generateMetadata({ params }) {
       return pageMetadata(
         {
           title: metaOverride?.title || guide.title,
-          description: metaOverride?.description || guide.description,
+          description: toMetaDescription(metaOverride?.description || guide.description),
         },
         { ogType: "article" }
       );
@@ -386,7 +396,8 @@ export default function Page({ params }) {
           <div className="max-w-none text-white/70 leading-relaxed font-body pb-16 wazwan-article-body">
             <ReactMarkdown
               components={{
-                h1: ({node, ...props}) => <h1 className="font-display text-3xl sm:text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
+                // Any other top-level markdown heading renders as <h2>: the page has one <h1>.
+                h1: ({node, ...props}) => <h2 className="font-display text-3xl sm:text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
                 h2: ({node, ...props}) => <h2 className="font-display text-2xl sm:text-3xl text-[var(--saffron)] mt-12 mb-6" {...props} />,
                 h3: ({node, ...props}) => <h3 className="font-display text-xl sm:text-2xl text-white mt-10 mb-4" {...props} />,
                 p: ({node, ...props}) => <p className="mb-6 text-sm sm:text-base md:text-lg leading-relaxed text-white/70" {...props} />,
@@ -412,7 +423,7 @@ export default function Page({ params }) {
                 }
                 
                 const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedArticles.map(a => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`).join('\n');
-                return article.content + relatedMarkdown;
+                return stripLeadingTitle(article.content, article.title) + relatedMarkdown;
               })()}
             </ReactMarkdown>
             

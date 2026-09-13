@@ -41,7 +41,10 @@ export async function generateMetadata({ params }) {
     const title = `${destination.name}, Kashmir`;
     // Written copy when it exists; otherwise only facts the record really holds.
     const description = toMetaDescription(
-      destination.description ||
+      (destination.description &&
+        (destination.description.length >= 90 || !destination.bestTimeToVisit
+          ? destination.description
+          : `${destination.description} Best time to visit: ${destination.bestTimeToVisit}.`)) ||
         [
           `${destination.name} is in ${destination.location || "Kashmir"}.`,
           destination.bestTimeToVisit && `Best time to visit: ${destination.bestTimeToVisit}.`,

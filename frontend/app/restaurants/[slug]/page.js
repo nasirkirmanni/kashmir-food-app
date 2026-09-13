@@ -2,6 +2,7 @@ import RestaurantDetailClient from "@/components/RestaurantDetailClient";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import { toMetaDescription } from "@/lib/metaText";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -45,9 +46,10 @@ export async function generateMetadata({ params }) {
 
     // No brand here: the restaurants layout's title template appends " | Wazwan Way".
     const title = `${restaurant.name}${restaurant.city ? `, ${restaurant.city}` : ""}: Kashmiri Restaurant`;
-    const description =
+    const description = toMetaDescription(
       restaurant.description ||
-      `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`;
+      `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`
+    );
 
     const canonicalUrl = `${CANONICAL_BASE}/restaurants/${restaurant.slug || params.slug}`;
 
