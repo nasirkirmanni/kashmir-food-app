@@ -47,7 +47,7 @@ export default function EtiquettePage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white relative overflow-x-clip selection:bg-[var(--saffron)] selection:text-black">
+    <div className="min-h-screen bg-[#0A0A0A] text-white relative overflow-x-hidden selection:bg-[var(--saffron)] selection:text-black" style={{ touchAction: 'pan-y' }}>
       
       {/* Background Ambience */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -57,17 +57,18 @@ export default function EtiquettePage() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-center bg-gradient-to-b from-[#0A0A0A]/90 to-transparent backdrop-blur-md">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-center bg-gradient-to-b from-[#0A0A0A]/90 to-transparent backdrop-blur-md pointer-events-none">
         <button 
           onClick={() => router.back()}
-          className="absolute left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md hover:bg-white/10 transition-colors"
+          className="absolute left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md hover:bg-white/10 transition-colors pointer-events-auto"
+          style={{ top: 'max(16px, env(safe-area-inset-top) + 8px)' }}
         >
           <ArrowLeft size={20} className="text-white" />
         </button>
-        <span className="font-display font-medium text-[15px] tracking-[0.2em] uppercase text-white/90">Wazwan Etiquette</span>
+        <span className="font-display font-medium text-[15px] tracking-[0.2em] uppercase text-white/90 mt-1 pointer-events-auto" style={{ paddingTop: 'env(safe-area-inset-top)' }}>Wazwan Etiquette</span>
       </header>
 
-      <main className="relative z-10 pt-32 pb-32 px-6 md:px-12 max-w-4xl mx-auto">
+      <main className="relative z-10 pb-32 px-6 md:px-12 max-w-4xl mx-auto" style={{ paddingTop: 'max(130px, calc(env(safe-area-inset-top) + 80px))' }}>
         
         {/* Hero Section */}
         <motion.div 
