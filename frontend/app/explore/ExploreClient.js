@@ -38,7 +38,7 @@ const ExploreFooter = dynamic(() => import('./sections/ExploreFooter'), {
 /* ---- Optimized image paths ---- */
 const OPT = '/images/optimized/explore';
 
-export default function ExploreClient({ data }) {
+export default function ExploreClient({ data, children }) {
   const [temperature, setTemperature] = useState("--");
   const [activeCollection, setActiveCollection] = useState("01");
   const heroImgRef = useRef(null);
@@ -233,7 +233,7 @@ export default function ExploreClient({ data }) {
             id="hero-img"
             width={1920}
             height={1280}
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="async"
           />
           <div className="hero-scrim"></div>
@@ -365,6 +365,8 @@ export default function ExploreClient({ data }) {
       <SeasonSwitchSection />
       <WazaAISection />
       <ItinerariesSection />
+      {/* Server-rendered content passed in by the page (e.g. crawlable destination links). */}
+      {children}
       <ExploreFooter />
     </div>
   );
