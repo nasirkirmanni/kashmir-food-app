@@ -131,3 +131,17 @@ DB writes, sitemap submissions, external dashboards.
   (description = real recipe intro from the API); `custom-trip/page.js` filters generated attractions
   (that route permanently redirects to /itinerary-builder, so this is defensive).
 - **Metadata and media agents** were cut off by the limit almost immediately and were resumed from their transcripts.
+- **Media agent: finished.** `scripts/optimize-route-images.mjs` made 29 WebP derivatives (originals kept);
+  /scenic-drives/srinagar-to-doodhpathri images 15.3 MB → 0.56 MB (hero 8.2 MB → 225 KB); trekking pages −45–49%;
+  TheRoads loop IO-gated and video preload metadata→auto near viewport. All earlier branch commits built on Vercel.
+- **Metadata agent: finished.** Hub layouts pass `%s | Wazwan Way` down; every touched title has the brand once and
+  ≤60 chars; utility pages (login, signup, forgot-password, favorites, profile) noindex; empty guide hubs noindex;
+  og:url = canonical; og:image on recipes/privacy/terms; `/blog/gushtaba` canonical fixed; new `scripts/check-metadata.mjs`.
+- **Queued edits: done.** /explore server-rendered destination links (`components/explore/DestinationIndex.js`);
+  blog posts + /blog/gushtaba "Dishes in this article" (`components/RelatedDishLinks.js`); blog descriptions from each
+  post's opening paragraph (`markdownSummary`); restaurant guide no longer repeats its H1 from markdown; canonical
+  itineraries use their own name as H1; root twitter title/description removed so pages fill their own; fallback
+  branches get twitter tags; noindex layouts for /admin, /travel-agent/dashboard, /travel-agent/inbox;
+  /waza-ai has a server-rendered H1.
+- **Now:** final local build + 44-route HTML verification + metadata check running; then mobile swipe test,
+  merge to `main`, production verification.
