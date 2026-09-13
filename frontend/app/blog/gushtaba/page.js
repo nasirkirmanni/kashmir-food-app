@@ -2,10 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, ChefHat } from "lucide-react";
 
+const CANONICAL_URL = "https://wazwanway.com/blog/gushtaba";
+
 export const metadata = {
-  title: "Gushtaba: The Royal Finale of the Wazwan | Wazwan Way Blog",
+  title: "Gushtaba: The Royal Finale of the Wazwan",
   description: "Discover the rich history, intricate preparation, and cultural significance of Gushtaba, the velvety meatball dish that serves as the grand finale of the traditional Kashmiri Wazwan.",
   keywords: "Gushtaba, Wazwan, Kashmiri cuisine, meatball, royal feast, Kashmiri recipes, food blog",
+  // Without these the page inherits the /blog canonical and og tags from the layout.
+  alternates: { canonical: CANONICAL_URL },
+  openGraph: {
+    type: "article",
+    url: CANONICAL_URL,
+    siteName: "Wazwan Way",
+    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+  },
 };
 
 export default function GushtabaBlogPage() {
@@ -15,7 +25,7 @@ export default function GushtabaBlogPage() {
       <div className="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/dishes/gushtaba.jpg"
+            src="/images/scroll/GUSHTABA.png"
             alt="Authentic Kashmiri Gushtaba"
             fill
             className="object-cover opacity-60 transition-transform duration-1000 ease-in-out hover:scale-105"

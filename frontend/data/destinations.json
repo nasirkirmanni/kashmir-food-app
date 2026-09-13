@@ -1,517 +1,1288 @@
 [
   {
-    "_id": "6a3386e402a83e38349dfaa7",
-    "name": "Srinagar",
-    "description": "A breathtaking destination in Central Kashmir famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Srinagar stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/srinagar.png",
-    "location": "Central Kashmir",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Srinagar Scenic Point",
-      "Historic Local Market in Srinagar",
-      "Traditional Food Street of Srinagar"
-    ],
-    "tags": [
-      "kashmir",
-      "central-kashmir"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "srinagar"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaa8",
-    "name": "Gulmarg",
-    "description": "A breathtaking destination in North Kashmir, Baramulla famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Gulmarg stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Baramulla, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/gulmarg.png",
-    "location": "North Kashmir, Baramulla",
-    "bestTimeToVisit": "December to March (Snow), April to June (Meadows)",
-    "attractions": [
-      "Gulmarg Scenic Point",
-      "Historic Local Market in Gulmarg",
-      "Traditional Food Street of Gulmarg"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-baramulla",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "gulmarg"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaa9",
-    "name": "Pahalgam",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Pahalgam stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/pahalgam.png",
-    "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "March to November",
-    "attractions": [
-      "Pahalgam Scenic Point",
-      "Historic Local Market in Pahalgam",
-      "Traditional Food Street of Pahalgam"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.7,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "pahalgam"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaaa",
-    "name": "Sonamarg",
-    "description": "A breathtaking destination in Central Kashmir, Ganderbal famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Sonamarg stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, Ganderbal, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/sonamarg.png",
-    "location": "Central Kashmir, Ganderbal",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Sonamarg Scenic Point",
-      "Historic Local Market in Sonamarg",
-      "Traditional Food Street of Sonamarg"
-    ],
-    "tags": [
-      "kashmir",
-      "central-kashmir-ganderbal",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "sonamarg"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaab",
-    "name": "Yusmarg",
-    "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Yusmarg stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/yusmarg.png",
-    "location": "Budgam District",
-    "bestTimeToVisit": "May to September",
-    "attractions": [
-      "Yusmarg Scenic Point",
-      "Historic Local Market in Yusmarg",
-      "Traditional Food Street of Yusmarg"
-    ],
-    "tags": [
-      "kashmir",
-      "budgam-district",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "yusmarg"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaac",
-    "name": "Gurez Valley",
-    "description": "A breathtaking destination in North Kashmir, Bandipora famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Gurez Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Bandipora, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/gurez.png",
-    "location": "North Kashmir, Bandipora",
-    "bestTimeToVisit": "June to September",
-    "attractions": [
-      "Gurez Valley Scenic Point",
-      "Historic Local Market in Gurez Valley",
-      "Traditional Food Street of Gurez Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-bandipora",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "gurez-valley"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaad",
-    "name": "Lolab Valley",
-    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Lolab Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/lolab.png",
-    "location": "North Kashmir, Kupwara",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Lolab Valley Scenic Point",
-      "Historic Local Market in Lolab Valley",
-      "Traditional Food Street of Lolab Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-kupwara"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "lolab-valley"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaae",
-    "name": "Aru Valley",
-    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Aru Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/aru.png",
-    "location": "Pahalgam, Anantnag",
-    "bestTimeToVisit": "March to November",
-    "attractions": [
-      "Aru Valley Scenic Point",
-      "Historic Local Market in Aru Valley",
-      "Traditional Food Street of Aru Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "pahalgam-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "aru-valley"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfaaf",
-    "name": "Betaab Valley",
-    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Betaab Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/betaab.png",
-    "location": "Pahalgam, Anantnag",
-    "bestTimeToVisit": "March to October",
-    "attractions": [
-      "Betaab Valley Scenic Point",
-      "Historic Local Market in Betaab Valley",
-      "Traditional Food Street of Betaab Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "pahalgam-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.317Z",
-    "updatedAt": "2026-06-18T05:49:24.317Z",
-    "slug": "betaab-valley"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfab0",
-    "name": "Doodhpathri",
-    "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Doodhpathri stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/doodhpathri.png",
-    "location": "Budgam District",
-    "bestTimeToVisit": "May to October",
-    "attractions": [
-      "Doodhpathri Scenic Point",
-      "Historic Local Market in Doodhpathri",
-      "Traditional Food Street of Doodhpathri"
-    ],
-    "tags": [
-      "kashmir",
-      "budgam-district"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.1,
-    "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "doodhpathri"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfab1",
-    "name": "Kokernag",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Kokernag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/kokernag.png",
-    "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Kokernag Scenic Point",
-      "Historic Local Market in Kokernag",
-      "Traditional Food Street of Kokernag"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "kokernag"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfab2",
-    "name": "Verinag",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Verinag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/verinag.png",
-    "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Verinag Scenic Point",
-      "Historic Local Market in Verinag",
-      "Traditional Food Street of Verinag"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "verinag"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfab3",
+    "_id": "6a5247d82519b282b599770f",
     "name": "Achabal",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Achabal stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/achabal.png",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/achabal.png",
     "location": "South Kashmir, Anantnag",
     "bestTimeToVisit": "April to September",
-    "attractions": [
-      "Achabal Scenic Point",
-      "Historic Local Market in Achabal",
-      "Traditional Food Street of Achabal"
-    ],
+    "attractions": [],
     "tags": [
       "kashmir",
       "south-kashmir-anantnag",
       "highly-accessible"
     ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 8,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "2 hours",
+      "budgetLevel": "Budget"
+    },
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.7,
     "luxuryScore": 3.5,
     "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-11T16:05:39.785Z",
     "slug": "achabal"
   },
   {
-    "_id": "6a3386e402a83e38349dfab4",
-    "name": "Sinthan Top",
-    "description": "A breathtaking destination in Kishtwar-Anantnag Border famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Sinthan Top stands as a premier tourist attraction in the Kashmir valley. Located in Kishtwar-Anantnag Border, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/gulmarg.png",
-    "location": "Kishtwar-Anantnag Border",
-    "bestTimeToVisit": "April to September",
-    "attractions": [
-      "Sinthan Top Scenic Point",
-      "Historic Local Market in Sinthan Top",
-      "Traditional Food Street of Sinthan Top"
-    ],
-    "tags": [
-      "kashmir",
-      "kishtwar-anantnag-border",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "sinthan-top"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfab5",
-    "name": "Daksum",
-    "description": "A breathtaking destination in Anantnag District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Daksum stands as a premier tourist attraction in the Kashmir valley. Located in Anantnag District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/pahalgam.png",
-    "location": "Anantnag District",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Daksum Scenic Point",
-      "Historic Local Market in Daksum",
-      "Traditional Food Street of Daksum"
-    ],
-    "tags": [
-      "kashmir",
-      "anantnag-district"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "daksum"
-  },
-  {
-    "_id": "6a3386e402a83e38349dfab6",
-    "name": "Bangus Valley",
-    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Bangus Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/doodhpathri.png",
-    "location": "North Kashmir, Kupwara",
+    "_id": "6a5247d82519b282b5997718",
+    "name": "Aharbal Waterfall",
+    "description": "Known as the Niagara Falls of Kashmir, it is a stunning waterfall in Kulgam district.",
+    "fullDescription": "Aharbal is renowned for its spectacular waterfall where the Veshu River falls noisily 25 meters down a narrow gorge. It is also a base for trekking to high altitude lakes.",
+    "image": "/images/destinations/destination-placeholder.webp",
+    "location": "South Kashmir",
     "bestTimeToVisit": "May to September",
     "attractions": [
-      "Bangus Valley Scenic Point",
-      "Historic Local Market in Bangus Valley",
-      "Traditional Food Street of Bangus Valley"
+      "Aharbal Waterfall",
+      "Veshu River",
+      "Kounsarnag Trek"
     ],
+    "tags": [
+      "waterfall",
+      "nature",
+      "photography",
+      "picnic",
+      "adventure"
+    ],
+    "bestSeasons": [
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": false,
+      "photographyScore": 10,
+      "trekkingDifficulty": "Moderate",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.8,
+    "touristFriendlinessScore": 4.2,
+    "luxuryScore": 2.5,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T13:40:40.255Z",
+    "slug": "aharbal-waterfall"
+  },
+  {
+    "_id": "6a5247d82519b282b599770a",
+    "name": "Aru Valley",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/aru.png",
+    "location": "Pahalgam, Anantnag",
+    "bestTimeToVisit": "March to November",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "pahalgam-anantnag",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Moderate",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": false,
+      "bbqAllowed": false,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Moderate",
+      "estimatedVisitDuration": "1 day",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:27.593Z",
+    "slug": "aru-valley",
+    "activities": [
+      "meadows",
+      "trekking",
+      "camping",
+      "villages",
+      "photography",
+      "mountains"
+    ],
+    "baseTown": "Pahalgam",
+    "coordinates": {
+      "lat": 34.09,
+      "lng": 75.26
+    },
+    "openingHours": "Daylight; trek base",
+    "region": "South",
+    "travelAdvisory": "Trailhead for Lidderwat/Kolahoi treks; carry layers."
+  },
+  {
+    "_id": "6a5247d82519b282b5997719",
+    "name": "Astanmarg",
+    "description": "A beautiful viewpoint overlooking Srinagar city and Dal Lake.",
+    "fullDescription": "Astanmarg is a high altitude meadow offering panoramic views of Srinagar, Dal Lake, and the surrounding mountains. It's a favorite among locals for sunset views.",
+    "image": "/images/destinations/destination-placeholder.webp",
+    "location": "Srinagar",
+    "bestTimeToVisit": "Year-round",
+    "attractions": [
+      "Sunset View",
+      "Paragliding",
+      "City View"
+    ],
+    "tags": [
+      "viewpoint",
+      "photography",
+      "weekend-idea",
+      "couples",
+      "sunset"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Moderate",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": false,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 9,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "2 hours",
+      "budgetLevel": "Free"
+    },
+    "authenticityScore": 4.5,
+    "touristFriendlinessScore": 4,
+    "luxuryScore": 2,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T13:40:40.255Z",
+    "slug": "astanmarg"
+  },
+  {
+    "_id": "6a5247d82519b282b5997712",
+    "name": "Bangus Valley",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/bangus.jpg",
+    "location": "North Kashmir, Kupwara",
+    "bestTimeToVisit": "May to September",
+    "attractions": [],
     "tags": [
       "kashmir",
       "north-kashmir-kupwara",
       "luxury-resort"
     ],
+    "bestSeasons": [
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Poor",
+      "parkingAvailable": false,
+      "networkCoverage": "None",
+      "familyFriendly": false,
+      "coupleFriendly": false,
+      "kidFriendly": false,
+      "elderlyFriendly": false,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 10,
+      "trekkingDifficulty": "Hard",
+      "estimatedVisitDuration": "1-2 days",
+      "budgetLevel": "Budget"
+    },
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "bangus-valley"
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-17T09:20:26.392Z",
+    "slug": "bangus-valley",
+    "activities": [
+      "hidden_gems",
+      "meadows",
+      "trekking",
+      "camping",
+      "road_trips",
+      "photography"
+    ],
+    "baseTown": "Kupwara",
+    "coordinates": {
+      "lat": 34.45,
+      "lng": 74.1
+    },
+    "openingHours": "Daylight; remote day-trip",
+    "region": "Frontier",
+    "travelAdvisory": "Remote frontier valley — check local access, patchy network, long approach road."
   },
   {
-    "_id": "6a3386e402a83e38349dfab7",
-    "name": "Wular Lake",
-    "description": "A breathtaking destination in Bandipora District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Wular Lake stands as a premier tourist attraction in the Kashmir valley. Located in Bandipora District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/wular_lake.png",
-    "location": "Bandipora District",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Wular Lake Scenic Point",
-      "Historic Local Market in Wular Lake",
-      "Traditional Food Street of Wular Lake"
-    ],
+    "_id": "6a5247d82519b282b599770b",
+    "name": "Betaab Valley",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/betaab.png",
+    "location": "Pahalgam, Anantnag",
+    "bestTimeToVisit": "March to October",
+    "attractions": [],
     "tags": [
       "kashmir",
-      "bandipora-district",
-      "luxury-resort"
+      "pahalgam-anantnag",
+      "highly-accessible"
     ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "wular-lake"
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "High",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 9,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:27.463Z",
+    "slug": "betaab-valley",
+    "activities": [
+      "meadows",
+      "mountains",
+      "photography",
+      "villages"
+    ],
+    "baseTown": "Pahalgam",
+    "coordinates": {
+      "lat": 34.05,
+      "lng": 75.35
+    },
+    "openingHours": "Daylight; entry ticket",
+    "region": "South",
+    "travelAdvisory": "Reached via Pahalgam taxi union; short stop."
   },
   {
-    "_id": "6a3386e402a83e38349dfab8",
+    "_id": "6a5247d82519b282b5997717",
+    "name": "Chatpal",
+    "description": "A completely offbeat hidden gem surrounded by lush green forests and streams.",
+    "fullDescription": "Chatpal is one of the most beautiful and untouched tourist destinations in South Kashmir. Ideal for travelers seeking solitude, it offers pristine nature without the commercialization of popular spots.",
+    "image": "/images/destinations/destination-placeholder.webp",
+    "location": "South Kashmir",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Pine Forests",
+      "Water Streams",
+      "Meadows"
+    ],
+    "tags": [
+      "hidden-gem",
+      "nature",
+      "peaceful",
+      "photography"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Moderate",
+      "parkingAvailable": true,
+      "networkCoverage": "None",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": false,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 2,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T13:40:40.255Z",
+    "slug": "chatpal"
+  },
+  {
+    "_id": "6a5247d82519b282b5997711",
+    "name": "Daksum",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/daksum.jpg",
+    "location": "Anantnag District",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "anantnag-district"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T16:05:39.919Z",
+    "slug": "daksum"
+  },
+  {
+    "_id": "6a5247d82519b282b599770c",
+    "name": "Doodhpathri",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/doodhpathri.png",
+    "location": "Budgam District",
+    "bestTimeToVisit": "May to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "budgam-district"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 3.8,
+    "touristFriendlinessScore": 4.1,
+    "luxuryScore": 2.5,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:26.122Z",
+    "slug": "doodhpathri",
+    "activities": [
+      "meadows",
+      "hidden_gems",
+      "photography",
+      "villages",
+      "road_trips"
+    ],
+    "baseTown": "Srinagar",
+    "coordinates": {
+      "lat": 33.83,
+      "lng": 74.86
+    },
+    "openingHours": "Daylight; day-trip only",
+    "region": "Central",
+    "travelAdvisory": "Day-visit from Srinagar; minimal facilities, carry essentials."
+  },
+  {
+    "_id": "6a5247d82519b282b5997704",
+    "name": "Gulmarg",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/gulmarg.png",
+    "location": "North Kashmir, Baramulla",
+    "bestTimeToVisit": "December to March (Snow), April to June (Meadows)",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "north-kashmir-baramulla",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "winter",
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "High",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 10,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "1-2 days",
+      "budgetLevel": "Expensive"
+    },
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:25.725Z",
+    "slug": "gulmarg",
+    "activities": [
+      "meadows",
+      "gondola",
+      "skiing",
+      "winter_sports",
+      "golf",
+      "trekking",
+      "photography",
+      "mountains"
+    ],
+    "baseTown": "Gulmarg",
+    "coordinates": {
+      "lat": 34.0484,
+      "lng": 74.3805
+    },
+    "openingHours": "Gondola 9am–4pm (weather dependent)",
+    "region": "North",
+    "travelAdvisory": "Gondola closes in high wind/snow; book Phase II ahead in winter."
+  },
+  {
+    "_id": "6a5247d82519b282b5997708",
+    "name": "Gurez Valley",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/gurez.png",
+    "location": "North Kashmir, Bandipora",
+    "bestTimeToVisit": "June to September",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "north-kashmir-bandipora",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Moderate",
+      "parkingAvailable": true,
+      "networkCoverage": "None",
+      "familyFriendly": false,
+      "coupleFriendly": true,
+      "kidFriendly": false,
+      "elderlyFriendly": false,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 10,
+      "trekkingDifficulty": "Moderate",
+      "estimatedVisitDuration": "2 days",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:26.524Z",
+    "slug": "gurez-valley",
+    "activities": [
+      "hidden_gems",
+      "villages",
+      "mountains",
+      "camping",
+      "road_trips",
+      "photography",
+      "trekking"
+    ],
+    "baseTown": "Gurez",
+    "coordinates": {
+      "lat": 34.63,
+      "lng": 74.84
+    },
+    "openingHours": "N/A — multi-day frontier region",
+    "region": "Frontier",
+    "travelAdvisory": "Permit/ID may be required; Razdan Pass road typically closes in winter (approx Nov–Apr)."
+  },
+  {
+    "_id": "6a5247d82519b282b599771a",
+    "name": "Harwan",
+    "description": "A serene garden and historic site nestled in the Zabarwan range.",
+    "fullDescription": "Harwan features lush green lawns, majestic Chinar trees, and the ancient Buddhist ruins nearby. It's a perfect spot for family picnics and peaceful retreats away from the city noise.",
+    "image": "/images/destinations/destination-placeholder.webp",
+    "location": "Srinagar",
+    "bestTimeToVisit": "April to October",
+    "attractions": [
+      "Harwan Garden",
+      "Buddhist Ruins",
+      "Chinar Trees"
+    ],
+    "tags": [
+      "picnic",
+      "family",
+      "heritage",
+      "weekend-idea",
+      "peaceful"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": false,
+      "photographyScore": 8,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 4.5,
+    "luxuryScore": 3,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T13:40:40.255Z",
+    "slug": "harwan"
+  },
+  {
+    "_id": "6a5247d82519b282b599770d",
+    "name": "Kokernag",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/kokernag.png",
+    "location": "South Kashmir, Anantnag",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "south-kashmir-anantnag",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 8,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-11T16:05:39.624Z",
+    "slug": "kokernag"
+  },
+  {
+    "_id": "6a5247d82519b282b5997709",
+    "name": "Lolab Valley",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/lolab.png",
+    "location": "North Kashmir, Kupwara",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "north-kashmir-kupwara"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "1 day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:26.662Z",
+    "slug": "lolab-valley",
+    "activities": [
+      "hidden_gems",
+      "villages",
+      "meadows",
+      "road_trips",
+      "photography"
+    ],
+    "baseTown": "Kupwara",
+    "coordinates": {
+      "lat": 34.55,
+      "lng": 74.25
+    },
+    "openingHours": "Daylight; remote day-trip",
+    "region": "Frontier",
+    "travelAdvisory": "Remote — day-visit from Kupwara; limited facilities."
+  },
+  {
+    "_id": "6a5247d82519b282b5997714",
     "name": "Manasbal Lake",
-    "description": "A breathtaking destination in Ganderbal District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Manasbal Lake stands as a premier tourist attraction in the Kashmir valley. Located in Ganderbal District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/betaab.png",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/destination-placeholder.webp",
     "location": "Ganderbal District",
     "bestTimeToVisit": "May to October",
-    "attractions": [
-      "Manasbal Lake Scenic Point",
-      "Historic Local Market in Manasbal Lake",
-      "Traditional Food Street of Manasbal Lake"
-    ],
+    "attractions": [],
     "tags": [
       "kashmir",
       "ganderbal-district"
     ],
+    "bestSeasons": [
+      "spring",
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": false,
+      "photographyScore": 8,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
     "authenticityScore": 3.8,
     "touristFriendlinessScore": 4.1,
     "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
-    "slug": "manasbal-lake"
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-17T09:20:28.122Z",
+    "slug": "manasbal-lake",
+    "activities": [
+      "lakes",
+      "hidden_gems",
+      "wildlife",
+      "photography",
+      "villages"
+    ],
+    "baseTown": "Srinagar",
+    "coordinates": {
+      "lat": 34.25,
+      "lng": 74.67
+    },
+    "openingHours": "Daylight; day-trip",
+    "region": "Central",
+    "travelAdvisory": "Deepest lake in Kashmir; lotus blooms in summer — a calm day-trip."
   },
   {
-    "_id": "6a3386e402a83e38349dfab9",
+    "_id": "6a5247d82519b282b5997705",
+    "name": "Pahalgam",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/pahalgam.png",
+    "location": "South Kashmir, Anantnag",
+    "bestTimeToVisit": "March to November",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "south-kashmir-anantnag",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "High",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "1-2 days",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:25.992Z",
+    "slug": "pahalgam",
+    "activities": [
+      "mountains",
+      "meadows",
+      "trekking",
+      "villages",
+      "photography",
+      "camping",
+      "spiritual"
+    ],
+    "baseTown": "Pahalgam",
+    "coordinates": {
+      "lat": 34.0161,
+      "lng": 75.315
+    },
+    "openingHours": "Daylight; local valleys via taxi union",
+    "region": "South",
+    "travelAdvisory": "Amarnath Yatra season (approx Jul–Aug) brings heavy congestion at Chandanwari."
+  },
+  {
+    "_id": "6a5247d82519b282b5997715",
     "name": "Pari Mahal",
-    "description": "A breathtaking destination in Zabarwan Range, Srinagar famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Pari Mahal stands as a premier tourist attraction in the Kashmir valley. Located in Zabarwan Range, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/pari_mahal.png",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/pari_mahal.png",
     "location": "Zabarwan Range, Srinagar",
     "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Pari Mahal Scenic Point",
-      "Historic Local Market in Pari Mahal",
-      "Traditional Food Street of Pari Mahal"
-    ],
+    "attractions": [],
     "tags": [
       "kashmir",
       "zabarwan-range-srinagar",
       "luxury-resort"
     ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 10,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "1-2 hours",
+      "budgetLevel": "Budget"
+    },
     "authenticityScore": 5,
     "touristFriendlinessScore": 3.8,
     "luxuryScore": 5,
     "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T16:05:40.175Z",
     "slug": "pari-mahal"
   },
   {
-    "_id": "6a3386e402a83e38349dfaba",
+    "_id": "6a5247d82519b282b5997716",
     "name": "Shalimar Bagh",
-    "description": "A breathtaking destination in Dal Lake front, Srinagar famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Shalimar Bagh stands as a premier tourist attraction in the Kashmir valley. Located in Dal Lake front, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/Destinations/achabal.png",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/destination-placeholder.webp",
     "location": "Dal Lake front, Srinagar",
     "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Shalimar Bagh Scenic Point",
-      "Historic Local Market in Shalimar Bagh",
-      "Traditional Food Street of Shalimar Bagh"
-    ],
+    "attractions": [],
     "tags": [
       "kashmir",
       "dal-lake-front-srinagar",
       "highly-accessible"
     ],
+    "bestSeasons": [
+      "spring",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "High",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 9,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "2 hours",
+      "budgetLevel": "Budget"
+    },
     "authenticityScore": 4.4,
     "touristFriendlinessScore": 5,
     "luxuryScore": 4,
     "__v": 0,
-    "createdAt": "2026-06-18T05:49:24.318Z",
-    "updatedAt": "2026-06-18T05:49:24.318Z",
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T16:05:40.241Z",
     "slug": "shalimar-bagh"
+  },
+  {
+    "_id": "6a5247d82519b282b5997710",
+    "name": "Sinthan Top",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/destination-placeholder.webp",
+    "location": "Kishtwar-Anantnag Border",
+    "bestTimeToVisit": "April to September",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "kishtwar-anantnag-border",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Moderate",
+      "parkingAvailable": true,
+      "networkCoverage": "None",
+      "familyFriendly": false,
+      "coupleFriendly": true,
+      "kidFriendly": false,
+      "elderlyFriendly": false,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T16:05:39.852Z",
+    "slug": "sinthan-top"
+  },
+  {
+    "_id": "6a5247d82519b282b5997706",
+    "name": "Sonamarg",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/sonamarg.png",
+    "location": "Central Kashmir, Ganderbal",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "central-kashmir-ganderbal",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": false,
+      "bbqAllowed": false,
+      "campingPossible": true,
+      "photographyScore": 9,
+      "trekkingDifficulty": "Moderate",
+      "estimatedVisitDuration": "1 day",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:25.852Z",
+    "slug": "sonamarg",
+    "activities": [
+      "mountains",
+      "trekking",
+      "meadows",
+      "camping",
+      "road_trips",
+      "photography"
+    ],
+    "baseTown": "Sonamarg",
+    "coordinates": {
+      "lat": 34.3039,
+      "lng": 75.2926
+    },
+    "openingHours": "Daylight; Thajiwas ponies 8am–5pm",
+    "region": "Central",
+    "travelAdvisory": "On the Zojila axis — road closes/limits in deep winter (approx Dec–Mar)."
+  },
+  {
+    "_id": "6a5247d82519b282b5997703",
+    "name": "Srinagar",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/srinagar.png",
+    "location": "Central Kashmir",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "central-kashmir"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "High",
+      "roadCondition": "Excellent",
+      "parkingAvailable": true,
+      "networkCoverage": "Excellent",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 8,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "2-3 days",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 4.1,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 3,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:25.578Z",
+    "slug": "srinagar",
+    "activities": [
+      "lakes",
+      "gardens",
+      "shikara",
+      "culture",
+      "food",
+      "wazwan",
+      "shopping",
+      "spiritual",
+      "photography"
+    ],
+    "baseTown": "Srinagar",
+    "coordinates": {
+      "lat": 34.0837,
+      "lng": 74.7973
+    },
+    "openingHours": "City — all day; gardens 9am–7pm",
+    "region": "Central",
+    "travelAdvisory": ""
+  },
+  {
+    "_id": "6a5247d82519b282b599771b",
+    "name": "Tarsar Marsar",
+    "description": "Twin alpine lakes famous for their breathtaking high-altitude trek.",
+    "fullDescription": "The Tarsar Marsar trek is one of the most beautiful treks in Kashmir, taking you through pristine alpine meadows to two stunning oligotrophic lakes.",
+    "image": "/images/tarsarmarsar.png",
+    "location": "Pahalgam",
+    "bestTimeToVisit": "July to September",
+    "attractions": [
+      "Tarsar Lake",
+      "Marsar Lake",
+      "Alpine Meadows"
+    ],
+    "tags": [
+      "trekking",
+      "adventure",
+      "nature",
+      "photography",
+      "lake"
+    ],
+    "bestSeasons": [
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Poor",
+      "parkingAvailable": false,
+      "networkCoverage": "None",
+      "familyFriendly": false,
+      "coupleFriendly": false,
+      "kidFriendly": false,
+      "elderlyFriendly": false,
+      "bbqAllowed": false,
+      "campingPossible": true,
+      "photographyScore": 10,
+      "trekkingDifficulty": "Hard",
+      "estimatedVisitDuration": "5-7 days",
+      "budgetLevel": "Moderate"
+    },
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3,
+    "luxuryScore": 1,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-11T13:40:40.255Z",
+    "slug": "tarsar-marsar"
+  },
+  {
+    "_id": "6a5247d82519b282b599770e",
+    "name": "Verinag",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/verinag.png",
+    "location": "South Kashmir, Anantnag",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "south-kashmir-anantnag",
+      "luxury-resort"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer"
+    ],
+    "metrics": {
+      "crowdLevel": "Moderate",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 8,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "2 hours",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-11T16:05:39.689Z",
+    "slug": "verinag"
+  },
+  {
+    "_id": "6a5247d82519b282b5997713",
+    "name": "Wular Lake",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/wular_lake.png",
+    "location": "Bandipora District",
+    "bestTimeToVisit": "April to October",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "bandipora-district",
+      "luxury-resort"
+    ],
+    "bestSeasons": [
+      "spring",
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Good",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": false,
+      "campingPossible": false,
+      "photographyScore": 9,
+      "trekkingDifficulty": "None",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 5,
+    "touristFriendlinessScore": 3.5,
+    "luxuryScore": 4.5,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.255Z",
+    "updatedAt": "2026-07-17T09:20:28.245Z",
+    "slug": "wular-lake",
+    "activities": [
+      "lakes",
+      "wildlife",
+      "hidden_gems",
+      "photography",
+      "villages"
+    ],
+    "baseTown": "Srinagar",
+    "coordinates": {
+      "lat": 34.36,
+      "lng": 74.56
+    },
+    "openingHours": "Daylight; day-trip via Bandipora",
+    "region": "North",
+    "travelAdvisory": "One of Asia's largest freshwater lakes; facilities are basic."
+  },
+  {
+    "_id": "6a5247d82519b282b5997707",
+    "name": "Yusmarg",
+    "description": "",
+    "fullDescription": "",
+    "image": "/images/destinations/yusm.png",
+    "location": "Budgam District",
+    "bestTimeToVisit": "May to September",
+    "attractions": [],
+    "tags": [
+      "kashmir",
+      "budgam-district",
+      "highly-accessible"
+    ],
+    "bestSeasons": [
+      "summer",
+      "autumn"
+    ],
+    "metrics": {
+      "crowdLevel": "Low",
+      "roadCondition": "Good",
+      "parkingAvailable": true,
+      "networkCoverage": "Patchy",
+      "familyFriendly": true,
+      "coupleFriendly": true,
+      "kidFriendly": true,
+      "elderlyFriendly": true,
+      "bbqAllowed": true,
+      "campingPossible": true,
+      "photographyScore": 8,
+      "trekkingDifficulty": "Easy",
+      "estimatedVisitDuration": "Half day",
+      "budgetLevel": "Budget"
+    },
+    "authenticityScore": 4.4,
+    "touristFriendlinessScore": 4.7,
+    "luxuryScore": 3.5,
+    "__v": 1,
+    "createdAt": "2026-07-11T13:40:40.254Z",
+    "updatedAt": "2026-07-17T09:20:26.243Z",
+    "slug": "yusmarg",
+    "activities": [
+      "meadows",
+      "hidden_gems",
+      "trekking",
+      "photography",
+      "villages"
+    ],
+    "baseTown": "Srinagar",
+    "coordinates": {
+      "lat": 33.83,
+      "lng": 74.67
+    },
+    "openingHours": "Daylight; day-trip only",
+    "region": "Central",
+    "travelAdvisory": "Day-visit from Srinagar; limited network coverage."
   }
 ]

@@ -1,0 +1,41 @@
+{
+  "directories": [
+    "/images/dishes/",
+    "/images/destinations/",
+    "/images/restaurants/"
+  ],
+  "files": [
+    "/images/destinations/Wular_Lake.jpg",
+    "/images/destinations/achabal.png",
+    "/images/destinations/aru.png",
+    "/images/destinations/bangus.jpg",
+    "/images/destinations/betaab.png",
+    "/images/destinations/daksum.jpg",
+    "/images/destinations/destination-placeholder.webp",
+    "/images/destinations/dood.png",
+    "/images/destinations/doodhpathri.png",
+    "/images/destinations/gul.jpg",
+    "/images/destinations/gulmarg.png",
+    "/images/destinations/gurez.png",
+    "/images/destinations/kokernag.png",
+    "/images/destinations/lolab.png",
+    "/images/destinations/pahalgam.png",
+    "/images/destinations/pari_mahal.png",
+    "/images/destinations/scenic.png",
+    "/images/destinations/sonamarg.png",
+    "/images/destinations/srinagar.jpg",
+    "/images/destinations/srinagar.png",
+    "/images/destinations/verinag.png",
+    "/images/destinations/wular_lake.png",
+    "/images/destinations/yusm.png",
+    "/images/destinations/yusmarg.png",
+    "/images/dishes/dish-placeholder.webp",
+    "/images/dishes/mughal-kabargah.jpg",
+    "/images/dishes/mughal-marchwangan.jpg",
+    "/images/dishes/mughal-matsgand.jpg",
+    "/images/dishes/mughal-yakhni.jpg",
+    "/images/dishes/pixel-logo-placeholder.webp",
+    "/images/restaurants/ahdoos.png",
+    "/images/restaurants/mughal-darbar.png"
+  ]
+}

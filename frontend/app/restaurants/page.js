@@ -38,6 +38,15 @@ function getDeterministicHash(str) {
 
 // Distance and Travel Time Resolver
 function getDistanceMetrics(restaurant, userCoords) {
+  // A distance is only shown when both the visitor's and the restaurant's real
+  // coordinates are known — never estimated from an ID or a city-centre default.
+  if (
+    !userCoords ||
+    !Number.isFinite(restaurant.coordinates?.latitude) ||
+    !Number.isFinite(restaurant.coordinates?.longitude)
+  ) {
+    return { distance: "", travelTime: "", distanceVal: null };
+  }
   let distance = 1.5;
   const hash = getDeterministicHash(restaurant._id || restaurant.slug || "default");
   
@@ -76,7 +85,8 @@ function getDistanceMetrics(restaurant, userCoords) {
 // Open/Closed Status Resolver
 function getOpenStatus(openingHours) {
   if (!openingHours) {
-    return { isOpen: true, text: "Open Now", hoursText: "11:30 AM - 10:00 PM" };
+    // No listed hours: don't claim the restaurant is open.
+    return { isOpen: false, text: "", hoursText: "" };
   }
   
   const cleanHours = openingHours.replace(/[\u2013\u2014]/g, "-").replace(/daily/i, "").trim();
@@ -113,7 +123,8 @@ function getOpenStatus(openingHours) {
     };
   }
   
-  return { isOpen: true, text: "Open Now", hoursText: cleanHours };
+  // Hours we can't parse: show them as listed, without an open/closed claim.
+  return { isOpen: false, text: "", hoursText: cleanHours };
 }
 
 // Reviews and Must Try Food Resolver
@@ -121,7 +132,8 @@ function getEnrichedMetadata(restaurant) {
   const hash = getDeterministicHash(restaurant._id || restaurant.slug || "default");
   
   // Reviews count fallback
-  const reviewsCount = restaurant.reviewsCount || restaurant.reviews?.length || (120 + (hash % 1100));
+  // Real review counts only — no estimated number when the record has none.
+  const reviewsCount = restaurant.reviewsCount || restaurant.reviews?.length || 0;
   
   // Price range mapping
   let priceRange = restaurant.priceRange || "₹₹₹";
@@ -134,7 +146,8 @@ function getEnrichedMetadata(restaurant) {
   }
   
   // Must Try dishes mapping
-  let mustTry = ["Rogan Josh", "Rista", "Tabak Maaz"];
+  // Dishes come from the restaurant's own linked dishes or tags; no default list.
+  let mustTry = [];
   if (restaurant.linkedDishes && restaurant.linkedDishes.length > 0) {
     const dishNames = restaurant.linkedDishes
       .map(d => {
@@ -282,24 +295,32 @@ const LuxuryRestaurantCard = memo(({
             </div>
             <div className="flex items-center gap-1 bg-green-700/80 text-white rounded px-2 py-0.5 text-xs font-bold shrink-0">
               <Star className="h-3 w-3 fill-current" />
-              {restaurant.rating || "4.0"}
+              {restaurant.rating || "—"}
             </div>
           </div>
 
           {/* Meta row */}
           <div className="flex items-center gap-2 text-[11px] text-white/50 flex-wrap">
-            <span>{enriched.reviewsCount} reviews</span>
-            <span className="text-white/20">&bull;</span>
+            {enriched.reviewsCount ? (
+              <>
+                <span>{enriched.reviewsCount} reviews</span>
+                <span className="text-white/20">&bull;</span>
+              </>
+            ) : null}
             <span className="text-white/70 font-mono">{enriched.priceRange}</span>
-            {hasMounted && (<><span className="text-white/20">&bull;</span>
+            {hasMounted && distanceMetrics.distance && (<><span className="text-white/20">&bull;</span>
             <span>{distanceMetrics.travelTime} away</span></>)}
-            <span className="text-white/20">&bull;</span>
-            <span>{openStatus.hoursText}</span>
+            {openStatus.hoursText ? (
+              <>
+                <span className="text-white/20">&bull;</span>
+                <span>{openStatus.hoursText}</span>
+              </>
+            ) : null}
           </div>
 
           {/* Tags row */}
           <div className="flex flex-wrap gap-2">
-            {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).slice(0, 4).map((tag, idx) => (
+            {(restaurant.tags || []).slice(0, 4).map((tag, idx) => (
               <button
                 key={idx}
                 onClick={(e) => onTagClick(tag, e)}
@@ -314,7 +335,7 @@ const LuxuryRestaurantCard = memo(({
           {/* Must Try + Directions row */}
           <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/5">
             <div className="text-[11px] text-white/50 flex items-center gap-1 min-w-0 flex-1 truncate">
-              <span className="text-white/70 font-medium shrink-0">Must Try:</span>
+              {enriched.mustTry.length > 0 && <span className="text-white/70 font-medium shrink-0">Must Try:</span>}
               <span className="text-[var(--saffron)] font-semibold truncate">
                 {enriched.mustTry.join(" \u2022 ")}
               </span>
@@ -425,9 +446,11 @@ const FeaturedPartnerCard = memo(({
             <div className="flex flex-col items-end gap-1 shrink-0">
               <div className="flex items-center gap-1 bg-green-700 text-white rounded px-2 py-0.5 text-xs font-black">
                 <Star className="h-3.5 w-3.5 fill-current" />
-                <span>{restaurant.rating || "4.5"}</span>
+                <span>{restaurant.rating || "—"}</span>
               </div>
-              <span className="text-[10px] text-white/40 font-bold">{enriched.reviewsCount} reviews</span>
+              {enriched.reviewsCount ? (
+                <span className="text-[10px] text-white/40 font-bold">{enriched.reviewsCount} reviews</span>
+              ) : null}
             </div>
           </div>
 
@@ -437,10 +460,10 @@ const FeaturedPartnerCard = memo(({
             <span className="text-white/20">&bull;</span>
             <div className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-green-500 shrink-0" />
-              <span className="text-green-500 font-bold">{hasMounted && openStatus.text ? openStatus.text : "Hours"}</span>
-              <span className="text-white/40 ml-0.5">({openStatus.hoursText})</span>
+              <span className="text-green-500 font-bold">{hasMounted && openStatus.text ? openStatus.text : openStatus.hoursText ? "Hours" : "Hours not listed"}</span>
+              {openStatus.hoursText ? <span className="text-white/40 ml-0.5">({openStatus.hoursText})</span> : null}
             </div>
-            {hasMounted && (<><span className="text-white/20">&bull;</span>
+            {hasMounted && distanceMetrics.distance && (<><span className="text-white/20">&bull;</span>
             <div className="flex items-center gap-1 text-[var(--saffron)] font-bold">
               <Navigation className="w-3 h-3 rotate-45 shrink-0" />
               <span>{distanceMetrics.distance} ({distanceMetrics.travelTime}) away</span>
@@ -449,14 +472,14 @@ const FeaturedPartnerCard = memo(({
 
           {/* Clamped Description */}
           <p className="text-sm text-white/70 leading-relaxed font-body line-clamp-2">
-            {restaurant.description || "Indulge in an authentic Kashmiri dining experience of unmatched caliber. Prepared by culinary masters utilizing traditional cooking vessels and heritage spices passed down through generations."}
+            {restaurant.description}
           </p>
 
           {/* Cuisine Tags & Signature Dishes row */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-white/5">
             {/* Cuisine Tags */}
             <div className="flex flex-wrap gap-2">
-              {(restaurant.tags || ["Wazwan", "Kashmiri", "Fine Dining"]).map((tag, idx) => (
+              {(restaurant.tags || []).map((tag, idx) => (
                 <button
                   key={idx}
                   onClick={(e) => onTagClick(tag, e)}
@@ -470,7 +493,7 @@ const FeaturedPartnerCard = memo(({
 
             {/* Signature Dishes */}
             <div className="text-xs text-white/60 flex items-center gap-1.5 min-w-0">
-              <span className="font-semibold text-white/80 shrink-0">Signature Dishes:</span>
+              {enriched.mustTry.length > 0 && <span className="font-semibold text-white/80 shrink-0">Signature Dishes:</span>}
               <div className="flex flex-wrap gap-1.5 font-bold truncate">
                 {enriched.mustTry.map((dish, idx) => (
                   <button
@@ -770,7 +793,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
 
       // 6. Distance Filter
       const distanceData = getDistanceMetrics(r, userCoords);
-      if (distanceData.distanceVal > maxDistance) return false;
+      if (distanceData.distanceVal != null && distanceData.distanceVal > maxDistance) return false;
 
       // 7. More Switch Filters
       if (showOpenNowOnly) {
@@ -790,8 +813,8 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
       list.sort((a, b) => parseFloat(b.rating || "0") - parseFloat(a.rating || "0"));
     } else if (sortBy === "Reviews: High to Low") {
       list.sort((a, b) => {
-        const aReviews = getDeterministicHash(a._id) % 1000;
-        const bReviews = getDeterministicHash(b._id) % 1000;
+        const aReviews = a.reviewsCount || a.reviews?.length || 0;
+        const bReviews = b.reviewsCount || b.reviews?.length || 0;
         return bReviews - aReviews;
       });
     } else if (sortBy === "Price: Low to High") {
@@ -831,7 +854,8 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
     const total = filteredByCity.length;
     const verified = filteredByCity.filter((r) => r.authentic).length;
     // Only compute open count after mount to avoid hydration mismatch
-    const open = hasMounted ? filteredByCity.filter((r) => getOpenStatus(r.openingHours).isOpen).length : total;
+    // Counted only from real, parseable hours (0 until mounted to match SSR).
+    const open = hasMounted ? filteredByCity.filter((r) => getOpenStatus(r.openingHours).isOpen).length : 0;
 
     return { total, verified, open };
   }, [restaurants, activeLocation, hasMounted]);

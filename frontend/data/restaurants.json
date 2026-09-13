@@ -1,44 +1,37 @@
 [
   {
-    "_id": "6a36b7098b14138cbe21573d",
-    "name": "Ahdoos",
-    "location": "Ahdoo's Hotel, Residency Road, Regal Chowk, Srinagar, Jammu and Kashmir 190001",
+    "_id": "6a57c1a88fd85587836865df",
+    "name": "Clove",
+    "location": "Boulevard, Dal Lake, Srinagar",
     "city": "Srinagar",
-    "rating": 4.3,
-    "priceLevel": "Mid-range",
+    "rating": 4.6,
+    "priceLevel": "Luxury",
     "tags": [
-      "Wazwan",
-      "Iconic",
-      "Historic",
-      "Fine Dining"
+      "Fine Dining",
+      "Tabak Maaz",
+      "Zabarwan View"
     ],
-    "linkedDishes": [
-      "6a2a4978ac7d60a9cca76ef8",
-      "6a2a4978ac7d60a9cca76efa",
-      "6a2a4978ac7d60a9cca76ef9",
-      "6a2a4978ac7d60a9cca76efb",
-      "6a36b7088b14138cbe2156ea"
-    ],
-    "image": "/images/restaurants/ahdoos.png",
-    "description": "Established in 1918, Ahdoos is Srinagar's legendary culinary pioneer. It was the first commercial restaurant in Kashmir to serve traditional Wazwan, earning it the reputation of the ultimate gold standard for authentic Kashmiri flavors in an elegant, heritage setting.",
-    "phoneNumber": "+91 70515 10634",
-    "openingHours": "12:00 PM – 10:00 PM daily",
-    "website": "ahdooshotel.com",
+    "linkedDishes": [],
+    "image": "/redesign/img/interior-clove.webp",
+    "description": "Modern Kashmiri fine dining — heritage recipes composed like paintings, served in a room of walnut wood and candlelight beneath the mountains.",
+    "phoneNumber": "",
+    "openingHours": "",
+    "website": "",
     "authentic": true,
     "overpriced": false,
     "touristTrapWarning": false,
     "touristTrapReason": "",
-    "googleMapsQuery": "Ahdoos Restaurant Residency Road Srinagar",
-    "authenticityScore": 4.8,
-    "touristFriendlinessScore": 4.5,
-    "luxuryScore": 4,
-    "__v": 0,
-    "createdAt": "2026-06-20T15:51:37.030Z",
-    "updatedAt": "2026-06-20T15:51:37.339Z",
-    "slug": "ahdoos"
+    "googleMapsQuery": "Clove Restaurant Boulevard Srinagar",
+    "authenticityScore": 4.2,
+    "touristFriendlinessScore": 4.4,
+    "luxuryScore": 4.8,
+    "createdAt": "2026-07-15T17:21:44.750Z",
+    "updatedAt": "2026-07-16T15:07:37.795Z",
+    "slug": "clove",
+    "__v": 0
   },
   {
-    "_id": "6a36b7098b14138cbe21573e",
+    "_id": "6a5247d82519b282b59976f4",
     "name": "Mughal Darbar",
     "location": "ground floor, Residency Road, near gpo, Munshi Bagh, Srinagar, Jammu and Kashmir 190001",
     "city": "Srinagar",
@@ -51,11 +44,24 @@
       "Srinagar"
     ],
     "linkedDishes": [
-      "6a36b7088b14138cbe2156e8",
-      "6a36b7088b14138cbe2156e9",
-      "6a2a4978ac7d60a9cca76f05",
-      "6a36b7088b14138cbe2156f0",
-      "6a2a4978ac7d60a9cca76f07"
+      {
+        "_id": "6a2a4978ac7d60a9cca76ef8",
+        "name": "Rogan Josh",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      },
+      {
+        "_id": "6a2a4978ac7d60a9cca76efa",
+        "name": "Rista",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      },
+      {
+        "_id": "6a2a4978ac7d60a9cca76ef9",
+        "name": "Gushtaba",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      }
     ],
     "image": "/images/restaurants/mughal-darbar.png",
     "description": "Mughal Darbar is renowned for its authentic Kashmiri Wazwan and Mughlai cuisine, offering a rich dining experience in the heart of Srinagar.",
@@ -67,12 +73,106 @@
     "touristTrapWarning": false,
     "touristTrapReason": "",
     "googleMapsQuery": "ground floor, Residency Road, near gpo, Munshi Bagh, Srinagar, Jammu and Kashmir 190001",
-    "authenticityScore": 4.5,
-    "touristFriendlinessScore": 4.2,
-    "luxuryScore": 3.5,
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
     "__v": 0,
-    "createdAt": "2026-06-22T10:28:12.000Z",
-    "updatedAt": "2026-06-22T10:28:12.000Z",
+    "createdAt": "2026-07-11T13:40:40.144Z",
+    "updatedAt": "2026-07-16T15:07:37.795Z",
     "slug": "mughal-darbar"
+  },
+  {
+    "_id": "6a57c1a88fd85587836865dc",
+    "name": "Shamyana",
+    "location": "Boulevard Road, Dal Lake, Srinagar",
+    "city": "Srinagar",
+    "rating": 4.5,
+    "priceLevel": "Mid-range",
+    "tags": [
+      "Lakeside",
+      "Yakhni",
+      "Boulevard Institution"
+    ],
+    "linkedDishes": [],
+    "image": "/redesign/img/interior-shamyana.webp",
+    "description": "A boulevard institution where houseboat lights flicker across your table. Come at dusk, order Yakhni, and let the lake do the talking.",
+    "phoneNumber": "",
+    "openingHours": "",
+    "website": "",
+    "authentic": true,
+    "overpriced": false,
+    "touristTrapWarning": false,
+    "touristTrapReason": "",
+    "googleMapsQuery": "Shamyana Restaurant Boulevard Road Srinagar",
+    "authenticityScore": 4.3,
+    "touristFriendlinessScore": 4.6,
+    "luxuryScore": 3.8,
+    "createdAt": "2026-07-15T17:21:44.613Z",
+    "updatedAt": "2026-07-16T15:07:37.795Z",
+    "slug": "shamyana",
+    "__v": 0
+  },
+  {
+    "_id": "6a5247d82519b282b59976f3",
+    "name": "Ahdoos",
+    "location": "Ahdoo's Hotel, Residency Road, Regal Chowk, Srinagar, Jammu and Kashmir 190001",
+    "city": "Srinagar",
+    "rating": 4.3,
+    "priceLevel": "Mid-range",
+    "tags": [
+      "Wazwan",
+      "Iconic",
+      "Historic",
+      "Fine Dining"
+    ],
+    "linkedDishes": [
+      {
+        "_id": "6a2a4978ac7d60a9cca76ef8",
+        "name": "Rogan Josh",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      },
+      {
+        "_id": "6a2a4978ac7d60a9cca76efa",
+        "name": "Rista",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      },
+      {
+        "_id": "6a2a4978ac7d60a9cca76ef9",
+        "name": "Gushtaba",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      },
+      {
+        "_id": "6a2a4978ac7d60a9cca76efb",
+        "name": "Tabak Maaz",
+        "category": "Wazwan",
+        "foodType": "Non-veg"
+      },
+      {
+        "_id": "6a5247d72519b282b59976b3",
+        "name": "Kahwa",
+        "category": "Beverages",
+        "foodType": "Veg"
+      }
+    ],
+    "image": "/images/restaurants/ahdoos.png",
+    "description": "Established in 1918, Ahdoos is Srinagar's legendary culinary pioneer. It was the first commercial restaurant in Kashmir to serve traditional Wazwan, earning it the reputation of the ultimate gold standard for authentic Kashmiri flavors in an elegant, heritage setting.",
+    "phoneNumber": "+91 70515 10634",
+    "openingHours": "12:00 PM – 10:00 PM daily",
+    "website": "ahdooshotel.com",
+    "authentic": true,
+    "overpriced": false,
+    "touristTrapWarning": false,
+    "touristTrapReason": "",
+    "googleMapsQuery": "Ahdoos Restaurant Residency Road Srinagar",
+    "authenticityScore": 4.7,
+    "touristFriendlinessScore": 5,
+    "luxuryScore": 4,
+    "__v": 0,
+    "createdAt": "2026-07-11T13:40:40.144Z",
+    "updatedAt": "2026-07-16T15:07:37.795Z",
+    "slug": "ahdoos"
   }
 ]

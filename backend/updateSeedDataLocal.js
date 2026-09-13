@@ -10,42 +10,20 @@ let seedDataContent = fs.readFileSync(seedDataPath, 'utf-8');
 let upsertContent = fs.readFileSync(path.join(process.cwd(), 'src', 'scripts', 'upsertSeed.js'), 'utf-8');
 
 const mapBlockStart = upsertContent.indexOf('const destinations = [');
-const mapBlockEnd = upsertContent.indexOf('].map((d, index) => {');
-let destinationsRaw = upsertContent.substring(mapBlockStart, mapBlockEnd) + ']';
+const mapBlockEnd = mapBlockStart === -1 ? -1 : upsertContent.indexOf('\n];', mapBlockStart);
+if (mapBlockEnd === -1) {
+  throw new Error('Could not find the `const destinations = [ ... ];` array in upsertSeed.js');
+}
+let destinationsRaw = upsertContent.substring(mapBlockStart, mapBlockEnd) + '\n]';
 
-// Execute the same map function as upsertSeed to get the new array
-const evalDestinations = eval(destinationsRaw.replace('const destinations = ', '')).map((d, index) => {
-  let charSum = 0;
-  for (let i = 0; i < d.name.length; i++) {
-    charSum += d.name.charCodeAt(i);
-  }
-  const factor = (charSum + 303) % 10;
-  const authenticityScore = Number((3.8 + (factor % 5) * 0.3).toFixed(1));
-  const touristFriendlinessScore = Number((3.5 + ((factor + 3) % 6) * 0.3).toFixed(1));
-  const luxuryScore = Number((2.5 + ((factor + 7) % 6) * 0.5).toFixed(1));
-
-  const tags = ["kashmir", d.location.toLowerCase().replace(/[^a-z0-9]+/g, "-")];
-  if (luxuryScore >= 4.5) tags.push("luxury-resort");
-  if (touristFriendlinessScore >= 4.5) tags.push("highly-accessible");
-
-  return {
-    name: d.name,
-    description: `A breathtaking destination in ${d.location} famous for its natural landscapes and local hospitality.`,
-    fullDescription: `${d.name} stands as a premier tourist attraction in the Kashmir valley. Located in ${d.location}, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.`,
-    image: d.image || "/wazwan-hero.jpg",
-    location: d.location,
-    bestTimeToVisit: d.bestTimeToVisit,
-    attractions: [
-      `${d.name} Scenic Point`,
-      `Historic Local Market in ${d.name}`,
-      `Traditional Food Street of ${d.name}`
-    ],
-    tags,
-    authenticityScore,
-    touristFriendlinessScore,
-    luxuryScore
-  };
-});
+// Copy upsertSeed.js's destinations as they are. This used to run a copy of that
+// script's old generator, which gave every place a template description and
+// fullDescription, three invented attractions, tags built from the location string
+// and scores computed from the letters of its name. None of that was real, so it is
+// no longer produced. Keys are ordered to match the existing seedData.js entries.
+const evalDestinations = eval(destinationsRaw.replace('const destinations = ', '')).map(
+  ({ name, image, location, bestTimeToVisit, ...rest }) => ({ name, image, location, bestTimeToVisit, ...rest })
+);
 
 // Now replace it in seedDataContent
 const sdDestStart = seedDataContent.indexOf('export const destinations = [');

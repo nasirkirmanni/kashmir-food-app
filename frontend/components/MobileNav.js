@@ -112,11 +112,11 @@ export default function MobileNav() {
     let scrollTarget = window;
     
     if (isSwipeableRoute) {
-      // Find the active .screen container. 
-      // MobileSwipeContainer statically renders exactly 5 .screen divs in sequence.
-      const screens = document.querySelectorAll('.screen');
-      if (screens && screens.length > activeIndex) {
-        scrollTarget = screens[activeIndex];
+      // The active swipe screen scrolls internally. MobileSwipeContainer tags each
+      // screen (including the route page when it fills its slot) with its index.
+      const screen = document.querySelector(`[data-screen-index="${activeIndex}"]`);
+      if (screen) {
+        scrollTarget = screen;
       }
     }
 

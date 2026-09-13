@@ -33,6 +33,12 @@ export const metadata = {
   title: "Explore Kashmir | Hidden Gems & Trails",
   description: "Discover the best hidden gems, scenic drives, picnic spots, and food trails across Kashmir.",
   alternates: { canonical: "https://wazwanway.com/explore" },
+  openGraph: {
+    type: "website",
+    url: "https://wazwanway.com/explore",
+    siteName: "Wazwan Way",
+    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+  },
 };
 
 export default async function ExplorePage() {

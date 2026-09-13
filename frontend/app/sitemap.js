@@ -1,22 +1,43 @@
-import fs from "fs";
-import path from "path";
 import { blogPosts } from "@/data/blogPosts";
 import { scenicDrives } from "@/data/scenicDrivesData";
 import { wazwanGuides } from "@/data/wazwanGuides";
+import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
+import dishIds from "../dishes-static-ids.json";
+import restaurantIds from "../restaurants-static-ids.json";
+import destinationIds from "../destinations-static-ids.json";
 
 const BASE_URL = "https://wazwanway.com";
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com").replace(/\/+$/, "");
 
-// Slug-only: id entries would emit duplicate URLs that canonicalize elsewhere.
-function loadSlugs(filename) {
+// Regenerated at most hourly, so dishes, restaurants and destinations added to or
+// removed from the catalogue reach the sitemap without a redeploy.
+export const revalidate = 3600;
+
+/**
+ * The live catalogue from the API. If it can't be fetched, the committed
+ * *-static-ids.json snapshot is used instead (refresh it with
+ * `node scripts/sync-static-ids.mjs`) and the failure is logged, never swallowed.
+ */
+async function fetchCatalogue(resource, fallbackEntries) {
   try {
-    const jsonPath = path.join(process.cwd(), filename);
-    if (fs.existsSync(jsonPath)) {
-      return JSON.parse(fs.readFileSync(jsonPath, "utf-8"))
-        .map((item) => item.slug)
-        .filter(Boolean);
-    }
-  } catch {}
-  return [];
+    const res = await fetch(`${API_BASE}/api/${resource}`, {
+      next: { revalidate },
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const records = await res.json();
+    if (!Array.isArray(records) || records.length === 0) throw new Error("empty response");
+    return { records, live: true };
+  } catch (err) {
+    console.error(`[sitemap] /api/${resource} unavailable (${err.message}); using ${resource}-static-ids.json`);
+    return { records: fallbackEntries, live: false };
+  }
+}
+
+function lastModifiedOf(value) {
+  if (!value) return undefined;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date;
 }
 
 const entry = (urlPath, lastModified) => ({
@@ -24,14 +45,19 @@ const entry = (urlPath, lastModified) => ({
   ...(lastModified ? { lastModified } : {}),
 });
 
-export default function sitemap() {
+export default async function sitemap() {
   const staticPages = [
     "",
     "/dishes",
     "/restaurants",
+    "/restaurants/best-wazwan-srinagar",
     "/recipes",
     "/history",
+    "/etiquette",
+    "/how-to-experience",
     "/destinations",
+    "/plan",
+    "/trekking-camping",
     "/scenic-drives",
     "/explore",
     "/blog",
@@ -43,31 +69,41 @@ export default function sitemap() {
     "/terms",
   ].map((p) => entry(p));
 
+  // A category guide index is listed only once that category has articles; until
+  // then the page is an empty shell (and is noindexed).
+  const guideCategories = ["wazwan", "bakery", "beverages", "street-food"];
   const kashmiriFoodPages = [
     "/kashmiri-food",
-    "/kashmiri-food/wazwan",
-    "/kashmiri-food/bakery",
-    "/kashmiri-food/beverages",
-    "/kashmiri-food/street-food",
-    "/kashmiri-food/wazwan/guide",
-    "/kashmiri-food/bakery/guide",
-    "/kashmiri-food/beverages/guide",
-    "/kashmiri-food/street-food/guide",
+    ...guideCategories.map((category) => `/kashmiri-food/${category}`),
+    ...guideCategories
+      .filter((category) => wazwanGuides.some((guide) => guide.category === category))
+      .map((category) => `/kashmiri-food/${category}/guide`),
   ].map((p) => entry(p));
 
   // Guide articles come from the same data that renders them, so the sitemap
   // can never list a guide that doesn't exist as a page.
-  const guidePages = wazwanGuides.map((g) =>
-    entry(`/kashmiri-food/${g.category}/guide/${g.slug}`)
-  );
+  const guidePages = wazwanGuides.map((g) => entry(`/kashmiri-food/${g.category}/guide/${g.slug}`));
 
-  const dishPages = loadSlugs("dishes-static-ids.json").map((slug) => entry(`/dishes/${slug}`));
-  const restaurantPages = loadSlugs("restaurants-static-ids.json").map((slug) =>
-    entry(`/restaurants/${slug}`)
-  );
-  const destinationPages = loadSlugs("destinations-static-ids.json").map((slug) =>
-    entry(`/destinations/${slug}`)
-  );
+  const [dishes, restaurants, destinations] = await Promise.all([
+    fetchCatalogue("dishes", dishIds),
+    fetchCatalogue("restaurants", restaurantIds),
+    fetchCatalogue("destinations", destinationIds),
+  ]);
+
+  const dishPages = dishes.records
+    .filter((d) => d.slug)
+    .map((d) => entry(`/dishes/${d.slug}`, lastModifiedOf(d.updatedAt)));
+
+  const restaurantPages = restaurants.records
+    .filter((r) => r.slug)
+    .map((r) => entry(`/restaurants/${r.slug}`, lastModifiedOf(r.updatedAt)));
+
+  // Destination pages with no written content are noindexed, so they're left out.
+  // (The static fallback can't tell, so it lists every destination.)
+  const destinationPages = destinations.records
+    .filter((d) => d.slug)
+    .filter((d) => !destinations.live || d.slug.includes("tarsar") || hasWrittenDestinationContent(sanitizeDestination(d)))
+    .map((d) => entry(`/destinations/${d.slug}`, lastModifiedOf(d.updatedAt)));
 
   const scenicDrivePages = scenicDrives.map((route) => entry(`/scenic-drives/${route.slug}`));
 
@@ -84,10 +120,9 @@ export default function sitemap() {
   ];
   const itineraryPages = [entry("/itineraries"), ...itinerarySlugs.map((s) => entry(`/itineraries/${s}`))];
 
-  const blogPages = blogPosts.map((post) => {
-    const d = new Date(post.updatedDate || post.date);
-    return entry(`/blog/${post.slug}`, isNaN(d.getTime()) ? undefined : d);
-  });
+  const blogPages = blogPosts.map((post) =>
+    entry(`/blog/${post.slug}`, lastModifiedOf(post.updatedDate || post.date))
+  );
 
   return [
     ...staticPages,

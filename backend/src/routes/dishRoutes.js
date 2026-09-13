@@ -64,7 +64,7 @@ router.get(
 
     const dishes = await Dish.find(query)
       .sort({ popularityRating: -1 })
-      .select("name description category image popularityRating priceRange slug foodType categoryType courseType spiceLevel recipe.difficulty recipe.servings")
+      .select("name description category image popularityRating priceRange slug foodType categoryType courseType spiceLevel recipe.difficulty recipe.servings updatedAt")
       .lean();
     res.json(dishes);
   })

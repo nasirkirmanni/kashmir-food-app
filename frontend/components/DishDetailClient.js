@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,12 +15,17 @@ import { resolveImageUrl } from "@/lib/imageUtils";
 import AuthRequiredModal from "@/components/AuthRequiredModal";
 import StickyMobileNav from "@/components/StickyMobileNav";
 import ExpandableText from "@/components/ExpandableText";
+import { sanitizeDish } from "@/lib/dishContent";
+import { relatedReadingForDish } from "@/data/relatedReading";
 
 export default function DishDetailClient({ initialDish = null }) {
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
-  const [dish, setDish] = useState(initialDish);
+  const [dishRecord, setDish] = useState(initialDish);
+  // Seed-script boilerplate (generic history, tips, "veg dish" descriptions) is
+  // removed before display; the hand-written recipe intro is used instead.
+  const dish = useMemo(() => sanitizeDish(dishRecord), [dishRecord]);
   const [loading, setLoading] = useState(!initialDish);
   const [error, setError] = useState(null);
 
@@ -209,6 +214,8 @@ export default function DishDetailClient({ initialDish = null }) {
     );
   }
 
+  const relatedReading = relatedReadingForDish(dish);
+
   return (
     <div className="wazwan-shell">
       {/* JSON-LD Structured Data */}
@@ -248,44 +255,6 @@ export default function DishDetailClient({ initialDish = null }) {
             ) : (
               <span className="place-badge border-blue-500/40 text-blue-300 bg-blue-500/10 font-bold">❀ Traditional Home-style Recipe</span>
             )}
-          </div>
-
-          <div className="mt-8 rounded-[18px] border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-lg max-w-xl">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--saffron)] mb-4 flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              Waza AI Culinary Authority Scores
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
-                  <span>Authenticity</span>
-                  <span className="text-[var(--saffron)] font-bold">{dish.authenticityScore || "4.0"}/5</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dish.authenticityScore || 4.0) / 5) * 100}%` }}></div>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
-                  <span>Tourist Friendliness</span>
-                  <span className="text-[var(--saffron)] font-bold">{dish.touristFriendlinessScore || "4.0"}/5</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dish.touristFriendlinessScore || 4.0) / 5) * 100}%` }}></div>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1 text-white/90">
-                  <span>Luxury & Comfort</span>
-                  <span className="text-[var(--saffron)] font-bold">{dish.luxuryScore || "3.0"}/5</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((dish.luxuryScore || 3.0) / 5) * 100}%` }}></div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-4 items-center">
@@ -341,17 +310,25 @@ export default function DishDetailClient({ initialDish = null }) {
 
       <section className="places-wrap pt-0">
         <div className="grid gap-8 lg:grid-cols-[0.95fr,1.05fr]">
-          <article className="restaurant-place-card self-start">
-            <span className="place-eyebrow">History</span>
-            <h3>{dish.name} in Kashmiri tradition</h3>
-            <ExpandableText text={dish.history} className="restaurant-desc whitespace-pre-wrap text-justify" threshold={150} />
-            <div className="rounded-[16px] bg-[var(--saffron-pale)] p-5 mt-6">
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
-                Tourist Tip
-              </p>
-              <p className="restaurant-desc mt-3 whitespace-pre-wrap text-justify">{dish.touristTip}</p>
-            </div>
-          </article>
+          {(dish.history || dish.touristTip) && (
+            <article className="restaurant-place-card self-start">
+              {dish.history && (
+                <>
+                  <span className="place-eyebrow">History</span>
+                  <h3>{dish.name} in Kashmiri tradition</h3>
+                  <ExpandableText text={dish.history} className="restaurant-desc whitespace-pre-wrap text-justify" threshold={150} />
+                </>
+              )}
+              {dish.touristTip && (
+                <div className={`rounded-[16px] bg-[var(--saffron-pale)] p-5 ${dish.history ? "mt-6" : ""}`}>
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
+                    Tourist Tip
+                  </p>
+                  <p className="restaurant-desc mt-3 whitespace-pre-wrap text-justify">{dish.touristTip}</p>
+                </div>
+              )}
+            </article>
+          )}
 
           <div className="space-y-6">
             <article className="restaurant-place-card">
@@ -386,7 +363,8 @@ export default function DishDetailClient({ initialDish = null }) {
                 <span className="text-white/40 text-lg md:text-2xl ml-3">({dish.recipe.kashmiriName})</span>
               ) : null}
             </h2>
-            {dish.recipe.intro ? (
+            {/* Skip the intro when it is already the description shown in the hero. */}
+            {dish.recipe.intro && dish.recipe.intro !== dish.fullDescription ? (
               <p className="restaurant-desc mt-3 max-w-3xl">{dish.recipe.intro}</p>
             ) : null}
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/60">
@@ -462,6 +440,24 @@ export default function DishDetailClient({ initialDish = null }) {
               ) : null}
             </article>
           </div>
+        </section>
+      )}
+
+      {relatedReading.length > 0 && (
+        <section className="places-wrap pt-0" aria-labelledby="related-reading-heading">
+          <article className="restaurant-place-card">
+            <span className="place-eyebrow">Further Reading</span>
+            <h3 id="related-reading-heading">More about {dish.name}</h3>
+            <ul className="mt-4 space-y-3">
+              {relatedReading.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} prefetch={false} className="restaurant-desc text-[var(--saffron)] hover:underline">
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </article>
         </section>
       )}
 

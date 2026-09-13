@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda, Instrument_Serif, Hanken_Grotesk } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda, Hanken_Grotesk } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
@@ -12,6 +12,7 @@ import MobileSwipeContainer from "@/components/MobileSwipeContainer";
 import CapacitorListeners from "@/components/CapacitorListeners";
 import dishesData from "@/data/dishes.json";
 import { pickCoverDishes } from "@/lib/dailyTable";
+import { resolveContentPhoto } from "@/lib/contentImages";
 const GlobalSearchModal = dynamic(() => import("@/components/GlobalSearchModal"), { ssr: false });
 import NextTopLoader from "nextjs-toploader";
 
@@ -43,8 +44,13 @@ const bodoni = Bodoni_Moda({
   adjustFontFallback: false
 });
 
+// Faces used by only a few routes are not preloaded (preload: false): every
+// root-layout preload is otherwise sent with every page. They still load, with
+// display: swap, on the pages that use them.
+
 const playfair = Playfair_Display({
   subsets: ["latin"],
+  preload: false,
   variable: "--font-playfair",
   weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
@@ -53,6 +59,7 @@ const playfair = Playfair_Display({
 
 const fraunces = Fraunces({
   subsets: ["latin"],
+  preload: false,
   variable: "--font-fraunces",
   display: "swap",
   adjustFontFallback: false
@@ -60,6 +67,7 @@ const fraunces = Fraunces({
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+  preload: false,
   variable: "--font-jetbrains-mono",
   display: "swap",
   adjustFontFallback: false
@@ -67,32 +75,28 @@ const jetbrainsMono = JetBrains_Mono({
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
+  preload: false,
   variable: "--font-ibm-plex",
   weight: ["400", "500"],
   display: "swap",
   adjustFontFallback: false
 });
 
-// Mobile-home voice: Instrument Serif carries the display type (ivory caps +
-// gold italic accent) and Hanken Grotesk the micro-labels — deliberately
-// distinct from the desktop Bodoni/Cormorant film. Scoped via .mh-* classes.
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  variable: "--font-instrument",
-  weight: "400",
-  style: ["normal", "italic"],
-  display: "swap",
-  adjustFontFallback: false
-});
-
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
+  preload: false,
   variable: "--font-hanken",
   display: "swap",
   adjustFontFallback: false
 });
 
 const BASE_URL = "https://wazwanway.com";
+
+// The swipe deck's home-screen copy only needs each cover dish's slug and image;
+// layout props are serialized into every route's payload, so keep them minimal.
+const coverDishes = pickCoverDishes(dishesData)
+  .map(({ slug, image }) => ({ slug, image: resolveContentPhoto(image) }))
+  .filter((dish) => dish.image);
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -167,7 +171,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${instrument.variable} ${hanken.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${hanken.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}
@@ -185,7 +189,7 @@ export default function RootLayout({ children }) {
           <MobileNavigationProvider>
             <div className="min-h-screen relative z-10 pb-24 md:pb-0">
               <Navbar />
-              <MobileSwipeContainer coverDishes={pickCoverDishes(dishesData)}>
+              <MobileSwipeContainer coverDishes={coverDishes}>
                 <main>{children}</main>
               </MobileSwipeContainer>
               <ConditionalFooter />

@@ -15,13 +15,22 @@ export default function CloseSection() {
         <picture>
           <source
             media="(max-width: 768px)"
+            type="image/webp"
+            srcSet="/images/trekking-camping/pexels-amit-chowdhury-2402860-18318114.webp"
+          />
+          <source
+            media="(max-width: 768px)"
             srcSet="/images/trekking-camping/pexels-amit-chowdhury-2402860-18318114.jpg"
           />
+          <source
+            type="image/webp"
+            srcSet="/images/trekking-camping/pexels-abtrvl-9144239.webp"
+          />
           <img
-            src="/images/trekking-camping/pexels-abtrvl-9144239.jpg"
             alt="Kashmir mountain panorama"
             loading="lazy"
             decoding="async"
+            src="/images/trekking-camping/pexels-abtrvl-9144239.jpg"
           />
         </picture>
       </div>

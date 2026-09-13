@@ -1,22 +1,59 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { endpoints, request } from "@/lib/api";
-import { resolveImageUrl } from "@/lib/imageUtils";
 import StickyMobileNav from "@/components/StickyMobileNav";
 import JsonLd, { buildDestinationSchema } from "@/components/JsonLd";
+import { DESTINATION_PLACEHOLDER, isPlaceholderImage, resolveContentImage } from "@/lib/contentImages";
+import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
 
-// Removed getOptimizedImage function as Next.js Image component automatically optimizes images.
+// Stored activity keys ("winter_sports") → labels ("Winter Sports").
+function formatLabel(key) {
+  return String(key)
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+// Practical facts, shown only when the destination record actually has them.
+function visitFacts(destination) {
+  const m = destination.metrics || {};
+  return [
+    ["Base town", destination.baseTown],
+    ["Region", destination.region],
+    ["Opening hours", destination.openingHours],
+    ["Typical visit", m.estimatedVisitDuration],
+    ["Crowds", m.crowdLevel],
+    ["Road condition", m.roadCondition],
+    ["Mobile network", m.networkCoverage],
+    ["Trekking difficulty", m.trekkingDifficulty],
+    ["Budget", m.budgetLevel],
+  ].filter(([, value]) => typeof value === "string" && value.trim());
+}
+
+function goodFor(destination) {
+  const m = destination.metrics || {};
+  return [
+    ["familyFriendly", "Families"],
+    ["coupleFriendly", "Couples"],
+    ["kidFriendly", "Children"],
+    ["elderlyFriendly", "Older travellers"],
+    ["campingPossible", "Camping"],
+  ]
+    .filter(([key]) => m[key] === true)
+    .map(([, label]) => label);
+}
 
 export default function DestinationDetailClient({ initialDestination, params }) {
-  const [destination, setDestination] = useState(initialDestination);
+  const [destinationRecord, setDestination] = useState(initialDestination);
   const [loading, setLoading] = useState(!initialDestination);
   const [error, setError] = useState(null);
+  // Seed-script placeholder text is removed before anything is shown or emitted.
+  const destination = useMemo(() => sanitizeDestination(destinationRecord), [destinationRecord]);
 
   useEffect(() => {
-    if (!destination && params?.slug) {
+    if (!destinationRecord && params?.slug) {
       request(endpoints.destination(params.slug) + "?v=" + Date.now())
         .then((data) => {
           setDestination(data);
@@ -28,7 +65,7 @@ export default function DestinationDetailClient({ initialDestination, params }) 
           setLoading(false);
         });
     }
-  }, [destination, params?.slug]);
+  }, [destinationRecord, params?.slug]);
 
   if (loading) {
     return (
@@ -49,6 +86,13 @@ export default function DestinationDetailClient({ initialDestination, params }) 
     );
   }
 
+  const heroImage = resolveContentImage(destination.image) || DESTINATION_PLACEHOLDER;
+  const facts = visitFacts(destination);
+  const audiences = goodFor(destination);
+  const activities = Array.isArray(destination.activities) ? destination.activities.filter(Boolean) : [];
+  const seasons = Array.isArray(destination.bestSeasons) ? destination.bestSeasons.filter(Boolean) : [];
+  const hasWrittenGuide = hasWrittenDestinationContent(destination);
+
   return (
     <div className="min-h-screen bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black">
       <JsonLd data={buildDestinationSchema(destination)} />
@@ -57,14 +101,14 @@ export default function DestinationDetailClient({ initialDestination, params }) 
       {/* Hero Image Section */}
       <div className="relative h-[50vh] min-h-[400px] w-full">
         <Image
-          src={destination.image || "/wazwan-hero.jpg"}
-          alt={destination.name}
+          src={heroImage}
+          alt={isPlaceholderImage(heroImage) ? `${destination.name} — photo not available` : destination.name}
           fill
           className="object-cover"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent" />
-        
+
         {/* Back Navigation */}
         <div className="absolute top-8 left-4 md:left-8 z-20 hidden md:block">
           <Link href="/destinations" className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-widest text-white hover:bg-[var(--saffron)] hover:text-black hover:border-[var(--saffron)] transition-all">
@@ -93,16 +137,33 @@ export default function DestinationDetailClient({ initialDestination, params }) 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-6 md:px-12 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          
-          <div className="md:col-span-2 space-y-12">
-            <section>
-              <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] mb-4">About</h2>
-              <p className="text-lg leading-relaxed text-white/80">
-                {destination.description}
-              </p>
-            </section>
 
-            {destination.attractions && destination.attractions.length > 0 && (
+          <div className="md:col-span-2 space-y-12">
+            {(destination.description || destination.fullDescription) && (
+              <section>
+                <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] mb-4">About</h2>
+                {destination.description && (
+                  <p className="text-lg leading-relaxed text-white/80">{destination.description}</p>
+                )}
+                {destination.fullDescription && destination.fullDescription !== destination.description && (
+                  <p className="mt-4 text-base leading-relaxed text-white/70">{destination.fullDescription}</p>
+                )}
+              </section>
+            )}
+
+            {!hasWrittenGuide && (
+              <section className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <p className="text-sm leading-relaxed text-white/70">
+                  We haven&apos;t written a full guide to {destination.name} yet. The details below come from our destination records.{" "}
+                  <Link href="/destinations" className="text-[var(--saffron)] hover:underline">
+                    Browse all destinations
+                  </Link>
+                  .
+                </p>
+              </section>
+            )}
+
+            {destination.attractions.length > 0 && (
               <section>
                 <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] mb-6">Key Attractions</h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -115,14 +176,58 @@ export default function DestinationDetailClient({ initialDestination, params }) 
                 </ul>
               </section>
             )}
+
+            {(facts.length > 0 || destination.travelAdvisory || activities.length > 0 || audiences.length > 0) && (
+              <section>
+                <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--saffron)] mb-6">Plan Your Visit</h2>
+
+                {destination.travelAdvisory && (
+                  <p className="mb-6 rounded-2xl border border-[var(--saffron)]/30 bg-[var(--saffron)]/10 p-4 text-sm leading-relaxed text-white/90">
+                    <span className="mr-2 font-bold uppercase tracking-widest text-[0.6rem] text-[var(--saffron)]">Advisory</span>
+                    {destination.travelAdvisory}
+                  </p>
+                )}
+
+                {facts.length > 0 && (
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                    {facts.map(([label, value]) => (
+                      <div key={label} className="border-b border-white/10 pb-3">
+                        <dt className="text-[0.6rem] font-bold uppercase tracking-widest text-white/50">{label}</dt>
+                        <dd className="mt-1 text-sm text-white/90">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+
+                {activities.length > 0 && (
+                  <div className="mt-6">
+                    <div className="text-[0.6rem] font-bold uppercase tracking-widest text-white/50 mb-3">Things to do</div>
+                    <ul className="flex flex-wrap gap-2">
+                      {activities.map((activity) => (
+                        <li key={activity} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
+                          {formatLabel(activity)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {audiences.length > 0 && (
+                  <p className="mt-6 text-sm text-white/70">
+                    <span className="text-[0.6rem] font-bold uppercase tracking-widest text-white/50 mr-2">Suits</span>
+                    {audiences.join(" · ")}
+                  </p>
+                )}
+              </section>
+            )}
           </div>
 
           <div className="md:col-span-1 space-y-8">
             {/* Meta Info Box */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-sm">
-              
+
               {/* Locate on Map Button */}
-              <a 
+              <a
                 href={`https://maps.google.com/?q=${encodeURIComponent(destination.name + ' Kashmir')}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -146,45 +251,16 @@ export default function DestinationDetailClient({ initialDestination, params }) 
                 </div>
               )}
 
-              {(destination.authenticityScore || destination.touristFriendlinessScore || destination.luxuryScore) && (
-                <div className="space-y-5">
-                  <div className="text-[0.6rem] font-bold uppercase tracking-widest text-[var(--saffron)] mb-4">Waza AI Scores</div>
-                  
-                  {destination.authenticityScore && (
-                    <div>
-                      <div className="flex justify-between text-xs text-white/70 mb-1.5 font-medium">
-                        <span>Authenticity</span>
-                        <span className="text-[var(--saffron)] font-bold">{destination.authenticityScore}/5</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-black/40 rounded-full overflow-hidden">
-                        <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((destination.authenticityScore) / 5) * 100}%` }}></div>
-                      </div>
-                    </div>
-                  )}
-
-                  {destination.touristFriendlinessScore && (
-                    <div>
-                      <div className="flex justify-between text-xs text-white/70 mb-1.5 font-medium">
-                        <span>Tourist Friendly</span>
-                        <span className="text-[var(--saffron)] font-bold">{destination.touristFriendlinessScore}/5</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-black/40 rounded-full overflow-hidden">
-                        <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((destination.touristFriendlinessScore) / 5) * 100}%` }}></div>
-                      </div>
-                    </div>
-                  )}
-
-                  {destination.luxuryScore && (
-                    <div>
-                      <div className="flex justify-between text-xs text-white/70 mb-1.5 font-medium">
-                        <span>Luxury Focus</span>
-                        <span className="text-[var(--saffron)] font-bold">{destination.luxuryScore}/5</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-black/40 rounded-full overflow-hidden">
-                        <div className="h-full bg-[var(--saffron)] rounded-full" style={{ width: `${((destination.luxuryScore) / 5) * 100}%` }}></div>
-                      </div>
-                    </div>
-                  )}
+              {seasons.length > 0 && (
+                <div>
+                  <div className="text-[0.6rem] font-bold uppercase tracking-widest text-white/50 mb-2">Seasons</div>
+                  <div className="flex flex-wrap gap-2">
+                    {seasons.map((season) => (
+                      <span key={season} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80">
+                        {formatLabel(season)}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

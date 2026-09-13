@@ -1,95 +1,59 @@
 [
   {
-    "id": "6a5247d72519b282b59976b1",
-    "slug": "kabargah"
-  },
-  {
-    "id": "6a5247d72519b282b59976b5",
-    "slug": "lavas"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76efe",
-    "slug": "waza-kokur"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f52",
-    "slug": "badam-phirni"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f05",
-    "slug": "marchwangan-korma"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f0b",
-    "slug": "muji-chetin"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76efa",
-    "slug": "rista"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f03",
-    "slug": "wazwan-mushroom-guchhi-yakhni"
-  },
-  {
-    "id": "6a5247d72519b282b59976ee",
-    "slug": "noon-chai"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f3f",
-    "slug": "basrakh"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f00",
-    "slug": "daniwal-korma"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f1b",
-    "slug": "sheermal"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f48",
-    "slug": "tosha"
+    "id": "6a2a4978ac7d60a9cca76f04",
+    "slug": "aab-gosht"
   },
   {
     "id": "6a2bb84bab4eecd3990bc655",
     "slug": "aloo-monji"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f04",
-    "slug": "aab-gosht"
+    "id": "6a2a4978ac7d60a9cca76f3d",
+    "slug": "babribyol"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f52",
+    "slug": "badam-phirni"
+  },
+  {
+    "id": "6a5247d72519b282b599769a",
+    "slug": "bakerkhani"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f3f",
+    "slug": "basrakh"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f4d",
+    "slug": "cardamom-kahwa"
+  },
+  {
+    "id": "6a5247d72519b282b599769f",
+    "slug": "czochworu"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76eff",
+    "slug": "dani-phol"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f00",
+    "slug": "daniwal-korma"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f09",
+    "slug": "dum-oluv"
   },
   {
     "id": "6a5247d72519b282b59976a8",
     "slug": "girda"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76efb",
-    "slug": "tabak-maaz"
-  },
-  {
     "id": "6a2a4978ac7d60a9cca76ef9",
     "slug": "gushtaba"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76efc",
-    "slug": "nadru-yakhni"
-  },
-  {
-    "id": "6a2a5e67185d2d28b82e8692",
-    "slug": "rice"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76ef8",
-    "slug": "rogan-josh"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f08",
-    "slug": "ruwangan-chaman"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f3d",
-    "slug": "babribyol"
+    "id": "6a5247d72519b282b59976b1",
+    "slug": "kabargah"
   },
   {
     "id": "6a5247d72519b282b59976b2",
@@ -100,56 +64,8 @@
     "slug": "kashmiri-kahwa"
   },
   {
-    "id": "6a2a49c1185d2d28b82e867c",
-    "slug": "yakhni"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76eff",
-    "slug": "dani-phol"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f09",
-    "slug": "dum-oluv"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f0f",
-    "slug": "mutton-tujji"
-  },
-  {
-    "id": "6a5247d72519b282b599769f",
-    "slug": "czochworu"
-  },
-  {
-    "id": "6a5247d72519b282b599769a",
-    "slug": "bakerkhani"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f53",
-    "slug": "saffron-phirni"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f01",
-    "slug": "waza-palak"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76efd",
-    "slug": "methi-maaz"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f54",
-    "slug": "walnut-halwa"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f3a",
-    "slug": "masala-tsot"
-  },
-  {
-    "id": "6a5247d72519b282b59976c0",
-    "slug": "nadru-gaad"
-  },
-  {
-    "id": "6a2a4978ac7d60a9cca76f14",
-    "slug": "phirni"
+    "id": "6a2a4978ac7d60a9cca76f19",
+    "slug": "kashmiri-kulcha"
   },
   {
     "id": "6a5247d72519b282b59976eb",
@@ -160,31 +76,115 @@
     "slug": "kashmiri-pulao"
   },
   {
+    "id": "6a5247d72519b282b59976b5",
+    "slug": "lavas"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f05",
+    "slug": "marchwangan-korma"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f3a",
+    "slug": "masala-tsot"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76efd",
+    "slug": "methi-maaz"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f0b",
+    "slug": "muji-chetin"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f0f",
+    "slug": "mutton-tujji"
+  },
+  {
+    "id": "6a5247d72519b282b59976c0",
+    "slug": "nadru-gaad"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76efc",
+    "slug": "nadru-yakhni"
+  },
+  {
     "id": "6a2a4978ac7d60a9cca76f12",
     "slug": "nadur-monji"
+  },
+  {
+    "id": "6a5247d72519b282b59976ee",
+    "slug": "noon-chai"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f14",
+    "slug": "phirni"
+  },
+  {
+    "id": "6a2a5e67185d2d28b82e8692",
+    "slug": "rice"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76efa",
+    "slug": "rista"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76ef8",
+    "slug": "rogan-josh"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f08",
+    "slug": "ruwangan-chaman"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f53",
+    "slug": "saffron-phirni"
   },
   {
     "id": "6a2a4978ac7d60a9cca76f06",
     "slug": "seekh-kebab"
   },
   {
+    "id": "6a594074db4308bdd80bad58",
+    "slug": "shami-kabab"
+  },
+  {
     "id": "6a2a4978ac7d60a9cca76f5b",
     "slug": "sheera"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f4d",
-    "slug": "cardamom-kahwa"
+    "id": "6a2a4978ac7d60a9cca76f1b",
+    "slug": "sheermal"
   },
   {
     "id": "6a5247d72519b282b59976d6",
     "slug": "shufta"
   },
   {
-    "id": "6a2a4978ac7d60a9cca76f19",
-    "slug": "kashmiri-kulcha"
+    "id": "6a2a4978ac7d60a9cca76efb",
+    "slug": "tabak-maaz"
   },
   {
-    "id": "6a594074db4308bdd80bad58",
-    "slug": "shami-kabab"
+    "id": "6a2a4978ac7d60a9cca76f48",
+    "slug": "tosha"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f54",
+    "slug": "walnut-halwa"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76efe",
+    "slug": "waza-kokur"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f01",
+    "slug": "waza-palak"
+  },
+  {
+    "id": "6a2a4978ac7d60a9cca76f03",
+    "slug": "wazwan-mushroom-guchhi-yakhni"
+  },
+  {
+    "id": "6a2a49c1185d2d28b82e867c",
+    "slug": "yakhni"
   }
 ]

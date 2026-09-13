@@ -36,6 +36,9 @@ Run these from the specific app directory, not the repo root, unless noted.
 - Single test: `npx vitest run lib/imageProvider.test.js` or `npx vitest -t "test name"`
 - `ANALYZE=true npm run build` — bundle analyzer
 - `npm run cap-sync` — sync web build into the Capacitor Android project
+- `npm run check:images` — fails if any referenced local image/video path doesn't exist with exact case (Vercel is case-sensitive). `prebuild` runs it on frontend sources; `predev`/`prebuild` also regenerate `lib/generated/content-image-manifest.json`
+- `node scripts/sync-static-ids.mjs` — refresh `*-static-ids.json` from the live API (static params + sitemap fallback)
+- `node scripts/check-metadata.mjs [baseUrl] [--sitemap]` — audit titles, descriptions, canonicals, robots, H1 and JSON-LD counts of a running build
 
 **Backend** (`cd backend`)
 - `npm run dev` — `node --watch src/server.js` on :5000
@@ -163,6 +166,8 @@ The design language is **"cinematic luxury editorial"** — a coffee-table trave
 - **Gold as light** — gold glows (`box-shadow: 0 0 40px rgba(200,164,106,0.25)`), radial ambiance gradients, `.gold-gradient-text`, `pulse-glow`.
 - **Motion as choreography** — signature eases `cubic-bezier(0.22,1,0.36,1)` (framer-motion) / `(0.19,1,0.22,1)` (CSS); word-by-word headline reveals (`blur(8px)→0` + y-offset); hero scroll parallax (`useScroll`/`useTransform`) + desktop mouse parallax (`useSpring`) + 25s Ken Burns zoom; cards lift `translateY(-4px…-6px)` with gold-tinted shadow on hover.
 - **Separate desktop vs mobile trees** — the homepage renders two entirely different DOMs (`hidden md:block` vs `block md:hidden`). Mobile is app-like: floating glass `.nav-pill`, a swipeable 5-screen container, bento cards. Desktop is a full 10-section cinematic scroll.
+- **`MobileSwipeContainer` renders each route's page exactly once.** Server HTML and desktop contain only `children`. After hydration on mobile tab routes (`/`, `/restaurants`, `/waza-ai`, `/kashmiri-food`, `/profile`) it adds the swipe deck: the route's own page fills its screen slot (identified with `useSelectedLayoutSegments()`, because swipes change the URL via `pushState` without changing the rendered page) and the other screens are client-only copies mounted on demand. Never server-render another route's content into a page (duplicate H1s/JSON-LD/text).
+- **Content integrity** — seed scripts once filled records with template text, name-hashed "scores" and non-existent image paths. Pages pass records through `lib/dishContent.js`, `lib/destinationContent.js` and `lib/contentImages.js` (missing images → verified alias or illustrated placeholder, never a stock photo). Don't display generated scores, review counts, distances or "Open Now" without real data.
 
 **Key reusable components:** `WazaAI.js` (the signature floating AI widget — SSE streaming, `react-markdown`, rAF-batched tokens, guest gating → `AuthRequiredModal`), `ImageWithSkeleton.js` (central image component — shimmer skeleton → fade-in, provider blur placeholder, fallback to `/wazwan-hero.jpg`), `Navbar`/`MobileNav`/`MobileSwipeContainer`, `GlobalSearchModal` (debounced, event-opened), `FadeInWhenVisible` (IntersectionObserver reveal). Note `RestaurantCard.js`/`DishCard.js` are **legacy light-theme and unused by the homepage** — don't reach for them when building dark UI.
 

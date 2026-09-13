@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const destinationsDir = path.join(__dirname, '../public/images/Destinations');
+const destinationsDir = path.join(__dirname, '../public/images/destinations');
 const originalsDir = path.join(destinationsDir, 'originals');
 const optimizedDir = path.join(destinationsDir, 'optimized');
 

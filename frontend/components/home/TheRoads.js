@@ -168,10 +168,21 @@ function ProfileChart({ progress, scene }) {
 }
 
 /**
+ * Runs the overture's scroll-scrub/pin loop. VideoOverture mounts it only while
+ * the chapter is within a screen of the viewport, so the per-frame work stops
+ * off-screen — the same gating usePinnedProgress gives the atlas below.
+ */
+function OvertureScrub(props) {
+  useScrollScrubVideo(props);
+  return null;
+}
+
+/**
  * The overture — scroll-scrubbed drive footage, same physics as the landing
  * hero: the stage pins, scrolling plays the film forward (and back), the
  * frame fades in from black and back out before the atlas takes the stage.
- * The 28MB footage is fetched only once the chapter approaches.
+ * The 28MB footage mounts with metadata only two screens out and buffers in
+ * full once the chapter is a screen away.
  */
 function VideoOverture({ scene }) {
   const wrapperRef = useRef(null);
@@ -180,32 +191,37 @@ function VideoOverture({ scene }) {
   const progress = useMotionValue(0);
   const [videoReady, setVideoReady] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [near, setNear] = useState(false);
+  const [bufferFull, setBufferFull] = useState(false);
 
-  // Defer the heavy fetch until the user is within two screens of the chapter.
+  // Two screens out: mount the <video> (preload="metadata"). One screen out:
+  // buffer it in full (latched) and run the scrub loop for as long as it stays near.
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el || !scene) return undefined;
-    const io = new IntersectionObserver(
+    const mountIo = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setShouldLoad(true);
-          io.disconnect();
+          mountIo.disconnect();
         }
       },
       { rootMargin: "200% 0px 200% 0px" }
     );
-    io.observe(el);
-    return () => io.disconnect();
+    const nearIo = new IntersectionObserver(
+      ([entry]) => {
+        setNear(entry.isIntersecting);
+        if (entry.isIntersecting) setBufferFull(true);
+      },
+      { rootMargin: "100% 0px 100% 0px" }
+    );
+    mountIo.observe(el);
+    nearIo.observe(el);
+    return () => {
+      mountIo.disconnect();
+      nearIo.disconnect();
+    };
   }, [scene]);
-
-  useScrollScrubVideo({
-    wrapperRef,
-    stageRef,
-    videoRef,
-    progress,
-    duration: VIDEO_DURATION,
-    pin: scene,
-  });
 
   /* Slow fade in from black, slow fade back out as the drive completes */
   const videoFade = useTransform(progress, [0, 0.12, 0.86, 1], [0, 1, 1, 0]);
@@ -215,6 +231,16 @@ function VideoOverture({ scene }) {
 
   return (
     <div ref={wrapperRef} className="relative bg-[#050505]" style={{ height: `${VIDEO_SCROLL_VH}vh` }}>
+      {near && (
+        <OvertureScrub
+          wrapperRef={wrapperRef}
+          stageRef={stageRef}
+          videoRef={videoRef}
+          progress={progress}
+          duration={VIDEO_DURATION}
+          pin={scene}
+        />
+      )}
       <div ref={stageRef} className="absolute inset-x-0 top-0 h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-[#050505]" />
 
@@ -226,7 +252,7 @@ function VideoOverture({ scene }) {
               src={VIDEO_SRC}
               muted
               playsInline
-              preload="auto"
+              preload={bufferFull ? "auto" : "metadata"}
               aria-hidden="true"
               tabIndex={-1}
               disablePictureInPicture

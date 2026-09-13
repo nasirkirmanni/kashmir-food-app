@@ -13,7 +13,7 @@ export function generateMetadata({ params }) {
   if (!route) return {};
 
   const canonicalUrl = `https://wazwanway.com/scenic-drives/${route.slug}`;
-  const title = `${route.title} | Kashmir Scenic Drive`;
+  const title = `${route.title} Scenic Drive Guide`;
   const description = `${route.title} road trip guide — ${route.distance}, ${route.duration} drive. Route conditions, elevation profile, and the best stops along the way.`;
 
   return {

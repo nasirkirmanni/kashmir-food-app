@@ -1,5 +1,10 @@
 export const metadata = {
-  title: "Kashmir Itineraries | Curated Trip Plans",
+  // An object title passes the brand template down to itinerary pages; a plain
+  // string would reset it for everything below this layout. `default` is the hub's title.
+  title: {
+    default: "Kashmir Itineraries | Curated Trip Plans",
+    template: "%s | Wazwan Way",
+  },
   description:
     "Curated Kashmir itineraries combining destinations, food stops, and scenic drives — ready-made plans for every trip length.",
   alternates: { canonical: "https://wazwanway.com/itineraries" },

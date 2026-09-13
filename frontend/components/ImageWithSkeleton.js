@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { resolveImageUrl, getImageSrcSet, getImagePlaceholder, getActiveProvider } from "@/lib/imageUtils";
+import { isPlaceholderImage, placeholderFor } from "@/lib/contentImages";
 
 export default function ImageWithSkeleton({
   src,
@@ -26,13 +27,15 @@ export default function ImageWithSkeleton({
   srcsetWidths,
   // Placeholder
   placeholder = "blur",
-  // Fallback
-  fallback = "/wazwan-hero.jpg",
+  // Fallback (defaults to the dish/destination placeholder for content images,
+  // so a failed dish photo never turns into an unrelated feast photo)
+  fallback,
   ...props
 }) {
+  const fallbackSrc = fallback ?? placeholderFor(src) ?? "/wazwan-hero.jpg";
   const [prevSrc, setPrevSrc] = useState(src);
   const [isLoading, setIsLoading] = useState(!priority);
-  const [imgSrc, setImgSrc] = useState(() => resolveImageUrl(src, fallback));
+  const [imgSrc, setImgSrc] = useState(() => resolveImageUrl(src, fallbackSrc));
   const [placeholderSrc, setPlaceholderSrc] = useState(() => getImagePlaceholder(src));
   const activeProvider = getActiveProvider();
 
@@ -58,14 +61,17 @@ export default function ImageWithSkeleton({
   useEffect(() => {
     if (src !== prevSrc) {
       setPrevSrc(src);
-      setImgSrc(resolveImageUrl(src, fallback, transformOptions));
+      setImgSrc(resolveImageUrl(src, fallbackSrc, transformOptions));
       setPlaceholderSrc(getImagePlaceholder(src));
       setIsLoading(!priority);
     }
-  }, [src, prevSrc, fallback, transformOptions, priority]);
+  }, [src, prevSrc, fallbackSrc, transformOptions, priority]);
 
   // Determine if we should use blur placeholder
   const useBlurPlaceholder = placeholder === "blur" && placeholderSrc && activeProvider === 'cloudinary';
+
+  // A placeholder is an illustration, not a photo of the subject — say so.
+  const imageAlt = isPlaceholderImage(imgSrc) ? (alt ? `${alt} — photo not available` : "") : alt || "";
 
   return (
     <div
@@ -80,7 +86,7 @@ export default function ImageWithSkeleton({
       {/* Actual Image */}
       <Image
         src={imgSrc}
-        alt={alt || ""}
+        alt={imageAlt}
         fill={fill}
         width={!fill ? width : undefined}
         height={!fill ? height : undefined}
@@ -92,7 +98,7 @@ export default function ImageWithSkeleton({
         className={`relative z-10 transition-opacity duration-500 ease-in-out ${isLoading ? "opacity-0" : "opacity-100"} ${className}`}
         onLoad={() => setIsLoading(false)}
         onError={() => {
-          setImgSrc(fallback);
+          setImgSrc(fallbackSrc);
           setIsLoading(false);
         }}
         {...props}

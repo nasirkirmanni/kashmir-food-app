@@ -13,7 +13,12 @@ function loadSlugs(filename) {
 }
 
 export const metadata = {
-  title: "Kashmiri Restaurants | Find Wazwan Dining in Kashmir",
+  // An object title passes the brand template down to restaurant pages; a plain
+  // string would reset it for everything below this layout. `default` is the hub's title.
+  title: {
+    default: "Kashmiri Restaurants | Wazwan Dining in Kashmir",
+    template: "%s | Wazwan Way",
+  },
   description:
     "Discover the best authentic Kashmiri restaurants in Srinagar, Gulmarg, Pahalgam, and Sonamarg. Find curated dining venues serving traditional Wazwan cuisine.",
   alternates: { canonical: "https://wazwanway.com/restaurants" },

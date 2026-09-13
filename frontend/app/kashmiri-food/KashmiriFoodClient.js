@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import dishesData from "@/data/dishes.json";
 import WazaAITeaser from "@/components/WazaAITeaser";
 import "./kashmiri.css";
+import { resolveContentImage } from "@/lib/contentImages";
 
 const wazaExchanges = [
   { q: "I don't do spicy food. What's safe for me?", a: 'Try <b>Daniwal Korma</b> — mild, yoghurt-coriander. Skip the Marchwangan Korma today.' },
@@ -103,7 +104,8 @@ function getShortNote(dish) {
 
 
 function DishCard({ dish, index }) {
-  const [imgSrc, setImgSrc] = useState(dish.image || '/placeholder-dish.jpg');
+  // Stored image paths that don't exist resolve to a verified photo or placeholder.
+  const [imgSrc, setImgSrc] = useState(resolveContentImage(dish.image) || '/placeholder-dish.jpg');
   const shortNote = getShortNote(dish);
 
   return (

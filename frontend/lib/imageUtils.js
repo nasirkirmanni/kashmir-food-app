@@ -18,6 +18,7 @@ import {
   getActiveProviderName,
   getProviderCapabilities 
 } from './imageProvider';
+import { resolveContentImage } from './contentImages';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL?.trim()?.replace(/\/+$/, '')
   || 'https://kashmir-food-app-api.onrender.com';
@@ -59,8 +60,9 @@ export function resolveImageUrl(src, fallback = '/wazwan-hero.jpg', options = {}
     return src;
   }
   
-  // Local/relative path - use provider to build optimized URL
-  return buildImageUrl(src, options);
+  // Local/relative path - swap a missing content image for a verified photo or
+  // placeholder (see contentImages.js), then build the optimized URL
+  return buildImageUrl(resolveContentImage(src), options);
 }
 
 /**

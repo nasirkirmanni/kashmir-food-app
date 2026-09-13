@@ -12,6 +12,21 @@ export function generateStaticParams() {
   }));
 }
 
+// Shorter search titles for headlines that run past ~60 characters once the
+// layout template adds " | Wazwan Way". The <h1>, og:title and twitter:title
+// keep the full headline.
+const SEARCH_TITLES = {
+  "what-is-ver-masala": "What Is Ver Masala? Wazwan's Secret Spice",
+  "pampore-kashmiri-saffron": "Why Pampore Grows the World's Finest Saffron",
+  "kashmiri-red-chili": "Kashmiri Red Chili: Wazwan's Iconic Color",
+  "nadru-lotus-stem-kashmir": "Nadru (Lotus Stem): Kashmir's Beloved Vegetable",
+  "fennel-and-dry-ginger-wazwan": "Fennel & Dry Ginger: The Flavor Base of Wazwan",
+  "complete-history-of-wazwan": "Wazwan History: From Samarkand to Srinagar",
+  "rogan-josh-the-true-story": "Rogan Josh: The True Story Behind the Dish",
+  "noon-chai-pink-tea-kashmir": "Noon Chai: The Science and Ritual of Pink Tea",
+  "dying-art-of-the-waza": "Dying Art of the Waza: Kashmir's Master Chefs",
+};
+
 export function generateMetadata({ params }) {
   const post = blogPosts.find(p => p.slug === params.slug);
   if (!post) return {};
@@ -19,7 +34,7 @@ export function generateMetadata({ params }) {
   const canonicalUrl = `https://wazwanway.com/blog/${post.slug}`;
   
   return {
-    title: post.title,
+    title: SEARCH_TITLES[post.slug] || post.title,
     description: post.excerpt || post.summary || `Read about ${post.title} on Wazwan Way.`,
     alternates: { canonical: canonicalUrl },
     openGraph: {

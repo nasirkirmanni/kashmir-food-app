@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "History of Wazwan | Kashmir's Royal Culinary Heritage",
+  title: "History of Wazwan | Kashmir's Royal Feast",
   description:
     "Discover the 700-year history of Wazwan — Kashmir's royal feast. Learn about the Waza chefs, the Traami tradition, the 36-course ceremony, and its Central Asian origins.",
   alternates: { canonical: "https://wazwanway.com/history" },

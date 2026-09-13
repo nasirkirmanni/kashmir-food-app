@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "About Us | The Story Behind Wazwan Way",
+  title: "About Us | Our Story",
   description:
     "Wazwan Way is a premium guide to Kashmir's culinary heritage — authentic dishes, trusted restaurants, recipes, and food culture, curated for travellers and food lovers.",
   alternates: { canonical: "https://wazwanway.com/about" },

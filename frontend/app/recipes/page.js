@@ -12,6 +12,7 @@ import { buildImageUrl } from "@/lib/imageProvider";
 
 import dishesData from "@/data/dishes.json";
 import "./recipes.css";
+import { resolveContentImage } from "@/lib/contentImages";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -258,7 +259,7 @@ export default function RecipesPage() {
                           {dish.image && (
                             <div className="w-full aspect-[16/10] overflow-hidden md:w-24 md:h-24 md:aspect-auto md:flex-shrink-0 md:rounded-xl md:border md:border-white/10">
                               <img
-                                src={buildImageUrl(dish.image, { width: 400 })}
+                                src={buildImageUrl(resolveContentImage(dish.image), { width: 400 })}
                                 alt={dish.name}
                                 loading="lazy"
                                 decoding="async"

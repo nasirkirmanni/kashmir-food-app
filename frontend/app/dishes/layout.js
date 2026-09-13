@@ -13,7 +13,12 @@ function loadSlugs(filename) {
 }
 
 export const metadata = {
-  title: "Kashmiri Dishes | Explore Wazwan Cuisine",
+  // An object title passes the brand template down to dish pages; a plain string
+  // would reset it for everything below this layout. `default` is the hub's title.
+  title: {
+    default: "Kashmiri Dishes | Explore Wazwan Cuisine",
+    template: "%s | Wazwan Way",
+  },
   description:
     "Explore signature Kashmiri dishes from the royal Wazwan table — Rogan Josh, Gushtaba, Rista, Tabak Maaz and more. Discover history, spice levels, and where to taste them.",
   alternates: { canonical: "https://wazwanway.com/dishes" },

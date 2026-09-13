@@ -49,14 +49,23 @@ export default function TrekCampHero() {
         <picture>
           <source
             media="(max-width: 768px)"
+            type="image/webp"
+            srcSet="/images/trekking-camping/pexels-egojane-8985291.webp"
+          />
+          <source
+            media="(max-width: 768px)"
             srcSet="/images/trekking-camping/pexels-egojane-8985291.jpg"
+          />
+          <source
+            type="image/webp"
+            srcSet="/images/trekking-camping/pexels-simarphotos-34571097.webp"
           />
           <img
             ref={bgImgRef}
             src="/images/trekking-camping/pexels-simarphotos-34571097.jpg"
             alt="Kashmir alpine landscape"
             className={reduceMotion ? "tc-kenburns-static" : "tc-kenburns-active"}
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="async"
           />
         </picture>

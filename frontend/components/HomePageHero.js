@@ -374,7 +374,7 @@ const WASH =
 const COVER_IMAGE = "/redesign/img/door-feast.webp";
 const COVER_VIDEO = "/redesign/wazwan-cover.mp4";
 
-export default function HomePageHero({ initialDishes = [] }) {
+export default function HomePageHero({ initialDishes = [], isRoutePage = true }) {
   const { user } = useAuth();
   const [greeting, setGreeting] = useState("Good evening");
   const [dateLine, setDateLine] = useState("Srinagar");
@@ -457,10 +457,17 @@ export default function HomePageHero({ initialDishes = [] }) {
     };
   }, []);
 
+  // A copy of this screen can be preloaded next to another tab in the swipe deck;
+  // don't fetch the cover video until the home screen has actually been shown.
+  const [homeScreenSeen, setHomeScreenSeen] = useState(false);
+  useEffect(() => {
+    if (activeIndex === 0) setHomeScreenSeen(true);
+  }, [activeIndex]);
+
   // Mount the video only on actual mobile viewports (the strip is display:none
   // on desktop but a hidden <video autoplay> would still download) and never
   // under reduced motion — the still cover serves both cases.
-  const showCoverVideo = isMobile && coverVideoOk && !reducedMotion && coverVideoReady;
+  const showCoverVideo = isMobile && homeScreenSeen && coverVideoOk && !reducedMotion && coverVideoReady;
 
   // The Wazwan cover video is the one exception to screen-gating: per the
   // user's direction it plays continuously, wherever they are in the app.
@@ -567,6 +574,13 @@ export default function HomePageHero({ initialDishes = [] }) {
 
   return (
     <>
+      {/* The homepage's single <h1>, shared by both layouts below — their display
+          headlines ("The Wazwan.", "Unveil the Wazwan.") are styled paragraphs.
+          Omitted when this hero is a swipe-deck copy on another route. */}
+      {isRoutePage && (
+        <h1 className="sr-only">Wazwan Way — Kashmiri Wazwan, Food and Travel Guide</h1>
+      )}
+
       {/* ═══════════════════════════════════════════════════════
           MOBILE HOME (below md) — "The Film Strip"
           ═══════════════════════════════════════════════════════ */}
@@ -645,9 +659,9 @@ export default function HomePageHero({ initialDishes = [] }) {
               Wazwan Way · The Royal Feast
               <span className="ws-rule" />
             </span>
-            <h1 className="ws-title ws-door-title mt-4 text-[clamp(40px,11.5vw,52px)]">
+            <p className="ws-title ws-door-title mt-4 text-[clamp(40px,11.5vw,52px)]">
               The <em>Wazwan</em>.
-            </h1>
+            </p>
             <p className="ws-line mt-3 max-w-[310px]">
               Thirty-six courses, one copper trami — the feast Kashmir is named for.
             </p>
@@ -757,8 +771,9 @@ export default function HomePageHero({ initialDishes = [] }) {
           </div>
         </section>
 
-        {/* Clearance for the floating nav pill */}
-        <div className="h-28 shrink-0" />
+        {/* Clearance for the floating nav pill. On the homepage route the intro
+            section that follows (components/home/HomeIntro.js) provides it. */}
+        {!isRoutePage && <div className="h-28 shrink-0" />}
       </section>
 
       {/* ═══════════════════════════════════════════════════════

@@ -13,7 +13,12 @@ function loadSlugs(filename) {
 }
 
 export const metadata = {
-  title: "Rare Destinations | Offbeat Kashmir Travel Guide",
+  // An object title passes the brand template down to destination pages; a plain
+  // string would reset it for everything below this layout. `default` is the hub's title.
+  title: {
+    default: "Rare Destinations | Offbeat Kashmir Guide",
+    template: "%s | Wazwan Way",
+  },
   description:
     "Explore Kashmir beyond the postcards — hidden valleys, alpine lakes, and offbeat destinations like Gurez, Bangus, Lolab, and Doodhpathri, with practical travel metrics for each.",
   alternates: { canonical: "https://wazwanway.com/destinations" },

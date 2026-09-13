@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Select a Tour Partner | Verified Kashmir Agencies",
+  title: "Select a Verified Kashmir Tour Partner",
   description:
     "Choose from verified Kashmir travel agencies to organise your trip — compare specialities and inquire directly.",
   alternates: { canonical: "https://wazwanway.com/select-tour-partner" },

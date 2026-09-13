@@ -555,6 +555,15 @@ const newRestaurants = [
   }
 ];
 
+// Destinations without written copy: list only real values here.
+// This array used to go through a generator that gave every place a template
+// description and fullDescription, three invented attractions ("<Name> Scenic
+// Point", "Historic Local Market in <Name>", "Traditional Food Street of <Name>"),
+// tags built from the location string and scores computed from the letters of
+// its name. That was published and indexed as if it described each place, so
+// fields without real content now stay unset (cleanupSeoPlaceholders.js removes
+// what was already written). Images missing from frontend/public use the
+// destination placeholder.
 const destinations = [
   { name: "Srinagar", location: "Central Kashmir", bestTimeToVisit: "April to October", image: "/images/destinations/srinagar.png" },
   { name: "Gulmarg", location: "North Kashmir, Baramulla", bestTimeToVisit: "December to March (Snow), April to June (Meadows)", image: "/images/destinations/gulmarg.png" },
@@ -569,58 +578,17 @@ const destinations = [
   { name: "Kokernag", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to October", image: "/images/destinations/kokernag.png" },
   { name: "Verinag", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to October", image: "/images/destinations/verinag.png" },
   { name: "Achabal", location: "South Kashmir, Anantnag", bestTimeToVisit: "April to September", image: "/images/destinations/achabal.png" },
-  { name: "Sinthan Top", location: "Kishtwar-Anantnag Border", bestTimeToVisit: "April to September", image: "/images/destinations/Sinthan_Top.jpg" },
+  { name: "Sinthan Top", location: "Kishtwar-Anantnag Border", bestTimeToVisit: "April to September", image: "/images/destinations/destination-placeholder.webp" },
   { name: "Daksum", location: "Anantnag District", bestTimeToVisit: "April to October", image: "/images/destinations/daksum.jpg" },
   { name: "Bangus Valley", location: "North Kashmir, Kupwara", bestTimeToVisit: "May to September", image: "/images/destinations/bangus.jpg" },
   { name: "Wular Lake", location: "Bandipora District", bestTimeToVisit: "April to October", image: "/images/destinations/wular_lake.png" },
-  { name: "Manasbal Lake", location: "Ganderbal District", bestTimeToVisit: "May to October", image: "/images/destinations/Manasbal_Lake.jpg" },
+  { name: "Manasbal Lake", location: "Ganderbal District", bestTimeToVisit: "May to October", image: "/images/destinations/destination-placeholder.webp" },
   { name: "Pari Mahal", location: "Zabarwan Range, Srinagar", bestTimeToVisit: "April to October", image: "/images/destinations/pari_mahal.png" },
-  { name: "Shalimar Bagh", location: "Dal Lake front, Srinagar", bestTimeToVisit: "April to October", image: "/images/destinations/Shalimar_Bagh.jpg" }
-].map((d, index) => {
-  let charSum = 0;
-  for (let i = 0; i < d.name.length; i++) {
-    charSum += d.name.charCodeAt(i);
-  }
-  const factor = (charSum + 303) % 10;
-  const authenticityScore = Number((3.8 + (factor % 5) * 0.3).toFixed(1));
-  const touristFriendlinessScore = Number((3.5 + ((factor + 3) % 6) * 0.3).toFixed(1));
-  const luxuryScore = Number((2.5 + ((factor + 7) % 6) * 0.5).toFixed(1));
+  { name: "Shalimar Bagh", location: "Dal Lake front, Srinagar", bestTimeToVisit: "April to October", image: "/images/destinations/destination-placeholder.webp" }
+];
 
-  const tags = ["kashmir", d.location.toLowerCase().replace(/[^a-z0-9]+/g, "-")];
-  if (luxuryScore >= 4.5) tags.push("luxury-resort");
-  if (touristFriendlinessScore >= 4.5) tags.push("highly-accessible");
-
-  return {
-    name: d.name,
-    description: `A breathtaking destination in ${d.location} famous for its natural landscapes and local hospitality.`,
-    fullDescription: `${d.name} stands as a premier tourist attraction in the Kashmir valley. Located in ${d.location}, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.`,
-    image: d.image || "/wazwan-hero.jpg",
-    location: d.location,
-    bestTimeToVisit: d.bestTimeToVisit,
-    attractions: [
-      `${d.name} Scenic Point`,
-      `Historic Local Market in ${d.name}`,
-      `Traditional Food Street of ${d.name}`
-    ],
-    tags,
-    authenticityScore,
-    touristFriendlinessScore,
-    luxuryScore
-  };
-});
-
-// Deterministic score generator for original items
-function getDeterministicScores(name, seedNum) {
-  let charSum = 0;
-  for (let i = 0; i < name.length; i++) {
-    charSum += name.charCodeAt(i);
-  }
-  const factor = (charSum + seedNum) % 10;
-  const authenticityScore = Number((3.8 + (factor % 5) * 0.3).toFixed(1));
-  const touristFriendlinessScore = Number((3.5 + ((factor + 3) % 6) * 0.3).toFixed(1));
-  const luxuryScore = Number((2.5 + ((factor + 7) % 6) * 0.5).toFixed(1));
-  return { authenticityScore, touristFriendlinessScore, luxuryScore };
-}
+// Dish and restaurant scores are merged as stored. They used to be overwritten here
+// with values computed from the character codes of each name, which rated nothing real.
 
 async function run() {
   await connectDB();
@@ -631,7 +599,6 @@ async function run() {
   
   // Original dishes
   originalDishes.forEach(d => {
-    const scores = getDeterministicScores(d.name, 101);
     let image = d.image;
     // Correct Cardamom Kahwa thumbnail mapping
     if (d.name === "Cardamom Kahwa" || d.image?.endsWith("cardamom-kahwa.webp")) {
@@ -639,23 +606,16 @@ async function run() {
     }
     dishesMap.set(d.name.toLowerCase(), {
       ...d,
-      image,
-      authenticityScore: scores.authenticityScore,
-      touristFriendlinessScore: scores.touristFriendlinessScore,
-      luxuryScore: scores.luxuryScore
+      image
     });
   });
 
   // New dishes - merge and override
   newDishes.forEach(d => {
-    const scores = getDeterministicScores(d.name, 101);
     const existing = dishesMap.get(d.name.toLowerCase()) || {};
     dishesMap.set(d.name.toLowerCase(), {
       ...existing,
-      ...d,
-      authenticityScore: scores.authenticityScore,
-      touristFriendlinessScore: scores.touristFriendlinessScore,
-      luxuryScore: scores.luxuryScore
+      ...d
     });
   });
 
@@ -678,41 +638,29 @@ async function run() {
 
   // Original list
   originalRestaurants.forEach(r => {
-    const scores = getDeterministicScores(r.name, 202);
     const key = `${r.name.toLowerCase()}|${(r.city || "srinagar").toLowerCase()}`;
     restaurantsMap.set(key, {
-      ...r,
-      authenticityScore: scores.authenticityScore,
-      touristFriendlinessScore: scores.touristFriendlinessScore,
-      luxuryScore: scores.luxuryScore
+      ...r
     });
   });
 
   // Original restaurants nested in the users array
   originalUsers.forEach(item => {
     if (item.name && item.name !== "Admin User" && item.name !== "Travel Explorer") {
-      const scores = getDeterministicScores(item.name, 202);
       const key = `${item.name.toLowerCase()}|${(item.city || "srinagar").toLowerCase()}`;
       restaurantsMap.set(key, {
-        ...item,
-        authenticityScore: scores.authenticityScore,
-        touristFriendlinessScore: scores.touristFriendlinessScore,
-        luxuryScore: scores.luxuryScore
+        ...item
       });
     }
   });
 
   // New restaurants
   newRestaurants.forEach(r => {
-    const scores = getDeterministicScores(r.name, 202);
     const key = `${r.name.toLowerCase()}|${(r.city || "srinagar").toLowerCase()}`;
     const existing = restaurantsMap.get(key) || {};
     restaurantsMap.set(key, {
       ...existing,
-      ...r,
-      authenticityScore: scores.authenticityScore,
-      touristFriendlinessScore: scores.touristFriendlinessScore,
-      luxuryScore: scores.luxuryScore
+      ...r
     });
   });
 

@@ -195,10 +195,11 @@ export default function PlanTripPage() {
         travelTip = "Walk among the golden-orange Chinar trees at Shalimar Bagh and carry path cameras for scenic autumn foliage.";
       }
 
-      // Choose attraction
+      // Choose attraction — only from the destination's own list. With none on
+      // record the day shows no attraction rather than an invented "<Name> Scenic Point".
       const attraction = currentDest.attractions && currentDest.attractions.length
         ? currentDest.attractions[(d - 1) % currentDest.attractions.length]
-        : `${currentDest.name} Scenic Point`;
+        : null;
 
       dayByDay.push({
         day: d,
@@ -843,10 +844,12 @@ Generate itinerary using destinations, restaurants, and dishes from the Wazwan W
                           
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mt-3">
                             <div className="space-y-2">
-                              <div>
-                                <span className="text-[var(--saffron)] font-bold block mb-0.5">Morning Attraction</span>
-                                <span className="text-white/80">{dayPlan.attraction}</span>
-                              </div>
+                              {dayPlan.attraction && (
+                                <div>
+                                  <span className="text-[var(--saffron)] font-bold block mb-0.5">Morning Attraction</span>
+                                  <span className="text-white/80">{dayPlan.attraction}</span>
+                                </div>
+                              )}
                               <div>
                                 <span className="text-[var(--saffron)] font-bold block mb-0.5">Recommended Dining</span>
                                 <Link 

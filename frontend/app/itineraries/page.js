@@ -22,6 +22,19 @@ async function getCanonical() {
   }
 }
 
+// Shown if the itineraries API is unreachable, so the hub still links every
+// canonical itinerary page (the same slugs listed in app/sitemap.js).
+const FALLBACK_ITINERARIES = [
+  ["3-day-kashmir-itinerary", "3-Day Kashmir Itinerary"],
+  ["5-day-kashmir-itinerary", "5-Day Kashmir Itinerary"],
+  ["7-day-kashmir-itinerary", "7-Day Kashmir Itinerary"],
+  ["kashmir-honeymoon-itinerary", "Kashmir Honeymoon Itinerary"],
+  ["family-kashmir-trip-5-days", "Family Kashmir Trip (5 Days)"],
+  ["kashmir-winter-snow-itinerary", "Kashmir Winter Snow Itinerary"],
+  ["kashmir-adventure-trekking-itinerary", "Kashmir Adventure & Trekking Itinerary"],
+  ["kashmir-food-trail-wazwan-itinerary", "Kashmir Food Trail: Wazwan Itinerary"],
+];
+
 const inr = (n) => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n || 0);
 const GOLD = "#C8A46A";
 
@@ -53,7 +66,19 @@ export default async function ItinerariesPage() {
 
         {/* Grid */}
         {itineraries.length === 0 ? (
-          <p className="text-center text-white/40 text-sm py-16">Itineraries are loading — please check back shortly.</p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {FALLBACK_ITINERARIES.map(([slug, title]) => (
+              <li key={slug}>
+                <Link
+                  href={`/itineraries/${slug}`}
+                  className="block rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-white/25 transition-colors"
+                >
+                  <span className="text-lg font-medium leading-snug" style={{ fontFamily: "var(--font-bodoni, serif)" }}>{title}</span>
+                  <span className="mt-2 block text-[0.7rem] font-semibold" style={{ color: GOLD }}>View plan →</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {itineraries.map((it) => (

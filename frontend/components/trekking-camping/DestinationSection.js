@@ -2,6 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
+// Local trek/camp photos have a same-name .webp sibling (scripts/optimize-route-images.mjs).
+// bgDesktop/bgMobile come from the /api/treks and /api/camps records, so the sibling
+// path is derived here; anything outside /images/trekking-camping/ is left as-is.
+const LOCAL_JPEG = /^\/images\/trekking-camping\/[^?#]+\.jpe?g$/i;
+const webpSibling = (src) =>
+  typeof src === "string" && LOCAL_JPEG.test(src) ? src.replace(/\.jpe?g$/i, ".webp") : null;
+
 function DiamondRow({ level, max }) {
   return (
     <div className="tc-diamonds">
@@ -17,6 +24,14 @@ export default function DestinationSection({ item, index, mode, total }) {
   const imgRef = useRef(null);
   const rafId = useRef(null);
   const [reduceMotion, setReduceMotion] = useState(false);
+  // WebP siblings of the record's JPEGs. If one is ever missing, drop the WebP sources so
+  // the browser re-selects the JPEG — a <picture> never falls back on its own once a source fails.
+  const [webpFailed, setWebpFailed] = useState(false);
+  const mobileWebp = webpFailed ? null : webpSibling(item.bgMobile);
+  const desktopWebp = webpFailed ? null : webpSibling(item.bgDesktop);
+  const handleImgError = (e) => {
+    if (!webpFailed && /\.webp(?:[?#]|$)/i.test(e.currentTarget.currentSrc)) setWebpFailed(true);
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -69,15 +84,20 @@ export default function DestinationSection({ item, index, mode, total }) {
       {/* Background image */}
       <div className="tc-dest-bg">
         <picture>
+          {mobileWebp && (
+            <source media="(max-width: 768px)" type="image/webp" srcSet={mobileWebp} />
+          )}
           {item.bgMobile && (
             <source media="(max-width: 768px)" srcSet={item.bgMobile} />
           )}
+          {desktopWebp && <source type="image/webp" srcSet={desktopWebp} />}
           <img
             ref={imgRef}
-            src={item.bgDesktop}
             alt={item.name}
             loading="lazy"
             decoding="async"
+            onError={handleImgError}
+            src={item.bgDesktop}
           />
         </picture>
       </div>

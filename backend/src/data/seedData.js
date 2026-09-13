@@ -13,7 +13,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "signature",
     "foodType": "Non-veg",
-    "image": "/images/dishes/aab-gosht.jpg",
+    "image": "/images/scroll/AAB.png",
     "priceRange": "INR 430-790",
     "popularityRating": 4.4,
     "spiceLevel": "Mild",
@@ -97,7 +97,7 @@ export const dishes = [
     "category": "Wazwan",
     "categoryType": "wazwan",
     "foodType": "Non-veg",
-    "image": "/images/dishes/dani-phol.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 420-760",
     "popularityRating": 4.1,
     "spiceLevel": "Medium",
@@ -175,7 +175,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "signature",
     "foodType": "Non-veg",
-    "image": "/images/dishes/daniwal-korma.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 420-780",
     "popularityRating": 4.3,
     "spiceLevel": "Medium",
@@ -264,7 +264,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "vegetarian",
     "foodType": "Veg",
-    "image": "/images/dishes/dum-aelve.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 180-340",
     "popularityRating": 3.9,
     "spiceLevel": "Mild",
@@ -352,7 +352,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "signature",
     "foodType": "Non-veg",
-    "image": "/images/dishes/gushtaba.jpg",
+    "image": "/images/scroll/GUSHTABA.png",
     "priceRange": "Single piece: INR 195-300 | Full plate: INR 650-900",
     "popularityRating": 4.8,
     "spiceLevel": "Mild",
@@ -618,7 +618,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "foundation",
     "foodType": "Non-veg",
-    "image": "/images/dishes/methi-maaz.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 280-520",
     "popularityRating": 4.1,
     "spiceLevel": "High",
@@ -704,7 +704,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "foundation",
     "foodType": "Veg",
-    "image": "/images/dishes/muji-chetin.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 70-160",
     "popularityRating": 3.8,
     "spiceLevel": "Medium",
@@ -846,7 +846,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "signature",
     "foodType": "Non-veg",
-    "image": "/images/dishes/rista.jpg",
+    "image": "/images/scroll/RISTA.png",
     "priceRange": "INR 500-950",
     "popularityRating": 4.7,
     "spiceLevel": "High",
@@ -937,7 +937,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "signature",
     "foodType": "Non-veg",
-    "image": "/images/dishes/rogan-josh.webp",
+    "image": "/images/scroll/ROGAN.png",
     "priceRange": "INR 450-900",
     "popularityRating": 4.9,
     "spiceLevel": "Medium",
@@ -1025,7 +1025,7 @@ export const dishes = [
     "category": "Wazwan",
     "categoryType": "wazwan",
     "foodType": "Veg",
-    "image": "/images/dishes/ruwangan-chaman.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 220-420",
     "popularityRating": 4,
     "spiceLevel": "Medium",
@@ -1106,14 +1106,14 @@ export const dishes = [
     "_id": "6a2a4978ac7d60a9cca76f06",
     "name": "Seekh Kebab",
     "description": "Minced meat roasted on skewers over hot coals and served as a key Wazwan course.",
-    "fullDescription": "Seekh Kabab is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this non-veg item delivers the deep flavor profile typical of Wazwan cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Seekh Kabab stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Seekh Kabab, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Wazwan",
     "categoryType": "wazwan",
     "courseType": "foundation",
     "foodType": "Non-veg",
-    "image": "/images/dishes/seekh-kabab.webp",
+    "image": "/images/scroll/KABAB.png",
     "priceRange": "INR 240-480",
     "popularityRating": 4.1,
     "spiceLevel": "Medium",
@@ -1276,7 +1276,7 @@ export const dishes = [
     "categoryType": "wazwan",
     "courseType": "foundation",
     "foodType": "Non-veg",
-    "image": "/images/dishes/tabak-maaz.jpg",
+    "image": "/images/scroll/TABAKH.png",
     "priceRange": "INR 350-700",
     "popularityRating": 4.8,
     "spiceLevel": "Medium",
@@ -1361,7 +1361,7 @@ export const dishes = [
     "category": "Wazwan",
     "categoryType": "wazwan",
     "foodType": "Non-veg",
-    "image": "/images/dishes/waza-kokur.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 380-700",
     "popularityRating": 4,
     "spiceLevel": "Medium",
@@ -1452,7 +1452,7 @@ export const dishes = [
     "category": "Wazwan",
     "categoryType": "wazwan",
     "foodType": "Veg",
-    "image": "/images/dishes/waza-palak.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 180-320",
     "popularityRating": 3.9,
     "spiceLevel": "Mild",
@@ -1522,7 +1522,7 @@ export const dishes = [
     "category": "Wazwan",
     "categoryType": "wazwan",
     "foodType": "Veg",
-    "image": "/images/dishes/wazwaan-mushroom.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 220-360",
     "popularityRating": 3.7,
     "spiceLevel": "Mild",
@@ -1856,7 +1856,7 @@ export const dishes = [
     "categoryType": "kashmiri_cuisine",
     "courseType": "vegetarian",
     "foodType": "Veg",
-    "image": "/images/dishes/nadru-yakhni.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 220-480",
     "popularityRating": 4.4,
     "spiceLevel": "Mild",
@@ -1939,7 +1939,7 @@ export const dishes = [
     "category": "Bakery",
     "categoryType": "bakery",
     "foodType": "Veg",
-    "image": "/images/dishes/bakerkhani.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 15-30",
     "popularityRating": 4.4,
     "spiceLevel": "Mild",
@@ -2019,7 +2019,7 @@ export const dishes = [
     "category": "Bakery",
     "categoryType": "bakery",
     "foodType": "Veg",
-    "image": "/images/dishes/czochworu.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 10-20",
     "popularityRating": 4.3,
     "spiceLevel": "Mild",
@@ -2103,7 +2103,7 @@ export const dishes = [
     "category": "Bakery",
     "categoryType": "bakery",
     "foodType": "Veg",
-    "image": "/images/dishes/girda.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 10-20",
     "popularityRating": 4.6,
     "spiceLevel": "Mild",
@@ -2183,7 +2183,7 @@ export const dishes = [
     "category": "Bakery",
     "categoryType": "bakery",
     "foodType": "Veg",
-    "image": "/images/dishes/kulcha.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 15-30",
     "popularityRating": 4.7,
     "spiceLevel": "Mild",
@@ -2267,7 +2267,7 @@ export const dishes = [
     "category": "Bakery",
     "categoryType": "bakery",
     "foodType": "Veg",
-    "image": "/images/dishes/lavas.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 10-20",
     "popularityRating": 4.6,
     "spiceLevel": "Mild",
@@ -2338,14 +2338,14 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f1b",
     "name": "Sheermal",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Cafes style.",
-    "fullDescription": "Sheermal is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Cafes cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Sheermal stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Sheermal, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Bakery",
     "categoryType": "bakery",
     "foodType": "Veg",
-    "image": "/images/dishes/sheermal.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 40-80",
     "popularityRating": 3.8,
     "spiceLevel": "Mild",
@@ -2426,7 +2426,7 @@ export const dishes = [
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
-    "image": "/images/dishes/aloo-monji.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 20-40",
     "popularityRating": 4.5,
     "spiceLevel": "Medium",
@@ -2500,14 +2500,14 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f3f",
     "name": "Basrakh",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Street Food style.",
-    "fullDescription": "Basrakh is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Street Food cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Basrakh stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Basrakh, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
-    "image": "/images/dishes/basrakh.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 110-220",
     "popularityRating": 4.7,
     "spiceLevel": "Mild",
@@ -2588,7 +2588,7 @@ export const dishes = [
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Non-veg",
-    "image": "/images/dishes/kashmiri-harissa.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 200-400",
     "popularityRating": 4.9,
     "spiceLevel": "Medium",
@@ -2664,14 +2664,14 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f3a",
     "name": "Masala Tsot",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Street Food style.",
-    "fullDescription": "Masala Tsot is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Street Food cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Masala Tsot stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Masala Tsot, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
-    "image": "/images/dishes/masala-tsot.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 40-80",
     "popularityRating": 4.4,
     "spiceLevel": "High",
@@ -2745,14 +2745,14 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f12",
     "name": "Nadur Monji",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Street Food style.",
-    "fullDescription": "Nadru Monji is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Street Food cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Nadru Monji stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Nadru Monji, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
-    "image": "/images/dishes/nadur-monji.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 80-160",
     "popularityRating": 3.8,
     "spiceLevel": "Medium",
@@ -2825,10 +2825,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f48",
     "name": "Tosha",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Luxury Dining style.",
-    "fullDescription": "Tosha is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Luxury Dining cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Tosha stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Tosha, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
@@ -2901,14 +2901,14 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f0f",
     "name": "Tujji",
-    "description": "A traditional Kashmiri non-veg dish prepared in the authentic Street Food style.",
-    "fullDescription": "Mutton Tujji is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this non-veg item delivers the deep flavor profile typical of Street Food cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Mutton Tujji stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Mutton Tujji, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Non-veg",
-    "image": "/images/dishes/mutton-tujj.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 180-360",
     "popularityRating": 3.8,
     "spiceLevel": "Medium",
@@ -2986,10 +2986,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f52",
     "name": "Badam Phirni",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Luxury Dining style.",
-    "fullDescription": "Badam Phirni is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Luxury Dining cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Badam Phirni stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Badam Phirni, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Desserts",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
@@ -3060,10 +3060,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f14",
     "name": "Phirni",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Budget Eats style.",
-    "fullDescription": "Phirni is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Budget Eats cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Phirni stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Phirni, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Desserts",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
@@ -3139,10 +3139,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f53",
     "name": "Saffron Phirni",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Luxury Dining style.",
-    "fullDescription": "Saffron Phirni is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Luxury Dining cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Saffron Phirni stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Saffron Phirni, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Desserts",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
@@ -3212,10 +3212,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f5b",
     "name": "Sheera",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Budget Eats style.",
-    "fullDescription": "Sheera is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Budget Eats cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Sheera stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Sheera, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Desserts",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
@@ -3367,10 +3367,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f54",
     "name": "Walnut Halwa",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Cafes style.",
-    "fullDescription": "Walnut Halwa is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Cafes cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Walnut Halwa stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Walnut Halwa, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Desserts",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Veg",
@@ -3441,14 +3441,14 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f3d",
     "name": "Babribyol",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Cafes style.",
-    "fullDescription": "Babribyol is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Cafes cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Babribyol stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Babribyol, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Beverages",
     "categoryType": "beverage",
     "foodType": "Veg",
-    "image": "/images/dishes/babribyol.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 60-120",
     "popularityRating": 4.1,
     "spiceLevel": "Mild",
@@ -3522,10 +3522,10 @@ export const dishes = [
   {
     "_id": "6a2a4978ac7d60a9cca76f4d",
     "name": "Cardamom Kahwa",
-    "description": "A traditional Kashmiri veg dish prepared in the authentic Cafes style.",
-    "fullDescription": "Cardamom Kahwa is a renowned culinary offering from Kashmir. Made with traditional spices and cooking methods, this veg item delivers the deep flavor profile typical of Cafes cuisine. Perfectly seasoned with spices such as fennel, ginger, and saffron, it represents the rich culinary heritage of the valley.",
-    "history": "The history of Cardamom Kahwa stretches back generations, drawing deep influences from local traditions and Central Asian culinary pathways. Historically prepared by master chefs (Wazas) or passed down through domestic households, it has become a true staple of Kashmiri dining. It symbolizes hospitality and celebration, gracing tables during weddings, festivals, and family gatherings.",
-    "touristTip": "When ordering Cardamom Kahwa, pair it with warm steamed rice or traditional local bread like Lavas. Ask your hosts about the specific spices used to enhance the flavor.",
+    "description": "",
+    "fullDescription": "",
+    "history": "",
+    "touristTip": "",
     "category": "Beverages",
     "categoryType": "beverage",
     "foodType": "Veg",
@@ -3604,7 +3604,7 @@ export const dishes = [
     "category": "Beverages",
     "categoryType": "beverage",
     "foodType": "Veg",
-    "image": "/images/dishes/saffron-kahwa.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 60-120",
     "popularityRating": 4.9,
     "spiceLevel": "Mild",
@@ -3681,7 +3681,7 @@ export const dishes = [
     "category": "Beverages",
     "categoryType": "beverage",
     "foodType": "Veg",
-    "image": "/images/dishes/kashmiri-lassi.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 60-120",
     "popularityRating": 4.6,
     "spiceLevel": "Mild",
@@ -3759,7 +3759,7 @@ export const dishes = [
     "category": "Beverages",
     "categoryType": "beverage",
     "foodType": "Veg",
-    "image": "/images/dishes/noon-chai.jpg",
+    "image": "/images/dishes/dish-placeholder.webp",
     "priceRange": "INR 40-80",
     "popularityRating": 4.5,
     "spiceLevel": "Mild",
@@ -4247,418 +4247,123 @@ export const restaurants = [
 export const destinations = [
   {
     "name": "Srinagar",
-    "description": "A breathtaking destination in Central Kashmir famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Srinagar stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/srinagar.png",
     "location": "Central Kashmir",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Srinagar Scenic Point",
-      "Historic Local Market in Srinagar",
-      "Traditional Food Street of Srinagar"
-    ],
-    "tags": [
-      "kashmir",
-      "central-kashmir"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Gulmarg",
-    "description": "A breathtaking destination in North Kashmir, Baramulla famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Gulmarg stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Baramulla, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/gulmarg.png",
     "location": "North Kashmir, Baramulla",
-    "bestTimeToVisit": "December to March (Snow), April to June (Meadows)",
-    "attractions": [
-      "Gulmarg Scenic Point",
-      "Historic Local Market in Gulmarg",
-      "Traditional Food Street of Gulmarg"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-baramulla",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4
+    "bestTimeToVisit": "December to March (Snow), April to June (Meadows)"
   },
   {
     "name": "Pahalgam",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Pahalgam stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/pahalgam.png",
     "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "March to November",
-    "attractions": [
-      "Pahalgam Scenic Point",
-      "Historic Local Market in Pahalgam",
-      "Traditional Food Street of Pahalgam"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.7,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4
+    "bestTimeToVisit": "March to November"
   },
   {
     "name": "Sonamarg",
-    "description": "A breathtaking destination in Central Kashmir, Ganderbal famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Sonamarg stands as a premier tourist attraction in the Kashmir valley. Located in Central Kashmir, Ganderbal, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/sonamarg.png",
     "location": "Central Kashmir, Ganderbal",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Sonamarg Scenic Point",
-      "Historic Local Market in Sonamarg",
-      "Traditional Food Street of Sonamarg"
-    ],
-    "tags": [
-      "kashmir",
-      "central-kashmir-ganderbal",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Yusmarg",
-    "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Yusmarg stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/yusm.png",
     "location": "Budgam District",
-    "bestTimeToVisit": "May to September",
-    "attractions": [
-      "Yusmarg Scenic Point",
-      "Historic Local Market in Yusmarg",
-      "Traditional Food Street of Yusmarg"
-    ],
-    "tags": [
-      "kashmir",
-      "budgam-district",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "May to September"
   },
   {
     "name": "Gurez Valley",
-    "description": "A breathtaking destination in North Kashmir, Bandipora famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Gurez Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Bandipora, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/gurez.png",
     "location": "North Kashmir, Bandipora",
-    "bestTimeToVisit": "June to September",
-    "attractions": [
-      "Gurez Valley Scenic Point",
-      "Historic Local Market in Gurez Valley",
-      "Traditional Food Street of Gurez Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-bandipora",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "June to September"
   },
   {
     "name": "Lolab Valley",
-    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Lolab Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/lolab.png",
     "location": "North Kashmir, Kupwara",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Lolab Valley Scenic Point",
-      "Historic Local Market in Lolab Valley",
-      "Traditional Food Street of Lolab Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-kupwara"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Aru Valley",
-    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Aru Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/aru.png",
     "location": "Pahalgam, Anantnag",
-    "bestTimeToVisit": "March to November",
-    "attractions": [
-      "Aru Valley Scenic Point",
-      "Historic Local Market in Aru Valley",
-      "Traditional Food Street of Aru Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "pahalgam-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4
+    "bestTimeToVisit": "March to November"
   },
   {
     "name": "Betaab Valley",
-    "description": "A breathtaking destination in Pahalgam, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Betaab Valley stands as a premier tourist attraction in the Kashmir valley. Located in Pahalgam, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/betaab.png",
     "location": "Pahalgam, Anantnag",
-    "bestTimeToVisit": "March to October",
-    "attractions": [
-      "Betaab Valley Scenic Point",
-      "Historic Local Market in Betaab Valley",
-      "Traditional Food Street of Betaab Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "pahalgam-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "March to October"
   },
   {
     "name": "Doodhpathri",
-    "description": "A breathtaking destination in Budgam District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Doodhpathri stands as a premier tourist attraction in the Kashmir valley. Located in Budgam District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/doodhpathri.png",
     "location": "Budgam District",
-    "bestTimeToVisit": "May to October",
-    "attractions": [
-      "Doodhpathri Scenic Point",
-      "Historic Local Market in Doodhpathri",
-      "Traditional Food Street of Doodhpathri"
-    ],
-    "tags": [
-      "kashmir",
-      "budgam-district"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.1,
-    "luxuryScore": 2.5
+    "bestTimeToVisit": "May to October"
   },
   {
     "name": "Kokernag",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Kokernag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/kokernag.png",
     "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Kokernag Scenic Point",
-      "Historic Local Market in Kokernag",
-      "Traditional Food Street of Kokernag"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Verinag",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Verinag stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/verinag.png",
     "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Verinag Scenic Point",
-      "Historic Local Market in Verinag",
-      "Traditional Food Street of Verinag"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Achabal",
-    "description": "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Achabal stands as a premier tourist attraction in the Kashmir valley. Located in South Kashmir, Anantnag, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/achabal.png",
     "location": "South Kashmir, Anantnag",
-    "bestTimeToVisit": "April to September",
-    "attractions": [
-      "Achabal Scenic Point",
-      "Historic Local Market in Achabal",
-      "Traditional Food Street of Achabal"
-    ],
-    "tags": [
-      "kashmir",
-      "south-kashmir-anantnag",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "April to September"
   },
   {
     "name": "Sinthan Top",
-    "description": "A breathtaking destination in Kishtwar-Anantnag Border famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Sinthan Top stands as a premier tourist attraction in the Kashmir valley. Located in Kishtwar-Anantnag Border, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/destinations/Sinthan_Top.jpg",
+    "image": "/images/destinations/destination-placeholder.webp",
     "location": "Kishtwar-Anantnag Border",
-    "bestTimeToVisit": "April to September",
-    "attractions": [
-      "Sinthan Top Scenic Point",
-      "Historic Local Market in Sinthan Top",
-      "Traditional Food Street of Sinthan Top"
-    ],
-    "tags": [
-      "kashmir",
-      "kishtwar-anantnag-border",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5
+    "bestTimeToVisit": "April to September"
   },
   {
     "name": "Daksum",
-    "description": "A breathtaking destination in Anantnag District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Daksum stands as a premier tourist attraction in the Kashmir valley. Located in Anantnag District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/daksum.jpg",
     "location": "Anantnag District",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Daksum Scenic Point",
-      "Historic Local Market in Daksum",
-      "Traditional Food Street of Daksum"
-    ],
-    "tags": [
-      "kashmir",
-      "anantnag-district"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Bangus Valley",
-    "description": "A breathtaking destination in North Kashmir, Kupwara famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Bangus Valley stands as a premier tourist attraction in the Kashmir valley. Located in North Kashmir, Kupwara, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/bangus.jpg",
     "location": "North Kashmir, Kupwara",
-    "bestTimeToVisit": "May to September",
-    "attractions": [
-      "Bangus Valley Scenic Point",
-      "Historic Local Market in Bangus Valley",
-      "Traditional Food Street of Bangus Valley"
-    ],
-    "tags": [
-      "kashmir",
-      "north-kashmir-kupwara",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5
+    "bestTimeToVisit": "May to September"
   },
   {
     "name": "Wular Lake",
-    "description": "A breathtaking destination in Bandipora District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Wular Lake stands as a premier tourist attraction in the Kashmir valley. Located in Bandipora District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/wular_lake.png",
     "location": "Bandipora District",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Wular Lake Scenic Point",
-      "Historic Local Market in Wular Lake",
-      "Traditional Food Street of Wular Lake"
-    ],
-    "tags": [
-      "kashmir",
-      "bandipora-district",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Manasbal Lake",
-    "description": "A breathtaking destination in Ganderbal District famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Manasbal Lake stands as a premier tourist attraction in the Kashmir valley. Located in Ganderbal District, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/destinations/Manasbal_Lake.jpg",
+    "image": "/images/destinations/destination-placeholder.webp",
     "location": "Ganderbal District",
-    "bestTimeToVisit": "May to October",
-    "attractions": [
-      "Manasbal Lake Scenic Point",
-      "Historic Local Market in Manasbal Lake",
-      "Traditional Food Street of Manasbal Lake"
-    ],
-    "tags": [
-      "kashmir",
-      "ganderbal-district"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.1,
-    "luxuryScore": 2.5
+    "bestTimeToVisit": "May to October"
   },
   {
     "name": "Pari Mahal",
-    "description": "A breathtaking destination in Zabarwan Range, Srinagar famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Pari Mahal stands as a premier tourist attraction in the Kashmir valley. Located in Zabarwan Range, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
     "image": "/images/destinations/pari_mahal.png",
     "location": "Zabarwan Range, Srinagar",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Pari Mahal Scenic Point",
-      "Historic Local Market in Pari Mahal",
-      "Traditional Food Street of Pari Mahal"
-    ],
-    "tags": [
-      "kashmir",
-      "zabarwan-range-srinagar",
-      "luxury-resort"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5
+    "bestTimeToVisit": "April to October"
   },
   {
     "name": "Shalimar Bagh",
-    "description": "A breathtaking destination in Dal Lake front, Srinagar famous for its natural landscapes and local hospitality.",
-    "fullDescription": "Shalimar Bagh stands as a premier tourist attraction in the Kashmir valley. Located in Dal Lake front, Srinagar, it offers visitors spectacular panoramic views, rich cultural landmarks, and a serene getaway. Renowned for its unique atmosphere, it continues to welcome travelers from around the world looking to explore the natural wonder and traditional Kashmiri lifestyle.",
-    "image": "/images/destinations/Shalimar_Bagh.jpg",
+    "image": "/images/destinations/destination-placeholder.webp",
     "location": "Dal Lake front, Srinagar",
-    "bestTimeToVisit": "April to October",
-    "attractions": [
-      "Shalimar Bagh Scenic Point",
-      "Historic Local Market in Shalimar Bagh",
-      "Traditional Food Street of Shalimar Bagh"
-    ],
-    "tags": [
-      "kashmir",
-      "dal-lake-front-srinagar",
-      "highly-accessible"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 5,
-    "luxuryScore": 4
+    "bestTimeToVisit": "April to October"
   }
 ];
 

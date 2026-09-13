@@ -2,6 +2,9 @@ import DishDetailClient from "@/components/DishDetailClient";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import { dishCategoryLabel, sanitizeDish } from "@/lib/dishContent";
+import { resolveContentPhoto } from "@/lib/contentImages";
+import { toMetaDescription } from "@/lib/metaText";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -41,12 +44,15 @@ export async function generateMetadata({ params }) {
       next: { revalidate: 3600 },
     });
     if (!res.ok) throw new Error("Not found");
-    const dish = await res.json();
+    // Seed-script boilerplate is dropped; the hand-written recipe intro stands in.
+    const dish = sanitizeDish(await res.json());
+    const categoryLabel = dishCategoryLabel(dish.category);
 
-    const title = `${dish.name} | Traditional Kashmiri ${dish.category}`;
-    const description =
-      dish.description ||
-      `Discover ${dish.name}, a classic Kashmiri ${dish.category} dish. Learn its history, ingredients, and where to try it in Kashmir.`;
+    const title = `${dish.name}: Traditional ${categoryLabel}`;
+    const description = toMetaDescription(
+      dish.description || `${dish.name} is a traditional ${categoryLabel.toLowerCase()}. Read about it on Wazwan Way.`
+    );
+    const photo = resolveContentPhoto(dish.image);
 
     const canonicalUrl = `${CANONICAL_BASE}/dishes/${dish.slug || params.slug}`;
 
@@ -61,8 +67,8 @@ export async function generateMetadata({ params }) {
         url: canonicalUrl,
         title,
         description,
-        images: dish.image
-          ? [{ url: dish.image, width: 1200, height: 630, alt: dish.name }]
+        images: photo
+          ? [{ url: photo, width: 1200, height: 630, alt: dish.name }]
           : [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
@@ -70,7 +76,7 @@ export async function generateMetadata({ params }) {
         card: "summary_large_image",
         title,
         description,
-        images: dish.image ? [dish.image] : ["/wazwan-hero.jpg"],
+        images: photo ? [photo] : ["/wazwan-hero.jpg"],
       },
     };
   } catch {
@@ -78,7 +84,7 @@ export async function generateMetadata({ params }) {
     // this page, never at the /dishes hub inherited from the layout metadata.
     const canonicalUrl = `${CANONICAL_BASE}/dishes/${params.slug}`;
     const name = slugToName(params.slug);
-    const title = name ? `${name} | Traditional Kashmiri Dish` : "Kashmiri Dish | Wazwan Way";
+    const title = name ? `${name}: Traditional Kashmiri Dish` : "Kashmiri Dish";
     const description = name
       ? `Discover ${name}, an authentic Kashmiri dish. Learn its history, ingredients, and where to try it in Kashmir.`
       : "Explore authentic Kashmiri dishes on Wazwan Way.";

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "List Your Travel Agency | Partner with Wazwan Way",
+  title: "List Your Travel Agency | Partner With Us",
   description:
     "Register your Kashmir travel agency on Wazwan Way and reach travellers planning authentic Kashmir trips.",
   alternates: { canonical: "https://wazwanway.com/list-agency" },

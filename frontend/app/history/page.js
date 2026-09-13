@@ -74,14 +74,14 @@ export default function HistoryPage() {
               </p>
             </div>
             <div className="hidden md:block order-1 md:order-2 relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-              <Image src="/images/restaurants/shamyana-restaurant.jpg" alt="Historical Cooking" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+              <Image src="/redesign/img/interior-shamyana.webp" alt="Dining room at Shamyana, Srinagar" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
             </div>
           </motion.div>
 
           {/* Section 2 */}
           <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-12 items-center">
             <div className="hidden md:block relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-[var(--saffron)]/20 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
-              <Image src="/wazwan-hero.png" alt="The Traami" fill className="object-cover" />
+              <Image src="/wazwan-hero.jpg" alt="The Traami" fill className="object-cover" />
             </div>
             <div className="space-y-6">
               <h2 className="font-display text-3xl md:text-4xl text-[var(--saffron)]">The Traami Tradition</h2>
