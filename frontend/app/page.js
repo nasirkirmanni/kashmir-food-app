@@ -3,7 +3,6 @@ import HomePageClient from "@/components/HomePageClient";
 import HomeIntro from "@/components/home/HomeIntro";
 import JsonLd, { buildWebsiteSchema, buildOrganizationSchema, buildFaqSchema } from "@/components/JsonLd";
 import dishesData from "@/data/dishes.json";
-import restaurantsData from "@/data/restaurants.json";
 import { pickCoverDishes } from "@/lib/dailyTable";
 import { resolveContentPhoto } from "@/lib/contentImages";
 
@@ -15,22 +14,10 @@ export const metadata = {
 };
 
 // Props are serialized into the page payload, so pass only what gets rendered:
-// the hero rotates cover-dish photos (never placeholders), and the desktop
-// restaurant cards use these few fields.
+// the hero rotates cover-dish photos (never placeholders).
 const coverDishes = pickCoverDishes(dishesData)
   .map(({ slug, image }) => ({ slug, image: resolveContentPhoto(image) }))
   .filter((dish) => dish.image);
-
-const homeRestaurants = restaurantsData.map(({ _id, slug, name, location, description, rating, priceLevel, city }) => ({
-  _id,
-  slug,
-  name,
-  location,
-  description,
-  rating,
-  priceLevel,
-  city,
-}));
 
 const homeFaqs = [
   {
@@ -76,7 +63,7 @@ export default function HomePage() {
         <JsonLd data={buildFaqSchema(homeFaqs)} />
         <HomePageHero initialDishes={coverDishes} />
         <HomeIntro />
-        <HomePageClient initialRestaurants={homeRestaurants} />
+        <HomePageClient />
       </div>
     </div>
   );
