@@ -1,8 +1,18 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 
+// True once the first page has hydrated. The fade only plays on in-app
+// navigations: on a fresh page load, server-rendered content must be visible
+// straight away (starting at opacity 0 hid it until JavaScript ran, delaying LCP).
+let hasHydrated = false;
+
 export default function Template({ children }) {
+  useEffect(() => {
+    hasHydrated = true;
+  }, []);
+
   // Entrance animates OPACITY ONLY — deliberately no `filter` or `transform`.
   // Either of those (even a resting `blur(0px)` / `translate(0)`) makes this
   // wrapper the containing block for every `position: fixed` descendant, which
@@ -13,7 +23,7 @@ export default function Template({ children }) {
   // but NOT a fixed-containing block, so the pin is always safe.
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={hasHydrated ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="w-full h-full"
