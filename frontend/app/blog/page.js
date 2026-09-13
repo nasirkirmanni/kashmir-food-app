@@ -5,104 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, User, ArrowUpRight } from "lucide-react";
 
 import Link from "next/link";
+import { blogPosts } from "@/data/blogPosts";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const categories = ["All", "Heritage Cookery", "Bread Culture", "Tea Rituals", "Dine Etiquette", "Spice Heritage"];
 
-  const posts = [
-    {
-      title: "Secrets of Gushtaba: The Royal Velvet Meatball",
-      slug: "secrets-of-gushtaba",
-      summary: "Discover the meticulous science and immense physical effort behind creating the legendary final dish of the Wazwan feast.",
-      readTime: "5 min read",
-      date: "June 14, 2026",
-      author: "Waza Rashid",
-      category: "Heritage Cookery",
-      excerpt: "If wazwan is a symphony, Gushtaba is the final, triumphant crescendo. The meat must be hand-pounded on walnut wood..."
-    },
-    {
-      title: "The Kandur-Wan Breads of Kashmir",
-      slug: "kandur-wan-breads",
-      summary: "From morning Girda to evening Chochoor: how local clay-oven bakeries define daily life and social structures in the valley.",
-      readTime: "4 min read",
-      date: "June 10, 2026",
-      author: "Adnan Kirmanni",
-      category: "Bread Culture",
-      excerpt: "Step into any Kashmiri neighborhood at dawn and you will follow the aroma of wood smoke and baking dough straight to the Kandur..."
-    },
-    {
-      title: "Kahwa vs. Noon Chai: An Ancestral Tea Feud",
-      slug: "kahwa-vs-noon-chai",
-      summary: "An exploration of two distinct beverage traditions that warm the hearts and hearths of Kashmiri homes.",
-      readTime: "6 min read",
-      date: "May 28, 2026",
-      author: "Zoya Jan",
-      category: "Tea Rituals",
-      excerpt: "One is amber, sweet, and spiced with cardamom and saffron; the other is pink, salty, and thick with butter and baking soda..."
-    },
-    {
-      title: "Trami Etiquette: The Sacred Rules of Sharing",
-      slug: "trami-etiquette",
-      summary: "Everything a traveler needs to know about sitting, sharing, and savoring when invited to a traditional Kashmiri wedding feast.",
-      readTime: "5 min read",
-      date: "May 15, 2026",
-      author: "Suhail Rather",
-      category: "Dine Etiquette",
-      excerpt: "To eat from a Trami is to share a bond of brotherhood. You sit in groups of four, removing shoes, and washing hands with the Tasht-naer..."
-    },
-    {
-      title: "What is Ver Masala? The Secret Spice Behind Authentic Wazwan",
-      slug: "what-is-ver-masala",
-      summary: "Discover the labor-intensive history and pungent aromatic profile of the sun-dried spice cake that defines Kashmiri cooking.",
-      readTime: "6 min read",
-      date: "June 23, 2026",
-      author: "Waza Rashid",
-      category: "Spice Heritage",
-      excerpt: "At the heart of Kashmiri culinary identity lies a closely guarded secret, a flavor profile so complex and punchy that it defines the very soul of the region's dishes..."
-    },
-    {
-      title: "Kashmiri Saffron: Why Pampore Produces the World's Finest Saffron",
-      slug: "pampore-kashmiri-saffron",
-      summary: "Explore the ancient karewa soils of Pampore and the painstaking dawn harvests that yield the world's most potent and expensive spice.",
-      readTime: "7 min read",
-      date: "June 23, 2026",
-      author: "Zoya Jan",
-      category: "Spice Heritage",
-      excerpt: "Saffron is the world's most expensive spice, a literal weight-in-gold commodity. While it is grown in countries like Iran and Spain, Kashmiri Saffron is universally recognized..."
-    },
-    {
-      title: "Kashmiri Red Chili: The Spice That Gives Wazwan Its Iconic Color",
-      slug: "kashmiri-red-chili",
-      summary: "How a surprisingly mild chili pepper creates the fiery crimson illusion that characterizes the legendary Kashmiri Rogan Josh.",
-      readTime: "5 min read",
-      date: "June 23, 2026",
-      author: "Adnan Kirmanni",
-      category: "Spice Heritage",
-      excerpt: "If you look at a traditional spread of Kashmiri Wazwan, you will be struck by a brilliant, fiery sea of crimson. Dishes like Rogan Josh and Rista sit on the copper Trami glistening..."
-    },
-    {
-      title: "Nadru (Lotus Stem): Kashmir's Most Loved Vegetable",
-      slug: "nadru-lotus-stem-kashmir",
-      summary: "Dive deep into the waters of Dal Lake to discover the crunchy, versatile lotus stem that anchors the Kashmiri vegetable diet.",
-      readTime: "5 min read",
-      date: "June 23, 2026",
-      author: "Zoya Jan",
-      category: "Heritage Cookery",
-      excerpt: "While the fame of Kashmiri cuisine often centers around the meat-heavy Wazwan, no vegetable commands as much respect, love, and cultural significance in the valley as Nadru—the lotus stem..."
-    },
-    {
-      title: "Fennel and Dry Ginger: The Flavor Foundation of Traditional Wazwan",
-      slug: "fennel-and-dry-ginger-wazwan",
-      summary: "Understanding the sweet aniseed and pungent warmth that creates the complex, aromatic backbone of Kashmiri meat dishes.",
-      readTime: "6 min read",
-      date: "June 23, 2026",
-      author: "Waza Rashid",
-      category: "Spice Heritage",
-      excerpt: "When outsiders attempt to recreate Kashmiri cuisine, they often make a critical error: they reach for the onion, garlic, and tomato. While these ingredients dominate the rest of the Indian subcontinent..."
-    }
-  ];
+  const posts = blogPosts.map(post => ({
+    ...post,
+    excerpt: post.excerpt || post.summary || post.content?.split('\n').filter(l => l.trim()).slice(0, 2).join(' ').slice(0, 200) + '...'
+  }));
 
   const filteredPosts = selectedCategory === "All" 
     ? posts 
