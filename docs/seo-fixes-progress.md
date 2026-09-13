@@ -3,7 +3,7 @@
 Started 2026-09-13 from `main` at `2482421`. Work lives on branch **`seo/audit-fixes-2026-09-13`**.
 Source of truth for the issues: the SEO audit action plan (score 51/100, 2026-09-13).
 
-**Status: IN PROGRESS — not yet fully built/verified. Do NOT merge or push to `main` until the
+**Status: IN PROGRESS (resumed after the usage limit reset) — not yet fully built/verified. Do NOT merge or push to `main` until the
 "Remaining steps" below are done and the production build + rendered-HTML checks pass.**
 
 The owner authorized: fix everything code-level, test it, and push. Not authorized: Cloudflare purges,
@@ -117,3 +117,17 @@ DB writes, sitemap submissions, external dashboards.
   how to get there) for the 7 noindexed destinations; author bios/credentials for blog bylines.
 - **Search Console / Bing**: resubmit `https://wazwanway.com/sitemap.xml` after the Cloudflare purge.
 - **Authority**: tourism listings, partner restaurant links, Google Business Profiles, publications.
+
+## Progress log
+- **Backup** `15f7a7d` pushed to `origin/seo/audit-fixes-2026-09-13` before the usage limit hit.
+- **Backend agent: finished** (included in `15f7a7d`). Seed generator no longer invents text/attractions/scores/tags;
+  seed data cleaned; dish list endpoint selects `updatedAt`; new `backend/src/scripts/cleanupSeoPlaceholders.js`
+  (dry run default, `--apply` writes a JSON backup first; tested against fake models). It found a 14th partly
+  templated dish (seekh-kebab: real description, template fullDescription/history/touristTip).
+  Its notes: `upsertSeed.js` is out of date with the 47-dish catalogue (re-running it would recreate removed dishes) —
+  recommend retiring it; `restaurant-art.png` is referenced 12× in backend seed data but doesn't exist.
+- **After resume:** Dish/Destination models no longer require the text fields the cleanup empties (default `""`);
+  `.gitignore` ignores `backend/src/scripts/backups/`; `frontend/data/dishes.json` cleaned for all 14 templated dishes
+  (description = real recipe intro from the API); `custom-trip/page.js` filters generated attractions
+  (that route permanently redirects to /itinerary-builder, so this is defensive).
+- **Metadata and media agents** were cut off by the limit almost immediately and were resumed from their transcripts.

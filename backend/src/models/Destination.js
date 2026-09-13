@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 const destinationSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true, unique: true },
-    description: { type: String, required: true },
-    fullDescription: { type: String, required: true },
+    // Optional: seed scripts once filled these with template text; records without
+    // written copy keep them empty rather than carrying placeholder prose.
+    description: { type: String, default: "" },
+    fullDescription: { type: String, default: "" },
     image: { type: String, required: true },
     location: { type: String, required: true },
     bestTimeToVisit: { type: String, default: "" },

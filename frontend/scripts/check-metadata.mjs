@@ -122,7 +122,7 @@ function parseArgs(argv) {
 // ─── HTML parsing (regex-based: the markup comes from React, so attribute
 // values are always quoted and escaped) ──────────────────────────────────────
 
-const NAMED_ENTITIES = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
+const NAMED_ENTITIES = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: "\u00a0" };
 
 function decodeEntities(text) {
   return text.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z]+);/gi, (match, entity) => {

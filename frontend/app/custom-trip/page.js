@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { endpoints, request } from "@/lib/api";
+import { isGeneratedAttraction } from "@/lib/destinationContent";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Static fallback data in case API fails
@@ -197,8 +198,10 @@ export default function PlanTripPage() {
 
       // Choose attraction — only from the destination's own list. With none on
       // record the day shows no attraction rather than an invented "<Name> Scenic Point".
-      const attraction = currentDest.attractions && currentDest.attractions.length
-        ? currentDest.attractions[(d - 1) % currentDest.attractions.length]
+      // (API records may still carry the seed script's invented attraction names.)
+      const realAttractions = (currentDest.attractions || []).filter((a) => !isGeneratedAttraction(a));
+      const attraction = realAttractions.length
+        ? realAttractions[(d - 1) % realAttractions.length]
         : null;
 
       dayByDay.push({

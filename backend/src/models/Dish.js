@@ -29,10 +29,12 @@ const recipeSchema = new mongoose.Schema(
 const dishSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
-    description: { type: String, required: true },
-    fullDescription: { type: String, required: true },
-    history: { type: String, required: true },
-    touristTip: { type: String, required: true },
+    // Optional: seed scripts once filled these with template text; records without
+    // written copy keep them empty rather than carrying placeholder prose.
+    description: { type: String, default: "" },
+    fullDescription: { type: String, default: "" },
+    history: { type: String, default: "" },
+    touristTip: { type: String, default: "" },
     category: {
       type: String,
       enum: ["Wazwan", "Kashmiri Cuisine", "Bakery", "Street Food", "Desserts", "Beverages"],
