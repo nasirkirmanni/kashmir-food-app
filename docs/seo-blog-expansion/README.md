@@ -16,10 +16,15 @@ The posts went live at once, not on the staggered dates in `B-content-calendar.m
 | vegetarian-wazwan no longer calls Kashmiri Pandit cooking primarily vegetarian | `data/wazwanGuides.js` |
 | The kandur bread post links to the breakfast guide | `data/blogPosts.js` |
 
+**Follow-up release:** `/kashmiri-food/street-food` has its own heading, intro and buttons (including a link to the street food guide), and Blog is in the top bar, the menu drawer and the phone menu.
+
+**Owner sign-offs (15 September 2026)**
+- Blog 08 (Kashmiri Pandit food): the owner decided no community review is needed.
+- Blog 02 (street food): the owner confirmed the places and timings are still as described.
+
 **Still open**
-- Blog 08 (Kashmiri Pandit food) went live without the community review recommended below. Get one, and update the post if the reviewer suggests changes.
 - The harissa dish page's season and origin claims live in the database, not the code.
-- `/kashmiri-food/street-food` still shares the generic hub heading with the other food hub pages.
+- The Wazwan, bakery and drinks hub pages still share the generic hub heading.
 - Per-post share images need owned photography.
 - Smaller notes on existing pages: the "world's finest" saffron title, the "fiery" rista wording, the shufta and phirni dish pages, and the basrakh and tosha category.
 - Request indexing for the ten URLs in Search Console.
