@@ -1,0 +1,24 @@
+{
+  "kashmiri-harissa": [
+    {
+      "field": "history",
+      "from": "Brought to Kashmir from Central Asia, Harissa has been a winter breakfast staple in Downtown Srinagar for centuries. Specialized cooks (Haris-Froush) prepare it in large copper pots inside underground wood-fired ovens.",
+      "to": "Harissa is a winter breakfast made by specialist cooks and sold from shops in Srinagar's old city. Where it came from is a matter of tradition rather than record: one maker credits the Sufi saint Shah-i-Hamdan, others the Mughals, and it is often linked to Persian and Central Asian cooking. The pot goes on the night before over a wood fire, and the mutton and rice are worked until smooth."
+    },
+    {
+      "field": "touristTip",
+      "from": "Go early in the morning (around 6 AM) to a traditional Harissa shop in Downtown Srinagar to experience it piping hot with local Lavas bread.",
+      "to": "Harissa is only made in winter, roughly from late autumn to March. It is a morning dish: shops in Srinagar's old city, especially around Aali Kadal, serve it early and often sell out by mid-morning, so go early and eat it hot with fresh bread from a kandur."
+    },
+    {
+      "field": "recipe.significance",
+      "from": "from roughly November to early spring",
+      "to": "from roughly late autumn to early spring"
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "a November-to-March pleasure",
+      "to": "a winter pleasure, from late autumn to March"
+    }
+  ]
+}

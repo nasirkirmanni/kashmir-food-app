@@ -119,7 +119,8 @@ export default async function DishDetailPage({ params }) {
       next: { revalidate: 3600 },
     });
     if (res.ok) {
-      dish = await res.json();
+      // Cleaned here as well as in DishDetailClient, so the data sent for hydration matches the page.
+      dish = sanitizeDish(await res.json());
     } else if (res.status === 404) {
       // The record genuinely doesn't exist — return a real 404, not a stub.
       // Network errors fall through to the client shell so a transient API

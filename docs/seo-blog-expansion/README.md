@@ -23,7 +23,7 @@ The posts went live at once, not on the staggered dates in `B-content-calendar.m
 - Blog 02 (street food): the owner confirmed the places and timings are still as described.
 
 **Still open**
-- The harissa dish page's season and origin claims live in the database, not the code.
+- The harissa dish page already shows corrected text (`frontend/data/dishTextCorrections.json`), but the database still holds the old wording until someone runs `node src/scripts/applyDishTextCorrections.js --apply` from `backend/` with `MONGODB_URI` set.
 - Per-post share images need owned photography.
 - Smaller notes on existing pages: the "world's finest" saffron title, the "fiery" rista wording, the shufta and phirni dish pages, and the basrakh and tosha category.
 - Request indexing for the ten URLs in Search Console.
