@@ -14,6 +14,7 @@ import {
   resolveContentPhoto,
 } from "./contentImages";
 import { markdownSummary, toMetaDescription } from "./metaText";
+import DISH_TEXT_CORRECTIONS from "../data/dishTextCorrections.json";
 
 describe("dishContent", () => {
   const templated = {
@@ -48,6 +49,30 @@ describe("dishContent", () => {
   it("keeps real copy untouched", () => {
     const real = { name: "Rogan Josh", description: "Lamb braised in Kashmiri chilli.", history: "A Persian-rooted dish." };
     expect(sanitizeDish(real)).toMatchObject(real);
+  });
+
+  it("corrects known-wrong stored text until the record itself is fixed", () => {
+    const fix = (field) => DISH_TEXT_CORRECTIONS["kashmiri-harissa"].find((c) => c.field === field);
+    const stored = {
+      slug: "kashmiri-harissa",
+      history: fix("history").from,
+      touristTip: fix("touristTip").from,
+      recipe: {
+        intro: "Srinagar's winter breakfast.",
+        significance: `Sold ${fix("recipe.significance").from}.`,
+        servingSuggestions: `It is ${fix("recipe.servingSuggestions").from}.`,
+      },
+    };
+    const dish = sanitizeDish(stored);
+    expect(dish.history).toBe(fix("history").to);
+    expect(dish.touristTip).toBe(fix("touristTip").to);
+    expect(dish.recipe.significance).toBe(`Sold ${fix("recipe.significance").to}.`);
+    expect(dish.recipe.servingSuggestions).toBe(`It is ${fix("recipe.servingSuggestions").to}.`);
+    expect(stored.recipe.significance).toBe(`Sold ${fix("recipe.significance").from}.`);
+
+    const editedByHand = { ...stored, history: "Rewritten by an editor." };
+    expect(sanitizeDish(editedByHand).history).toBe("Rewritten by an editor.");
+    expect(sanitizeDish({ ...stored, slug: "rogan-josh" }).history).toBe(fix("history").from);
   });
 
   it("labels categories without repeating 'Kashmiri'", () => {

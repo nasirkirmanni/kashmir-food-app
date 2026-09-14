@@ -2583,8 +2583,8 @@ export const dishes = [
     "name": "Harissa",
     "description": "A slow-cooked winter mutton and rice paste.",
     "fullDescription": "Harissa is a rich, smooth paste of mutton slow-cooked overnight with rice, spices, and oil, served hot with local baked flatbreads.",
-    "history": "Brought to Kashmir from Central Asia, Harissa has been a winter breakfast staple in Downtown Srinagar for centuries. Specialized cooks (Haris-Froush) prepare it in large copper pots inside underground wood-fired ovens.",
-    "touristTip": "Go early in the morning (around 6 AM) to a traditional Harissa shop in Downtown Srinagar to experience it piping hot with local Lavas bread.",
+    "history": "Harissa is a winter breakfast made by specialist cooks and sold from shops in Srinagar's old city. Where it came from is a matter of tradition rather than record: one maker credits the Sufi saint Shah-i-Hamdan, others the Mughals, and it is often linked to Persian and Central Asian cooking. The pot goes on the night before over a wood fire, and the mutton and rice are worked until smooth.",
+    "touristTip": "Harissa is only made in winter, roughly from late autumn to March. It is a morning dish: shops in Srinagar's old city, especially around Aali Kadal, serve it early and often sell out by mid-morning, so go early and eat it hot with fresh bread from a kandur.",
     "category": "Street Food",
     "categoryType": "kashmiri_cuisine",
     "foodType": "Non-veg",
@@ -2613,7 +2613,7 @@ export const dishes = [
       ],
       "tradition": "Kashmiri Muslim",
       "intro": "Srinagar's winter breakfast: mutton and rice cooked overnight and pounded, ladle-stroke by ladle-stroke, into a smooth, fennel-scented porridge, served scalding with a slick of smoking mustard oil and a round of fresh bread. It has nothing to do with the North African chilli paste that shares its name — this harissa is meat, patience and cold-morning ritual.",
-      "significance": "Harissa is a seasonal, artisan institution rather than a home dish: from roughly November to early spring, specialist makers known as harisa guyr sell it by the morning bowl from shops concentrated in old Srinagar — Aali Kadal above all, with Saraf Kadal, Fateh Kadal and a few uptown addresses — several of them family businesses generations deep. The pot goes on the night before; the meat cooks down with rice and spices in a vessel set into a hearth, and is worked continuously until fibre and grain dissolve into one another. Its origin is traditionally traced to Central Asia and Persia, and popular accounts associate its arrival with the 14th-century Sufi saint Mir Syed Ali Hamadani — a widely repeated attribution rather than a documented fact, and best held loosely. What is certain is its status: for downtown Srinagar, harissa season is a calendar event, and the dish is a marker of winter identity. The name coincidence with Maghrebi harissa (a chilli condiment) is exactly that — a coincidence of Arabic-derived naming ('harasa', to pound/mash) applied to two unrelated foods.",
+      "significance": "Harissa is a seasonal, artisan institution rather than a home dish: from roughly late autumn to early spring, specialist makers known as harisa guyr sell it by the morning bowl from shops concentrated in old Srinagar — Aali Kadal above all, with Saraf Kadal, Fateh Kadal and a few uptown addresses — several of them family businesses generations deep. The pot goes on the night before; the meat cooks down with rice and spices in a vessel set into a hearth, and is worked continuously until fibre and grain dissolve into one another. Its origin is traditionally traced to Central Asia and Persia, and popular accounts associate its arrival with the 14th-century Sufi saint Mir Syed Ali Hamadani — a widely repeated attribution rather than a documented fact, and best held loosely. What is certain is its status: for downtown Srinagar, harissa season is a calendar event, and the dish is a marker of winter identity. The name coincidence with Maghrebi harissa (a chilli condiment) is exactly that — a coincidence of Arabic-derived naming ('harasa', to pound/mash) applied to two unrelated foods.",
       "prepTimeMinutes": 38,
       "cookTimeMinutes": 600,
       "servings": "6–8",
@@ -2655,7 +2655,7 @@ export const dishes = [
         "Leaving whole spices loose in the pot and finding cardamom husks in the finished bowl.",
         "Serving it warm rather than scalding, and without the hot-oil tarka."
       ],
-      "servingSuggestions": "Eaten at breakfast, scalding hot, with fresh tchot or girda bread torn and dipped straight into the bowl, ideally with noon chai alongside. In Srinagar it is a November-to-March pleasure; out of season the shops simply stop making it.",
+      "servingSuggestions": "Eaten at breakfast, scalding hot, with fresh tchot or girda bread torn and dipped straight into the bowl, ideally with noon chai alongside. In Srinagar it is a winter pleasure, from late autumn to March; out of season the shops simply stop making it.",
       "relatedDishes": [],
       "sourcingNote": "Corroborated across Whetstone Magazine's harissa feature, GOYA's Old Srinagar harissa essay, Kashmir Life, Greater Kashmir and Onmanorama's profile of an Aali Kadal harisa family — sources agree on the overnight cooking, rice-and-mutton pounding, harisa guyr trade, downtown shop geography, winter seasonality, hot-oil finish and kebab/methi maaz garnish. The Hamadani origin attribution appears in several of these but as tradition, not documentation, and is framed accordingly. Not present in the booklet reference.",
       "reviewedAt": "2026-07-16T14:01:11.661Z"

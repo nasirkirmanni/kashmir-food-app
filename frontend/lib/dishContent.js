@@ -10,6 +10,8 @@
  * that becomes the description instead.
  */
 
+import DISH_TEXT_CORRECTIONS from "../data/dishTextCorrections.json";
+
 // Distinctive phrases from the seed template (compare
 // backend/src/scripts/merge_duplicate_dishes.js BOILER).
 const GENERATED_DISH_TEXT = [
@@ -27,17 +29,39 @@ function realText(value) {
   return typeof value === "string" && value.trim() && !isGeneratedDishText(value) ? value : "";
 }
 
-/** Returns a copy of the dish with generated boilerplate fields emptied. */
+/**
+ * Stored dish text that states something the sources don't support, corrected
+ * for display until the database record is fixed with
+ * backend/src/scripts/applyDishTextCorrections.js. A correction replaces its
+ * text only while the record still contains it, so it stops applying once the
+ * record is updated or edited by hand.
+ */
+function applyTextCorrections(dish) {
+  const corrections = DISH_TEXT_CORRECTIONS[dish.slug];
+  if (!corrections) return dish;
+  const corrected = { ...dish };
+  for (const { field, from, to } of corrections) {
+    const [key, nested] = field.split(".");
+    const value = nested ? corrected[key]?.[nested] : corrected[key];
+    if (typeof value !== "string" || !value.includes(from)) continue;
+    const fixed = value.replace(from, () => to);
+    corrected[key] = nested ? { ...corrected[key], [nested]: fixed } : fixed;
+  }
+  return corrected;
+}
+
+/** Returns a copy of the dish with known-wrong text corrected and generated boilerplate fields emptied. */
 export function sanitizeDish(dish) {
   if (!dish) return dish;
-  const intro = realText(dish.recipe?.intro);
-  const description = realText(dish.description) || intro;
+  const record = applyTextCorrections(dish);
+  const intro = realText(record.recipe?.intro);
+  const description = realText(record.description) || intro;
   return {
-    ...dish,
+    ...record,
     description,
-    fullDescription: realText(dish.fullDescription) || description,
-    history: realText(dish.history),
-    touristTip: realText(dish.touristTip),
+    fullDescription: realText(record.fullDescription) || description,
+    history: realText(record.history),
+    touristTip: realText(record.touristTip),
   };
 }
 
