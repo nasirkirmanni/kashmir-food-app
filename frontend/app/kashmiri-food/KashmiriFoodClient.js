@@ -137,9 +137,9 @@ function DishCard({ dish, index }) {
   );
 }
 
-// Every food hub URL (/kashmiri-food and each category under it) renders this
-// page. A hub listed here gets its own heading, intro and buttons; the others
-// share the default.
+// Every food hub URL renders this page. /kashmiri-food uses the default hero;
+// each category hub (wazwan, bakery, beverages, street-food) has its own
+// heading, intro and buttons.
 const DEFAULT_HERO = {
   lines: ["The definitive", "guide to real", <><span className="accent">Kashmiri</span> food.</>],
   sub: "From the royal 36-course Wazwan feast to the communal morning bakery runs. Discover the rules, the etiquette, and the centuries-old techniques.",
@@ -147,6 +147,24 @@ const DEFAULT_HERO = {
   read: { label: "Read Our Blogs", href: "/blog" },
 };
 const HUB_HEROES = {
+  wazwan: {
+    lines: [<><span className="accent">Wazwan</span>, the</>, "feast of", "Kashmir."],
+    sub: "Up to 36 courses built mostly on mutton, cooked through the night by teams of wazas and shared four to a copper trami. Meet the dishes, then read how the feast works.",
+    start: { label: "Begin the feast", section: "wazwan" },
+    read: { label: "What is Wazwan?", href: "/kashmiri-food/wazwan/guide/what-is-wazwan" },
+  },
+  bakery: {
+    lines: [<>The <span className="accent">Kashmiri</span></>, "bakery, from", "dawn to dusk."],
+    sub: "Kandurs light their tandoors before dawn: girda and lavasa for breakfast, czochworu and kulcha with afternoon tea, and sheermal for festive days.",
+    start: { label: "Visit the kandur", section: "bakery" },
+    read: { label: "Kashmiri breakfast", href: "/blog/kashmiri-breakfast" },
+  },
+  beverages: {
+    lines: ["Salted pink", "tea and", <><span className="accent">saffron</span> kahwa.</>],
+    sub: "Noon chai is salted and turns pink as the milk goes in; kahwa is green tea brewed with saffron, cinnamon and cardamom. Meet both, plus babribyol for iftar and Kashmiri lassi.",
+    start: { label: "Pour the tea", section: "beverages" },
+    read: { label: "Compare the teas", href: "/blog/kahwa-vs-noon-chai" },
+  },
   "street-food": {
     lines: ["The real", <span className="accent">Kashmiri</span>, "street food."],
     sub: "Coal-grilled tujji skewers, crisp nadur monji, masala tsot wraps and winter harissa cooked overnight. Meet the dishes here, then read where and when Srinagar eats them.",
