@@ -151,7 +151,7 @@ export async function generateMetadata({ params }) {
         },
         "history-of-wazwan": {
           title: "History of Wazwan: From Timur to Modern Kashmir",
-          description: "Trace the incredible journey of Wazwan from the courts of Timur in Samarkand to the grand weddings of modern Kashmir.",
+          description: "Trace Wazwan from the legend of Timur's Samarkand cooks and the courts of Kashmir's sultans to the grand weddings of modern Kashmir.",
         },
         "rista-deep-dive": {
           title: "Rista: Origins, Ingredients & Preparation",

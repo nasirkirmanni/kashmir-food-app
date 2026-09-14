@@ -2098,16 +2098,18 @@ In Kashmiri cuisine, spices are not meant to "shout" or burn the tongue; they ar
     date: "September 10, 2026",
     category: "Heritage Cookery",
     readTime: "20 min read",
-    excerpt: "Trace the 600-year journey of Kashmir's royal feast from the courts of Timur in Central Asia to the wedding halls of modern Srinagar — and discover why this ancient tradition is now fighting for survival.",
-    summary: "A comprehensive 600-year history of Wazwan, from Timur's invasion to modern Kashmir, covering the Waza caste, the 36-course structure, wedding traditions, and the fight to preserve this vanishing art.",
+    excerpt: "Kashmir's royal feast, from the legend of Timur's Samarkand cooks to Srinagar's wedding halls — and why this ancient tradition is now fighting for survival.",
+    summary: "A comprehensive history of Wazwan, from the Timur legend to modern Kashmir, covering the Waza caste, the 36-course structure, wedding traditions, and the fight to preserve this vanishing art.",
     content: `
 ## The Feast That Crossed an Empire
 
 In the autumn of 1398, the Turco-Mongol conqueror Timur (Tamerlane) launched his devastating invasion of the Indian subcontinent. His armies swept through the Hindu Kush, across the plains of Punjab, and eventually reached the gates of Delhi. But Timur's legacy in the Indian subcontinent was not only one of conquest — it was also one of cuisine.
 
-Among the soldiers, scholars, and artisans that Timur's campaigns displaced were master cooks from the royal kitchens of **Samarkand**, the jewel of Central Asia. These cooks carried with them a sophisticated culinary tradition built on slow-cooked meats, aromatic spice pastes, yogurt-based gravies, and an elaborate code of communal dining that had been perfected over centuries in the courts of the Timurid dynasty.
+Kashmiri tradition holds that among the soldiers, scholars, and artisans that Timur's campaigns displaced were master cooks from the royal kitchens of **Samarkand**, the jewel of Central Asia. These cooks, the story goes, carried with them a sophisticated culinary tradition built on slow-cooked meats, aromatic spice pastes, yogurt-based gravies, and an elaborate code of communal dining.
 
-When these displaced artisans settled in the Kashmir Valley — drawn by its temperate climate, abundant livestock, and the patronage of local Sultans — they brought with them the seeds of what would become the most elaborate feast in the Indian subcontinent: the **Wazwan**.
+In that telling, these displaced artisans settled in the Kashmir Valley — drawn by its temperate climate, abundant livestock, and the patronage of local Sultans — and brought with them the seeds of what would become the most elaborate feast in the Indian subcontinent: the **Wazwan**.
+
+It's a story worth knowing, but it's best read as legend rather than record. Timur was camped on the Indus in 1398 when he demanded tribute from Sultan Sikandar of Kashmir, and the two never met. Jammu and Kashmir's tourism corporation presents the Samarkand origin as the wazas' own account. What the record does show is that Sikandar's court welcomed scholars and Sufis from Isfahan, Bukhara, and Balkh, one of several routes by which Persian and Central Asian influence reached Kashmir's kitchens. For how that influence shows up in the wider cuisine, see [Kashmiri cuisine explained](/blog/kashmiri-cuisine-explained).
 
 > "Wazwan is not food. It is a covenant between a host and a guest, sealed with thirty-six courses and broken with the washing of hands."
 
