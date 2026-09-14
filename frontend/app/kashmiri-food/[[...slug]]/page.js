@@ -300,8 +300,7 @@ export default function Page({ params }) {
     if (slug.length === 1 && !validCategories.includes(category)) {
       notFound();
     }
-    const activeTab = slug.length === 1 ? (category === "street-food" ? "street_food" : category) : null;
-    return <KashmiriFoodClient initialDishes={dishesData} />;
+    return <KashmiriFoodClient initialDishes={dishesData} category={slug.length === 1 ? category : null} />;
   }
   
   // Render Category Guide Index Page (e.g. /kashmiri-food/wazwan/guide)

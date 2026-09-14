@@ -137,7 +137,26 @@ function DishCard({ dish, index }) {
   );
 }
 
-export default function KashmiriFoodClient({ initialDishes = dishesData }) {
+// Every food hub URL (/kashmiri-food and each category under it) renders this
+// page. A hub listed here gets its own heading, intro and buttons; the others
+// share the default.
+const DEFAULT_HERO = {
+  lines: ["The definitive", "guide to real", <><span className="accent">Kashmiri</span> food.</>],
+  sub: "From the royal 36-course Wazwan feast to the communal morning bakery runs. Discover the rules, the etiquette, and the centuries-old techniques.",
+  start: { label: "Begin the feast", section: "wazwan" },
+  read: { label: "Read Our Blogs", href: "/blog" },
+};
+const HUB_HEROES = {
+  "street-food": {
+    lines: ["The real", <span className="accent">Kashmiri</span>, "street food."],
+    sub: "Coal-grilled tujji skewers, crisp nadur monji, masala tsot wraps and winter harissa cooked overnight. Meet the dishes here, then read where and when Srinagar eats them.",
+    start: { label: "Walk the streets", section: "street" },
+    read: { label: "Where to eat", href: "/blog/kashmiri-street-food-srinagar" },
+  },
+};
+
+export default function KashmiriFoodClient({ initialDishes = dishesData, category = null }) {
+  const hero = HUB_HEROES[category] || DEFAULT_HERO;
   const [activeChapter, setActiveChapter] = useState('wazwan');
   const [dialVisible, setDialVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -313,17 +332,18 @@ export default function KashmiriFoodClient({ initialDishes = dishesData }) {
         <div className="absolute inset-0 -z-10" style={{ background: 'radial-gradient(ellipse at 75% 20%, rgba(212,162,86,0.10), transparent 55%), linear-gradient(180deg, rgba(12,10,8,0.62) 0%, rgba(12,10,8,0.42) 45%, rgba(12,10,8,0.94) 100%)' }}></div>
         <div className="hero-inner">
           <h1>
-            <span className="line"><span style={{ transform: 'translateY(110%)', opacity: 0 }}>The definitive</span></span>
-            <span className="line"><span style={{ transform: 'translateY(110%)', opacity: 0 }}>guide to real</span></span>
-            <span className="line"><span style={{ transform: 'translateY(110%)', opacity: 0 }}><span className="accent">Kashmiri</span> food.</span></span>
+            {/* The space after each line keeps the words apart in the heading text that search engines and screen readers get. */}
+            {hero.lines.map((line, i) => (
+              <span className="line" key={i}><span style={{ transform: 'translateY(110%)', opacity: 0 }}>{line}</span>{" "}</span>
+            ))}
           </h1>
           <p className="sub" ref={heroSubRef}>
-            From the royal 36-course Wazwan feast to the communal morning bakery runs. Discover the rules, the etiquette, and the centuries-old techniques.
+            {hero.sub}
           </p>
           <div className="hero-ctas" ref={heroCtasRef}>
-            <button className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" onClick={() => scrollToSection('wazwan')}>Begin the feast</button>
+            <button className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" onClick={() => scrollToSection(hero.start.section)}>{hero.start.label}</button>
             <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black">Browse All Dishes</Link>
-            <Link href="/blog" className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" style={{ backgroundColor: 'var(--gold)', color: 'black', borderColor: 'var(--gold)' }}>Read Our Blogs</Link>
+            <Link href={hero.read.href} className="btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--gold)] focus:ring-offset-black" style={{ backgroundColor: 'var(--gold)', color: 'black', borderColor: 'var(--gold)' }}>{hero.read.label}</Link>
           </div>
 
           <div className="stat-card" ref={statCardRef}>
