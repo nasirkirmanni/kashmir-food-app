@@ -10,8 +10,9 @@ import { User } from "lucide-react";
 import { SITE_SECTIONS } from "@/lib/siteSections";
 
 /* Each section link appears only from the window width where the whole bar
-   still fits (the full row needs about 1,650px). Waza AI, Login, Sign up and
-   the Menu button are never hidden, and the Menu drawer lists every section. */
+   still fits (measured logged out, the full row with Blog needs about 1,640px).
+   Waza AI, Login, Sign up and the Menu button are never hidden, and the Menu
+   drawer lists every section. */
 const SHOW_FROM = {
   "/how-to-experience": "hidden min-[1720px]:inline-flex",
   "/kashmiri-food": "hidden lg:inline-flex",
@@ -20,6 +21,7 @@ const SHOW_FROM = {
   "/plan": "hidden min-[1400px]:inline-flex",
   "/itineraries": "hidden xl:inline-flex",
   "/explore": "hidden xl:inline-flex",
+  "/blog": "hidden lg:inline-flex",
 };
 
 export default function Navbar() {
@@ -104,7 +106,7 @@ export default function Navbar() {
         {/* Section links — each appears only where the bar has room (SHOW_FROM).
             min-w-0 + overflow-hidden is a last-resort guard: if a font renders
             wider than measured, a link is clipped instead of the actions. */}
-        <div className="-my-2 flex min-w-0 flex-1 items-center justify-center gap-6 overflow-hidden py-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/80 xl:gap-7 min-[1800px]:gap-10">
+        <div className="-my-2 flex min-w-0 flex-1 items-center justify-center gap-6 overflow-hidden py-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/80 2xl:gap-7 min-[1800px]:gap-10">
           {SITE_SECTIONS.map((link) => (
             <Link
               key={link.href}
