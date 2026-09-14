@@ -47,7 +47,7 @@ export default function HistoryPage() {
               The History<br />of Wazwan
             </h1>
             <p className="text-white/70 text-base md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
-              A royal feast that traces its origins back to the 14th century, blending Central Asian, Persian, and indigenous Kashmiri culinary traditions.
+              A royal feast whose story is usually traced to the 14th century, blending Central Asian, Persian, and indigenous Kashmiri culinary traditions.
             </p>
           </motion.div>
         </div>
@@ -65,12 +65,12 @@ export default function HistoryPage() {
           {/* Section 1 */}
           <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 space-y-6">
-              <h2 className="font-display text-3xl md:text-4xl text-[var(--saffron)]">Timur&apos;s Influence</h2>
+              <h2 className="font-display text-3xl md:text-4xl text-[var(--saffron)]">The Timur Legend</h2>
               <p className="text-white/70 leading-relaxed font-light text-lg">
-                The origins of Wazwan are often traced back to the late 14th century when the Mongol ruler Timur invaded India. It is believed that he brought skilled cooks, woodcarvers, and weavers from Samarkand to the Kashmir Valley. 
+                The origins of Wazwan are often traced back to the late 14th century when the Turco-Mongol ruler Timur invaded India. Tradition holds that he brought skilled cooks, woodcarvers, and weavers from Samarkand to the Kashmir Valley, but it is a legend rather than a record: Timur was camped on the Indus when he demanded tribute from Kashmir&apos;s Sultan Sikandar, and the two never met.
               </p>
               <p className="text-white/70 leading-relaxed font-light text-lg">
-                These master chefs, known as <em>Wazas</em>, passed down their recipes and techniques through generations, giving birth to what we now know as the royal Wazwan.
+                Whatever their origins, the master chefs known as <em>Wazas</em> passed down their recipes and techniques through generations, giving birth to what we now know as the royal Wazwan.
               </p>
             </div>
             <div className="hidden md:block order-1 md:order-2 relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">

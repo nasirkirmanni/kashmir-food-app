@@ -1,0 +1,147 @@
+/dishes | Kashmiri Dishes | Explore Wazwan Cuisine | Wazwan Way | H1: Traditional Wazwan | ~606 words
+   H2: The 10 Core Wazwan Masterpieces · The 16 Authoritative Dishes
+   desc: Signature dishes of the royal Wazwan table — Rogan Josh, Gushtaba, Rista, Tabak Maaz and more — with their history, spice levels and where to taste them.
+/restaurants | Kashmiri Restaurants | Wazwan Dining in Kashmir | Wazwan Way | H1: Discover Authentic Wazwan Experiences | ~117 words
+   H2: More Dining Rooms
+   desc: Discover the best authentic Kashmiri restaurants in Srinagar, Gulmarg, Pahalgam, and Sonamarg. Find curated dining venues serving traditional Wazwan cuisine.
+/restaurants/best-wazwan-srinagar | Best Kashmiri Food in Srinagar: A Local Guide | Wazwan Way | H1: Best Kashmiri Food in Srinagar: Wazwan, Bakery, Tea, and Street Food | ~1039 words
+   H2: Wazwan: Go to Residency Road, Not the Boulevard · Bakery: Jan Bakery Near Dal Gate · Beverages: Chai Jaai for Noon Chai and Kahwa · Street Food: Khayam Chowk in the Evening · Practical Notes
+   desc: Where to eat Wazwan, which bakery to visit, the best spot for Noon Chai and Kahwa, and where Srinagar's street food actually lives — a locally grounded guide.
+/recipes | Authentic Kashmiri Recipes | Wazwan Cooking | Wazwan Way | H1: Authentic KashmiriRecipes | ~1004 words
+   H2: 
+   desc: Discover step-by-step authentic recipes for traditional Kashmiri dishes like Rogan Josh, Rista, Gushtaba, Yakhni, and more from expert chefs.
+/history | History of Wazwan | Kashmir's Royal Feast | Wazwan Way | H1: The Historyof Wazwan | ~204 words
+   H2: Timur's Influence · The Traami Tradition · The 36-Course Symphony
+   desc: The 700-year history of Wazwan, Kashmir's royal feast: the Waza chefs, the Traami tradition, the 36-course ceremony and its Central Asian origins.
+/etiquette | Wazwan Etiquette | How to Eat from the Trami | Wazwan Way | H1: The 7 Unwritten Rules of Wazwan | ~324 words
+   H2: Ready to experience the royal feast?
+   desc: The etiquette of a traditional Wazwan feast — sharing the trami, hand-washing with the tash-t-naer, course order, and dining customs.
+/how-to-experience | How to Experience Wazwan | First-Timer's Guide | Wazwan Way | H1: How to ExperienceWazwan | ~300 words
+   H2: Your personalWaza · Ready to experience the royal feast?
+   desc: Where and how to experience an authentic Wazwan feast in Kashmir — restaurants, weddings, portions, cost, and what to expect.
+/plan | Plan Your Trip | Kashmir Travel Planner | Wazwan Way | H1: Visit Kashmir | ~449 words
+   H2: Explore Iconic Destinations · Taste Authentic Wazwan · Popular Itineraries · Travel Tips & Info · Latest Dispatches · Frequently Asked · Let Waza AI craft your perfect Kashmir trip.
+   desc: Plan your Kashmir trip — season guidance, destinations, food experiences, and practical travel information in one place.
+/explore | Explore Kashmir | Hidden Gems & Trails | Wazwan Way | H1: What shouldKashmir show youtoday? | ~441 words
+   H2: Curated by people whoactually live here. · Untouched valleys,quietly kept. · The most majesticlight for your lens. · Scenic drives,endless stories. · A journey throughauthentic wazwan. · Sleep under deodar,wake in alpine light. · Destinations that comealive in winter. · Ask Waza anythingabout Kashmir. · Your route throughKashmir, saved. · Destination guides
+   desc: Discover the best hidden gems, scenic drives, picnic spots, and food trails across Kashmir.
+/blog | Journal | Kashmiri Food Stories & Guides | Wazwan Way | H1: Culinary Stories & Secrets | ~636 words
+   H2: 
+   desc: Long-form stories from Kashmir's food culture — saffron fields, bread traditions, spice blends, and the people behind the Wazwan.
+/kashmiri-food | Kashmiri Food: Wazwan, Bakery & Street Food | Wazwan Way | H1: The definitiveguide to realKashmiri food. | ~450 words
+   H2: One plate. Four ways in. · The Royal Wazwan. · Pink tea & Saffron. · The local Kandur. · Srinagar's Streets.
+   desc: Explore the authentic culinary traditions of Kashmir. Discover the legendary 36-course royal Wazwan feast, hourly Kandur bakery culture, hot street Tujji…
+/kashmiri-food/wazwan | Kashmiri Wazwan Feast & Trami Sequence Guide | Wazwan Way | H1: The definitiveguide to realKashmiri food. | ~450 words
+   H2: One plate. Four ways in. · The Royal Wazwan. · Pink tea & Saffron. · The local Kandur. · Srinagar's Streets.
+   desc: Discover the authentic 36-course Kashmiri Wazwan feast. Learn about the traditional serve sequence, copper Trami etiquette, and classic dishes cooked by…
+/kashmiri-food/bakery | Kashmiri Bakery: Girda, Czot & Bakerkhani | Wazwan Way | H1: The definitiveguide to realKashmiri food. | ~449 words
+   H2: One plate. Four ways in. · The Royal Wazwan. · Pink tea & Saffron. · The local Kandur. · Srinagar's Streets.
+   desc: Step into the neighborhood Kandur-wan. Discover hourly baked Kashmiri breads like Girda for breakfast, sesame Czochworu, and flaky Bakerkhani.
+/kashmiri-food/beverages | Kashmiri Drinks: Noon Chai, Kahwa & Babribyol | Wazwan Way | H1: The definitiveguide to realKashmiri food. | ~450 words
+   H2: One plate. Four ways in. · The Royal Wazwan. · Pink tea & Saffron. · The local Kandur. · Srinagar's Streets.
+   desc: Explore traditional Kashmiri drinks. Learn the difference between pink Noon Chai, saffron-infused Kahwa, Babribyol, and creamy Lassi.
+/kashmiri-food/street-food | Kashmiri Street Food: Tujji, Harissa & More | Wazwan Way | H1: The definitiveguide to realKashmiri food. | ~450 words
+   H2: One plate. Four ways in. · The Royal Wazwan. · Pink tea & Saffron. · The local Kandur. · Srinagar's Streets.
+   desc: Savor the rustic street foods of Srinagar's bazaars. From coal-grilled Tujji mutton skewers to winter Harissa pastes and crispy snacks.
+/kashmiri-food/wazwan/guide | Kashmiri Wazwan Dining & Culinary Guides | Wazwan Way | H1: Kashmiri Wazwan Guidebook | ~620 words
+   H2: 
+   desc: Comprehensive guides to the traditional Wazwan feast. Understand the cooking methods, history, and sequence.
+/kashmiri-food/wazwan/guide/what-is-wazwan | What Is Wazwan? Kashmir's Legendary Feast | Wazwan Way | H1: What is Wazwan? The Complete Guide to Kashmir's Legendary Feast | ~1269 words
+   H2: What Does "Wazwan" Actually Mean? · A Feast, Not a Menu · Where It Comes From · Who Cooks It: The Waza · How It's Served · What's Actually in It · Where You'll Actually Encounter Wazwan · Frequently Asked Questions · Related Articles
+   desc: Discover the origins, history, and cultural significance of the legendary 36-course Kashmiri Wazwan feast cooked by traditional Wazas.
+/kashmiri-food/wazwan/guide/dishes-explained | Wazwan Dishes Explained: The Saat Rang & Beyond | Wazwan Way | H1: Wazwan Dishes Explained: The Saat Rang and Beyond | ~1238 words
+   H2: The Saat Rang: Seven Essential Dishes · Beyond the Saat Rang: Other Dishes You'll See · A Note on How These Dishes Get Their Color · Frequently Asked Questions · Related Articles
+   desc: A complete guide to the main dishes served in a traditional Trami, from Rista and Gustaba to Tabak Maaz and Lahabi Kebab.
+/kashmiri-food/wazwan/guide/cost-guide | How Much Does Wazwan Cost? A Price Guide | Wazwan Way | H1: How Much Does Wazwan Cost? A Practical Price Guide | ~1164 words
+   H2: The Three Contexts and What They Cost · Why Wazwan Costs What It Does · Getting Value at Different Budgets · FAQ · Related Articles
+   desc: What does Wazwan cost in Srinagar? A breakdown of restaurant, wedding, and fine dining price ranges — and what's driving them.
+/kashmiri-food/wazwan/guide/vegetarian-wazwan | Vegetarian Wazwan: What to Expect & Order | Wazwan Way | H1: Vegetarian Wazwan: What to Expect and What to Order | ~1162 words
+   H2: Does Wazwan Have Vegetarian Dishes? · The 2017 Regulation: Why Vegetarian Dishes Now Have a Fixed  · The Kashmiri Pandit Tradition: A Different Vegetarian Richne · What to Order as a Vegetarian at a Srinagar Restaurant · The Honest Picture for Vegetarians · FAQ · Related Articles
+   desc: A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its…
+/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home | Wazwan: Restaurant vs Wedding vs Home | Wazwan Way | H1: Wazwan: Restaurant vs Wedding vs Home — What's Actually Different | ~1286 words
+   H2: The Wedding Wazwan: The Original · The Restaurant Wazwan: Accessible but Different · The Home Wazwan: Everyday Kashmiri Cooking · Which Version Should You Try? · FAQ · Related Articles
+   desc: The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.
+/kashmiri-food/wazwan/guide/kashmiri-wazwan-dishes | Kashmiri Wazwan Dishes: A Culinary Guide | Wazwan Way | H1: Kashmiri Wazwan Dishes: The Ultimate Culinary Guide | ~426 words
+   H2: The Meat of the Matter · The Prominent Dishes · The Role of Rice and Sides · Conclusion · Related Articles
+   desc: Explore the vast and flavorful world of Kashmiri Wazwan dishes, from the succulent Seekh Kebabs to the delicate Gushtaba.
+/kashmiri-food/wazwan/guide/rista-vs-gushtaba | Rista vs Gushtaba: Kashmir's Twin Meatballs | Wazwan Way | H1: Rista vs Gushtaba: The Twin Meatballs of Kashmir | ~374 words
+   H2: The Pounding Process · The Gravy (The Red vs The White) · The Serving Sequence · Related Articles
+   desc: Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan.
+/kashmiri-food/wazwan/guide/traditional-wazwan-menu | Traditional Wazwan Menu: A 36-Course Breakdown | Wazwan Way | H1: The Traditional Wazwan Menu: A 36-Course Breakdown | ~422 words
+   H2: The Foundation (Served with the Trami) · The Continuous Pour (The Main Courses) · The Chutneys (The Palate Cleansers) · The Grand Finale · The Dessert and Digestif · Related Articles
+   desc: Explore the complete traditional Wazwan menu, from the opening starters to the final dessert and Kahwa.
+/kashmiri-food/wazwan/guide/kashmiri-wedding-food | Kashmiri Wedding Food: The Grandeur of Wazwan | Wazwan Way | H1: Kashmiri Wedding Food: The Grandeur of Wazwan | ~418 words
+   H2: The Scale of the Feast · The Pounding of the Meat · The Etiquette of Serving · Leftovers as a Sign of Respect · Related Articles
+   desc: A deep dive into how food dictates the flow, scale, and prestige of a traditional Kashmiri wedding.
+/kashmiri-food/wazwan/guide/wazwan-culture | Wazwan Culture: The Social Fabric of Kashmir | Wazwan Way | H1: Wazwan Culture: The Social Fabric of Kashmir | ~343 words
+   H2: Eating Together: The Trami · The Role in Major Life Events · The Waza's Status · A Symbol of Resilience · Related Articles
+   desc: How the shared experience of Wazwan binds the Kashmiri community together, transcending just culinary boundaries.
+/kashmiri-food/wazwan/guide/waza-meaning | What Does Waza Mean? Kashmir's Master Chefs | Wazwan Way | H1: What Does Waza Mean? The Master Chefs of Kashmir | ~339 words
+   H2: The Vasta Waza · An Oral Tradition · The Origin of the Wazas · Related Articles
+   desc: Explore the history, skills, and societal role of the Wazas, the master chefs who guard the secrets of Kashmiri Wazwan.
+/kashmiri-food/wazwan/guide/how-wazwan-is-served | How Wazwan Is Served: Sequence & Etiquette | Wazwan Way | H1: How Wazwan is Served: The Sequence and Etiquette | ~406 words
+   H2: 1. The Seating and Handwashing · 2. The Arrival of the Trami · 3. The Gravy Courses · 4. The Grand Finale: Gushtaba · 5. Dessert and Kahwa · Related Articles
+   desc: A detailed look at the highly structured and ritualistic sequence of serving a traditional Kashmiri Wazwan.
+/kashmiri-food/wazwan/guide/trami-in-kashmir | The Trami: The Sacred Platter of Kashmir | Wazwan Way | H1: The Trami: The Sacred Platter of Kashmir | ~335 words
+   H2: The Rule of Four · The Copper Craftsmanship · The Sarposh · Related Articles
+   desc: Learn about the Trami, the large copper platter that sits at the center of the Wazwan experience and Kashmiri communal dining.
+/kashmiri-food/wazwan/guide/best-wazwan-dishes | Top 5 Best Wazwan Dishes You Must Try | Wazwan Way | H1: Top 5 Best Wazwan Dishes You Must Try | ~439 words
+   H2: 1. Gushtaba (The Dish of Kings) · 2. Tabak Maaz (Crispy Ribs) · 3. Rogan Josh (The Red Classic) · 4. Rista (Fiery Meatballs) · 5. Daniwal Korma (Coriander Lamb) · Related Articles
+   desc: A curated list of the absolute best Wazwan dishes that every visitor to Kashmir must experience.
+/kashmiri-food/wazwan/guide/history-of-wazwan | History of Wazwan: From Timur to Modern Kashmir | Wazwan Way | H1: History of Wazwan: The Genesis of Kashmir's Royal Feast | ~687 words
+   H2: The Arrival of Timur (1398 AD) · The Synthesis of Flavors · The Zain-ul-Abidin Era (1420–1470 AD) · The Evolution of the 36 Courses · Wazwan in Modern Kashmir · Related Articles
+   desc: Trace the incredible journey of Wazwan from the courts of Timur in Samarkand to the grand weddings of modern Kashmir.
+/kashmiri-food/wazwan/guide/rista-deep-dive | Rista: Origins, Ingredients & Preparation | Wazwan Way | H1: Rista: Origins, Ingredients & Preparation of the Fiery Meatball | ~611 words
+   H2: The Essence of Rista · The Ingredients · The Grueling Preparation Process · Eating Rista · Related Articles
+   desc: A deep dive into Rista, the saffron-infused, hand-pounded meatball that forms the spicy heart of the Wazwan.
+/kashmiri-food/wazwan/guide/gushtaba-the-kings-dish | Gushtaba: The King's Dish and the Grand Finale | Wazwan Way | H1: Gushtaba: The King's Dish and the Grand Finale | ~593 words
+   H2: The Anatomy of the King's Dish · Why is it Served Last? · The Ritual of Serving · Related Articles
+   desc: Why Gushtaba is considered the absolute pinnacle of Kashmiri culinary artistry, and why it must always be served last.
+/kashmiri-food/wazwan/guide/rogan-josh-explained | Rogan Josh Explained: Authentic Ingredients | Wazwan Way | H1: Rogan Josh Explained: The Identity of Kashmiri Cuisine | ~612 words
+   H2: What’s in a Name? · The Great Misconception: Tomatoes and Onions · The Authentic Ingredients · The Cooking Process · Related Articles
+   desc: Uncover the truth behind authentic Rogan Josh, a dish whose global fame has led to countless misconceptions about its true ingredients.
+/kashmiri-food/wazwan/guide/wazwan-vs-mughlai | Wazwan vs Mughlai Cuisine: Key Differences | Wazwan Way | H1: Wazwan vs Mughlai Cuisine: Understanding the Differences | ~626 words
+   H2: The Historical Divergence · The Gravy Base: Onion/Tomato vs Yogurt/Fennel · The Meat Preparation · The Spices and Color · The Dining Format · Summary · Related Articles
+   desc: A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India.
+/itineraries/kashmir-food-trail-wazwan-itinerary | Kashmir Food Trail | Wazwan Way | H1: Kashmir Food Trail | ~393 words
+   H2: Related itineraries
+   desc: A 4 day Kashmir food itinerary through Srinagar's Old City — Wazwan feasts, Kandur bakeries, street food and Kahwa — with the best places to eat and costs.
+/blog/secrets-of-gushtaba | Secrets of Gushtaba: The Royal Velvet Meatball | Wazwan Way | H1: Secrets of Gushtaba: The Royal Velvet Meatball | ~361 words
+   H2: Dishes in this article
+   desc: Gushtaba is not merely a dish; it is the grand finale of the Wazwan, the royal feast of Kashmir.
+/blog/kandur-wan-breads | The Kandur-Wan Breads of Kashmir | Wazwan Way | H1: The Kandur-Wan Breads of Kashmir | ~366 words
+   H2: Dishes in this article
+   desc: Step into any Kashmiri neighborhood at dawn, and you will inevitably follow the aroma of wood smoke and baking dough straight to the Kandur-Wan (traditional…
+/blog/kahwa-vs-noon-chai | Kahwa vs. Noon Chai: An Ancestral Tea Feud | Wazwan Way | H1: Kahwa vs. Noon Chai: An Ancestral Tea Feud | ~419 words
+   H2: Dishes in this article
+   desc: In the pristine valleys of Kashmir, tea is not a beverage; it is a vital life force. But within this devotion to tea lies a beautiful, ancestral duality.
+/blog/trami-etiquette | Trami Etiquette: The Sacred Rules of Sharing | Wazwan Way | H1: Trami Etiquette: The Sacred Rules of Sharing | ~483 words
+   H2: 
+   desc: To experience a traditional Wazwan is to participate in a deeply communal and spiritual ritual.
+/blog/what-is-ver-masala | What Is Ver Masala? Wazwan's Secret Spice | Wazwan Way | H1: What is Ver Masala? The Secret Spice Behind Authentic Wazwan | ~515 words
+   H2: 
+   desc: At the heart of Kashmiri culinary identity lies a closely guarded secret, a flavor profile so complex and punchy that it defines the very soul of the…
+/blog/pampore-kashmiri-saffron | Why Pampore Grows the World's Finest Saffron | Wazwan Way | H1: Kashmiri Saffron: Why Pampore Produces the World's Finest Saffron | ~536 words
+   H2: 
+   desc: Saffron (Crocus sativus) is the world's most expensive spice, a literal weight-in-gold commodity.
+/blog/kashmiri-red-chili | Kashmiri Red Chili: Wazwan's Iconic Color | Wazwan Way | H1: Kashmiri Red Chili: The Spice That Gives Wazwan Its Iconic Color | ~496 words
+   H2: 
+   desc: If you look at a traditional spread of Kashmiri Wazwan, you will be struck by a brilliant, fiery sea of crimson.
+/blog/nadru-lotus-stem-kashmir | Nadru (Lotus Stem): Kashmir's Beloved Vegetable | Wazwan Way | H1: Nadru (Lotus Stem): Kashmir's Most Loved Vegetable | ~446 words
+   H2: Dishes in this article
+   desc: While the fame of Kashmiri cuisine often centers around the meat-heavy Wazwan, no vegetable commands as much respect, love, and cultural significance in the…
+/blog/fennel-and-dry-ginger-wazwan | Fennel & Dry Ginger: The Flavor Base of Wazwan | Wazwan Way | H1: Fennel and Dry Ginger: The Flavor Foundation of Traditional Wazwan | ~431 words
+   H2: 
+   desc: When outsiders attempt to recreate Kashmiri cuisine, they often make a critical error: they reach for the onion, garlic, and tomato.
+/blog/complete-history-of-wazwan | Wazwan History: From Samarkand to Srinagar | Wazwan Way | H1: The Complete History of Wazwan: From Samarkand to Srinagar | ~1776 words
+   H2: The Feast That Crossed an Empire · The Etymology: What Does "Wazwan" Mean? · The Sultanate Period: Establishing the Tradition (14th–16th  · The Mughal Influence: Refinement and Codification (16th–19th · The Wedding Wazwan: The Ultimate Expression · The Kashmiri Pandit Wazwan: A Parallel Tradition · The Modern Crisis: Is Wazwan Dying? · The Future of the Feast
+   desc: Trace the 600-year journey of Kashmir's royal feast from the courts of Timur in Central Asia to the wedding halls of modern Srinagar — and discover why this…
+/blog/rogan-josh-the-true-story | Rogan Josh: The True Story Behind the Dish | Wazwan Way | H1: Rogan Josh: The True Story Behind Kashmir's Most Famous Dish | ~1981 words
+   H2: The Most Misunderstood Dish in Indian Cuisine · The Name: What "Rogan Josh" Actually Means · The Two Rogan Joshes: A Tale of Two Communities · What the Global Version Gets Wrong · The Anatomy of Authentic Rogan Josh: A Step-by-Step · Rogan Josh in the Wazwan Sequence · The Cultural Weight of Rogan Josh · How to Identify Authentic Rogan Josh · Dishes in this article
+   desc: Everything you think you know about Rogan Josh is probably wrong. No tomatoes, no onion paste, no cream — discover the authentic Kashmiri original and why…
+/blog/noon-chai-pink-tea-kashmir | Noon Chai: The Science and Ritual of Pink Tea | Wazwan Way | H1: Noon Chai: The Science, Culture, and Ritual Behind Kashmir's Pink Tea | ~2053 words
+   H2: The World's Most Unusual Cup of Tea · The Origins: A Tea That Predates Tea Itself · The Chemistry: Why Is Noon Chai Pink? · The Samovar: Kashmir's Sacred Tea Vessel · The Traditional Preparation: Step by Step · Noon Chai in Daily Kashmiri Life · Health Properties · Noon Chai vs. Kahwa: The Eternal Duality · The Future of Noon Chai · Dishes in this article
+   desc: Why is Kashmiri tea pink? Why is it salty? And why do six million people drink it every single day?
+/blog/dying-art-of-the-waza | Dying Art of the Waza: Kashmir's Master Chefs | Wazwan Way | H1: The Dying Art of the Waza: Kashmir's Master Chefs and Their Vanishing Craft | ~2565 words
+   H2: The Men Who Cook Through the Night · Who Are the Wazas? · The Apprenticeship: Forged in Fire · The Overnight Marathon: Anatomy of a Wazwan Kitchen · The Economics of Survival · The Generational Crisis · Efforts at Preservation · A Night with a Vasta Waza
+   desc: They cook through the night in freezing courtyards, commanding teams of thirty over wood-fired copper vessels.
