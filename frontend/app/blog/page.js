@@ -10,7 +10,7 @@ import { blogPosts } from "@/data/blogPosts";
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = ["All", "Heritage Cookery", "Bread Culture", "Tea Rituals", "Dine Etiquette", "Spice Heritage"];
+  const categories = ["All", "Travel & Food Guides", "Heritage Cookery", "Bread Culture", "Tea Rituals", "Dine Etiquette", "Spice Heritage"];
 
   const posts = blogPosts.map(post => ({
     ...post,
