@@ -11,4 +11,5 @@ export const SITE_SECTIONS = [
   { label: "Visit Kashmir", href: "/plan" },
   { label: "Itineraries", href: "/itineraries" },
   { label: "Explore Kashmir", href: "/explore" },
+  { label: "Blog", href: "/blog" },
 ];
