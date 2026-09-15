@@ -99,9 +99,9 @@ export default function HistoryPage() {
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="mx-auto text-[var(--saffron)] opacity-50">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
             </svg>
-            <h2 className="font-display text-3xl md:text-5xl text-white">The 36-Course Symphony</h2>
+            <h2 className="font-display text-3xl md:text-5xl text-white">Up to 36 Courses</h2>
             <p className="text-white/70 leading-relaxed font-light text-lg md:text-xl">
-              A traditional royal Wazwan comprises 36 courses, out of which between 15 to 30 can be meat-based. The dishes are served in a specific sequence, beginning with dry items like <em>Seekh Kabab</em> and <em>Tabak Maaz</em>, and culminating with the rich, yogurt-based <em>Gushtaba</em>, which marks the end of the meal.
+              A full royal Wazwan is traditionally put at 36 courses, 15 to 30 of them meat, though many feasts serve far fewer. What stays constant is the order: the meal begins with dry items like <em>Seekh Kabab</em> and <em>Tabak Maaz</em> and culminates with the rich, yogurt-based <em>Gushtaba</em>, which marks the end of the meal.
             </p>
           </motion.div>
 

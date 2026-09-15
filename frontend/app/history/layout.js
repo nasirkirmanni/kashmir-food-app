@@ -1,7 +1,7 @@
 export const metadata = {
   title: "History of Wazwan | Kashmir's Royal Feast",
   description:
-    "The history of Wazwan, Kashmir's royal feast: the Timur legend, the Waza chefs, the Traami tradition and the 36-course ceremony.",
+    "The history of Wazwan, Kashmir's royal feast: the Timur legend, the Waza chefs, the Traami tradition and a feast that can run to 36 courses.",
   alternates: { canonical: "https://wazwanway.com/history" },
   openGraph: {
     title: "History of Wazwan | Wazwan Way",
@@ -11,7 +11,7 @@ export const metadata = {
   },
   twitter: {
     title: "History of Wazwan | Wazwan Way",
-    description: "Kashmir's royal culinary heritage — the Timur legend, the Waza chefs, the Traami, the 36-course feast.",
+    description: "Kashmir's royal culinary heritage — the Timur legend, the Waza chefs, the Traami, a feast of up to 36 courses.",
     images: ["/wazwan-hero.jpg"],
   },
 };

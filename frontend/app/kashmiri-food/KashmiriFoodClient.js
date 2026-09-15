@@ -142,7 +142,7 @@ function DishCard({ dish, index }) {
 // heading, intro and buttons.
 const DEFAULT_HERO = {
   lines: ["The definitive", "guide to real", <><span className="accent">Kashmiri</span> food.</>],
-  sub: "From the royal 36-course Wazwan feast to the communal morning bakery runs. Discover the rules, the etiquette, and the centuries-old techniques.",
+  sub: "From the royal Wazwan feast, which can run to 36 courses, to the communal morning bakery runs. Discover the rules, the etiquette, and the techniques handed down through generations.",
   start: { label: "Begin the feast", section: "wazwan" },
   read: { label: "Read Our Blogs", href: "/blog" },
 };
@@ -366,16 +366,16 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
 
           <div className="stat-card" ref={statCardRef}>
             <div className="stat-row">
-              <span className="label">Traditional Dishes</span>
-              <span className="val">100+</span>
+              <span className="label">Dishes to Explore</span>
+              <span className="val">{initialDishes.length}</span>
             </div>
             <div className="stat-row">
               <span className="label">Wazwan Courses</span>
               <span className="val">Up to 36</span>
             </div>
             <div className="stat-row">
-              <span className="label">Centuries of History</span>
-              <span className="val">XV Century</span>
+              <span className="label">Diners per Trami</span>
+              <span className="val">4</span>
             </div>
             <p className="stat-quote">"To understand Kashmir, one must first eat with a Waza."</p>
           </div>
@@ -401,22 +401,22 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
           <a className="trami-wedge" href="#wazwan" onClick={(e) => { e.preventDefault(); scrollToSection('wazwan'); }}>
             <span className="wedge-icon">◆ FEAST</span>
             <span className="wedge-name">Wazwan</span>
-            <span className="wedge-count">20 items</span>
+            <span className="wedge-count">{wazwanDishes.length} items</span>
           </a>
           <a className="trami-wedge" href="#beverages" onClick={(e) => { e.preventDefault(); scrollToSection('beverages'); }}>
             <span className="wedge-icon">◆ WARMTH</span>
             <span className="wedge-name">Beverages</span>
-            <span className="wedge-count">4 beverages</span>
+            <span className="wedge-count">{beverageDishes.length} beverages</span>
           </a>
           <a className="trami-wedge" href="#bakery" onClick={(e) => { e.preventDefault(); scrollToSection('bakery'); }}>
             <span className="wedge-icon">◆ MORNING</span>
             <span className="wedge-name">Bakery</span>
-            <span className="wedge-count">6 breads</span>
+            <span className="wedge-count">{bakeryDishes.length} breads</span>
           </a>
           <a className="trami-wedge" href="#street" onClick={(e) => { e.preventDefault(); scrollToSection('street'); }}>
             <span className="wedge-icon">◆ STANDING</span>
             <span className="wedge-name">Street Food</span>
-            <span className="wedge-count">7 eats</span>
+            <span className="wedge-count">{streetFoodDishes.length} eats</span>
           </a>
 
           <div className="trami-center">
@@ -436,12 +436,12 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
           <div className="chapter-content">
             <div className="chapter-index reveal fade-right">CHAPTER 01</div>
             <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The Royal <span className="accent">Wazwan</span>.</h2>
-            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>36 courses of artistry.</div>
+            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Up to 36 courses of artistry.</div>
             <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
               Cooked over smoldering wood fires through the night by master chefs (Wazas), this is not just a meal. It is a highly choreographed social ritual where every cut of lamb has a specific purpose.
             </p>
             <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
-              <div><span className="n">36</span><span className="l">Courses</span></div>
+              <div><span className="n">7–36</span><span className="l">Courses</span></div>
               <div><span className="n">4</span><span className="l">People per Trami</span></div>
               <div><span className="n">10+</span><span className="l">Hours to prepare</span></div>
             </div>

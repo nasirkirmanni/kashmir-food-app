@@ -1895,7 +1895,7 @@ The first unwritten rule is division. The four Seekh Kababs acts as borders, div
 As in many Eastern cultures, you must eat strictly with your right hand. You use your fingers to mix the rice with the various gravies that are served sequentially by the Wazas. Never use a spoon, and never use your left hand to touch the food or the platter.
 
 ### 6. Pace and Politeness
-Wazwan is a marathon of 36 courses. Do not gorge on the early dishes, or you will not survive until the Gushtaba. Eat at a moderate pace, matching the rhythm of your Trami partners. It is polite to offer the best pieces of meat to the elders in your group.
+A full Wazwan is a marathon that can run to 36 courses. Do not gorge on the early dishes, or you will not survive until the Gushtaba. Eat at a moderate pace, matching the rhythm of your Trami partners. It is polite to offer the best pieces of meat to the elders in your group.
 
 ### 7. Leaving the Trami
 You cannot leave the Trami until all four people have finished eating. Leaving early is a grave insult to your fellow diners. When the final dish—the Gushtaba—is consumed, the *Tasht-naer* returns for the final hand washing. 
@@ -2099,7 +2099,7 @@ In Kashmiri cuisine, spices are not meant to "shout" or burn the tongue; they ar
     category: "Heritage Cookery",
     readTime: "20 min read",
     excerpt: "Kashmir's royal feast, from the legend of Timur's Samarkand cooks to Srinagar's wedding halls — and why this ancient tradition is now fighting for survival.",
-    summary: "A comprehensive history of Wazwan, from the Timur legend to modern Kashmir, covering the Waza caste, the 36-course structure, wedding traditions, and the fight to preserve this vanishing art.",
+    summary: "A comprehensive history of Wazwan, from the Timur legend to modern Kashmir, covering the Waza caste, how many courses a Wazwan really has, wedding traditions, and the fight to preserve this vanishing art.",
     content: `
 ## The Feast That Crossed an Empire
 
@@ -2141,16 +2141,11 @@ When the Mughal Emperor Akbar annexed Kashmir in 1586, the valley came under the
 
 However, the relationship between Mughal and Kashmiri cuisine was not one of replacement, but of **synthesis**. The Wazas absorbed Mughal techniques like *dum pukht* (slow steam cooking in sealed vessels), the use of saffron as a garnish and flavoring agent, and the concept of sequential course service. But they retained their Central Asian foundations: the reliance on yogurt over tomato (which had not yet arrived from the Americas), the preference for fennel and dry ginger over the onion-garlic base of Mughal cooking, and the emphasis on mutton above all other proteins.
 
-### The 36-Course Structure
+### How Many Courses?
 
-It was likely during the Mughal period that the Wazwan was formalized into its modern **36-course structure**. This number is not arbitrary — it reflects a carefully designed progression of flavors, textures, and sensations:
+Thirty-six is the number most often given for a full royal Wazwan. Wikipedia and Jammu and Kashmir's tourism corporation both put it at 36 courses, 15 to 30 of them meat, but the sources we found don't say when or how that number was settled. Other counts vary: a 2016 review in the *Journal of Ethnic Foods* puts Wazwan at anywhere from 7 to 36 dishes, and a government order reported by Gulf News in 2018 capped wedding menus at seven non-vegetarian dishes, seven vegetarian dishes and two sweets. Read 36 as the grand ideal, not a fixed rule.
 
-1. **Courses 1–4 (Foundation):** Rice, Seekh Kebabs, Methi Maaz, Tabak Maaz — placed directly on the Trami when the Sarposh (dome lid) is lifted
-2. **Courses 5–12 (Red Meat Sequence):** Rogan Josh, Daniwal Korma, Aab Gosht, Marchwangan Korma — progressively richer gravies
-3. **Courses 13–20 (Signature Preparations):** Rista, Mirchi Korma, Lahabi Kebab — showcasing the Waza's highest skill
-4. **Courses 21–30 (Vegetarian Interludes):** Chaman, Haak, Dum Aelve — providing digestive respite
-5. **Courses 31–35 (Final Meats):** Additional preparations and variations
-6. **Course 36 (The Finale):** Gushtaba — the yogurt-poached meatball that signals the end of the feast
+The order of service is steadier than the count. The Trami arrives with rice and dry dishes such as Seekh Kebab and Tabak Maaz, the gravies follow one by one, and Gushtaba always comes last. For the dishes themselves, see [Wazwan dishes explained](/kashmiri-food/wazwan/guide/dishes-explained).
 
 ### The Trami: A Communion Plate
 
@@ -2215,7 +2210,7 @@ Even when Wazwan is served, its authenticity is eroding:
 - **Gas stoves** are replacing wood fires, removing the smoky depth that defines traditional flavor
 - **Imported spices** are replacing locally grown Kashmiri fennel, saffron, and dried ginger
 - **Portion sizes** are shrinking as hosts try to reduce costs
-- **The 36-course format** is increasingly condensed to 7 or 8 courses at modern weddings
+- **Menus are shorter** than the grand ideal of 36 courses, and officials have tried more than once to cap the size of wedding feasts
 
 ### Preservation Efforts
 
@@ -2228,9 +2223,9 @@ Despite these challenges, efforts to preserve the Wazwan tradition are emerging:
 
 ## The Future of the Feast
 
-The Wazwan stands at a crossroads. On one side lies the path of commercialization — a watered-down, cost-optimized version served at buffet counters and catered events. On the other lies the path of cultural preservation — maintaining the integrity of the 36-course format, the wood-fire cooking, the hand-pounding, and the communal Trami.
+The Wazwan stands at a crossroads. On one side lies the path of commercialization — a watered-down, cost-optimized version served at buffet counters and catered events. On the other lies the path of cultural preservation — maintaining the full sequence of courses, the wood-fire cooking, the hand-pounding, and the communal Trami.
 
-The survival of authentic Wazwan depends not on nostalgia, but on recognition: recognizing the Waza as an artist, not merely a cook; recognizing the Trami as a social institution, not merely a plate; and recognizing the feast itself as a living, breathing expression of 600 years of Kashmiri civilization.
+The survival of authentic Wazwan depends not on nostalgia, but on recognition: recognizing the Waza as an artist, not merely a cook; recognizing the Trami as a social institution, not merely a plate; and recognizing the feast itself as a living, breathing expression of centuries of Kashmiri life.
 
 > "When the last Waza puts down his copper ladle, it will not be a recipe that is lost. It will be a language."
     `
@@ -2362,7 +2357,7 @@ The dish is served in the copper Trami with a generous pool of that signature re
 
 ## Rogan Josh in the Wazwan Sequence
 
-Within the formal 36-course Wazwan, Rogan Josh occupies a position of central importance. It is typically served in the first wave of red meat courses, arriving after the foundation items (rice, kebabs, fried ribs) have been consumed.
+Within a formal Wazwan, Rogan Josh occupies a position of central importance. It is typically served in the first wave of red meat courses, arriving after the foundation items (rice, kebabs, fried ribs) have been consumed.
 
 Its role in the feast is strategic:
 - It is the first **gravy-based** dish the diner encounters, marking the transition from dry/fried preparations to wet/sauced ones
@@ -2639,7 +2634,7 @@ The now-experienced apprentice begins managing individual dishes independently. 
 He begins developing his palate — the ability to taste a dish and identify exactly what it needs. More salt? More fennel? Longer cooking? This palate cannot be taught; it can only be cultivated through thousands of tastings.
 
 ### Years 15–20 (Ages 23–28): The Master
-After approximately two decades, the Waza is ready to lead his own team. He has internalized not just the recipes, but the **logistics** of Wazwan: how to time the preparation of 36 courses so that each arrives at the table at exactly the right temperature; how to manage a team of 15 men working simultaneously; how to scale recipes from 50 guests to 500 without losing quality; how to adapt to the unpredictable variations of firewood, weather, and meat quality.
+After approximately two decades, the Waza is ready to lead his own team. He has internalized not just the recipes, but the **logistics** of Wazwan: how to time the preparation of every course so that each arrives at the table at exactly the right temperature; how to manage a team of 15 men working simultaneously; how to scale recipes from 50 guests to 500 without losing quality; how to adapt to the unpredictable variations of firewood, weather, and meat quality.
 
 ## The Overnight Marathon: Anatomy of a Wazwan Kitchen
 
