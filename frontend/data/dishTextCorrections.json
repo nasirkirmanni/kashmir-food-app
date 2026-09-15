@@ -34,5 +34,12 @@
       "from": "/images/dishes/dish-placeholder.webp",
       "to": "/images/dishes/ghee-batta.jpg"
     }
+  ],
+  "sheera": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/sheera.jpg"
+    }
   ]
 }
