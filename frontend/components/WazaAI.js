@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { request, streamRequest, endpoints, fetchCsrfToken } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
@@ -100,6 +100,7 @@ export default function WazaAI() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasSeenWazaAI, setHasSeenWazaAI] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -334,10 +335,11 @@ export default function WazaAI() {
           {!isOpen && (
             <div className="relative">
               {/* Pulsing ring */}
-              {!hasSeenWazaAI && (
+              {/* A few pulses to draw first-time visitors, then it rests. */}
+              {!hasSeenWazaAI && !prefersReducedMotion && (
                 <motion.div
-                  animate={{ scale: [1, 1.4], opacity: [0.6, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
+                  animate={{ scale: [1, 1.35], opacity: [0.35, 0] }}
+                  transition={{ repeat: 2, duration: 2.4, ease: "easeOut" }}
                   className="absolute inset-0 rounded-full bg-[var(--saffron)]"
                 />
               )}
@@ -349,7 +351,7 @@ export default function WazaAI() {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleOpenIntro}
                 aria-label="Open Waza AI Assistant"
-                className="relative h-[72px] w-[72px] flex flex-col items-center justify-center rounded-full overflow-hidden border border-[#D4A15A]/40 shadow-[0_8px_32px_rgba(212,161,90,0.4)] transition-all bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] text-[#D4A15A]"
+                className="relative h-[72px] w-[72px] flex flex-col items-center justify-center rounded-full overflow-hidden border border-[#D4A15A]/40 shadow-[0_10px_28px_rgba(0,0,0,0.45)] transition-all bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] text-[#D4A15A]"
               >
                 <ChefAIIcon size={28} strokeWidth={1.5} className="mb-0.5" />
                 <span className="text-[11px] font-bold tracking-[0.1em] uppercase">AI</span>
