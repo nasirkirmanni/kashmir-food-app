@@ -55,6 +55,7 @@ function DishesPageContent({ initialDishes = [] }) {
     signature: dishes.filter(d => d.courseType === "signature"),
     vegetarian: dishes.filter(d => d.courseType === "vegetarian")
   };
+  const sequenceCount = courses.foundation.length + courses.signature.length + courses.vegetarian.length;
 
   if (loading) {
     return (
@@ -104,7 +105,7 @@ function DishesPageContent({ initialDishes = [] }) {
               Traditional Wazwan
             </h1>
             <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">
-              The traditional Kashmiri Wazwan is a formal 36-course banquet cooked by master chefs (Wazas). Today, the authoritative Trami sequence centers around exactly <strong>16 historical dishes</strong> served on the engraved copper platter.
+              Wazwan is Kashmir’s formal feast, cooked by master chefs (Wazas) and running to as many as 36 courses. Here are <strong>{sequenceCount} of its dishes</strong>, from the kebabs and ribs laid on the copper trami to the gushtaba that ends the meal.
             </p>
           </div>
           <div className="flex flex-col gap-3">
@@ -129,7 +130,7 @@ function DishesPageContent({ initialDishes = [] }) {
                 </div>
                 <div className="text-left">
                   <p className="text-[var(--saffron)] font-bold text-sm mb-0.5 group-hover:text-white transition-colors">Wazwan Guidebook</p>
-                  <p className="text-white/50 text-[10px] uppercase tracking-wider">15 Authentic Articles</p>
+                  <p className="text-white/50 text-[10px] uppercase tracking-wider">Guides to the Feast</p>
                 </div>
               </div>
             </Link>
@@ -195,7 +196,7 @@ function DishesPageContent({ initialDishes = [] }) {
         <section className="mt-24 border-t border-white/5 pt-16">
           <div className="text-center mb-16">
             <span className="text-[var(--saffron)] text-xs font-bold uppercase tracking-[0.2em] block mb-2">Trami Ritual Sequence</span>
-            <h2 className="text-3xl md:text-5xl font-display font-medium text-white">The 16 Authoritative Dishes</h2>
+            <h2 className="text-3xl md:text-5xl font-display font-medium text-white">{sequenceCount} Dishes of the Wazwan</h2>
           </div>
 
           {/* Foundation */}

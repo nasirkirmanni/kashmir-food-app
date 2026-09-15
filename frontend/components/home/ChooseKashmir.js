@@ -22,7 +22,7 @@ const DOORS = [
     key: "feast",
     num: "01",
     title: "The Feast",
-    line: "Copper trami, saffron smoke, thirty-six courses deep.",
+    line: "Copper trami, saffron smoke, up to thirty-six courses deep.",
     image: "/redesign/img/door-feast.webp",
     wash: "linear-gradient(180deg, rgba(56,30,10,0.32) 0%, rgba(8,7,6,0.5) 100%)",
     href: "/kashmiri-food",

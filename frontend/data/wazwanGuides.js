@@ -3,7 +3,7 @@ export const wazwanGuides = [
     slug: "what-is-wazwan",
     category: "wazwan",
     title: "What is Wazwan? The Complete Guide to Kashmir's Legendary Feast",
-    description: "Discover the origins, history, and cultural significance of the legendary 36-course Kashmiri Wazwan feast cooked by traditional Wazas.",
+    description: "What Wazwan is, what the name means, how many courses it really has and how it's served: a guide to Kashmir's feast, cooked by traditional Wazas.",
     readTime: "6 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
@@ -61,7 +61,7 @@ Three places, and they're not quite the same experience:
 2. **Restaurants in Srinagar** — a scaled-down, accessible version, usually 6-12 dishes, designed for tourists and locals who want to experience Wazwan without an invitation to a wedding.
 3. **Home-cooked, smaller versions** — families sometimes prepare a handful of Wazwan dishes for everyday or smaller occasions, without the full ceremony.
 
-If you're visiting Kashmir and want to try it, the restaurant route is realistically your best option — and we've put together a full breakdown of where to go in our [guide to restaurant vs. wedding vs. home-cooked Wazwan](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home), along with our [list of the best Wazwan restaurants in Srinagar](/restaurants/best-wazwan-srinagar).
+If you're visiting Kashmir and want to try it, the restaurant route is realistically your best option — and we've put together a full breakdown of where to go in our [guide to restaurant vs. wedding vs. home-cooked Wazwan](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home), along with our [guide to where to eat Wazwan in Srinagar](/restaurants/best-wazwan-srinagar).
 
 ## Frequently Asked Questions
 
@@ -79,7 +79,7 @@ Not typically without a personal connection or invitation — weddings are priva
 
 ---
 
-*Want to go deeper? Explore the [full Wazwan guide](/kashmiri-food/wazwan/guide) for dish-by-dish breakdowns, etiquette tips, and cost guides — or jump straight to our [best Wazwan restaurants in Srinagar](/restaurants/best-wazwan-srinagar) to plan where to eat.*`
+*Want to go deeper? Explore the [full Wazwan guide](/kashmiri-food/wazwan/guide) for dish-by-dish breakdowns, etiquette tips, and cost guides — or jump straight to our [guide to where to eat in Srinagar](/restaurants/best-wazwan-srinagar) to plan where to eat.*`
   },
   {
     slug: "dishes-explained",
@@ -159,7 +159,7 @@ At a restaurant, you likely won't have the choice — most Wazwan thalis are pre
 
 ---
 
-*Ready to taste these for yourself? Check our [list of the best Wazwan restaurants in Srinagar](/restaurants/best-wazwan-srinagar), or head back to the [full Wazwan guide](/kashmiri-food/wazwan/guide) for cost breakdowns and etiquette tips.*`
+*Ready to taste these for yourself? Check our [guide to where to eat Wazwan in Srinagar](/restaurants/best-wazwan-srinagar), or head back to the [full Wazwan guide](/kashmiri-food/wazwan/guide) for cost breakdowns and etiquette tips.*`
   }
   ,
   {
@@ -403,7 +403,7 @@ A wedding Wazwan is what the tradition was built for. Everything about it is dif
 
 **The ingredients are sourced specifically.** *Praan* — Kashmiri shallots, the preferred allium in Wazwan — are seasonal, available once a year, and priced at ₹500–₹1,000 per kg during wedding season. For every 100 kg of Wazwan, a waza uses 7–10 kg of praan paste. *Mushk Budiji*, a short-grain Kashmiri rice variety, is used rather than standard basmati. Everything is cooked in ghee. Restaurants may source some of these ingredients, but rarely all of them at this standard.
 
-**Scale and sequence are fixed.** A full wedding Wazwan runs to anywhere from 12 to 36 dishes in strict sequence — always opening with tabak maaz and seekh kebab on the trami, always closing with gushtaba. The vasta waza personally places the gushtaba in each trami as a mark of respect. Guests eat together from shared copper platters, seated on the floor on a dastarkhwan.
+**The sequence is set.** A wedding Wazwan can run to as many as 36 dishes, served in a set order — opening with tabak maaz and seekh kebab on the trami, always closing with gushtaba. The vasta waza personally places the gushtaba in each trami as a mark of respect. Guests eat together from shared copper platters, seated on the floor on a dastarkhwan.
 
 **You take the leftovers home.** This is a genuine tradition, not an afterthought. Each guest receives bags to carry home whatever they couldn't finish — an acknowledgment that the quantity served is always more than anyone can eat in one sitting.
 
@@ -418,7 +418,7 @@ Restaurants in Srinagar serve something honest and often very good — but it is
 **What a restaurant changes:**
 
 - *Gas over wood fire.* Every restaurant in Srinagar cooks on gas. The flavour difference is real, though subtle enough that most first-time visitors won't notice it — they're too busy enjoying the food, as they should be.
-- *Fewer courses.* A restaurant thali typically covers 5–8 dishes. The full sequence of a wedding Wazwan — 15 to 36 courses served over hours — isn't something a restaurant kitchen is structured to deliver.
+- *Fewer courses.* A restaurant thali typically covers 5–8 dishes. The full sequence of a wedding Wazwan — which can run to 36 courses served over hours — isn't something a restaurant kitchen is structured to deliver.
 - *Individual portions.* Most restaurants serve individual thalis rather than the shared-trami-for-four format. Some offer the trami experience for groups, but even then the communal floor-seating context of a wedding isn't there.
 - *Ingredient sourcing varies.* Praan, Mushk Budiji rice, and seasonal ghee are expensive and sometimes hard to source consistently. Not every restaurant uses all of them.
 
@@ -500,12 +500,12 @@ Some smaller, locally-oriented restaurants and dhabas serve food closer to home-
   {
     "slug": "traditional-wazwan-menu",
     "category": "wazwan",
-    "title": "The Traditional Wazwan Menu: A 36-Course Breakdown",
-    "description": "Explore the complete traditional Wazwan menu, from the opening starters to the final dessert and Kahwa.",
+    "title": "The Traditional Wazwan Menu, Course by Course",
+    "description": "Explore the traditional Wazwan menu course by course, from the dishes on the trami to the final dessert and Kahwa.",
     "readTime": "8 min read",
     "author": "WazwanWay Team",
     "date": "June 23, 2026",
-    "content": "# The Traditional Wazwan Menu: A 36-Course Breakdown\n\nThe phrase \"36-course meal\" sounds like an exaggeration until you attend a grand Kashmiri wedding. While everyday restaurants serve a curated 7-10 dish thali, a full royal Wazwan truly spans dozens of preparations. Here is what a traditional Wazwan menu looks like from start to finish.\n\n## The Foundation (Served with the Trami)\n\nBefore the feast begins, four guests wash their hands in a portable copper basin called the *Tash-t-Næær*. Then, the *Trami* (a large copper platter) is brought in. It comes pre-loaded with a mound of rice and the foundation dishes:\n\n1. **Seekh Kabab**: Usually 4 long skewers cut into halves.\n2. **Tabak Maaz**: 4 pieces of crispy, ghee-fried ribs.\n3. **Methi Maaz**: A flavorful stew of tripe and fenugreek.\n4. **Safed Kokur** or **Zafrani Kokur**: Chicken halves cooked in mild white or saffron gravy.\n\n## The Continuous Pour (The Main Courses)\n\nOnce the guests finish the foundation dishes, the Wazas begin circulating the dining hall with large copper pots (*degs*), serving the flowing gravies directly onto the remaining rice:\n\n5. **Rista**: Red, spicy meatballs.\n6. **Rogan Josh**: The classic red lamb curry.\n7. **Daniwal Korma**: Lamb in a coriander and yogurt gravy.\n8. **Marchwangan Korma**: A fiery, chili-heavy meat dish.\n9. **Aab Gosht**: Sweet and mild milk-based lamb.\n10. **Lahabi Kabab**: Flattened meat patties in yogurt.\n11. **Waza Palak**: Spinach, often cooked with small mutton balls.\n\n*(In a full 36-course spread, this section is heavily expanded with various organ meats, specialized cuts, and seasonal additions like Nadur or Haakh).*\n\n## The Chutneys (The Palate Cleansers)\n\nServed in small earthen or copper bowls alongside the Trami:\n- **Muji Chetin**: Radish and walnut chutney with a sharp bite.\n- **Gande Tsitin**: Onion and chili chutney.\n- **Doon Chetin**: A creamy walnut dip.\n\n## The Grand Finale\n\n12. **Gushtaba**: The final meat course. White, yogurt-based meatballs signaling the end of the savory dishes.\n\n## The Dessert and Digestif\n\n13. **Phirni**: A chilled dessert made of semolina, milk, saffron, and nuts, served in earthen cups (*shikoras*).\n14. **Kahwa**: Traditional Kashmiri green tea brewed with saffron, cardamom, and almonds to aid digestion.\n\nThe menu is a marvel of culinary engineering, designed not just to fill the stomach, but to guide the palate through a carefully orchestrated symphony of spices, temperatures, and textures."
+    "content": "# The Traditional Wazwan Menu, Course by Course\n\nYou'll often read that Wazwan has 36 courses. Treat that as the grand ideal rather than a fixed count: a 2016 review in the *Journal of Ethnic Foods* puts the feast at anywhere from 7 to 36 dishes, and most restaurant thalis serve far fewer. What stays constant is the order. Here is how a traditional Wazwan menu runs, from start to finish.\n\n## The Foundation (Served with the Trami)\n\nBefore the feast begins, four guests wash their hands in a portable copper basin called the *Tash-t-Næær*. Then, the *Trami* (a large copper platter) is brought in. It comes pre-loaded with a mound of rice and the foundation dishes:\n\n1. **Seekh Kabab**: Usually 4 long skewers cut into halves.\n2. **Tabak Maaz**: 4 pieces of crispy, ghee-fried ribs.\n3. **Methi Maaz**: A flavorful stew of tripe and fenugreek.\n4. **Safed Kokur** or **Zafrani Kokur**: Chicken halves cooked in mild white or saffron gravy.\n\n## The Continuous Pour (The Main Courses)\n\nOnce the guests finish the foundation dishes, the Wazas begin circulating the dining hall with large copper pots (*degs*), serving the flowing gravies directly onto the remaining rice:\n\n5. **Rista**: Red, spicy meatballs.\n6. **Rogan Josh**: The classic red lamb curry.\n7. **Daniwal Korma**: Lamb in a coriander and yogurt gravy.\n8. **Marchwangan Korma**: A fiery, chili-heavy meat dish.\n9. **Aab Gosht**: Sweet and mild milk-based lamb.\n10. **Lahabi Kabab**: Flattened meat patties in yogurt.\n11. **Waza Palak**: Spinach, often cooked with small mutton balls.\n\n*(In the largest spreads, this section grows with more cuts and preparations of meat, and seasonal additions like Nadur or Haakh.)*\n\n## The Chutneys (The Palate Cleansers)\n\nServed in small earthen or copper bowls alongside the Trami:\n- **Muji Chetin**: Radish and walnut chutney with a sharp bite.\n- **Gande Tsitin**: Onion and chili chutney.\n- **Doon Chetin**: A creamy walnut dip.\n\n## The Grand Finale\n\n12. **Gushtaba**: The final meat course. White, yogurt-based meatballs signaling the end of the savory dishes.\n\n## The Dessert and Digestif\n\n13. **Phirni**: A chilled dessert made of semolina, milk, saffron, and nuts, served in earthen cups (*shikoras*).\n14. **Kahwa**: Traditional Kashmiri green tea brewed with saffron, cardamom, and almonds to aid digestion.\n\nThe menu is a marvel of culinary engineering, designed not just to fill the stomach, but to guide the palate through a carefully orchestrated symphony of spices, temperatures, and textures."
 }
   ,
   {

@@ -1,4 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
+import destinationIds from "@/destinations-static-ids.json";
+import restaurantIds from "@/restaurants-static-ids.json";
+import dishIds from "@/dishes-static-ids.json";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Clock, Banknote, Sun, Car, Home, Backpack, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -49,10 +53,11 @@ export function TravelInfoGrid() {
 
 // --- Trust Bar ---
 const stats = [
-  { value: "50K+", label: "Happy Travellers" },
-  { value: "100+", label: "Destinations" },
-  { value: "50+", label: "Premium Restaurants" },
-  { value: "4.8★", label: "Google Rating" }
+  // Real figures only: catalogue counts, and the Wazwan course range the food guides cite.
+  { value: String(destinationIds.length), label: "Destinations" },
+  { value: String(dishIds.length), label: "Kashmiri Dishes" },
+  { value: String(restaurantIds.length), label: "Restaurants Listed" },
+  { value: "7–36", label: "Wazwan Courses" }
 ];
 
 export function TrustBar() {
@@ -81,18 +86,19 @@ export function TrustBar() {
 }
 
 // --- Blog & FAQ ---
+// Real posts, newest first; each card links to the article.
 const articles = [
-  { category: "Guide", title: "A First Timer's Guide to Dal Lake Houseboats", readTime: "5 min read", date: "Oct 12, 2026", img: "/dal-lake-landscape.png" },
-  { category: "Food", title: "Decoding the 36-Course Royal Wazwan", readTime: "8 min read", date: "Sep 28, 2026", img: "/wazwan-hero.jpg" },
-  { category: "Culture", title: "The Art of Kashmiri Pashmina Weaving", readTime: "6 min read", date: "Sep 15, 2026", img: "/pashmina.png" },
-  { category: "Adventure", title: "Skiing in Gulmarg: What You Need to Know", readTime: "7 min read", date: "Aug 30, 2026", img: "/images/destinations/gulmarg.png" }
+  { category: "Travel & Food Guides", title: "What to Eat in Kashmir: A First-Timer's Guide to the Valley's Food", readTime: "10 min read", date: "Sep 15, 2026", img: "/images/kashmiri-food/hero.webp", href: "/blog/what-to-eat-in-kashmir" },
+  { category: "Heritage Cookery", title: "Kashmiri Cuisine Explained: Two Kitchens, Everyday Food and the Wazwan Feast", readTime: "11 min read", date: "Sep 15, 2026", img: "/wazwan-hero.jpg", href: "/blog/kashmiri-cuisine-explained" },
+  { category: "Travel & Food Guides", title: "Kashmiri Street Food: What to Eat in Srinagar, Where and When", readTime: "10 min read", date: "Sep 15, 2026", img: "/images/kashmiri-food/street-food.webp", href: "/blog/kashmiri-street-food-srinagar" },
+  { category: "Bread Culture", title: "Kashmiri Breakfast: Noon Chai, the Kandur and What Kashmir Eats in the Morning", readTime: "9 min read", date: "Sep 15, 2026", img: "/images/kashmiri-food/bakery.webp", href: "/blog/kashmiri-breakfast" }
 ];
 
 const faqs = [
   { q: "Is Kashmir safe for tourists?", a: "Yes, Kashmir is highly safe for tourists. The locals are exceptionally welcoming and tourism is a primary industry. However, standard travel precautions are advised as with any destination." },
   { q: "Do I need a special permit?", a: "Indian citizens do not need permits for most tourist areas. Foreign nationals must register upon arrival. Areas near the Line of Control (like Gurez) may require a pass for all visitors." },
   { q: "What network works in Kashmir?", a: "Only postpaid SIM cards from other states work in Jammu & Kashmir. Prepaid SIMs will not have service. Jio, Airtel, and BSNL postpaid connections work best." },
-  { q: "How does the AI Planner work?", a: "Our AI Planner analyzes your preferences, budget, and travel party to construct a dynamically scored itinerary. It matches you with the highest-rated authentic experiences in our audited database." }
+  { q: "How does the AI Planner work?", a: "Our AI Planner takes your preferences, budget and travel party and builds a day-by-day itinerary around them." }
 ];
 
 export function BlogFAQSection() {
@@ -109,8 +115,8 @@ export function BlogFAQSection() {
           </h2>
           <div className="space-y-6">
             {articles.map((article, i) => (
+              <Link key={article.href} href={article.href} className="block">
               <motion.div
-                key={article.title}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -130,6 +136,7 @@ export function BlogFAQSection() {
                   </div>
                 </div>
               </motion.div>
+              </Link>
             ))}
           </div>
         </div>
@@ -197,7 +204,7 @@ export function NewsletterBanner() {
             Let Waza AI craft your perfect Kashmir trip.
           </h2>
           <p className="text-muted text-sm md:text-base mb-10 max-w-xl mx-auto">
-            Join thousands of travellers who have experienced the true essence of Paradise on Earth. Receive early access to exclusive itineraries and culinary guides.
+            Receive early access to new itineraries and culinary guides.
           </p>
 
           <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>

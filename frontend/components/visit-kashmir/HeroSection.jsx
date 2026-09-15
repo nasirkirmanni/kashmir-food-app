@@ -5,14 +5,18 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Star } from "lucide-react";
+import destinationIds from "@/destinations-static-ids.json";
+import restaurantIds from "@/restaurants-static-ids.json";
+import dishIds from "@/dishes-static-ids.json";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 export default function HeroSection({ onPlanClick, onWazaPlanClick }) {
   const stats = [
-    { label: "Destinations", value: "100+", icon: "🏔️" },
-    { label: "Restaurants", value: "50+", icon: "🍽️" },
-    { label: "Authentic Dishes", value: "100+", icon: "🥘" },
+    // Counts come from the catalogue snapshots, so they match what the site lists.
+    { label: "Destinations", value: String(destinationIds.length), icon: "🏔️" },
+    { label: "Restaurants", value: String(restaurantIds.length), icon: "🍽️" },
+    { label: "Kashmiri Dishes", value: String(dishIds.length), icon: "🥘" },
     { label: "Trip Planner", value: "AI", icon: "🧠" }
   ];
 

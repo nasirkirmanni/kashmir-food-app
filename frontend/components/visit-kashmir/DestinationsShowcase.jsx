@@ -1,15 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Star, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+import destinationIds from "@/destinations-static-ids.json";
 
 const destinations = [
-  { name: "Srinagar", subtitle: "The Heart of Kashmir", rating: 4.8, img: "/images/destinations/srinagar.png" },
-  { name: "Gulmarg", subtitle: "Snow Paradise", rating: 4.9, img: "/images/destinations/gulmarg.png" },
-  { name: "Pahalgam", subtitle: "Valley of Shepherds", rating: 4.8, img: "/images/destinations/pahalgam.png" },
-  { name: "Sonamarg", subtitle: "Meadow of Gold", rating: 4.7, img: "/images/destinations/sonamarg.png" },
-  { name: "Doodhpathri", subtitle: "Hidden Gem", rating: 4.6, img: "/images/destinations/doodhpathri.png" },
-  { name: "Gurez Valley", subtitle: "Untouched Beauty", rating: 4.7, img: "/images/destinations/gurez.png" }
+  { name: "Srinagar", subtitle: "The Heart of Kashmir", img: "/images/destinations/srinagar.png" },
+  { name: "Gulmarg", subtitle: "Snow Paradise", img: "/images/destinations/gulmarg.png" },
+  { name: "Pahalgam", subtitle: "Valley of Shepherds", img: "/images/destinations/pahalgam.png" },
+  { name: "Sonamarg", subtitle: "Meadow of Gold", img: "/images/destinations/sonamarg.png" },
+  { name: "Doodhpathri", subtitle: "Hidden Gem", img: "/images/destinations/doodhpathri.png" },
+  { name: "Gurez Valley", subtitle: "Untouched Beauty", img: "/images/destinations/gurez.png" }
 ];
 
 export default function DestinationsShowcase() {
@@ -53,10 +54,6 @@ export default function DestinationsShowcase() {
               <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full">
                 <h3 className="font-playfair text-2xl text-white mb-1 group-hover:text-gold transition-colors">{dest.name}</h3>
                 <p className="text-white/70 text-xs mb-3">{dest.subtitle}</p>
-                <div className="flex items-center gap-1 text-gold text-xs font-bold">
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <span>{dest.rating}</span>
-                </div>
               </div>
             </motion.div>
           ))}
@@ -81,10 +78,10 @@ export default function DestinationsShowcase() {
           <div className="relative z-10">
             <h3 className="font-playfair text-3xl text-white mb-4">Discover places across Kashmir</h3>
             <p className="text-muted text-sm mb-8 max-w-[250px] mx-auto">
-              Interactive map with 100+ locations to explore.
+              {destinationIds.length} destinations across Kashmir to explore.
             </p>
             <Link href="/destinations" className="inline-block bg-gold/10 border border-gold text-gold px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gold hover:text-dark-900 transition-all">
-              View Map
+              Explore Destinations
             </Link>
           </div>
         </motion.div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, RefreshCw, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { restaurantGuides } from "@/data/restaurantGuides";
 
@@ -8,8 +8,8 @@ const CANONICAL_URL = "https://wazwanway.com/restaurants/best-wazwan-srinagar";
 export const metadata = {
   // The headline is too long for search results once the restaurants layout's
   // template appends " | Wazwan Way"; og:title and twitter:title keep it in full.
-  title: "Best Kashmiri Food in Srinagar: A Local Guide",
-  description: "Where to eat Wazwan, which bakery to visit, the best spot for Noon Chai and Kahwa, and where Srinagar's street food actually lives — a locally grounded guide.",
+  title: "Where to Eat Kashmiri Food in Srinagar",
+  description: "Where to eat Wazwan, bakery goods, noon chai and street food in Srinagar, with the published sources and dates behind every place we name.",
   alternates: {
     canonical: CANONICAL_URL,
   },
@@ -61,13 +61,18 @@ export default function BestWazwanSrinagarPage() {
           {article.title}
         </h1>
         
-        <div className="flex items-center gap-6 text-[0.7rem] uppercase tracking-wider font-bold text-white/60 mb-12 pb-8 border-b border-white/10">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[0.7rem] uppercase tracking-wider font-bold text-white/60 mb-12 pb-8 border-b border-white/10">
           <span className="flex items-center gap-2">
             <User className="w-4 h-4 text-[var(--saffron)]" /> {article.author}
           </span>
           <span className="flex items-center gap-2">
             <Calendar className="w-4 h-4" /> {article.date}
           </span>
+          {article.updated && (
+            <span className="flex items-center gap-2">
+              <RefreshCw className="w-4 h-4" /> Updated {article.updated}
+            </span>
+          )}
         </div>
         
         {/* Main article content rendered as markdown */}

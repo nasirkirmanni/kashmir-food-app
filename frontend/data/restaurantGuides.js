@@ -1,82 +1,95 @@
+// Every place this guide names is backed by the published sources listed at the end of the
+// article. Keep it that way when editing: add a source with any new place or fact, and the year
+// it was reported next to any price.
 export const restaurantGuides = [
   {
     slug: "best-wazwan-srinagar",
-    title: "Best Kashmiri Food in Srinagar: Wazwan, Bakery, Tea, and Street Food",
-    description: "Where to eat Wazwan, which bakery to visit, the best spot for Noon Chai and Kahwa, and where Srinagar's street food actually lives — a locally grounded guide.",
+    title: "Where to Eat Kashmiri Food in Srinagar: Wazwan, Bakeries, Tea and Street Food",
+    description: "Where to eat Wazwan, bakery goods, noon chai and street food in Srinagar, with the published sources and dates behind every place we name.",
     readTime: "6 min read",
     author: "WazwanWay Team",
-    date: "2025-06-19",
+    date: "June 19, 2026",
+    updated: "September 15, 2026",
     content: `
-# Best Kashmiri Food in Srinagar: Wazwan, Bakery, Tea, and Street Food
+# Where to Eat Kashmiri Food in Srinagar: Wazwan, Bakeries, Tea and Street Food
 
-Srinagar has a food culture that goes well beyond what most visitors expect. The Wazwan gets the attention, but the bakeries, the tea houses, and the street food scene are just as deeply rooted in how this city actually eats. This guide covers the best of each category — a mix of named spots where there's a clear standout, and area-based guidance where the field is more even.
+Srinagar's food goes well beyond the Wazwan. The city has a restaurant that began as a bakery in 1918, a shop that has sold walnut fudge since 1896, a tea room serving noon chai and kahwa, an evening kebab street, and harissa shops that open on winter mornings.
 
----
-
-## Wazwan: Go to Residency Road, Not the Boulevard
-
-For Wazwan specifically, location matters more than any single restaurant name. The most reliable Wazwan in Srinagar is consistently found in the cluster of established restaurants around **Residency Road and Lal Chowk** — the city-centre corridor where Srinagaris have eaten for decades. You're not paying a view premium here; you're paying for the food.
-
-**Ahdoos** on Residency Road is the most cited name across decades of local and visitor reviews — established in 1918, with a reputation for consistent Wazwan that locals genuinely stand behind. The trami platter runs around ₹1,200–₹1,500 per person. It's not the cheapest option on the road, but the kitchen has been doing this for over a century.
-
-What to order to assess quality anywhere you eat Wazwan: the **rista** (meatball should be hand-pounded smooth, gravy velvety not watery) and the **gushtaba** (if it's properly made, the kitchen is serious — shortcuts are immediately obvious in the texture).
-
-**One practical note:** Book lunch, not dinner. Wazwan kitchens are at their best midday — the gravies are fresh and the full range of dishes is available. By evening, some dishes sell out.
-
-**Avoid:** Restaurants your taxi driver suggests unprompted. Commission arrangements between drivers and restaurants are standard in Srinagar. That recommendation is about his margin, not your meal.
+Every place in this guide has been written about by independent publications, and each section says who reported what and when. Prices and opening details change, so check before you go. The last section explains how we chose these places.
 
 ---
 
-## Bakery: Jan Bakery Near Dal Gate
+## Wazwan: Ahdoos, Mughal Darbar and Shamyana
 
-Kashmiri bakery culture is genuinely its own thing — distinct from North Indian or Mughal-influenced sweets, with a tradition of walnut fudge, coconut macaroons, dry cakes, cream rolls, and butter biscuits that generations of Kashmiris have grown up eating.
+These three were the only restaurants named on all five Srinagar restaurant lists we compared (see how we chose, below). They're listed by area, not ranked.
 
-**Jan Bakery**, located near Dal Gate, is the name that comes up consistently in local conversations about Srinagar bakeries. It's been serving generations of Srinagaris — the coconut macaroons and dry cakes are the items most often cited, and the walnut fudge is worth buying to take home.
+**Ahdoos, Residency Road.** Ahdoos started as a bakery in 1918 (WION, 2018; Kashmir Life, 2025) and had become a restaurant by the 1920s (The Tribune, 2018). Kashmir Life calls it the first restaurant in the Valley to serve Kashmiri Wazwan, and WION reported that tourists travel from around the world to eat its Wazwan. In January 2024, Outlook Traveller put a meal for two at about ₹1,500.
 
-The Kashmiri bakery tradition also has a surprising European thread — Ahdoos itself began as a bakery in 1918 when one of its cooks was trained by a Swiss baker during the British colonial era. That heritage shows in the cream rolls, eclairs, and pastry items that several Srinagar bakeries still make well.
+**Mughal Darbar, Residency Road.** Mughal Darbar is upstairs on Residency Road, and Kashmir Life dates it to 1984. Outlook Traveller recommended it for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000.
 
-**What to try:** Walnut fudge, coconut macaroons, sheermal (a saffron-enriched flatbread), and cream rolls. Prices are low — most individual items are under ₹150.
+**Shamyana, Boulevard Road.** Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake. The city guide so.city recommended it for Wazwan in 2018, as did Outlook Traveller in 2022. Outlook's January 2024 guide put a meal for two at about ₹800.
 
-**When to go:** Mornings. Kashmiri bakeries are a breakfast culture — fresh items come out early and the best sell out by mid-morning.
-
----
-
-## Beverages: Chai Jaai for Noon Chai and Kahwa
-
-Srinagar has two traditional beverages that every visitor should try at least once: **Noon Chai** (pink salted tea made with green tea leaves, baking soda, and milk — salty, not sweet, and unlike anything else you've had) and **Kahwa** (saffron-infused green tea with cardamom, cinnamon, and almonds, served from a samovar).
-
-**Chai Jaai**, on the banks of the Jhelum River near Polo View, is the most recommended named spot for both. Set in a restored heritage bungalow with Victorian and Kashmiri papier-mâché décor, it's unabashedly atmospheric — some reviewers call it overhyped for that reason, and they're not entirely wrong. But the Noon Chai and Kahwa here are genuinely well-made, the sheermal is good, and the setting beside the river is real, not manufactured.
-
-A fair warning: Chai Jaai is popular with tourists and can get busy. If you want Noon Chai without the atmosphere premium, any local bakery or small restaurant in the city centre will serve it from a samovar for a fraction of the price. The experience is less curated but the tea is the same.
-
-**Kahwa note:** This is served at the end of a Wazwan meal across most restaurants. If you've already had Wazwan, you've likely already had your first Kahwa.
+**What to order.** If you only try two dishes, make them rista and gushtaba, the two Wazwan meatballs made from pounded mutton. [Rista vs Gushtaba](/kashmiri-food/wazwan/guide/rista-vs-gushtaba) explains how they differ, and [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained) covers the rest of the feast.
 
 ---
 
-## Street Food: Khayam Chowk in the Evening
+## Bakeries: Ahdoos, Jan Bakery and Moonlight
 
-Srinagar's street food scene has a clear centre of gravity: **Khayam Chowk**, which comes alive from around 6pm onwards as charcoal grills light up and the smoke from mutton skewers fills the air. This is where Srinagaris eat in the evening — not a tourist destination, a local one.
+There are two kinds of bakery to know in Srinagar. The *kandur*, the neighbourhood baker, makes everyday breads such as girda and lavasa; our [Kashmiri breakfast guide](/blog/kashmiri-breakfast) covers those. The city also has bakeries in a European style, selling cakes, biscuits and pastries.
 
-What to eat here: **Tujji** (whole roasted mutton — the signature item), **seekh kebabs** (minced mutton, spiced and grilled, served with lavasa flatbread and chutney), and **mutton kanti** (spiced cubed mutton). Prices are low — ₹150–₹300 per plate.
+**Ahdoos.** Before it served Wazwan, Ahdoos was a bakery. Its founder, Mohammad Sultan, learned baking at a foreign bakery in Calcutta (The Tribune, 2018). Kashmir Life's 2025 history of the valley's bakeries says Michael Adam Nedou, founder of Nedou's Hotel, encouraged Sultan's father to send him there.
 
-The area has several legendary stalls that have been here for decades. **Gareeb Nawaz** is the name most often cited for Tujji specifically — over four decades in the same spot, the owner has been credited with bringing the dish into mainstream Srinagar food culture. Go early in the evening before the best cuts sell out.
+**Jan Bakery, Maharaja Bazaar.** Three brothers founded Jan Bakery in Maharaja Bazaar in 1965. By 2025 it had three shops, two in Maharaja Bazaar and one in Chanapora (Kashmir Life, 2025).
 
-**Seasonal note:** If you're visiting between December and February, add **Harissa** to your list — slow-cooked mutton with rice, spiced and reduced to a porridge-like consistency, eaten as a breakfast with lawasa bread. It's only available in winter, only in the mornings (most sellers sell out by 10am), and it's one of the most distinctive things you can eat in the valley. Residency Road area has reliable harissa spots.
-
-**Hazratbal Market** is the other street food area worth knowing — especially for **Nadru Monje** (fried lotus stem fritters, crunchy and spiced) and more Tujji options. Good for a late morning snack after visiting the shrine.
+**Moonlight, outside the University of Kashmir.** Moonlight has sold a single product, walnut fudge, since 1896, according to Kashmir Life. It started near Dal Lake in Dalgate and moved in the 1990s to a complex outside the University of Kashmir.
 
 ---
 
-## Practical Notes
+## Tea: Chai Jaai
 
-- **Cash preferred** at street food stalls and most bakeries. Cards are accepted at Chai Jaai and mid-range restaurants.
-- **Halal is standard** across Srinagar's food scene. Alcohol is limited and available only at some hotels.
-- **Seasonal availability matters.** Harissa is winter-only. Fresh trout is spring-summer. Wazwan is year-round.
-- **Fridays:** Traffic near major mosques (particularly Hazratbal) can make midday movement slow. Plan accordingly.
+**Chai Jaai, on the Bund.** Chai Jaai is a first-floor tea room in the Mahatta & Co. photo studio building on the Bund, the embankment along the Jhelum. Roohi Nazki opened it in 2016 (Greater Kashmir; Kashmir Life, 2016). The rooms are decorated in a Victorian style, with a wall of papier-mâché work, and the menu includes noon chai, kahwa and sheermal (Kashmir Life, 2016; Curly Tales, 2018).
+
+Noon chai is Kashmir's salted pink tea; kahwa is green tea brewed with saffron and spices. [Kahwa vs. Noon Chai](/blog/kahwa-vs-noon-chai) compares the two.
 
 ---
 
-*For a full guide to what Wazwan consists of, see [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained). For Wazwan price ranges across restaurant tiers, see the [Wazwan Cost Guide](/kashmiri-food/wazwan/guide/cost-guide).*
+## Street food: Khayam Chowk, Hazratbal and harissa
+
+**Khayam Chowk, in the evening.** Khayam Chowk is Srinagar's kebab street. The Kashmir Monitor reported in 2022 that it had grown from a single seekh kebab shop into more than a dozen eateries; the area's cinema had shut in the early 1990s. A shopkeeper told NotInTown in 2022 that hundreds of local and visiting food lovers come every evening, and Rising Kashmir described it in 2025 as a popular place for families and friends to eat after iftar during Ramadan.
+
+- **What to eat:** seekh kebab, mutton kanti and tujji, which is cubes of marinated mutton grilled on skewers over hot coals (Outlook Traveller, 2017).
+- **Which stall:** stalls change, so ask locally. Outlook Traveller's 2024 city guide names Imran Barbeque Cafeteria and Sher Barbeque Cafeteria, and a 2018 so.city guide credits Mustafa, owner of Gareeb Nawaz, with bringing tujji into the mainstream.
+
+**Hazratbal, especially on Fridays.** Stalls outside the Hazratbal shrine sell nadur monji (lotus stem dipped in rice flour and gram flour, then deep-fried), fried fish, poori with halwa, and masala tsot, bread wrapped around boiled chickpeas and radish chutney. Slurrp reported in 2023 that the bazaar is busiest on Fridays, and Outlook Traveller's 2024 guide also lists sheermal and tandoori roti. Hazratbal is a working shrine, so dress and behave as you would at any place of worship.
+
+**Harissa, on winter mornings.** Harissa is mutton and rice cooked slowly overnight into a smooth paste, and it's only made in the cold months: October to March, according to PARI in 2024. The shops are in the old city. PARI reported from Nawakadal and Aali Kadal, and ETV Bharat from Fateh Kadal in 2023. It's breakfast food: the Nawakadal shop PARI visited starts serving at 7am and its pot is empty by 10am. It's eaten with *kander czot*, a wheat bread from the kandur.
+
+For more, see [Kashmiri street food in Srinagar](/blog/kashmiri-street-food-srinagar) and [Kashmiri winter food](/blog/kashmiri-winter-food). For what a Wazwan costs, see the [Wazwan Cost Guide](/kashmiri-food/wazwan/guide/cost-guide).
+
+---
+
+## How we chose these places
+
+We only name places that independent publications have written about. Here's how we checked:
+
+- **Published sources.** Every place is covered by at least one newspaper, magazine or city guide. Review sites, listings and a business's own website don't count.
+- **Wazwan restaurants.** In September 2026 we compared five published lists of Srinagar restaurants, from TravelTriangle, Cliffhangers India, Kashmir Travelport, so.city and Outlook Traveller. Ahdoos, Mughal Darbar and Shamyana were the only restaurants on all five.
+- **Dated facts.** Every price and detail comes with the year it was reported. Prices change, so treat them as a guide.
+- **Unsourced claims left out.** If we couldn't find a published source for something, such as today's plate prices at Khayam Chowk, we didn't include it.
+- **No ranking.** Places are grouped by what they serve, not placed in order.
+
+We last checked these sources on September 15, 2026. If something has changed, [let us know](/contact).
+
+### Sources
+
+- **Ahdoos:** [WION, March 2018](https://www.wionews.com/india-news/bite-of-history-srinagars-iconic-restaurant-turns-100-36510) · [The Tribune, June 2018](https://www.tribuneindia.com/news/archive/jammu-kashmir/at-100-srinagar-bakery-looks-ahead-611519/) · [Kashmir Life, April 2025](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
+- **Mughal Darbar:** [Kashmir Life, April 2025](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/) · [Outlook Traveller, February 2022](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
+- **Shamyana:** [so.city, May 2018](https://so.city/srinagar/article/6-best-places-for-an-absolutely-delicious-wazwan-feast-in-srinagar) · [Outlook Traveller, February 2022](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
+- **Jan Bakery and Moonlight:** [Kashmir Life, April 2025](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/)
+- **Chai Jaai:** [Kashmir Life, July 2016](https://kashmirlife.net/a-brewing-success-127880/) · [Greater Kashmir, December 2020](https://www.greaterkashmir.com/latest-news/tea-talks-and-tasty-treats-brewing-culture-on-the-bund/) · [Curly Tales, June 2018](https://curlytales.com/sip-over-60-varieties-of-chai-at-chai-jaai-in-srinagar/)
+- **Khayam Chowk:** [The Kashmir Monitor, April 2022](https://www.thekashmirmonitor.net/how-srinagars-khayam-chowk-a-foodies-paradise-became-a-photographers-delight/) · [NotInTown, August 2022](https://www.notintown.net/article-details/642/kebabs-kantis-and-more-srinagar-s-khayam-chowk-now-a-foodies-paradise.html) · [Rising Kashmir, March 2025](https://risingkashmir.com/ramazan-brings-a-feast-for-srinagars-business-owners-as-sales-skyrocket) · [Outlook Traveller, July 2017](https://www.outlookindia.com/traveller/ot-getaway-guides/kashmirs-legendary-wazwan-cuisine) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens) · [so.city, May 2018](https://so.city/srinagar/article/5-street-food-joints-in-srinagar-thatll-make-your-tummy-rumble-with-joy)
+- **Hazratbal:** [Slurrp, September 2023](https://www.slurrp.com/article/a-gastronomical-adventure-along-the-hazratbal-food-trail-1694773788487) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
+- **Harissa:** [PARI, March 2024](https://ruralindiaonline.org/article/in-srinagar-harissa-is-best-served-hot) · [ETV Bharat, November 2023](https://www.etvbharat.com/english/state/jammu-and-kashmir/as-winter-arrives-kashmiris-throng-downtown-srinagar-to-relish-centuries-old-harissa/na20231124184147928928943)
     `
   }
 ];

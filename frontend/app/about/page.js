@@ -46,8 +46,8 @@ export default function AboutPage() {
             <span className="text-[var(--saffron)] font-accent italic font-normal">Culinary Artistry</span>
           </h1>
           <p className="text-white/60 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
-            Wazwan Way was born out of an enduring love for Kashmir’s legendary 36-course royal feast, 
-            crafted to guide connoisseurs and curious travelers to the most authentic culinary sanctuaries.
+            Wazwan Way was born out of an enduring love for Wazwan, Kashmir’s royal feast of up to 36 courses, 
+            and built to help curious travelers and food lovers understand Kashmiri food and find it.
           </p>
         </motion.div>
 
@@ -70,7 +70,7 @@ export default function AboutPage() {
               </div>
               <h2 className="font-display text-2xl text-white mb-4">The Art of the Waza</h2>
               <p className="text-white/60 text-sm leading-relaxed mb-6">
-                Wazwan is not merely food; it is a ritualized culinary performance. Handed down through generations of *Wazas* (master chefs), each dish is prepared over wood-fired embers, pounded with specialized walnut-wood mallets, and infused with indigenous spices like Kashmiri cockscomb (*mawal*) and mountain-grown saffron.
+                Wazwan is not merely food; it is a ritualized culinary performance. Its recipes are handed down through generations of <em>Wazas</em> (master chefs), who traditionally cook over wood fires, pound the meat for rista and gushtaba by hand, and color their gravies with Kashmiri cockscomb (<em>mawal</em>) and saffron.
               </p>
             </div>
             <div className="text-[var(--saffron)] text-xs font-semibold tracking-wider uppercase flex items-center gap-2">
@@ -89,7 +89,7 @@ export default function AboutPage() {
               </div>
               <h2 className="font-display text-2xl text-white mb-4">Our Vision</h2>
               <p className="text-white/60 text-sm leading-relaxed mb-6">
-                In a rapidly globalizing world, authentic flavors can easily blur. Wazwan Way acts as a digital custodian for Kashmir's foodways. We catalog genuine preparation sequences, map local bakeries (*kandur-wans*), verify local wazwans, and assist travelers in exploring destinations with profound respect for the valley's culinary soul.
+                In a rapidly globalizing world, authentic flavors can easily blur. Wazwan Way sets out to record Kashmir's foodways: we explain the dishes and the order they're served in, write about the neighborhood bakeries (<em>kandur-wans</em>), list restaurants that serve Wazwan, and help travelers plan trips with respect for the valley's food and culture.
               </p>
             </div>
             <div className="text-[var(--saffron)] text-xs font-semibold tracking-wider uppercase flex items-center gap-2">
@@ -111,9 +111,9 @@ export default function AboutPage() {
               <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4">
                 <Heart className="w-5 h-5 text-[var(--saffron)]" />
               </div>
-              <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-2">Uncompromised Quality</h3>
+              <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-2">Tradition, Told Straight</h3>
               <p className="text-white/50 text-xs leading-relaxed">
-                We only showcase and recommend restaurants, bakers, and chefs who adhere strictly to the traditional recipes.
+                When a story is tradition rather than record, like the tale of Timur’s cooks from Samarkand, we say so instead of passing it off as history.
               </p>
             </div>
 
@@ -135,7 +135,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-2">Responsible Tourism</h3>
               <p className="text-white/50 text-xs leading-relaxed">
-                Connecting discerning travelers directly with local artisans, homestays, and family chefs to uplift local communities.
+                Helping travelers plan trips that respect local customs, from trami etiquette to the right season for each food.
               </p>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
         >
           <h2 className="font-display text-3xl text-white mb-4">Embark on the Taste Trail</h2>
           <p className="text-white/60 text-sm md:text-base mb-8 max-w-md mx-auto">
-            Ready to experience the heights of Kashmiri cuisine? Browse our verified lists, explore our custom plans, or connect with our guides.
+            Ready to experience the heights of Kashmiri cuisine? Browse the restaurants, read our food guides, or get in touch.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 

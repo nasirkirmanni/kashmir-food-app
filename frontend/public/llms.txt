@@ -1,32 +1,49 @@
 # Wazwan Way
 
-> Wazwan Way (wazwanway.com) is a premium guide to Kashmiri cuisine and travel: the 36-course Wazwan feast, authentic dishes, trusted restaurants in Srinagar and the Kashmir valley, traditional recipes, offbeat destinations, and scenic drives. Content is curated and locally researched.
+> Wazwan Way (wazwanway.com) is a guide to Kashmiri food and travel. It explains Wazwan, Kashmir's formal multi-course feast, and the wider cuisine around it: dishes, breads, tea, street food, history and etiquette. It also lists restaurants in Srinagar, destinations across Kashmir, scenic drives and a trip planner.
 
-Wazwan is the traditional multi-course Kashmiri feast prepared by master chefs called Wazas, served on a shared copper platter called the trami. Wazwan Way documents its dishes, history, etiquette, and where to experience it authentically.
+Wazwan is cooked by teams of master chefs called wazas and eaten by four diners sharing a copper platter called the trami. Its size varies: 36 courses is the traditional ideal, while a 2016 review in the Journal of Ethnic Foods puts Wazwan at anywhere from 7 to 36 dishes. The popular story that Wazwan began with cooks from Samarkand who came to Kashmir in Timur's time is legend rather than record, and Wazwan Way's history pages present it that way.
 
-## Core Guides
+## Wazwan
 
-- [What is Wazwan?](https://wazwanway.com/kashmiri-food/wazwan/guide/what-is-wazwan): The 36-course feast explained — courses, sequence, and meaning
-- [Wazwan Dishes Explained](https://wazwanway.com/kashmiri-food/wazwan/guide/dishes-explained): Every major trami dish from Rista to Gushtaba
-- [History of Wazwan](https://wazwanway.com/history): 700 years of Kashmir's royal culinary heritage, from Central Asian origins to today
-- [Wazwan Cost Guide](https://wazwanway.com/kashmiri-food/wazwan/guide/cost-guide): What a Wazwan actually costs at restaurants and weddings
-- [Kashmiri Food Overview](https://wazwanway.com/kashmiri-food): Wazwan, bakery, beverages, and street food traditions
+- [What is Wazwan?](https://wazwanway.com/kashmiri-food/wazwan/guide/what-is-wazwan): What the feast is, what the name means, how many courses it has and how it is served
+- [Wazwan Dishes Explained](https://wazwanway.com/kashmiri-food/wazwan/guide/dishes-explained): The main trami dishes, from rista to gushtaba
+- [The Traditional Wazwan Menu, Course by Course](https://wazwanway.com/kashmiri-food/wazwan/guide/traditional-wazwan-menu): The order the dishes are served in
+- [How Much Does Wazwan Cost?](https://wazwanway.com/kashmiri-food/wazwan/guide/cost-guide): Restaurant, wedding and fine-dining price ranges in Srinagar
+- [Vegetarian Wazwan](https://wazwanway.com/kashmiri-food/wazwan/guide/vegetarian-wazwan): The vegetarian dishes at a Wazwan and what restaurants offer
+- [Wazwan Etiquette](https://wazwanway.com/etiquette): How to eat from the trami
+- [History of Wazwan](https://wazwanway.com/history): The Timur legend, the wazas and the trami tradition
+- [Wazwan Dishes](https://wazwanway.com/dishes): The dishes of the feast, grouped by course
+- [All Wazwan guides](https://wazwanway.com/kashmiri-food/wazwan/guide)
 
-## Dishes & Restaurants
+## Kashmiri food
 
-- [All Kashmiri Dishes](https://wazwanway.com/dishes): 90+ dishes with history, spice levels, and where to try them
-- [Rogan Josh](https://wazwanway.com/dishes/rogan-josh): Kashmir's signature lamb curry
-- [Restaurants](https://wazwanway.com/restaurants): Curated authentic Wazwan restaurants — Ahdoos, Mughal Darbar, Shamyana, Clove
+- [Kashmiri Food](https://wazwanway.com/kashmiri-food): Wazwan, bakery, drinks and street food
+- [What to Eat in Kashmir](https://wazwanway.com/blog/what-to-eat-in-kashmir): A first-timer's guide to the valley's food
+- [Kashmiri Cuisine Explained](https://wazwanway.com/blog/kashmiri-cuisine-explained): The Pandit and Muslim kitchens, everyday food and where Wazwan fits
+- [Kashmiri Street Food](https://wazwanway.com/blog/kashmiri-street-food-srinagar): What to eat in Srinagar, where and when
+- [Kashmiri Breakfast](https://wazwanway.com/blog/kashmiri-breakfast): Noon chai, the kandur and morning breads
+- [Kashmiri Winter Food](https://wazwanway.com/blog/kashmiri-winter-food): Harissa, hokh syun and eating through Chillai Kalan
+- [Is Kashmiri Food Spicy?](https://wazwanway.com/blog/is-kashmiri-food-spicy): Colour, heat and how it differs from North Indian food
+- [Vegetarian Food in Kashmir](https://wazwanway.com/blog/vegetarian-food-in-kashmir): What to eat and how to order
+- [Kashmiri Pandit Food](https://wazwanway.com/blog/kashmiri-pandit-food): Dishes, customs and how it differs from Wazwan
+- [Kashmiri Sweets and Desserts](https://wazwanway.com/blog/kashmiri-sweets-desserts): What's genuinely Kashmiri and when to find it
+- [What to Buy in Kashmir](https://wazwanway.com/blog/what-to-buy-in-kashmir-food-souvenirs): Saffron, walnuts, almonds and other food to take home
+- [Kahwa vs. Noon Chai](https://wazwanway.com/blog/kahwa-vs-noon-chai): Kashmir's two teas compared
+- [Blog](https://wazwanway.com/blog): All articles
+
+## Restaurants
+
+- [Where to Eat Kashmiri Food in Srinagar](https://wazwanway.com/restaurants/best-wazwan-srinagar): Wazwan restaurants, bakeries, tea and street food, with the published sources behind each place
+- [Restaurants](https://wazwanway.com/restaurants): Srinagar restaurants that serve Wazwan, including Ahdoos, Mughal Darbar, Shamyana and Clove
 
 ## Travel
 
-- [Rare Destinations](https://wazwanway.com/destinations): Offbeat Kashmir — Gurez, Bangus, Lolab, Doodhpathri, and more
+- [Destinations](https://wazwanway.com/destinations): Places to visit across Kashmir, including Gurez, Bangus, Lolab and Doodhpathri
 - [Scenic Drives](https://wazwanway.com/scenic-drives): Road-trip routes with conditions and elevation profiles
-
-## Journal
-
-- [Blog](https://wazwanway.com/blog): Long-form stories — saffron, breads, spice blends, etiquette
+- [Plan Your Trip](https://wazwanway.com/plan): Kashmir travel planner
 
 ## Optional
 
+- [About Wazwan Way](https://wazwanway.com/about)
 - [Sitemap](https://wazwanway.com/sitemap.xml)

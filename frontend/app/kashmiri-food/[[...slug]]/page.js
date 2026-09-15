@@ -61,13 +61,13 @@ export async function generateMetadata({ params }) {
     // Base portal
     base: {
       title: "Kashmiri Food: Wazwan, Bakery & Street Food",
-      description: "Explore the authentic culinary traditions of Kashmir. Discover the legendary 36-course royal Wazwan feast, hourly Kandur bakery culture, hot street Tujji, and saffron beverages.",
+      description: "Explore the food traditions of Kashmir: the royal Wazwan feast of up to 36 courses, the kandur's fresh breads, street Tujji and saffron Kahwa.",
     },
     // Top-level categories
     categories: {
       wazwan: {
         title: "Kashmiri Wazwan Feast & Trami Sequence Guide",
-        description: "Discover the authentic 36-course Kashmiri Wazwan feast. Learn about the traditional serve sequence, copper Trami etiquette, and classic dishes cooked by master Wazas.",
+        description: "Kashmir's Wazwan feast, which can run to 36 courses: the order the dishes are served in, copper Trami etiquette, and the classic dishes cooked by master Wazas.",
       },
       beverages: {
         title: "Kashmiri Drinks: Noon Chai, Kahwa & Babribyol",
@@ -91,7 +91,7 @@ export async function generateMetadata({ params }) {
         },
         "what-is-wazwan": {
           title: "What Is Wazwan? Kashmir's Legendary Feast",
-          description: "Discover the origins, history, and cultural significance of the legendary 36-course Kashmiri Wazwan feast cooked by traditional Wazas.",
+          description: "What Wazwan is, what the name means, how many courses it really has and how it's served: a guide to Kashmir's feast, cooked by traditional Wazas.",
         },
         "dishes-explained": {
           title: "Wazwan Dishes Explained: The Saat Rang & Beyond",
@@ -122,8 +122,8 @@ export async function generateMetadata({ params }) {
           description: "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan.",
         },
         "traditional-wazwan-menu": {
-          title: "Traditional Wazwan Menu: A 36-Course Breakdown",
-          description: "Explore the complete traditional Wazwan menu, from the opening starters to the final dessert and Kahwa.",
+          title: "Traditional Wazwan Menu, Course by Course",
+          description: "Explore the traditional Wazwan menu course by course, from the dishes on the trami to the final dessert and Kahwa.",
         },
         "kashmiri-wedding-food": {
           title: "Kashmiri Wedding Food: The Grandeur of Wazwan",

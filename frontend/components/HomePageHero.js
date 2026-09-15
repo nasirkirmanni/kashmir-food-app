@@ -556,7 +556,7 @@ export default function HomePageHero({ initialDishes = [], isRoutePage = true })
       num: "03",
       eyebrow: "Learn the feast",
       title: "The Manners.",
-      line: "Thirty-six courses, one copper plate, a code of respect.",
+      line: "Up to thirty-six courses, one copper plate, a code of respect.",
       image: "/redesign/img/ritual-tashnaer.webp",
       href: "/how-to-experience",
     },
@@ -663,7 +663,7 @@ export default function HomePageHero({ initialDishes = [], isRoutePage = true })
               The <em>Wazwan</em>.
             </p>
             <p className="ws-line mt-3 max-w-[310px]">
-              Thirty-six courses, one copper trami — the feast Kashmir is named for.
+              Up to thirty-six courses, one copper trami — the feast Kashmir is known for.
             </p>
             <span className="ws-eyebrow mt-6 inline-flex items-center gap-2.5 text-[#F4ECDF]">
               Begin the feast <ArrowRight size={12} strokeWidth={1.75} aria-hidden="true" />

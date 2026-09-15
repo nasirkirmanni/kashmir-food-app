@@ -20,17 +20,17 @@ export const metadata = {
     template: "%s | Wazwan Way",
   },
   description:
-    "Discover the best authentic Kashmiri restaurants in Srinagar, Gulmarg, Pahalgam, and Sonamarg. Find curated dining venues serving traditional Wazwan cuisine.",
+    "Kashmiri restaurants in Srinagar that serve Wazwan, with where to find them and what to order, plus our guide to eating in the city.",
   alternates: { canonical: "https://wazwanway.com/restaurants" },
   openGraph: {
     title: "Kashmiri Restaurants | Wazwan Way",
-    description: "Find the best authentic Kashmiri restaurants across Kashmir — Srinagar, Gulmarg, Pahalgam, and Sonamarg.",
+    description: "Kashmiri restaurants in Srinagar that serve Wazwan, and what to order at each.",
     url: "https://wazwanway.com/restaurants",
     images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Kashmiri Restaurants" }],
   },
   twitter: {
     title: "Kashmiri Restaurants | Wazwan Way",
-    description: "Find the best authentic Kashmiri restaurants across Kashmir.",
+    description: "Kashmiri restaurants in Srinagar that serve Wazwan.",
     images: ["/wazwan-hero.jpg"],
   },
 };
