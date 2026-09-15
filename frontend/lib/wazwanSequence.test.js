@@ -34,7 +34,8 @@ describe("arrangeWazwan", () => {
   it("uses photos only where a real one exists, never the placeholder", () => {
     const all = chapters.flatMap((chapter) => chapter.dishes);
     expect(all.find((dish) => dish.slug === "rista").photo).toMatchObject({ src: "/images/scroll/RISTA.png", framed: true });
-    expect(all.find((dish) => dish.slug === "yakhni").photo).toBeNull();
+    expect(all.find((dish) => dish.slug === "yakhni").photo).toMatchObject({ src: "/images/dishes/mughal-yakhni.jpg", framed: false });
+    expect(all.find((dish) => dish.slug === "kashmiri-pulao").photo).toBeNull();
     expect(all.every((dish) => !dish.photo || !dish.photo.src.includes("placeholder"))).toBe(true);
   });
 

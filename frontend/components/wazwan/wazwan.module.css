@@ -1013,11 +1013,17 @@
   color: var(--ww-ivory);
 }
 
+/* Diet · spice · price on one line. Each item carries its own leading dot; the line is shifted
+   left by one dot and that strip is clipped, so no line starts with a dot, even after a wrap. */
 .metaInline {
+  --meta-dot: 1.55em;
+  --meta-gap: 0.35em;
+  --meta-lead: calc(var(--meta-dot) + var(--meta-gap));
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  margin: 12px 0 0;
+  margin: 12px 0 0 calc(-1 * var(--meta-lead));
+  clip-path: inset(-0.5em -0.5em -0.5em var(--meta-lead));
   font-size: 0.875rem;
   line-height: 1.6;
   color: var(--ww-ivory-soft);
@@ -1025,12 +1031,14 @@
 
 .metaInline > div {
   display: inline-flex;
-  gap: 0.35em;
+  gap: var(--meta-gap);
 }
 
-.metaInline > div + div::before {
+.metaInline > div::before {
   content: "·";
-  margin: 0 0.65em;
+  flex: none;
+  width: var(--meta-dot);
+  text-align: center;
   color: var(--ww-ivory-muted);
 }
 
@@ -1566,9 +1574,11 @@
 
   .metaInline {
     gap: 2px 16px;
+    margin-left: 0;
+    clip-path: none;
   }
 
-  .metaInline > div + div::before {
+  .metaInline > div::before {
     content: none;
   }
 
