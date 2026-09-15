@@ -239,7 +239,7 @@ const LuxuryRestaurantCard = memo(({
             {restaurant.authentic && (
               <div className="flex items-center gap-1 rounded-full border border-[var(--saffron)] bg-black/75 px-2.5 py-1 text-[0.6rem] font-bold text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider">
                 <CheckCircle2 className="w-3 h-3" />
-                Verified
+                Authentic
               </div>
             )}
           </div>
@@ -418,11 +418,11 @@ const FeaturedPartnerCard = memo(({
           <div className="absolute top-4 left-4 z-20 flex gap-2">
             <div className="flex items-center gap-1 rounded-full border border-[var(--saffron)] bg-black/95 px-3.5 py-1 text-[0.6rem] font-black text-[var(--saffron)] backdrop-blur-md uppercase tracking-wider shadow-lg">
               <Star className="w-3.5 h-3.5 fill-current text-[var(--saffron)]" />
-              Featured Partner
+              Featured
             </div>
             <div className="flex items-center gap-1 rounded-full border border-green-500/40 bg-black/95 px-3 py-1 text-[0.65rem] font-black text-green-400 backdrop-blur-md uppercase tracking-wider shadow-lg">
               <CheckCircle2 className="w-3.5 h-3.5" />
-              Verified
+              Authentic
             </div>
           </div>
         </div>
@@ -549,7 +549,7 @@ FeaturedPartnerCard.displayName = "FeaturedPartnerCard";
 
 // --- STATS COMPONENT ---
 
-const StatsBar = ({ total, verified, open }) => {
+const StatsBar = ({ total, authentic, open }) => {
   return (
     <div className="grid grid-cols-3 gap-4 mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
       <div className="flex flex-col items-center justify-center text-center py-2 border-r border-white/15">
@@ -558,9 +558,9 @@ const StatsBar = ({ total, verified, open }) => {
       </div>
       <div className="flex flex-col items-center justify-center text-center py-2 border-r border-white/15">
         <span className="text-[1.7rem] md:text-[2rem] font-display font-black text-[var(--saffron)] flex items-center gap-1">
-          {verified}
+          {authentic}
         </span>
-        <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-white/40 mt-1">Verified Partners</span>
+        <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-white/40 mt-1">Authentic</span>
       </div>
       <div className="flex flex-col items-center justify-center text-center py-2">
         <span className="text-[1.7rem] md:text-[2rem] font-display font-black text-green-400">{open}</span>
@@ -852,12 +852,12 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
   const stats = useMemo(() => {
     const filteredByCity = restaurants.filter((r) => (r.city || "Srinagar").toLowerCase() === activeLocation.toLowerCase());
     const total = filteredByCity.length;
-    const verified = filteredByCity.filter((r) => r.authentic).length;
+    const authentic = filteredByCity.filter((r) => r.authentic).length;
     // Only compute open count after mount to avoid hydration mismatch
     // Counted only from real, parseable hours (0 until mounted to match SSR).
     const open = hasMounted ? filteredByCity.filter((r) => getOpenStatus(r.openingHours).isOpen).length : 0;
 
-    return { total, verified, open };
+    return { total, authentic, open };
   }, [restaurants, activeLocation, hasMounted]);
 
   return (
@@ -936,7 +936,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
               <div className="flex flex-wrap gap-2.5 mt-5">
                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--saffron)]/30 bg-black/60 text-[10px] font-bold text-[var(--saffron)]">
                   <CheckCircle2 className="w-3 h-3" />
-                  <span>Authentic (Verified)</span>
+                  <span>Authentic</span>
                 </div>
                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-black/40 text-[10px] font-bold text-white/60">
                   <Compass className="w-3 h-3" />
@@ -1278,7 +1278,7 @@ function RestaurantsPageContent({ initialRestaurants = [] }) {
           {/* 2. Center Listings Block */}
           <div className="flex-1 flex flex-col gap-6 min-w-0">
             {/* Header statistics info */}
-            <StatsBar total={stats.total} verified={stats.verified} open={stats.open} />
+            <StatsBar total={stats.total} authentic={stats.authentic} open={stats.open} />
 
             {loading ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-white/40">
