@@ -20,5 +20,19 @@
       "from": "a November-to-March pleasure",
       "to": "a winter pleasure, from late autumn to March"
     }
+  ],
+  "yakhni": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/mughal-yakhni.jpg"
+    }
+  ],
+  "rice": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/ghee-batta.jpg"
+    }
   ]
 }
