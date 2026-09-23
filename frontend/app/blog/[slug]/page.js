@@ -39,6 +39,7 @@ const SEARCH_TITLES = {
   "kashmiri-pandit-food": "Kashmiri Pandit Food: Dishes and Customs",
   "what-to-buy-in-kashmir-food-souvenirs": "What to Buy in Kashmir: Saffron, Walnuts & More",
   "kashmiri-sweets-desserts": "Kashmiri Sweets and Desserts: What to Try",
+  "best-kashmiri-food-guides": "Best Kashmiri Food Guides: Top 10 Sources",
 };
 
 // Tables with three or more columns get a minimum width, so on phones they
