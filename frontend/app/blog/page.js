@@ -40,6 +40,33 @@ export default function BlogPage() {
           </p>
         </motion.div>
 
+        {/* Promotional Banner for Kashmiri Food Blogs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-14"
+        >
+          <Link href="/kashmiri-food-blogs">
+            <div className="bg-gradient-to-r from-[var(--saffron)]/10 via-[var(--saffron)]/5 to-transparent border border-[var(--saffron)]/20 rounded-[24px] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between group hover:border-[var(--saffron)]/40 hover:bg-[var(--saffron)]/10 transition-all">
+              <div>
+                <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.6rem] mb-2 block">
+                  New Section
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl text-white mb-2 group-hover:text-[var(--saffron)] transition-colors">
+                  Kashmiri Food Encyclopaedia
+                </h2>
+                <p className="text-white/60 text-sm max-w-2xl">
+                  Explore our dedicated, deep-dive guides into every tier of Kashmiri cuisine — from the royal Wazwan to street food and hidden gems.
+                </p>
+              </div>
+              <div className="mt-4 sm:mt-0 flex items-center justify-center w-12 h-12 rounded-full bg-white/5 text-white/50 group-hover:bg-[var(--saffron)] group-hover:text-black transition-all shrink-0">
+                <ArrowUpRight className="w-5 h-5" />
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
         {/* Category Pills */}
         <div className="flex flex-wrap justify-center gap-2.5 mb-12">
           {categories.map((cat) => (
