@@ -323,7 +323,7 @@ A traditional Wazwan includes dishes like Seekh Kabab, Tabak Maaz, Safed Kokur (
 
 ### Where can tourists find Wazwan in Kashmir?
 While authentic Wazwan is a wedding feast, top-tier restaurants in Srinagar (such as Ahdoos or Mughal Darbar) and premium heritage hotels offer excellent, authentic restaurant versions of the Wazwan served on traditional copper platters.
-\`
+`
   },
   {
     slug: "what-to-eat-in-kashmir",
