@@ -1,6 +1,7 @@
 import { blogPosts } from "@/data/blogPosts";
 import { scenicDrives } from "@/data/scenicDrivesData";
 import { wazwanGuides } from "@/data/wazwanGuides";
+import { kashmirifoodBlogs } from "@/data/kashmirifoodBlogs";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
 import dishIds from "../dishes-static-ids.json";
 import restaurantIds from "../restaurants-static-ids.json";
@@ -124,6 +125,15 @@ export default async function sitemap() {
     entry(`/blog/${post.slug}`, lastModifiedOf(post.updatedDate || post.date))
   );
 
+  const kashmiriFoodBlogPages = [
+    entry("/kashmiri-food-blogs"),
+    entry("/kashmiri-food-blogs/traditional-dishes"),
+    entry("/kashmiri-food-blogs/hidden-gems"),
+    ...kashmirifoodBlogs.map((post) =>
+      entry(`/kashmiri-food-blogs/${post.slug}`, lastModifiedOf(post.date))
+    ),
+  ];
+
   return [
     ...staticPages,
     ...kashmiriFoodPages,
@@ -134,5 +144,6 @@ export default async function sitemap() {
     ...scenicDrivePages,
     ...itineraryPages,
     ...blogPages,
+    ...kashmiriFoodBlogPages,
   ];
 }

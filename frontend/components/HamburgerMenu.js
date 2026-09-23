@@ -70,7 +70,7 @@ export default function HamburgerMenu() {
             {/* Links */}
             <div style={{ flex: 1, padding: "12px 0" }}>
               <motion.div variants={containerVars} initial="hidden" animate="show" style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                {[{ label: "Profile", href: "/profile" },{ label: "Saved Dishes", href: "/favorites" },{ label: "Recipes", href: "/recipes" },{ label: "Blog", href: "/blog" },{ label: "List Your Restaurant", href: "/list-restaurant" },{ label: "Explore Kashmir", href: "/explore" },{ label: "About Us", href: "/about" },{ label: "Contact Us", href: "/contact" },{ label: "Privacy Policy", href: "/privacy" }].map((item) => (
+                {[{ label: "Profile", href: "/profile" },{ label: "Saved Dishes", href: "/favorites" },{ label: "Recipes", href: "/recipes" },{ label: "Blog", href: "/blog" },{ label: "Kashmiri Food Blogs", href: "/kashmiri-food-blogs" },{ label: "List Your Restaurant", href: "/list-restaurant" },{ label: "Explore Kashmir", href: "/explore" },{ label: "About Us", href: "/about" },{ label: "Contact Us", href: "/contact" },{ label: "Privacy Policy", href: "/privacy" }].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
                     <Link href={item.href} onClick={() => setIsOpen(false)} style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #C8A46A)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                       onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
@@ -160,6 +160,7 @@ export default function HamburgerMenu() {
                   { label: "Your Profile", sub: "Manage your details", href: "/profile", iconColor: "blue" },
                   { label: "Saved Dishes", sub: "Your favorite picks", href: "/favorites", iconColor: "red" },
                   { label: "Recipes", sub: "Cook like a Waza", href: "/recipes", iconColor: "green" },
+                  { label: "Kashmiri Food Blogs", sub: "Deep Dish Guides", href: "/kashmiri-food-blogs", iconColor: "saffron" },
                   { label: "List Your Restaurant", sub: "Join Wazwan Way", href: "/list-restaurant", iconColor: "saffron" },
                   { label: "About Us", sub: "Our story & mission", href: "/about", iconColor: "saffron" },
                   { label: "Contact Us", sub: "Reach out to our team", href: "/contact", iconColor: "saffron" },
