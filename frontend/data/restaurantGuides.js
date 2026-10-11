@@ -29,7 +29,7 @@ These three were the only restaurants named on all five Srinagar restaurant list
 
 **Shamyana, Boulevard Road.** Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake. The city guide so.city recommended it for Wazwan in 2018, as did Outlook Traveller in 2022. Outlook's January 2024 guide put a meal for two at about ₹800.
 
-**What to order.** If you only try two dishes, make them rista and gushtaba, the two Wazwan meatballs made from pounded mutton. [Rista vs Gushtaba](/kashmiri-food/wazwan/guide/rista-vs-gushtaba) explains how they differ, and [Wazwan Dishes Explained](/kashmiri-food/wazwan/guide/dishes-explained) covers the rest of the feast.
+**What to order.** If you only try two dishes, make them rista and gushtaba, the two Wazwan meatballs made from pounded mutton. [Rista vs Gushtaba](/kashmiri-food/wazwan/guide/rista-vs-gushtaba) explains how they differ, and [Traditional Wazwan](/dishes) covers the rest of the feast.
 
 ---
 

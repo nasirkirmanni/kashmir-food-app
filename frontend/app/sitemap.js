@@ -53,8 +53,6 @@ export default async function sitemap() {
     "/restaurants",
     "/restaurants/best-wazwan-srinagar",
     "/recipes",
-    "/history",
-    "/etiquette",
     "/how-to-experience",
     "/destinations",
     "/plan",
@@ -75,7 +73,8 @@ export default async function sitemap() {
   const guideCategories = ["wazwan", "bakery", "beverages", "street-food"];
   const kashmiriFoodPages = [
     "/kashmiri-food",
-    ...guideCategories.map((category) => `/kashmiri-food/${category}`),
+    // The Wazwan category page redirects to /dishes, the main Wazwan page (listed above).
+    ...guideCategories.filter((category) => category !== "wazwan").map((category) => `/kashmiri-food/${category}`),
     ...guideCategories
       .filter((category) => wazwanGuides.some((guide) => guide.category === category))
       .map((category) => `/kashmiri-food/${category}/guide`),

@@ -124,7 +124,7 @@ Kashmiri Pandit cooking traditionally uses asafoetida instead of onion and garli
 ## Vegetarian food at Kashmiri celebrations
 
 Special occasions have vegetarian dishes of their own:
-- **Wedding menus.** When J&K's government capped wedding menus, the limits reported by Gulf News in 2018 allowed seven vegetarian dishes alongside seven non-vegetarian dishes and two sweets.
+- **Wedding menus.** When J&K's government capped wedding menus, the limits announced in February 2017 allowed seven vegetarian dishes alongside seven non-vegetarian dishes and two sweets.
 - **Festive rice.** *Tehar*, rice coloured with turmeric, is made for auspicious occasions (Incredible India; Wikipedia's list of Kashmiri dishes).
 - **Sweet saffron rice.** *Modur pulav* is sweetened rice with saffron and dry fruit (Outlook Traveller).
 - **Sweets.** Phirni is a milk pudding, and shufta combines paneer and dry fruit in saffron syrup (OT Eats). Neither contains meat; both contain dairy.
@@ -253,7 +253,7 @@ End of article: **"Browse vegetarian Kashmiri dishes"**, linking to /dishes. Add
 - Wikipedia, Kashmiri Pandits. Traditionally eat mutton and fish, not beef or pork (citing Witzel 1991; Simoons 1994): https://en.wikipedia.org/wiki/Kashmiri_Pandits
 - Kashmir Life (Jan 2024), Kashmir's Winter Cuisine. Dried tomato, brinjal and bottle gourd: https://kashmirlife.net/kashmirs-winter-cuisine-col-15-issue-40-335923/
 - Wikipedia, Kahwah. Served with sugar or honey, relevant to the Jain note; commonly served after Wazwan and family dinners: https://en.wikipedia.org/wiki/Kahwah
-- Gulf News (1 Nov 2018), Curbs on guests, dishes at Kashmir weddings. Seven vegetarian dishes, seven non-vegetarian dishes and two sweets: https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267
+- Gulf News/IANS (published 21 Feb 2017, updated 1 Nov 2018), Curbs on guests, dishes at Kashmir weddings. Seven vegetarian dishes, seven non-vegetarian dishes and two sweets: https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267
 - Outlook Traveller, top 10 dishes to try in Kashmir. Modur pulav: https://www.outlooktraveller.com/ampstories/experiences/food-and-drink/top-10-dishes-to-try-on-your-kashmir-trip
 - Wikipedia, List of Kashmiri dishes. Tahaer (yellow rice) for auspicious occasions: https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes
 - OT Eats, Shufta. Paneer and dry fruit in saffron syrup: https://oteats.outlooktraveller.com/recipes/prepare-shufta-a-dry-fruit-loaded-kashmiri-sweet-dish

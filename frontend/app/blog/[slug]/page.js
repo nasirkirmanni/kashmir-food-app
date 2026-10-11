@@ -9,6 +9,7 @@ import { buildArticleSchema, buildFaqSchema } from "@/components/JsonLd";
 import RelatedDishLinks from "@/components/RelatedDishLinks";
 import { markdownSummary, toMetaDescription } from "@/lib/metaText";
 import { faqsFromMarkdown } from "@/lib/markdownFaq";
+import { stripLeadingTitle } from "@/lib/markdownTitle";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -145,7 +146,8 @@ export default function BlogPostPage({ params }) {
           <ReactMarkdown
             remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
             components={{
-              h1: ({node, ...props}) => <h1 className="font-display text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
+              // The page title is the only <h1>; a top-level heading in the markdown becomes a section heading.
+              h1: ({node, ...props}) => <h2 className="font-display text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
               h2: ({node, ...props}) => <h2 className="font-display text-3xl text-[var(--saffron)] mt-12 mb-6" {...props} />,
               h3: ({node, ...props}) => <h3 className="font-display text-2xl text-white mt-10 mb-4" {...props} />,
               p: ({node, ...props}) => <p className="mb-6 text-lg" {...props} />,
@@ -165,7 +167,7 @@ export default function BlogPostPage({ params }) {
               td: ({node, ...props}) => <td className="px-4 py-3 align-top border-b border-white/5" {...props} />,
             }}
           >
-            {post.content}
+            {stripLeadingTitle(post.content, post.title)}
           </ReactMarkdown>
         </div>
         <RelatedDishLinks articlePath={`/blog/${post.slug}`} />

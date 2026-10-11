@@ -29,14 +29,15 @@ export default function WazwanHero({ total, index }) {
             <div className={styles.heroTitleBlock}>
               <p className={`${styles.label} ${styles.heroEyebrow}`}>The royal feast of Kashmir</p>
               <h1 className={styles.heroTitle}>
-                <span className={styles.heroTitleSmall}>Traditional</span>
+                <span className={styles.heroTitleSmall}>Traditional</span>{" "}
                 <span className={styles.heroTitleLarge}>Wazwan</span>
               </h1>
             </div>
             <div className={styles.heroAside}>
               <p className={styles.heroDek}>
                 Kashmir’s formal feast, traditionally cooked through the night by teams of wazas and shared by
-                four diners from a copper trami. Here are its {total} dishes, arranged as the meal unfolds.
+                four diners from a copper trami. Below: {total} of its dishes in the order they’re served, and
+                the story behind the feast.
               </p>
             </div>
             <dl className={styles.heroFacts}>

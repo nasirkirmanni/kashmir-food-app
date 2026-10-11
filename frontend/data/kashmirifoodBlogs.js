@@ -37,7 +37,7 @@ export const kashmirifoodBlogs = [
     content: `
 Rogan Josh is arguably the most famous dish to emerge from the Kashmir Valley, a true global ambassador for Kashmiri cuisine. However, the dish most of the world knows by this name—a tomato-heavy, onion-laden curry—bears almost no resemblance to the ancient, sophisticated, and vibrant red braise that is authentic Kashmiri Rogan Josh.
 
-This comprehensive guide strips away the restaurant adaptations to reveal the true Rogan Josh: a masterpiece of slow-cooking, natural dyes, and complex aromatics that sits at the very heart of the Kashmiri [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan) and the everyday Kashmiri kitchen.
+This comprehensive guide strips away the restaurant adaptations to reveal the true Rogan Josh: a masterpiece of slow-cooking, natural dyes, and complex aromatics that sits at the very heart of the Kashmiri [Wazwan](/dishes) and the everyday Kashmiri kitchen.
 
 ## What Is Authentic Rogan Josh?
 
@@ -116,7 +116,7 @@ To eat authentic Rogan Josh is to taste the history of Kashmir. It is a dish tha
     relatedDishes: ["gushtaba", "rogan-josh", "yakhni", "marchwangan-korma"],
     isWazwan: true,
     content: `
-Rista is a dish that defines the sheer physical labour and culinary dedication of the Kashmiri [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan). These are not mere meatballs; they are masterpieces of texture, achieved through hours of rhythmic hand-pounding, served in a fiery, saffron-infused red gravy. 
+Rista is a dish that defines the sheer physical labour and culinary dedication of the Kashmiri [Wazwan](/dishes). These are not mere meatballs; they are masterpieces of texture, achieved through hours of rhythmic hand-pounding, served in a fiery, saffron-infused red gravy. 
 
 Along with its mild, yogurt-based sibling, [Gushtaba](/kashmiri-food-blogs/gushtaba), Rista represents the ultimate test of a Kashmiri *Waza’s* (master chef’s) skill. A perfectly executed Rista is springy, completely smooth, and profoundly flavourful.
 
@@ -189,7 +189,7 @@ To eat Rista is to consume hours of dedicated human labour. It is a dish that de
     relatedDishes: ["rista", "yakhni", "rogan-josh", "aab-gosht"],
     isWazwan: true,
     content: `
-Gushtaba is not merely a dish; it is an institution within Kashmiri culture. Reverently referred to as the "Dish of Kings," this preparation of velvety, hand-pounded mutton meatballs simmered in a delicate, aromatic yogurt gravy serves as the grand finale of the [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan) feast. 
+Gushtaba is not merely a dish; it is an institution within Kashmiri culture. Reverently referred to as the "Dish of Kings," this preparation of velvety, hand-pounded mutton meatballs simmered in a delicate, aromatic yogurt gravy serves as the grand finale of the [Wazwan](/dishes) feast. 
 
 Its arrival on the copper *Trami* carries profound significance: it signals the end of the meal, it soothes the palate after a procession of rich and spicy courses, and to refuse it is considered an unforgivable breach of etiquette.
 
@@ -249,7 +249,7 @@ Gushtaba is the culinary embodiment of Kashmiri hospitality—rich, labour-inten
     relatedDishes: ["rogan-josh", "rista", "gushtaba", "seekh-kebab"],
     isWazwan: true,
     content: `
-Tabak Maaz is a crowning jewel of the Kashmiri [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan) feast—an exquisite preparation of mutton ribs that undergo a transformative two-stage cooking process. First braised in a fragrant, spiced milk-and-yogurt broth until meltingly tender, and then shallow-fried in copious amounts of pure ghee until the exterior achieves a shattering crispness, it represents one of the most sophisticated meat preparations in the subcontinent.
+Tabak Maaz is a crowning jewel of the Kashmiri [Wazwan](/dishes) feast—an exquisite preparation of mutton ribs that undergo a transformative two-stage cooking process. First braised in a fragrant, spiced milk-and-yogurt broth until meltingly tender, and then shallow-fried in copious amounts of pure ghee until the exterior achieves a shattering crispness, it represents one of the most sophisticated meat preparations in the subcontinent.
 
 This contrast in textures—the golden, caramelised, crispy exterior yielding to a rich, fatty, fall-off-the-bone interior—makes Tabak Maaz one of the most highly anticipated dishes at any Kashmiri celebration. 
 
@@ -393,7 +393,7 @@ The Kashmiri technique for stabilizing yogurt is rigorous:
 
 ## Yakhni in the Wazwan
 
-In the grand [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan) feast, Mutton Yakhni makes its appearance toward the latter half of the meal. After the guests have consumed the heavy, fried dishes (Tabak Maaz) and the spicy red gravies (Rogan Josh, Rista), the Yakhni arrives as a soothing balm. 
+In the grand [Wazwan](/dishes) feast, Mutton Yakhni makes its appearance toward the latter half of the meal. After the guests have consumed the heavy, fried dishes (Tabak Maaz) and the spicy red gravies (Rogan Josh, Rista), the Yakhni arrives as a soothing balm. 
 
 The thin, aromatic yogurt gravy is designed to be mixed thoroughly with a fresh mound of steamed white rice, acting as a palate cleanser and preparing the stomach for the heavy finale of Gushtaba.
 
@@ -555,7 +555,7 @@ Modur Pulao is a celebration on a plate. It is a dish that makes no apologies fo
     relatedDishes: ["yakhni", "gushtaba", "rogan-josh", "daniwal-korma"],
     isWazwan: true,
     content: `
-In the grand sequence of the Kashmiri [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan), the red curries bring the fire, the kebabs bring the smoke, and **Aab Gosht** brings the sublime, sweet serenity. 
+In the grand sequence of the Kashmiri [Wazwan](/dishes), the red curries bring the fire, the kebabs bring the smoke, and **Aab Gosht** brings the sublime, sweet serenity. 
 
 Aab Gosht is a unique and luxurious mutton dish simmered in a rich milk and cardamom gravy. It stands as a testament to the Persian and Central Asian influences that shaped Kashmiri cuisine, offering a flavor profile that is almost entirely absent from the rest of the Indian subcontinent.
 
@@ -630,7 +630,7 @@ Aab Gosht is a masterpiece of culinary contrast—a meat dish that drinks like a
     content: `
 Kashmiri cuisine is famous for its aromatics, its rich fats, and its deep red colors—but it is rarely characterized by extreme, palate-scorching heat. **Marchwangan Korma**, however, is the glaring, fiery exception.
 
-This dish is the designated heavy hitter of the [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan) feast. It is a slow-cooked mutton curry designed specifically to shock the palate, clear the sinuses, and provide a sharp, intense contrast to the rich, creamy, and sweet dishes that surround it on the copper *Trami*.
+This dish is the designated heavy hitter of the [Wazwan](/dishes) feast. It is a slow-cooked mutton curry designed specifically to shock the palate, clear the sinuses, and provide a sharp, intense contrast to the rich, creamy, and sweet dishes that surround it on the copper *Trami*.
 
 ## What Is Marchwangan Korma?
 
@@ -699,7 +699,7 @@ Marchwangan Korma is not for the faint of heart. It is a bold, unapologetic dish
     relatedDishes: ["rogan-josh", "aab-gosht", "yakhni", "marchwangan-korma"],
     isWazwan: true,
     content: `
-If the fiery [Marchwangan Korma](/kashmiri-food-blogs/marchwangan-korma) represents the aggressive, heat-driven side of the Kashmiri [Wazwan](/kashmiri-food/wazwan/guide/what-is-wazwan), then **Daniwal Korma** represents its bright, herbaceous, and aromatic counterpart. 
+If the fiery [Marchwangan Korma](/kashmiri-food-blogs/marchwangan-korma) represents the aggressive, heat-driven side of the Kashmiri [Wazwan](/dishes), then **Daniwal Korma** represents its bright, herbaceous, and aromatic counterpart. 
 
 This dish is a masterclass in the use of fresh herbs within a cuisine that traditionally relies heavily on dried spices. Generously laden with fresh coriander (cilantro), Daniwal Korma offers a burst of freshness that cuts through the heavy fats of the wedding feast.
 

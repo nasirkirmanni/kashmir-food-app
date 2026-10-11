@@ -21,7 +21,9 @@ export const WAZWAN_CHAPTERS = [
       "The first dishes arrive with the trami itself, laid on a mound of rice for four diners to share.",
     courseTypes: ["foundation"],
     layout: "pair",
-    listTitle: "Also on the trami",
+    // Chutneys, pulao and kebabs come with the trami but aren't all laid on it (the sources list
+    // rice, seekh kebab, methi maaz, tabak maaz and chicken on the platter itself).
+    listTitle: "Served with the trami",
   },
   {
     id: "the-gravies",

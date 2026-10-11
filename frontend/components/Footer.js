@@ -23,7 +23,7 @@ export default function Footer() {
           <Link href="/destinations" className="transition-colors duration-300 hover:text-[#C8A46A]">Destinations</Link>
           <Link href="/itineraries" className="transition-colors duration-300 hover:text-[#C8A46A]">Itineraries</Link>
           <Link href="/explore" className="transition-colors duration-300 hover:text-[#C8A46A]">Explore Kashmir</Link>
-          <Link href="/history" className="transition-colors duration-300 hover:text-[#C8A46A]">History of Wazwan</Link>
+          <Link href="/kashmiri-food/wazwan/guide/history-of-wazwan" className="transition-colors duration-300 hover:text-[#C8A46A]">History of Wazwan</Link>
           <Link href="/blog" className="transition-colors duration-300 hover:text-[#C8A46A]">Blog</Link>
           <Link href="/kashmiri-food-blogs" className="transition-colors duration-300 hover:text-[#C8A46A]">Dish Encyclopedia</Link>
           <Link href="/about" className="transition-colors duration-300 hover:text-[#C8A46A]">About</Link>

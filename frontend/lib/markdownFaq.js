@@ -6,7 +6,8 @@
  */
 const LIST_ITEM = /^(?:[-*+]|\d+\.)\s+/;
 
-function inlineText(markdown) {
+/** Markdown reduced to plain text: links become their text, emphasis marks go. */
+export function inlineText(markdown) {
   return markdown
     .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
     .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")

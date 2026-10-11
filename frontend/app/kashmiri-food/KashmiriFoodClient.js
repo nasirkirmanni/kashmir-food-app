@@ -151,7 +151,7 @@ const HUB_HEROES = {
     lines: [<><span className="accent">Wazwan</span>, the</>, "feast of", "Kashmir."],
     sub: "Up to 36 courses built mostly on mutton, cooked through the night by teams of wazas and shared four to a copper trami. Meet the dishes, then read how the feast works.",
     start: { label: "Begin the feast", section: "wazwan" },
-    read: { label: "What is Wazwan?", href: "/kashmiri-food/wazwan/guide/what-is-wazwan" },
+    read: { label: "What is Wazwan?", href: "/dishes" },
   },
   bakery: {
     lines: [<>The <span className="accent">Kashmiri</span></>, "bakery, from", "dawn to dusk."],
@@ -446,7 +446,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
               <div><span className="n">10+</span><span className="l">Hours to prepare</span></div>
             </div>
             <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
-              <Link href="/kashmiri-food/wazwan" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
+              <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
             </div>
           </div>
           <div className="chapter-gallery reveal fade-left">

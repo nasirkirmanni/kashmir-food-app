@@ -22,7 +22,7 @@ const INGREDIENTS = [
     name: "Saffron",
     origin: "Pampore · The Karewa Plateaus",
     story:
-      "One flower gives three threads. It takes a hundred and sixty flowers to fill a single gram — grown on Pampore's plateaus for over two thousand years, and still picked at dawn, by hand.",
+      "One flower gives three threads. It takes about a hundred and fifty flowers to make a single gram — grown on Pampore's plateaus for centuries, and still picked at dawn, by hand.",
     image: "/redesign/img/craft-saffron.webp",
     href: "/blog/pampore-kashmiri-saffron",
     x: 96, y: 84,

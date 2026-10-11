@@ -2,18 +2,18 @@
 
 > Wazwan Way (wazwanway.com) is a guide to Kashmiri food and travel. It explains Wazwan, Kashmir's formal multi-course feast, and the wider cuisine around it: dishes, breads, tea, street food, history and etiquette. It also lists restaurants in Srinagar, destinations across Kashmir, scenic drives and a trip planner.
 
-Wazwan is cooked by teams of master chefs called wazas and eaten by four diners sharing a copper platter called the trami. Its size varies: 36 courses is the traditional ideal, while a 2016 review in the Journal of Ethnic Foods puts Wazwan at anywhere from 7 to 36 dishes. The popular story that Wazwan began with cooks from Samarkand who came to Kashmir in Timur's time is legend rather than record, and Wazwan Way's history pages present it that way.
+Wazwan is cooked by teams of master chefs called wazas and eaten by four diners sharing a copper platter called the trami. Its size varies: 36 courses is the traditional ideal, while a 2016 review in the Journal of Ethnic Foods puts Wazwan at anywhere from 7 to 36 dishes. The popular story that Wazwan began with cooks from Samarkand who came to Kashmir in Timur's time is the wazas' own account rather than recorded history: Timur never entered Kashmir, and no document records how the feast began.
 
 ## Wazwan
 
-- [What is Wazwan?](https://wazwanway.com/kashmiri-food/wazwan/guide/what-is-wazwan): What the feast is, what the name means, how many courses it has and how it is served
-- [Wazwan Dishes Explained](https://wazwanway.com/kashmiri-food/wazwan/guide/dishes-explained): The main trami dishes, from rista to gushtaba
-- [The Traditional Wazwan Menu, Course by Course](https://wazwanway.com/kashmiri-food/wazwan/guide/traditional-wazwan-menu): The order the dishes are served in
+- [Traditional Wazwan](https://wazwanway.com/dishes): The main page on Wazwan: what the feast is, its dishes in serving order, the wazas who cook it, what is documented about its history, how many dishes it has, and how to try it, with sources
+- [How Wazwan Is Served](https://wazwanway.com/kashmiri-food/wazwan/guide/how-wazwan-is-served): The trami, the hand-washing, the order of the courses and the etiquette
+- [History of Wazwan](https://wazwanway.com/kashmiri-food/wazwan/guide/history-of-wazwan): The Timur story, what the historical record shows, and how the feast took shape
+- [What Does Waza Mean?](https://wazwanway.com/kashmiri-food/wazwan/guide/waza-meaning): The professional cooks behind Wazwan and the vasta waza who leads them
 - [How Much Does Wazwan Cost?](https://wazwanway.com/kashmiri-food/wazwan/guide/cost-guide): Restaurant, wedding and fine-dining price ranges in Srinagar
 - [Vegetarian Wazwan](https://wazwanway.com/kashmiri-food/wazwan/guide/vegetarian-wazwan): The vegetarian dishes at a Wazwan and what restaurants offer
-- [Wazwan Etiquette](https://wazwanway.com/etiquette): How to eat from the trami
-- [History of Wazwan](https://wazwanway.com/history): The Timur legend, the wazas and the trami tradition
-- [Wazwan Dishes](https://wazwanway.com/dishes): The dishes of the feast, grouped by course
+- [Restaurant vs Wedding vs Home](https://wazwanway.com/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home): What changes between the three ways to eat Wazwan
+- [How to Experience Wazwan](https://wazwanway.com/how-to-experience): A first-timer's guide
 - [All Wazwan guides](https://wazwanway.com/kashmiri-food/wazwan/guide)
 
 ## Kashmiri food
