@@ -56,8 +56,18 @@ export function LastCourse({ chapter }) {
 }
 
 const NEXT_READS = [
-  { href: "/etiquette", kicker: "Etiquette", title: "The 7 unwritten rules", text: "How to eat from the trami." },
-  { href: "/kashmiri-food/wazwan/guide", kicker: "Guidebook", title: "Guides to the feast", text: "The dishes, what they cost and how the feast is served." },
+  {
+    href: "/kashmiri-food/wazwan/guide/how-wazwan-is-served",
+    kicker: "Etiquette",
+    title: "How Wazwan is served",
+    text: "The trami, the order of the courses and how to eat.",
+  },
+  {
+    href: "/kashmiri-food/wazwan/guide/history-of-wazwan",
+    kicker: "History",
+    title: "Where Wazwan comes from",
+    text: "What the records show, and what is only told.",
+  },
   { href: "/kashmiri-food", kicker: "Beyond the Wazwan", title: "All Kashmiri food", text: "Bakery, drinks and street food." },
 ];
 

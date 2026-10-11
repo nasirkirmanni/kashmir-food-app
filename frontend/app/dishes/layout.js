@@ -1,46 +1,30 @@
-import fs from "fs";
-import path from "path";
-import JsonLd, { buildSlugItemListSchema } from "@/components/JsonLd";
-
-function loadSlugs(filename) {
-  try {
-    const p = path.join(process.cwd(), filename);
-    if (fs.existsSync(p)) {
-      return JSON.parse(fs.readFileSync(p, "utf-8")).map((i) => i.slug).filter(Boolean);
-    }
-  } catch {}
-  return [];
-}
-
+// /dishes is the site's main page for Wazwan: what it is, its dishes in serving order, who cooks
+// it and where it comes from. Its structured data is in app/dishes/page.js, so it describes only
+// what that page shows (dish pages below this layout carry their own Recipe data).
 export const metadata = {
   // An object title passes the brand template down to dish pages; a plain string
   // would reset it for everything below this layout. `default` is the hub's title.
   title: {
-    default: "Kashmiri Dishes | Explore Wazwan Cuisine",
+    default: "Wazwan: Kashmir's Traditional Feast, Dish by Dish",
     template: "%s | Wazwan Way",
   },
   description:
-    "Signature dishes of the royal Wazwan table — Rogan Josh, Gushtaba, Rista, Tabak Maaz and more — with their history, spice levels and where to taste them.",
+    "Wazwan is Kashmir's traditional multi-course feast. What it is, who cooks it, how it's served on a copper trami, its dishes in serving order and its history.",
   alternates: { canonical: "https://wazwanway.com/dishes" },
   openGraph: {
-    title: "Kashmiri Dishes | Explore Wazwan Cuisine | Wazwan Way",
-    description: "Explore the full menu of authentic Kashmiri Wazwan dishes with history, spice levels, and restaurant recommendations.",
+    title: "Wazwan: Kashmir's Traditional Feast, Dish by Dish | Wazwan Way",
+    description:
+      "Kashmir's multi-course feast, cooked by wazas and shared four to a copper trami: its dishes in serving order, the cooks and the history.",
     url: "https://wazwanway.com/dishes",
-    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Kashmiri Wazwan Dishes" }],
+    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "A traditional Kashmiri Wazwan" }],
   },
   twitter: {
-    title: "Kashmiri Dishes | Wazwan Way",
-    description: "Explore authentic Kashmiri Wazwan dishes — Rogan Josh, Gushtaba, Rista and more.",
+    title: "Wazwan: Kashmir's Traditional Feast | Wazwan Way",
+    description: "Kashmir's multi-course feast: its dishes in serving order, the wazas who cook it and where it comes from.",
     images: ["/wazwan-hero.jpg"],
   },
 };
 
 export default function DishesLayout({ children }) {
-  const slugs = loadSlugs("dishes-static-ids.json");
-  return (
-    <>
-      {slugs.length > 0 ? <JsonLd data={buildSlugItemListSchema("/dishes", slugs, "Kashmiri Dishes on Wazwan Way")} /> : null}
-      {children}
-    </>
-  );
+  return children;
 }

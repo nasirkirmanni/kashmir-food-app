@@ -1643,3 +1643,316 @@
     transform: none;
   }
 }
+
+/* ---------- In brief: the definition up front ---------- */
+
+.brief {
+  padding-block: clamp(72px, 9vw, 128px);
+  border-top: 1px solid var(--ww-line);
+}
+
+.briefGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 48px;
+  align-items: start;
+}
+
+.briefLead {
+  grid-column: 1 / span 7;
+}
+
+.briefTitle {
+  margin: 18px 0 0;
+  font-family: var(--ww-display);
+  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.briefText {
+  max-width: 62ch;
+  margin-top: 28px;
+}
+
+.briefText p {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.4vw, 1.3125rem);
+  line-height: 1.65;
+  color: var(--ww-ivory-soft);
+  text-wrap: pretty;
+}
+
+.briefText strong {
+  font-weight: 600;
+  color: var(--ww-ivory);
+}
+
+.briefFacts {
+  grid-column: 9 / span 4;
+  margin: 0;
+  border-top: 1px solid var(--ww-line-strong);
+}
+
+.briefFacts > div {
+  display: grid;
+  grid-template-columns: 8.75rem minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--ww-line);
+}
+
+.briefFacts dt {
+  padding-top: 3px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ww-ivory-muted);
+}
+
+.briefFacts dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ww-ivory);
+}
+
+/* ---------- Behind the feast: the cooks, the past and the occasion ---------- */
+
+.notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(56px, 6vw, 88px) clamp(32px, 4vw, 72px);
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 28px;
+  border-top: 1px solid var(--ww-line-strong);
+}
+
+/* The history note carries a two-column ledger, so it takes the full width. */
+.noteWide {
+  grid-column: 1 / -1;
+}
+
+.noteTitle {
+  margin: 14px 0 0;
+  font-family: var(--ww-display);
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.noteText {
+  max-width: 68ch;
+  margin-top: 20px;
+}
+
+.noteText p,
+.faqAnswer p {
+  margin: 0 0 1em;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ww-ivory-soft);
+  text-wrap: pretty;
+}
+
+.noteText p:last-child,
+.faqAnswer p:last-child {
+  margin-bottom: 0;
+}
+
+.noteText strong,
+.faqAnswer strong {
+  font-weight: 600;
+  color: var(--ww-ivory);
+}
+
+.ledger {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  align-self: stretch;
+  margin-top: 28px;
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--ww-line);
+  background: rgba(241, 232, 218, 0.025);
+}
+
+.ledgerList {
+  margin: 14px 0 0;
+  padding-left: 1.1em;
+}
+
+.ledgerList li {
+  margin-bottom: 12px;
+  font-size: 0.975rem;
+  line-height: 1.65;
+  color: var(--ww-ivory-soft);
+}
+
+.ledgerList li::marker {
+  color: var(--ww-ivory-muted);
+}
+
+.noteMore {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 24px;
+  padding-bottom: 4px;
+  font-size: 0.9375rem;
+  color: var(--ww-ivory);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 160, 99, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.noteMore:hover {
+  border-bottom-color: var(--ww-gold);
+}
+
+.noteMore:hover .ctaArrow {
+  transform: translateX(6px);
+}
+
+/* ---------- Questions ---------- */
+
+.faq {
+  padding-block: clamp(88px, 10vw, 152px);
+  border-top: 1px solid var(--ww-line);
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 40px;
+}
+
+.faqLead {
+  grid-column: 1 / span 4;
+}
+
+.faqTitle {
+  margin: 18px 0 0;
+  font-family: var(--ww-display);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.faqList {
+  grid-column: 6 / span 7;
+  border-top: 1px solid var(--ww-line-strong);
+}
+
+.faqItem {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--ww-line);
+}
+
+.faqQuestion {
+  margin: 0;
+  font-family: var(--ww-display);
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ww-ivory);
+}
+
+.faqAnswer {
+  max-width: 64ch;
+  margin-top: 12px;
+}
+
+/* ---------- Sources ---------- */
+
+.sources {
+  padding-block: clamp(64px, 8vw, 112px);
+  border-top: 1px solid var(--ww-line);
+  background: var(--ww-ground-raised);
+}
+
+.sourcesTitle {
+  margin: 0;
+  font-family: var(--ww-display);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.sourcesNote {
+  max-width: 70ch;
+  margin: 14px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ww-ivory-muted);
+}
+
+.sourcesList {
+  margin: 28px 0 0;
+  padding-left: 1.4em;
+  columns: 2;
+  column-gap: 56px;
+}
+
+.sourcesList li {
+  margin-bottom: 12px;
+  break-inside: avoid;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ww-ivory-muted);
+}
+
+.sourcesLink {
+  color: var(--ww-ivory-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--ww-line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+.sourcesLink:hover {
+  color: var(--ww-ivory);
+  text-decoration-color: var(--ww-gold);
+}
+
+@media (max-width: 1023px) {
+  .briefLead,
+  .briefFacts,
+  .faqLead,
+  .faqList {
+    grid-column: 1 / -1;
+  }
+
+  .notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sourcesList {
+    columns: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .ledger {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .briefFacts > div {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+  }
+}
