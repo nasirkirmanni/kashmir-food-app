@@ -545,7 +545,7 @@ export default function HomePageHero({ initialDishes = [], isRoutePage = true })
       num: "02",
       eyebrow: "Kashmiri food",
       title: "The Dishes.",
-      line: "From street-side harissa to royal rista — ninety dishes deep.",
+      line: "From street-side harissa to royal rista — nearly fifty dishes deep.",
       image: "/redesign/img/door-feast.webp", // static fallback if no dish data
       cycleImages: dishImages,
       href: "/kashmiri-food",

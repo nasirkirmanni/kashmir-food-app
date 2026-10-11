@@ -23,8 +23,8 @@ const BLOG = {
 };
 
 const GUIDES = {
-  whatIsWazwan: { href: "/kashmiri-food/wazwan/guide/what-is-wazwan", title: "What is Wazwan? The Complete Guide to Kashmir's Legendary Feast" },
-  dishesExplained: { href: "/kashmiri-food/wazwan/guide/dishes-explained", title: "Wazwan Dishes Explained: The Saat Rang and Beyond" },
+  // The main Wazwan page: what the feast is and every dish in serving order.
+  wazwan: { href: "/dishes", title: "Traditional Wazwan: the feast, dish by dish" },
   vegetarian: { href: "/kashmiri-food/wazwan/guide/vegetarian-wazwan", title: "Vegetarian Wazwan: What to Expect and What to Order" },
 };
 
@@ -68,7 +68,7 @@ export function relatedReadingForDish(dish) {
   if (!dish?.slug) return [];
   const links = [...(ARTICLES_BY_DISH[dish.slug] || [])];
   if (dish.category === "Wazwan") {
-    links.push(GUIDES.dishesExplained, GUIDES.whatIsWazwan);
+    links.push(GUIDES.wazwan);
     if (dish.foodType === "Veg") links.push(GUIDES.vegetarian);
   }
   return links;

@@ -22,14 +22,14 @@ const COURSES = [
     slug: "seekh-kebab",
     name: "Seekh Kebab",
     stage: "Under the sarposh",
-    line: "Four kebabs lie across the rice when the lid comes off, dividing the mound into quarters — one for each guest.",
+    line: "Two kebabs cross the rice when the lid comes off, dividing the mound into quarters — one for each guest.",
     image: "/images/scroll/KABAB.png",
   },
   {
     slug: "tabak-maaz",
     name: "Tabak Maaz",
     stage: "Under the sarposh",
-    line: "Lamb ribs par-boiled in spiced milk, then fried golden and crisp. They're already waiting on the trami.",
+    line: "Lamb ribs simmered until tender, then fried golden and crisp. They're already waiting on the trami.",
     image: "/images/scroll/TABAKH.png",
   },
   {
@@ -57,7 +57,7 @@ const COURSES = [
     slug: "gushtaba",
     name: "Gushtaba",
     stage: "The last course",
-    line: "Pounded smoothest of all and poached in yogurt, one for each guest. When it arrives, the feast is ending.",
+    line: "Pounded smoothest of all and poached in yogurt, one shared by the four. When it arrives, the feast is ending.",
     image: "/images/scroll/GUSHTABA.png",
   },
 ];
@@ -327,7 +327,7 @@ export default function TheTrami() {
                     Explore every dish
                     <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
-                  <Link href="/blog/trami-etiquette" prefetch={false} style={MONO} className={OUTLINE_BUTTON}>
+                  <Link href="/kashmiri-food/wazwan/guide/how-wazwan-is-served" prefetch={false} style={MONO} className={OUTLINE_BUTTON}>
                     How the trami is served
                   </Link>
                 </div>

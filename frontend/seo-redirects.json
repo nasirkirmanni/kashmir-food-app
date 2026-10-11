@@ -1,0 +1,16 @@
+[
+  { "source": "/kashmiri-food/wazwan/guide/what-is-wazwan", "destination": "/dishes", "reason": "Same search as the main Wazwan page; its sourced content moved there." },
+  { "source": "/kashmiri-food/wazwan/guide/wazwan-culture", "destination": "/dishes", "reason": "Covered by 'Wazwan in Kashmiri life' on the main page." },
+  { "source": "/kashmiri-food/wazwan/guide/kashmiri-wedding-food", "destination": "/dishes", "reason": "Treated all Kashmiri wedding food as Wazwan; its wedding material moved to the main page." },
+  { "source": "/kashmiri-food/wazwan/guide/dishes-explained", "destination": "/dishes", "reason": "Same search ('wazwan dishes') as the main page, which lists every dish in serving order." },
+  { "source": "/kashmiri-food/wazwan/guide/kashmiri-wazwan-dishes", "destination": "/dishes", "reason": "Thin duplicate of the dish list." },
+  { "source": "/kashmiri-food/wazwan/guide/traditional-wazwan-menu", "destination": "/dishes", "reason": "Course order and dish list are on the main page." },
+  { "source": "/kashmiri-food/wazwan/guide/best-wazwan-dishes", "destination": "/dishes", "reason": "Duplicate dish shortlist; the essential dishes are marked on the main page." },
+  { "source": "/kashmiri-food/wazwan", "destination": "/dishes", "reason": "Copy of /kashmiri-food with a Wazwan hero; the main page is the Wazwan page." },
+  { "source": "/etiquette", "destination": "/kashmiri-food/wazwan/guide/how-wazwan-is-served", "reason": "One page for serving order and etiquette." },
+  { "source": "/blog/trami-etiquette", "destination": "/kashmiri-food/wazwan/guide/how-wazwan-is-served", "reason": "One page for serving order and etiquette." },
+  { "source": "/kashmiri-food/wazwan/guide/trami-in-kashmir", "destination": "/kashmiri-food/wazwan/guide/how-wazwan-is-served", "reason": "The trami is covered on the serving and etiquette page." },
+  { "source": "/history", "destination": "/kashmiri-food/wazwan/guide/history-of-wazwan", "reason": "One history page." },
+  { "source": "/blog/complete-history-of-wazwan", "destination": "/kashmiri-food/wazwan/guide/history-of-wazwan", "reason": "One history page; its sourced material and the owner-approved quotes moved there." },
+  { "source": "/blog/dying-art-of-the-waza", "destination": "/kashmiri-food/wazwan/guide/waza-meaning", "reason": "One page on the wazas; only material sources support moved there." }
+]

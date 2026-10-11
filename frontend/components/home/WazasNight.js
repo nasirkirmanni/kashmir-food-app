@@ -41,7 +41,7 @@ const HOURS = [
   {
     time: "2:00 AM",
     title: "The deep night.",
-    line: "The cold is brutal. The wazas huddle in pherans around cups of noon chai while the rista and gushtaba poach slowly in their gravies.",
+    line: "The fires are tended through the deep night while the rista and gushtaba poach slowly in their gravies.",
     sky: "#070810",
     glow: "rgba(170,74,30,0.24)",
   },
@@ -55,7 +55,7 @@ const HOURS = [
   {
     time: "12:00 PM",
     title: "The sarposh is lifted.",
-    line: "The tramis go out in rows. After more than twenty hours at the fire, the waza eats last.",
+    line: "The tramis go out in rows, after the best part of a day at the fire.",
     sky: "#20180c",
     glow: "rgba(230,200,117,0.3)",
   },
@@ -286,7 +286,7 @@ function StaticNight() {
         </ol>
 
         <div className="mt-16 text-center">
-          <Link href="/blog/dying-art-of-the-waza" prefetch={false} style={MONO} className={GOLD_BUTTON}>
+          <Link href="/kashmiri-food/wazwan/guide/waza-meaning" prefetch={false} style={MONO} className={GOLD_BUTTON}>
             Read the waza&apos;s story
             <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
@@ -374,18 +374,19 @@ export default function WazasNight() {
             >
               <div className="absolute inset-0 bg-[#050505]/70" />
               <figure className="relative max-w-3xl">
-                <blockquote
+                {/* A sourced fact, not a quotation: the earlier unattributed quote couldn't be verified. */}
+                <p
                   style={BODONI}
                   className="text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.1] text-white"
                 >
-                  &ldquo;We cook because the fire has been burning in our family for{" "}
-                  <span className="italic text-[#E6C875]">six hundred years</span>.&rdquo;
-                </blockquote>
+                  Ghulam Nabi Baba joined his father at the fire when he was{" "}
+                  <span className="italic text-[#E6C875]">fifteen</span>.
+                </p>
                 <figcaption style={MONO} className="mt-6 text-[0.6rem] uppercase tracking-[0.3em] text-white/50">
-                  From The Dying Art of the Waza
+                  A 74-year-old waza, speaking to Reuters in 2026
                 </figcaption>
-                <Link href="/blog/dying-art-of-the-waza" prefetch={false} style={MONO} className={`mt-10 ${GOLD_BUTTON}`}>
-                  Read the waza&apos;s story
+                <Link href="/kashmiri-food/wazwan/guide/waza-meaning" prefetch={false} style={MONO} className={`mt-10 ${GOLD_BUTTON}`}>
+                  Meet the wazas
                   <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </figure>

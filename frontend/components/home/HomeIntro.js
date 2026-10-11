@@ -67,7 +67,7 @@ export default function HomeIntro() {
             large copper plate — the trami — shared by four guests.
           </p>
           <Link
-            href="/kashmiri-food/wazwan/guide/what-is-wazwan"
+            href="/dishes"
             prefetch={false}
             style={MONO}
             className="mt-6 inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#C8A46A] hover:text-[#E6C875]"

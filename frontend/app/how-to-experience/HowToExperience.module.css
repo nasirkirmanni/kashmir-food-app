@@ -342,6 +342,25 @@
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(212, 162, 86, 0.28);
 }
+.ctaLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 28px;
+  margin: 36px auto 0;
+  max-width: 640px;
+  font-size: 0.95rem;
+}
+.ctaLinks a {
+  color: inherit;
+  opacity: 0.8;
+  text-decoration: underline;
+  text-decoration-color: var(--gold-soft);
+  text-underline-offset: 4px;
+}
+.ctaLinks a:hover {
+  opacity: 1;
+}
 
 .aiFab {
   position: fixed;

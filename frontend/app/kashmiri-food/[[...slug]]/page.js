@@ -11,15 +11,7 @@ import { wazwanGuides } from "@/data/wazwanGuides";
 import JsonLd from "@/components/JsonLd";
 import { buildArticleSchema, buildBreadcrumbSchema } from "@/components/JsonLd";
 import { toMetaDescription } from "@/lib/metaText";
-
-// Article markdown often opens with "# <title>", which the page already renders as
-// its <h1>; drop that line so the heading isn't repeated.
-function stripLeadingTitle(markdown, title) {
-  const normalise = (s) => (s || "").replace(/\s+/g, " ").trim().toLowerCase();
-  return (markdown || "").replace(/^\s*#\s+([^\n]*)\n/, (line, heading) =>
-    normalise(heading) === normalise(title) ? "" : line
-  );
-}
+import { stripLeadingTitle } from "@/lib/markdownTitle";
 
 export function generateStaticParams() {
   const paths = [
@@ -86,16 +78,8 @@ export async function generateMetadata({ params }) {
     guides: {
       wazwan: {
         base: {
-          title: "Kashmiri Wazwan Dining & Culinary Guides",
-          description: "Comprehensive guides to the traditional Wazwan feast. Understand the cooking methods, history, and sequence.",
-        },
-        "what-is-wazwan": {
-          title: "What Is Wazwan? Kashmir's Legendary Feast",
-          description: "What Wazwan is, what the name means, how many courses it really has and how it's served: a guide to Kashmir's feast, cooked by traditional Wazas.",
-        },
-        "dishes-explained": {
-          title: "Wazwan Dishes Explained: The Saat Rang & Beyond",
-          description: "A complete guide to the main dishes served in a traditional Trami, from Rista and Gustaba to Tabak Maaz and Lahabi Kebab.",
+          title: "Wazwan Guides: Serving, History, Wazas & Cost",
+          description: "Guides to the Wazwan feast: how it's served, where it comes from, the wazas who cook it, what it costs and what vegetarians can eat.",
         },
         "cost-guide": {
           title: "How Much Does Wazwan Cost? A Price Guide",
@@ -103,55 +87,27 @@ export async function generateMetadata({ params }) {
         },
         "vegetarian-wazwan": {
           title: "Vegetarian Wazwan: What to Expect & Order",
-          description: "A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
-        },
-        etiquette: {
-          title: "Wazwan Etiquette: Tash-t-Næær & Trami Rules",
-          description: "Master the social dining etiquette of a Kashmiri Wazwan. Learn about sharing the Trami, washing hands, and traditional protocols.",
+          description: "An honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
         },
         "restaurant-vs-wedding-vs-home": {
           title: "Wazwan: Restaurant vs Wedding vs Home",
           description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
         },
-        "kashmiri-wazwan-dishes": {
-          title: "Kashmiri Wazwan Dishes: A Culinary Guide",
-          description: "Explore the vast and flavorful world of Kashmiri Wazwan dishes, from the succulent Seekh Kebabs to the delicate Gushtaba.",
-        },
         "rista-vs-gushtaba": {
           title: "Rista vs Gushtaba: Kashmir's Twin Meatballs",
           description: "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan.",
         },
-        "traditional-wazwan-menu": {
-          title: "Traditional Wazwan Menu, Course by Course",
-          description: "Explore the traditional Wazwan menu course by course, from the dishes on the trami to the final dessert and Kahwa.",
-        },
-        "kashmiri-wedding-food": {
-          title: "Kashmiri Wedding Food: The Grandeur of Wazwan",
-          description: "A deep dive into how food dictates the flow, scale, and prestige of a traditional Kashmiri wedding.",
-        },
-        "wazwan-culture": {
-          title: "Wazwan Culture: The Social Fabric of Kashmir",
-          description: "How the shared experience of Wazwan binds the Kashmiri community together, transcending just culinary boundaries.",
-        },
         "waza-meaning": {
-          title: "What Does Waza Mean? Kashmir's Master Chefs",
-          description: "Explore the history, skills, and societal role of the Wazas, the master chefs who guard the secrets of Kashmiri Wazwan.",
+          title: "What Does Waza Mean? The Cooks Behind Wazwan",
+          description: "A waza is a professional Wazwan cook, led by a vasta waza. What the word means, how the teams work, where wazas come from and how the craft is passed on.",
         },
         "how-wazwan-is-served": {
-          title: "How Wazwan Is Served: Sequence & Etiquette",
-          description: "A detailed look at the highly structured and ritualistic sequence of serving a traditional Kashmiri Wazwan.",
-        },
-        "trami-in-kashmir": {
-          title: "The Trami: The Sacred Platter of Kashmir",
-          description: "Learn about the Trami, the large copper platter that sits at the center of the Wazwan experience and Kashmiri communal dining.",
-        },
-        "best-wazwan-dishes": {
-          title: "Top 5 Best Wazwan Dishes You Must Try",
-          description: "A curated list of the absolute best Wazwan dishes that every visitor to Kashmir must experience.",
+          title: "How Wazwan Is Served: Trami, Order, Etiquette",
+          description: "How a Wazwan is served: the hand-washing, the shared copper trami, the order of the courses from the first dishes to gushtaba, and the manners at the trami.",
         },
         "history-of-wazwan": {
-          title: "History of Wazwan: From Timur to Modern Kashmir",
-          description: "Trace Wazwan from the legend of Timur's Samarkand cooks and the courts of Kashmir's sultans to the grand weddings of modern Kashmir.",
+          title: "History of Wazwan: Legends and Evidence",
+          description: "Where Wazwan comes from: the Timur story the wazas tell, what the historical record shows, the earliest descriptions of Kashmiri feasts, and how the menu changed.",
         },
         "rista-deep-dive": {
           title: "Rista: Origins, Ingredients & Preparation",
@@ -349,6 +305,7 @@ export default function Page({ params }) {
               description: article.description || article.excerpt,
               author: article.author,
               datePublished: article.date,
+              dateModified: article.updatedDate,
               category: `Kashmiri ${category.replace("-", " ")}`,
               path: `/kashmiri-food/${category}/guide/${article.slug}`,
               readTime: article.readTime,
@@ -389,6 +346,7 @@ export default function Page({ params }) {
             <span className="flex items-center gap-2">
               <Calendar className="w-4 h-4" /> {article.date}
             </span>
+            {article.updatedDate ? <span>Updated {article.updatedDate}</span> : null}
           </div>
           
           {/* Main article content rendered as markdown */}
@@ -410,18 +368,23 @@ export default function Page({ params }) {
             >
               {(() => {
                 const categoryArticles = wazwanGuides.filter((g) => g.category === category);
-                const articleIndex = categoryArticles.findIndex((g) => g.slug === guideSlug);
-                
-                const relatedArticles = [];
-                // Pick 4 deterministic related articles based on array position
-                for (let i = 1; i <= 4; i++) {
-                  const relIndex = (articleIndex + i) % categoryArticles.length;
-                  if (categoryArticles[relIndex].slug !== guideSlug) {
-                    relatedArticles.push(categoryArticles[relIndex]);
+                const bySlug = new Map(categoryArticles.map((g) => [g.slug, g]));
+
+                // A guide names its related guides by topic; without that list, the next
+                // guides in the file stand in.
+                let relatedArticles = (article.related || []).map((s) => bySlug.get(s)).filter(Boolean);
+                if (!relatedArticles.length) {
+                  const articleIndex = categoryArticles.findIndex((g) => g.slug === guideSlug);
+                  for (let i = 1; i <= 4; i++) {
+                    const candidate = categoryArticles[(articleIndex + i) % categoryArticles.length];
+                    if (candidate.slug !== guideSlug && !relatedArticles.includes(candidate)) relatedArticles.push(candidate);
                   }
                 }
-                
-                const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedArticles.map(a => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`).join('\n');
+
+                const relatedLinks = relatedArticles.map((a) => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`);
+                // Every Wazwan guide links back to the main Wazwan page.
+                if (category === "wazwan") relatedLinks.unshift("- [Traditional Wazwan: the feast, dish by dish](/dishes)");
+                const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedLinks.join("\n");
                 return stripLeadingTitle(article.content, article.title) + relatedMarkdown;
               })()}
             </ReactMarkdown>

@@ -11,10 +11,10 @@ Limits: meta title <= 60 characters including " | Wazwan Way"; meta description 
 | 01-what-to-eat-in-kashmir.md | 1850 | 10 min | 122 | 11 | 6 | 1 | 7 | 5 | 58 | 155 | 79 | yes | all |
 | 02-kashmiri-street-food-srinagar.md | 1822 | 10 min | 118 | 11 | 6 | 1 | 10 | 4 | 58 | 156 | 74 | yes | all |
 | 03-kashmiri-winter-food.md | 1697 | 9 min | 99 | 7 | 6 | 2 | 6 | 3 | 54 | 147 | 86 | yes | all |
-| 04-kashmiri-cuisine-explained.md | 2178 | 11 min | 118 | 10 | 6 | 3 | 9 | 5 | 57 | 155 | 89 | yes | all |
+| 04-kashmiri-cuisine-explained.md | 2184 | 11 min | 118 | 10 | 6 | 3 | 9 | 5 | 57 | 155 | 89 | yes | all |
 | 05-kashmiri-breakfast.md | 1602 | 9 min | 122 | 10 | 6 | 1 | 11 | 3 | 58 | 152 | 91 | yes | all |
 | 06-is-kashmiri-food-spicy.md | 1566 | 8 min | 110 | 9 | 6 | 3 | 8 | 3 | 51 | 150 | 91 | yes | all |
-| 07-vegetarian-food-in-kashmir.md | 1571 | 8 min | 114 | 8 | 6 | 1 | 9 | 3 | 52 | 142 | 69 | yes | all |
+| 07-vegetarian-food-in-kashmir.md | 1569 | 8 min | 114 | 8 | 6 | 1 | 9 | 3 | 52 | 142 | 69 | yes | all |
 | 08-kashmiri-pandit-food.md | 1755 | 9 min | 110 | 7 | 6 | 2 | 9 | 3 | 53 | 153 | 81 | yes | all |
 | 09-what-to-buy-in-kashmir-food-souvenirs.md | 1698 | 9 min | 95 | 11 | 6 | 1 | 5 | 2 | 60 | 143 | 95 | yes | all |
 | 10-kashmiri-sweets-desserts.md | 1528 | 8 min | 99 | 11 | 6 | 2 | 12 | 3 | 54 | 149 | 88 | yes | all |
@@ -64,7 +64,7 @@ Limits: meta title <= 60 characters including " | Wazwan Way"; meta description 
 | 01-what-to-eat-in-kashmir.md | 0 | what-is-ver-masala |
 | 02-kashmiri-street-food-srinagar.md | 0 | what-is-ver-masala |
 | 03-kashmiri-winter-food.md | 0 | what-is-ver-masala |
-| 04-kashmiri-cuisine-explained.md | 15 | complete-history-of-wazwan |
+| 04-kashmiri-cuisine-explained.md | 0 | what-is-ver-masala |
 | 05-kashmiri-breakfast.md | 1 | kandur-wan-breads |
 | 06-is-kashmiri-food-spicy.md | 0 | what-is-ver-masala |
 | 07-vegetarian-food-in-kashmir.md | 0 | what-is-ver-masala |

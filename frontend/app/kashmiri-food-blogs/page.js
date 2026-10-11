@@ -236,7 +236,7 @@ export default function KashmirifoodBlogsPage() {
           <h2 className="font-display text-2xl text-white mb-6">Explore More</h2>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { label: "Wazwan Guide", href: "/kashmiri-food/wazwan/guide/what-is-wazwan" },
+              { label: "Traditional Wazwan", href: "/dishes" },
               { label: "Kashmiri Food Portal", href: "/kashmiri-food" },
               { label: "Restaurants", href: "/restaurants" },
               { label: "Best Wazwan in Srinagar", href: "/restaurants/best-wazwan-srinagar" },

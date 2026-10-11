@@ -32,7 +32,7 @@ const BEATS = [
     key: "cup",
     label: "Noon chai · the cup",
     title: "Milk and salt make it pink.",
-    line: "Salty, buttery and poured every morning, with bread from the kandur torn and dunked into the cup.",
+    line: "Salty and poured every morning, with bread from the kandur torn and dunked into the cup.",
   },
   {
     key: "kahwa",

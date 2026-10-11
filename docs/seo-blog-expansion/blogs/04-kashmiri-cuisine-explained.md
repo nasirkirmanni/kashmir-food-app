@@ -153,14 +153,14 @@ Wazwan is Kashmiri cuisine's grandest expression, but it's a feast, not everyday
 - **How many dishes?** It varies:
   - A 2016 review in the *Journal of Ethnic Foods* puts Wazwan at 7 to 36 dishes.
   - Wikipedia gives 36 courses, without a citation.
-  - One magazine has claimed up to 72.
+  - A Kashmiri restaurateur quoted by Asia Media Centre has put it at up to 72.
   - Read "36" as the grand ideal, not a fixed number.
 - **The core.** Wikipedia lists seven essential dishes: tabak maaz, rista, rogan josh, daniwal korma, aab gosht, marchwangan korma and gushtaba.
 - **How it's served.** Diners wash their hands at a basin called the *tash-t-naer*, then share a copper platter, the *trami*, in groups of four (Wikipedia).
 - **Who cooks it.** Teams of wazas, led by a vasta waza, cook through the night.
 - **Attempts at restraint.** Governments have tried more than once to rein in the size of wedding feasts:
   - In the 1960s, J&K's then prime minister, Ghulam Mohammad Sadiq, asked for guest limits at weddings (Outlook India).
-  - A government order reported by Gulf News in 2018 capped wedding menus at seven non-vegetarian dishes, seven vegetarian dishes and two sweets.
+  - A government order announced in February 2017 capped wedding menus at seven non-vegetarian dishes, seven vegetarian dishes and two sweets.
 
 Start with [What is Wazwan?](/kashmiri-food/wazwan/guide/what-is-wazwan) and [Wazwan dishes explained](/kashmiri-food/wazwan/guide/dishes-explained). For how Wazwan differs from the court cooking of North India, see [Wazwan vs Mughlai](/kashmiri-food/wazwan/guide/wazwan-vs-mughlai).
 
@@ -304,7 +304,7 @@ End of article: **"Explore Kashmiri dishes one by one"**, linking to /dishes. Ad
 - District Budgam, Govt of J&K. *Waz* = cook, *wan* = shop: https://budgam.nic.in/culinary-delight/wazwan/
 - Rather, Masoodi & Akhter (2016), *Journal of Ethnic Foods*. 7–36 dishes: https://www.sciencedirect.com/science/article/pii/S235261811630124X
 - Outlook India (Naseer Ganai, Apr 2022; updated Jan 2024). 1960s guest control under Ghulam Mohammad Sadiq: https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258
-- Gulf News (1 Nov 2018), Curbs on guests, dishes at Kashmir weddings. 7 non-veg, 7 veg, 2 sweets; guest limits: https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267
+- Gulf News/IANS (published 21 Feb 2017, updated 1 Nov 2018), Curbs on guests, dishes at Kashmir weddings. 7 non-veg, 7 veg, 2 sweets; guest limits: https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267
   - Hindustan Times reported a similar J&K order in February 2017 (headlines seen via PressReader; the articles were not read). Don't state 2017 figures without reading a primary report.
 - Sahapedia (Mayank Soni), Kandurs of Srinagar. Before dawn; girda and lavasa first: http://www.sahapedia.org/kandurs-srinagar-breadmaking-kashmir-valley
 - Kashmir Life (2021). 200–300 households per kandur: https://kashmirlife.net/kashmir-breakfast-vol-13-issue-30-278118/

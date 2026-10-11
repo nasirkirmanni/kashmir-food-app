@@ -29,12 +29,12 @@ const RULES = [
   {
     numeral: "III",
     title: "The eldest breaks first.",
-    line: "No hand reaches before the senior one. Rank at the trami is measured in years, never in wealth.",
+    line: "No hand reaches before the senior one: the eldest at the trami says the prayer and begins the meal.",
   },
   {
     numeral: "IV",
-    title: "Never refuse the gushtaba.",
-    line: "The last course is the host's honour, pounded smooth by hand for hours. Declining it ends more than the meal.",
+    title: "Accept what you're offered.",
+    line: "Hosts press extra helpings on their guests, and the last course, gushtaba, is pounded smooth by hand for hours.",
   },
 ];
 

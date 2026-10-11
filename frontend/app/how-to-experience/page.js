@@ -6,28 +6,28 @@ import styles from "./HowToExperience.module.css";
 
 const wazaCategories = [
   { name: 'STREET FOOD', items: [
-    { q: "Four of us, and it's pouring outside.", a: [{text: "Kahwa first, then "}, {text: "Monje", em: true}, {text: " — hot fish fritters are made for this weather."}] },
-    { q: "Something quick, we only have 20 minutes.", a: [{text: "Try "}, {text: "Tsochvoru", em: true}, {text: " — skewered mutton, off the grill in minutes."}] },
-    { q: "I don't eat spicy food at all.", a: [{text: "Go for "}, {text: "Modur Pulao", em: true}, {text: " — sweet saffron rice, gentle on the palate."}] },
-    { q: "Anything vegetarian from a street stall?", a: [{text: "Nadru Yakhni", em: true}, {text: " — lotus stem in a mild yogurt gravy, sold by the bowl."}] }
+    { q: "Four of us, and it's pouring outside.", a: [{text: "Kahwa first, then "}, {text: "Nadru Monje", em: true}, {text: " — hot lotus-stem fritters are made for this weather."}] },
+    { q: "Something quick, we only have 20 minutes.", a: [{text: "Try "}, {text: "Tujji", em: true}, {text: " — skewered mutton, off the grill in minutes."}] },
+    { q: "I don't eat spicy food at all.", a: [{text: "Go for a plain "}, {text: "Lavasa", em: true}, {text: " — soft flatbread from the kandur, gentle on the palate."}] },
+    { q: "Anything vegetarian from a street stall?", a: [{text: "Masala Tsot", em: true}, {text: " — lavasa wrapped round spiced white peas and chutney."}] }
   ]},
   { name: 'WAZWAN FEAST', items: [
-    { q: "We're six people, first time trying Wazwan.", a: [{text: "Book a full trami — "}, {text: "Rista", em: true}, {text: " and "}, {text: "Rogan Josh", em: true}, {text: " open the feast."}] },
-    { q: "What comes right before Gushtaba?", a: [{text: "Aab Gosht", em: true}, {text: " — milk-braised lamb, the quiet dish before the finale."}] },
+    { q: "We're six people, first time trying Wazwan.", a: [{text: "Book a full trami — "}, {text: "seekh kebab", em: true}, {text: " and "}, {text: "tabak maaz", em: true}, {text: " arrive on it first."}] },
+    { q: "What comes right before Gushtaba?", a: [{text: "Yakhni", em: true}, {text: " — mutton in a yogurt and fennel gravy, usually just before the finale."}] },
     { q: "Is there a vegetarian trami option?", a: [{text: "Ask for the "}, {text: "Vegetarian Wazwan", em: true}, {text: " — built around paneer and lotus stem."}] },
-    { q: "How many courses should we expect?", a: [{text: "A ceremonial Wazwan runs "}, {text: "seven courses", em: true}, {text: " , sometimes more for weddings."}] },
+    { q: "How many courses should we expect?", a: [{text: "Anywhere from "}, {text: "seven to 36", em: true}, {text: " dishes; restaurant sets are much smaller."}] },
     { q: "What's the etiquette at the trami?", a: [{text: "Wait for the eldest guest — "}, {text: "they", em: true}, {text: " eat first, by tradition."}] }
   ]},
   { name: 'KAHWA & SWEETS', items: [
     { q: "What's a good after-dinner drink?", a: [{text: "Kahwa", em: true}, {text: " — saffron and cinnamon green tea, served from a samovar."}] },
-    { q: "Anything sweet to finish the meal?", a: [{text: "Phirni", em: true}, {text: " — chilled rice pudding, traditionally set in clay bowls."}] },
+    { q: "Anything sweet to finish the meal?", a: [{text: "Phirni", em: true}, {text: " — chilled pudding of ground rice or semolina, set in clay bowls."}] },
     { q: "Is Kahwa served with anything?", a: [{text: "Usually with "}, {text: "Kulcha", em: true}, {text: " or "}, {text: "Bakarkhani", em: true}, {text: " bread on the side."}] }
   ]},
   { name: 'SPICE LEVEL', items: [
     { q: "I want the boldest dish on the menu.", a: [{text: "Rista", em: true}, {text: " — minced mutton balls in a fiery red Kashmiri chili gravy."}] },
     { q: "Something rich but not too spicy?", a: [{text: "Gushtaba", em: true}, {text: " — pounded meatballs in a mild yogurt curry."}] },
-    { q: "What's the mildest dish available?", a: [{text: "Dahi Phulki", em: true}, {text: " — soft dumplings in cool spiced yogurt."}] },
-    { q: "Can the kitchen adjust spice for me?", a: [{text: "Yes — just mention it when you "}, {text: "book", em: true}, {text: " , and they'll tone it down."}] }
+    { q: "What's the mildest dish available?", a: [{text: "Aab Gosht", em: true}, {text: " — mutton in a mild milk gravy, scented with fennel and cardamom."}] },
+    { q: "Can the kitchen adjust spice for me?", a: [{text: "Ask when you "}, {text: "order", em: true}, {text: " — many kitchens can tone it down."}] }
   ]}
 ];
 
@@ -370,6 +370,12 @@ export default function HowToExperiencePage() {
         <Link href="/restaurants" className={styles.btnPrimary}>
           Plan Your Visit →
         </Link>
+        <p className={styles.ctaLinks}>
+          <Link href="/dishes">The dishes, in serving order</Link>
+          <Link href="/kashmiri-food/wazwan/guide/how-wazwan-is-served">How Wazwan is served</Link>
+          <Link href="/kashmiri-food/wazwan/guide/cost-guide">What it costs</Link>
+          <Link href="/kashmiri-food/wazwan/guide/vegetarian-wazwan">Vegetarian Wazwan</Link>
+        </p>
       </section>
 
       {/* Floating AI FAB */}

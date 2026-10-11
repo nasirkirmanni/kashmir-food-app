@@ -19,11 +19,12 @@ export default function GuidebookIndexClient({ categoryArticles, label, category
     <div className="min-h-screen pt-28 pb-32 px-4 sm:px-6 lg:px-8 flex flex-col items-center page-shell relative">
       <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
       <div className="w-full max-w-4xl relative z-10">
-        <Link 
-          href={`/kashmiri-food/${category}`} 
+        {/* The Wazwan catalogue lives on /dishes (the old /kashmiri-food/wazwan redirects there). */}
+        <Link
+          href={category === "wazwan" ? "/dishes" : `/kashmiri-food/${category}`}
           className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--saffron)] transition-colors mb-10 text-xs sm:text-sm uppercase tracking-wider font-semibold"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to {label} Catalog
+          <ArrowLeft className="w-4 h-4" /> {category === "wazwan" ? "Back to Traditional Wazwan" : `Back to ${label} Catalog`}
         </Link>
         
         <div className="mb-12">

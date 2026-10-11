@@ -18,11 +18,11 @@ import useSceneMode from "@/hooks/useSceneMode";
 const WORDS = [
   {
     word: "Wazwan",
-    meaning: "“The cook's domain”: waz, the master chef, and wan, his place of work.",
+    meaning: "Waz, cook, and wan, usually glossed as shop: the name points to the cooks, not to a menu.",
   },
   {
     word: "Waza",
-    meaning: "The hereditary master chef. The vasta waza leads the team, and his word is law in the kitchen.",
+    meaning: "A professional Wazwan cook, often from a waza family. The vasta waza leads the team.",
   },
   {
     word: "Trami",
@@ -38,7 +38,7 @@ const WORDS = [
   },
   {
     word: "Deg",
-    meaning: "The great copper cooking pot. Some hold a hundred kilograms of meat.",
+    meaning: "The great copper cooking pot, set over a wood fire.",
   },
   {
     word: "Gosht paar",
@@ -136,7 +136,7 @@ function StaticLexicon() {
           ))}
         </dl>
         <div className="mt-16 text-center">
-          <Link href="/blog/complete-history-of-wazwan" prefetch={false} style={MONO} className={GOLD_BUTTON}>
+          <Link href="/kashmiri-food/wazwan/guide/history-of-wazwan" prefetch={false} style={MONO} className={GOLD_BUTTON}>
             Read the complete history
             <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
@@ -249,7 +249,7 @@ export default function SpeakWazwan() {
                   <span className="italic text-[#E6C875]">Wazwan.</span>
                 </p>
                 <Link
-                  href="/blog/complete-history-of-wazwan"
+                  href="/kashmiri-food/wazwan/guide/history-of-wazwan"
                   prefetch={false}
                   style={MONO}
                   className={`mt-10 ${GOLD_BUTTON}`}

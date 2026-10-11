@@ -1,6 +1,10 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+// Pages merged into a stronger page on the same topic (2026-10 consolidation). Each old
+// address answers with a permanent redirect; lib/seoRedirects.test.js keeps links and the
+// sitemap off them.
+const seoRedirects = require('./seo-redirects.json');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -25,7 +29,7 @@ const nextConfig = {
           },
         ],
         permanent: true,
-        destination: '/kashmiri-food/wazwan',
+        destination: '/dishes',
       },
       {
         source: '/kashmiri-food',
@@ -77,6 +81,7 @@ const nextConfig = {
         permanent: true,
         destination: '/dishes/seekh-kebab',
       },
+      ...seoRedirects.map(({ source, destination }) => ({ source, destination, permanent: true })),
     ];
   },
   async headers() {
