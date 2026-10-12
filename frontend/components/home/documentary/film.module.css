@@ -1,0 +1,1072 @@
+/*
+ * The desktop homepage's documentary: one Wazwan, from the evening the cooks arrive to the last
+ * course, in five acts and a credit roll. Each act is a pinned stage that scroll scrubs, framed
+ * like a film: letterbox bars, grain and a running timecode, with the narration set large in the
+ * dark side of each frame.
+ * Desktop only (the acts are hidden below 768px); visitors who ask for reduced motion, and the
+ * server render, get each act as a still, composed page instead.
+ */
+
+.film {
+  overflow: hidden;
+  overflow: clip;
+}
+
+.act {
+  --black: #050403;
+  --bone: #efe6d8;
+  --bone-dim: rgba(239, 230, 216, 0.82);
+  --bone-faint: rgba(239, 230, 216, 0.66);
+  --gold: #c8a46a;
+  --gold-hi: #e6c875;
+  --ember: #e0782f;
+  --red: #9b2f1d;
+  --ivory: #efe3cf;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  background: var(--black);
+  color: var(--bone);
+}
+
+.act :focus-visible {
+  outline: 2px solid var(--gold-hi);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.wrapper {
+  position: relative;
+}
+
+/* Held in place by sticky positioning while its wrapper scrolls past. */
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* Grain over every frame. */
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  animation: grain 900ms steps(4) infinite;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Letterbox: the frame of a wide film. */
+.barTop,
+.barBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 25;
+  height: 7vh;
+  background: var(--black);
+  pointer-events: none;
+}
+
+.barTop {
+  top: 0;
+}
+
+.barBottom {
+  bottom: 0;
+}
+
+/* The running timecode and act slate, in the bottom bar. */
+.hud {
+  position: absolute;
+  left: 2.5rem;
+  bottom: 0;
+  z-index: 26;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  height: 7vh;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.hudAct {
+  color: var(--gold);
+}
+
+.hudDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c4412c;
+  animation: rec 1.6s ease-in-out infinite;
+}
+
+@keyframes rec {
+  50% { opacity: 0.25; }
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.photo {
+  object-fit: cover;
+}
+
+/* The grade laid over photographs: darkened edges and a deeper foot. */
+.grade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 70% at 50% 45%, transparent 40%, rgba(5, 4, 3, 0.72) 100%),
+    linear-gradient(180deg, rgba(5, 4, 3, 0.35) 0%, transparent 25%, transparent 55%, rgba(5, 4, 3, 0.85) 100%);
+}
+
+.blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: var(--black);
+  pointer-events: none;
+}
+
+/* Act title cards. */
+.titleCard {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  /* Holds the title clear of a bright frame; invisible over black. */
+  background: radial-gradient(ellipse 52% 40% at 50% 50%, rgba(5, 4, 3, 0.72), rgba(5, 4, 3, 0.2) 70%, transparent 100%);
+}
+
+.actLabel {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.actTitle {
+  margin-top: 1.5rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(3.5rem, 8.5vw, 8.5rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.titleRule {
+  display: block;
+  width: 7rem;
+  height: 1px;
+  margin-top: 2.25rem;
+  background: var(--gold);
+  transform-origin: center;
+}
+
+/* ─── Narration ───
+   Not subtitles: each beat is set large in the dark side of the frame, with the photograph held to
+   the other side. A gold rule, then the lead in Bodoni with its Kashmiri word in gold italic, then
+   a smaller line. The column sits a little above centre, clear of the bottom bar and of the site's
+   floating Waza AI button and pill (bottom right, up to 194px), and on the right it keeps clear of
+   the chapter rail. */
+.beat {
+  position: absolute;
+  top: calc(7vh + 2rem);
+  bottom: calc(7vh + 5.5rem);
+  z-index: 16;
+  display: flex;
+  align-items: center;
+  width: min(37vw, 40rem);
+  pointer-events: none;
+}
+
+.beatLeft {
+  left: clamp(2.5rem, 6.5vw, 8rem);
+}
+
+.beatRight {
+  right: clamp(5.5rem, 8vw, 9rem);
+}
+
+.beatBody {
+  width: 100%;
+}
+
+.beatHead {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 1rem;
+  margin-bottom: 1.75rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.beatRule {
+  display: block;
+  flex: none;
+  width: 3rem;
+  height: 1px;
+  background: var(--gold);
+  transform-origin: left center;
+}
+
+.beatTitle {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+}
+
+.beatLead {
+  margin: 0;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(2.5rem, 3.7vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.018em;
+  color: var(--bone);
+  text-wrap: balance;
+}
+
+.beatLead em {
+  font-style: italic;
+  color: var(--gold-hi);
+}
+
+.word {
+  display: inline-block;
+}
+
+.beatText {
+  max-width: 30rem;
+  margin: 1.75rem 0 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: clamp(1.0625rem, 1.25vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+/* Act III: a narrower column beside the iris; under a dish's title the narration steps down. */
+.beatDeg {
+  width: min(34vw, 36rem);
+}
+
+.beatDeg .beatTitle + .beatLead {
+  font-size: clamp(1.875rem, 2.6vw, 3rem);
+  line-height: 1.12;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Act I's fire is a full-frame photograph, so the grade deepens on the narration's side. */
+.scrimLeft {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(5, 4, 3, 0.9) 0%, rgba(5, 4, 3, 0.74) 30%, rgba(5, 4, 3, 0.3) 50%, transparent 64%);
+}
+
+/* A photograph held to one side of the frame, its inner edge fading into the dark, so the
+   narration has the other side. */
+.panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.panelRight {
+  left: 40%;
+  right: 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.2) 8%, #000 26%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.2) 8%, #000 26%);
+}
+
+.panelLeft {
+  left: 0;
+  right: 40%;
+  -webkit-mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.2) 8%, #000 26%);
+  mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.2) 8%, #000 26%);
+}
+
+/* Act I: the fire, full frame but moved right of centre, its left edge fading into the dark. */
+.shiftRight {
+  position: absolute;
+  inset: 0 -12vw 0 12vw;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+}
+
+.figCaption {
+  position: absolute;
+  right: 2.5rem;
+  bottom: calc(7vh + 0.75rem);
+  z-index: 16;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  pointer-events: none;
+}
+
+/* Under a photograph held to the left of the frame. */
+.figCaptionLeft {
+  right: auto;
+  left: 2.5rem;
+}
+
+/* ─── Act I: embers rising off the fires ─── */
+
+.embers {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ember {
+  position: absolute;
+  bottom: -2vh;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffb15c;
+  box-shadow: 0 0 6px 1px rgba(255, 140, 50, 0.8);
+  opacity: 0;
+  animation: rise linear infinite;
+}
+
+@keyframes rise {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  12% { opacity: 0.95; }
+  70% { opacity: 0.6; }
+  100% { transform: translate(var(--drift), -78vh) scale(0.3); opacity: 0; }
+}
+
+/* ─── Act II: one mound of meat becomes rista and gushtaba ─── */
+
+.stone {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 52%, #2a2622 0%, #171513 55%, #0b0a09 100%);
+}
+
+.split {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 12;
+  width: min(78rem, calc(100% - 6rem));
+  transform: translate(-50%, -50%);
+}
+
+.splitLead {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(2rem, 3.4vw, 3.25rem);
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.splitArt {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+}
+
+.splitLabels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 0.5rem;
+}
+
+.splitLabel {
+  max-width: 24rem;
+}
+
+.splitLabel:first-child {
+  justify-self: center;
+}
+
+.splitLabel:last-child {
+  justify-self: center;
+}
+
+.dishLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--bone);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms var(--ease), color 200ms var(--ease);
+}
+
+.dishLink:hover {
+  color: var(--gold-hi);
+  border-bottom-color: var(--gold-hi);
+}
+
+.dishText {
+  margin-top: 0.5rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+.swatchRed,
+.swatchWhite {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.6rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.swatchRed {
+  background: var(--red);
+}
+
+.swatchWhite {
+  background: var(--ivory);
+}
+
+.splitFoot {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--bone);
+  border-bottom: 1px solid rgba(200, 164, 106, 0.45);
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+.textLink:hover {
+  color: var(--gold-hi);
+  border-bottom-color: var(--gold-hi);
+}
+
+.arrow {
+  flex: none;
+  transition: transform 250ms var(--ease);
+}
+
+.textLink:hover .arrow,
+.dishLink:hover .arrow,
+a.castNameText:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* A white flash on each cut, the beat of the mallet. */
+.flash {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  background: #fff4e3;
+  pointer-events: none;
+}
+
+/* ─── Act III: the degs, opened one by one through an iris ─── */
+
+.night {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 110%, rgba(224, 120, 47, 0.22), transparent 70%),
+    linear-gradient(180deg, #07080c 0%, #0b0a0d 50%, #120b08 100%);
+}
+
+.tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Centred on the iris, which sits right of centre. */
+.tintRed {
+  background: radial-gradient(ellipse 55% 75% at 70% 50%, rgba(155, 47, 29, 0.55), transparent 72%);
+}
+
+.tintWhite {
+  background: radial-gradient(ellipse 55% 75% at 70% 50%, rgba(239, 227, 207, 0.22), transparent 72%);
+}
+
+/* The iris holds the right of the frame, clear of the chapter rail; the narration takes the left. */
+.iris {
+  position: absolute;
+  right: clamp(6rem, 9vw, 10rem);
+  top: 50%;
+  z-index: 10;
+  width: min(66vh, 40rem, 44vw);
+  aspect-ratio: 1;
+  transform: translateY(-52%);
+}
+
+.irisRing {
+  position: absolute;
+  inset: -14px;
+  border: 1px solid rgba(200, 164, 106, 0.35);
+  border-radius: 50%;
+}
+
+.irisPhoto {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+/* Each pot is framed by its own object-position (from the data); the scale hides the photos'
+   baked-in border. */
+.irisPhoto img {
+  object-fit: cover;
+  transform: scale(1.16);
+}
+
+.degNameText {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(2.5rem, 4.4vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.degFamily {
+  margin-top: 1rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.watch {
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.watchFigure {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(7rem, 17vw, 15rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--gold-hi);
+}
+
+.watchLine {
+  max-width: 28rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(1.5rem, 2vw, 2.125rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--bone);
+}
+
+.potRing {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(82vh, 52rem, 96vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+/* ─── Act IV: the order of service ─── */
+
+.service {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 12;
+  width: min(80rem, calc(100% - 6rem));
+  transform: translate(-50%, -54%);
+}
+
+.serviceLead {
+  max-width: 44rem;
+  margin: 0 auto;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(1.75rem, 2.8vw, 2.75rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.15;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.courses {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin: 3.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(200, 164, 106, 0.35);
+}
+
+.course {
+  padding: 1.5rem 1rem 0 0;
+}
+
+.course + .course {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(239, 230, 216, 0.12);
+}
+
+.courseNo {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+}
+
+.courseName {
+  display: block;
+  margin-top: 0.75rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(1.25rem, 1.65vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--bone);
+}
+
+a.courseName {
+  border-bottom: 1px solid transparent;
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+a.courseName:hover {
+  color: var(--gold-hi);
+  border-bottom-color: var(--gold-hi);
+}
+
+.courseWhen {
+  margin-top: 0.6rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.serviceClose {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.serviceCloseText {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 2.5rem;
+  margin-top: 1.25rem;
+}
+
+/* ─── Act V: the credits roll ─── */
+
+.roll {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 10;
+  width: min(60rem, calc(100% - 6rem));
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.creditsTitle {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(4.5rem, 11vw, 10rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.creditsSub {
+  margin-top: 1.25rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--bone-dim);
+}
+
+.creditsHeading {
+  margin-top: 7rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.cast {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.castRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: baseline;
+  padding-block: 1.1rem;
+}
+
+.castRole {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--bone-faint);
+}
+
+.castName {
+  text-align: left;
+}
+
+.castNameText {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--bone);
+}
+
+a.castNameText {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid transparent;
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+a.castNameText:hover {
+  color: var(--gold-hi);
+  border-bottom-color: var(--gold-hi);
+}
+
+.castNote {
+  margin-top: 0.3rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--bone-faint);
+}
+
+.sourcesNote {
+  max-width: 36rem;
+  margin: 2rem auto 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 2rem;
+  max-width: 44rem;
+  margin: 1.5rem auto 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: 1.375rem;
+  font-style: italic;
+  color: var(--bone);
+}
+
+.beyond {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem 2.5rem;
+  max-width: 52rem;
+  margin: 2.5rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.next {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem 3rem;
+  max-width: 44rem;
+  margin: 2rem auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.askWaza {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 3rem;
+  margin-top: 2.5rem;
+  padding: 0 1.75rem;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--gold-hi);
+  cursor: pointer;
+  transition: background-color 200ms var(--ease), color 200ms var(--ease);
+}
+
+.askWaza:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.fin {
+  margin-top: 6rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: 2.25rem;
+  font-style: italic;
+  color: var(--bone-dim);
+}
+
+/* ─── Still versions: reduced motion and the server render ─── */
+
+.still {
+  padding-block: 7rem;
+  background: var(--black);
+}
+
+.stillGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 5rem);
+}
+
+.stillMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  outline: 1px solid rgba(200, 164, 106, 0.3);
+  outline-offset: 10px;
+}
+
+.stillTitle {
+  margin-top: 1.25rem;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-size: clamp(2.75rem, 5vw, 4.75rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1;
+}
+
+.stillText {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--bone-dim);
+}
+
+.stillList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1.5rem 2rem;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stillCaption {
+  margin-top: 1.25rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+@media (max-width: 1023px) {
+  .courses {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: 1.5rem;
+  }
+
+  .course:nth-child(4n + 1) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  /* Narrow screens have no side to spare: the photographs take the whole frame again and the
+     narration sits low across it, above the Waza AI button. */
+  .beat {
+    top: auto;
+    bottom: 13.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    width: auto;
+  }
+
+  .beatBody {
+    max-width: 34rem;
+  }
+
+  .beatLead {
+    font-size: clamp(2rem, 4.6vw, 2.75rem);
+  }
+
+  /* The foot of each photograph darkens under the narration. */
+  .panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, rgba(5, 4, 3, 0.6) 58%, rgba(5, 4, 3, 0.92) 86%);
+    pointer-events: none;
+  }
+
+  .panelLeft,
+  .panelRight,
+  .shiftRight {
+    inset: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .scrimLeft {
+    background: linear-gradient(180deg, transparent 30%, rgba(5, 4, 3, 0.55) 55%, rgba(5, 4, 3, 0.9) 85%);
+  }
+
+  /* Act III: a smaller iris, low and centred, with the dish and its narration above it. */
+  .beatDeg {
+    top: calc(7vh + 1.5rem);
+    bottom: auto;
+  }
+
+  .iris {
+    right: auto;
+    left: 50%;
+    top: 63%;
+    width: min(40vh, 60vw);
+    transform: translate(-50%, -50%);
+  }
+
+  .tintRed,
+  .tintWhite {
+    background-position: center;
+  }
+
+  .tintRed {
+    background-image: radial-gradient(ellipse 65% 50% at 50% 63%, rgba(155, 47, 29, 0.55), transparent 72%);
+  }
+
+  .tintWhite {
+    background-image: radial-gradient(ellipse 65% 50% at 50% 63%, rgba(239, 227, 207, 0.22), transparent 72%);
+  }
+
+  .stillGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hud,
+  .figCaptionLeft {
+    left: 1.5rem;
+  }
+
+  .figCaption {
+    right: 1.5rem;
+  }
+
+  .figCaptionLeft {
+    right: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage::after,
+  .hudDot,
+  .ember {
+    animation: none;
+  }
+}

@@ -2,34 +2,50 @@
 
 import { useEffect, useRef, useState } from "react";
 import useSceneMode from "@/hooks/useSceneMode";
+import { HOME_CHAPTERS as CHAPTERS } from "@/data/homeChapters";
 
 /**
- * The chapter rail — nine roman numerals fixed to the right edge, telling
+ * The chapter rail — eight roman numerals fixed to the right edge, telling
  * the visitor this is a composed film and where in it they stand. The gold
  * thread fills with overall progress; numerals ignite as their chapter plays;
  * clicking one travels there. Appears only while the chapters are on stage.
- * Keep CHAPTERS in the same order as the data-ww-chapter blocks in
- * HomePageClient.js.
+ * The chapter list (HOME_CHAPTERS in data/homeChapters.js) must stay in the
+ * same order as the data-ww-chapter blocks in HomePageClient.js; a test
+ * checks it.
+ *
+ * Over a light surface (a chapter or field marked data-ww-surface="light")
+ * the rail switches from gold on dark to ink on paper, so it stays readable.
  */
 
-const CHAPTERS = [
-  { n: "I", label: "The Trami" },
-  { n: "II", label: "The Manners" },
-  { n: "III", label: "The Craft" },
-  { n: "IV", label: "The Waza's Night" },
-  { n: "V", label: "The Samovar" },
-  { n: "VI", label: "Speak Wazwan" },
-  { n: "VII", label: "Four Doors" },
-  { n: "VIII", label: "The Seasons" },
-  { n: "IX", label: "Meet Waza" },
-];
+const TONES = {
+  dark: {
+    thread: "rgba(255,255,255,0.12)",
+    fill: "#C8A46A",
+    glow: "0 0 8px rgba(200,164,106,0.6)",
+    label: "rgba(230,200,117,0.85)",
+    active: "#E6C875",
+    activeGlow: "0 0 12px rgba(200,164,106,0.7)",
+    idle: "rgba(255,255,255,0.32)",
+  },
+  light: {
+    thread: "rgba(36,22,15,0.16)",
+    fill: "#8A2A1B",
+    glow: "none",
+    label: "#5A1F14",
+    active: "#8A2A1B",
+    activeGlow: "none",
+    idle: "rgba(36,22,15,0.55)",
+  },
+};
 
 export default function ChapterRail() {
   const { canEnhance, reducedMotion } = useSceneMode();
   const [active, setActive] = useState(-1);
   const [visible, setVisible] = useState(false);
   const [fill, setFill] = useState(0);
+  const [tone, setTone] = useState("dark");
   const nodesRef = useRef([]);
+  const railRef = useRef(null);
 
   useEffect(() => {
     if (!canEnhance) return undefined;
@@ -68,6 +84,14 @@ export default function ChapterRail() {
         if (nodes[i].getBoundingClientRect().top <= mid) idx = i;
       }
       setActive((a) => (a === idx ? a : idx));
+
+      // The surface behind the rail itself, ignoring the rail's own elements.
+      const rail = railRef.current;
+      const behind = document
+        .elementsFromPoint(window.innerWidth - 24, mid)
+        .find((el) => !rail || !rail.contains(el));
+      const surface = behind?.closest("[data-ww-surface]")?.dataset.wwSurface === "light" ? "light" : "dark";
+      setTone((t) => (t === surface ? t : surface));
     };
 
     const onScroll = () => {
@@ -94,8 +118,11 @@ export default function ChapterRail() {
 
   if (!canEnhance) return null;
 
+  const colors = TONES[tone];
+
   return (
     <nav
+      ref={railRef}
       aria-label="Homepage chapters"
       className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 lg:block"
       style={{
@@ -106,10 +133,14 @@ export default function ChapterRail() {
     >
       <div className="flex items-stretch gap-3">
         {/* The gold thread */}
-        <div className="relative w-px self-stretch bg-white/12" aria-hidden="true">
+        <div
+          className="relative w-px self-stretch transition-colors duration-500"
+          style={{ background: colors.thread }}
+          aria-hidden="true"
+        >
           <div
-            className="absolute inset-x-0 top-0 bg-[#C8A46A]"
-            style={{ height: `${fill * 100}%`, boxShadow: "0 0 8px rgba(200,164,106,0.6)" }}
+            className="absolute inset-x-0 top-0 transition-colors duration-500"
+            style={{ height: `${fill * 100}%`, background: colors.fill, boxShadow: colors.glow }}
           />
         </div>
 
@@ -123,19 +154,21 @@ export default function ChapterRail() {
                   onClick={() => go(i)}
                   aria-label={`Chapter ${c.n} — ${c.label}`}
                   aria-current={isActive ? "true" : undefined}
-                  className="group flex w-full items-center justify-end gap-2.5 outline-none"
+                  className="group relative flex w-full items-center justify-end py-1 pl-4 outline-none"
                 >
+                  {/* Out of the layout flow, so the rail is only as wide as its numerals and its
+                      thread stays at the edge instead of crossing the chapters' content. */}
                   <span
-                    className="whitespace-nowrap text-[0.55rem] uppercase tracking-[0.22em] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
-                    style={{ color: "rgba(230,200,117,0.85)" }}
+                    className="pointer-events-none absolute right-full top-1/2 mr-2.5 -translate-y-1/2 whitespace-nowrap text-[0.55rem] uppercase tracking-[0.22em] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                    style={{ color: colors.label }}
                   >
                     {c.label}
                   </span>
                   <span
                     className="text-[0.66rem] tracking-[0.14em] transition-all duration-400 group-focus-visible:ring-1 group-focus-visible:ring-[#C8A46A]"
                     style={{
-                      color: isActive ? "#E6C875" : "rgba(255,255,255,0.32)",
-                      textShadow: isActive ? "0 0 12px rgba(200,164,106,0.7)" : "none",
+                      color: isActive ? colors.active : colors.idle,
+                      textShadow: isActive ? colors.activeGlow : "none",
                     }}
                   >
                     {c.n}
