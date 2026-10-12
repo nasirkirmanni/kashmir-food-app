@@ -8,6 +8,7 @@ import dishesData from "@/data/dishes.json";
 import WazaAITeaser from "@/components/WazaAITeaser";
 import "./kashmiri.css";
 import { resolveContentImage } from "@/lib/contentImages";
+import { ESSENTIAL_ORDER } from "@/lib/wazwanSequence";
 
 const wazaExchanges = [
   { q: "I don't do spicy food. What's safe for me?", a: 'Try <b>Daniwal Korma</b> — mild, yoghurt-coriander. Skip the Marchwangan Korma today.' },
@@ -195,6 +196,9 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
   ];
 
   const wazwanDishes = initialDishes.filter((d) => d.categoryType === "wazwan");
+  // The Wazwan chapter shows only the seven dishes every Wazwan must have, in the order they're
+  // served; the rest were added around them over time, and /dishes lists every one.
+  const coreWazwanDishes = ESSENTIAL_ORDER.map((slug) => wazwanDishes.find((d) => d.slug === slug)).filter(Boolean);
   const beverageDishes = initialDishes.filter((d) => d.categoryType === "beverage");
   const bakeryDishes = initialDishes.filter((d) => d.categoryType === "bakery");
   const streetFoodDishes = initialDishes.filter((d) => d.categoryType === "kashmiri_cuisine" && d.category === "Street Food");
@@ -436,14 +440,20 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
           <div className="chapter-content">
             <div className="chapter-index reveal fade-right">CHAPTER 01</div>
             <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The Royal <span className="accent">Wazwan</span>.</h2>
-            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Up to 36 courses of artistry.</div>
+            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Seven dishes at its heart.</div>
             <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
-              Cooked over smoldering wood fires through the night by master chefs (Wazas), this is not just a meal. It is a highly choreographed social ritual where every cut of lamb has a specific purpose.
+              Seven dishes are a must at a Wazwan: tabak maaz, rista, rogan josh, aab gosht, daniwal korma, marchwangan korma and gushtaba. The feast is said to have begun as a seven-dish meal, and it has grown since: a wedding Wazwan today usually runs to 12 to 24 dishes.
+            </p>
+            <p className="desc reveal fade-right" style={{ transitionDelay: '0.22s' }}>
+              Everything beyond the seven is added around them, and it changes from feast to feast. Vegetarian dishes such as Wazwan Mushroom and Waza Palak have joined in recent years.{" "}
+              <Link href="/dishes#how-many-dishes" className="underline decoration-[var(--gold)] underline-offset-4 hover:text-[var(--gold)]">
+                How the feast grew, with sources
+              </Link>
             </p>
             <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
-              <div><span className="n">7–36</span><span className="l">Courses</span></div>
+              <div><span className="n">7</span><span className="l">Essential dishes</span></div>
+              <div><span className="n">12–24</span><span className="l">At a wedding today</span></div>
               <div><span className="n">4</span><span className="l">People per Trami</span></div>
-              <div><span className="n">10+</span><span className="l">Hours to prepare</span></div>
             </div>
             <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
               <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
@@ -451,7 +461,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
           </div>
           <div className="chapter-gallery reveal fade-left">
             <div className="dish-rail" data-h-scroll>
-              {wazwanDishes.map((dish, idx) => (
+              {coreWazwanDishes.map((dish, idx) => (
                 <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
               ))}
               <Link
@@ -461,7 +471,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
               >
                 <span className="text-[var(--gold)] text-2xl">→</span>
                 <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--ivory)]/80 text-center px-3">
-                  Explore all {wazwanDishes.length}
+                  The full feast: all {wazwanDishes.length} dishes
                 </span>
               </Link>
             </div>
