@@ -10,6 +10,8 @@
  * metadata or emitted as structured data. Real stored fields are kept.
  */
 
+import { DESTINATION_PROFILES, DESTINATION_PROFILES_CHECKED } from "../data/destinationProfiles";
+
 const GENERATED_DESTINATION_TEXT = [
   /^A breathtaking destination in .+ famous for its natural landscapes and local hospitality\.?$/i,
   /stands as a premier tourist attraction in the Kashmir valley\. Located in .+, it offers visitors spectacular panoramic views/i,
@@ -35,14 +37,27 @@ function realList(values) {
     : [];
 }
 
-/** Returns a copy of the destination with generated placeholder content removed. */
+/**
+ * Returns a copy of the destination with generated placeholder content removed. Where the record
+ * then has no text of its own, the written profile in data/destinationProfiles.js fills the gap and
+ * brings its sources; text stored in the database always wins.
+ */
 export function sanitizeDestination(destination) {
   if (!destination) return destination;
+  const description = realText(destination.description);
+  const fullDescription = realText(destination.fullDescription);
+  const attractions = realList(destination.attractions).filter((a) => !isGeneratedAttraction(a));
+  const profile = DESTINATION_PROFILES[destination.slug];
+  if (!profile || description || fullDescription || attractions.length) {
+    return { ...destination, description, fullDescription, attractions };
+  }
   return {
     ...destination,
-    description: realText(destination.description),
-    fullDescription: realText(destination.fullDescription),
-    attractions: realList(destination.attractions).filter((a) => !isGeneratedAttraction(a)),
+    description: profile.description,
+    fullDescription: profile.fullDescription,
+    attractions: profile.attractions,
+    sources: profile.sources,
+    sourcesChecked: DESTINATION_PROFILES_CHECKED,
   };
 }
 

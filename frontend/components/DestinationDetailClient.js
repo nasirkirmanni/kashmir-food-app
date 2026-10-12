@@ -148,6 +148,20 @@ export default function DestinationDetailClient({ initialDestination, params }) 
                 {destination.fullDescription && destination.fullDescription !== destination.description && (
                   <p className="mt-4 text-base leading-relaxed text-white/70">{destination.fullDescription}</p>
                 )}
+                {destination.sources?.length > 0 && (
+                  <p className="mt-4 text-xs leading-relaxed text-white/50">
+                    {destination.sources.length > 1 ? "Sources: " : "Source: "}
+                    {destination.sources.map((source, index) => (
+                      <span key={source.url}>
+                        {index > 0 ? "; " : null}
+                        <a href={source.url} className="underline decoration-white/30 underline-offset-2 hover:text-[var(--saffron)]">
+                          {source.publisher}, “{source.title}”
+                        </a>
+                      </span>
+                    ))}
+                    {destination.sourcesChecked ? `. Checked on ${destination.sourcesChecked}.` : "."}
+                  </p>
+                )}
               </section>
             )}
 
