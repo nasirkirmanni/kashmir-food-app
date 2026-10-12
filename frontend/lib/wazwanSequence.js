@@ -74,11 +74,15 @@ const DISPLAY_ORDER = [
   "gushtaba",
 ];
 
-// The seven dishes commonly listed as essential to a Wazwan; the "Kashmiri
-// cuisine explained" guide gives the source.
+// The seven dishes commonly listed as essential to a Wazwan ("Seven dishes are a
+// must for these occasions", Wikipedia); the "Kashmiri cuisine explained" guide
+// gives the source.
 export const ESSENTIAL_SLUGS = new Set([
   "tabak-maaz", "rista", "rogan-josh", "daniwal-korma", "aab-gosht", "marchwangan-korma", "gushtaba",
 ]);
+
+// The same seven, in the order they're served.
+export const ESSENTIAL_ORDER = DISPLAY_ORDER.filter((slug) => ESSENTIAL_SLUGS.has(slug));
 
 // Framing for the photographs in use. The /images/scroll files are one series,
 // each dish shot from above in its cooking pot, with a thin border baked into

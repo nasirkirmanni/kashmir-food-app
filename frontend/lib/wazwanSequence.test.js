@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import dishes from "../data/dishes.json";
-import { arrangeWazwan, dietLabel, formatPriceRange, vesselIndex } from "./wazwanSequence";
+import { ESSENTIAL_ORDER, arrangeWazwan, dietLabel, formatPriceRange, vesselIndex } from "./wazwanSequence";
 
 const wazwan = dishes.filter((dish) => dish.categoryType === "wazwan");
 
@@ -29,6 +29,13 @@ describe("arrangeWazwan", () => {
     expect(essential.map((dish) => dish.slug).sort()).toEqual(
       ["aab-gosht", "daniwal-korma", "gushtaba", "marchwangan-korma", "rista", "rogan-josh", "tabak-maaz"]
     );
+  });
+
+  it("lists the seven essentials in serving order, each a Wazwan dish in the catalogue", () => {
+    expect(ESSENTIAL_ORDER).toEqual(
+      ["tabak-maaz", "rista", "rogan-josh", "aab-gosht", "daniwal-korma", "marchwangan-korma", "gushtaba"]
+    );
+    for (const slug of ESSENTIAL_ORDER) expect(wazwan.some((dish) => dish.slug === slug), slug).toBe(true);
   });
 
   it("uses photos only where a real one exists, never the placeholder", () => {
