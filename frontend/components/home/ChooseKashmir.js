@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Sparkles } from "lucide-react";
 
 /**
- * Chapter VII — Choose your Kashmir.
+ * Chapter VI — Choose your Kashmir.
  * Full-bleed four-panel doorway row (reference: /redesign/ck.png). Panels sit
  * edge to edge with hairline gold dividers; each rests quiet — photography
  * under a themed wash, a gold index and a vertical spine title at the

@@ -1,14 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import s from "@/components/home/documentary/film.module.css";
 
-/* ─── The cinematic chapters (desktop ≥768px; code-split, SSR'd for SEO) ─── */
-const TheTrami = dynamic(() => import("@/components/home/TheTrami"));
-const TheManners = dynamic(() => import("@/components/home/TheManners"));
-const TheCraft = dynamic(() => import("@/components/home/TheCraft"));
-const WazasNight = dynamic(() => import("@/components/home/WazasNight"));
-const TheSamovar = dynamic(() => import("@/components/home/TheSamovar"));
-const SpeakWazwan = dynamic(() => import("@/components/home/SpeakWazwan"));
+/* ─── The documentary and the chapters after it (desktop ≥768px; code-split, SSR'd for SEO) ─── */
+const ActEvening = dynamic(() => import("@/components/home/documentary/ActEvening"));
+const ActPounding = dynamic(() => import("@/components/home/documentary/ActPounding"));
+const ActDegs = dynamic(() => import("@/components/home/documentary/ActDegs"));
+const ActTrami = dynamic(() => import("@/components/home/documentary/ActTrami"));
+const ActCredits = dynamic(() => import("@/components/home/documentary/ActCredits"));
 const PassportStrip = dynamic(() => import("@/components/home/PassportStrip"));
 const ChapterRail = dynamic(() => import("@/components/home/ChapterRail"), { ssr: false });
 const ChooseKashmir = dynamic(() => import("@/components/home/ChooseKashmir"));
@@ -17,7 +17,8 @@ const WazaFinale = dynamic(() => import("@/components/home/WazaFinale"));
 
 /* ═══════════════════════════════════════════════════════
    MAIN HOMEPAGE CLIENT COMPONENT
-   Desktop: a nine-chapter cinematic narrative after the hero.
+   Desktop: after the hero's finished feast, a documentary of how it came to be, in five acts,
+   then the chapters that open out into the rest of Kashmir.
    Mobile:  nothing — the phone home lives entirely in HomePageHero.
    ═══════════════════════════════════════════════════════ */
 export default function HomePageClient() {
@@ -25,65 +26,50 @@ export default function HomePageClient() {
     // hidden below md: every section in here is desktop-only, and the
     // min-h-screen wrapper was leaving a blank screen at the end of the
     // mobile strip.
-    <div className="hidden md:block bg-transparent text-white overflow-hidden selection:bg-[var(--saffron)] selection:text-black min-h-screen relative">
+    <div className={`${s.film} hidden md:block bg-transparent text-white selection:bg-[var(--saffron)] selection:text-black min-h-screen relative`}>
 
       {/* ═══════════════════════════════════════════════════════
-          DESKTOP — THE NINE CHAPTERS
-          I.    The Trami (the feast, course by course)
-          II.   The Manners (the code of the trami)
-          III.  The Craft (the handmade things the table rests on)
-          IV.   The Waza's Night (the overnight cook)
-          V.    The Samovar (noon chai and kahwa)
-          VI.   Speak Wazwan (the words of the feast)
-          VII.  Four Doors (choose your Kashmir)
-          VIII. The Seasons (pinned time passage)
-          IX.   Meet Waza (the finale)
+          DESKTOP — THE DOCUMENTARY, THEN THE WIDER VALLEY
+          I.    The Evening Before (the cooks arrive; the fires are lit)
+          II.   The Pounding (rista and gushtaba, from one stone)
+          III.  Red and White (the long night at the degs)
+          IV.   The Trami (the guests, and the courses in order)
+          V.    The Credits (the words of the feast, and its sources)
+          VI.   Four Doors (choose your Kashmir)
+          VII.  The Seasons (pinned time passage)
+          VIII. Meet Waza (the finale)
           ═══════════════════════════════════════════════════════ */}
       {/* The chapter rail — the film's index, fixed to the right edge. Its
-          CHAPTERS list must match the data-ww-chapter blocks below. */}
+          chapter list must match the data-ww-chapter blocks below. */}
       <ChapterRail />
 
-      {/* Chapter I — the sarposh lifts, and the courses arrive */}
       <div data-ww-chapter="I">
-        <TheTrami />
+        <ActEvening />
       </div>
-
-      {/* Chapter II — the Code of the Trami: learn the manners before you eat */}
       <div data-ww-chapter="II">
-        <TheManners />
+        <ActPounding />
       </div>
-
-      {/* Chapter III — the handmade things the table rests on */}
       <div data-ww-chapter="III">
-        <TheCraft />
+        <ActDegs />
       </div>
-
-      {/* Chapter IV — the night-long cook behind the feast */}
       <div data-ww-chapter="IV">
-        <WazasNight />
+        <ActTrami />
       </div>
-
-      {/* Chapter V — two teas from one copper urn */}
       <div data-ww-chapter="V">
-        <TheSamovar />
+        <ActCredits />
       </div>
 
-      {/* Chapter VI — the vocabulary of the feast */}
       <div data-ww-chapter="VI">
-        <SpeakWazwan />
-      </div>
-
-      <div data-ww-chapter="VII">
         <ChooseKashmir />
       </div>
-      <div data-ww-chapter="VIII">
+      <div data-ww-chapter="VII">
         <SeasonsJourney />
       </div>
 
       {/* Interlude — the journey is being recorded */}
       <PassportStrip />
 
-      <div data-ww-chapter="IX">
+      <div data-ww-chapter="VIII">
         <WazaFinale />
       </div>
     </div>
