@@ -14,7 +14,21 @@ Wazwan is cooked by teams of master chefs called wazas and eaten by four diners 
 - [Vegetarian Wazwan](https://wazwanway.com/kashmiri-food/wazwan/guide/vegetarian-wazwan): The vegetarian dishes at a Wazwan and what restaurants offer
 - [Restaurant vs Wedding vs Home](https://wazwanway.com/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home): What changes between the three ways to eat Wazwan
 - [How to Experience Wazwan](https://wazwanway.com/how-to-experience): A first-timer's guide
+- [Rista vs Gushtaba](https://wazwanway.com/kashmiri-food/wazwan/guide/rista-vs-gushtaba): The two pounded-meatball dishes compared
 - [All Wazwan guides](https://wazwanway.com/kashmiri-food/wazwan/guide)
+
+## Wazwan dishes
+
+Each dish page has what the dish is, its place in the feast and a recipe, with sources.
+
+- [Tabak Maaz](https://wazwanway.com/dishes/tabak-maaz): Twice-cooked lamb ribs, served first on the trami
+- [Rista](https://wazwanway.com/dishes/rista): Pounded mutton meatballs in a red gravy
+- [Rogan Josh](https://wazwanway.com/dishes/rogan-josh): The Kashmiri Muslim and Pandit versions, and why there's no tomato
+- [Daniwal Korma](https://wazwanway.com/dishes/daniwal-korma): Mutton in a yogurt gravy with fresh coriander
+- [Marchwangan Korma](https://wazwanway.com/dishes/marchwangan-korma): Mutton in a hot gravy of Kashmiri red chillies
+- [Aab Gosht](https://wazwanway.com/dishes/aab-gosht): Mutton cooked in milk
+- [Yakhni](https://wazwanway.com/dishes/yakhni): Mutton in a yogurt gravy with fennel, the last gravy before gushtaba
+- [Gushtaba](https://wazwanway.com/dishes/gushtaba): The large pounded meatball in yogurt gravy that ends the main meal
 
 ## Kashmiri food
 

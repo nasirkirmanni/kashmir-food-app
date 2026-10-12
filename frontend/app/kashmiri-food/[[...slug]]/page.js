@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import dynamic from "next/dynamic";
 const KashmiriFoodClient = dynamic(() => import("../KashmiriFoodClient"), { ssr: true });
 import GuidebookIndexClient from "../GuidebookIndexClient";
@@ -95,7 +96,7 @@ export async function generateMetadata({ params }) {
         },
         "rista-vs-gushtaba": {
           title: "Rista vs Gushtaba: Kashmir's Twin Meatballs",
-          description: "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan.",
+          description: "Rista and gushtaba compared: the same hand-pounded mutton, two sizes, a red gravy and a white one, and where each comes in a Wazwan.",
         },
         "waza-meaning": {
           title: "What Does Waza Mean? The Cooks Behind Wazwan",
@@ -108,18 +109,6 @@ export async function generateMetadata({ params }) {
         "history-of-wazwan": {
           title: "History of Wazwan: Legends and Evidence",
           description: "Where Wazwan comes from: the Timur story the wazas tell, what the historical record shows, the earliest descriptions of Kashmiri feasts, and how the menu changed.",
-        },
-        "rista-deep-dive": {
-          title: "Rista: Origins, Ingredients & Preparation",
-          description: "A deep dive into Rista, the saffron-infused, hand-pounded meatball that forms the spicy heart of the Wazwan.",
-        },
-        "gushtaba-the-kings-dish": {
-          title: "Gushtaba: The King's Dish and the Grand Finale",
-          description: "Why Gushtaba is considered the absolute pinnacle of Kashmiri culinary artistry, and why it must always be served last.",
-        },
-        "rogan-josh-explained": {
-          title: "Rogan Josh Explained: Authentic Ingredients",
-          description: "Uncover the truth behind authentic Rogan Josh, a dish whose global fame has led to countless misconceptions about its true ingredients.",
         },
         "wazwan-vs-mughlai": {
           title: "Wazwan vs Mughlai Cuisine: Key Differences",
@@ -352,6 +341,8 @@ export default function Page({ params }) {
           {/* Main article content rendered as markdown */}
           <div className="max-w-none text-white/70 leading-relaxed font-body pb-16 wazwan-article-body">
             <ReactMarkdown
+              // Tables for the comparison guides. Single tildes stay literal ("~₹800" is not strikethrough).
+              remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
               components={{
                 // Any other top-level markdown heading renders as <h2>: the page has one <h1>.
                 h1: ({node, ...props}) => <h2 className="font-display text-3xl sm:text-4xl text-[var(--saffron)] mt-14 mb-6" {...props} />,
@@ -363,7 +354,14 @@ export default function Page({ params }) {
                 li: ({node, ...props}) => <li className="marker:text-[var(--saffron)] text-white/75" {...props} />,
                 strong: ({node, ...props}) => <strong className="font-bold text-white" {...props} />,
                 a: ({node, ...props}) => <a className="text-[var(--saffron)] hover:text-amber-400 underline decoration-white/20 underline-offset-4 font-semibold" {...props} />,
-                blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-lg sm:text-xl" {...props} />
+                blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--saffron)] pl-6 italic my-8 text-white/60 text-lg sm:text-xl" {...props} />,
+                table: ({node, ...props}) => (
+                  <div className="mb-8 overflow-x-auto rounded-2xl border border-white/10">
+                    <table className="w-full min-w-[20rem] border-collapse text-left text-[0.8rem] leading-snug sm:text-base sm:leading-normal" {...props} />
+                  </div>
+                ),
+                th: ({node, ...props}) => <th className="border-b border-white/10 bg-white/5 px-2.5 py-2.5 sm:px-4 sm:py-3 align-bottom font-display text-base sm:text-lg font-medium text-[var(--saffron)]" {...props} />,
+                td: ({node, ...props}) => <td className="border-b border-white/5 px-2.5 py-2.5 sm:px-4 sm:py-3 align-top text-white/75 first:font-semibold first:text-white" {...props} />,
               }}
             >
               {(() => {

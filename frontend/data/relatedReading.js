@@ -5,9 +5,6 @@
  */
 
 const BLOG = {
-  roganJosh: { href: "/blog/rogan-josh-the-true-story", title: "Rogan Josh: The True Story Behind Kashmir's Most Famous Dish" },
-  gushtaba: { href: "/blog/secrets-of-gushtaba", title: "Secrets of Gushtaba: The Royal Velvet Meatball" },
-  gushtabaFinale: { href: "/blog/gushtaba", title: "Gushtaba: The Royal Finale of the Wazwan" },
   noonChai: { href: "/blog/noon-chai-pink-tea-kashmir", title: "Noon Chai: The Science, Culture, and Ritual Behind Kashmir's Pink Tea" },
   kahwaVsNoonChai: { href: "/blog/kahwa-vs-noon-chai", title: "Kahwa vs. Noon Chai: An Ancestral Tea Feud" },
   nadru: { href: "/blog/nadru-lotus-stem-kashmir", title: "Nadru (Lotus Stem): Kashmir's Most Loved Vegetable" },
@@ -26,19 +23,20 @@ const GUIDES = {
   // The main Wazwan page: what the feast is and every dish in serving order.
   wazwan: { href: "/dishes", title: "Traditional Wazwan: the feast, dish by dish" },
   vegetarian: { href: "/kashmiri-food/wazwan/guide/vegetarian-wazwan", title: "Vegetarian Wazwan: What to Expect and What to Order" },
+  ristaVsGushtaba: { href: "/kashmiri-food/wazwan/guide/rista-vs-gushtaba", title: "Rista vs Gushtaba: The Twin Meatballs of Kashmir" },
 };
 
 const ARTICLES_BY_DISH = {
-  "rogan-josh": [BLOG.roganJosh, BLOG.spicy],
-  gushtaba: [BLOG.gushtaba, BLOG.gushtabaFinale, BLOG.spicy],
-  rista: [BLOG.spicy],
+  "rogan-josh": [BLOG.panditFood, BLOG.spicy],
+  gushtaba: [GUIDES.ristaVsGushtaba, BLOG.spicy],
+  rista: [GUIDES.ristaVsGushtaba, BLOG.spicy],
   "marchwangan-korma": [BLOG.spicy],
   "aab-gosht": [BLOG.spicy],
   "noon-chai": [BLOG.noonChai, BLOG.kahwaVsNoonChai, BLOG.breakfast],
   "kashmiri-kahwa": [BLOG.kahwaVsNoonChai, BLOG.whatToBuy],
   "cardamom-kahwa": [BLOG.kahwaVsNoonChai],
   "nadru-yakhni": [BLOG.nadru, BLOG.vegetarianFood],
-  "dum-oluv": [BLOG.vegetarianFood],
+  "dum-oluv": [BLOG.panditFood, BLOG.vegetarianFood],
   "ruwangan-chaman": [BLOG.vegetarianFood],
   girda: [BLOG.breads, BLOG.breakfast],
   lavas: [BLOG.breads, BLOG.breakfast],

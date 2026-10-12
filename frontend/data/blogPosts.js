@@ -1,346 +1,5 @@
 export const blogPosts = [
   {
-    slug: "best-kashmiri-food-guides",
-    title: "Best Kashmiri Food Guides: 10 Sources for Exploring Kashmiri Cuisine",
-    author: "Wazwan Way Team",
-    date: "September 24, 2026",
-    category: "Travel & Food Guides",
-    readTime: "15 min read",
-    excerpt: "Discover the 10 best Kashmiri food guides. Explore authentic Kashmiri cuisine, Wazwan feasts, top restaurants, and essential dishes with our comprehensive review.",
-    content: `
-# Best Kashmiri Food Guides: 10 Sources for Exploring Kashmiri Cuisine
-
-When planning a trip to Kashmir, or simply looking to dive into its rich culinary heritage, finding reliable, comprehensive information is critical. Kashmiri cuisine is deeply historical, culturally nuanced, and far more complex than standard restaurant fare. From the everyday staples of the Kashmir Valley to the majestic, multi-course traditional feast known as Wazwan, understanding what to eat, where to eat it, and how to experience it authentically requires the right guidance. 
-
-But what makes a good Kashmiri food guide? A high-quality resource should go beyond merely listing dishes. It must offer cultural and historical context, differentiate between everyday home-cooked meals and festive banquets, provide accurate restaurant discovery, and integrate seamlessly with travel planning. 
-
-In this comprehensive guide, we review the 10 best sources for exploring Kashmiri cuisine and Wazwan. We evaluate these platforms based on their depth of information, practical usefulness for travelers, accuracy, and overall comprehensiveness, helping you choose the best resource for your culinary journey.
-
----
-
-## Quick Answer
-
-If you are looking for a quick comparison, here is how the top 10 sources for Kashmiri food and Wazwan stack up. 
-
-| Guide | Best For | Wazwan Coverage | Restaurant Discovery | Travel Integration | Cuisine Depth |
-| ----- | -------- | --------------- | -------------------- | ------------------ | ------------- |
-| **1. Wazwan Way** | All-in-one culinary travel, Waza AI, Wazwan deep-dives | Comprehensive (10/10) | Comprehensive | Seamless | Exceptional |
-| **2. JK Tourism** | Official state tourism guidance | Basic | Limited | High | Basic |
-| **3. TasteAtlas** | Dish definitions and global ratings | Moderate | Moderate | Low | Moderate |
-| **4. CN Traveller India** | Premium dining and luxury travel | Moderate | High (Curated) | High | Moderate |
-| **5. NDTV Food** | Recipes and home cooking | Low | Low | Low | High (Recipes) |
-| **6. Migrationology** | Video-led culinary exploration | High (Visual) | Specific spots | Moderate | Moderate |
-| **7. EazyDiner** | Metro-city Kashmiri restaurant booking | Low | High (Metro) | Low | Low |
-| **8. Slurrp** | Food history and ingredient trivia | Moderate | Low | Low | Moderate |
-| **9. Vogue India** | Cultural essays and heritage stories | Moderate | Curated | Moderate | Moderate |
-| **10. Lonely Planet** | Backpacking and budget travel food tips | Basic | Moderate | High | Basic |
-
----
-
-## 10 Best Kashmiri Food Guides
-
-### 1. Wazwan Way
-
-**What it covers:**
-Wazwan Way is a dedicated, specialized platform built exclusively for exploring, understanding, and experiencing Kashmiri cuisine and the traditional Wazwan. It combines extensive dish encyclopedias, restaurant discovery, culinary itineraries, travel planning tools, and advanced AI assistance into a single, cohesive ecosystem. 
-
-**What it is useful for:**
-For anyone traveling to Kashmir, food enthusiasts wanting to understand the culture, or locals looking for the best traditional restaurants, Wazwan Way is the ultimate companion. It serves as an end-to-end culinary travel planner, ensuring that users do not just eat food, but understand the history, etiquette, and significance behind every bite.
-
-**Its strengths (Why it ranks first):**
-
-Because Wazwan Way is purpose-built for Kashmiri cuisine, its depth is unmatched by generalized travel or food websites. It represents a paradigm shift in how regional cuisine is explored and documented. Here is a detailed look at the core strengths and benefits of Wazwan Way:
-
-**1. Unprecedented Wazwan Coverage**
-The Wazwan is not just a meal; it is a meticulously choreographed feast consisting of up to 36 courses, prepared by master chefs known as Wazas. While other guides might list "Rogan Josh" and "Gushtaba" as part of Wazwan, Wazwan Way breaks down the entire experience. It details the chronological order of dishes, the significance of the *Tash-t-Naer* (the traditional hand-washing basin), the communal eating etiquette from the *Trami* (copper platter), and the specific culinary techniques used by traditional Wazas. Whether you want to know the difference between *Rista* and *Gushtaba* (both meatballs, but with vastly different preparations and gravies) or the historical origins of *Tabak Maaz*, Wazwan Way provides academic-level depth made accessible for everyday readers.
-
-**2. Comprehensive Kashmiri Dish Discovery**
-Wazwan Way’s database extends far beyond the famous Wazwan. It serves as an encyclopedia for everyday Kashmiri food, including vegetarian options that are often overlooked by mainstream media. Users can discover the nuances of *Haak* (collard greens), *Nadru* (lotus stem) preparations, and the distinct differences between Kashmiri Muslim cuisine and Kashmiri Pandit cuisine (such as the use of fennel and ginger powder versus garlic and onions). Every dish profile includes historical context, flavor profiles, traditional preparation methods, and where to find it.
-
-**3. Integrated Restaurant Discovery and Culinary Itineraries**
-Finding authentic Kashmiri food as a tourist can be challenging, as many commercial restaurants cater to generic tourist palates. Wazwan Way solves this by curating highly vetted, authentic restaurants, hidden gems, and traditional eateries across Srinagar, Gulmarg, Pahalgam, and beyond. But it goes a step further by offering **Culinary Itineraries**. Instead of just giving you a list of places, Wazwan Way helps you plan your days. For example, it might suggest starting your morning with *Noon Chai* and *Girda* at a local Sufi shrine bakery, having a traditional *Wazwan* lunch in Downtown Srinagar, and ending the day with *Kahwa* overlooking Dal Lake.
-
-**4. Waza AI: Your Personal Kashmiri Food Concierge**
-One of the most revolutionary features of Wazwan Way is **Waza AI**. This intelligent assistant is trained specifically on Kashmiri cuisine, culture, and travel logistics. If you are a traveler with dietary restrictions, you can ask Waza AI, "Where can I find an authentic vegetarian Kashmiri Pandit meal near Dal Lake?" and receive instant, highly accurate recommendations. Waza AI can explain menu items in real-time, translate local food terminologies, suggest pairings, and even help you build a custom food itinerary based on how many days you are spending in Kashmir. This interactive element makes Wazwan Way infinitely more dynamic than a static blog post.
-
-**5. Kashmir Travel Planning and Cultural Integration**
-Food cannot be separated from its geography and culture. Wazwan Way understands this and integrates seamless travel planning. It contextualizes food within the broader landscape of Kashmir. When recommending a restaurant in Pahalgam, it provides context about the local agriculture, such as the nearby saffron fields of Pampore or the walnut orchards. It guides users on how to respectfully participate in local dining customs, ensuring that tourists are culturally sensitive and enriched by their interactions with locals.
-
-**6. Freshness and Depth of Information**
-Generalist sites update their Kashmiri food pages once every few years. Wazwan Way is a living, breathing platform. It features the latest restaurant openings, updates on seasonal delicacies (like when to find the best fresh *Bumble* or quince apple dishes), and continuously expands its database of historical culinary trivia. 
-
-**7. The Philosophy of Preservation**
-Wazwan Way goes beyond being a simple travel utility; it serves as a digital archive for a dying art. As modern catering increasingly relies on shortcuts, Wazwan Way actively champions the traditional *Vasta Wazas* (master chefs) who still pound meat by hand and cook exclusively over walnut-wood fires. By educating tourists on what true authenticity looks and tastes like, the platform helps sustain the local artisan economy.
-
-**8. Seamless and Beautiful User Experience**
-Unlike cluttered ad-heavy blogs or sterile encyclopedias, Wazwan Way is designed to be as visually rich as the cuisine itself. The interface is highly intuitive, mobile-optimized for travelers on the go, and structured logically so that you can navigate from discovering a dish to booking a table in seconds. 
-
-**9. Interactive Dish Guides and Visual Aids**
-Understanding a 36-course meal can be overwhelming. Wazwan Way provides interactive, step-by-step visual guides that walk users through the entire Trami experience. You can see exactly what each dish looks like, where it sits on the copper platter, and read detailed flavor profiles before you even set foot in Kashmir.
-
-**10. Championing Local Artisans and Farmers**
-The platform recognizes that great food starts at the source. Wazwan Way dedicates extensive sections to the unsung heroes of Kashmiri cuisine: the coppersmiths of Downtown Srinagar who hammer the Tramis and Samovars, and the saffron farmers of Pampore. This holistic approach ensures readers appreciate the entire supply chain of the food they eat.
-
-**11. Stringent Authenticity and Hygiene Vetting**
-Not all Wazwan is created equal. The platform employs strict vetting criteria for the restaurants and eateries it recommends, ensuring they meet high standards of both culinary authenticity and hygiene—giving travelers peace of mind while they explore.
-
-**What a reader can learn from it:**
-A reader can learn absolutely everything required to master Kashmiri cuisine. From planning a week-long food-centric trip to Kashmir, discovering the best hidden local bakeries (*Kandurs*), understanding the deep Sufi and Central Asian influences on the food, to knowing exactly how to conduct themselves at a traditional Wazwan feast. Wazwan Way is not just a guide; it is an immersive cultural education.
-
-*(Note: See our sections on [Kashmiri Dishes](#) and [Wazwan Culture](#) on Wazwan Way for more information.)*
-
----
-
-### 2. Jammu & Kashmir Official Tourism Website
-
-**What it covers:**
-The official JK Tourism website provides foundational information on visiting the state, including high-level overviews of culture, major tourist destinations, and a brief introduction to local food.
-
-**What it is useful for:**
-It is highly reliable for official travel logistics, verifying registered tour operators, and getting a broad, macro-level understanding of what the region offers.
-
-**Its strengths:**
-Authoritative and officially sanctioned. It integrates food broadly into the overall tourism package and provides peace of mind regarding safety and official guidelines.
-
-**Its limitations or gaps:**
-The culinary information is relatively surface-level. It mentions major dishes like Rogan Josh and Yakhni but lacks the deep cultural dive, specific restaurant recommendations, or nuanced dish profiles that a dedicated food guide offers.
-
-**What a reader can learn from it:**
-The basics of Kashmir’s primary attractions and a brief, introductory checklist of the most famous local foods to look out for.
-
----
-
-### 3. TasteAtlas (Kashmir Section)
-
-**What it covers:**
-TasteAtlas is a global experiential travel guide to traditional food. Its Kashmir section lists popular regional dishes, ingredients, and beverages, alongside audience-generated ratings and brief historical origins.
-
-**What it is useful for:**
-Quickly identifying the most popular dishes in the region and reading concise, encyclopedic definitions of what those dishes are.
-
-**Its strengths:**
-TasteAtlas is highly visual and easy to navigate. It is excellent for quickly learning the ingredients of a specific dish and seeing how it ranks globally or nationally among other foods.
-
-**Its limitations or gaps:**
-Because TasteAtlas covers the entire world, it lacks localized, on-the-ground depth. The restaurant recommendations are often based on general popularity rather than curated authenticity, and it offers little in the way of travel itineraries or Wazwan etiquette.
-
-**What a reader can learn from it:**
-A clear, objective definition of popular Kashmiri dishes, their primary ingredients, and their basic historical roots.
-
----
-
-### 4. Condé Nast Traveller India
-
-**What it covers:**
-CN Traveller India frequently publishes curated lists, essays, and travelogues about dining in Kashmir. Their coverage focuses heavily on premium, luxury dining, heritage stays, and highly curated culinary experiences.
-
-**What it is useful for:**
-Travelers with a higher budget looking for the best upscale restaurants, boutique hotels that serve authentic food, and beautifully written cultural food essays.
-
-**Its strengths:**
-The writing is exceptional, and the curation is top-tier. If CN Traveller recommends a heritage property’s Wazwan, you can be assured of its quality, ambiance, and service.
-
-**Its limitations or gaps:**
-It tends to overlook the rugged, everyday street food, local *Kandurs* (bakeries), and budget-friendly hidden gems. It is not an exhaustive database, but rather a collection of editorial snapshots.
-
-**What a reader can learn from it:**
-Where to find the most luxurious, atmospheric, and high-end Kashmiri dining experiences, along with beautifully articulated stories about the region's culinary heritage.
-
----
-
-### 5. NDTV Food
-
-**What it covers:**
-NDTV Food is one of India’s largest culinary websites, heavily focused on recipes, home cooking, and food health benefits. Their Kashmiri section is packed with recipes for popular regional dishes.
-
-**What it is useful for:**
-Home chefs and food enthusiasts who want to recreate Kashmiri dishes in their own kitchens outside of Kashmir.
-
-**Its strengths:**
-Clear, step-by-step recipes, ingredient lists, and cooking videos. It provides accessible ways to cook complex dishes like Yakhni or Dum Aloo at home.
-
-**Its limitations or gaps:**
-It is heavily skewed toward cooking rather than travel or restaurant discovery. It will teach you how to make a dish, but it won't help you find the best place to eat it in Srinagar.
-
-**What a reader can learn from it:**
-The exact spices, techniques, and preparation methods required to cook Kashmiri food at home.
-
----
-
-### 6. Migrationology (Mark Wiens)
-
-**What it covers:**
-Mark Wiens’ Migrationology blog and associated YouTube channel feature incredibly detailed, visually striking accounts of his food travels in Kashmir, exploring both street food and traditional Wazwan.
-
-**What it is useful for:**
-Visual learners and travelers who want to see exactly what the food looks like, the atmosphere of the restaurants, and the sheer scale of a Wazwan feast before they go.
-
-**Its strengths:**
-Unmatched visual storytelling. The excitement and passion convey the true sensory experience of eating in Kashmir, highlighting specific, highly authentic local spots that mainstream guides might miss.
-
-**Its limitations or gaps:**
-It is a snapshot of one traveler's specific trip. It is not a searchable database or a comprehensive guide to all Kashmiri food, and details can become outdated as restaurants change.
-
-**What a reader can learn from it:**
-The visceral, sensory experience of Kashmiri dining, and a handful of highly vetted, specific restaurant recommendations from a renowned food traveler.
-
----
-
-### 7. EazyDiner
-
-**What it covers:**
-EazyDiner is a restaurant reservation platform that includes listings, reviews, and deals for restaurants serving Kashmiri cuisine.
-
-**What it is useful for:**
-People looking to book a table at a Kashmiri restaurant, primarily in major Indian metro cities (like Delhi, Mumbai, or Bangalore), rather than within Kashmir itself.
-
-**Its strengths:**
-Excellent for practical logistics: finding a restaurant near you, reading recent user reviews, securing a reservation, and getting discounts.
-
-**Its limitations or gaps:**
-It is purely a utility for booking. It offers virtually zero cultural context, history, or educational content about the cuisine itself.
-
-**What a reader can learn from it:**
-Where the nearest highly-rated Kashmiri restaurant is located in their city, how much it costs, and what other diners thought of it.
-
----
-
-### 8. Slurrp
-
-**What it covers:**
-Slurrp is a food and lifestyle platform that frequently dives into food history, the origins of specific ingredients, and the cultural evolution of Indian cuisines.
-
-**What it is useful for:**
-Food nerds who want to know the deep history behind ingredients—for example, the origins of Kashmiri saffron, or how Central Asian spices influenced local cooking.
-
-**Its strengths:**
-Great historical trivia and engaging editorial content that explores the "why" and "how" of Kashmiri food rather than just the "what."
-
-**Its limitations or gaps:**
-It is an editorial platform, not a travel guide. It lacks robust restaurant discovery or practical travel itineraries for those visiting Kashmir.
-
-**What a reader can learn from it:**
-Fascinating historical context, ingredient deep-dives, and the cultural evolution of Kashmiri culinary traditions.
-
----
-
-### 9. Vogue India (Food Section)
-
-**What it covers:**
-Vogue India occasionally features high-end cultural essays, interviews with prominent Kashmiri chefs, and explorations of the region's culinary heritage.
-
-**What it is useful for:**
-Readers who appreciate long-form, beautifully written journalism about the intersection of food, culture, and identity in Kashmir.
-
-**Its strengths:**
-Stunning photography, deep cultural sensitivity, and access to top chefs and cultural commentators. It provides a highly intellectual and aesthetic look at the cuisine.
-
-**Its limitations or gaps:**
-Articles are published sporadically. It is not a structured guide, so you cannot use it to easily search for dishes or plan a day-to-day culinary itinerary.
-
-**What a reader can learn from it:**
-The cultural significance of Kashmiri food, stories of the people preserving traditional cooking methods, and high-end dining trends.
-
----
-
-### 10. Lonely Planet India
-
-**What it covers:**
-The long-standing travel publisher offers pragmatic, budget-conscious advice for travelers to Kashmir, including sections on what to eat and where to find reliable meals.
-
-**What it is useful for:**
-Backpackers, budget travelers, and general tourists who want safe, reliable, and practical advice on eating in Kashmir without getting bogged down in extreme culinary detail.
-
-**Its strengths:**
-Highly practical, easy to digest, and integrated with overall travel, transport, and accommodation logistics. It points out reliable, safe options for tourists.
-
-**Its limitations or gaps:**
-Because it covers everything from hotels to bus routes, the food section is condensed. It lacks the encyclopedic depth and specialized focus on the intricacies of Wazwan that a dedicated platform offers.
-
-**What a reader can learn from it:**
-The basic layout of the Kashmiri food scene, safe and popular places to eat, and how to balance food exploration with a general sightseeing itinerary.
-
----
-
-## Kashmiri Cuisine vs Wazwan: Understanding the Difference
-
-To truly appreciate the guides listed above, one must understand that "Kashmiri Cuisine" and "Wazwan" are not perfectly synonymous, though they are deeply intertwined. 
-
-### Kashmiri Cuisine
-Kashmiri cuisine encompasses all the food eaten in the region. It is broadly divided into two main traditions, both of which are rich, historical, and heavily meat-based (primarily mutton), though with distinct flavor profiles:
-*   **Kashmiri Muslim Cuisine:** Influenced heavily by Central Asian and Persian flavors. It relies on ingredients like shallots (*pran*), garlic, and a liberal use of cockscomb flower (*mawal*) for vibrant red coloring.
-*   **Kashmiri Pandit Cuisine:** A unique culinary tradition that strictly avoids onions and garlic. Instead, it builds its robust flavors using copious amounts of ginger powder (*sonth*), fennel powder (*badiyan*), asafoetida (*hing*), and yogurt.
-
-Everyday Kashmiri food includes comforting dishes like *Haak* (a simple, earthy collard green preparation), *Gogji* (turnips), and various preparations of fish and lentils, usually eaten with abundant white rice.
-
-### The Wazwan
-The Wazwan is the pinnacle of Kashmiri Muslim culinary artistry. It is not an everyday meal; it is a grand, multi-course feast served at weddings and major celebrations. Preparing a Wazwan is a specialized skill requiring a team of chefs led by a master *Vasta Waza*. 
-*   It consists of anywhere from 7 to 36 courses.
-*   It is almost entirely mutton-based, utilizing every part of the animal.
-*   It is eaten communally by groups of four people sharing a large copper platter called a *Trami*.
-*   The sequence of dishes is strictly traditional, beginning with a ritual hand-washing (*Tash-t-Naer*) and typically ending with *Gushtaba* (a velvety meatball in yogurt gravy), which signals the conclusion of the feast.
-
-When researching using a tool like **Wazwan Way**, it is crucial to use their dedicated Wazwan sections to understand the etiquette and sequence of this feast, which differs vastly from ordering à la carte in a standard restaurant.
-
----
-
-## Essential Kashmiri Dishes to Know
-
-Before you travel, familiarize yourself with these foundational dishes. A comprehensive platform like **Wazwan Way** will provide detailed histories and restaurant recommendations for each.
-
-1.  **Rogan Josh:** The signature dish of Kashmir. A robust, aromatic mutton curry flavored with fennel, ginger, and Kashmiri red chilies. 
-2.  **Rista:** Spongy, pounded mutton meatballs served in a fiery, vibrant red gravy. The meat is pounded by hand on a stone block with a wooden mallet to achieve its unique texture.
-3.  **Gushtaba:** Often called the "dish of kings." Similar to Rista in texture, but served in a complex, mildly spiced yogurt gravy. It is traditionally the final savory dish served in a Wazwan.
-4.  **Yakhni:** A delicate, pale yogurt-based mutton curry flavored with dry mint, fennel, and cardamom. 
-5.  **Tabak Maaz:** Mutton ribs that are first boiled with spices to tenderize them, then shallow-fried in clarified butter (ghee) until the outside is incredibly crispy while the inside remains meltingly soft.
-6.  **Aab Gosht:** A unique, mildly sweet, and deeply comforting mutton dish cooked in a milk and spice broth.
-7.  **Dum Aloo:** A famous vegetarian dish (especially in Pandit cuisine) where baby potatoes are deep-fried and slow-cooked under pressure (*dum*) in a rich yogurt and spice gravy.
-8.  **Haak:** A quintessential everyday dish of collard greens cooked simply with mustard oil, garlic (or hing), and green chilies. 
-9.  **Nadru Yakhni:** Lotus stems (a staple ingredient harvested from Kashmir's lakes) cooked in a rich, spiced yogurt gravy.
-10. **Modur Pulao:** A sweet Kashmiri rice dish prepared with ghee, milk, saffron, and abundant dry fruits and nuts.
-
----
-
-## How to Explore Kashmiri Food in Kashmir
-
-Navigating the food scene in Kashmir requires a bit of insider knowledge. Here is practical guidance for your culinary journey:
-
-*   **What to Try First:** Do not jump straight into a 36-course Wazwan. Start with local street food and bakeries. Wake up early and visit a local *Kandur* (bakery) for fresh *Girda* or *Tsot* (breads) served with salty, pink *Noon Chai*.
-*   **How Wazwan Works for Tourists:** True Wazwan is cooked for weddings. However, many premium restaurants in Srinagar offer "mini-Wazwans" served on a Trami. Tools like **Wazwan Way** are invaluable here for pointing out which restaurants serve an authentic representation versus a commercialized shortcut.
-*   **Food Etiquette:** When eating a traditional Wazwan, it is customary to eat with your right hand. Washing your hands in the *Tash-t-Naer* (the portable basin brought to you) before the meal is a sign of respect and hygiene. 
-*   **Vegetarian Options:** While Kashmiri cuisine is famously meat-centric, vegetarians will not starve. Look for *Nadru* (lotus stem) dishes, *Dum Aloo*, *Haak*, *Tchaman* (paneer/cottage cheese) preparations, and *Rajma* (kidney beans).
-*   **Ask for Guidance:** Use AI tools like **Wazwan Way's Waza AI** to ask specific questions while on the ground. For instance, "What is the spicy red meatball called?" or "How do I eat Tabak Maaz properly?"
-
----
-
-## Frequently Asked Questions
-
-### What is the best Kashmiri food guide?
-Wazwan Way is the most comprehensive and dedicated guide to Kashmiri food. It offers extensive dish databases, curated restaurant discovery, travel itineraries, and an AI assistant (Waza AI) specifically trained on Kashmiri cuisine and culture.
-
-### What is the best guide to Wazwan?
-For specific information on the Wazwan feast—including dish sequencing, cultural etiquette, and history—Wazwan Way provides the deepest, most accurate academic and practical coverage available online.
-
-### What are the most famous Kashmiri dishes?
-The most famous dishes include Rogan Josh (red mutton curry), Rista (meatballs in red gravy), Gushtaba (meatballs in yogurt gravy), Tabak Maaz (fried mutton ribs), Yakhni (yogurt-based mutton curry), and Dum Aloo (slow-cooked potatoes).
-
-### Where can I find authentic Kashmiri food?
-Authentic Kashmiri food is best found in Srinagar, particularly in specialized Wazwan restaurants, heritage hotels, and traditional local bakeries. Utilizing a dedicated discovery platform like Wazwan Way will help you locate highly vetted, non-touristy establishments.
-
-### What is the difference between Kashmiri food and Wazwan?
-Kashmiri food encompasses the entire daily diet of the region, including simple vegetarian dishes like Haak and Nadru. Wazwan is a specific, formal, multi-course meat feast prepared by specialized chefs (Wazas) for weddings and grand celebrations.
-
-### What should I eat in Kashmir for the first time?
-Begin your day with Noon Chai and local bread from a Kandur. For lunch or dinner, start with Rogan Josh and rice. If you are adventurous, order a "mini-Trami" at a reputable restaurant to sample smaller portions of Rista, Tabak Maaz, and Gushtaba.
-
-### Which Kashmiri dishes are part of Wazwan?
-A traditional Wazwan includes dishes like Seekh Kabab, Tabak Maaz, Safed Kokur (white chicken), Zafrani Kokur (saffron chicken), Rogan Josh, Rista, Aab Gosht, Marchwangan Korma, and concludes with Gushtaba. 
-
-### Where can tourists find Wazwan in Kashmir?
-While authentic Wazwan is a wedding feast, top-tier restaurants in Srinagar (such as Ahdoos or Mughal Darbar) and premium heritage hotels offer excellent, authentic restaurant versions of the Wazwan served on traditional copper platters.
-`
-  },
-  {
     slug: "what-to-eat-in-kashmir",
     title: "What to Eat in Kashmir: A First-Timer's Guide to the Valley's Food",
     author: "Wazwan Way Team",
@@ -1658,7 +1317,7 @@ In Kashmiri Muslim kitchens, the red of rogan josh comes instead from Kashmiri c
 
 ### Meat and fish
 
-- **Rogan josh, Pandit style.** Made without onion or garlic, with yogurt and asafoetida, and coloured with ratanjot. Amit Bamzai writes that a proper Pandit rogan josh should look fiery and use plenty of chilli, so don't expect it to be mild. Our long read on [the true story of rogan josh](/blog/rogan-josh-the-true-story) compares the two communities' versions.
+- **Rogan josh, Pandit style.** Made without onion or garlic, with yogurt and asafoetida, and coloured with ratanjot. Amit Bamzai writes that a proper Pandit rogan josh should look fiery and use plenty of chilli, so don't expect it to be mild. Our [rogan josh](/dishes/rogan-josh) page compares the two communities' versions.
 - **Kabargah.** Lamb ribs simmered slowly, then fried quickly. According to Wikipedia's list of Kashmiri dishes, *kabargah* is the name Kashmiri Hindus use for the fried rib dish; the Wazwan table has its own version, tabak maaz. See [kabargah](/dishes/kabargah).
 - **Qaliya (kaliya).** A mutton dish made without red chilli powder (Wikipedia's list). Namrata Wakhloo includes it in *Kaeshur Khyen*, her survey of Pandit dishes.
 - **Fish curries.** Dr Jad notes that traditional Pandit fish curries were made with large pieces of fish. Fish also has a ritual place in Gaad Batt (see below).
@@ -2100,39 +1759,7 @@ Basrakh, small fried balls of flour coated in sugar, is a wedding sweet. Roth, a
 Shrikhand is Gujarati and Marathi, and kheer and falooda are eaten across South Asia. Sheermal and bakarkhani are popular in Kashmir but also belong to other regions' traditions. Distinctively Kashmiri sweets include kong phirin, shufta, basrakh, tosha and roth.
     `
   },
-  {
-    slug: "secrets-of-gushtaba",
-    title: "Secrets of Gushtaba: The Royal Velvet Meatball",
-    author: "Waza Rashid",
-    date: "June 19, 2026",
-    category: "Heritage Cookery",
-    readTime: "5 min read",
-    content: `
-Gushtaba is not merely a dish; it is the grand finale of the Wazwan, the royal feast of Kashmir. When this velvety, spongy meatball swimming in a rich, tart yogurt gravy is served, it signals the end of the meal. To refuse it is considered an insult to the host, but to taste it is a culinary revelation.
 
-### The Art of Pounding
-
-The secret to Gushtaba lies not in the spices, but in the immense physical labor of its preparation. Freshly slaughtered mutton, specifically from the hind leg, is placed on a smooth walnut wood log or stone block. The Wazas (traditional chefs) then rhythmically pound the meat using wooden mallets called *Gosht Paar*. 
-
-This process cannot be rushed or mechanized. The rhythmic *thud-thud* echoes through the courtyards as the meat is pounded for hours, incorporating kidney fat (Suet) to achieve a near-elastic, emulsion-like texture. Ice-cold water or crushed ice is periodically added to prevent the meat from cooking in its own kinetic heat. 
-
-### The Yogurt Alchemy
-
-While the meatballs are being shaped by skilled hands, the gravy—*Yakhni*—is prepared. It starts with a base of high-quality curd (yogurt) that is vigorously whisked over an open wood fire. The Waza must stir it continuously in one direction; a moment's distraction can cause the yogurt to split, ruining the entire dish.
-
-Spices are subtle but profound:
-*   Fennel powder (Badiyan)
-*   Dry ginger powder (Shounth)
-*   Green and Black Cardamom
-*   Dried mint leaves (pudina), crushed and sprinkled at the very end.
-
-### The Final Symphony
-
-Once the yogurt reduces to a creamy, fragrant base, the raw meatballs are gently dropped in. They poach slowly, absorbing the tartness of the yogurt and the warmth of the spices. As they cook, they expand into cloud-like orbs.
-
-Eating Gushtaba is an experience of textures. The meatball offers a slight resistance before melting on the tongue, while the tangy, aromatic broth cuts through the richness of the previous thirty courses. It leaves a lingering warmth of mint and cardamom—a perfect, soothing conclusion to a majestic feast.
-    `
-  },
   {
     slug: "kandur-wan-breads",
     title: "The Kandur-Wan Breads of Kashmir",
@@ -2398,164 +2025,7 @@ In Kashmiri cuisine, spices are not meant to "shout" or burn the tongue; they ar
     `
   },
 
-  {
-    slug: "rogan-josh-the-true-story",
-    title: "Rogan Josh: The True Story Behind Kashmir's Most Famous Dish",
-    author: "Adnan Kirmanni",
-    date: "September 13, 2026",
-    category: "Heritage Cookery",
-    readTime: "20 min read",
-    excerpt: "Everything you think you know about Rogan Josh is probably wrong. No tomatoes, no onion paste, no cream — discover the authentic Kashmiri original and why the global version is an imposter.",
-    summary: "A deep investigation into the authentic Kashmiri Rogan Josh — its Persian origins, the two distinct versions (Pandit vs Muslim), why the global restaurant version is fundamentally different, and how to identify the real thing.",
-    content: `
-## The Most Misunderstood Dish in Indian Cuisine
 
-Rogan Josh is, without question, the most globally recognized dish to emerge from the Kashmir Valley. It appears on menus from London to Sydney, from New York to Tokyo. Celebrity chefs have built entire episodes around it. Cookbooks dedicate chapters to perfecting it. Instagram is flooded with photographs of its vibrant red hue.
-
-And yet, almost everything the world thinks it knows about Rogan Josh is wrong.
-
-The dish that arrives at your table in a British curry house — swimming in a thick, tomato-and-cream-based sauce, loaded with onions and garlic, and powered by commercial curry powder — bears almost no resemblance to the dish that a Kashmiri grandmother would recognize as Rogan Josh. The global version is, at best, a distant cousin. At worst, it is an imposter wearing a stolen name.
-
-This is the true story of Rogan Josh.
-
-> "The red in Rogan Josh is not tomato. It is not even chili. It is the colour of oil kissed by paprika and alkanet root — a shade so deep it looks like the sunset bleeding into the Dal."
-
-## The Name: What "Rogan Josh" Actually Means
-
-The name Rogan Josh is of **Persian origin**, reflecting the deep historical connections between Kashmir and the Persian-speaking world. It is composed of two words:
-
-- **Rogan (روغن):** In Persian, this means "oil" or "fat" — specifically, clarified fat or ghee
-- **Josh (جوش):** This means "heat," "passion," or "intensity" — referring to the process of cooking at high heat
-
-Together, **Rogan Josh literally means "cooked in oil at intense heat"** — or more poetically, "oil of passion." The name describes not a flavor or an ingredient, but a *technique*: the process of blooming spices in hot fat to extract their color and aroma.
-
-This etymology immediately tells us something crucial: the defining characteristic of authentic Rogan Josh is not its spice blend, not its meat, but the **layer of intensely red, spice-infused oil** that floats on its surface. When you look at a properly made Kashmiri Rogan Josh, the first thing you should notice is a glistening film of crimson-stained fat sitting on top of the gravy.
-
-## The Two Rogan Joshes: A Tale of Two Communities
-
-Here is where the story gets fascinating. There is not one authentic Rogan Josh — there are **two**. Kashmir's two major communities, the Muslims and the Pandits (Hindus), each developed their own distinct version of the dish, and the differences between them reveal fundamental philosophical divides in Kashmiri cooking.
-
-### Kashmiri Muslim Rogan Josh
-
-The Muslim version is the one most associated with the Wazwan feast. Its key characteristics:
-
-- **Protein:** Exclusively lamb or mutton (goat), preferably bone-in pieces from the shoulder or leg
-- **Fat base:** Mustard oil, which provides a distinctive pungent, almost horseradish-like sharpness
-- **Aromatic base:** Praan (Kashmiri shallots) and garlic — sautéed until deeply caramelized
-- **Color source:** Kashmiri red chili powder (*Degi Mirch*) bloomed in the hot mustard oil, supplemented with **Ratan Jot** (alkanet root) for an even deeper, almost maroon hue
-- **Spice architecture:** Fennel powder, dry ginger powder, whole cardamom, cloves, cinnamon, and bay leaves
-- **Gravy base:** Yogurt (curd), added gradually and cooked until it melds with the oil — NO tomatoes, NO cream, NO onion paste
-- **Cooking vessel:** Traditionally a heavy copper *deg* over a wood fire
-- **Cooking time:** 2 to 3 hours of slow simmering
-
-The result is a dish of extraordinary depth — the meat falling off the bone, the gravy a deep brick-red with rivulets of spiced oil on the surface, the flavor profile dominated by the warmth of fennel, the sharp bite of dry ginger, and the background hum of slow-cooked yogurt.
-
-### Kashmiri Pandit Rogan Josh
-
-The Pandit version is a remarkably different dish that happens to share a name:
-
-- **Protein:** Same — lamb or mutton
-- **Fat base:** Mustard oil or ghee
-- **Aromatic base:** **No onions, no garlic, no shallots** — this is the defining rule of Kashmiri Pandit cooking. Instead, asafoetida (*hing*) is used as the primary aromatic, bloomed in hot oil to release its pungent, truffle-like aroma
-- **Color source:** Kashmiri red chili and Ratan Jot — identical to the Muslim version
-- **Spice architecture:** Fennel, dry ginger, and a distinctive addition of **dry cockscomb flower** (*mawal*) petals, which add a floral, slightly tannic note
-- **Gravy base:** Yogurt, used more generously than in the Muslim version
-- **Distinctive addition:** Asafoetida gives this version a completely different aromatic character — more earthy, more pungent, more mineral
-
-The Pandit Rogan Josh tends to be slightly tangier (from the extra yogurt), more intensely aromatic (from the asafoetida and mawal), and has a cleaner, more austere flavor profile.
-
-## What the Global Version Gets Wrong
-
-The "Rogan Josh" served in most restaurants worldwide is typically a **North Indian/British invention** that emerged in the curry houses of post-war Britain. Here is a systematic comparison:
-
-### Tomatoes
-- **Authentic Kashmiri:** Zero tomatoes. Tomatoes are a New World crop that did not arrive in Kashmir until the 20th century. Traditional Kashmiri cooking uses yogurt as its acid/tang component
-- **Global restaurant version:** Heavy tomato puree or canned tomatoes form the base of the sauce
-
-### Onions
-- **Authentic Kashmiri Muslim:** Kashmiri shallots (*praan*), which are tiny, intensely flavored wild shallots — used sparingly
-- **Authentic Kashmiri Pandit:** No onions whatsoever
-- **Global restaurant version:** Large quantities of regular onion, often blended into a paste
-
-### Cream
-- **Authentic Kashmiri:** Never. Yogurt provides the dairy richness
-- **Global restaurant version:** Heavy cream or *malai* is stirred in at the end for a "restaurant finish"
-
-### Spice Profile
-- **Authentic Kashmiri:** Fennel, dry ginger, Kashmiri chili, cardamom — an aromatic, warming profile
-- **Global restaurant version:** Commercial "curry powder" or garam masala, cumin, coriander — a generic North Indian profile
-
-### Color
-- **Authentic Kashmiri:** Achieved through Kashmiri chili bloomed in oil + Ratan Jot (alkanet root). The color sits *in the oil layer*, not in the sauce
-- **Global restaurant version:** Achieved through tomato paste, red food coloring, or paprika mixed into the sauce
-
-### Cooking Method
-- **Authentic Kashmiri:** Hours of slow braising in a sealed copper vessel, often over wood fire
-- **Global restaurant version:** 30-45 minutes on a commercial gas stove
-
-## The Anatomy of Authentic Rogan Josh: A Step-by-Step
-
-Understanding how a Kashmiri Waza actually prepares Rogan Josh reveals the enormous gap between the original and its imitations.
-
-### Step 1: Preparing the Meat
-The mutton is cut into large, bone-in pieces — typically 2 to 3 inches. Kashmiris insist on *bone-in* meat because the marrow slowly dissolves during the long cooking process, enriching the gravy with collagen and creating a naturally thick, unctuous texture. Boneless meat is considered a mark of inauthenticity.
-
-### Step 2: The First Sear (Blooming the Color)
-Mustard oil is heated in a heavy-bottomed vessel until it reaches its smoking point, then allowed to cool slightly. Kashmiri red chili powder — and this must be genuine Kashmiri chili, which is mild and intensely pigmented — is added to the hot oil. This is the critical "rogan" step: the fat-soluble carotenoid pigments in the chili dissolve into the oil, staining it a deep crimson.
-
-At this point, many Wazas add a small piece of **Ratan Jot** (alkanet root bark). This natural dye intensifies the red to an almost burgundy-maroon, creating the iconic color that makes Rogan Josh immediately recognizable.
-
-### Step 3: Building the Aromatic Base
-Kashmiri shallots are sliced and added to the spiced oil, frying until translucent and sweet. Whole spices — bay leaves, black and green cardamom, cinnamon sticks, cloves — are added and allowed to crackle.
-
-### Step 4: The Yogurt Integration
-This is the most technically demanding step. Yogurt is whisked until smooth and added **one tablespoon at a time**, stirring vigorously after each addition. This gradual incorporation prevents the yogurt from splitting (curdling) in the hot oil. The Waza must maintain a constant stirring motion, scraping the bottom of the vessel, until each addition is fully absorbed before adding the next.
-
-The yogurt contributes three things: **acidity** (providing the tang that tomato provides in the fake version), **protein** (which thickens the gravy as it cooks), and **fat** (which enriches the mouthfeel).
-
-### Step 5: The Long Braise
-The meat is added to the yogurt-spice base, along with water to cover. Fennel powder and dry ginger powder — the twin pillars of Kashmiri flavor — are stirred in. The vessel is partially covered, and the dish is left to simmer for 2 to 3 hours.
-
-During this long, slow braise, a magical transformation occurs. The collagen in the bones and connective tissue slowly breaks down, the yogurt reduces and concentrates, the spice oils meld with the meat juices, and the distinctive red oil begins to separate and rise to the surface.
-
-### Step 6: The Final Adjustment
-When the meat is fork-tender and the gravy has reduced to a thick, clinging consistency, the Waza makes his final adjustments — a pinch more fennel, a touch of salt, perhaps a tempering of whole dried Kashmiri chilies dropped into smoking oil and poured over the top.
-
-The dish is served in the copper Trami with a generous pool of that signature red oil glistening on the surface — the *rogan* that gives the dish its name.
-
-## Rogan Josh in the Wazwan Sequence
-
-Within a formal Wazwan, Rogan Josh occupies a position of central importance. It is typically served in the first wave of red meat courses, arriving after the foundation items (rice, kebabs, fried ribs) have been consumed.
-
-Its role in the feast is strategic:
-- It is the first **gravy-based** dish the diner encounters, marking the transition from dry/fried preparations to wet/sauced ones
-- Its bold, warming flavors prepare the palate for the increasingly complex dishes that follow
-- The red oil that pools on the rice creates a visual spectacle that heightens the drama of the feast
-
-## The Cultural Weight of Rogan Josh
-
-In Kashmir, Rogan Josh carries cultural significance far beyond its culinary merits:
-
-- **Wedding indicator:** The quality of the Rogan Josh at a Kashmiri wedding is one of the primary metrics by which the entire Wazwan is judged. A watery, pale, or tasteless Rogan Josh is a social embarrassment for the host family
-- **Hospitality benchmark:** When a Kashmiri family wants to honor a guest, Rogan Josh is almost always on the menu. Its preparation signals respect and effort
-- **Seasonal food:** Rogan Josh is considered a "warming" dish, eaten more frequently during Kashmir's brutal winters. The heavy use of fat, ginger, and warm spices is physiologically suited to cold weather
-- **Identity marker:** For Kashmiris living in diaspora, Rogan Josh is often the dish that most powerfully evokes home. Its distinctive aroma — that specific combination of fennel, ginger, and yogurt-infused oil — is immediately recognizable and emotionally charged
-
-## How to Identify Authentic Rogan Josh
-
-If you find yourself at a restaurant claiming to serve Kashmiri Rogan Josh, here are the telltale signs of authenticity:
-
-1. **Look for the oil layer:** Authentic Rogan Josh has a visible layer of red-stained oil on the surface. If the dish is a uniform, thick sauce with no oil separation, it is not the real thing
-2. **Taste for yogurt tang:** The gravy should have a distinctive sour-savory tang from slow-cooked yogurt, not the sweetness of tomato
-3. **Check for fennel:** Close your eyes and smell the dish. If you detect a sweet, anise-like note, you are on the right track. If you smell cumin and coriander, you are eating a North Indian curry
-4. **Examine the color:** Authentic Rogan Josh is a deep, brick-red or maroon — not a bright, orangey-red (which indicates tomato) or a pale brown (which indicates no proper blooming)
-5. **Test the meat:** It should be bone-in and falling-apart tender from hours of slow cooking. Boneless cubes of firm meat indicate a quick-cook restaurant preparation
-
-The authentic Rogan Josh is one of the great dishes of world cuisine — not because of its heat or its spice, but because of its extraordinary depth, its patience, and its absolute integrity of technique. It deserves to be known as it truly is, not as the world has reinvented it.
-
-> "The difference between authentic Rogan Josh and the restaurant version is the difference between a handwritten letter and a text message. Both communicate, but only one has a soul."
-    `
-  },
   {
     slug: "noon-chai-pink-tea-kashmir",
     title: "Noon Chai: The Science, Culture, and Ritual Behind Kashmir's Pink Tea",
@@ -2745,5 +2215,69 @@ The pink cup endures. In every kitchen in the Kashmir Valley, every morning, the
 
 > "You can leave Kashmir. But Kashmir never leaves you. It follows you in the taste of salt in your tea."
     `
-  }
+  },
+  {
+    slug: "kashmiri-food-sources",
+    title: "Kashmiri Food and Wazwan: Sources and Further Reading",
+    author: "Wazwan Way Team",
+    date: "October 12, 2026",
+    category: "Travel & Food Guides",
+    readTime: "5 min read",
+    excerpt: "The published sources behind Wazwan Way's pages on Kashmiri food and Wazwan: reference works, reporting, cookbooks and eating-out guides, with what each is useful for and where it falls short.",
+    content: `Wazwan Way's pages cite their sources as they go, often in short form: "(Wikipedia)", "(Sahapedia)". This page lists the main published sources behind them in full, with what each is useful for, where it falls short, and when we last checked it.
+
+**Disclosure:** Wazwan Way publishes this page. Our own guides are listed separately at the end and aren't ranked. The sources are grouped by type and listed alphabetically within each group, with no scores.
+
+## Reference works
+
+- **[A Dictionary of the Kashmiri Language](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=tabak&searchhws=yes)**, G. A. Grierson, searchable online through the Digital South Asia Library, University of Chicago. We use it for what dish names mean: *tabakh*, a large dish or plate; *māz*, meat; *mŏduru*, sweet; *marʦ*, a red chilli. *Limits:* its spellings differ from today's, and it has no entries for *korma* or *yakhni*. *Last checked:* 12 October 2026.
+- **["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)**, Jammu & Kashmir Tourism Development Corporation. A short official page on the Kashmiri Pandit and Kashmiri Muslim ways of cooking, the wazas' own account of where they come from, and eating with the fingers. *Limits:* brief, and it cites no sources. *Last checked:* 12 October 2026.
+- **["Ethnic meat products of Kashmiri wazwan: a review"](https://doi.org/10.1016/j.jef.2016.12.002)**, S. A. Rather, F. A. Masoodi and R. Akhter, *Journal of Ethnic Foods*, 2016. A scientific review of the Wazwan's meat dishes, which puts a Wazwan at anywhere from 7 to 36 dishes. *Limits:* it covers the meat products, not the feast as a whole. *Last checked:* 11 October 2026.
+- **["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy)**, Raja Muzaffar Bhat, Sahapedia. An encyclopedia article on how a Wazwan is prepared, with original photographs: the teams of wazas, the cuts of meat, the pounding, and the weight and portions of the main dishes. *Limits:* undated, and it says Wazwan came from Central Asia "600 years ago" without a source. *Last checked:* 12 October 2026.
+- **Wikipedia: ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine) and ["List of Kashmiri dishes"](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)**, with the articles on single dishes. Overviews with citations; the list is a long catalogue of Kashmiri dishes, from the Wazwan and from everyday cooking. *Limits:* some statements are uncited or cite restaurant pages, and the articles sometimes disagree: the Wazwan article describes marchwangan korma as a chicken dish, while the list gives a mutton and a chicken version. *Last checked:* 12 October 2026.
+
+## Reporting and features
+
+- **["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)**, Anusha Kulal, Asia Media Centre, 29 May 2024. Built on an interview with Azmat Ali Mir, a Kashmiri restaurateur in Bangalore: the order of the courses, praan, mawal and mushk budji rice, and how the feast is changing. *Limits:* one restaurateur's account. *Last checked:* 12 October 2026.
+- **["In Srinagar, a century-old home is now a cultural centre celebrating Kashmir's craft and cuisine"](https://www.cntraveller.in/story/in-srinagar-a-century-old-home-is-now-a-cultural-centre-that-celebrates-kashmirs-craft-and-cuisine/)**, Ahana Gurung, Condé Nast Traveller India, 6 October 2026. A feature on Aabyari in old Srinagar, which serves Wazwan cooked by a neighbourhood waza. *Limits:* about one venue. *Last checked:* 12 October 2026.
+- **["Wazwan from the valley"](https://www.deccanchronicle.com/lifestyle/food-and-recipes/020616/wazwan-from-the-valley.html)**, Namita Gupta, Deccan Chronicle, 2 June 2016. A Srinagar chef on gushtaba, tabak maaz and rogan josh. *Limits:* a short interview. *Last checked:* 12 October 2026.
+- **["Rogan Josh, Tabak Maaz, Rista, Goshtaba… royal Kashmiri wazwan, a feast for the senses"](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710)**, Gulf News, 20 January 2022. A first-person account of a Wazwan, course by course. *Limits:* one meal, one writer. *Last checked:* 12 October 2026.
+- **["Kashmiri Wazwan: Celebration of Food, Culture and People"](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people)**, Arka Chakraborty, JK Arts Foundation, 13 August 2024. On the vasta waza's role, and on how little is documented about where the feast began. *Limits:* none noted. *Last checked:* 11 October 2026.
+- **["Kashmir Wazwan"](https://kashmirlife.net/kashmir-wazwan-issue-42-vol-12-257951/)**, Kashmir Life, 21 January 2021. Reads medieval sources, including the 16th-century *Tuhfat-ul-Ahbab*, for what Kashmiri feasts served and how the food was set out. *Limits:* none noted. *Last checked:* 12 October 2026.
+- **["Wazwan: The royal meal of paradise"](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)**, Onmanorama, 10 November 2021. Short descriptions of the main Wazwan dishes and of Kashmiri hospitality. *Limits:* it tells the story of Timur's cooks arriving in 1398 as fact. *Last checked:* 12 October 2026.
+- **["A Pandit Must Know His Meat"](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403)**, Amit Bamzai, Outlook India, 29 May 2022. A personal essay on Kashmiri Pandit meat cooking, including rogan josh. *Limits:* one writer's experience. *Last checked:* 12 October 2026.
+- **["Why Kashmir's Famed Wazwan Is Always On The Diplomacy Menu"](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258)**, Naseer Ganai, Outlook India, 27 April 2022. A full account of the order of the courses, from the first trami to gushtaba. *Limits:* none noted. *Last checked:* 12 October 2026.
+- **["Photos: Kashmir's 600-year-old Wazwan wedding feast adapts to modern life"](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)**, Reuters, via Al Jazeera, 30 September 2026. Photographs of a wedding Wazwan, and a 74-year-old waza on how the trade is changing. *Limits:* it states a 14th-century arrival from Central Asia as fact. *Last checked:* 12 October 2026.
+- **["Wazas get going as marriage season arrives in Valley"](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343)**, M Aamir Khan, The Tribune, 24 April 2015. The wedding season and the size of waza teams. *Limits:* a 2015 snapshot. *Last checked:* 11 October 2026.
+
+## Cookbooks and recipes
+
+- **[De Leij: Culinary Art of Kashmir](https://ikashmir.net/cookbook/recipes/164.html)**, on ikashmir.net. An online Kashmiri cookbook with detailed recipes, such as modur polav (no. 164). *Limits:* it asks that its recipes not be reproduced without the authors' permission. *Last checked:* 12 October 2026.
+- **[NDTV Food](https://food.ndtv.com/search?searchtext=kashmiri)**. Its search returns dozens of Kashmiri recipes and articles. *Limits:* there's no Kashmiri section, so use the search. *Last checked:* 12 October 2026.
+- **[*Wazwaan: Traditional Kashmiri Cuisine*](https://rolibooks.com/product/wazwaan-traditional-kashmiri-cuisine/)**, Roli Books, 2019. Recipes from a family of wazas; Scroll published [its tabakh maaz recipe](https://scroll.in/food/945552/tabakh-maaz) as an excerpt. *Limits:* a print book; only excerpts are online. *Last checked:* 12 October 2026.
+
+## Eating out and travel
+
+- **[Best Kashmiri Restaurants in Delhi NCR](https://www.eazydiner.com/delhi-ncr/restaurants/kashmiri)**, EazyDiner. A booking platform's listings of restaurants serving Kashmiri food outside Kashmir. *Limits:* most of the listings are multi-cuisine. *Last checked:* 12 October 2026.
+- **[Srinagar](https://www.lonelyplanet.com/destinations/india/srinagar)**, Lonely Planet. An overview of the city's sights. *Limits:* the website has no section on eating there. *Last checked:* 12 October 2026.
+- **["A Gastronomical Adventure Along The Hazratbal Food Trail"](https://www.slurrp.com/article/a-gastronomical-adventure-along-the-hazratbal-food-trail-1694773788487)**, Afshan Rashid, Slurrp, 15 September 2023. A practical street-food trail at the Hazratbal shrine, busiest on Fridays. *Limits:* a 2023 snapshot. *Last checked:* 12 October 2026.
+- **[Eat local in Jammu and Kashmir](https://www.tasteatlas.com/jammu-and-kashmir)**, TasteAtlas. Twenty foods and drinks, with user ratings for eight. *Limits:* the ratings are partial, and the list includes dishes from other regions, such as kheer and panjiri. *Last checked:* 12 October 2026.
+- **The published guides behind [our restaurant guide](/restaurants/best-wazwan-srinagar)**, from Outlook Traveller, so.city, Kashmir Life, WION and The Tribune, are listed there restaurant by restaurant.
+
+## Our own guides
+
+These are ours, listed for convenience and not ranked against the sources above.
+
+- [Traditional Wazwan](/dishes): the feast and its dishes, in serving order
+- [History of Wazwan](/kashmiri-food/wazwan/guide/history-of-wazwan): the legends and the evidence
+- [Kashmiri Cuisine Explained](/blog/kashmiri-cuisine-explained): the two kitchens, everyday food and where Wazwan fits
+- [Kashmiri Pandit Food](/blog/kashmiri-pandit-food): dishes, customs and how they differ from Wazwan
+- [Where to eat Kashmiri food in Srinagar](/restaurants/best-wazwan-srinagar): each place with the published sources behind it
+
+Our Wazwan pages and dish notes name a source for each factual statement, say so where sources disagree, and show when they were last checked.
+
+## Suggest a source or a correction
+
+If you know a good source we've missed, or find a mistake on the site, please [get in touch](/contact).`,
+  },
 ];

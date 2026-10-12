@@ -41,7 +41,7 @@ export const WAZWAN_CHAPTERS = [
     kicker: "Vegetarian",
     title: "Alongside",
     navLabel: "Alongside",
-    summary: "Vegetarian dishes of spinach, potatoes, paneer and mushrooms are served alongside the meats.",
+    summary: "Vegetarian dishes of spinach, paneer and mushrooms have joined the feast in recent years; potatoes in yogurt gravy appear only rarely.",
     courseTypes: ["vegetarian"],
     layout: "plates",
   },

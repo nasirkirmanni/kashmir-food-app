@@ -33,6 +33,17 @@ function readField(doc, field) {
   return field.split(".").reduce((value, key) => (value == null ? undefined : value[key]), doc);
 }
 
+// The same rule as correctText in frontend/lib/dishContent.js: replace the text in a string field,
+// or in each item of a list of strings, dropping list items left empty. Unchanged values come back
+// as the same object.
+function correctText(value, from, to) {
+  if (typeof value === "string") return value.includes(from) ? value.replace(from, () => to) : value;
+  if (!Array.isArray(value) || !value.some((item) => typeof item === "string" && item.includes(from))) return value;
+  return value
+    .map((item) => (typeof item === "string" && item.includes(from) ? item.replace(from, () => to) : item))
+    .filter((item) => item !== "");
+}
+
 async function buildPlans(corrections) {
   const plans = [];
   const notices = [];
@@ -46,8 +57,9 @@ async function buildPlans(corrections) {
     for (const { field, from, to } of fixes) {
       const original = readField(doc, field);
       const current = plan.set[field] ?? original;
-      if (typeof current !== "string" || !current.includes(from)) continue;
-      plan.set[field] = current.replace(from, () => to);
+      const fixed = correctText(current, from, to);
+      if (fixed === current) continue;
+      plan.set[field] = fixed;
       plan.expected[field] = original;
     }
     plans.push(plan);
