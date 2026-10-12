@@ -26,6 +26,36 @@
       "field": "image",
       "from": "/images/dishes/dish-placeholder.webp",
       "to": "/images/dishes/mughal-yakhni.jpg"
+    },
+    {
+      "field": "history",
+      "from": "Yakhin, a delicate and deeply aromatic yogurt-based gravy, has ancient roots in Kashmir, predating many of the tomato- and chili-heavy dishes that arrived later. Historically, boiling meat or vegetables in yogurt with whole spices like fennel and cardamom was a sophisticated preservation method that also tenderized the ingredients. It remains one of the most elegant and soothing preparations in the region, reflecting a culinary philosophy that values subtle, floral aromatics over overwhelming heat, and serves as a foundational technique in both Pandit and Muslim cooking.",
+      "to": "The word yakhni is Persian, where it means \"store of food\". A meat stew of that name began in medieval Iranian cooking and spread east and west; in the northern Indian subcontinent the word now means a meat stock or broth (Wikipedia).\n\nIn Kashmir it has meant meat cooked in curd since at least the 16th century. Kashmir Life, drawing on the Tuhfat-ul-Ahbab, lists yakhni (\"meat cooked in curd\") among the special foods of 16th-century feasts, with kabab and pulao, and notes that these dishes point to the Persianate world. Wikipedia's list of Kashmiri dishes says instead that it came to Kashmir with the Mughal emperor Akbar, who annexed it in 1586. We have found no earlier record.\n\nBoth spellings, yakhni and yakhin, are in use (Wikipedia)."
+    },
+    {
+      "field": "fullDescription",
+      "from": "Yakhin is a yogurt-based gravy",
+      "to": "Yakhni is a yogurt-based gravy"
+    },
+    {
+      "field": "touristTip",
+      "from": "Yakhin is one of the most approachable and elegant flavors in the Wazwan spread.",
+      "to": "yakhni is one of the most approachable dishes in a Wazwan."
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "On a Wazwan trami it appears among the middle courses as the gentle, palate-resting counterpoint to Rogan Josh and Rista.",
+      "to": "At a Wazwan it comes late, the last of the gravies before gushtaba."
+    },
+    {
+      "field": "recipe.significance",
+      "from": "where it means broth or stock,",
+      "to": "where it means 'store of food' (in the northern subcontinent it now means stock),"
+    },
+    {
+      "field": "recipe.significance",
+      "from": " — it is traditionally recommended to anyone who cannot handle hot, spicy food",
+      "to": ""
     }
   ],
   "rice": [
@@ -40,6 +70,256 @@
       "field": "image",
       "from": "/images/dishes/dish-placeholder.webp",
       "to": "/images/dishes/sheera.jpg"
+    }
+  ],
+  "rogan-josh": [
+    {
+      "field": "history",
+      "from": "The origins of Rogan Josh can be traced back to Persian and Mughal influences, brought to the Kashmir Valley by the Mughals who appreciated its cool climate. The name itself is derived from Persian, where 'rogan' means clarified butter or oil, and 'josh' means passion, heat, or fire—referring to the intense red color imparted by the Kashmiri chilies and ratan jot. Over centuries, it evolved into a signature dish of the Kashmiri Muslim Wazwan and the Kashmiri Pandit cuisine, symbolizing festivity, celebration, and the rich cultural synthesis of the region.",
+      "to": "Where the name comes from is uncertain. Read as Persian, roghan means ghee or oil and josh means to stew or braise, so the name would mean \"stewed in ghee\". Another reading takes roghan as the Kashmiri word for \"red\", giving \"red meat\" or \"red juice\" (Wikipedia). Onmanorama glosses josh as cooking on high heat.\n\nWikipedia, drawing on the food historian Lizzie Collingham, describes rogan josh as a Persian dish of meat fried in hot butter that the Mughals brought to North India in the 16th century. Escaping the summer heat of the plains in Kashmir, they coloured and flavoured their food with Kashmiri herbs. The chillies that now make it red reached India with the Portuguese early in the 16th century (Wikipedia). We have found no more precise record of where the dish began."
+    },
+    {
+      "field": "touristTip",
+      "from": "Try this at a traditional Wazwan restaurant around lunchtime for the freshest batch, and ask for steamed rice on the side.",
+      "to": "Order it with plain steamed rice, the way it is eaten in Kashmir."
+    },
+    {
+      "field": "recipe.significance",
+      "from": "onion-tomato gravies, heavy yogurt marinades, and ratanjot root for colour are all shortcuts of the restaurant trade",
+      "to": "onion-tomato gravies and heavy yogurt marinades are shortcuts of the restaurant trade (ratan jot, by contrast, is the traditional colouring of the Pandit version)"
+    }
+  ],
+  "rista": [
+    {
+      "field": "history",
+      "from": "Rista has long been a centerpiece ceremonial dish in the Wazwan repertoire, remaining a true symbol of refinement and culinary mastery in Kashmiri feasting culture. Creating Rista requires exceptional skill; the meat is painstakingly hand-pounded to achieve a silky, spongy texture that absorbs the intensely flavored, saffron-tinted red gravy. Historically, the vibrant red color of the dish was a marker of luxury, signifying the use of premium local ingredients like Kashmiri chilies and cockscomb flower extract (mawal). It remains a dish reserved for special occasions and grand celebrations.",
+      "to": "Rista is mutton pounded by hand into a smooth paste, rolled into balls and cooked in a red gravy of Kashmiri chilli, fennel and saffron (Wikipedia; Asia Media Centre). It is one of the seven dishes Wikipedia lists as a must at a Wazwan. The pounding gives the meatballs a texture so hard to achieve that rista and gushtaba are rarely found outside the valley (Wikipedia).\n\nEach rista weighs about 80 to 100 g, and one is served to each person around the trami (Sahapedia), so four to a trami. Wikipedia's list of Kashmiri dishes gives the same count for palak rista: four small pieces on a trami for four guests."
+    },
+    {
+      "field": "recipe.significance",
+      "from": "a couple of meatballs with gravy served per trami of four guests",
+      "to": "one meatball per diner, four to a trami, with gravy"
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "In the Wazwan, a couple of ristas with a ladle of gravy are served per trami in the early-to-mid meat courses.",
+      "to": "In the Wazwan, one rista per diner, four to a trami, comes with a ladle of gravy early in the meat courses."
+    }
+  ],
+  "gushtaba": [
+    {
+      "field": "history",
+      "from": "Gushtaba is widely known as the 'Dish of Kings' and historically holds a deeply ceremonial place in Kashmir's Wazwan tradition. The preparation technique traces back to Central Asian culinary practices brought into the valley by master chefs known as Wazas. Before modern tools, fresh mutton was pounded by hand on a stone block using heavy wooden mallets until it became a smooth, velvety paste. In Kashmiri culture, Gushtaba is traditionally served as the final savory course of a Wazwan, and its arrival signals the grand finale of the feast, ensuring guests leave fully satisfied.",
+      "to": "Gushtaba is a large ball of hand-pounded mutton and fat, cooked in yakhni, a white gravy of yogurt and mutton broth (Sahapedia; Wikipedia). Wikipedia's list of Kashmiri dishes calls it \"The Dish of Kings\", and a Srinagar chef told Deccan Chronicle that it is \"considered the king of all Kashmiri dishes\".\n\nAt weddings a waza brings the gushtaba to the guests (Reuters). Sahapedia describes a single gushtaba of 200 to 400 g shared by the four people at a trami, with the eldest dividing it.\n\nIn August 2024 The Kashmir Wazwan Cooperative Limited applied for a geographical indication for \"Goshtaba (Meat Products) of Kashmir\" (application 1337). It was still at pre-examination when we checked in October 2026 (Intellectual Property India)."
+    },
+    {
+      "field": "fullDescription",
+      "from": "Prepared with mutton, yogurt, ghee, cardamom, fennel powder, dry ginger, and often a hint of saffron, it is",
+      "to": "Prepared with mutton, yogurt, ghee, cardamom, fennel powder and dry ginger, it is"
+    },
+    {
+      "field": "touristTip",
+      "from": "For the best experience, enjoy Gushtaba as part of a full Wazwan meal and never ask for it at the beginning because it is traditionally the finale. In Srinagar, Ahdoos and Mughal Darbar are among the best-known places to try an authentic version.",
+      "to": "Gushtaba ends the main meal, so in a full Wazwan it comes last. In Srinagar, Outlook Traveller recommended Mughal Darbar for Wazwan in 2022, naming its rista and gushtaba."
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "plain rice; tradition says you don't turn it down.",
+      "to": "plain rice."
+    },
+    {
+      "field": "recipe.significance",
+      "from": "its arrival formally signals the end of the meal, and custom holds that a guest does not refuse it.",
+      "to": "its arrival signals the end of the main meal."
+    }
+  ],
+  "tabak-maaz": [
+    {
+      "field": "history",
+      "from": "Tabak Maaz traces its roots back to Central Asian and Persian culinary techniques, adapting them to the local ingredients of the Kashmir valley. The process of slow-simmering the lamb ribs in a bath of milk and aromatic spices before flash-frying them to a crisp golden brown was historically a way to tenderize tougher cuts while ensuring a rich, decadent finish. It became a prized appetizer in royal Kashmiri feasts, admired for perfectly balancing the delicacy of the tender inner meat with the rich, smoky crispness of the exterior.",
+      "to": "Tabak maaz is lamb ribs cooked twice: simmered with spices until tender, then fried in ghee until crisp outside and soft inside (Wikipedia; Sahapedia). It is served hot and dry and, like the rest of the Wazwan, eaten with the fingers (Wikipedia; Outlook India; JKTDC).\n\nIt is one of the seven dishes Wikipedia lists as a must at a Wazwan, and it comes first: two pieces sit on each trami with the seekh kebabs and methi maaz before any gravy arrives (Wikipedia; Asia Media Centre; Outlook India). Gulf News describes diners having \"less than ten minutes\" to finish that first course before the next dish appears.\n\nIn August 2024 The Kashmir Wazwan Cooperative Limited applied for a geographical indication for \"Tabakmaaz (Meat Products) of Kashmir\" (application 1336). It was still at pre-examination when we checked in October 2026 (Intellectual Property India)."
+    },
+    {
+      "field": "touristTip",
+      "from": "Best enjoyed hot as a shared starter. Pair it with noon chai or order it before a larger Wazwan meal.",
+      "to": "Eat it hot, straight from the pan. At a Wazwan it is one of the first dishes on the trami."
+    },
+    {
+      "field": "fullDescription",
+      "from": "before shallow frying them until",
+      "to": "before frying them in ghee until"
+    },
+    {
+      "field": "spiceLevel",
+      "from": "Medium",
+      "to": "Mild"
+    },
+    {
+      "field": "recipe.significance",
+      "from": "especially among Kashmiri Pandits and in the Jammu region",
+      "to": "especially among Kashmiri Pandits"
+    },
+    {
+      "field": "recipe.significance",
+      "from": ", and 'Tabak Maaz' for ribs finished slowly between sealed clay plates (tabaq) over embers; that clay-plate finish, which likely gave the dish its name, is now rare even in Kashmir.",
+      "to": "."
+    }
+  ],
+  "kabargah": [
+    {
+      "field": "history",
+      "from": "A cousin of the Muslim Wazwan's Tabak Maaz, Kabargah is the Pandit counterpart.",
+      "to": "Kabargah is the name Kashmiri Pandits commonly use for tabak maaz, the twice-cooked ribs of the Wazwan (Wikipedia)."
+    },
+    {
+      "field": "fullDescription",
+      "from": "then dipped in chickpea flour batter",
+      "to": "then dipped in a yogurt batter"
+    }
+  ],
+  "dum-oluv": [
+    {
+      "field": "category",
+      "from": "Wazwan",
+      "to": "Kashmiri Cuisine"
+    },
+    {
+      "field": "fullDescription",
+      "from": "Dum Aelve, also known as Dum Aloo in broader Indian culinary language, is a potato preparation in Wazwan that relies on yogurt gravy and slow seasoning rather than sheer heat.",
+      "to": "Dum aloo, dum olav in Kashmiri, is a Kashmiri Pandit dish of small potatoes, deep-fried and then cooked slowly in a spiced yogurt gravy that is red from Kashmiri chilli rather than hot."
+    },
+    {
+      "field": "history",
+      "from": "Dum Aelve, or Kashmiri Dum Aloo, is a masterclass in transforming the humble potato into a luxurious, feast-worthy dish. Historically an essential part of Kashmiri Pandit cuisine, the dish involves deep-frying whole baby potatoes, piercing them so they can absorb flavors, and then slow-cooking (dum) them in a rich, fennel and ginger-laced yogurt gravy. The technique of sealing the pot with dough to trap the steam ensures the potatoes become meltingly soft and deeply infused with spice, cementing its place as one of the most famous vegetarian dishes from the valley.",
+      "to": "Dum aloo, dum olav in Kashmiri, means slow-cooked potatoes. Small potatoes are skinned and deep-fried, then cooked slowly in a spiced yogurt sauce (Wikipedia). It is part of the traditional cooking of Kashmiri Pandits (Wikipedia; JKTDC), and Wikipedia's list of Kashmiri dishes files it among the vegetable side dishes, cooked with ginger powder and fennel.\n\nIt isn't a standard Wazwan course. Wikipedia's Wazwan article includes dum aelve, potatoes in yogurt gravy, but notes that \"it is rare\", and Asia Media Centre reports that vegetarian dishes have been added to the originally lamb-centred feast only over the last few years."
+    },
+    {
+      "field": "recipe.intro",
+      "from": "not the creamy onion-tomato dish most restaurants serve under the name.",
+      "to": "not the onion-and-tomato versions made elsewhere in India."
+    },
+    {
+      "field": "recipe.wazaTips",
+      "from": "One large pricked potato per person, served whole with a coat of thick gravy, is the traditional feast presentation.",
+      "to": ""
+    },
+    {
+      "field": "recipe.commonMistakes",
+      "from": "Serving the restaurant-style onion-tomato-cream version and calling it Kashmiri — the original has no onion, garlic, tomato or cream.",
+      "to": "Adding onion and tomato, which belong to other regional versions such as the Banarasi; the Kashmiri sauce is made with yogurt."
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "; at feasts a single whole potato with thick gravy is ladled onto each plate.",
+      "to": "."
+    },
+    {
+      "field": "recipe.significance",
+      "from": ", where a single gravy-soaked potato per guest is a traditional serving",
+      "to": ""
+    },
+    {
+      "field": "recipe.significance",
+      "from": " In Kashmiri, oluv is one potato and olav the plural — a distinction the old cooks liked to point out.",
+      "to": ""
+    }
+  ],
+  "kashmiri-pulao": [
+    {
+      "field": "category",
+      "from": "Wazwan",
+      "to": "Kashmiri Cuisine"
+    },
+    {
+      "field": "fullDescription",
+      "from": "Kashmiri Pulao is an aromatic rice preparation cooked with milk, ghee, saffron, and loaded with nuts like almonds, walnuts, and raisins, topped with fresh fruits.",
+      "to": "Modur pulao, Kashmir's sweet pulao, is basmati rice cooked with sugar, ghee and saffron, with fried almonds, raisins, dried dates and coconut."
+    },
+    {
+      "field": "history",
+      "from": "A celebratory sweet rice preparation developed in royal kitchens to showcase the abundance of Kashmiri saffron and local orchards.",
+      "to": "Modur is Kashmiri for \"sweet\" (Grierson's dictionary gives \"sweet, honied\"), and modur pulao is Kashmir's sweet pulao: basmati rice cooked with sugar, ghee and saffron, with fried dry fruit, nuts and whole spices (De Leij: Culinary Art of Kashmir).\n\nA pulao is often part of a Wazwan. Wikipedia notes that a Kashmiri vegetarian pulao of spices, vegetables and dried fruit \"is often included\", and Onmanorama lists a Kashmiri pulao of basmati cooked in milk and ghee with saffron and dry fruit. Neither says it is sweetened, so it isn't clear that either is modur pulao.\n\nPulaos have a long history at Kashmiri feasts: Kashmir Life, drawing on the 16th-century Tuhfat-ul-Ahbab, lists pulao, zard pulao and tursh pulao among the special foods of the time. The sources don't say whether any of these was modur pulao."
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "classically alongside",
+      "to": "alongside"
+    }
+  ],
+  "aab-gosht": [
+    {
+      "field": "history",
+      "from": "Aab Gosh stands out in the Kashmiri culinary landscape for its distinctly sweet and mild profile, relying heavily on milk and subtle aromatics like cardamom and fennel. The dish has strong historical ties to Persian and Central Asian trade routes, where milk-based curries were prized for their cooling properties and luxurious mouthfeel. It traditionally serves as a palate cleanser and a gentle, soothing course within the intense progression of the Wazwan, offering diners a moment of creamy, fragrant respite before the final heavy dishes.",
+      "to": "Aab gosht, also called dodhe maaz (Wikipedia), is mutton cooked in milk, or in the words of Wikipedia's Wazwan article, \"lamb cooked in sweet milk curry\". It is one of the seven dishes Wikipedia lists as a must at a Wazwan.\n\nThe name matches the Persian abgoosht, literally \"meat broth\" (Wikipedia), but the two dishes share only the name: Iranian abgoosht is a stew of lamb, chickpeas, beans, onions, potatoes, tomatoes, turmeric and dried lime, with no milk (Wikipedia). How the name reached Kashmir isn't documented. It is also written aab gosh."
+    },
+    {
+      "field": "fullDescription",
+      "from": "Aab Gosh is a graceful",
+      "to": "Aab gosht is a graceful"
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "Served over plain rice within the Wazwan's middle courses, where its mildness resets the palate between the red chilli dishes. At home it is a beloved winter dinner, often the dish given to elders and children.",
+      "to": "Serve over plain rice. At a Wazwan it comes late: in Outlook India's account of the order it follows marchwangan korma and comes before yakhni and gushtaba."
+    }
+  ],
+  "marchwangan-korma": [
+    {
+      "field": "history",
+      "from": "Marchwangan Korma is a testament to the Kashmiri love for intense, complex heat, deriving its name directly from 'marchwangan' (Kashmiri for red chilies). Historically, this dish was created for those who favored a fiery, dark, and robust flavor profile, standing in stark contrast to the milder yogurt and milk-based curries. The deep browning of the onions and the liberal use of sharp spices make it one of the boldest preparations in the Wazwan, showcasing the impressive dynamic range of the traditional master chefs.",
+      "to": "Marchwangan korma is mutton braised in a gravy made mostly with Kashmiri red chillies. Wikipedia's list of Kashmiri dishes describes it as \"meat cooked with spices and yogurt and mostly using Kashmiri red chillies and hot in taste\", and Outlook India calls it \"a fiery hot mutton cooked with Kashmiri red chilli\".\n\nIt is one of the seven dishes Wikipedia lists as a must at a Wazwan. The sources describe more than one version: Wikipedia's Wazwan article describes it there as chicken in a spicy browned-onion sauce, and its list of Kashmiri dishes has a chicken version, kokur martsawangan kormeh, alongside the mutton one. The name is also written marchhwangan."
+    },
+    {
+      "field": "fullDescription",
+      "from": "associated with deep heat, browned onion notes, and a darker, sharper gravy profile.",
+      "to": "with a hot, dark-red gravy of Kashmiri chillies."
+    },
+    {
+      "field": "touristTip",
+      "from": "Aab Gosh first.",
+      "to": "Aab Gosht first."
+    },
+    {
+      "field": "recipe.intro",
+      "from": "It is the hottest dish on the trami — though",
+      "to": "It is the Wazwan dish known for its heat, though"
+    },
+    {
+      "field": "recipe.commonMistakes",
+      "from": "Adding tomatoes or yogurt to tame it — the dish's identity is its unbuffered chilli gravy.",
+      "to": "Adding tomatoes to tame it — the dish's identity is its chilli gravy. (Some recipes include yogurt, as Wikipedia's description does; ours doesn't.)"
+    },
+    {
+      "field": "recipe.significance",
+      "from": "in most renditions no yogurt either",
+      "to": "in many renditions no yogurt either (Wikipedia's list of Kashmiri dishes includes it)"
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "Served in the mid-sequence of the Wazwan as its spiciest course, deliberately placed among milder dishes. ",
+      "to": ""
+    }
+  ],
+  "daniwal-korma": [
+    {
+      "field": "history",
+      "from": "Daniwal Korma represents the refined, aromatic side of Kashmiri meat preparations, offering a gentler counterpoint to the fiery red gravies of the feast. The extensive use of fresh coriander (daniwal) and yogurt creates a light, fragrant curry that historical texts and oral traditions identify as one of the essential seven courses of a classic Wazwan. Its evolution showcases the influence of milder, herb-forward Central Asian cooking styles, beautifully adapted by local chefs to create a dish that is both rich and surprisingly refreshing.",
+      "to": "Daniwal korma is lamb or mutton braised in a yogurt gravy flavoured with fresh coriander (Wikipedia); Outlook India describes it as \"mutton cooked in a lot of coriander\". In Kashmiri, daniwal means coriander and korme or korma a braise (Wikipedia). Wikipedia's list of Kashmiri dishes notes that it can be made with parsley instead of coriander, and gives a chicken version, kokur danival kormeh, in a curd gravy with saffron and fresh coriander.\n\nIt is one of the seven dishes Wikipedia lists as a must at a Wazwan. In Outlook India's account of the order, it comes after rista and rogan josh and before marchwangan korma, aab gosht, yakhni and gushtaba. The name is also written dhaniwal."
+    },
+    {
+      "field": "spiceLevel",
+      "from": "Medium",
+      "to": "Mild"
+    },
+    {
+      "field": "recipe.servingSuggestions",
+      "from": "Served over rice in the Wazwan's middle courses as the mild, green-flecked counterweight to Marchwangan Korma.",
+      "to": "Served over rice; at a Wazwan it comes just before marchwangan korma."
+    },
+    {
+      "field": "recipe.significance",
+      "from": " Sources consistently describe it as relying on black pepper rather than red chilli for warmth.",
+      "to": ""
     }
   ]
 }

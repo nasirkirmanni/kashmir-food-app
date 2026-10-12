@@ -42,7 +42,7 @@ export default function ListRestaurantPage() {
         description: "",
       });
     } catch (error) {
-      alert(error.message || "Failed to submit partner request. Please try again.");
+      alert(error.message || "Failed to submit your listing request. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -52,10 +52,10 @@ export default function ListRestaurantPage() {
     <div className="min-h-screen pt-28 pb-32 px-6 page-shell flex flex-col items-center">
       <div className="w-full max-w-2xl">
         <div className="mb-10 text-center">
-          <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">Partner With Us</span>
+          <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">For restaurant owners</span>
           <h1 className="font-display text-4xl md:text-5xl text-white mb-4">List Your Restaurant</h1>
           <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
-            Join the Wazwan Way platform and showcase your authentic Kashmiri cuisine to thousands of food enthusiasts and travelers.
+            Serve Wazwan or Kashmiri food? Tell us about your restaurant and we&apos;ll review it for a listing on Wazwan Way.
           </p>
         </div>
 

@@ -26,10 +26,7 @@ const SEARCH_TITLES = {
   "kashmiri-red-chili": "Kashmiri Red Chili: Wazwan's Iconic Color",
   "nadru-lotus-stem-kashmir": "Nadru (Lotus Stem): Kashmir's Beloved Vegetable",
   "fennel-and-dry-ginger-wazwan": "Fennel & Dry Ginger: The Flavor Base of Wazwan",
-  "complete-history-of-wazwan": "Wazwan History: From Samarkand to Srinagar",
-  "rogan-josh-the-true-story": "Rogan Josh: The True Story Behind the Dish",
   "noon-chai-pink-tea-kashmir": "Noon Chai: The Science and Ritual of Pink Tea",
-  "dying-art-of-the-waza": "Dying Art of the Waza: Kashmir's Master Chefs",
   "what-to-eat-in-kashmir": "What to Eat in Kashmir: A First-Timer's Guide",
   "kashmiri-street-food-srinagar": "Kashmiri Street Food: What to Eat in Srinagar",
   "kashmiri-winter-food": "Kashmiri Winter Food: Harissa & Hokh Syun",
@@ -40,7 +37,7 @@ const SEARCH_TITLES = {
   "kashmiri-pandit-food": "Kashmiri Pandit Food: Dishes and Customs",
   "what-to-buy-in-kashmir-food-souvenirs": "What to Buy in Kashmir: Saffron, Walnuts & More",
   "kashmiri-sweets-desserts": "Kashmiri Sweets and Desserts: What to Try",
-  "best-kashmiri-food-guides": "Best Kashmiri Food Guides: Top 10 Sources",
+  "kashmiri-food-sources": "Kashmiri Food and Wazwan: Sources to Read",
 };
 
 // Tables with three or more columns get a minimum width, so on phones they

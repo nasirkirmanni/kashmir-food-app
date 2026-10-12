@@ -17,6 +17,8 @@ import StickyMobileNav from "@/components/StickyMobileNav";
 import ExpandableText from "@/components/ExpandableText";
 import { sanitizeDish } from "@/lib/dishContent";
 import { relatedReadingForDish } from "@/data/relatedReading";
+import { dishNotesFor } from "@/data/dishNotes";
+import DishNotes from "@/components/DishNotes";
 
 export default function DishDetailClient({ initialDish = null }) {
   const { user } = useAuth();
@@ -215,6 +217,7 @@ export default function DishDetailClient({ initialDish = null }) {
   }
 
   const relatedReading = relatedReadingForDish(dish);
+  const notes = dishNotesFor(dish.slug);
 
   return (
     <div className="wazwan-shell">
@@ -345,12 +348,22 @@ export default function DishDetailClient({ initialDish = null }) {
                     </Link>
                   </div>
                 ))}
+                {!dish.restaurants?.length && (
+                  <p className="restaurant-desc">
+                    No restaurant on Wazwan Way lists {dish.name} yet.{" "}
+                    <Link href="/restaurants" className="text-[var(--saffron)] hover:underline">
+                      Browse restaurants
+                    </Link>
+                  </p>
+                )}
               </div>
             </article>
 
           </div>
         </div>
       </section>
+
+      <DishNotes dishName={dish.name} notes={notes} />
 
       {dish.recipe?.ingredients?.length > 0 && dish.recipe?.instructions?.length > 0 && (
         <section className="places-wrap pt-0" id="recipe">

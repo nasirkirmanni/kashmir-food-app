@@ -30,6 +30,20 @@ function realText(value) {
 }
 
 /**
+ * Replaces `from` with `to` in a text field, or in each item of a list of texts (recipe tips,
+ * steps). A list item left empty is dropped, so `to: ""` removes a whole tip. Returns the value
+ * unchanged when it doesn't contain `from`. backend/src/scripts/applyDishTextCorrections.js
+ * applies the same rule to the database.
+ */
+export function correctText(value, from, to) {
+  if (typeof value === "string") return value.includes(from) ? value.replace(from, () => to) : value;
+  if (!Array.isArray(value) || !value.some((item) => typeof item === "string" && item.includes(from))) return value;
+  return value
+    .map((item) => (typeof item === "string" && item.includes(from) ? item.replace(from, () => to) : item))
+    .filter((item) => item !== "");
+}
+
+/**
  * Stored dish text that states something the sources don't support, corrected
  * for display until the database record is fixed with
  * backend/src/scripts/applyDishTextCorrections.js. A correction replaces its
@@ -43,8 +57,8 @@ function applyTextCorrections(dish) {
   for (const { field, from, to } of corrections) {
     const [key, nested] = field.split(".");
     const value = nested ? corrected[key]?.[nested] : corrected[key];
-    if (typeof value !== "string" || !value.includes(from)) continue;
-    const fixed = value.replace(from, () => to);
+    const fixed = correctText(value, from, to);
+    if (fixed === value) continue;
     corrected[key] = nested ? { ...corrected[key], [nested]: fixed } : fixed;
   }
   return corrected;

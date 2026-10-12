@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 import redirects from "../seo-redirects.json";
 import { blogPosts } from "../data/blogPosts";
 import { wazwanGuides } from "../data/wazwanGuides";
-import { kashmirifoodBlogs } from "../data/kashmirifoodBlogs";
 
 // Pages merged into another page answer with a permanent redirect (seo-redirects.json, wired up in
 // next.config.js). Nothing on the site may keep pointing at an old address: a link to a redirect
@@ -41,7 +40,6 @@ describe("seo-redirects.json", () => {
     const rendered = [
       ...blogPosts.map((post) => `/blog/${post.slug}`),
       ...wazwanGuides.map((guide) => `/kashmiri-food/${guide.category}/guide/${guide.slug}`),
-      ...kashmirifoodBlogs.map((post) => `/kashmiri-food-blogs/${post.slug}`),
     ];
     expect(rendered.filter((path) => sources.has(path))).toEqual([]);
   });

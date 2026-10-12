@@ -321,17 +321,57 @@ Some smaller, locally-oriented restaurants and dhabas serve food closer to home-
   ,
 
   {
-    "slug": "rista-vs-gushtaba",
-    "category": "wazwan",
-    "title": "Rista vs Gushtaba: The Twin Meatballs of Kashmir",
-    "description": "Understand the distinct differences between Rista and Gushtaba, the two most iconic hand-pounded meatball dishes in a traditional Wazwan.",
-    "readTime": "5 min read",
-    "author": "WazwanWay Team",
-    "date": "June 23, 2026",
-    "updatedDate": "October 11, 2026",
-    "related": ["how-wazwan-is-served", "waza-meaning", "history-of-wazwan", "wazwan-vs-mughlai"],
-    "content": "# Rista vs Gushtaba: The Twin Meatballs of Kashmir\n\nIf you attend a Kashmiri Wazwan, you will be served two prominent meatball dishes: Rista and Gushtaba. To an untrained eye, they might seem similar—both are spherical, both are made of mutton, and both are served in rich gravies. But in Kashmiri culinary tradition, they are worlds apart in flavor, preparation, and meaning.\n\n## The Pounding Process\n\nBoth Rista and Gushtaba begin with fresh mutton that is hand-pounded on a stone or wooden block using a wooden mallet called a *goshpare*. The meat is pounded until it becomes an elastic, smooth paste. \n\nHowever, Gushtaba requires significantly more pounding than Rista. Animal fat is added during the pounding process to give Gushtaba its famous velvety, melt-in-the-mouth texture. Rista is slightly firmer and denser.\n\n## The Gravy (The Red vs The White)\n\nThis is where the two dishes diverge completely.\n\n- **Rista** is cooked in a vibrant, fiery red gravy. The color comes from *mawal* (cockscomb flower) and Kashmiri red chilies, while the flavor is driven by saffron, fennel, and shallots (*praan*).\n- **Gushtaba** is cooked in a mild, white gravy called *yakhni*. The base is yogurt (curd), seasoned with dried ginger, fennel, and green cardamom. Gushtaba is mild, with little or no chilli.\n\n## The Serving Sequence\n\nThe timing of their arrival on the *Trami* is culturally significant.\n\n- **Rista** is served early to midway through the feast. It signals the beginning of the heavier, richer courses.\n- **Gushtaba** is the grand finale. It is strictly the last dish served in the Wazwan. Its yogurt base is said to settle the stomach after a heavy feast, and its arrival signals that the meal is ending.\n\nBoth are masterpieces of the Waza's craft, but they serve entirely different purposes in the rhythm of the feast."
-}
+    slug: "rista-vs-gushtaba",
+    category: "wazwan",
+    title: "Rista vs Gushtaba: The Twin Meatballs of Kashmir",
+    description: "Rista and gushtaba compared: the same hand-pounded mutton, two sizes, a red gravy and a white one, and where each comes in a Wazwan.",
+    readTime: "3 min read",
+    author: "WazwanWay Team",
+    date: "June 23, 2026",
+    updatedDate: "October 12, 2026",
+    related: ["how-wazwan-is-served", "waza-meaning", "history-of-wazwan", "wazwan-vs-mughlai"],
+    content: `Rista and gushtaba are the two meatball dishes of a Wazwan. They start from the same pounded mutton and become different dishes: rista small, in a red gravy, early in the meal; gushtaba large, in a white yogurt gravy, at the end of it. Each has its own page with a recipe: [rista](/dishes/rista) and [gushtaba](/dishes/gushtaba).
+
+## At a glance
+
+| | Rista | Gushtaba |
+|---|---|---|
+| Meat | Mutton pounded with fat | The same, shaped into larger balls |
+| Size | About 80 to 100 g, one for each diner | One of 200 to 400 g, shared by the four at a trami |
+| Gravy | Red: Kashmiri chilli, coloured with mawal or alkanet, with saffron and fennel | White: yakhni, made with yogurt and mutton broth and topped with cumin and dried mint |
+| When it comes | Early, soon after the trami's first dishes | Last in the main meal, before dessert and kahwa |
+
+The sources for each row are in the sections below.
+
+## The same meat
+
+For both dishes the mutton is pounded straight after slaughter with a wooden mallet on a flat stone. Fresh sheep fat is worked in until the paste turns light pink, then black cardamom seeds and salt. The paste is shaped into larger balls for gushtaba and smaller ones for rista, and both are boiled in water until soft and expanded before they go into their gravies ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
+
+Wikipedia adds that the meat has to be pounded before rigor mortis sets in, and that it is folded as it is beaten to keep the balls light. The texture is so hard to achieve that both dishes are rarely found outside the valley ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)). At weddings the meat is still pounded by hand ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)).
+
+## Two gravies
+
+- **Rista** is cooked in a red gravy. Wikipedia describes it as a paprika, saffron and fennel gravy coloured with alkanet ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Azmat Ali Mir, a Kashmiri restaurateur interviewed by Asia Media Centre, credits mawal, dried cockscomb flowers, with the red of Wazwan dishes, and the article calls rista's gravy saffron-based ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
+- **Gushtaba** is cooked in yakhni: yogurt and mutton broth with shallots, ginger, garlic and spices such as cinnamon and cardamom, topped with cumin and dried mint ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Onmanorama names curd, cardamom, dry ginger and fennel ([Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). Neither lists chilli, though Wikipedia's Wazwan article calls the gravy "spicy" ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)).
+
+## Where each comes in the meal
+
+Rista comes early. Gulf News calls it the second course, and Outlook India lists it straight after methi maaz, near the start of the meal ([Gulf News](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710); [Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258)).
+
+Gushtaba comes last. "As a rule, the meal must end with gushtaba" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)), and its arrival signals that the main course is over ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). Desserts follow ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and kahwa closes the feast ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
+
+At the trami each diner gets a rista of their own, while a single gushtaba is shared by the four and divided by the eldest ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). For the rest of the order and the manners at the trami, see [How Wazwan Is Served](/kashmiri-food/wazwan/guide/how-wazwan-is-served).
+
+## Sources
+
+- Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.
+- Wikipedia: ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan) and ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine).
+- Reuters, ["Photos: Kashmir's 600-year-old Wazwan wedding feast adapts to modern life"](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life), Al Jazeera, 30 September 2026.
+- Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
+- ["Wazwan: The royal meal of paradise"](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html), Onmanorama, 10 November 2021.
+- ["Rogan Josh, Tabak Maaz, Rista, Goshtaba… royal Kashmiri wazwan, a feast for the senses"](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710), Gulf News, 20 January 2022.
+- Naseer Ganai, ["Why Kashmir's Famed Wazwan Is Always On The Diplomacy Menu"](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258), Outlook India, 2022.`,
+  }
   ,
 
 
@@ -505,39 +545,6 @@ The core techniques continue: meat is still pounded by hand and cooked over wood
 - Wikipedia: ["Sack of Delhi (1398)"](https://en.wikipedia.org/wiki/Sack_of_Delhi_(1398)), ["Sikandar Shah Miri"](https://en.wikipedia.org/wiki/Sikandar_Shah_Miri), ["Zayn al-Abidin the Great"](https://en.wikipedia.org/wiki/Zayn_al-Abidin_the_Great), ["Kashmir Sultanate"](https://en.wikipedia.org/wiki/Kashmir_Sultanate), ["Mughal conquest of Kashmir"](https://en.wikipedia.org/wiki/Mughal_conquest_of_Kashmir), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine), ["Tomato"](https://en.wikipedia.org/wiki/Tomato).
 - Intellectual Property India, Geographical Indications Registry, applications [1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336) and [1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337).`,
   }
-  ,
-  {
-    "slug": "rista-deep-dive",
-    "category": "wazwan",
-    "title": "Rista: Origins, Ingredients & Preparation of the Fiery Meatball",
-    "description": "A deep dive into Rista, the saffron-infused, hand-pounded meatball that forms the spicy heart of the Wazwan.",
-    "readTime": "8 min read",
-    "author": "WazwanWay Team",
-    "date": "June 23, 2026",
-    "content": "# Rista: Origins, Ingredients & Preparation of the Fiery Meatball\n\nIn the grand theatre of a Kashmiri Wazwan, if Gushtaba is the soothing conclusion, **Rista** is the fiery, dramatic second act. It is a dish that commands attention—small, tightly packed mutton meatballs swimming in a vibrant, saffron-infused red gravy. \n\n## The Essence of Rista\n\nRista is fundamentally an exercise in texture and spice extraction. The dish is defined by the sponginess of the meatball, which must be firm enough to hold its shape in boiling gravy, yet soft enough to yield instantly to the bite. Achieving this texture requires an immense amount of physical labor and a deep understanding of animal anatomy.\n\n## The Ingredients\n\n### The Meat\nThe choice of meat is critical. Rista requires freshly slaughtered mutton, completely devoid of sinew and gristle. The meat must be warm when the pounding begins. \n\n### The Gravy Base\nThe distinct flavor profile of Rista relies on three key elements:\n1. **Praan (Kashmiri Shallots)**: These are intensely pungent shallots native to the region. They are fried until deeply browned, then ground into a paste that forms the base of the gravy.\n2. **Saffron**: Rista is one of the few savory dishes in Wazwan that heavily utilizes authentic Kashmiri saffron, giving the gravy a distinct floral aroma.\n3. **Mawal (Cockscomb Flower)**: This is the secret behind the dish's intimidating red color. Mawal imparts a deep crimson hue without adding any chili heat.\n\n## The Grueling Preparation Process\n\n### 1. Pounding the Meat (*Goshpare*)\nThe preparation begins on a large, smooth stone or a thick wooden block. The *Waza* uses a heavy wooden mallet, called a *goshpare*, to rhythmically pound the boneless mutton. \n\nThis is not mincing. Mincing cuts the muscle fibers; pounding crushes them, breaking down the proteins until the meat transforms into a sticky, cohesive paste. As the meat is pounded, the Waza continuously folds in animal fat, salt, and black cardamom powder. The process can take hours. If the meat is under-pounded, the meatballs will break in the gravy. If over-pounded, they will become rubbery.\n\n### 2. Shaping the Balls\nOnce the paste reaches the perfect elasticity, the Waza dips his hands in cold water and rapidly shapes the mixture into perfectly spherical balls, slightly smaller than a golf ball. A standard serving on a Trami includes four Ristas.\n\n### 3. The Boiling Ritual\nThe meatballs are first boiled in a plain stock. This sets their shape and extracts the final impurities from the meat. The spongy texture allows the meatball to absorb the stock, expanding slightly.\n\n### 4. Crafting the Gravy\nIn a heavy copper *deg*, ghee is heated to the smoking point. The *praan* paste is added, followed by fennel powder, dried ginger powder, and Kashmiri red chilies. The *mawal* water is poured in, instantly turning the cauldron blood-red. Finally, the saffron infused water is added.\n\n### 5. The Marriage\nThe boiled meatballs are transferred to the boiling gravy and simmered. Because of their spongy nature, the Ristas act like sponges, pulling the fiery, aromatic gravy deep into their core.\n\n## Eating Rista\n\nWhen Rista is served on the Trami, it is traditionally eaten by crushing the meatball slightly into the rice with your fingers, allowing the red gravy to bleed into the grains. The heat is sharp, but the floral notes of the saffron and the sweetness of the fennel ensure the spice never overwhelms the palate."
-}
-  ,
-  {
-    "slug": "gushtaba-the-kings-dish",
-    "category": "wazwan",
-    "title": "Gushtaba: The King's Dish and the Grand Finale",
-    "description": "Why Gushtaba is considered the absolute pinnacle of Kashmiri culinary artistry, and why it must always be served last.",
-    "readTime": "9 min read",
-    "author": "WazwanWay Team",
-    "date": "June 23, 2026",
-    "content": "# Gushtaba: The King's Dish and the Grand Finale\n\nThere is a strict rule in Kashmiri Wazwan: when Gushtaba arrives, the meal is over. Refusing Gushtaba is considered an insult to the host, and asking for more meat after Gushtaba has been served is a severe breach of etiquette. \n\nKnown as *The Dish of Kings*, Gushtaba is the ultimate test of a Waza’s skill. It is a large, incredibly soft mutton meatball served in a complex, tangy yogurt gravy. It is designed not just to satiate the appetite, but to soothe the digestive system after a heavy feast.\n\n## The Anatomy of the King's Dish\n\nGushtaba shares its DNA with Rista—both are hand-pounded meatballs—but that is where the similarities end. Gushtaba is larger, softer, richer, and entirely devoid of chili heat.\n\n### The Velvet Meatball\nThe pounding process for Gushtaba is significantly longer than for Rista. The goal is to achieve a texture that is famously described as \"velvety.\" \n\nDuring the pounding on the stone block, a much higher ratio of raw animal fat (*suet*) is incorporated into the meat. The Waza must maintain an intense rhythm; if the fat melts during the pounding due to the friction heat, the texture is ruined. They often use ice water to keep their hands and the meat cool. The result is an emulsion of meat and fat so delicate that it practically melts on the tongue.\n\n### The Yakhni Gravy\nThe gravy of Gushtaba is a masterpiece of temperature control. It is a *Yakhni*—a broth built entirely on a base of yogurt (curd).\n\nCooking with large quantities of yogurt over an open wood fire is perilous; if it boils too rapidly, the yogurt will curdle and separate, ruining the dish. The Wazas vigorously whisk the yogurt in a copper *deg* as it heats, adding ghee, dried mint, fennel powder, and dried ginger. Once the emulsion stabilizes, it transforms into a silky, fragrant white sauce with a distinct, pleasant sourness.\n\n## Why is it Served Last?\n\nThe placement of Gushtaba at the very end of the 36-course meal is an act of traditional culinary science.\n\nBy the time a guest has consumed Seekh Kebabs, Tabak Maaz, Rogan Josh, and Rista, their stomach is laden with heavy animal fats, ghee, and intense spices like Kashmiri chili and black cardamom. \n\nGushtaba acts as a digestive aid:\n1. **The Yogurt**: The probiotic nature of the curd helps cut through the heavy fats consumed earlier.\n2. **The Mint and Ginger**: Both dried mint and soonth (dried ginger) are traditional remedies for digestion and bloating.\n3. **The Lack of Chili**: The mildness of the yakhni soothes the palate, bringing the heat level down gently.\n\n## The Ritual of Serving\n\nThe serving of Gushtaba is highly ceremonial. The *Vasta Waza* (head chef) often reserves the right to serve this dish himself. He approaches each Trami and carefully places one large Gushtaba for each of the four guests.\n\nGuests traditionally break the Gushtaba into smaller pieces, mixing the tangy white gravy into whatever rice remains on their Trami. Once the last bite of Gushtaba is swallowed, the guests pull back from the Trami, and the *Tash-t-Næær* (wash basin) is brought out. The feast of kings is complete."
-}
-  ,
-  {
-    "slug": "rogan-josh-explained",
-    "category": "wazwan",
-    "title": "Rogan Josh Explained: The Identity of Kashmiri Cuisine",
-    "description": "Uncover the truth behind authentic Rogan Josh, a dish whose global fame has led to countless misconceptions about its true ingredients.",
-    "readTime": "8 min read",
-    "author": "WazwanWay Team",
-    "date": "June 23, 2026",
-    "content": "# Rogan Josh Explained: The Identity of Kashmiri Cuisine\n\nIf you ask anyone outside of Kashmir to name a Kashmiri dish, they will almost universally say \"Rogan Josh.\" It is the global ambassador of Kashmiri cuisine, found on menus from London to New York. \n\nHowever, what is served in 90% of restaurants worldwide under the name Rogan Josh bears almost no resemblance to the authentic dish served at a Wazwan. To understand Kashmiri food, you must first unlearn what you think you know about Rogan Josh.\n\n## What’s in a Name?\n\nThe name is Persian in origin.\n- **Rogan** translates to \"clarified butter\" (ghee) or \"oil.\"\n- **Josh** translates to \"passion,\" \"heat,\" or \"intensity.\"\n\nPut together, Rogan Josh literally means meat cooked in intense heat in clarified butter. The hallmark of the dish is the thick, glistening layer of red-tinted oil that floats to the surface of the gravy.\n\n## The Great Misconception: Tomatoes and Onions\n\nIf your Rogan Josh has a thick, gloopy gravy made from pureed tomatoes, onions, and garlic, you are eating a generic North Indian curry, not a Kashmiri Rogan Josh.\n\nAuthentic traditional Rogan Josh **does not contain a single tomato**. Tomatoes are a New World ingredient that had no place in the historic royal courts where Wazwan was developed. Furthermore, authentic recipes (especially those influenced by Kashmiri Pandit traditions) often completely eschew standard onions and garlic.\n\nSo, how does the gravy get its deep red color and thick consistency?\n\n## The Authentic Ingredients\n\n### 1. The Color: Mawal and Kashmiri Chili\nThe iconic, terrifyingly red color of the dish comes from two ingredients. The first is the **Kashmiri red chili**, famous for imparting vibrant color with relatively low heat. The second is the extract of the **Mawal** (dried cockscomb) flower. The mawal flowers are boiled in water, and this blood-red water is added to the gravy, giving it a rich crimson hue without adding any spice.\n\n### 2. The Base: Yogurt and Shallots\nThe body of the gravy is built on a base of whisked yogurt and *Praan* (a pungent, wild Kashmiri shallot). The praan is fried until dark and ground into a paste, which thickens the gravy and provides a deep, savory umami flavor.\n\n### 3. The Aromatics: Fennel and Ginger\nThe soul of Rogan Josh lies in its aromatics. It relies heavily on **Saunf** (fennel powder) for a sweet, licorice-like undertone, and **Soonth** (dried ginger powder) for a sharp, earthy bite. Asafoetida (*heeng*) is also used prominently to replicate the pungency of garlic.\n\n## The Cooking Process\n\nIn a Wazwan, Rogan Josh is cooked in massive copper vessels (*degs*). \n\n1. Large chunks of bone-in mutton are browned fiercely in boiling ghee (the *Rogan*).\n2. The spices—fennel, ginger, cardamom, and cloves—are bloomed in the hot fat.\n3. The whisked yogurt is added, and the mixture is stirred continuously to prevent curdling.\n4. Finally, the mawal water and chilies are added.\n5. The vessel is sealed with dough (*dum* cooking) and left to simmer over low wood embers for hours.\n\nThe slow cooking breaks down the collagen in the bones, naturally thickening the gravy. When the seal is broken, the meat is fall-off-the-bone tender, sitting beneath a beautiful, fragrant layer of red oil.\n\nEating authentic Rogan Josh on a Trami, mixing the fragrant red oil into short-grain rice, is an experience that no restaurant tomato curry can ever replicate."
-}
   ,
   {
     "slug": "wazwan-vs-mughlai",
