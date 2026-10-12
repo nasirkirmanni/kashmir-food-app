@@ -123,7 +123,8 @@ export default async function DestinationDetailPage({ params }) {
       next: { revalidate: 3600 },
     });
     if (res.ok) {
-      destination = await res.json();
+      // Cleaned here as well as in DestinationDetailClient, so the data sent for hydration matches the page.
+      destination = sanitizeDestination(await res.json());
     } else if (res.status === 404) {
       // The record genuinely doesn't exist — return a real 404, not a stub.
       notFound();
