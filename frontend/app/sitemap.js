@@ -1,7 +1,14 @@
 import { blogPosts } from "@/data/blogPosts";
 import { scenicDrives } from "@/data/scenicDrivesData";
 import { wazwanGuides } from "@/data/wazwanGuides";
+import { PILLAR_REVIEWED } from "@/data/wazwanPillar";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
+import {
+  articleLastModified,
+  destinationLastModified,
+  dishLastModified,
+  latestContentDate,
+} from "@/lib/sitemapDates";
 import dishIds from "../dishes-static-ids.json";
 import restaurantIds from "../restaurants-static-ids.json";
 import destinationIds from "../destinations-static-ids.json";
@@ -34,12 +41,8 @@ async function fetchCatalogue(resource, fallbackEntries) {
   }
 }
 
-function lastModifiedOf(value) {
-  if (!value) return undefined;
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? undefined : date;
-}
-
+// lastModified comes from lib/sitemapDates.js: the date the page's content last changed, or
+// none when there's no reliable one.
 const entry = (urlPath, lastModified) => ({
   url: `${BASE_URL}${urlPath}`,
   ...(lastModified ? { lastModified } : {}),
@@ -65,7 +68,10 @@ export default async function sitemap() {
     "/contact",
     "/privacy",
     "/terms",
-  ].map((p) => entry(p));
+  ].map((p) =>
+    // The main Wazwan page carries the date its text and sources were last checked.
+    entry(p, p === "/dishes" ? latestContentDate(PILLAR_REVIEWED) : undefined)
+  );
 
   // A category guide index is listed only once that category has articles; until
   // then the page is an empty shell (and is noindexed).
@@ -81,7 +87,9 @@ export default async function sitemap() {
 
   // Guide articles come from the same data that renders them, so the sitemap
   // can never list a guide that doesn't exist as a page.
-  const guidePages = wazwanGuides.map((g) => entry(`/kashmiri-food/${g.category}/guide/${g.slug}`));
+  const guidePages = wazwanGuides.map((g) =>
+    entry(`/kashmiri-food/${g.category}/guide/${g.slug}`, articleLastModified(g))
+  );
 
   const [dishes, restaurants, destinations] = await Promise.all([
     fetchCatalogue("dishes", dishIds),
@@ -91,18 +99,19 @@ export default async function sitemap() {
 
   const dishPages = dishes.records
     .filter((d) => d.slug)
-    .map((d) => entry(`/dishes/${d.slug}`, lastModifiedOf(d.updatedAt)));
+    .map((d) => entry(`/dishes/${d.slug}`, dishLastModified(d)));
 
   const restaurantPages = restaurants.records
     .filter((r) => r.slug)
-    .map((r) => entry(`/restaurants/${r.slug}`, lastModifiedOf(r.updatedAt)));
+    .map((r) => entry(`/restaurants/${r.slug}`, latestContentDate(r.updatedAt)));
 
   // Destination pages with no written content are noindexed, so they're left out.
   // (The static fallback can't tell, so it lists every destination.)
   const destinationPages = destinations.records
     .filter((d) => d.slug)
-    .filter((d) => !destinations.live || d.slug.includes("tarsar") || hasWrittenDestinationContent(sanitizeDestination(d)))
-    .map((d) => entry(`/destinations/${d.slug}`, lastModifiedOf(d.updatedAt)));
+    .map((d) => sanitizeDestination(d))
+    .filter((d) => !destinations.live || d.slug.includes("tarsar") || hasWrittenDestinationContent(d))
+    .map((d) => entry(`/destinations/${d.slug}`, destinationLastModified(d)));
 
   const scenicDrivePages = scenicDrives.map((route) => entry(`/scenic-drives/${route.slug}`));
 
@@ -119,9 +128,7 @@ export default async function sitemap() {
   ];
   const itineraryPages = [entry("/itineraries"), ...itinerarySlugs.map((s) => entry(`/itineraries/${s}`))];
 
-  const blogPages = blogPosts.map((post) =>
-    entry(`/blog/${post.slug}`, lastModifiedOf(post.updatedDate || post.date))
-  );
+  const blogPages = blogPosts.map((post) => entry(`/blog/${post.slug}`, articleLastModified(post)));
 
   return [
     ...staticPages,
