@@ -5,6 +5,7 @@
  */
 
 const BLOG = {
+  gushtabaStory: { href: "/blog/gushtaba-last-dish-of-wazwan", title: "Gushtaba: Why the Wazwan Ends With a Meatball" },
   roganJoshHistory: { href: "/blog/rogan-josh-history", title: "Rogan Josh: The History, the Name and the Red of Kashmir's Most Famous Dish" },
   noonChai: { href: "/blog/noon-chai-pink-tea-kashmir", title: "Noon Chai: The Science, Culture, and Ritual Behind Kashmir's Pink Tea" },
   kahwaVsNoonChai: { href: "/blog/kahwa-vs-noon-chai", title: "Kahwa vs. Noon Chai: An Ancestral Tea Feud" },
@@ -29,7 +30,7 @@ const GUIDES = {
 
 const ARTICLES_BY_DISH = {
   "rogan-josh": [BLOG.roganJoshHistory, BLOG.panditFood, BLOG.spicy],
-  gushtaba: [GUIDES.ristaVsGushtaba, BLOG.spicy],
+  gushtaba: [BLOG.gushtabaStory, GUIDES.ristaVsGushtaba, BLOG.spicy],
   rista: [GUIDES.ristaVsGushtaba, BLOG.spicy],
   "marchwangan-korma": [BLOG.spicy],
   "aab-gosht": [BLOG.spicy],
