@@ -172,6 +172,13 @@ export function WazwanSources() {
             </li>
           ))}
         </ol>
+        <p className={styles.sourcesNote}>
+          For more reading, with what each source is good for, see{" "}
+          <Link href="/blog/kashmiri-food-sources" className={styles.sourcesLink}>
+            Kashmiri Food and Wazwan: Sources to Read
+          </Link>
+          .
+        </p>
       </div>
     </section>
   );

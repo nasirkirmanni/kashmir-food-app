@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import MapPreview from "@/components/MapPreview";
 import ReviewForm from "@/components/ReviewForm";
@@ -12,7 +13,7 @@ import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
 import StickyMobileNav from "@/components/StickyMobileNav";
 
-export default function RestaurantDetailClient({ initialRestaurant = null }) {
+export default function RestaurantDetailClient({ initialRestaurant = null, otherRestaurants = [] }) {
   const params = useParams();
   const router = useRouter();
   const [restaurant, setRestaurant] = useState(initialRestaurant);
@@ -219,6 +220,28 @@ export default function RestaurantDetailClient({ initialRestaurant = null }) {
           </div>
         </div>
       </section>
+
+      {otherRestaurants.length > 0 && (
+        <section className="places-wrap pt-0" aria-labelledby="more-restaurants-title">
+          <article className="restaurant-place-card">
+            <span className="place-eyebrow">Also on Wazwan Way</span>
+            <h2 id="more-restaurants-title" className="card-title">More Kashmiri restaurants</h2>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+              {otherRestaurants.map((other) => (
+                <li key={other.slug}>
+                  <Link
+                    href={`/restaurants/${other.slug}`}
+                    className="block rounded-xl border border-[var(--border)] bg-black/40 p-4 transition-colors hover:border-[var(--saffron)]"
+                  >
+                    <span className="block font-semibold text-white">{other.name}</span>
+                    {other.city ? <span className="block text-sm text-white/60">{other.city}</span> : null}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </section>
+      )}
     </div>
   );
 }

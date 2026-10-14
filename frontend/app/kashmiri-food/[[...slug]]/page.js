@@ -381,7 +381,10 @@ export default function Page({ params }) {
 
                 const relatedLinks = relatedArticles.map((a) => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`);
                 // Every Wazwan guide links back to the main Wazwan page.
-                if (category === "wazwan") relatedLinks.unshift("- [Traditional Wazwan: the feast, dish by dish](/dishes)");
+                if (category === "wazwan") {
+                  relatedLinks.unshift("- [Traditional Wazwan: the feast, dish by dish](/dishes)");
+                  relatedLinks.push("- [Kashmiri Food and Wazwan: Sources to Read](/blog/kashmiri-food-sources)");
+                }
                 const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedLinks.join("\n");
                 return stripLeadingTitle(article.content, article.title) + relatedMarkdown;
               })()}

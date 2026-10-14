@@ -17,6 +17,29 @@ function slugToName(slug) {
     .join(" ");
 }
 
+// The other restaurant pages, so each restaurant links to the rest. From the API, or from the
+// static list of slugs if the API is unreachable.
+async function getOtherRestaurants(currentSlug, currentId) {
+  try {
+    const res = await fetch(`${API_BASE}/api/restaurants`, { next: { revalidate: 3600 } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = await res.json();
+    if (!Array.isArray(list)) throw new Error("Unexpected response");
+    return list
+      .filter((r) => r.slug && r.name && r.slug !== currentSlug && r._id !== currentId)
+      .map((r) => ({ slug: r.slug, name: r.name, city: r.city || "" }));
+  } catch {
+    try {
+      const list = JSON.parse(fs.readFileSync(path.join(process.cwd(), "restaurants-static-ids.json"), "utf-8"));
+      return list
+        .filter((r) => r.slug && r.slug !== currentSlug && r.id !== currentId)
+        .map((r) => ({ slug: r.slug, name: slugToName(r.slug), city: "" }));
+    } catch {
+      return [];
+    }
+  }
+}
+
 export async function generateStaticParams() {
   try {
     const jsonPath = path.join(process.cwd(), "restaurants-static-ids.json");
@@ -127,6 +150,8 @@ export default async function RestaurantDetailPage({ params }) {
     console.error("Failed to fetch restaurant on server side:", err);
   }
 
-  return <RestaurantDetailClient initialRestaurant={restaurant} />;
+  const otherRestaurants = await getOtherRestaurants(restaurant?.slug || params.slug, restaurant?._id || params.slug);
+
+  return <RestaurantDetailClient initialRestaurant={restaurant} otherRestaurants={otherRestaurants} />;
 }
 

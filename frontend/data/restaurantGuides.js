@@ -23,11 +23,11 @@ Every place in this guide has been written about by independent publications, an
 
 These three were the only restaurants named on all five Srinagar restaurant lists we compared (see how we chose, below). They're listed by area, not ranked.
 
-**Ahdoos, Residency Road.** Ahdoos started as a bakery in 1918 (WION, 2018; Kashmir Life, 2025) and had become a restaurant by the 1920s (The Tribune, 2018). Kashmir Life calls it the first restaurant in the Valley to serve Kashmiri Wazwan, and WION reported that tourists travel from around the world to eat its Wazwan. In January 2024, Outlook Traveller put a meal for two at about ₹1,500.
+**[Ahdoos](/restaurants/ahdoos), Residency Road.** Ahdoos started as a bakery in 1918 (WION, 2018; Kashmir Life, 2025) and had become a restaurant by the 1920s (The Tribune, 2018). Kashmir Life calls it the first restaurant in the Valley to serve Kashmiri Wazwan, and WION reported that tourists travel from around the world to eat its Wazwan. In January 2024, Outlook Traveller put a meal for two at about ₹1,500.
 
-**Mughal Darbar, Residency Road.** Mughal Darbar is upstairs on Residency Road, and Kashmir Life dates it to 1984. Outlook Traveller recommended it for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000.
+**[Mughal Darbar](/restaurants/mughal-darbar), Residency Road.** Mughal Darbar is upstairs on Residency Road, and Kashmir Life dates it to 1984. Outlook Traveller recommended it for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000.
 
-**Shamyana, Boulevard Road.** Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake. The city guide so.city recommended it for Wazwan in 2018, as did Outlook Traveller in 2022. Outlook's January 2024 guide put a meal for two at about ₹800.
+**[Shamyana](/restaurants/shamyana), Boulevard Road.** Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake. The city guide so.city recommended it for Wazwan in 2018, as did Outlook Traveller in 2022. Outlook's January 2024 guide put a meal for two at about ₹800.
 
 **What to order.** If you only try two dishes, make them rista and gushtaba, the two Wazwan meatballs made from pounded mutton. [Rista vs Gushtaba](/kashmiri-food/wazwan/guide/rista-vs-gushtaba) explains how they differ, and [Traditional Wazwan](/dishes) covers the rest of the feast.
 

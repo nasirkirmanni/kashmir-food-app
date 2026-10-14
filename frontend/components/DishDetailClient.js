@@ -218,11 +218,12 @@ export default function DishDetailClient({ initialDish = null }) {
 
   const relatedReading = relatedReadingForDish(dish);
   const notes = dishNotesFor(dish.slug);
+  const recipeSchema = buildRecipeSchema(dish);
 
   return (
     <div className="wazwan-shell">
       {/* JSON-LD Structured Data */}
-      <JsonLd data={buildRecipeSchema(dish)} />
+      {recipeSchema ? <JsonLd data={recipeSchema} /> : null}
 
       <StickyMobileNav title={dish.name} />
 
@@ -317,7 +318,7 @@ export default function DishDetailClient({ initialDish = null }) {
               {dish.history && (
                 <>
                   <span className="place-eyebrow">History</span>
-                  <h3>{dish.name} in Kashmiri tradition</h3>
+                  <h2 className="card-title">{dish.name} in Kashmiri tradition</h2>
                   <ExpandableText text={dish.history} className="restaurant-desc whitespace-pre-wrap text-justify" threshold={150} />
                 </>
               )}
@@ -335,12 +336,12 @@ export default function DishDetailClient({ initialDish = null }) {
           <div className="space-y-6">
             <article className="restaurant-place-card">
               <span className="place-eyebrow">Where To Try It</span>
-              <h3>Restaurants serving {dish.name}</h3>
+              <h2 className="card-title">Restaurants serving {dish.name}</h2>
               <div className="mt-2 space-y-4">
                 {dish.restaurants && dish.restaurants.map((restaurant) => (
                   <div key={restaurant._id || restaurant.name} className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-black/40 p-4">
                     <div>
-                      <h4 className="font-semibold text-white">{restaurant.name}</h4>
+                      <p className="font-semibold text-white">{restaurant.name}</p>
                       <p className="text-sm text-white/60">{restaurant.location}</p>
                     </div>
                     <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost text-xs">
@@ -371,8 +372,12 @@ export default function DishDetailClient({ initialDish = null }) {
             <span className="place-eyebrow">The Recipe</span>
             <h2 className="text-2xl md:text-4xl font-display font-medium text-white">
               How to make {dish.name}
-              {dish.recipe.kashmiriName ? (
-                <span className="text-white/40 text-lg md:text-2xl ml-3">({dish.recipe.kashmiriName})</span>
+              {/* The Kashmiri name, only when it differs from the one already in the heading. */}
+              {dish.recipe.kashmiriName && dish.recipe.kashmiriName.trim().toLowerCase() !== dish.name.trim().toLowerCase() ? (
+                <>
+                  {" "}
+                  <span className="text-white/40 text-lg md:text-2xl ml-3">({dish.recipe.kashmiriName})</span>
+                </>
               ) : null}
             </h2>
             {/* Skip the intro when it is already the description shown in the hero. */}
@@ -459,7 +464,7 @@ export default function DishDetailClient({ initialDish = null }) {
         <section className="places-wrap pt-0" aria-labelledby="related-reading-heading">
           <article className="restaurant-place-card">
             <span className="place-eyebrow">Further Reading</span>
-            <h3 id="related-reading-heading">More about {dish.name}</h3>
+            <h2 id="related-reading-heading" className="card-title">Read more about {dish.name}</h2>
             <ul className="mt-4 space-y-3">
               {relatedReading.map((link) => (
                 <li key={link.href}>

@@ -235,7 +235,8 @@ a {
   color: #FFFFFF;
 }
 
-.restaurant-place-card h3 {
+.restaurant-place-card h3,
+.restaurant-place-card .card-title {
   font-family: var(--font-display), serif;
   font-size: 1.35rem;
   line-height: 1.2;

@@ -271,7 +271,7 @@ export default function RecipesPage() {
 
                           {/* Content */}
                           <div className="flex-1 p-4 md:p-0 md:pr-12">
-                            <h3 className="font-display text-xl md:text-2xl text-white tracking-wide mb-1">
+                            <h2 className="font-display text-xl md:text-2xl text-white tracking-wide mb-1">
                               <span className="md:hidden">{dish.name}</span>
                               {dish.slug ? (
                                 <Link href={`/dishes/${dish.slug}${dish.recipe ? "#recipe" : ""}`} className="hidden md:inline hover:text-[var(--saffron)] transition-colors">
@@ -280,7 +280,7 @@ export default function RecipesPage() {
                               ) : (
                                 <span className="hidden md:inline">{dish.name}</span>
                               )}
-                            </h3>
+                            </h2>
                             <div className="flex flex-wrap items-center mb-3">
                               <span className="text-[0.65rem] font-bold text-[var(--saffron)] uppercase tracking-[0.15em]">{dish.category}</span>
                               {recipesResolved && (
