@@ -101,7 +101,7 @@ export default function ItineraryBuilderClient() {
             schema={itineraryIntakeSchema}
             initial={initialAnswers()}
             onComplete={handleComplete}
-            onExit={() => router.push("/plan")}
+            onExit={() => router.push("/itineraries")}
           />
         )}
 

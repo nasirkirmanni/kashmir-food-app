@@ -176,16 +176,10 @@ Executing the Tarsar Marsar Trek requires detailed administrative coordination.
 3.  **Police Registration:** Government-issued photo identification (Aadhaar, Passport, or Driver's License) must be submitted to local police checkposts. Foreign nationals may require additional permits.
 4.  **Medical Certificate:** A certified medical fitness document verifying blood pressure, heart rate, and overall fitness is mandatory to process trekking permits in Kashmir.
 
-#### Financial Parameters & Operator Comparison
+#### Costs
 Comprehensive packages from established operators range from **₹12,000 to ₹18,000 per person**. This typically includes Srinagar-to-Srinagar transport, all camping equipment, meals, mules for central luggage, and guide fees.
 *   **Offloading:** Mules to carry a personal backpack cost approximately ₹2,800 to ₹3,500 total.
 *   **Independent Budget:** Self-supported trekkers hiring local guides and porters directly in Aru can suppress costs to ₹6,000 to ₹8,000, though this requires extreme logistical self-sufficiency.
-
-| Operator (Sample) | Days | Trek Dist. | Altitude Range | Inclusions | Avg. Cost (INR) |
-| :--- | :---: | :---: | :---: | :--- | :---: |
-| **Pahalgam Walks & Treks** | 7 | ~50 km | 2,400–4,100 m | Tents, all meals, guide, permits, transport, horses, camp gear | ₹14,000 |
-| **Trek The Himalayas** | 7 | ~55 km | 2,400–4,100 m | Accommodations, meals, permits, transport, guide, central mules | ~₹14,500 |
-| **Climb Kashmir** | 7 | ~55 km | 2,400–4,100 m | Group gear, guide, local permits, meals, camping fees | ₹15,500 |
 
 ### Safety, Environment, and Sustainability
 The remoteness of the trail past Aru necessitates strict safety and ecological protocols:

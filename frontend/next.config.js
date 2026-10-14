@@ -81,6 +81,19 @@ const nextConfig = {
         permanent: true,
         destination: '/dishes/seekh-kebab',
       },
+      // Third-party agency pages removed on 15 Oct 2026: Visit Kashmir now leads to Still Kashmir,
+      // Wazwan Way's own travel agency (lib/stillKashmir.js). These two carry an id, so they can't
+      // go in seo-redirects.json; the agency pages with fixed addresses are listed there.
+      {
+        source: '/tour-partner/:id',
+        permanent: true,
+        destination: '/still-kashmir',
+      },
+      {
+        source: '/my-itineraries/:id/book',
+        permanent: true,
+        destination: '/still-kashmir',
+      },
       ...seoRedirects.map(({ source, destination }) => ({ source, destination, permanent: true })),
     ];
   },

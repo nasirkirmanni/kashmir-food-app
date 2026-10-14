@@ -268,9 +268,6 @@ export default function SignupClient() {
                 </form>
 
                 <div className="signin-line">Already have an account? <Link href="/login">Sign In</Link></div>
-
-                <div className="divider">Or</div>
-                <div className="agency-line">Own a travel agency? <Link href="/travel-agent/signup">Register as a Travel Agency →</Link></div>
               </>
             ) : (
               <div className="otp-view">

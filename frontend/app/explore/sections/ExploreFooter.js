@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import { STILL_KASHMIR_HREF } from '@/lib/stillKashmir';
 
 const OPT = '/images/optimized/explore';
 
@@ -28,7 +29,7 @@ export default function ExploreFooter() {
           <a href="/dishes" className="transition-colors duration-300 hover:text-[#C8A46A]">Dishes</a>
           <a href="/restaurants" className="transition-colors duration-300 hover:text-[#C8A46A]">Restaurants</a>
           <a href="/recipes" className="transition-colors duration-300 hover:text-[#C8A46A]">Recipes</a>
-          <a href="/plan" className="transition-colors duration-300 hover:text-[#C8A46A]">Visit Kashmir</a>
+          <a href={STILL_KASHMIR_HREF} className="transition-colors duration-300 hover:text-[#C8A46A]">Visit Kashmir</a>
           <a href="/blog" className="transition-colors duration-300 hover:text-[#C8A46A]">Blog</a>
           <a href="/about" className="transition-colors duration-300 hover:text-[#C8A46A]">About</a>
           <a href="/contact" className="transition-colors duration-300 hover:text-[#C8A46A]">Contact</a>

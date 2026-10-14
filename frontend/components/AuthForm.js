@@ -349,32 +349,6 @@ export default function AuthForm({ mode = "login", redirectPath = "/", onSuccess
           </Link>
         </p>
       </div>
-
-      {mode === "signup" && (
-        <>
-          <div className="mt-6 flex items-center gap-4 before:h-px before:flex-1 before:bg-white/10 after:h-px after:flex-1 after:bg-white/10 relative z-10">
-            <span className="text-[10px] uppercase tracking-widest font-bold text-white/20">OR</span>
-          </div>
-
-          <div className="mt-6 text-center flex flex-col items-center gap-1.5 relative z-10">
-            <p className="text-[11px] text-white/40">Own a travel agency?</p>
-            <Link 
-              href="/travel-agent/signup" 
-              className="inline-flex items-center gap-1.5 text-white/80 font-medium hover:text-[var(--saffron)] transition-colors group text-[13px]"
-            >
-              Register as a Travel Agency
-              <svg 
-                className="w-3.5 h-3.5 transform transition-transform group-hover:translate-x-1 text-[var(--saffron)]" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-        </>
-      )}
     </form>
 
       {/* Terms and Conditions Modal */}

@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import HamburgerMenu from "./HamburgerMenu";
 import { User } from "lucide-react";
 import { SITE_SECTIONS } from "@/lib/siteSections";
+import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
 /* Each section link appears only from the window width where the whole bar
    still fits (measured logged out, the full row with Blog needs about 1,640px).
@@ -18,7 +19,7 @@ const SHOW_FROM = {
   "/kashmiri-food": "hidden lg:inline-flex",
   "/dishes": "inline-flex",
   "/restaurants": "hidden lg:inline-flex",
-  "/plan": "hidden min-[1400px]:inline-flex",
+  [STILL_KASHMIR_HREF]: "hidden min-[1400px]:inline-flex",
   "/itineraries": "hidden xl:inline-flex",
   "/explore": "hidden xl:inline-flex",
   "/blog": "hidden lg:inline-flex",
@@ -26,7 +27,7 @@ const SHOW_FROM = {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isSignupPage = pathname === "/signup" || pathname === "/travel-agent/signup";
+  const isSignupPage = pathname === "/signup";
   const isLoginPage = pathname === "/login";
   const { user, logout } = useAuth();
   const navRef = useRef(null);

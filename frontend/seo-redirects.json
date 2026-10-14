@@ -41,5 +41,12 @@
   { "source": "/dishes/kashmiri-lassi", "destination": "/kashmiri-food/beverages", "reason": "Drink removed by the owner (15 Oct 2026); the beverages page lists the drinks the site covers." },
   { "source": "/dishes/cardamom-kahwa", "destination": "/dishes/kashmiri-kahwa", "reason": "Drink removed by the owner (15 Oct 2026), who keeps kahwa." },
   { "source": "/dishes/badam-phirni", "destination": "/dishes/phirni", "reason": "Dessert removed by the owner (15 Oct 2026), who keeps phirni." },
-  { "source": "/dishes/saffron-phirni", "destination": "/dishes/phirni", "reason": "Dessert removed by the owner (15 Oct 2026), who keeps phirni." }
+  { "source": "/dishes/saffron-phirni", "destination": "/dishes/phirni", "reason": "Dessert removed by the owner (15 Oct 2026), who keeps phirni." },
+  { "source": "/plan", "destination": "/still-kashmir", "reason": "Visit Kashmir is now the coming-soon page for Still Kashmir, Wazwan Way's own travel agency (15 Oct 2026)." },
+  { "source": "/list-agency", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
+  { "source": "/select-tour-partner", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
+  { "source": "/travel-agent/signup", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
+  { "source": "/travel-agent/login", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
+  { "source": "/travel-agent/dashboard", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
+  { "source": "/travel-agent/inbox", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." }
 ]

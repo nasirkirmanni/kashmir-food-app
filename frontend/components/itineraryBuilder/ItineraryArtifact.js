@@ -119,7 +119,7 @@ function DayCard({ day }) {
 
 // `title` overrides the generated plan title (e.g. a canonical itinerary page
 // passes its own name, so "Kashmir Honeymoon Itinerary" heads that page).
-export default function ItineraryArtifact({ plan, onPlanTrip, planHref, title }) {
+export default function ItineraryArtifact({ plan, onPlanTrip, planHref, planLabel = "Plan this trip", title }) {
   if (!plan) return null;
   const cost = plan.estimatedCost || {};
 
@@ -157,7 +157,7 @@ export default function ItineraryArtifact({ plan, onPlanTrip, planHref, title })
               ))}
             </div>
           )}
-          <p className="text-[0.6rem] text-white/35 mt-2">Indicative — excludes flights. Confirm with your operator.</p>
+          <p className="text-[0.6rem] text-white/35 mt-2">Indicative — excludes flights.</p>
         </div>
       ) : null}
 
@@ -203,7 +203,7 @@ export default function ItineraryArtifact({ plan, onPlanTrip, planHref, title })
             style={{ background: GOLD, fontFamily: "var(--font-jetbrains-mono, monospace)", boxShadow: "0 10px 40px rgba(200,164,106,0.3)" }}
           >
             <Icon path={ICON.pin} className="w-4 h-4" />
-            Plan this trip
+            {planLabel}
           </a>
         </div>
       )}

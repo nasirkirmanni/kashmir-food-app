@@ -275,8 +275,6 @@ export const endpoints = {
   claimItinerary: "/itineraries/claim",
   myItineraries: "/itineraries/user/mine",
   itinerary: (idOrSlug) => `/itineraries/${idOrSlug}`,
-  operators: "/travel-agencies/operators",
-  bookItinerary: (id) => `/itineraries/${id}/book`,
   restaurantLeads: (query = "") => `/restaurant-leads${query}`,
   restaurantLead: (id) => `/restaurant-leads/${id}`,
   logout: "/auth/logout",
