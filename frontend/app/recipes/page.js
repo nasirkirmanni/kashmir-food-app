@@ -13,11 +13,13 @@ import { buildImageUrl } from "@/lib/imageProvider";
 import dishesData from "@/data/dishes.json";
 import "./recipes.css";
 import { resolveContentImage } from "@/lib/contentImages";
+import { sanitizeDish } from "@/lib/dishContent";
+import { withoutRemovedDishes } from "@/lib/removedDishes";
 
 const EASE = [0.22, 1, 0.36, 1];
 
 export default function RecipesPage() {
-  const [dishes, setDishes] = useState(() => dishesData.filter(isRecipeDish));
+  const [dishes, setDishes] = useState(() => dishesData.filter(isRecipeDish).map(sanitizeDish));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,7 +63,8 @@ export default function RecipesPage() {
   useEffect(() => {
     request(endpoints.dishes(""))
       .then((data) => {
-        setDishes(data.filter(isRecipeDish));
+        // Same corrections as the dish pages, so a dish stored with the placeholder image shows its photo here too.
+        setDishes(withoutRemovedDishes(data).filter(isRecipeDish).map(sanitizeDish));
         setRecipesResolved(true);
       })
       .catch((err) => {

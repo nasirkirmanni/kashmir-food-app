@@ -1186,86 +1186,6 @@ export const dishes = [
     }
   },
   {
-    "_id": "6a594074db4308bdd80bad58",
-    "name": "Shami Kabab",
-    "description": "Soft, spiced patties of finely minced mutton and chana dal, pan-seared in ghee until crusted outside and meltingly tender within.",
-    "fullDescription": "Shami Kabab is a griddle kabab of twice-ground mutton cooked down with split chana dal and whole spices, then pounded to a smooth paste, bound with egg, and shallow-fried into flat discs. In the Kashmiri kitchen it belongs to the kabab family served alongside the Wazwan, prized for a soft, almost creamy interior against a browned crust. The dal is not a filler but the dish's signature, giving the kabab its characteristic bind and gentle nuttiness.",
-    "history": "The shami kabab travelled into the subcontinent with Central Asian and Mughal cooks and settled across the north, Kashmir included, where kabab-making is a respected craft. The name is popularly tied to the Levant (‘Shaam’), and the dish's defining trick — simmering minced meat with chana dal until both collapse into one paste — made it a way to stretch and soften meat into an elegant, spoon-tender kabab fit for a feast.",
-    "touristTip": "Eat it hot off the griddle with a squeeze of lemon, sliced onions and a sharp mint or onion chutney; the best versions are soft enough to break with the side of a fork.",
-    "category": "Wazwan",
-    "categoryType": "wazwan",
-    "foodType": "Non-veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 200-400",
-    "popularityRating": 4.5,
-    "spiceLevel": "Medium",
-    "tags": [
-      "kashmiri",
-      "wazwan",
-      "kabab",
-      "non-veg"
-    ],
-    "authenticityScore": 4.4,
-    "touristFriendlinessScore": 4.6,
-    "luxuryScore": 3.5,
-    "slug": "shami-kabab",
-    "recipe": {
-      "kashmiriName": "Shami Kabab",
-      "altSpellings": [
-        "Shaami Kabab"
-      ],
-      "tradition": "Wazwan (Muslim)",
-      "intro": "Minced mutton simmered with chana dal and whole spices until dry, ground to a smooth paste, bound with egg and shallow-fried into soft, crusted patties. A kabab defined by the meeting of meat and dal.",
-      "significance": "Shami kabab sits in the kabab register of the Kashmiri table, cooked for guests and festive meals and sold at the valley's better kabab counters. Its identity is the two-stage method: a slow simmer that marries mutton and chana dal into one tender mass, then a hot ghee fry that sets a thin crust. Unlike the skewered seekh, it is a griddle kabab — flat, soft, and eaten with chutney and onions.",
-      "prepTimeMinutes": 30,
-      "cookTimeMinutes": 40,
-      "servings": "4",
-      "difficulty": "Moderate",
-      "ingredients": [
-        "500 g mutton mince (leg), with a little fat",
-        "100 g chana dal (split Bengal gram), soaked 1 hour",
-        "1 onion, roughly chopped",
-        "4 cloves garlic and 1 inch ginger",
-        "3-4 dried Kashmiri chillies",
-        "4 cloves, 4 green cardamoms, 1 black cardamom, 1 small cinnamon stick",
-        "1 tsp cumin seeds",
-        "1 tsp fennel powder",
-        "Salt to taste",
-        "1 egg, beaten, to bind",
-        "A handful of chopped coriander and mint",
-        "Ghee for shallow-frying"
-      ],
-      "instructions": [
-        "Put the mince, drained chana dal, onion, ginger, garlic, whole spices, cumin, fennel and salt in a heavy pot with just enough water to cover.",
-        "Simmer, covered, until the meat and dal are completely soft and the water has all but evaporated, 30-35 minutes.",
-        "Cool the mixture, pick out the whole spices, and grind it to a smooth, stiff paste with no free moisture.",
-        "Work in the chopped coriander and mint and the beaten egg until the paste holds together firmly.",
-        "With moist hands, shape the paste into flat discs about a centimetre thick.",
-        "Heat ghee in a wide pan over medium heat and shallow-fry the kababs until deep golden and crusted on both sides, 3-4 minutes a side.",
-        "Drain briefly and serve hot with lemon, onion rings and chutney."
-      ],
-      "wazaTips": [
-        "Cook the mixture until truly dry before grinding — any moisture and the kababs fall apart in the pan.",
-        "Chill the shaped kababs for 15 minutes before frying so they hold their form."
-      ],
-      "homeAdaptation": "Twice-minced lamb and ordinary chana dal reproduce this anywhere; a food processor grinds the cooked mixture in seconds.",
-      "commonMistakes": [
-        "A wet paste, which spreads and breaks on the griddle.",
-        "Frying on high heat, which colours the crust before the centre warms through."
-      ],
-      "servingSuggestions": "Serve as a starter or alongside the Wazwan with mint chutney, sliced onion and lemon.",
-      "relatedDishes": [
-        "seekh-kebab",
-        "tabak-maaz",
-        "rogan-josh"
-      ]
-    },
-    "createdAt": "2026-07-16T20:35:00.904Z",
-    "updatedAt": "2026-07-16T21:19:07.943Z",
-    "__v": 0,
-    "courseType": "foundation"
-  },
-  {
     "_id": "6a2a4978ac7d60a9cca76efb",
     "name": "Tabak Maaz",
     "description": "Crisp-fried lamb ribs with a rich, smoky finish.",
@@ -1767,166 +1687,6 @@ export const dishes = [
         "tabak-maaz",
         "rogan-josh"
       ]
-    }
-  },
-  {
-    "_id": "6a5247d72519b282b59976c0",
-    "name": "Nadru Gaad",
-    "description": "Kashmiri fish curry cooked with lotus stems.",
-    "fullDescription": "Nadru Gaad pairs tender lake fish with fresh lotus stem slices, cooked together in a rich spice-infused red gravy.",
-    "history": "Lotus stems (Nadru) harvested from Dal and Anchar lakes have been eaten in Kashmir since ancient times. Pairing them with local fish represents the traditional lakeside diet of the valley.",
-    "touristTip": "A great local specialty. The lotus stems absorb the delicious fish gravy and become extremely flavorful.",
-    "category": "Kashmiri Cuisine",
-    "categoryType": "kashmiri_cuisine",
-    "foodType": "Non-veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 320-650",
-    "popularityRating": 4.4,
-    "spiceLevel": "Medium",
-    "tags": [
-      "fish",
-      "lotus-stem",
-      "traditional"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.8,
-    "luxuryScore": 5,
-    "__v": 0,
-    "createdAt": "2026-07-11T13:40:39.816Z",
-    "updatedAt": "2026-07-16T20:35:02.565Z",
-    "slug": "nadru-gaad",
-    "recipe": {
-      "kashmiriName": "Nadru Gaad",
-      "altSpellings": [
-        "Nadir Gaad",
-        "Fish with Lotus Stem"
-      ],
-      "tradition": "Kashmiri Pandit",
-      "intro": "Fried freshwater fish and crescent slices of lotus stem simmered together in a red, fennel-deep gravy — the lake's fish and the lake's vegetable in one winter pot. Nadru gaad is lake cooking, literally.",
-      "significance": "Both halves of this dish come out of the same water: gaad from the lakes and rivers, nadru from the lake beds beneath them, which gives the pairing an easy logic Kashmiris have cooked by for generations, particularly in Pandit households through winter and on Gaada Batta. The nadru simmers until just tender while keeping its crunch, the fried fish holds its shape in the gravy, and the chilli-and-fennel base ties them together. It ranks among the most loved of all Pandit fish preparations.",
-      "prepTimeMinutes": 25,
-      "cookTimeMinutes": 45,
-      "servings": "4",
-      "difficulty": "Moderate",
-      "ingredients": [
-        "600 g firm freshwater fish steaks (carp or trout), patted dry",
-        "250 g lotus stem (nadru), scrubbed, in diagonal slices",
-        "6 tbsp mustard oil",
-        "2 tsp Kashmiri chilli powder",
-        "1 tbsp fennel powder",
-        "1 tsp dry ginger powder (sonth)",
-        "1/2 tsp turmeric, plus a pinch for the fish",
-        "1 pinch asafoetida",
-        "Salt to taste",
-        "550 ml hot water"
-      ],
-      "instructions": [
-        "Rub the fish with salt and a pinch of turmeric; rest 10 minutes.",
-        "Wash the nadru slices thoroughly, checking the channels for grit.",
-        "Heat the mustard oil to smoking in a wide pan and fry the fish golden on both sides; lift out gently.",
-        "In the same oil, fry the nadru 3-4 minutes until the edges colour, and set aside.",
-        "Add the asafoetida, then the chilli powder slurried in water, stirring until the oil runs red; add turmeric, fennel, sonth and salt.",
-        "Add the hot water and the nadru and simmer, covered, for 15 minutes until the stem is nearly tender.",
-        "Return the fish, spoon gravy over, and simmer gently, unstirred, for 8 minutes. Rest briefly and serve."
-      ],
-      "wazaTips": [
-        "Grit hides in nadru's channels — wash like you mean it.",
-        "Fish and nadru finish at different speeds; stagger them exactly as the steps say."
-      ],
-      "homeAdaptation": "Frozen lotus stem and trout or tilapia steaks reproduce the dish faithfully outside Kashmir.",
-      "commonMistakes": [
-        "Simmering the fish from the start — it goes in last and barely cooks.",
-        "Letting the nadru soften fully; it should keep a clean bite against the fish."
-      ],
-      "servingSuggestions": "Serve over steamed rice with the gravy poured generously.",
-      "relatedDishes": [
-        "nadru-yakhni"
-      ],
-      "sourcingNote": "Frozen lotus stem from Indian or East Asian groceries substitutes for fresh nadru; thaw and reduce the simmer slightly."
-    }
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76efc",
-    "name": "Nadru Yakhni",
-    "description": "Lotus stem cooked in a soothing yogurt and fennel curry.",
-    "fullDescription": "Nadru Yakhni is a comforting vegetarian Kashmiri dish built on lotus stem slices, yogurt, fennel, and warming spices that create a balanced, aromatic gravy.",
-    "history": "The lotus stem, or Nadru, has been an integral part of the Kashmiri diet for centuries, deeply intertwined with the region's abundant lakes. Nadru Yakhni represents a harmonious blend of local agriculture and traditional cooking techniques. The yogurt-based Yakhni gravy itself has ancient origins in the valley, originally used to preserve and flavor meats and vegetables during harsh winters. Over generations, this comforting, fennel-scented vegetarian dish has become a beloved staple in both Kashmiri Pandit and Muslim households, celebrating the unique aquatic bounty of the valley.",
-    "touristTip": "A great pick for vegetarians seeking something authentically local rather than generic North Indian options.",
-    "category": "Kashmiri Cuisine",
-    "categoryType": "kashmiri_cuisine",
-    "courseType": "vegetarian",
-    "foodType": "Veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 220-480",
-    "popularityRating": 4.4,
-    "spiceLevel": "Mild",
-    "tags": [
-      "vegetarian",
-      "lotus stem",
-      "comfort"
-    ],
-    "authenticityScore": 4.1,
-    "touristFriendlinessScore": 4.7,
-    "luxuryScore": 3.5,
-    "slug": "nadru-yakhni",
-    "createdAt": "2026-06-11T05:36:56.222Z",
-    "updatedAt": "2026-07-16T21:07:59.483Z",
-    "__v": 0,
-    "recipe": {
-      "kashmiriName": "Nadru Yakhni",
-      "altSpellings": [
-        "Nadur Yakhean",
-        "Nadir Yakhni",
-        "Nadroo Yakhni"
-      ],
-      "tradition": "Shared (variants noted)",
-      "intro": "Crisp-tender rounds of lotus stem simmered in a churned yogurt gravy scented with fennel and dried ginger. Nadru Yakhni takes the vegetable Kashmir loves most — pulled from the Dal and Anchar lakes — and treats it with the same white-gravy reverence usually reserved for mutton.",
-      "significance": "Nadru Yakhni is one of the signature dishes of the Kashmiri Pandit kitchen, cooked without onion, garlic or tomato, and it remains a fixture at Pandit feasts and fast-adjacent vegetarian meals; Kashmiri Muslim households cook and love it too, so it should not be read as exclusively Pandit property. Its cultural weight comes from the lotus stem itself: nadru is harvested from the valley's lakes and carries strong associations with home for the Kashmiri diaspora. The yakhni treatment — yogurt, fennel, sonth, no turmeric or chilli — marks it as part of the same white-gravy family as the mutton original, and it is one of the most widely documented Kashmiri vegetarian recipes, appearing everywhere from community cookbooks to Saveur.",
-      "prepTimeMinutes": 20,
-      "cookTimeMinutes": 45,
-      "servings": "4",
-      "difficulty": "Easy",
-      "ingredients": [
-        "500 g lotus stem (nadru), about 2–3 stems",
-        "400 g full-fat yogurt, whisked smooth",
-        "3 tbsp mustard oil",
-        "1 tsp cumin seeds",
-        "3 cloves",
-        "3 green cardamom pods, lightly crushed",
-        "1 black cardamom pod",
-        "1 small piece cinnamon (about 2 cm)",
-        "2 tsp fennel powder",
-        "1 tsp dried ginger powder (sonth)",
-        "1 generous pinch asafoetida (hing)",
-        "Salt to taste, about 1.5 tsp",
-        "1/2 tsp crushed dried mint leaves (optional, to finish)"
-      ],
-      "instructions": [
-        "Scrape the lotus stems well, trim the ends and slice diagonally into rounds about 1 cm thick. Wash thoroughly in several changes of water, working your fingers into the hollow channels — mud hides there, and one gritty piece ruins the pot.",
-        "Boil the sliced nadru in about 750 ml of lightly salted water for 15–20 minutes, until tender but still holding a slight bite at the centre. Do not cook it to mush. Reserve the cooking water.",
-        "Whisk the yogurt with the fennel powder and dried ginger powder until completely smooth, then thin it with a ladle or two of the warm nadru cooking water.",
-        "Heat the mustard oil in a heavy pan until its rawness cooks off, then take it briefly off the heat and add the cumin, cloves, cinnamon, both cardamoms and the asafoetida. Let them crackle gently for a few seconds.",
-        "Pour in the yogurt mixture and return the pan to medium heat, stirring continuously in one direction until it comes to a boil and no longer threatens to split.",
-        "Add the boiled nadru along with enough of the reserved cooking water to make a pourable gravy. Season with salt and simmer gently, uncovered, for 10–15 minutes, until the gravy thickens slightly and a thin sheen of oil shows at the edge.",
-        "Crush the dried mint between your palms over the pot, if using, stir once and serve hot."
-      ],
-      "wazaTips": [
-        "Buy lotus stems that feel heavy and snap cleanly; limp, dark stems turn fibrous when cooked.",
-        "The nadru should finish cooking in the yogurt gravy, not before it — pull the boil slightly early so the last 10 minutes of simmering marry the two.",
-        "Full-fat, just-set yogurt gives the gravy body; sour or watery curd makes a thin, aggressive yakhni.",
-        "Keep the flame low once the yogurt is in. This dish is coaxed, never boiled hard."
-      ],
-      "homeAdaptation": "Frozen or vacuum-packed lotus stem from Indian and East Asian grocers works well — rinse thoroughly and reduce the first boil to around 10 minutes. A pressure cooker (one whistle) can replace the initial boil. If fresh nadru is unavailable entirely, the same gravy takes well to raw banana or arbi, though the dish then loses its name.",
-      "commonMistakes": [
-        "Under-washing the stems and serving grit in the gravy — the most common and least forgivable error.",
-        "Overboiling the nadru until it collapses; it should keep a gentle crunch.",
-        "Adding the yogurt to a screaming-hot pan without stirring, causing it to curdle instantly.",
-        "Reaching for turmeric out of habit — the gravy must stay white."
-      ],
-      "servingSuggestions": "Serve with plain steamed rice, ideally alongside a dry vegetable or a chutney for contrast. In Pandit festive meals it often sits beside Dum Aloo and Chaman.",
-      "relatedDishes": [],
-      "sourcingNote": "Corroborated across Maayeka, Archana's Kitchen, Bless My Food by Payal, Saveur and other Kashmiri Pandit-authored recipes, which agree on the no-onion/no-garlic/no-turmeric convention, the diagonal cut, the pre-boil and the fennel-sonth flavour spine. The booklet reference does not contain this dish; the mutton Neni Yakhean entry was used only as the template of the yakhni method.",
-      "reviewedAt": "2026-07-16T14:01:11.224Z"
     }
   },
   {
@@ -2984,80 +2744,6 @@ export const dishes = [
     }
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f52",
-    "name": "Badam Phirni",
-    "description": "",
-    "fullDescription": "",
-    "history": "",
-    "touristTip": "",
-    "category": "Desserts",
-    "categoryType": "kashmiri_cuisine",
-    "foodType": "Veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 140-280",
-    "popularityRating": 4.4,
-    "spiceLevel": "Mild",
-    "tags": [
-      "kashmiri",
-      "luxury-dining",
-      "veg"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "slug": "badam-phirni",
-    "createdAt": "2026-06-11T05:36:56.225Z",
-    "updatedAt": "2026-07-16T20:35:00.195Z",
-    "__v": 0,
-    "recipe": {
-      "kashmiriName": "Badam Phirin",
-      "altSpellings": [
-        "Badam Phirni",
-        "Almond Phirni"
-      ],
-      "tradition": "Shared (variants noted)",
-      "intro": "A chilled pudding of ground rice and almonds cooked slowly in milk until it thickens to silk, set in shallow bowls and scattered with slivered nuts. Badam phirni is the almond-rich dress of the classic phirni.",
-      "significance": "Phirni came to Kashmir with Mughal-era kitchens and settled into festive menus — Eid tables, wedding dessert rounds and the better cafes of Srinagar. The almond version outranks the plain one at celebrations, the ground badam giving body and a marzipan depth. Its markers are patience and texture: the rice must be soaked and ground coarse like fine semolina, and the milk stirred until the spoon leaves a trail. Setting it in earthenware, which drinks a little moisture, gives the classic firm surface.",
-      "prepTimeMinutes": 20,
-      "cookTimeMinutes": 35,
-      "servings": "6",
-      "difficulty": "Moderate",
-      "ingredients": [
-        "60 g short-grain rice, soaked 2 hours",
-        "50 g almonds, blanched and peeled, plus more slivered to finish",
-        "1 litre full-fat milk",
-        "120 g sugar",
-        "5-6 green cardamoms, seeds ground",
-        "1 small pinch saffron threads (optional)",
-        "1 tsp kewra or rose water (optional)"
-      ],
-      "instructions": [
-        "Drain the soaked rice and grind it with the blanched almonds and a splash of milk to a coarse, grainy paste.",
-        "Bring the milk to a boil in a heavy pan, then lower the heat.",
-        "Loosen the rice-almond paste with a ladle of warm milk and stir it back into the pan.",
-        "Cook on low heat, stirring constantly and scraping the base, until the mixture thickens and the raw rice smell disappears, 20-25 minutes.",
-        "Add the sugar, ground cardamom and saffron if using, and cook 5 minutes more until glossy.",
-        "Stir in the kewra or rose water, pour into shallow bowls — earthenware if you have it — and cool.",
-        "Chill for at least 3 hours; scatter with slivered almonds before serving."
-      ],
-      "wazaTips": [
-        "Grind the rice coarse, not to flour — phirni's grain on the tongue is what separates it from custard.",
-        "Stir without stopping once the paste goes in; the base catches in seconds."
-      ],
-      "homeAdaptation": "Ground rice from a packet plus almond meal shortcut the soaking and grinding without much loss.",
-      "commonMistakes": [
-        "Under-cooking the rice paste, which leaves a raw, chalky finish.",
-        "Setting it deep in one large bowl — phirni sets and chills properly only in shallow layers."
-      ],
-      "servingSuggestions": "Serve cold, ideally in the clay bowl it set in, after a rich meal.",
-      "relatedDishes": [
-        "phirni",
-        "saffron-phirni",
-        "shufta"
-      ]
-    }
-  },
-  {
     "_id": "6a2a4978ac7d60a9cca76f14",
     "name": "Phirni",
     "description": "",
@@ -3134,79 +2820,6 @@ export const dishes = [
       "relatedDishes": [],
       "sourcingNote": "Corroborated across major Indian recipe sites (for the pan-Indian ground-rice standard) and multiple Kashmir-specific sources documenting Kong Phirin (semolina, saffron, clay shikoras) and Srinagar's Ramadan phirni tradition. Claims about Kashmiri specificity are deliberately limited to what those sources state.",
       "reviewedAt": "2026-07-16T14:01:13.173Z"
-    }
-  },
-  {
-    "_id": "6a2a4978ac7d60a9cca76f53",
-    "name": "Saffron Phirni",
-    "description": "",
-    "fullDescription": "",
-    "history": "",
-    "touristTip": "",
-    "category": "Desserts",
-    "categoryType": "kashmiri_cuisine",
-    "foodType": "Veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 160-320",
-    "popularityRating": 4.4,
-    "spiceLevel": "Mild",
-    "tags": [
-      "kashmiri",
-      "luxury-dining",
-      "veg"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.4,
-    "luxuryScore": 3,
-    "slug": "saffron-phirni",
-    "createdAt": "2026-06-11T05:36:56.225Z",
-    "updatedAt": "2026-07-16T20:35:00.255Z",
-    "__v": 0,
-    "recipe": {
-      "kashmiriName": "Kong Phirin",
-      "altSpellings": [
-        "Kong Phirni",
-        "Zafran Phirni"
-      ],
-      "tradition": "Shared (variants noted)",
-      "intro": "The classic ground-rice and milk pudding dyed a deep evening gold with Kashmiri saffron, set in shallow clay bowls. Saffron phirni is the dessert that lets Pampore's most famous crop speak almost alone.",
-      "significance": "Kashmir grows India's finest saffron on the karewa plateaus of Pampore, and this phirni is the sweet built to honour it: the trio of milk, ground rice and kong needs nothing else beyond cardamom and a scatter of nuts. The saffron is bloomed in warm milk first so its colour and perfume open fully. Served at weddings and Eid tables, it is judged on three things — the grain of the rice, the depth of the gold, and how cleanly it releases from the clay bowl's rim.",
-      "prepTimeMinutes": 15,
-      "cookTimeMinutes": 35,
-      "servings": "6",
-      "difficulty": "Moderate",
-      "ingredients": [
-        "70 g short-grain rice, soaked 2 hours",
-        "1 litre full-fat milk",
-        "120 g sugar",
-        "1/2 tsp saffron threads (a generous pinch)",
-        "5 green cardamoms, seeds ground",
-        "Slivered almonds and pistachios, to finish"
-      ],
-      "instructions": [
-        "Warm 3 tbsp of the milk and steep the saffron in it; set aside to bloom.",
-        "Drain the rice and grind it with a splash of milk to a coarse, semolina-like paste.",
-        "Bring the remaining milk to a boil in a heavy pan, then lower the heat.",
-        "Stir in the rice paste, loosened with warm milk, and cook on low, stirring constantly, until thick and no longer raw-tasting, 20-25 minutes.",
-        "Add the sugar, cardamom and the bloomed saffron with its milk and cook 5 minutes more until glossy and evenly gold.",
-        "Pour into shallow bowls — clay if you have them — cool, and chill at least 3 hours; finish with slivered nuts."
-      ],
-      "wazaTips": [
-        "Bloom the saffron; threads thrown straight into the pot give colour in streaks and perfume not at all.",
-        "Keep the grind coarse — phirni's texture is its identity."
-      ],
-      "homeAdaptation": "Packet ground rice and any good saffron work; use a few more threads if your saffron is not Kashmiri.",
-      "commonMistakes": [
-        "Skimping on saffron and compensating with food colour — the perfume is the point.",
-        "Pouring it deep, which never sets to the proper sliceable surface."
-      ],
-      "servingSuggestions": "Serve cold in its setting bowl at the end of a rich meal.",
-      "relatedDishes": [
-        "phirni",
-        "badam-phirni",
-        "kashmiri-kahwa"
-      ],
-      "sourcingNote": "Kashmiri (Pampore) saffron is worth seeking out; buy threads, never powder, for this dish."
     }
   },
   {
@@ -3520,81 +3133,6 @@ export const dishes = [
     }
   },
   {
-    "_id": "6a2a4978ac7d60a9cca76f4d",
-    "name": "Cardamom Kahwa",
-    "description": "",
-    "fullDescription": "",
-    "history": "",
-    "touristTip": "",
-    "category": "Beverages",
-    "categoryType": "beverage",
-    "foodType": "Veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 90-180",
-    "popularityRating": 4.1,
-    "spiceLevel": "Mild",
-    "tags": [
-      "kashmiri",
-      "cafes",
-      "veg",
-      "authentic",
-      "luxury"
-    ],
-    "authenticityScore": 5,
-    "touristFriendlinessScore": 3.5,
-    "luxuryScore": 4.5,
-    "slug": "cardamom-kahwa",
-    "createdAt": "2026-06-11T05:36:56.225Z",
-    "updatedAt": "2026-07-16T21:07:59.397Z",
-    "__v": 0,
-    "recipe": {
-      "kashmiriName": "Elaichi Kahwa",
-      "altSpellings": [
-        "Cardamom Kahwa",
-        "Kehwa"
-      ],
-      "tradition": "Shared (variants noted)",
-      "intro": "Kashmiri green tea brewed light and gold with crushed green cardamom, a stick of cinnamon and slivered almonds — the kahwa of everyday hospitality, with cardamom leading where saffron usually reigns.",
-      "significance": "Kahwa is Kashmir's welcome ritual, traditionally drawn from the samovar into small cups all afternoon. The saffron-heavy version is the showpiece; this cardamom-forward brew is its daily working form, made when guests arrive unannounced or the household simply wants warmth. The rules are gentleness itself: green tea steeped, never boiled to bitterness, whole spices bruised rather than powdered, and almonds slivered into the cup so the last sip has texture. Sugar or honey to taste, always light.",
-      "prepTimeMinutes": 5,
-      "cookTimeMinutes": 12,
-      "servings": "4",
-      "difficulty": "Easy",
-      "ingredients": [
-        "2 tsp Kashmiri green tea leaves (kahwa leaves or gunpowder green)",
-        "800 ml water",
-        "6 green cardamoms, bruised",
-        "1 small cinnamon stick",
-        "2 cloves (optional)",
-        "2 tsp sugar or honey, or to taste",
-        "10-12 almonds, blanched and slivered",
-        "2-3 dried rose petals, to finish (optional)"
-      ],
-      "instructions": [
-        "Bring the water to a boil with the cardamom, cinnamon and cloves and simmer 5 minutes so the spices open.",
-        "Take the pan off the boil, add the green tea leaves, and steep at a bare murmur for 2-3 minutes.",
-        "Sweeten with sugar or honey and stir once.",
-        "Divide the slivered almonds among small cups.",
-        "Strain the kahwa hot over the almonds and finish, if you like, with a rose petal."
-      ],
-      "wazaTips": [
-        "Steep, don't boil, the leaves — boiled green tea turns harsh in a minute.",
-        "Bruise the cardamom, never grind it; the tea should be clear gold, not cloudy."
-      ],
-      "homeAdaptation": "Gunpowder or any unflavoured green tea stands in for kahwa leaves; a saucepan replaces the samovar without apology.",
-      "commonMistakes": [
-        "Long steeping for 'strength', which only adds bitterness.",
-        "Drowning it in sugar — kahwa is meant to finish clean."
-      ],
-      "servingSuggestions": "Serve hot in small cups after meals or alongside bakerkhani; the almonds at the bottom are eaten last.",
-      "relatedDishes": [
-        "kashmiri-kahwa",
-        "noon-chai",
-        "bakerkhani"
-      ]
-    }
-  },
-  {
     "_id": "6a5247d72519b282b59976b3",
     "name": "Kahwa",
     "description": "Saffron-infused Kashmiri green tea with almonds.",
@@ -3669,84 +3207,6 @@ export const dishes = [
       "relatedDishes": [],
       "sourcingNote": "Corroborated across the 2006 booklet reference ('Kehwa', a minimal version) and numerous published recipes and articles on the samovar tradition; the spices-first/tea-last sequencing reflects the consistent majority method.",
       "reviewedAt": "2026-07-16T14:01:13.307Z"
-    }
-  },
-  {
-    "_id": "6a5247d72519b282b59976eb",
-    "name": "Kashmiri Lassi",
-    "description": "A creamy yogurt-based drink infused with saffron and dry fruits.",
-    "fullDescription": "Kashmiri Lassi is a rich, creamy yogurt drink blended with saffron strands, crushed almonds, pistachios, and a touch of rose water. Unlike the thin lassis found in the plains, the Kashmiri version is thick, aromatic, and served chilled as a refreshing accompaniment to heavy meals or as a standalone summer cooler.",
-    "history": "Yogurt-based drinks have been part of Kashmiri cuisine for centuries, especially during the warm summer months. The addition of saffron and dry fruits reflects Kashmir's access to premium ingredients from its own orchards and fields. Traditionally prepared at home using fresh curd, it has now become a popular offering at local cafes and street stalls across the valley.",
-    "touristTip": "Order it chilled after a heavy Wazwan meal — it helps with digestion and balances the rich, spicy flavors of the meats.",
-    "category": "Beverages",
-    "categoryType": "beverage",
-    "foodType": "Veg",
-    "image": "/images/dishes/dish-placeholder.webp",
-    "priceRange": "INR 60-120",
-    "popularityRating": 4.6,
-    "spiceLevel": "Mild",
-    "tags": [
-      "lassi",
-      "yogurt",
-      "saffron",
-      "chilled"
-    ],
-    "authenticityScore": 3.8,
-    "touristFriendlinessScore": 4.1,
-    "luxuryScore": 2.5,
-    "__v": 0,
-    "createdAt": "2026-07-11T13:40:39.818Z",
-    "updatedAt": "2026-07-16T20:35:02.042Z",
-    "slug": "kashmiri-lassi",
-    "recipe": {
-      "kashmiriName": "Gurus (churned buttermilk); salted mint lassi",
-      "altSpellings": [
-        "Gurus",
-        "Guras",
-        "Kashmiri Chaash",
-        "Salted Mint Lassi"
-      ],
-      "tradition": "Shared (variants noted)",
-      "intro": "Kashmir's everyday yogurt drink is not the thick, sweet, malai-capped lassi of Punjab. It is a thin, salted, mint-and-cumin-scented buttermilk — rooted in gurus, the hand-churned buttermilk that once accompanied nearly every summer afternoon meal in the Valley.",
-      "significance": "For centuries the churning of gurus was a household ritual across Kashmir: fermented milk worked in a clay or wooden vessel (tchod) with a long wooden churner (de'on) pulled by a rope (lam e raz), separating golden butter and leaving tart buttermilk behind. Kashmir Life records that gurus was served with spices, mint, salt and sugar, prized as a summer coolant and recommended by traditional hakims for digestion; a Kashmiri saying held that autumn gurus — made when grazing was richest — was fit for friends, while spring gurus was for enemies. Kashmiri food writers describe the tall glass of minted, cumin-spiced buttermilk as the standard close to a summer midday meal. The tradition is fading as machine skimming replaces hand churning, though it survives among herders in upland pastures. What is presented today as 'Kashmiri lassi' is essentially this salted-savory buttermilk idiom, made in modern kitchens from yogurt and cold water rather than churn-fresh buttermilk.",
-      "prepTimeMinutes": 10,
-      "cookTimeMinutes": 0,
-      "servings": "2",
-      "difficulty": "Easy",
-      "ingredients": [
-        "400 g full-fat plain yogurt, well set and ideally a day old (a gentle sourness is traditional — gurus was made from fermented milk)",
-        "300–400 ml cold water, to taste (traditionally chilled spring water; more water gives the correct thin, drinkable body)",
-        "10–12 fresh mint leaves, plus a sprig to garnish",
-        "1/2 tsp roasted cumin powder",
-        "1/2 tsp salt, or to taste (a pinch of black salt is a common addition)",
-        "Ice cubes, optional",
-        "Pinch of sugar, optional (some households balance the salt with a whisper of sugar, as noted in accounts of gurus service)"
-      ],
-      "instructions": [
-        "Whisk the yogurt in a deep vessel until completely smooth — traditionally this was a rhythmic back-and-forth churning, not a quick stir; work it until no lumps remain and it turns glossy.",
-        "Add the cold water gradually, whisking or churning as you pour, until the drink is thin enough to gulp rather than sip. Kashmiri buttermilk is noticeably thinner than Punjabi lassi.",
-        "Bruise the mint leaves between your fingers (or pound briefly with a pinch of salt) and stir them in; for a smoother drink, blend the mint with a splash of the buttermilk first.",
-        "Season with salt and roasted cumin powder. Taste — it should be tart, saline and cooling, with mint as fragrance rather than a dominant flavour.",
-        "Whisk or blend vigorously once more until a light froth caps the surface (the froth is the traditional sign it has been churned enough).",
-        "Chill or pour over ice, garnish with mint, and serve in tall glasses alongside the midday meal."
-      ],
-      "wazaTips": [
-        "Use yogurt that has sat a day past setting — the slight extra sourness mimics the fermented-milk tang of true gurus far better than fresh sweet curd.",
-        "Do not thicken it. The single biggest tell of an inauthentic Kashmiri buttermilk is a thick, smoothie-like body; it should run off a spoon like milk.",
-        "Salt after diluting, not before — the same quantity of salt tastes very different once the water goes in.",
-        "If you can source real churned buttermilk (the by-product of butter-making), use it neat with just salt, mint and cumin — that is gurus proper."
-      ],
-      "homeAdaptation": "A blender does in twenty seconds what the de'on did in an hour: blitz yogurt, water, mint, salt and cumin together until frothy. Greek yogurt works if thinned with extra water. No specialty ingredients are needed — roasted cumin powder can be made by dry-toasting cumin seeds and crushing them.",
-      "commonMistakes": [
-        "Making it thick and sweet like a Punjabi lassi — the Kashmiri idiom is thin, salted and savory.",
-        "Skipping the roasted cumin, which supplies the drink's earthy backbone.",
-        "Using ultra-fresh, barely-set yogurt with no tang, which produces a flat, milky drink.",
-        "Over-blending the mint into green sludge; it should perfume the glass, not colour it."
-      ],
-      "servingSuggestions": "Served chilled with the summer midday meal — it is the traditional companion to rice and haakh, and a cooling counterpoint to rich meat dishes. In winter, some households traditionally took it lukewarm with hot water whisked into the yogurt.",
-      "relatedDishes": [],
-      "sourcingNote": "Corroborated across Kashmir Life's feature on gurus (churning method, tchod/de'on/lam e raz terminology, serving with mint/salt/spices, cultural sayings, decline of the practice), a Kashmiri food blog (Spiceroots) documenting the minted afternoon buttermilk ritual, and regional round-ups (Slurrp) listing Kashmiri buttermilk with mint, yogurt and cumin among the Valley's traditional drinks. Quantities are standardized from common salted-mint-lassi practice; no single canonical 'Kashmiri lassi' recipe exists in print.",
-      "reviewedAt": "2026-07-16T14:01:15.061Z"
     }
   },
   {
@@ -3916,8 +3376,7 @@ export const restaurants = [
     "googleMapsQuery": "Nishat Breeze Restaurant Srinagar",
     "linkedDishNames": [
       "Trout Fish Fry",
-      "Rogan Josh",
-      "Nadru Yakhni"
+      "Rogan Josh"
     ],
     "authenticityScore": 4.1,
     "touristFriendlinessScore": 4.7,
@@ -4003,7 +3462,6 @@ export const restaurants = [
     "googleMapsQuery": "Trout Beat Laripora Pahalgam",
     "linkedDishNames": [
       "Trout Fish Fry",
-      "Nadru Gaad",
       "Muji Gaad"
     ],
     "authenticityScore": 4.7,
@@ -4235,7 +3693,6 @@ export const restaurants = [
     "googleMapsQuery": "Verinag Spring garden entrance restaurants",
     "linkedDishNames": [
       "Rogan Josh",
-      "Nadru Yakhni",
       "Kashmiri Kahwa"
     ],
     "authenticityScore": 5,

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { withoutRemovedDishes } from "@/lib/removedDishes";
 import { useParams, useRouter } from "next/navigation";
 import MapPreview from "@/components/MapPreview";
 import ReviewForm from "@/components/ReviewForm";
@@ -181,7 +182,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
             <article className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 shadow-2xl overflow-hidden">
               <h2 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h2>
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                {restaurant.linkedDishes.map((dish, index) => (
+                {withoutRemovedDishes(restaurant.linkedDishes || []).map((dish, index) => (
                   <div key={dish._id} className="flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg transition hover:border-[var(--saffron)] hover:bg-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
                     <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
                       <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="114px" quality={60} className="object-cover" />

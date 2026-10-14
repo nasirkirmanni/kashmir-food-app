@@ -244,6 +244,11 @@
       "field": "recipe.servingSuggestions",
       "from": "classically alongside",
       "to": "alongside"
+    },
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/kashmiri-pulao.jpg"
     }
   ],
   "aab-gosht": [
@@ -320,6 +325,46 @@
       "field": "recipe.significance",
       "from": " Sources consistently describe it as relying on black pepper rather than red chilli for warmth.",
       "to": ""
+    },
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/daniwal-korma.jpg"
+    }
+  ],
+  "bakerkhani": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/bakerkhani.jpg"
+    }
+  ],
+  "methi-maaz": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/methi-maaz.jpg"
+    }
+  ],
+  "wazwan-mushroom-guchhi-yakhni": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/wazwaan-mushroom.jpg"
+    }
+  ],
+  "walnut-halwa": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/walnut-halwa.jpg"
+    }
+  ],
+  "tosha": [
+    {
+      "field": "image",
+      "from": "/images/dishes/dish-placeholder.webp",
+      "to": "/images/dishes/tosha.jpg"
     }
   ]
 }

@@ -157,7 +157,6 @@ The zenith of Kashmiri gastronomy is the **Wazwan**, a multi-course feast consis
 *   **Rogan Josh:** Tender lamb braised in a vivid, aromatic gravy of Kashmiri chilies, cockscomb flower, fennel, and dried ginger.
 *   **Tabak Maaz:** Crispy, shallow-fried rib racks simmered in milk and spices before frying.
 *   **Gushtaba:** Spongy, hand-pounded meatballs simmered in a complex, velvety, yogurt-based gravy (*Yakhni*).
-*   **Nadru Yakhni:** Lotus stems cooked in a delicate, spiced yogurt sauce.
 *   **Dum Aloo:** Slow-cooked whole potatoes in a rich yogurt and fennel-heavy red gravy.
 
 #### Saffron Kahwa and Pink Noon Chai

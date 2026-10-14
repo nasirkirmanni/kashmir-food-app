@@ -1,0 +1,13 @@
+{
+  "removedOn": "2026-10-15",
+  "note": "Dishes the owner removed from Wazwan Way. Each old address redirects to the page given here (seo-redirects.json); every list on the site leaves them out (lib/removedDishes.js) until backend/src/scripts/removeDishes.js deletes them from the database.",
+  "dishes": {
+    "shami-kabab": "/dishes",
+    "nadru-yakhni": "/dishes/yakhni",
+    "nadru-gaad": "/blog/nadru-lotus-stem-kashmir",
+    "kashmiri-lassi": "/kashmiri-food/beverages",
+    "cardamom-kahwa": "/dishes/kashmiri-kahwa",
+    "badam-phirni": "/dishes/phirni",
+    "saffron-phirni": "/dishes/phirni"
+  }
+}

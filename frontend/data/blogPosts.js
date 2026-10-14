@@ -42,7 +42,7 @@ Rice has been Kashmir's staple for centuries. The Kashmiri phrase *haakh-batte*,
 
 **Rajma gogji** is kidney beans cooked with turnip, a staple of the colder months.
 
-Look for these on the "Kashmiri" section of restaurant menus, or ask your host or guesthouse. They're everyday dishes, so they appear far less often on tourist menus than the Wazwan favourites. [Nadru yakhni](/dishes/nadru-yakhni) and [dum olav](/dishes/dum-oluv) both have their own pages if you want to know what to expect.
+Look for these on the "Kashmiri" section of restaurant menus, or ask your host or guesthouse. They're everyday dishes, so they appear far less often on tourist menus than the Wazwan favourites. [Dum olav](/dishes/dum-oluv) has its own page if you want to know what to expect.
 
 ## 2. Try a Wazwan meal, and know what you're eating
 
@@ -473,7 +473,7 @@ If you buy hokh syun, look for clean, dry pieces with no mould.
 
 - **Rajma gogji.** Kidney beans cooked with turnip, which Wikipedia calls a winter staple. The version described by Incredible India, drawn from Kashmiri Pandit cooking, uses no onion, tomato or garlic.
 - **Turnip in other forms.** Wikipedia's list of Kashmiri dishes notes that turnip (*gogji*) thrives in winter conditions and becomes a key ingredient, including its greens cooked with a pinch of asafoetida.
-- **Fish.** Dried fish (*hokhgaad*) is part of the hokh syun store. Fresh fish is cooked with lotus stem in dishes such as [nadru gaad](/dishes/nadru-gaad).
+- **Fish.** Dried fish (*hokhgaad*) is part of the hokh syun store. Fresh fish is cooked with lotus stem in dishes such as *nadru gaad*.
 - **Corn bread with salt tea.** Kashmir Life lists corn bread eaten with *nun chai* among winter's comforts. Sahapedia describes *makai tschot*, made from corn flour, as one of Kashmir's rural breads. For the morning table of tea and bread, see our [guide to Kashmiri breakfast](/blog/kashmiri-breakfast).
 - **Noon chai.** Kashmir's salted pink tea is drunk morning and afternoon with bakery bread all year. Read [the science and ritual of noon chai](/blog/noon-chai-pink-tea-kashmir).
 - **Pickles (*anchaar*).** Kashmir Life lists them among the season's foods.
@@ -1131,7 +1131,6 @@ Incredible India lists ten vegetarian dishes to try in Srinagar. Here they are, 
 | Nadur monji | Lotus stem fried in a spiced rice-flour batter | Street food |
 
 The descriptions of the first ten follow Incredible India. Several dishes have their own WazwanWay pages:
-- [nadru yakhni](/dishes/nadru-yakhni)
 - [dum olav](/dishes/dum-oluv)
 - [ruwangan chaman](/dishes/ruwangan-chaman)
 - [sheermal](/dishes/sheermal)
@@ -1325,7 +1324,7 @@ In Kashmiri Muslim kitchens, the red of rogan josh comes instead from Kashmiri c
 ### Vegetables, paneer and beans
 
 - **Dum aloo (dum olav).** Potatoes simmered in a yogurt gravy with fennel and dry ginger. Wikipedia calls it a Pandit dish, although its ingredient list includes garlic, which doesn't match the tradition described here. See [dum olav](/dishes/dum-oluv).
-- **Nadru yakhni and palak nadru.** Lotus stem in a yogurt gravy, and lotus stem cooked with spinach. Both are on Dr Jad's list. See [nadru yakhni](/dishes/nadru-yakhni).
+- **Nadru yakhni and palak nadru.** Lotus stem in a yogurt gravy, and lotus stem cooked with spinach. Both are on Dr Jad's list.
 - **Lyodur tschaman.** Paneer in a yellow yogurt gravy with ginger powder, fennel, asafoetida and black pepper, as described by Incredible India. Tomato-based [ruwangan chaman](/dishes/ruwangan-chaman) is another paneer dish, but remember that older Pandit generations avoided tomatoes.
 - **Chok wangun.** Fried aubergine simmered with tamarind and spices, made without tomato, onion or garlic (Incredible India).
 - **Haakh.** Collard greens cooked with a pinch of asafoetida (Incredible India).
@@ -1654,7 +1653,7 @@ Both are made in Kashmir today.
 
 If you're in Srinagar during Ramadan, ask locally where the evening phirni sellers are that year.
 
-WazwanWay's dish pages cover [phirni](/dishes/phirni) and [saffron phirni](/dishes/saffron-phirni).
+WazwanWay's dish page covers [phirni](/dishes/phirni).
 
 ## Shufta: the Pandit celebration sweet
 

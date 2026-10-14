@@ -8,6 +8,8 @@ import { endpoints, request } from "@/lib/api";
 import { useDebounce } from "@/hooks/useDebounce";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
+import { withoutRemovedDishes } from "@/lib/removedDishes";
+import { sanitizeDish } from "@/lib/dishContent";
 
 export default function GlobalSearchModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -94,7 +96,7 @@ export default function GlobalSearchModal() {
         ]);
 
         setResults({
-          dishes: Array.isArray(dishesRes) ? dishesRes : [],
+          dishes: Array.isArray(dishesRes) ? withoutRemovedDishes(dishesRes).map(sanitizeDish) : [],
           restaurants: Array.isArray(restaurantsRes) ? restaurantsRes : []
         });
       } catch (err) {

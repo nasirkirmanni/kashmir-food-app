@@ -3,6 +3,7 @@ import { scenicDrives } from "@/data/scenicDrivesData";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import { PILLAR_REVIEWED } from "@/data/wazwanPillar";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
+import { isRemovedDish } from "@/lib/removedDishes";
 import {
   articleLastModified,
   destinationLastModified,
@@ -97,8 +98,9 @@ export default async function sitemap() {
     fetchCatalogue("destinations", destinationIds),
   ]);
 
+  // Removed dishes redirect, so they're left out until the database no longer returns them.
   const dishPages = dishes.records
-    .filter((d) => d.slug)
+    .filter((d) => d.slug && !isRemovedDish(d))
     .map((d) => entry(`/dishes/${d.slug}`, dishLastModified(d)));
 
   const restaurantPages = restaurants.records

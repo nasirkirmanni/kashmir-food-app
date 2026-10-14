@@ -369,9 +369,7 @@ The two communities make it differently. Pandit cooks traditionally rely on asaf
       },
       {
         title: "Other yakhnis",
-        body: `The same curd gravy goes into other dishes. Wikipedia's Wazwan article describes it as the gravy typically made for gushtaba, "although it is also part of other dishes" (${link("wikipedia-wazwan", "Wikipedia")}). Its list of Kashmiri dishes includes vegetable yakhnis of lotus stem (*nadir yakhean*), bottle gourd (*al yakhean*), mushrooms, bitter gourd and fried aubergine (${link("wikipedia-list", "Wikipedia")}). Sahapedia calls nadru, lotus stem, a staple of Kashmiri households and names nadru yakhni as a common way of cooking it (${link("sahapedia", "Sahapedia")}).
-
-[Nadru yakhni](/dishes/nadru-yakhni) has its own page.`,
+        body: `The same curd gravy goes into other dishes. Wikipedia's Wazwan article describes it as the gravy typically made for gushtaba, "although it is also part of other dishes" (${link("wikipedia-wazwan", "Wikipedia")}). Its list of Kashmiri dishes includes vegetable yakhnis of lotus stem (*nadir yakhean*), bottle gourd (*al yakhean*), mushrooms, bitter gourd and fried aubergine (${link("wikipedia-list", "Wikipedia")}). Sahapedia calls nadru, lotus stem, a staple of Kashmiri households and names nadru yakhni as a common way of cooking it (${link("sahapedia", "Sahapedia")}).`,
       },
     ],
     // The corrected history paragraph cites these too.

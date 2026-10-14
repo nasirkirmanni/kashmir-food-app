@@ -2,7 +2,7 @@
  * Filters seed-script boilerplate out of dish records before it is displayed or
  * used for metadata and structured data.
  *
- * Thirteen dishes (e.g. cardamom-kahwa, sheermal) were seeded with one generic
+ * Thirteen dishes (e.g. sheermal) were seeded with one generic
  * template for description, fullDescription, history and touristTip — text that
  * calls a tea a "veg dish prepared in the authentic Cafes style" and suggests
  * pairing a dessert with steamed rice. Those strings say nothing true about the

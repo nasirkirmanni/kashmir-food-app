@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import dishesData from "@/data/dishes.json";
 import { sanitizeDish } from "@/lib/dishContent";
+import { withoutRemovedDishes } from "@/lib/removedDishes";
 import { arrangeWazwan, vesselIndex } from "@/lib/wazwanSequence";
 import WazwanHero from "@/components/wazwan/WazwanHero";
 import ChapterNav from "@/components/wazwan/ChapterNav";
@@ -54,10 +55,10 @@ async function loadWazwanDishes() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const records = await res.json();
     if (!Array.isArray(records) || records.length === 0) throw new Error("empty response");
-    return records;
+    return withoutRemovedDishes(records);
   } catch (err) {
     console.error(`[dishes] /api/dishes?categoryType=wazwan unavailable (${err.message}); using dishes.json`);
-    return dishesData.filter((dish) => dish.categoryType === "wazwan");
+    return withoutRemovedDishes(dishesData.filter((dish) => dish.categoryType === "wazwan"));
   }
 }
 

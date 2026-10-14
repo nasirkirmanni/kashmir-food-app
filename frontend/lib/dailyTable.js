@@ -15,7 +15,6 @@ const LEDGER = [
   { slug: "tabak-maaz", story: "Ribs simmered soft in milk, then fried until they crackle." },
   { slug: "kashmiri-harissa", story: "Stirred since four in the morning in downtown Srinagar. Winter's slow answer." },
   { slug: "noon-chai", story: "Pink, salted, poured from a samovar. Kashmir's everyday ritual." },
-  { slug: "nadru-yakhni", story: "Lotus stem from Dal Lake, cooked in yogurt and fennel." },
   { slug: "czochworu", story: "The sesame breakfast ring of old Srinagar, torn while still hot." },
   { slug: "girda", story: "The tandoor bread every Kashmiri morning begins with." },
   { slug: "sheermal", story: "Saffron-washed and faintly sweet — bread fit for shrines and feasts." },

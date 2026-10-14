@@ -42,7 +42,6 @@ const overrides = {
   'muji-chetin': 'Radish walnut chutney',
   'muji-gaad': 'Radish fish curry',
   'mutton-yakhni': 'Curd-based mutton',
-  'nadru-gaad': 'Lotus stem fish curry',
   'palak-t-tschaman': 'Spinach paneer dish',
   'pudin-chetin': 'Mint chutney',
   'rice': 'Base of every trami',
@@ -162,7 +161,7 @@ const HUB_HEROES = {
   },
   beverages: {
     lines: ["Salted pink", "tea and", <><span className="accent">saffron</span> kahwa.</>],
-    sub: "Noon chai is salted and turns pink as the milk goes in; kahwa is green tea brewed with saffron, cinnamon and cardamom. Meet both, plus babribyol for iftar and Kashmiri lassi.",
+    sub: "Noon chai is salted and turns pink as the milk goes in; kahwa is green tea brewed with saffron, cinnamon and cardamom. Meet both, plus babribyol for iftar.",
     start: { label: "Pour the tea", section: "beverages" },
     read: { label: "Compare the teas", href: "/blog/kahwa-vs-noon-chai" },
   },
