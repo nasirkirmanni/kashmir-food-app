@@ -15,6 +15,13 @@ describe("restored dish photos", () => {
       "/images/dishes/ghee-batta.jpg",
       "/images/dishes/waza-palak.jpg",
       "/images/dishes/sheera.jpg",
+      "/images/dishes/daniwal-korma.jpg",
+      "/images/dishes/kashmiri-pulao.jpg",
+      "/images/dishes/bakerkhani.jpg",
+      "/images/dishes/methi-maaz.jpg",
+      "/images/dishes/wazwaan-mushroom.jpg",
+      "/images/dishes/walnut-halwa.jpg",
+      "/images/dishes/tosha.jpg",
     ]) {
       expect(resolveContentPhoto(path)).toBe(path);
     }
@@ -25,17 +32,20 @@ describe("restored dish photos", () => {
     expect(photoOf("kashmiri-kulcha")).toBe("/images/dishes/kulcha.jpg");
     expect(photoOf("waza-palak")).toBe("/images/dishes/waza-palak.jpg");
     expect(photoOf("sheera")).toBe("/images/dishes/sheera.jpg");
+    // The owner's photos of 15 Oct 2026, each checked against the dish its page describes.
+    expect(photoOf("daniwal-korma")).toBe("/images/dishes/daniwal-korma.jpg");
+    expect(photoOf("kashmiri-pulao")).toBe("/images/dishes/kashmiri-pulao.jpg");
+    expect(photoOf("bakerkhani")).toBe("/images/dishes/bakerkhani.jpg");
+    // The owner chose these four the same day, after being told each shows something its page
+    // doesn't describe (a red chunky curry, button mushrooms, a semolina halwa, a poppy-seed coating).
+    expect(photoOf("methi-maaz")).toBe("/images/dishes/methi-maaz.jpg");
+    expect(photoOf("wazwan-mushroom-guchhi-yakhni")).toBe("/images/dishes/wazwaan-mushroom.jpg");
+    expect(photoOf("walnut-halwa")).toBe("/images/dishes/walnut-halwa.jpg");
+    expect(photoOf("tosha")).toBe("/images/dishes/tosha.jpg");
   });
 
-  it("keep the placeholder where the only photo shows a different dish from the one described", () => {
-    for (const slug of [
-      "daniwal-korma",
-      "bakerkhani",
-      "kashmiri-lassi",
-      "wazwan-mushroom-guchhi-yakhni",
-      "methi-maaz",
-      "nadru-yakhni",
-    ]) {
+  it("keep the placeholder for dishes that have no photo yet", () => {
+    for (const slug of ["phirni", "shufta"]) {
       const dish = dishes.find((entry) => entry.slug === slug);
       expect(resolveContentPhoto(dish.image)).toBeNull();
     }
@@ -47,6 +57,15 @@ describe("image corrections for dishes stored with the placeholder", () => {
     expect(sanitizeDish({ slug: "yakhni", image: PLACEHOLDER }).image).toBe("/images/dishes/mughal-yakhni.jpg");
     expect(sanitizeDish({ slug: "rice", image: PLACEHOLDER }).image).toBe("/images/dishes/ghee-batta.jpg");
     expect(sanitizeDish({ slug: "sheera", image: PLACEHOLDER }).image).toBe("/images/dishes/sheera.jpg");
+    expect(sanitizeDish({ slug: "daniwal-korma", image: PLACEHOLDER }).image).toBe("/images/dishes/daniwal-korma.jpg");
+    expect(sanitizeDish({ slug: "kashmiri-pulao", image: PLACEHOLDER }).image).toBe("/images/dishes/kashmiri-pulao.jpg");
+    expect(sanitizeDish({ slug: "bakerkhani", image: PLACEHOLDER }).image).toBe("/images/dishes/bakerkhani.jpg");
+    expect(sanitizeDish({ slug: "methi-maaz", image: PLACEHOLDER }).image).toBe("/images/dishes/methi-maaz.jpg");
+    expect(sanitizeDish({ slug: "wazwan-mushroom-guchhi-yakhni", image: PLACEHOLDER }).image).toBe(
+      "/images/dishes/wazwaan-mushroom.jpg"
+    );
+    expect(sanitizeDish({ slug: "walnut-halwa", image: PLACEHOLDER }).image).toBe("/images/dishes/walnut-halwa.jpg");
+    expect(sanitizeDish({ slug: "tosha", image: PLACEHOLDER }).image).toBe("/images/dishes/tosha.jpg");
   });
 
   it("stop applying once the record has its own image", () => {

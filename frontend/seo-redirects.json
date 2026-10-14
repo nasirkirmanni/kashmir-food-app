@@ -34,5 +34,12 @@
   { "source": "/kashmiri-food-blogs", "destination": "/kashmiri-food", "reason": "Its ten dish articles were merged into the dish pages; the Kashmiri food guide lists every dish." },
   { "source": "/kashmiri-food-blogs/traditional-dishes", "destination": "/kashmiri-food", "reason": "A 'Coming Soon' list of dishes; the Kashmiri food guide links every dish page." },
   { "source": "/kashmiri-food-blogs/hidden-gems", "destination": "/kashmiri-food", "reason": "A 'Coming Soon' list of dishes; the Kashmiri food guide links every dish page." },
-  { "source": "/blog/best-kashmiri-food-guides", "destination": "/blog/kashmiri-food-sources", "reason": "A ranked list that put Wazwan Way first without saying it was ours; replaced by a neutral, dated list of sources." }
+  { "source": "/blog/best-kashmiri-food-guides", "destination": "/blog/kashmiri-food-sources", "reason": "A ranked list that put Wazwan Way first without saying it was ours; replaced by a neutral, dated list of sources." },
+  { "source": "/dishes/shami-kabab", "destination": "/dishes", "reason": "Dish removed from the site by the owner (15 Oct 2026); the Wazwan page lists the dishes the site covers." },
+  { "source": "/dishes/nadru-yakhni", "destination": "/dishes/yakhni", "reason": "Dish removed by the owner (15 Oct 2026), who keeps mutton yakhni only." },
+  { "source": "/dishes/nadru-gaad", "destination": "/blog/nadru-lotus-stem-kashmir", "reason": "Dish removed by the owner (15 Oct 2026); the lotus-stem post covers nadru." },
+  { "source": "/dishes/kashmiri-lassi", "destination": "/kashmiri-food/beverages", "reason": "Drink removed by the owner (15 Oct 2026); the beverages page lists the drinks the site covers." },
+  { "source": "/dishes/cardamom-kahwa", "destination": "/dishes/kashmiri-kahwa", "reason": "Drink removed by the owner (15 Oct 2026), who keeps kahwa." },
+  { "source": "/dishes/badam-phirni", "destination": "/dishes/phirni", "reason": "Dessert removed by the owner (15 Oct 2026), who keeps phirni." },
+  { "source": "/dishes/saffron-phirni", "destination": "/dishes/phirni", "reason": "Dessert removed by the owner (15 Oct 2026), who keeps phirni." }
 ]

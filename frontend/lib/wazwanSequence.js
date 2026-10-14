@@ -68,7 +68,7 @@ const MORE_DISHES_CHAPTER = {
 
 // Display order within each chapter. Slugs not listed follow, alphabetically.
 const DISPLAY_ORDER = [
-  "tabak-maaz", "seekh-kebab", "methi-maaz", "shami-kabab", "rice", "kashmiri-pulao", "muji-chetin",
+  "tabak-maaz", "seekh-kebab", "methi-maaz", "rice", "kashmiri-pulao", "muji-chetin",
   "rista", "rogan-josh", "aab-gosht", "daniwal-korma", "marchwangan-korma", "dani-phol", "waza-kokur", "yakhni",
   "waza-palak", "dum-oluv", "ruwangan-chaman", "wazwan-mushroom-guchhi-yakhni",
   "gushtaba",
