@@ -21,6 +21,7 @@ export function generateStaticParams() {
 // layout template adds " | Wazwan Way". The <h1>, og:title and twitter:title
 // keep the full headline.
 const SEARCH_TITLES = {
+  "gushtaba-last-dish-of-wazwan": "Gushtaba: Why Wazwan Ends With a Meatball",
   "rogan-josh-history": "Rogan Josh History: Name, Origin and Colour",
   "what-is-ver-masala": "What Is Ver Masala? Wazwan's Secret Spice",
   "pampore-kashmiri-saffron": "Why Pampore Grows the World's Finest Saffron",
