@@ -11,7 +11,6 @@ export default function ProfilePage() {
   const { user, logout } = useAuth();
   const [loading, setLoading] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
-  const [showAgencyPrompt, setShowAgencyPrompt] = useState(false);
 
   useEffect(() => {
     // Redirect if not logged in
@@ -28,15 +27,6 @@ export default function ProfilePage() {
   const handleLogout = () => {
     logout();
     router.push("/");
-  };
-
-  const handleAgencyClick = (e) => {
-    e.preventDefault();
-    if (user.role === 'agent' || user.isAdmin) {
-      router.push("/travel-agent/dashboard");
-    } else {
-      setShowAgencyPrompt(true);
-    }
   };
 
   if (!user) return null;
@@ -225,27 +215,6 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div onClick={handleAgencyClick} className="flex items-center gap-4 py-4 border-b border-[var(--profile-line)] cursor-pointer hover:bg-white/5 transition-colors group">
-            <div className="w-[18px] h-[18px] text-[var(--profile-gold)] flex-shrink-0">
-               {user.role === 'agent' || user.isAdmin ? (
-                 <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-gold)]">
-                   <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                 </svg>
-               ) : (
-                 <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-gold)]">
-                   <path d="M12 4v16m8-8H4" />
-                 </svg>
-               )}
-            </div>
-            <div className="flex-1">
-              <div className="text-[15px] text-[var(--profile-text)]">{user.role === 'agent' || user.isAdmin ? 'Agent Dashboard' : 'Register Travel Agency'}</div>
-              <div className="text-[11.5px] text-[var(--profile-text-muted)] mt-0.5">Manage your agency portal</div>
-            </div>
-            <div className="w-[14px] h-[14px] opacity-40 group-hover:opacity-100 transition-opacity">
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-[var(--profile-text)]"><path d="M9 18l6-6-6-6"/></svg>
-            </div>
-          </div>
-
           <div onClick={handleLogout} className="flex items-center gap-4 py-4 cursor-pointer hover:bg-white/5 transition-colors group">
             <div className="w-[18px] h-[18px] flex-shrink-0">
               <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full stroke-red-500/70"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
@@ -261,33 +230,6 @@ export default function ProfilePage() {
         </div>
 
       </div>
-
-      {/* Agency Prompt Modal */}
-      {showAgencyPrompt && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowAgencyPrompt(false)}></div>
-          <div className="relative bg-[#111111] border border-[var(--profile-line)] rounded-3xl p-8 w-full max-w-sm text-center shadow-[0_24px_60px_rgba(0,0,0,0.8)] overflow-hidden">
-             
-             <div className="mb-5 flex h-14 w-14 mx-auto items-center justify-center rounded-full border border-[var(--profile-gold-dim)] bg-[#1A1A1A] text-[var(--profile-gold)]">
-               <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M12 4v16m8-8H4" /></svg>
-             </div>
-             
-             <h3 className="text-xl font-serif text-[var(--profile-gold)] mb-3 leading-tight" style={{fontFamily: "'Cormorant Garamond', serif"}}>Agent Account Required</h3>
-             <p className="text-[13px] leading-relaxed text-[var(--profile-text-muted)] mb-7 whitespace-pre-line">
-               You don't have an agent account to register your agency. {"\n"}Create an agent account to access this feature.
-             </p>
-             <div className="flex flex-col gap-3 justify-center w-full">
-               <Link href="/travel-agent/signup" className="w-full flex items-center justify-center py-3 rounded-full bg-gradient-to-br from-[#E6C875] to-[#B8892A] text-black text-[13px] font-bold uppercase tracking-wider transition-transform hover:scale-[1.02] active:scale-[0.98]">
-                 Create Agent Account
-               </Link>
-               <button onClick={() => setShowAgencyPrompt(false)} className="w-full flex items-center justify-center py-3 rounded-full border border-[var(--profile-line)] bg-transparent text-[var(--profile-text)] text-[13px] font-bold transition-colors hover:bg-white/5 active:scale-[0.98]">
-                 Cancel
-               </button>
-             </div>
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }

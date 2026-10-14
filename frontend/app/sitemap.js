@@ -4,6 +4,7 @@ import { wazwanGuides } from "@/data/wazwanGuides";
 import { PILLAR_REVIEWED } from "@/data/wazwanPillar";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
 import { isRemovedDish } from "@/lib/removedDishes";
+import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 import {
   articleLastModified,
   destinationLastModified,
@@ -58,7 +59,7 @@ export default async function sitemap() {
     "/recipes",
     "/how-to-experience",
     "/destinations",
-    "/plan",
+    STILL_KASHMIR_HREF,
     "/trekking-camping",
     "/scenic-drives",
     "/explore",

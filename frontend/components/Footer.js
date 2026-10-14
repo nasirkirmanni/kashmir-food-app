@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
 export default function Footer() {
   return (
@@ -19,7 +20,7 @@ export default function Footer() {
           <Link href="/dishes" className="transition-colors duration-300 hover:text-[#C8A46A]">Dishes</Link>
           <Link href="/restaurants" className="transition-colors duration-300 hover:text-[#C8A46A]">Restaurants</Link>
           <Link href="/recipes" className="transition-colors duration-300 hover:text-[#C8A46A]">Recipes</Link>
-          <Link href="/plan" className="transition-colors duration-300 hover:text-[#C8A46A]">Visit Kashmir</Link>
+          <Link href={STILL_KASHMIR_HREF} className="transition-colors duration-300 hover:text-[#C8A46A]">Visit Kashmir</Link>
           <Link href="/destinations" className="transition-colors duration-300 hover:text-[#C8A46A]">Destinations</Link>
           <Link href="/itineraries" className="transition-colors duration-300 hover:text-[#C8A46A]">Itineraries</Link>
           <Link href="/explore" className="transition-colors duration-300 hover:text-[#C8A46A]">Explore Kashmir</Link>

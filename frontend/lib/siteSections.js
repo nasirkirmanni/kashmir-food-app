@@ -1,3 +1,5 @@
+import { STILL_KASHMIR_HREF } from "./stillKashmir";
+
 /**
  * The site's main sections, in menu order. The desktop top bar shows as many
  * as fit the window (SHOW_FROM in components/Navbar.js); the Menu drawer
@@ -8,7 +10,7 @@ export const SITE_SECTIONS = [
   { label: "Kashmiri Food", href: "/kashmiri-food" },
   { label: "Traditional Wazwan", href: "/dishes" },
   { label: "Restaurants", href: "/restaurants" },
-  { label: "Visit Kashmir", href: "/plan" },
+  { label: "Visit Kashmir", href: STILL_KASHMIR_HREF },
   { label: "Itineraries", href: "/itineraries" },
   { label: "Explore Kashmir", href: "/explore" },
   { label: "Blog", href: "/blog" },

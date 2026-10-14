@@ -1,13 +1,14 @@
 "use client";
 
 // Owned itinerary view (T6). Fetches the persisted plan (owner-only) and renders
-// the shared artifact. The "Plan this trip" CTA (Part 7) hands off to the
-// existing tour-partner flow — Phase 2 wires the full booking pipeline.
+// the shared artifact. Its call to action leads to Still Kashmir, Wazwan Way's own
+// travel agency (coming soon), which replaced booking through third-party operators.
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { request, endpoints } from "@/lib/api";
 import ItineraryArtifact, { ItineraryArtifactSkeleton } from "@/components/itineraryBuilder/ItineraryArtifact";
+import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
 const GOLD = "#C8A46A";
 
@@ -34,7 +35,7 @@ export default function MyItineraryClient({ id }) {
 
   const onPlanTrip = (e) => {
     e.preventDefault();
-    router.push(`/my-itineraries/${id}/book`);
+    router.push(STILL_KASHMIR_HREF);
   };
 
   return (
@@ -58,7 +59,7 @@ export default function MyItineraryClient({ id }) {
 
       {state.status === "ready" && (
         <>
-          <ItineraryArtifact plan={state.plan} onPlanTrip={onPlanTrip} planHref={`/my-itineraries/${id}/book`} />
+          <ItineraryArtifact plan={state.plan} onPlanTrip={onPlanTrip} planHref={STILL_KASHMIR_HREF} planLabel="Plan with Still Kashmir" />
           <div className="max-w-2xl mx-auto mt-6 flex items-center justify-center gap-4">
             <button onClick={() => router.push("/")} className="text-white/40 hover:text-white/70 text-xs underline underline-offset-4">Back to home</button>
             <button onClick={() => router.push("/itinerary-builder")} className="text-white/40 hover:text-white/70 text-xs underline underline-offset-4">Build another</button>

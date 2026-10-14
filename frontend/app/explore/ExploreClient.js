@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { STILL_KASHMIR_HREF } from '@/lib/stillKashmir';
 import './explore.css';
 
 /* ---- Lazy-loaded below-fold sections ---- */
@@ -219,7 +220,7 @@ export default function ExploreClient({ data, children }) {
       <div className="landing-utility-bar reveal">
         <span className="weather-chip mono">Srinagar · {temperature}°C</span>
         <Link href="/itineraries" className="btn btn-ghost btn-sm">Itineraries</Link>
-        <Link href="/plan" className="btn btn-primary btn-sm">Plan a trip</Link>
+        <Link href={STILL_KASHMIR_HREF} className="btn btn-primary btn-sm">Plan a trip</Link>
       </div>
 
       {/*  ============ HERO ============  */}

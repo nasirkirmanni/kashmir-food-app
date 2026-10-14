@@ -31,8 +31,6 @@ const LAST_SCREEN = TAB_ROUTES.length - 1;
 const AUTH_ROUTES = [
   "/login",
   "/signup",
-  "/travel-agent/login",
-  "/travel-agent/signup",
   "/forgot-password",
 ];
 

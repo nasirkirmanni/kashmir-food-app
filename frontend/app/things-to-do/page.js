@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, MapPin, Navigation } from "lucide-react";
+import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
 const activities = [
   {
@@ -133,7 +134,7 @@ export default function ThingsToDoPage() {
         >
           <div className="w-16 h-[1px] bg-white/20 mx-auto mb-10" />
           <h2 className="font-display text-3xl md:text-4xl text-white mb-6">Ready to explore Paradise?</h2>
-          <Link href="/plan" className="inline-flex items-center gap-2 h-14 px-8 rounded-full bg-white text-black font-semibold tracking-wide hover:bg-[var(--saffron)] transition-colors duration-300">
+          <Link href={STILL_KASHMIR_HREF} className="inline-flex items-center gap-2 h-14 px-8 rounded-full bg-white text-black font-semibold tracking-wide hover:bg-[var(--saffron)] transition-colors duration-300">
             <Navigation size={18} />
             Start Planning
           </Link>

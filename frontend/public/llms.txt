@@ -56,7 +56,7 @@ Each dish page has what the dish is, its place in the feast and a recipe, with s
 
 - [Destinations](https://wazwanway.com/destinations): Places to visit across Kashmir, including Gurez, Bangus, Lolab and Doodhpathri
 - [Scenic Drives](https://wazwanway.com/scenic-drives): Road-trip routes with conditions and elevation profiles
-- [Plan Your Trip](https://wazwanway.com/plan): Kashmir travel planner
+- [Still Kashmir](https://wazwanway.com/still-kashmir): Wazwan Way's own travel agency, coming soon
 
 ## Optional
 
