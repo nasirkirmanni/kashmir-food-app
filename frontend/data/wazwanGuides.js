@@ -329,7 +329,7 @@ Some smaller, locally-oriented restaurants and dhabas serve food closer to home-
     author: "WazwanWay Team",
     date: "June 23, 2026",
     updatedDate: "October 12, 2026",
-    related: ["how-wazwan-is-served", "waza-meaning", "history-of-wazwan", "wazwan-vs-mughlai"],
+    related: ["how-wazwan-is-served", "waza-meaning", "history-of-wazwan", "wazwan-vs-mughlai", "gi-tag-gushtaba-tabak-maaz"],
     content: `Rista and gushtaba are the two meatball dishes of a Wazwan. They start from the same pounded mutton and become different dishes: rista small, in a red gravy, early in the meal; gushtaba large, in a white yogurt gravy, at the end of it. Each has its own page with a recipe: [rista](/dishes/rista) and [gushtaba](/dishes/gushtaba).
 
 ## At a glance
@@ -371,6 +371,88 @@ At the trami each diner gets a rista of their own, while a single gushtaba is sh
 - ["Wazwan: The royal meal of paradise"](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html), Onmanorama, 10 November 2021.
 - ["Rogan Josh, Tabak Maaz, Rista, Goshtaba… royal Kashmiri wazwan, a feast for the senses"](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710), Gulf News, 20 January 2022.
 - Naseer Ganai, ["Why Kashmir's Famed Wazwan Is Always On The Diplomacy Menu"](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258), Outlook India, 2022.`,
+  }
+  ,
+
+  {
+    slug: "gi-tag-gushtaba-tabak-maaz",
+    category: "wazwan",
+    title: "Gushtaba and Tabak Maaz GI Tags: Where the Applications Stand",
+    description: "Do gushtaba and tabak maaz have a GI tag? Not yet: applications for both were filed in August 2024, and the register still lists them at pre-examination.",
+    readTime: "4 min read",
+    author: "WazwanWay Team",
+    date: "October 15, 2026",
+    updatedDate: "October 15, 2026",
+    related: ["rista-vs-gushtaba", "how-wazwan-is-served", "history-of-wazwan"],
+    content: `Gushtaba and tabak maaz, two of the seven dishes Wikipedia lists as a must at a Wazwan, are not registered as geographical indications (GIs). Applications to register both were filed with India's Geographical Indications Registry in August 2024. On 15 October 2026 the registry listed both at "Pre Examination": neither had been accepted, advertised in the GI Journal or registered ([GI Registry, application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336); [application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337)).
+
+## The two applications
+
+| | Tabak maaz | Gushtaba |
+|---|---|---|
+| Name as filed | Tabakmaaz (Meat Products) of Kashmir | Goshtaba (Meat Products) of Kashmir |
+| Application number | 1336 | 1337 |
+| Applicant | The Kashmir Wazwan Cooperative Limited, Chatterhama, Srinagar | The same |
+| Filed | 8 August 2024 | 8 August 2024 |
+| Class | 29, foodstuffs | 29, foodstuffs |
+| Status on 15 October 2026 | Pre Examination | Pre Examination |
+| GI Journal and certificate | None yet | None yet |
+
+The register spells the dishes "Tabakmaaz" and "Goshtaba". This site writes tabak maaz and gushtaba, and Wikipedia writes tabakh maaz and gushtaba.
+
+## What has happened so far
+
+The register lists the same papers, on the same dates, for both applications:
+
+- **8 August 2024:** the application, on Form GI-1, with five annexures: the specification and description of the product, its historical background and origin, the geographical area, the method of production, and what makes it unique. An affidavit, the details of the applicant association, and a gazetteer with supporting documents were filed with it.
+- **22 August 2024:** the registry's formality check report.
+- **27 October 2025:** the applicant's reply to that report.
+
+Nothing later appears on either record. This page reports the register's entries only. The annexures, which set out the applicant's own case for each dish, are listed on the register, and we haven't summarised them here.
+
+## How a GI is registered in India
+
+Under the Geographical Indications of Goods (Registration and Protection) Act, 1999, a geographical indication identifies goods as coming from a particular territory, region or locality, where a given quality, reputation or other characteristic of the goods is essentially due to that origin ([Wikipedia](https://en.wikipedia.org/wiki/Geographical_Indications_of_Goods_%28Registration_and_Protection%29_Act,_1999)).
+
+Only an association of producers, or an organisation or authority representing their interests, can apply. The application sets out the product's characteristics and how they come from its place of origin, with a map of the area and a list of producers. The registry first checks it for deficiencies. The registrar can then accept, partly accept or refuse it. An accepted application is advertised in the GI Journal, and if no one opposes it, a certificate of registration is issued to the applicant and its authorised users. A registration lasts ten years and can be renewed ([Wikipedia](https://en.wikipedia.org/wiki/Geographical_Indications_of_Goods_%28Registration_and_Protection%29_Act,_1999)).
+
+Both Wazwan applications have been through the registry's formality check, which the applicant answered in October 2025. The register now lists them at "Pre Examination": before acceptance, advertisement or registration.
+
+## What registration would mean
+
+A registered GI gives its owner and its authorised users the exclusive right to use the indication on the goods it is registered for, and the right to sue for infringement ([Wikipedia](https://en.wikipedia.org/wiki/Geographical_Indications_of_Goods_%28Registration_and_Protection%29_Act,_1999)). How that would apply to these two dishes depends on what, if anything, is registered and how it is worded. The names filed are "Tabakmaaz (Meat Products) of Kashmir" and "Goshtaba (Meat Products) of Kashmir".
+
+## The two dishes
+
+Tabak maaz is lamb ribs cooked twice: braised with ground spices, then browned in ghee ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Gushtaba is large balls of hand-pounded mutton in a yogurt gravy ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy); [Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and the main course of a Wazwan usually ends with it ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Each has its own page: [tabak maaz](/dishes/tabak-maaz) and [gushtaba](/dishes/gushtaba). For how gushtaba compares with rista, which starts from the same pounded meat, see [Rista vs Gushtaba](/kashmiri-food/wazwan/guide/rista-vs-gushtaba).
+
+## Frequently asked questions
+
+### Does gushtaba have a GI tag?
+
+Not yet. An application for "Goshtaba (Meat Products) of Kashmir", number 1337, was filed on 8 August 2024. On 15 October 2026 the register listed it at "Pre Examination".
+
+### Does tabak maaz have a GI tag?
+
+Not yet. An application for "Tabakmaaz (Meat Products) of Kashmir", number 1336, was filed on 8 August 2024. On 15 October 2026 the register listed it at "Pre Examination".
+
+### Who applied?
+
+The Kashmir Wazwan Cooperative Limited, of Chatterhama, Srinagar, filed both applications.
+
+### What happens next?
+
+An application has to be accepted by the registrar and advertised in the GI Journal, where it can be opposed, before a certificate of registration is issued.
+
+### How can I check the status myself?
+
+Open the two records on the GI Registry's public search: [application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336) and [application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337). The register shows the status on the day you look; this page was last checked on 15 October 2026.
+
+## Sources
+
+- Geographical Indications Registry, India: [application 1336, "Tabakmaaz (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336) and [application 1337, "Goshtaba (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337), both checked 15 October 2026.
+- Wikipedia: ["Geographical Indications of Goods (Registration and Protection) Act, 1999"](https://en.wikipedia.org/wiki/Geographical_Indications_of_Goods_%28Registration_and_Protection%29_Act,_1999) and ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), checked 15 October 2026.
+- Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.`,
   }
   ,
 

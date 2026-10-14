@@ -18,7 +18,9 @@ import {
 // Google uses a sitemap's <lastmod> only while it stays accurate, so every date must come from
 // the content the page shows, never from the build, and match the date in its structured data.
 
-const today = () => new Date().toISOString().slice(0, 10);
+// Content is dated by the calendar where it's written (the site's owner is in Sydney, up to 11
+// hours ahead of UTC), so "today" is the latest date in effect anywhere: UTC+14.
+const today = () => new Date(Date.now() + 14 * 3600 * 1000).toISOString().slice(0, 10);
 
 describe("content dates", () => {
   it("read the formats the content uses, as UTC days", () => {
