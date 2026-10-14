@@ -69,7 +69,12 @@ export default async function CanonicalItineraryPage({ params }) {
 
   const { meta, plan } = data;
   const url = `${BASE_URL}/itineraries/${params.slug}`;
-  const related = (await getList()).filter((i) => i.slug !== params.slug).slice(0, 4);
+  // The next four in the list, wrapping round, so every itinerary is linked from four others
+  // (the first four alone left the last ones linked only from the hub).
+  const list = await getList();
+  const at = list.findIndex((i) => i.slug === params.slug);
+  const others = [...list.slice(at + 1), ...list.slice(0, Math.max(at, 0))].filter((i) => i.slug !== params.slug);
+  const related = others.slice(0, 4);
 
   const jsonLd = {
     "@context": "https://schema.org",

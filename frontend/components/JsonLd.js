@@ -112,7 +112,12 @@ function isoMinutes(mins) {
   return Number.isFinite(n) && n > 0 ? `PT${Math.round(n)}M` : undefined;
 }
 
+// Google requires an image for a recipe, and only a real photo of the dish belongs in it, never a
+// placeholder. A dish without one gets no Recipe markup at all, rather than markup Google counts as
+// invalid; the markup comes back by itself once the dish has a photo.
 export function buildRecipeSchema(dish) {
+  const photo = resolveContentPhoto(dish.image);
+  if (!photo) return null;
   const r = dish.recipe || {};
   const prep = isoMinutes(r.prepTimeMinutes);
   const cook = isoMinutes(r.cookTimeMinutes);
@@ -122,8 +127,6 @@ export function buildRecipeSchema(dish) {
       : undefined;
   const ingredients = r.ingredients?.length ? r.ingredients : dish.ingredients;
   const instructions = r.instructions?.length ? r.instructions : dish.instructions;
-  // Only a real photo of the dish belongs in `image` — never a placeholder.
-  const photo = resolveContentPhoto(dish.image);
   // Real record timestamps: when the dish was published, and when its recipe was
   // last reviewed (or the record last updated).
   const datePublished = isoDate(dish.createdAt);
@@ -134,7 +137,7 @@ export function buildRecipeSchema(dish) {
     "@type": "Recipe",
     name: dish.name,
     description: r.intro || dish.description || `Traditional Kashmiri ${dish.category}`,
-    ...(photo && { image: absoluteUrl(photo) }),
+    image: absoluteUrl(photo),
     author: { "@type": "Organization", name: "Wazwan Way", url: "https://wazwanway.com" },
     ...(datePublished && { datePublished }),
     ...(dateModified && { dateModified }),
