@@ -1,6 +1,6 @@
 # The core seven: a long-form story for each essential Wazwan dish
 
-_Research and content plan, prepared 15 October 2026. Status: plan done; article 1 (rogan josh) drafted and wired into the blog on branch `content/core-seven-stories`, not published. Articles 2 to 7 not started._
+_Research and content plan, prepared 15 October 2026. Status: articles 1 (rogan josh) and 2 (gushtaba) published on 15 October 2026 (releases 11 and 12). On the owner's instruction that every article be at least a 20-minute read, articles 2 to 7 were expanded in a second research pass the same day (Lawrence 1895, Grierson's feast and kitchen vocabulary, the SKIMS 2012 calorie study, the SKUAST and Kashmir University meat-science papers, the mutton-import record 2012 to 2026, the Spices Board GI register, and the Wikipedia, OSU and archive sources listed in `research/sources.md`). Read times are now 22, 27, 26, 22, 21, 20 and 20 minutes (rogan josh to marchwangan korma), computed as words ÷ 230 with link URLs stripped. Stories 3 to 7 and the expanded gushtaba are wired into the blog on branch `content/core-seven-stories-3-7`, verified locally, and await the owner's approval; the Outlook Traveller byline (Benny Joshua, not Rimli Sengupta) is corrected in all seven, including the live rogan josh entry._
 
 ## 1. The seven dishes, confirmed
 
@@ -105,5 +105,5 @@ For each article:
 |---|---|
 | `README.md` | This plan |
 | `research/sources.md` | Every source read for the project, what it supports, its caveats, and the sources that could not be read |
-| `research/01-rogan-josh.md` | The rogan josh fact ledger |
-| `drafts/01-rogan-josh.md` | The rogan josh article, with metadata, images and fact-check list |
+| `research/0N-<dish>.md` | One fact ledger per dish, claim by claim (01 rogan josh to 07 marchwangan korma) |
+| `drafts/0N-<dish>.md` | One article per dish, with metadata, images and fact-check list |

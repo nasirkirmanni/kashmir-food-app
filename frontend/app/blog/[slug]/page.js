@@ -21,6 +21,11 @@ export function generateStaticParams() {
 // layout template adds " | Wazwan Way". The <h1>, og:title and twitter:title
 // keep the full headline.
 const SEARCH_TITLES = {
+  "tabak-maaz-ribs-cooked-twice": "Tabak Maaz: Ribs Cooked Twice",
+  "rista-pounded-meatballs": "Rista: The Meatball Pounded on Stone",
+  "aab-gosht-milk-curry": "Aab Gosht: The Wazwan's Milk Curry",
+  "daniwal-korma-coriander": "Daniwal Korma: The Coriander Course",
+  "marchwangan-korma-chilli": "Marchwangan Korma: The Hottest Dish",
   "gushtaba-last-dish-of-wazwan": "Gushtaba: Why Wazwan Ends With a Meatball",
   "rogan-josh-history": "Rogan Josh History: Name, Origin and Colour",
   "what-is-ver-masala": "What Is Ver Masala? Wazwan's Secret Spice",

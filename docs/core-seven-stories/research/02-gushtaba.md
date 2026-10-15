@@ -74,3 +74,42 @@ _Every claim the article makes, with its source. Source ids are in `sources.md`.
 - Chicken and fish versions of rista and gushtaba now made — kashmir-life-2011. Choncha Foods' processed Wazwan — kashmir-life-2011; deccan-chronicle.
 - Ghulam Nabi Baba's son opened a restaurant; younger chefs moving from weddings to restaurants — reuters-2026. Younger men leaving the trade — sahapedia.
 - The GI application — gi-1337; see the site's GI guide.
+
+## Deep pass, 15 October 2026 (expansion from 16 to 27 minutes)
+
+### The cook, the kitchen and the feast, in the dictionary
+- *wāza* "a cook-person, one who is a cook by profession, and comes of a line, or caste, of cooks"; *wāzagī* the profession; *nözir* and *sŏlhöri* head cook; *kömü* proverb "what have cooks to do with kings"; *wura* temporary feast kitchen; *wura-bal* "the place for the cooking-fires of a bridegroom's party"; *dēg* "a large pile of rice cooked in a cauldron, for a wedding feast or the like"; *dah* "materials (flesh, spices, etc.) for a great feast"; *yēra* "a marriage feast"; *trömi* "a copper dish (used only by Musalmāns) out of which food is eaten"; *trāmi-bata*; *pötar* "eating from the same dish or at the same feast"; *māzarath* "hospitable pressing to eat (at a feast)"; *zang* "a dish of curds" as a good omen — grierson (new entries). Dictionary dates (compiled from the 1890s, published 1916 to 1932) — Digital South Asia Library's description of the work. The zang-and-white-dish link is marked as unrecorded.
+
+### The feast in 1895
+- "when the professional cook is called in some taste is displayed in the preparation and arrangement of viands"; "the earthenware platters filled with brightly-coloured foods make a pretty show" (p. 253); mutton "perhaps five times in the month"; "Clarified butter (ghi) is not much eaten"; "the Kashmiri Musalman is extravagant and greedy" (p. 254); "the gorgeous groom sits on cushions and the feast commences, winding up with tea"; "a big feast is given on the marriage night" (p. 269); "frugal in their expenditure and do not lavish money on marriage feasts" (p. 397) — lawrence-1895. The earthenware-versus-copper observation is ours.
+
+### Where it may have come from (additions)
+- Baba: "There were only seven mutton dishes at that time. Over the centuries we added more, and now there are around 20 dishes" — reuters-2026-text.
+- Kofta: "pounded meat"; earliest recipes in early Arab cookbooks, "large ground lamb meatballs triple-glazed in a mixture of saffron and egg yolk"; nargisi kofta at the Mughal court — wp-kofta.
+
+### The meat (additions)
+- The mallet's three names: *goshpar* — kaul-kilam recipe 190; "minced on stony surfaces with a tukni (a wooden instrument)" — jms-skims-2012; wooden mallets on stone slabs — reuters-2026.
+
+### What the laboratory made of it
+- Samoon 1988 M.V.Sc. thesis (IVRI) as the standard method — jalal-2015 (reference list and text).
+- "Incorporation of lamb fat at 20% level was found optimum"; pre-rigor and chilled meat; hand-minced hot-processed product bound better than machine-minced cold-boned — samoon-sharma-1994 abstract.
+- "Goshtaba forms the essential item of Kashmiri wazwan"; "an emulsion type ground meat product"; "Considerable amount of animal fat (20 %)"; hind-leg mutton; 2.5 % salt, large cardamom, cumin; yakhni two parts curd to one water with cardamom, cinnamon, cloves, ginger, aniseed, garlic, fried onion, salt; 30 min; balls 60 mm, 50 to 60 g; control 63.96 % moisture, 15.40 % protein, 17.03 % fat, pH 5.28, 7.3/9 — rather-2015-xanthan.
+- "within 2 h of post-mortem"; 90:10 mutton to fat, 2.5 % salt, 10 % chilled water, 0.2 % large cardamom; "average fat content of 15–25% is having a high sensory appeal"; 20 days at 4 °C — jalal-2015.
+- "None of the papers claims to have matched the wedding kitchen's ball" is our summary of the papers read; apple pomace and retort pouches are from the Rather group's other titles (seen in reference lists and Europe PMC; not read).
+
+### The last dish (additions)
+- The eleven dishes "in the order in which they are served" end with goshtaba — jms-skims-2012.
+
+### What a gushtaba weighs, and what it costs
+- Authors, affiliations, methods, Box 1, Table 1 (goshtaba 1787 ± 287 per trami, 447 per person; total 18484; rice 3450; 21933; 5483 per person), the text slip, "reduce the amount served per person like decreasing the portion size", PubMed search, "ready-made Wazwan is now available on a fly", Timur paragraph citing Wikipedia — jms-skims-2012.
+- 6,000 to 9,000 per trami; 1,500 to 2,250 per person; 80 to 125 per cent; "meatballs such as Rista and Gushtaba"; "Wazwan is a celebration, not an everyday meal" — kashmir-reader-2026.
+
+### The dish of state (addition)
+- "thrusting goshtaba"; "is understood to have turned high tables of global diplomacy in India's favor"; unattributed — anadolu-2022.
+
+### Gushtaba today (additions)
+- "Our kids didn't continue the tradition of cooking in weddings because they said it's too hectic"; son's restaurant; "Normally, at an average marriage we cook 200 kgs of mutton"; 4,500 kg at Delina — reuters-2026-text.
+- "Around 500 kilogrammes of mutton and 150 kilogrammes of chicken"; more than a tonne; Punjab levy; postponed weddings — pti-2026. "Roughly half" imported — summary of kashmir-life-2012-mutton (56 %), kashmir-life-2014-gull (55 %), village-square-2019 (over 50 %), greater-kashmir-2021 (70 %), kashmir-times-2026 (30,000 of 60,000 t).
+
+### Byline correction
+- Outlook Traveller feature credited to Benny Joshua (page byline), not Rimli Sengupta — outlook-traveller-2017.
