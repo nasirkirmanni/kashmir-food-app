@@ -196,7 +196,7 @@ Early among the gravies: after the first dishes on the trami and after rista, be
 - Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
 - Naseer Ganai, ["Why Kashmir's Famed Wazwan Is Always On The Diplomacy Menu"](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258), Outlook India, 27 April 2022.
 - Amit Bamzai, ["A Pandit Must Know His Meat"](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403), Outlook India, 29 May 2022.
-- Rimli Sengupta, ["Kashmir's Legendary Wazwan Cuisine"](https://www.outlookindia.com/traveller/ot-getaway-guides/kashmirs-legendary-wazwan-cuisine), Outlook Traveller, 28 July 2017.
+- Benny Joshua, ["Kashmir's Legendary Wazwan Cuisine"](https://www.outlookindia.com/traveller/ot-getaway-guides/kashmirs-legendary-wazwan-cuisine), Outlook Traveller, 28 July 2017.
 - Sadiq Shaban, ["Rogan Josh, Tabak Maaz, Rista, Goshtaba… royal Kashmiri wazwan, a feast for the senses"](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710), Gulf News, 20 January 2022.
 - IANS, ["Wazwan: The royal meal of paradise"](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html), Onmanorama, 10 November 2021.
 - Namita Gupta, ["Wazwan from the valley"](https://www.deccanchronicle.com/lifestyle/food-and-recipes/020616/wazwan-from-the-valley.html), *Deccan Chronicle*, 2 June 2016.
@@ -234,6 +234,10 @@ Every claim in the body is listed with its source in `../research/01-rogan-josh.
 8. **"2 kg per person"** is an IANS estimate, attributed as such.
 9. **CERC chilli powder figures** are already on the site (dish page notes).
 10. The article makes no claim about search volumes, rankings, or the dish's popularity beyond "the Kashmiri dish most of the world has heard of", which is supported by Collingham's and Sanghvi's accounts of its spread abroad.
+
+## Byline note
+
+The Outlook Traveller page credits Benny Joshua, 28 July 2017; the first published version of this story credited Rimli Sengupta, which does not appear on the page. Corrected in the release that expanded stories 2 to 7.
 
 ## Internal links used
 

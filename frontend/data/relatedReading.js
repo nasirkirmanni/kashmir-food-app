@@ -5,6 +5,11 @@
  */
 
 const BLOG = {
+  tabakMaazStory: { href: "/blog/tabak-maaz-ribs-cooked-twice", title: "Tabak Maaz: Ribs Cooked Twice, and the Plate in the Name" },
+  ristaStory: { href: "/blog/rista-pounded-meatballs", title: "Rista: The Meatball Pounded on a Stone" },
+  aabGoshtStory: { href: "/blog/aab-gosht-milk-curry", title: "Aab Gosht: The Milk Curry of the Wazwan" },
+  daniwalKormaStory: { href: "/blog/daniwal-korma-coriander", title: "Daniwal Korma: The Coriander Course" },
+  marchwanganKormaStory: { href: "/blog/marchwangan-korma-chilli", title: "Marchwangan Korma: The Hottest Dish on the Trami" },
   gushtabaStory: { href: "/blog/gushtaba-last-dish-of-wazwan", title: "Gushtaba: Why the Wazwan Ends With a Meatball" },
   roganJoshHistory: { href: "/blog/rogan-josh-history", title: "Rogan Josh: The History, the Name and the Red of Kashmir's Most Famous Dish" },
   noonChai: { href: "/blog/noon-chai-pink-tea-kashmir", title: "Noon Chai: The Science, Culture, and Ritual Behind Kashmir's Pink Tea" },
@@ -29,11 +34,13 @@ const GUIDES = {
 };
 
 const ARTICLES_BY_DISH = {
+  "daniwal-korma": [BLOG.daniwalKormaStory],
+  "tabak-maaz": [BLOG.tabakMaazStory],
   "rogan-josh": [BLOG.roganJoshHistory, BLOG.panditFood, BLOG.spicy],
   gushtaba: [BLOG.gushtabaStory, GUIDES.ristaVsGushtaba, BLOG.spicy],
-  rista: [GUIDES.ristaVsGushtaba, BLOG.spicy],
-  "marchwangan-korma": [BLOG.spicy],
-  "aab-gosht": [BLOG.spicy],
+  rista: [BLOG.ristaStory, GUIDES.ristaVsGushtaba, BLOG.spicy],
+  "marchwangan-korma": [BLOG.marchwanganKormaStory, BLOG.spicy],
+  "aab-gosht": [BLOG.aabGoshtStory, BLOG.spicy],
   "noon-chai": [BLOG.noonChai, BLOG.kahwaVsNoonChai, BLOG.breakfast],
   "kashmiri-kahwa": [BLOG.kahwaVsNoonChai, BLOG.whatToBuy],
   "dum-oluv": [BLOG.panditFood, BLOG.vegetarianFood],
@@ -50,7 +57,7 @@ const ARTICLES_BY_DISH = {
   "nadur-monji": [BLOG.streetFood],
   "aloo-monji": [BLOG.streetFood],
   "kashmiri-harissa": [BLOG.winterFood],
-  kabargah: [BLOG.panditFood],
+  kabargah: [BLOG.tabakMaazStory, BLOG.panditFood],
   shufta: [BLOG.panditFood, BLOG.sweets],
   phirni: [BLOG.sweets],
   basrakh: [BLOG.sweets],
