@@ -31,7 +31,7 @@ export default function Breadcrumbs({ items }) {
             return (
               <li key={item.href} className="flex items-center gap-1.5">
                 {isLast ? (
-                  <span className="text-[var(--saffron)]">{item.name}</span>
+                  <span aria-current="page" className="text-[var(--saffron)]">{item.name}</span>
                 ) : (
                   <>
                     <Link href={item.href} className="hover:text-white transition-colors">

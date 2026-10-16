@@ -37,6 +37,20 @@ export function DishLink({ dish }) {
   );
 }
 
+/** The dish's long-form story, for the seven essentials; it sits above the stretched dish link. */
+export function StoryLink({ dish }) {
+  if (!dish.story) return null;
+  return (
+    <Link href={dish.story.href} className={`${styles.cta} ${styles.storyLink}`}>
+      <span className={styles.ctaLabel}>Read the story</span>
+      <span className="sr-only">: {dish.story.title}</span>
+      <span className={styles.ctaArrow} aria-hidden="true">
+        →
+      </span>
+    </Link>
+  );
+}
+
 function EssentialMark({ className = "" }) {
   return <p className={`${styles.label} ${styles.essential} ${className}`}>Essential</p>;
 }
@@ -51,7 +65,10 @@ export function DishFeature({ dish, variant = "feature", sizes }) {
         <h3 className={styles.featureName}>{dish.name}</h3>
         {dish.description ? <p className={styles.featureText}>{dish.description}</p> : null}
         <DishMeta dish={dish} />
-        <DishLink dish={dish} />
+        <div className={styles.ctaRow}>
+          <DishLink dish={dish} />
+          <StoryLink dish={dish} />
+        </div>
       </div>
     </article>
   );
@@ -67,7 +84,10 @@ export function DishRow({ dish }) {
         <h3 className={styles.rowName}>{dish.name}</h3>
         {dish.description ? <p className={styles.rowText}>{dish.description}</p> : null}
         <DishMeta dish={dish} inline />
-        <DishLink dish={dish} />
+        <div className={styles.ctaRow}>
+          <DishLink dish={dish} />
+          <StoryLink dish={dish} />
+        </div>
       </div>
     </li>
   );
@@ -87,7 +107,10 @@ export function DishPlate({ dish }) {
         <h3 className={styles.plateName}>{dish.name}</h3>
         {dish.description ? <p className={styles.rowText}>{dish.description}</p> : null}
         <DishMeta dish={dish} inline />
-        <DishLink dish={dish} />
+        <div className={styles.ctaRow}>
+          <DishLink dish={dish} />
+          <StoryLink dish={dish} />
+        </div>
       </div>
     </li>
   );

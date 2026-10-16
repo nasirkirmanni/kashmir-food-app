@@ -13,6 +13,7 @@ import JsonLd from "@/components/JsonLd";
 import { buildArticleSchema, buildBreadcrumbSchema } from "@/components/JsonLd";
 import { toMetaDescription } from "@/lib/metaText";
 import { stripLeadingTitle } from "@/lib/markdownTitle";
+import { guideRelatedMarkdown } from "@/lib/guideRelated";
 
 export function generateStaticParams() {
   const paths = [
@@ -364,30 +365,7 @@ export default function Page({ params }) {
                 td: ({node, ...props}) => <td className="border-b border-white/5 px-2.5 py-2.5 sm:px-4 sm:py-3 align-top text-white/75 first:font-semibold first:text-white" {...props} />,
               }}
             >
-              {(() => {
-                const categoryArticles = wazwanGuides.filter((g) => g.category === category);
-                const bySlug = new Map(categoryArticles.map((g) => [g.slug, g]));
-
-                // A guide names its related guides by topic; without that list, the next
-                // guides in the file stand in.
-                let relatedArticles = (article.related || []).map((s) => bySlug.get(s)).filter(Boolean);
-                if (!relatedArticles.length) {
-                  const articleIndex = categoryArticles.findIndex((g) => g.slug === guideSlug);
-                  for (let i = 1; i <= 4; i++) {
-                    const candidate = categoryArticles[(articleIndex + i) % categoryArticles.length];
-                    if (candidate.slug !== guideSlug && !relatedArticles.includes(candidate)) relatedArticles.push(candidate);
-                  }
-                }
-
-                const relatedLinks = relatedArticles.map((a) => `- [${a.title}](/kashmiri-food/${category}/guide/${a.slug})`);
-                // Every Wazwan guide links back to the main Wazwan page.
-                if (category === "wazwan") {
-                  relatedLinks.unshift("- [Traditional Wazwan: the feast, dish by dish](/dishes)");
-                  relatedLinks.push("- [Kashmiri Food and Wazwan: Sources to Read](/blog/kashmiri-food-sources)");
-                }
-                const relatedMarkdown = `\n\n## Related Articles\n\n` + relatedLinks.join("\n");
-                return stripLeadingTitle(article.content, article.title) + relatedMarkdown;
-              })()}
+              {stripLeadingTitle(article.content, article.title) + guideRelatedMarkdown(article, wazwanGuides)}
             </ReactMarkdown>
             
             <AskWazaAIPrompt articleTitle={article.title} />

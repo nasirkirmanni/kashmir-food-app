@@ -108,7 +108,7 @@ The dish is changing at the edges and not at the centre. Rista and gushtaba are 
 
 The sheep that make it are, increasingly, not Kashmiri. "Normally, at an average marriage we cook 200 kgs of mutton," Baba says; forty years ago, at a village wedding in north Kashmir, he cooked 4,500 kg ([Reuters](https://kfgo.com/?p=1357989)). A news agency's estimate in 2026 was "around 500 kilogrammes of mutton and 150 kilogrammes of chicken" at an average wedding and more than a tonne at a lavish one ([PTI via Outlook Business](https://www.outlookbusiness.com/news/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab)). Kashmir produces about half of what it eats; the rest comes up the highway in trucks from Rajasthan and beyond, and when Punjab levied a tax on those trucks in the summer of 2026 the dealers stopped importing and families began talking of postponing weddings ([PTI via Outlook Business](https://www.outlookbusiness.com/news/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab)). Our [tabak maaz story](/blog/tabak-maaz-ribs-cooked-twice) follows the sheep; it is the same animal, whichever dish it ends in.
 
-In August 2024 The Kashmir Wazwan Cooperative Limited applied to register "Goshtaba (Meat Products) of Kashmir" as a geographical indication. When we checked the register on 15 October 2026 the application was still at pre-examination ([GI Registry, application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337)). Our [GI guide](/kashmiri-food/wazwan/guide/gi-tag-gushtaba-tabak-maaz) explains what registration would mean and how to check the status yourself.
+In August 2024 The Kashmir Wazwan Cooperative Limited applied to register "Goshtaba (Meat Products) of Kashmir" as a geographical indication. When we checked the register on 17 October 2026 the application was still at pre-examination ([GI Registry, application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337)). Our [GI guide](/kashmiri-food/wazwan/guide/gi-tag-gushtaba-tabak-maaz) explains what registration would mean and how to check the status yourself.
 
 ## Eating it for the first time
 
@@ -150,7 +150,7 @@ No. Its gravy has no chilli or turmeric; its flavour comes from cardamom, cinnam
 
 ### Does gushtaba have a GI tag?
 
-Not yet. An application for "Goshtaba (Meat Products) of Kashmir" was filed on 8 August 2024 and was still at pre-examination when we checked the register on 15 October 2026.
+Not yet. An application for "Goshtaba (Meat Products) of Kashmir" was filed on 8 August 2024 and was still at pre-examination when we checked the register on 17 October 2026.
 
 ### Can you refuse gushtaba at a Wazwan?
 
@@ -199,7 +199,7 @@ Kashmiri hosts press food on their guests, and refusing a dish or an extra helpi
 - Arka Chakraborty, ["Kashmiri Wazwan: Celebration of Food, Culture and People"](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people), JK Arts Foundation, 13 August 2024.
 - Jawaharlal Nehru, letters to Bakhshi Ghulam Mohammad of [23 November 1955](https://nehruarchive.in/documents/to-bakhshi-ghulam-mohammad-23-november-1955-48e115) and [17 December 1955](https://nehruarchive.in/documents/to-bakhshi-ghulam-mohammad-17-december-1955-9j5w7n), and to Karan Singh of [2 December 1955](https://nehruarchive.in/documents/to-karan-singh-2-december-1955-yj1n2v), *Selected Works of Jawaharlal Nehru*, Second Series, Nehru Archive.
 - Lynn Knipe, ["Pre-Rigor / Hot Boning of Pork Carcasses"](https://meatsci.osu.edu/node/127), Ohio State University, 26 April 2002; Kim, Yong, Jung, Kim and Choi, ["Technologies for the Production of Meat Products with a Low Sodium Chloride Content and Improved Quality Characteristics—A Review"](https://pmc.ncbi.nlm.nih.gov/articles/PMC8145339/), *Foods* 10(5), 2021.
-- Geographical Indications Registry, India, [application 1337, "Goshtaba (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337), checked 15 October 2026.
+- Geographical Indications Registry, India, [application 1337, "Goshtaba (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337), checked 17 October 2026.
 
 <!-- ARTICLE BODY END -->
 
@@ -233,6 +233,8 @@ Every claim in the body is listed with its source in `../research/02-gushtaba.md
 11. **The SKIMS paper's slip** (rista vs chicken) is reported as it stands; the table is taken as authoritative over the sentence. The paper's figures are from one wedding, repeated three times, and the article says so.
 12. **Outlook Traveller's byline.** The page credits Benny Joshua, 28 July 2017; an earlier draft credited Rimli Sengupta, which does not appear on the page. Corrected here.
 13. The article makes no claim about search volumes or rankings.
+
+14. **GI status re-checked 17 October 2026** (application 1337 still at pre-examination); the body, FAQ and sources now give that date.
 
 ## Internal links used
 

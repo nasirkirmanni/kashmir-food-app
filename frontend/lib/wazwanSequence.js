@@ -6,6 +6,7 @@
  * the gravies follow one by one, gushtaba always comes last).
  */
 import { resolveContentPhoto } from "./contentImages";
+import { coreSevenStoryForDish } from "../data/coreSevenSeries";
 
 // The chapters of the meal, in the order it unfolds. A dish joins the chapter
 // that lists its slug, otherwise the one that lists its catalogue courseType.
@@ -120,6 +121,11 @@ export function formatPriceRange(priceRange) {
     .filter((price) => price.amount);
 }
 
+function storyLink(slug) {
+  const story = coreSevenStoryForDish(slug);
+  return story ? { href: story.href, title: story.title } : null;
+}
+
 function toEntry(dish) {
   const photoSrc = resolveContentPhoto(dish.image);
   const framing = photoSrc ? DISH_PHOTOS[photoSrc] : null;
@@ -135,6 +141,8 @@ function toEntry(dish) {
     prices: formatPriceRange(dish.priceRange),
     href: `/dishes/${slug}`,
     essential: ESSENTIAL_SLUGS.has(dish.slug),
+    // Each of the seven essentials has a long-form story in the Journal.
+    story: storyLink(dish.slug),
     photo: photoSrc
       ? {
           src: photoSrc,

@@ -1064,6 +1064,21 @@
   text-decoration: none;
 }
 
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 28px;
+}
+
+/* A second link inside an entry whose dish link is stretched over it: lifted above the
+   stretched layer so it stays clickable. */
+.storyLink {
+  position: relative;
+  z-index: 2;
+  color: var(--ww-gold);
+}
+
 .stretched::before {
   content: "";
   position: absolute;
@@ -1088,6 +1103,24 @@
 }
 
 .hoverable:hover .ctaArrow {
+  transform: translateX(6px);
+}
+
+/* Hovering the entry animates its dish link only; the story link answers to its own hover. */
+.hoverable:hover .storyLink .ctaLabel {
+  background-size: 0 1px;
+}
+
+.hoverable:hover .storyLink .ctaArrow {
+  transform: none;
+}
+
+.hoverable .storyLink:hover .ctaLabel,
+.hoverable .storyLink:focus-visible .ctaLabel {
+  background-size: 100% 1px;
+}
+
+.hoverable .storyLink:hover .ctaArrow {
   transform: translateX(6px);
 }
 

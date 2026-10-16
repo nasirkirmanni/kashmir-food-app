@@ -70,7 +70,7 @@ The result is what a Gulf News writer, at his cousin's wedding, called "a rich r
 
 ## What a rista costs
 
-In the autumn of 2012 three doctors from the Sher-i-Kashmir Institute of Medical Sciences chose a wedding at random, had the vasta waza "keep a record of every ingredient used and the number of servings prepared", repeated the exercise three times, and worked out the calories from the National Institute of Nutrition's tables. Their rista, four balls to a trami, carried 1,814 calories, or 454 for each diner: the heaviest of the mutton dishes they weighed, ahead of the gushtaba (447), the tabak maaz (367) and the rogan josh (331), and behind only the kebabs and the whole chicken fried in ghee. The trami as a whole held 18,484 calories before rice and 21,933 with it, "dishing up some 5483 calories to the invited person" ([Ahmad, Akhter and Masoodi, *JMS SKIMS*, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). The paper is a two-page brief report with a slip in it, its text giving the chicken's 3,597 calories to the rista, which its own table corrects; its fieldwork, a waza's weighed ingredient list at a real wedding, is the only such record we know of. The authors' conclusion was not to give up the feast but to "reduce the amount served per person", and they noted in passing that a PubMed search for "Wazwan" found no earlier paper at all.
+In the autumn of 2012 three doctors from the Sher-i-Kashmir Institute of Medical Sciences chose a wedding at random, had the vasta waza "keep a record of every ingredient used and the number of servings prepared", repeated the exercise three times, and worked out the calories from the National Institute of Nutrition's tables. Their rista, four balls to a trami, carried 1,814 calories, or 454 for each diner: the heaviest of the dishes served in a gravy, ahead of the gushtaba (447), the rogan josh (331), the marchwangan korma (265) and the aab gosh (234); only the kebabs (740) and the whole chicken fried in ghee (899) carried more. The trami as a whole held 18,484 calories before rice and 21,933 with it, "dishing up some 5483 calories to the invited person" ([Ahmad, Akhter and Masoodi, *JMS SKIMS*, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). The paper is a two-page brief report with a slip in it, its text giving the chicken's 3,597 calories to the rista, which its own table corrects; its fieldwork, a waza's weighed ingredient list at a real wedding, is the only such record we know of. The authors' conclusion was not to give up the feast but to "reduce the amount served per person", and they noted in passing that a PubMed search for "Wazwan" found no earlier paper at all.
 
 A 2026 public-health advisory in Srinagar reached the same place by estimate: a trami for four "may contain between 6,000 and 9,000 calories", "approximately 1,500 to 2,250 calories per person", with "meatballs such as Rista and Gushtaba" among the main contributors, and it ended, "Wazwan is a celebration, not an everyday meal" ([Kashmir Reader](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/)). The 2012 measurement and the 2026 estimate differ by a factor of two or more; what they share is the place of rista near the top of the list. The fat the eighth man pounds in is where the calories are.
 
@@ -116,7 +116,7 @@ Usually not very. The Kashmiri chilli that colours it rates about 1,000 to 2,000
 
 ### How many calories are in rista?
 
-At the Srinagar wedding studied by SKIMS doctors in 2012, the four rista on a trami carried about 1,814 calories, or 454 per diner, the most of any mutton dish they weighed. A 2026 health advisory estimated 1,500 to 2,250 calories per person for a whole trami and named rista among the main contributors.
+At the Srinagar wedding studied by SKIMS doctors in 2012, the four rista on a trami carried about 1,814 calories, or 454 per diner, the most of any dish served in a gravy; only the kebabs and the whole chicken carried more. A 2026 health advisory estimated 1,500 to 2,250 calories per person for a whole trami and named rista among the main contributors.
 
 ### What is the difference between rista and gushtaba?
 
@@ -200,6 +200,8 @@ Every claim is listed with its source in `../research/04-rista.md`. Points to we
 9. "1988" for *Culinary Art of Kashmir* is from Wikipedia's reference list; the online edition is dated 2005.
 10. **Outlook Traveller's byline.** The page credits Benny Joshua, 28 July 2017; the earlier draft credited Rimli Sengupta, which does not appear on the page. Corrected.
 11. **Mutton figures** are summarised as a range (55 to 70 per cent imported) from sources that use different years and bases; the tabak maaz story sets them out in full.
+
+12. **Corrected 17 October 2026: "heaviest of the mutton dishes".** The kebabs (740 per diner) are mutton too. Body and FAQ now say "the heaviest of the dishes served in a gravy" and name the kebabs and the whole chicken as heavier (SKIMS 2012, Table 1).
 
 ## Internal links used
 

@@ -1,4 +1,5 @@
 import { resolveContentImage, resolveContentPhoto } from "@/lib/contentImages";
+import { isoDay } from "@/lib/contentDate";
 
 /**
  * JsonLd — injects JSON-LD structured data into the page <head>
@@ -101,10 +102,19 @@ function absoluteUrl(url) {
   return url.startsWith("http") ? url : `https://wazwanway.com${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
+// Calendar dates are read as UTC days (lib/contentDate.js), so a build ahead of UTC no longer
+// publishes "October 15, 2026" as 2026-10-14. Anything else Date can read is still accepted.
 function isoDate(value) {
   if (!value) return undefined;
+  const day = isoDay(value);
+  if (day) return day;
   const d = new Date(value);
   return isNaN(d.getTime()) ? undefined : d.toISOString().slice(0, 10);
+}
+
+function readMinutesOf(readTime) {
+  const match = typeof readTime === "string" ? readTime.match(/(\d+)\s*min/i) : null;
+  return match ? Number(match[1]) : undefined;
 }
 
 function isoMinutes(mins) {
@@ -195,7 +205,10 @@ export function buildFaqSchema(faqs) {
 export function buildArticleSchema(article) {
   const baseUrl = "https://wazwanway.com";
   const articleUrl = article.url || `${baseUrl}${article.path || ''}`;
-  const imageUrl = absoluteUrl(article.image);
+  // One image, or several (a story's own photograph first, then the site image).
+  const imageUrl = Array.isArray(article.image)
+    ? [...new Set(article.image.filter(Boolean).map(absoluteUrl))]
+    : absoluteUrl(article.image);
   const authorName = article.author || "Wazwan Way Team";
   // Dates come only from the content itself — never the build date.
   const datePublished = isoDate(article.datePublished || article.date);
@@ -231,7 +244,15 @@ export function buildArticleSchema(article) {
     },
     articleSection: article.category || article.section || "Kashmiri Cuisine",
     ...(article.keywords && { keywords: article.keywords }),
-    ...(article.readTime && { timeRequired: article.readTime })
+    // schema.org wants a duration: "22 min read" → "PT22M".
+    ...(readMinutesOf(article.readTime) && { timeRequired: `PT${readMinutesOf(article.readTime)}M` }),
+    // What the page is about, as entities with their Wikipedia/Wikidata identities, and the
+    // series it belongs to; only what the page visibly shows (the dish, the series badge).
+    ...(article.about && { about: article.about }),
+    ...(article.mentions?.length && { mentions: article.mentions }),
+    ...(article.isPartOf && { isPartOf: article.isPartOf }),
+    ...(Number.isInteger(article.position) && { position: article.position }),
+    ...(Number.isInteger(article.wordCount) && article.wordCount > 0 && { wordCount: article.wordCount })
   };
 }
 

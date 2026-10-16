@@ -4,6 +4,7 @@ export const blogPosts = [
     title: "Tabak Maaz: Ribs Cooked Twice, and the Plate in the Name",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "26 min read",
     excerpt: "Tabak maaz, the ribs that open a Wazwan: what its name means, the two cookings, the milk-or-water question, kabargah, and the GI application.",
@@ -14,7 +15,7 @@ Tabak maaz is the plainest of the seven essential dishes and the one with the mo
 
 ## What tabak maaz is
 
-Tabak maaz is lamb ribs cooked twice: "initially braised with ground spices, then browned in ghee", in Wikipedia's summary ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). It is one of the seven dishes Wikipedia lists as "a must" at a Wazwan and one of the seven the Waza family's cookbook calls indispensable ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [Roli Books](https://rolibooks.com/product/wazwaan-traditional-kashmiri-cuisine/)), and a 2016 review of the feast's meat products names it with kabab, aab gosh, rogan josh, yakhni, rista and goshtaba ([Rather, Masoodi and Akhter](https://doi.org/10.1016/j.jef.2016.12.002)). Unlike the gravies that follow it, it comes dry: "a glossy meat made of lamb ribs, fried thoroughly and served in dry form" ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258)). Doctors who recorded a Srinagar wedding feast in 2012 described it the same way, "made up of rib cage of sheep, cooked in ghee and served as dry pieces", two to four pieces to a trami ([Ahmad, Akhter and Masoodi, SKIMS, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). In August 2024 The Kashmir Wazwan Cooperative Limited applied to register "Tabakmaaz (Meat Products) of Kashmir" as a geographical indication; on 15 October 2026 the application was still at pre-examination ([GI Registry, application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336)).
+Tabak maaz is lamb ribs cooked twice: "initially braised with ground spices, then browned in ghee", in Wikipedia's summary ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). It is one of the seven dishes Wikipedia lists as "a must" at a Wazwan and one of the seven the Waza family's cookbook calls indispensable ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [Roli Books](https://rolibooks.com/product/wazwaan-traditional-kashmiri-cuisine/)), and a 2016 review of the feast's meat products names it with kabab, aab gosh, rogan josh, yakhni, rista and goshtaba ([Rather, Masoodi and Akhter](https://doi.org/10.1016/j.jef.2016.12.002)). Unlike the gravies that follow it, it comes dry: "a glossy meat made of lamb ribs, fried thoroughly and served in dry form" ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258)). Doctors who recorded a Srinagar wedding feast in 2012 described it the same way, "made up of rib cage of sheep, cooked in ghee and served as dry pieces", two to four pieces to a trami ([Ahmad, Akhter and Masoodi, SKIMS, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). In August 2024 The Kashmir Wazwan Cooperative Limited applied to register "Tabakmaaz (Meat Products) of Kashmir" as a geographical indication; on 17 October 2026 the application was still at pre-examination ([GI Registry, application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336)).
 
 ## The plate in the name
 
@@ -66,7 +67,7 @@ That crispness is the dish's whole argument. The fat between the rib bones rende
 
 The ghee is a puzzle of its own, because the Valley did not use it. Lawrence found in the 1890s that "clarified butter (ghi) is not much eaten", since Kashmiris believed it irritated the throat; in another passage he records that they avoided ghi, calling it the butter of India, and cooked instead with large quantities of vegetable oil ([Lawrence, p. 254](https://archive.org/details/valleyofkashmir00lawr)). Yet the Valley made a great deal of it. Lawrence lists ghi as by far the most important of Kashmir's exports to the Punjab, made mostly from buffalo milk by the Gujar herders and sold through Punjabi middlemen, who adulterated it with walnut oil; cow's-milk ghi, he noted, was reckoned the most delicate, buffalo ghi next, goat's rank ([Lawrence, chapter on exports and the pages on cattle](https://archive.org/details/valleyofkashmir00lawr)). Grierson's dictionary has the word, *gĕv*, clarified butter, made from butter boiled gently, strained and allowed to cool, and it records at least one meat dish cooked in it, a kabab, under *shömi* ([Grierson, pp. 316 and 882](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=butter&searchhws=no)). So the ghee of tabak maaz was, a century ago, a product the Valley exported rather than ate, and a wedding that fried its ribs in it was spending something. The pattern holds today in a smaller way: a Kashmiri restaurateur told Asia Media Centre that ghee is used for an authentic Wazwan and mustard oil at home ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
-The doctors who weighed a wedding feast in 2012 found the cost in calories. Their tabakmaaz, cooked in ghee, carried 1,470 calories per trami, or 367 for each of the four diners, more than the rogan josh (331) and the aab gosh (234), and less only than the rista, the gushtaba, the kebabs and the whole chicken, which was also fried in ghee ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). A 2026 public-health advisory in Srinagar named "Tabak Maaz" with the meatballs and kebabs among the dishes that account for most of a trami's 6,000 to 9,000 calories, and advised moderation rather than abstinence: "Wazwan is a celebration, not an everyday meal" ([Kashmir Reader](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/)). Two pieces of rib, eaten in the first ten minutes, are a quarter of a day's energy.
+The doctors who weighed a wedding feast in 2012 found the cost in calories. Their tabakmaaz, cooked in ghee, carried 1,470 calories per trami, or 367 for each of the four diners, more than the rogan josh (331) and the aab gosh (234), and less than the rista (454), the gushtaba (447) and the kebabs (740) among the mutton dishes; the whole chicken, also fried in ghee, carried the most of all (899) ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). A 2026 public-health advisory in Srinagar named "Tabak Maaz" with the meatballs and kebabs among the dishes that account for most of a trami's 6,000 to 9,000 calories, and advised moderation rather than abstinence: "Wazwan is a celebration, not an everyday meal" ([Kashmir Reader](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/)). Two pieces of rib, eaten in the first ten minutes, are a quarter of a day's energy.
 
 ## Tabak maaz and kabargah
 
@@ -136,7 +137,7 @@ At the very start. It is on the trami when it arrives, with the rice, seekh keba
 
 ### Does tabak maaz have a GI tag?
 
-Not yet. An application for "Tabakmaaz (Meat Products) of Kashmir" was filed on 8 August 2024 and was still at pre-examination when we checked the register on 15 October 2026.
+Not yet. An application for "Tabakmaaz (Meat Products) of Kashmir" was filed on 8 August 2024 and was still at pre-examination when we checked the register on 17 October 2026.
 
 ## Further reading
 
@@ -181,7 +182,7 @@ Not yet. An application for "Tabakmaaz (Meat Products) of Kashmir" was filed on 
 - Arka Chakraborty, ["Kashmiri Wazwan: Celebration of Food, Culture and People"](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people), JK Arts Foundation, 13 August 2024.
 - Mudasir Ahmad, ["From Poland to Kashmir, With Love"](https://m.thewire.in/article/travel/kashmir-wedding-wazwaan-polish-couple), *The Wire*, 25 July 2018.
 - ["Culinary Expedition to Kashmir"](https://www.chefjolly.com/culinary-expedition-to-kashmir/), Chef Jolly, a chef's travel notes, undated.
-- Geographical Indications Registry, India, [application 1336, "Tabakmaaz (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336), checked 15 October 2026.
+- Geographical Indications Registry, India, [application 1336, "Tabakmaaz (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336), checked 17 October 2026.
 `,
   },
   {
@@ -189,6 +190,7 @@ Not yet. An application for "Tabakmaaz (Meat Products) of Kashmir" was filed on 
     title: "Rista: The Meatball Pounded on a Stone",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "22 min read",
     excerpt: "Rista, the Wazwan's red meatball: how wazas pound it from fresh mutton, what colours its gravy, how it differs from gushtaba and where it comes in the meal.",
@@ -249,7 +251,7 @@ The result is what a Gulf News writer, at his cousin's wedding, called "a rich r
 
 ## What a rista costs
 
-In the autumn of 2012 three doctors from the Sher-i-Kashmir Institute of Medical Sciences chose a wedding at random, had the vasta waza "keep a record of every ingredient used and the number of servings prepared", repeated the exercise three times, and worked out the calories from the National Institute of Nutrition's tables. Their rista, four balls to a trami, carried 1,814 calories, or 454 for each diner: the heaviest of the mutton dishes they weighed, ahead of the gushtaba (447), the tabak maaz (367) and the rogan josh (331), and behind only the kebabs and the whole chicken fried in ghee. The trami as a whole held 18,484 calories before rice and 21,933 with it, "dishing up some 5483 calories to the invited person" ([Ahmad, Akhter and Masoodi, *JMS SKIMS*, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). The paper is a two-page brief report with a slip in it, its text giving the chicken's 3,597 calories to the rista, which its own table corrects; its fieldwork, a waza's weighed ingredient list at a real wedding, is the only such record we know of. The authors' conclusion was not to give up the feast but to "reduce the amount served per person", and they noted in passing that a PubMed search for "Wazwan" found no earlier paper at all.
+In the autumn of 2012 three doctors from the Sher-i-Kashmir Institute of Medical Sciences chose a wedding at random, had the vasta waza "keep a record of every ingredient used and the number of servings prepared", repeated the exercise three times, and worked out the calories from the National Institute of Nutrition's tables. Their rista, four balls to a trami, carried 1,814 calories, or 454 for each diner: the heaviest of the dishes served in a gravy, ahead of the gushtaba (447), the rogan josh (331), the marchwangan korma (265) and the aab gosh (234); only the kebabs (740) and the whole chicken fried in ghee (899) carried more. The trami as a whole held 18,484 calories before rice and 21,933 with it, "dishing up some 5483 calories to the invited person" ([Ahmad, Akhter and Masoodi, *JMS SKIMS*, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). The paper is a two-page brief report with a slip in it, its text giving the chicken's 3,597 calories to the rista, which its own table corrects; its fieldwork, a waza's weighed ingredient list at a real wedding, is the only such record we know of. The authors' conclusion was not to give up the feast but to "reduce the amount served per person", and they noted in passing that a PubMed search for "Wazwan" found no earlier paper at all.
 
 A 2026 public-health advisory in Srinagar reached the same place by estimate: a trami for four "may contain between 6,000 and 9,000 calories", "approximately 1,500 to 2,250 calories per person", with "meatballs such as Rista and Gushtaba" among the main contributors, and it ended, "Wazwan is a celebration, not an everyday meal" ([Kashmir Reader](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/)). The 2012 measurement and the 2026 estimate differ by a factor of two or more; what they share is the place of rista near the top of the list. The fat the eighth man pounds in is where the calories are.
 
@@ -295,7 +297,7 @@ Usually not very. The Kashmiri chilli that colours it rates about 1,000 to 2,000
 
 ### How many calories are in rista?
 
-At the Srinagar wedding studied by SKIMS doctors in 2012, the four rista on a trami carried about 1,814 calories, or 454 per diner, the most of any mutton dish they weighed. A 2026 health advisory estimated 1,500 to 2,250 calories per person for a whole trami and named rista among the main contributors.
+At the Srinagar wedding studied by SKIMS doctors in 2012, the four rista on a trami carried about 1,814 calories, or 454 per diner, the most of any dish served in a gravy; only the kebabs and the whole chicken carried more. A 2026 health advisory estimated 1,500 to 2,250 calories per person for a whole trami and named rista among the main contributors.
 
 ### What is the difference between rista and gushtaba?
 
@@ -356,6 +358,7 @@ A beef version, beef riste, appears on Wikipedia's list of Kashmiri dishes, and 
     title: "Aab Gosht: The Milk Curry of the Wazwan",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "21 min read",
     excerpt: "Aab gosht, the Wazwan's milk curry: what its name means, the ten litres reduced to one, which cut is used, and how it differs from Persian abgoosht.",
@@ -424,7 +427,7 @@ The Valley Lawrence described still milks small cows, and many more of them. Jam
 
 ## The cut and the spices
 
-The sources name different cuts, and all of them are big. Sahapedia has meat from the lamb's tail, shoulder or shank, boiled until tender ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); the Srinagar recipe has the same three ([Rising Kashmir](https://www.risingkashmir.com/recipe-kashmiri-aab-gosh-dodhe-maaz/)). Khan uses "one large piece from the lower back", slow-cooked in the milk ([The Kashmir Walla](https://thekashmirwalla.com/?p=72338)); the Srinagar doctors' "sacral area of vertebral column" is the same place in a surgeon's words ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). Two reporters say sheep ribs ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258); [Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). What they share is a single large piece per diner rather than small chunks, boiled first and finished in the milk.
+The sources name different cuts, and all of them are big. Sahapedia has meat from the lamb's tail, shoulder or shank, boiled until tender ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); the Srinagar recipe has the same three ([Rising Kashmir](https://www.risingkashmir.com/recipe-kashmiri-aab-gosh-dodhe-maaz/)). Khan uses "one large piece from the lower back", slow-cooked in the milk ([The Kashmir Walla](https://thekashmirwalla.com/?p=72338)); the Srinagar doctors' "sacral area of vertebral column" is the same place in a surgeon's words ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). Two reporters say sheep ribs ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258); [Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). What they share is large pieces rather than small chunks, boiled first and finished in the milk; at the wedding the Srinagar doctors recorded, the dish came as one large piece to a trami of four ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)).
 
 The spices are the Wazwan's gentle register. Sahapedia's list is shallot, garlic paste, ginger powder, fennel powder, cloves, green and black cardamom, cinnamon and salt ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); the Srinagar recipe's is the same with fried shallot paste and ghee ([Rising Kashmir](https://www.risingkashmir.com/recipe-kashmiri-aab-gosh-dodhe-maaz/)). Wikipedia calls the mixture "fennel-based" ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and two accounts add saffron with the green cardamom ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258); [Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). Grierson's dictionary has the two foundation spices as *bödiyāna*, sweet fennel, whose kernels are pounded in a mortar, and *shō̃ṭh*, dry ginger ([Grierson, pp. 89 and 899](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=fennel&searchhws=no)); see [fennel and dry ginger](/blog/fennel-and-dry-ginger-wazwan).
 
@@ -476,7 +479,7 @@ We have found none. The 1988 Pandit cookbook's index lists no dish of meat cooke
 
 ### Which cut of meat is used?
 
-Large pieces: tail, shoulder or shank in Sahapedia's account, one large piece from the lower back in a waza's, "the sacral area of the vertebral column" in a medical paper's, sheep ribs in two reporters'. Each diner gets one piece.
+Large pieces: tail, shoulder or shank in Sahapedia's account, one large piece from the lower back in a waza's, "the sacral area of the vertebral column" in a medical paper's, sheep ribs in two reporters'. At the wedding a medical team recorded in 2012, it came as one large piece to a trami of four.
 
 ### How many calories are in aab gosht?
 
@@ -527,6 +530,7 @@ Late, among the pale dishes: after marchwangan korma and before yakhni and gusht
     title: "Daniwal Korma: The Coriander Course",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "20 min read",
     excerpt: "Daniwal korma, the Wazwan's coriander course: what its name means, what korma means in Kashmir, how it is made, and where it comes in the meal.",
@@ -699,6 +703,7 @@ In the middle of the meal: after rogan josh and before marchwangan korma in one 
     title: "Marchwangan Korma: The Hottest Dish on the Trami",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "20 min read",
     excerpt: "Marchwangan korma, the Wazwan's hottest dish: what its name means, how much Kashmiri chilli goes in, and how it differs from rogan josh.",
@@ -749,7 +754,7 @@ How hot the korma gets depends on the kitchen, and on the chilli. "Due to the hi
 
 The imitators got their protection first. The Spices Board's register of geographical indications for spices, as of 15 September 2026, runs to 47 entries, and the chillies on it include Guntur Sannam (registered 2010) and Byadagi (2011), both with the Spices Board itself as custodian, Goa's Khola chilli (2019) and Harmal chilli (2021), Nagaland's Naga Mircha, Mizoram's Mizo chilli, Manipur's Hathei, Tamil Nadu's Ramnathapuram Mundu and Virudhunagar Samba Vattal, Uttarakhand's Almora Lakhori, and Madhya Pradesh's Khargone Lal Mirch, registered in March 2026. Jammu and Kashmir appears twice on the list, for Kashmir saffron, registered on 1 May 2020 with the Directorate of Agriculture at Lalmandi, Srinagar, as its proprietor, and for Ramban's dried pomegranate seed, registered in January 2024. No Kashmiri chilli appears on it ([Spices Board of India, list of spice GIs](https://www.indianspices.com/sites/default/files/List_of_GItags_for_spices_BJ.pdf)). The Byadagi that is sold in its place, and two chillies from the Goan coast where the Portuguese landed the plant, have the legal name that the Valley's own pod does not.
 
-The Valley is trying to change that. There are "government initiatives and incentives in Jammu and Kashmir to support and increase the production of the local variety of the Kashmiri chilli" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_red_chilli)); on 4 June 2021 an adviser to the lieutenant governor, Farooq Ahmad Khan, visited Baramulla and, at a vegetable cluster at Sadderbal Palhalan in Pattan, launched "a special programme for revival of local Chilli known as 'Lal Mirchi'" ([Kashmir Reader](https://kashmirreader.com/?p=99101)). Three years later the application came from the same tehsil. On 26 June 2024 a farmers' company in Pattan, Baramulla, the Shejaar Vegetable Producer Company Limited, applied to India's Geographical Indications Registry to register "Kashmiri Long Chilli" as a geographical indication in the agricultural class. The file lists a product specification, a historical background, a method of production, a statement of uniqueness and a map of the area; a formality check was recorded on 28 June 2024 and another on 25 September 2025; and when we checked on 15 October 2026 the status was "Pre Examination" ([GI Registry, application 1295](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1295)). It sits in the queue a few numbers before the two Wazwan applications, for tabak maaz and gushtaba, filed by The Kashmir Wazwan Cooperative in August 2024 ([GI Registry, application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336)). None of the three has been examined. If the long chilli's registration is granted, "Kashmiri" on a packet of chilli powder would, for the first time, have to mean something; our [GI guide](/kashmiri-food/wazwan/guide/gi-tag-gushtaba-tabak-maaz) explains how the process works and how to check the register yourself.
+The Valley is trying to change that. There are "government initiatives and incentives in Jammu and Kashmir to support and increase the production of the local variety of the Kashmiri chilli" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_red_chilli)); on 4 June 2021 an adviser to the lieutenant governor, Farooq Ahmad Khan, visited Baramulla and, at a vegetable cluster at Sadderbal Palhalan in Pattan, launched "a special programme for revival of local Chilli known as 'Lal Mirchi'" ([Kashmir Reader](https://kashmirreader.com/?p=99101)). Three years later the application came from the same tehsil. On 26 June 2024 a farmers' company in Pattan, Baramulla, the Shejaar Vegetable Producer Company Limited, applied to India's Geographical Indications Registry to register "Kashmiri Long Chilli" as a geographical indication in the agricultural class. The file lists a product specification, a historical background, a method of production, a statement of uniqueness and a map of the area; a formality check was recorded on 28 June 2024 and another on 25 September 2025; and when we checked on 17 October 2026 the status was "Pre Examination" ([GI Registry, application 1295](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1295)). It sits in the queue a few numbers before the two Wazwan applications, for tabak maaz and gushtaba, filed by The Kashmir Wazwan Cooperative in August 2024 ([GI Registry, application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336)). None of the three has been examined. If the long chilli's registration is granted, "Kashmiri" on a packet of chilli powder would, for the first time, have to mean something; our [GI guide](/kashmiri-food/wazwan/guide/gi-tag-gushtaba-tabak-maaz) explains how the process works and how to check the register yourself.
 
 ## Marchwangan korma and rogan josh
 
@@ -809,7 +814,7 @@ At the Srinagar wedding studied by SKIMS doctors in 2012, the korma carried abou
 
 ### Does Kashmiri chilli have a GI tag?
 
-Not yet. An application to register "Kashmiri Long Chilli" was filed on 26 June 2024 by a producer company in Baramulla and was at pre-examination when we checked the register on 15 October 2026.
+Not yet. An application to register "Kashmiri Long Chilli" was filed on 26 June 2024 by a producer company in Baramulla and was at pre-examination when we checked the register on 17 October 2026.
 
 ### When is marchwangan korma served at a Wazwan?
 
@@ -831,7 +836,7 @@ In the middle or towards the end of the meat courses, after rista, rogan josh an
 - G. A. Grierson, *A Dictionary of the Kashmiri Language*, entries [marʦ and marʦ-wã̄gan-āra, p. 594](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=red%20pepper&searchhws=no), [wã̄gun, p. 1102](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=brinjal&searchhws=no), [the pepper words: maga, pipijü, loṭu, nal, ʦhaṭh and ʦarŏn](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=pepper&searchhws=no) and [buröni, p. 124](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=curds&searchhws=no), Digital South Asia Library.
 - Walter R. Lawrence, [*The Valley of Kashmir*](https://archive.org/details/valleyofkashmir00lawr), Henry Frowde, London, 1895, pp. 253 to 254 and 300, read in the Internet Archive's scan and searched in its full text.
 - Wikipedia, ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["List of Kashmiri dishes"](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes), ["Kashmiri red chilli"](https://en.wikipedia.org/wiki/Kashmiri_red_chilli), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine), ["Korma"](https://en.wikipedia.org/wiki/Korma), ["Chili pepper"](https://en.wikipedia.org/wiki/Chili_pepper), ["Scoville scale"](https://en.wikipedia.org/wiki/Scoville_scale), checked 15 October 2026.
-- Geographical Indications Registry, India, [application 1295, "Kashmiri Long Chilli"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1295) and [application 1336, "Tabakmaaz (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336), checked 15 October 2026; Spices Board of India, ["List of Geographical Indication (GI) Tags Registered for Spices (As of 15/09/2026)"](https://www.indianspices.com/sites/default/files/List_of_GItags_for_spices_BJ.pdf).
+- Geographical Indications Registry, India, [application 1295, "Kashmiri Long Chilli"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1295) and [application 1336, "Tabakmaaz (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336), checked 17 October 2026; Spices Board of India, ["List of Geographical Indication (GI) Tags Registered for Spices (As of 15/09/2026)"](https://www.indianspices.com/sites/default/files/List_of_GItags_for_spices_BJ.pdf).
 - ["Advisor Farooq Khan launches prog for 'Lal Mirchi' revival"](https://kashmirreader.com/?p=99101), *Kashmir Reader*, 4 June 2021.
 - Mushtaq Ahmad, Sakina Akhter and Shariq R. Masoodi, ["Wazwan the Kashmiri Cuisine - A Caloric Bomb"](https://www.jmsskims.org/index.php/jms/article/view/153), *JMS SKIMS* 15(2), 2012; ["Choose moderation in Wazwan as single trami may contain 6,000-9,000 calories: Health advisory"](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/), *Kashmir Reader*, 19 June 2026.
 - Rao Farman Ali, ["Jammu & Kashmir's Mutton Crisis: Gap Between Demand and Supply-I"](https://kashmirtimes.com/news/jammu-kashmirs-mutton-crisis-gap-between-demand-and-supply), *Kashmir Times*, 3 February 2026.
@@ -853,6 +858,7 @@ In the middle or towards the end of the meat courses, after rista, rogan josh an
     title: "Gushtaba: Why the Wazwan Ends With a Meatball",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "27 min read",
     excerpt: "Gushtaba, the meatball that ends every Wazwan: what its name means, how wazas pound it from fresh-killed mutton, its yakhni gravy, and why it comes last.",
@@ -951,7 +957,7 @@ The dish is changing at the edges and not at the centre. Rista and gushtaba are 
 
 The sheep that make it are, increasingly, not Kashmiri. "Normally, at an average marriage we cook 200 kgs of mutton," Baba says; forty years ago, at a village wedding in north Kashmir, he cooked 4,500 kg ([Reuters](https://kfgo.com/?p=1357989)). A news agency's estimate in 2026 was "around 500 kilogrammes of mutton and 150 kilogrammes of chicken" at an average wedding and more than a tonne at a lavish one ([PTI via Outlook Business](https://www.outlookbusiness.com/news/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab)). Kashmir produces about half of what it eats; the rest comes up the highway in trucks from Rajasthan and beyond, and when Punjab levied a tax on those trucks in the summer of 2026 the dealers stopped importing and families began talking of postponing weddings ([PTI via Outlook Business](https://www.outlookbusiness.com/news/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab)). Our [tabak maaz story](/blog/tabak-maaz-ribs-cooked-twice) follows the sheep; it is the same animal, whichever dish it ends in.
 
-In August 2024 The Kashmir Wazwan Cooperative Limited applied to register "Goshtaba (Meat Products) of Kashmir" as a geographical indication. When we checked the register on 15 October 2026 the application was still at pre-examination ([GI Registry, application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337)). Our [GI guide](/kashmiri-food/wazwan/guide/gi-tag-gushtaba-tabak-maaz) explains what registration would mean and how to check the status yourself.
+In August 2024 The Kashmir Wazwan Cooperative Limited applied to register "Goshtaba (Meat Products) of Kashmir" as a geographical indication. When we checked the register on 17 October 2026 the application was still at pre-examination ([GI Registry, application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337)). Our [GI guide](/kashmiri-food/wazwan/guide/gi-tag-gushtaba-tabak-maaz) explains what registration would mean and how to check the status yourself.
 
 ## Eating it for the first time
 
@@ -993,7 +999,7 @@ No. Its gravy has no chilli or turmeric; its flavour comes from cardamom, cinnam
 
 ### Does gushtaba have a GI tag?
 
-Not yet. An application for "Goshtaba (Meat Products) of Kashmir" was filed on 8 August 2024 and was still at pre-examination when we checked the register on 15 October 2026.
+Not yet. An application for "Goshtaba (Meat Products) of Kashmir" was filed on 8 August 2024 and was still at pre-examination when we checked the register on 17 October 2026.
 
 ### Can you refuse gushtaba at a Wazwan?
 
@@ -1042,7 +1048,7 @@ Kashmiri hosts press food on their guests, and refusing a dish or an extra helpi
 - Arka Chakraborty, ["Kashmiri Wazwan: Celebration of Food, Culture and People"](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people), JK Arts Foundation, 13 August 2024.
 - Jawaharlal Nehru, letters to Bakhshi Ghulam Mohammad of [23 November 1955](https://nehruarchive.in/documents/to-bakhshi-ghulam-mohammad-23-november-1955-48e115) and [17 December 1955](https://nehruarchive.in/documents/to-bakhshi-ghulam-mohammad-17-december-1955-9j5w7n), and to Karan Singh of [2 December 1955](https://nehruarchive.in/documents/to-karan-singh-2-december-1955-yj1n2v), *Selected Works of Jawaharlal Nehru*, Second Series, Nehru Archive.
 - Lynn Knipe, ["Pre-Rigor / Hot Boning of Pork Carcasses"](https://meatsci.osu.edu/node/127), Ohio State University, 26 April 2002; Kim, Yong, Jung, Kim and Choi, ["Technologies for the Production of Meat Products with a Low Sodium Chloride Content and Improved Quality Characteristics—A Review"](https://pmc.ncbi.nlm.nih.gov/articles/PMC8145339/), *Foods* 10(5), 2021.
-- Geographical Indications Registry, India, [application 1337, "Goshtaba (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337), checked 15 October 2026.
+- Geographical Indications Registry, India, [application 1337, "Goshtaba (Meat Products) of Kashmir"](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337), checked 17 October 2026.
 `,
   },
   {
@@ -1050,6 +1056,7 @@ Kashmiri hosts press food on their guests, and refusing a dish or an extra helpi
     title: "Rogan Josh: The History, the Name and the Red of Kashmir's Most Famous Dish",
     author: "Wazwan Way Team",
     date: "October 15, 2026",
+    updatedDate: "October 17, 2026",
     category: "Heritage Cookery",
     readTime: "22 min read",
     excerpt: "Where rogan josh comes from, what its name means, why it is red without tomatoes, how Kashmiri Muslim and Pandit cooks make it, and its place in the Wazwan.",
