@@ -11,6 +11,7 @@ export const wazwanGuides = [
     date: "June 19, 2026",
     updatedDate: "October 11, 2026",
     related: ["restaurant-vs-wedding-vs-home", "vegetarian-wazwan", "how-wazwan-is-served", "waza-meaning"],
+    stories: ["tabak-maaz-ribs-cooked-twice"],
     content: `
 # How Much Does Wazwan Cost? A Practical Price Guide
 
@@ -230,6 +231,7 @@ Nadur — lotus stem. It's grown locally, deeply embedded in Kashmiri cooking, a
     date: "June 19, 2026",
     updatedDate: "October 11, 2026",
     related: ["cost-guide", "how-wazwan-is-served", "waza-meaning", "vegetarian-wazwan"],
+    stories: ["aab-gosht-milk-curry", "gushtaba-last-dish-of-wazwan"],
     content: `
 # Wazwan: Restaurant vs Wedding vs Home — What's Actually Different
 
@@ -330,6 +332,7 @@ Some smaller, locally-oriented restaurants and dhabas serve food closer to home-
     date: "June 23, 2026",
     updatedDate: "October 12, 2026",
     related: ["how-wazwan-is-served", "waza-meaning", "history-of-wazwan", "wazwan-vs-mughlai", "gi-tag-gushtaba-tabak-maaz"],
+    stories: ["rista-pounded-meatballs", "gushtaba-last-dish-of-wazwan"],
     content: `Rista and gushtaba are the two meatball dishes of a Wazwan. They start from the same pounded mutton and become different dishes: rista small, in a red gravy, early in the meal; gushtaba large, in a white yogurt gravy, at the end of it. Each has its own page with a recipe: [rista](/dishes/rista) and [gushtaba](/dishes/gushtaba).
 
 ## At a glance
@@ -384,6 +387,7 @@ At the trami each diner gets a rista of their own, while a single gushtaba is sh
     date: "October 15, 2026",
     updatedDate: "October 15, 2026",
     related: ["rista-vs-gushtaba", "how-wazwan-is-served", "history-of-wazwan"],
+    stories: ["tabak-maaz-ribs-cooked-twice", "gushtaba-last-dish-of-wazwan", "marchwangan-korma-chilli"],
     content: `Gushtaba and tabak maaz, two of the seven dishes Wikipedia lists as a must at a Wazwan, are not registered as geographical indications (GIs). Applications to register both were filed with India's Geographical Indications Registry in August 2024. On 15 October 2026 the registry listed both at "Pre Examination": neither had been accepted, advertised in the GI Journal or registered ([GI Registry, application 1336](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1336); [application 1337](https://search.ipindia.gov.in/GIRPublicSearch/Application/Details/1337)).
 
 ## The two applications
@@ -468,6 +472,7 @@ Open the two records on the GI Registry's public search: [application 1336](http
     date: "June 23, 2026",
     updatedDate: "October 11, 2026",
     related: ["history-of-wazwan", "how-wazwan-is-served", "restaurant-vs-wedding-vs-home", "cost-guide"],
+    stories: ["gushtaba-last-dish-of-wazwan", "rista-pounded-meatballs"],
     content: `A **waza** is a professional Wazwan cook. The word means cook, and it gives the feast its name: *waz*, cook, and *wan*, usually glossed as shop ([District Budgam](https://budgam.nic.in/culinary-delight/wazwan/); [Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). The head cook is the **vasta waza**, also written *wasta* or *wouste waze*.
 
 ## What the vasta waza does
@@ -514,6 +519,7 @@ Younger men are leaving the trade ([Sahapedia](https://www.sahapedia.org/wazwan-
     date: "June 23, 2026",
     updatedDate: "October 11, 2026",
     related: ["history-of-wazwan", "waza-meaning", "restaurant-vs-wedding-vs-home", "vegetarian-wazwan"],
+    stories: ["tabak-maaz-ribs-cooked-twice", "gushtaba-last-dish-of-wazwan"],
     content: `A Wazwan is served in a set order, from a shared copper platter, by the cooks themselves. This guide covers what happens at the trami, from the hand-washing to the last course, and the manners that go with it. For the dishes themselves, see [Traditional Wazwan](/dishes).
 
 ## Where you sit
@@ -574,6 +580,7 @@ Restaurants serve Wazwan as set menus or as single dishes, so not every part of 
     date: "June 23, 2026",
     updatedDate: "October 11, 2026",
     related: ["waza-meaning", "how-wazwan-is-served", "wazwan-vs-mughlai", "cost-guide"],
+    stories: ["rogan-josh-history", "tabak-maaz-ribs-cooked-twice", "gushtaba-last-dish-of-wazwan"],
     content: `Ask where Wazwan comes from and you will usually hear one story: that Timur brought cooks from Samarkand. The written record tells a slower and less certain one. This page sets out what is documented, what is told, and where the two part ways. The short version is on our [Traditional Wazwan](/dishes) page.
 
 > "Wazwan is not food. It is a covenant between a host and a guest, sealed with thirty-six courses and broken with the washing of hands."
@@ -638,6 +645,7 @@ The core techniques continue: meat is still pounded by hand and cooked over wood
     "date": "June 23, 2026",
     "updatedDate": "October 11, 2026",
     "related": ["history-of-wazwan", "rista-vs-gushtaba", "vegetarian-wazwan", "how-wazwan-is-served"],
+    "stories": ["daniwal-korma-coriander", "rogan-josh-history"],
     "content": "# Wazwan vs Mughlai Cuisine: Understanding the Differences\n\nBecause Kashmiri Wazwan and Mughlai cuisine both share historical roots in Central Asia and Persia, and because both are renowned for their elaborate meat dishes, they are often confused by outsiders. \n\nMany restaurants outside of Kashmir blur the lines, serving heavy Mughlai curries and calling them Wazwan. However, to a culinary historian—and certainly to a Kashmiri—the two cuisines are vastly different in their ingredients, techniques, and underlying philosophies.\n\n## The Historical Divergence\n\n**Mughlai Cuisine** evolved in the imperial kitchens of the Mughal Empire in cities like Delhi, Agra, and Lahore. It is a cuisine of the plains, heavily influenced by the extreme wealth of the emperors, leading to the generous use of heavy creams, extensive dry fruits, and complex, thick gravies.\n\n**Wazwan** developed in the isolated, mountainous Kashmir Valley. Like Mughlai cooking, it draws on Persian and Central Asian traditions, but it adapted to the harsh winters and specific agricultural profile of the Himalayas. It is a cuisine of the mountains—sharper, more aromatic, and structurally different.\n\n## The Gravy Base: Onion/Tomato vs Yogurt/Fennel\n\nThis is the most critical difference between the two cuisines.\n\n**Mughlai Gravies:**\nMughlai food relies heavily on a *bhuna* (sautéed) base of onions, garlic, ginger, and, later, tomatoes. The gravies are thickened with heavy dairy—cream (*malai*), butter, and pastes made from cashews or almonds. The result is a thick, sweet, and overwhelmingly rich sauce.\n\n**Wazwan Gravies:**\nWazwan's meat gravies are built on yogurt, milk and praan rather than tomato and cream. The primary thickening agent in Wazwan is **Yogurt (Curd)**. Instead of common onions, Wazwan uses *Praan* (Kashmiri shallots). The flavor profile is driven by aromatics rather than heavy fats: Fennel powder (*Saunf*) and Dried Ginger powder (*Soonth*) are the undisputed pillars of Wazwan cooking. The resulting gravies are thinner, tangier, and far more aromatic.\n\n## The Meat Preparation\n\n**Mughlai:** \nMughlai cuisine features a lot of marinated, tandoor-roasted meats (like Chicken Tikka) and minced meats cooked on skewers (Seekh Kebabs). Meat is often marinated in yogurt and papaya to tenderize it before cooking.\n\n**Wazwan:** \nWazwan is obsessed with boiling and pounding. The tandoor is practically non-existent in traditional Wazwan cooking (Kashmiris use tandoors for bakery bread, not meat). Meats are boiled with aromatics to create rich stocks, or they are laboriously hand-pounded into elastic pastes for dishes like Rista and Gushtaba. Ribs (Tabak Maaz) are boiled in milk before being fried.\n\n## The Spices and Color\n\n**Mughlai:** Uses complex spice blends (Garam Masala) extensively. Color often comes from turmeric, saffron, or modern food coloring.\n\n**Wazwan:** Uses spices surgically. The intense red color of Wazwan dishes comes naturally from a combination of mild Kashmiri Red Chilies and the extract of the *Mawal* (cockscomb) flower. \n\n## The Dining Format\n\n**Mughlai:** A buffet or a plated dining experience, often accompanied by a wide variety of flatbreads (Naan, Roti, Paratha).\n\n**Wazwan:** A highly ritualistic, communal dining experience. Four people eat from a single copper *Trami*. It is served on rice.\n\n## Summary\n\nIf a dish is thick, creamy, sweet with ground nuts, and heavy on tomato and onion, it is Mughlai. If a dish features a thin, aromatic gravy driven by yogurt, fennel, and dried ginger, with a layer of glistening oil on top, you are experiencing the true art of the Kashmiri Wazwan."
 }
 ];

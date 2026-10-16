@@ -331,7 +331,7 @@
   .chapter-stats .n{ font-family:var(--font-mono); color:var(--gold); font-size:1.15rem; }
   .chapter-stats .l{ font-family:var(--font-mono); color:var(--ivory-dim); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;}
 
-  .chapter-cta{ margin-top:38px; }
+  .chapter-cta{ margin-top:38px; display:flex; flex-wrap:wrap; gap:12px; }
 
   /* Dish gallery */
   .dish-rail{

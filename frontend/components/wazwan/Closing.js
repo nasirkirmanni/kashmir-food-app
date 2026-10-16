@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import DishPhoto from "./DishPhoto";
-import { DishMeta } from "./DishParts";
+import { DishMeta, StoryLink } from "./DishParts";
 import styles from "./wazwan.module.css";
 
 /** A full-width photograph between chapters. */
@@ -49,6 +49,11 @@ export function LastCourse({ chapter }) {
               →
             </span>
           </Link>
+          {dish.story ? (
+            <div>
+              <StoryLink dish={dish} />
+            </div>
+          ) : null}
         </article>
       </div>
     </section>

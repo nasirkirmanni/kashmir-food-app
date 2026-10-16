@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import dishesData from "@/data/dishes.json";
 import WazaAITeaser from "@/components/WazaAITeaser";
 import "./kashmiri.css";
 import { resolveContentImage } from "@/lib/contentImages";
 import { ESSENTIAL_ORDER } from "@/lib/wazwanSequence";
+import { CORE_SEVEN_HUB, CORE_SEVEN_SERIES } from "@/data/coreSevenSeries";
 
 const wazaExchanges = [
   { q: "I don't do spicy food. What's safe for me?", a: 'Try <b>Daniwal Korma</b> — mild, yoghurt-coriander. Skip the Marchwangan Korma today.' },
@@ -449,6 +450,18 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
                 How the feast grew, with sources
               </Link>
             </p>
+            <p className="desc reveal fade-right" style={{ transitionDelay: '0.24s' }}>
+              Each of the seven has its own long story in the Journal:{" "}
+              {CORE_SEVEN_SERIES.map((story, i) => (
+                <Fragment key={story.slug}>
+                  {i === CORE_SEVEN_SERIES.length - 1 ? "and " : ""}
+                  <Link href={story.href} className="underline decoration-[var(--gold)]/60 underline-offset-4 hover:text-[var(--gold)]">
+                    {story.linkText}
+                  </Link>
+                  {i < CORE_SEVEN_SERIES.length - 1 ? ", " : "."}
+                </Fragment>
+              ))}
+            </p>
             <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
               <div><span className="n">7</span><span className="l">Essential dishes</span></div>
               <div><span className="n">12–24</span><span className="l">At a wedding today</span></div>
@@ -456,6 +469,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
             </div>
             <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
               <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
+              <Link href={CORE_SEVEN_HUB} className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Read the seven stories</Link>
             </div>
           </div>
           <div className="chapter-gallery reveal fade-left">

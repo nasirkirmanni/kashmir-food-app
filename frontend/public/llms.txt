@@ -30,6 +30,7 @@ Each dish page has what the dish is, its place in the feast and a recipe, with s
 - [Aab Gosht](https://wazwanway.com/dishes/aab-gosht): Mutton cooked in milk
 - [Yakhni](https://wazwanway.com/dishes/yakhni): Mutton in a yogurt gravy with fennel, the last gravy before gushtaba
 - [Gushtaba](https://wazwanway.com/dishes/gushtaba): The large pounded meatball in yogurt gravy that ends the main meal
+- [The core seven: a story for each essential Wazwan dish](https://wazwanway.com/blog/core-seven): The series page for the seven long-form dish stories below, in the order they come to the trami, with how they were researched
 - [Rogan Josh: history, name and colour](https://wazwanway.com/blog/rogan-josh-history): Where the dish came from, what its name means, why it is red without tomatoes, and the Kashmiri Muslim and Pandit versions
 - [Gushtaba: why the Wazwan ends with it](https://wazwanway.com/blog/gushtaba-last-dish-of-wazwan): What its name means, how wazas pound it from fresh-killed mutton, its yakhni gravy, and its place as the last dish
 - [Tabak Maaz: ribs cooked twice](https://wazwanway.com/blog/tabak-maaz-ribs-cooked-twice): What the name means, the two cookings, the milk-or-water question, how it differs from kabargah, and the GI application

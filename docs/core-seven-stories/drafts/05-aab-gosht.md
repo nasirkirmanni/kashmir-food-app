@@ -78,7 +78,7 @@ The Valley Lawrence described still milks small cows, and many more of them. Jam
 
 ## The cut and the spices
 
-The sources name different cuts, and all of them are big. Sahapedia has meat from the lamb's tail, shoulder or shank, boiled until tender ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); the Srinagar recipe has the same three ([Rising Kashmir](https://www.risingkashmir.com/recipe-kashmiri-aab-gosh-dodhe-maaz/)). Khan uses "one large piece from the lower back", slow-cooked in the milk ([The Kashmir Walla](https://thekashmirwalla.com/?p=72338)); the Srinagar doctors' "sacral area of vertebral column" is the same place in a surgeon's words ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). Two reporters say sheep ribs ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258); [Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). What they share is a single large piece per diner rather than small chunks, boiled first and finished in the milk.
+The sources name different cuts, and all of them are big. Sahapedia has meat from the lamb's tail, shoulder or shank, boiled until tender ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); the Srinagar recipe has the same three ([Rising Kashmir](https://www.risingkashmir.com/recipe-kashmiri-aab-gosh-dodhe-maaz/)). Khan uses "one large piece from the lower back", slow-cooked in the milk ([The Kashmir Walla](https://thekashmirwalla.com/?p=72338)); the Srinagar doctors' "sacral area of vertebral column" is the same place in a surgeon's words ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). Two reporters say sheep ribs ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258); [Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). What they share is large pieces rather than small chunks, boiled first and finished in the milk; at the wedding the Srinagar doctors recorded, the dish came as one large piece to a trami of four ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)).
 
 The spices are the Wazwan's gentle register. Sahapedia's list is shallot, garlic paste, ginger powder, fennel powder, cloves, green and black cardamom, cinnamon and salt ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); the Srinagar recipe's is the same with fried shallot paste and ghee ([Rising Kashmir](https://www.risingkashmir.com/recipe-kashmiri-aab-gosh-dodhe-maaz/)). Wikipedia calls the mixture "fennel-based" ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and two accounts add saffron with the green cardamom ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258); [Onmanorama](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html)). Grierson's dictionary has the two foundation spices as *bödiyāna*, sweet fennel, whose kernels are pounded in a mortar, and *shō̃ṭh*, dry ginger ([Grierson, pp. 89 and 899](https://dsal.uchicago.edu/cgi-bin/app/grierson_query.py?qs=fennel&searchhws=no)); see [fennel and dry ginger](/blog/fennel-and-dry-ginger-wazwan).
 
@@ -130,7 +130,7 @@ We have found none. The 1988 Pandit cookbook's index lists no dish of meat cooke
 
 ### Which cut of meat is used?
 
-Large pieces: tail, shoulder or shank in Sahapedia's account, one large piece from the lower back in a waza's, "the sacral area of the vertebral column" in a medical paper's, sheep ribs in two reporters'. Each diner gets one piece.
+Large pieces: tail, shoulder or shank in Sahapedia's account, one large piece from the lower back in a waza's, "the sacral area of the vertebral column" in a medical paper's, sheep ribs in two reporters'. At the wedding a medical team recorded in 2012, it came as one large piece to a trami of four.
 
 ### How many calories are in aab gosht?
 
@@ -205,6 +205,8 @@ Every claim is listed with its source in `../research/05-aab-gosht.md`. Points t
 11. **Shir and āb.** The Persian meanings (*shir* milk, *āb* water) are from Wikipedia's Noon chai and Abgoosht articles; the "crossed them" observation is ours and is framed as such, with an explicit refusal to date it.
 12. **Zangāra.** The verdigris entry is from the Digital South Asia Library's "curds" search excerpt and is paraphrased; the inference about tinning and nickel plating is ours, resting on the reporters' "nickel-plated copper".
 13. **The Gujar dairy paragraph** rests on archive full-text search snippets (scan pages 344, 398, 400 and 434) and is cited by chapter.
+
+14. **Corrected 17 October 2026: "one piece per diner".** No source supported it; SKIMS 2012 recorded "Aab-Ghosh 1 large piece" per trami of four. The body's cut paragraph and the FAQ now say one large piece to a trami, with the citation.
 
 ## Internal links used
 
