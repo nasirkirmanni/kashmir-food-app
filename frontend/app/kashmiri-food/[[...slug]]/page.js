@@ -9,9 +9,12 @@ import AskWazaAIPrompt from "../AskWazaAIPrompt";
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import JsonLd from "@/components/JsonLd";
-import { buildArticleSchema } from "@/components/JsonLd";
+import { buildArticleSchema, buildFaqSchema } from "@/components/JsonLd";
 import { toMetaDescription } from "@/lib/metaText";
 import { stripLeadingTitle } from "@/lib/markdownTitle";
+import { faqsFromMarkdown } from "@/lib/markdownFaq";
+import { countWords, sourcesFromMarkdown } from "@/lib/storyStructure";
+import { WAZWAN_ENTITY, dishEntity } from "@/data/coreSevenFacts";
 import { guideCrumbName, guideRelatedMarkdown } from "@/lib/guideRelated";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
@@ -287,7 +290,15 @@ export default function Page({ params }) {
     if (!article) {
       notFound();
     }
-    
+
+    // Structured data from what the guide shows: its sources as citations, its FAQ section, the
+    // core-seven dishes it links to as entities, and, for Wazwan guides, the feast it is about.
+    const body = stripLeadingTitle(article.content, article.title);
+    const faqs = faqsFromMarkdown(article.content);
+    const linkedDishes = [...new Set([...body.matchAll(/\]\(\/dishes\/([a-z0-9-]+)\)/g)].map((m) => m[1]))];
+    const mentions = linkedDishes.map(dishEntity).filter(Boolean);
+    const guideIndex = `/kashmiri-food/${category}/guide`;
+
     return (
       <div className="min-h-screen pt-28 pb-32 px-4 sm:px-6 flex flex-col items-center page-shell relative">
         <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
@@ -302,9 +313,18 @@ export default function Page({ params }) {
               dateModified: article.updatedDate,
               category: `Kashmiri ${category.replace("-", " ")}`,
               path: `/kashmiri-food/${category}/guide/${article.slug}`,
+              image: "/wazwan-hero.jpg",
               readTime: article.readTime,
+              wordCount: countWords(body),
+              citation: sourcesFromMarkdown(body),
+              mentions,
+              ...(category === "wazwan" && {
+                about: WAZWAN_ENTITY,
+                isPartOf: { "@type": "CollectionPage", name: "Wazwan guides", url: `https://wazwanway.com${guideIndex}` },
+              }),
             })}
           />
+          {faqs.length > 0 && <JsonLd data={buildFaqSchema(faqs)} />}
           {/* The visible trail and its BreadcrumbList schema, from one list. Wazwan guides sit
               under the main Wazwan page, as the guide index's own back link does. */}
           <div className="mb-10">

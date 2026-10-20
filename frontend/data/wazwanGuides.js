@@ -6,7 +6,7 @@ export const wazwanGuides = [
     category: "wazwan",
     title: "How Much Does Wazwan Cost? A Practical Price Guide",
     description: "A breakdown of what Wazwan costs across restaurants, weddings, and fine dining in Srinagar — and what's actually driving those prices.",
-    readTime: "6 min read",
+    readTime: "5 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
     updatedDate: "October 11, 2026",
@@ -120,7 +120,7 @@ Some waza teams travel to cook outside Kashmir, and Wazwan is served at Kashmiri
     category: "wazwan",
     title: "Vegetarian Wazwan: What to Expect and What to Order",
     description: "A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
-    readTime: "6 min read",
+    readTime: "5 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
     updatedDate: "October 11, 2026",
@@ -327,10 +327,10 @@ Some smaller, locally-oriented restaurants and dhabas serve food closer to home-
     category: "wazwan",
     title: "Rista vs Gushtaba: The Twin Meatballs of Kashmir",
     description: "Rista and gushtaba compared: the same hand-pounded mutton, two sizes, a red gravy and a white one, and where each comes in a Wazwan.",
-    readTime: "3 min read",
+    readTime: "4 min read",
     author: "WazwanWay Team",
     date: "June 23, 2026",
-    updatedDate: "October 12, 2026",
+    updatedDate: "October 21, 2026",
     related: ["how-wazwan-is-served", "waza-meaning", "history-of-wazwan", "wazwan-vs-mughlai", "gi-tag-gushtaba-tabak-maaz"],
     stories: ["rista-pounded-meatballs", "gushtaba-last-dish-of-wazwan"],
     content: `Rista and gushtaba are the two meatball dishes of a Wazwan. They start from the same pounded mutton and become different dishes: rista small, in a red gravy, early in the meal; gushtaba large, in a white yogurt gravy, at the end of it. Each has its own page with a recipe: [rista](/dishes/rista) and [gushtaba](/dishes/gushtaba).
@@ -340,7 +340,7 @@ Some smaller, locally-oriented restaurants and dhabas serve food closer to home-
 | | Rista | Gushtaba |
 |---|---|---|
 | Meat | Mutton pounded with fat | The same, shaped into larger balls |
-| Size | About 80 to 100 g, one for each diner | One of 200 to 400 g, shared by the four at a trami |
+| Size | About 80 to 100 g, one for each diner | One large ball, shared by the four at a trami: 200 to 400 g, or 500 to 750 g in one 2012 account |
 | Gravy | Red: Kashmiri chilli, coloured with mawal or alkanet, with saffron and fennel | White: yakhni, made with yogurt and mutton broth and topped with cumin and dried mint |
 | When it comes | Early, soon after the trami's first dishes | Last in the main meal, before dessert and kahwa |
 
@@ -363,7 +363,25 @@ Rista comes early. Gulf News calls it the second course, and Outlook India lists
 
 Gushtaba comes last. "As a rule, the meal must end with gushtaba" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)), and its arrival signals that the main course is over ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). Desserts follow ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and kahwa closes the feast ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
 
-At the trami each diner gets a rista of their own, while a single gushtaba is shared by the four and divided by the eldest ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). For the rest of the order and the manners at the trami, see [How Wazwan Is Served](/kashmiri-food/wazwan/guide/how-wazwan-is-served).
+At the trami each diner gets a rista of their own, while a single gushtaba is shared by the four and divided by the eldest ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Sahapedia gives about 80 to 100 g for a rista and 200 to 400 g for the gushtaba; the researchers who recorded the dishes at a Srinagar wedding in 2012 gave the gushtaba as 500 to 750 g ([Ahmad, Akhter and Masoodi, *JMS SKIMS*, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). For the rest of the order and the manners at the trami, see [How Wazwan Is Served](/kashmiri-food/wazwan/guide/how-wazwan-is-served).
+
+## Frequently asked questions
+
+### What is the difference between rista and gushtaba?
+
+Both are balls of hand-pounded mutton. Rista is small, one for each diner, cooked in a red gravy and served early; gushtaba is large, one shared by the four at a trami, cooked in a white yogurt gravy and served last.
+
+### Are rista and gushtaba made from the same meat?
+
+Yes. The same paste of mutton pounded with fresh sheep fat, black cardamom and salt is shaped into small balls for rista and larger ones for gushtaba, and both are boiled before they go into their gravies.
+
+### Which comes first, rista or gushtaba?
+
+Rista, early in the meal. Gushtaba is served last, and its arrival signals that the main course is over.
+
+### How big are rista and gushtaba?
+
+Sahapedia gives about 80 to 100 g for a rista and 200 to 400 g for the gushtaba that serves a trami of four. A 2012 study of a Srinagar wedding recorded a gushtaba of 500 to 750 g.
 
 ## Sources
 
@@ -373,7 +391,8 @@ At the trami each diner gets a rista of their own, while a single gushtaba is sh
 - Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
 - ["Wazwan: The royal meal of paradise"](https://www.onmanorama.com/food/features/2021/11/10/wazwan-royal-meal-of-kashmir-paradise.html), Onmanorama, 10 November 2021.
 - ["Rogan Josh, Tabak Maaz, Rista, Goshtaba… royal Kashmiri wazwan, a feast for the senses"](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710), Gulf News, 20 January 2022.
-- Naseer Ganai, ["Why Kashmir's Famed Wazwan Is Always On The Diplomacy Menu"](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258), Outlook India, 2022.`,
+- Naseer Ganai, ["Why Kashmir's Famed Wazwan Is Always On The Diplomacy Menu"](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258), Outlook India, 2022.
+- Mushtaq Ahmad, Sakina Akhter and Shariq R. Masoodi, ["Wazwan the Kashmiri Cuisine - A Caloric Bomb"](https://www.jmsskims.org/index.php/jms/article/view/153), *JMS SKIMS* 15(2), 2012.`,
   }
   ,
 
@@ -566,17 +585,17 @@ Eating less of it rather than giving it up: the 2012 study suggested reducing "t
     category: "wazwan",
     title: "What Does Waza Mean? The Cooks Behind Wazwan",
     description: "A waza is a professional Wazwan cook, led by a vasta waza. What the word means, how the teams work, where wazas come from and how the craft is passed on.",
-    readTime: "5 min read",
+    readTime: "3 min read",
     author: "WazwanWay Team",
     date: "June 23, 2026",
-    updatedDate: "October 11, 2026",
+    updatedDate: "October 21, 2026",
     related: ["history-of-wazwan", "how-wazwan-is-served", "restaurant-vs-wedding-vs-home", "cost-guide"],
     stories: ["gushtaba-last-dish-of-wazwan", "rista-pounded-meatballs"],
     content: `A **waza** is a professional Wazwan cook. The word means cook, and it gives the feast its name: *waz*, cook, and *wan*, usually glossed as shop ([District Budgam](https://budgam.nic.in/culinary-delight/wazwan/); [Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). The head cook is the **vasta waza**, also written *wasta* or *wouste waze*.
 
 ## What the vasta waza does
 
-The vasta waza leads the team and supervises rather than doing the heavy work himself ([JK Arts Foundation](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people)). A Kashmiri restaurateur told Asia Media Centre that a vasta waza may watch over 15 to 20 cooking pots at once ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
+The vasta waza leads the team and supervises rather than doing the heavy work himself ([JK Arts Foundation](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people)). Asia Media Centre describes a vasta waza keeping watch over roughly 15 to 20 degs, the large cooking pots, at once ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
 Families book their waza first and often fix the wedding date around him ([JK Arts Foundation](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people)). In 2015 *The Tribune* reported that a wedding Wazwan takes at least six to eight wazas, and one waza said his bookings had started six months ahead ([The Tribune](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343)). Sahapedia describes three or four wazas with assistants for 200 to 300 kg of meat, and working days of 18 to 20 hours in the wedding season ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). The cooking often starts before dawn or runs through the night ([JK Arts Foundation](https://www.jkartsfoundation.in/post/kashmiri-wazwan-celebration-of-food-culture-and-people); [J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)).
 
@@ -596,6 +615,24 @@ At a wedding the wazas set up a temporary kitchen at the host's home and cook in
 
 Younger men are leaving the trade ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). The son of the waza Reuters interviewed opened a restaurant instead of cooking at weddings, saying the round-the-clock demands were too exhausting ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)).
 
+## Frequently asked questions
+
+### What is a vasta waza?
+
+The head cook of a Wazwan, also written wasta or wouste waze, who leads the team of wazas and supervises rather than doing the heavy work.
+
+### How many wazas cook a wedding Wazwan?
+
+In 2015 *The Tribune* reported that a wedding takes at least six to eight wazas. Sahapedia describes three or four wazas, with assistants, for 200 to 300 kg of meat.
+
+### Where do wazas come from?
+
+Most are based in Srinagar's old city, and many belong to Wazpora, the community of cooks there. Their own tradition traces the craft to cooks from Samarkand in Timur's time, but no document records when or how they came.
+
+### How do wazas learn the craft?
+
+Mostly by apprenticeship, often from father to son, and much of the knowledge is oral. One waza family has also published its recipes, in *Wazwaan: Traditional Kashmiri Cuisine* (Roli Books).
+
 ## Sources
 
 - District Budgam, Government of Jammu & Kashmir, ["Wazwan"](https://budgam.nic.in/culinary-delight/wazwan/).
@@ -613,10 +650,10 @@ Younger men are leaving the trade ([Sahapedia](https://www.sahapedia.org/wazwan-
     category: "wazwan",
     title: "How Wazwan Is Served: The Trami, Serving Order and Etiquette",
     description: "How a Wazwan is served: the hand-washing, the shared copper trami, the serving order from the first dishes to gushtaba, and the manners at the trami.",
-    readTime: "6 min read",
+    readTime: "4 min read",
     author: "WazwanWay Team",
     date: "June 23, 2026",
-    updatedDate: "October 11, 2026",
+    updatedDate: "October 21, 2026",
     related: ["history-of-wazwan", "waza-meaning", "restaurant-vs-wedding-vs-home", "vegetarian-wazwan"],
     stories: ["tabak-maaz-ribs-cooked-twice", "gushtaba-last-dish-of-wazwan"],
     content: `A Wazwan is served in a set order, from a shared copper platter, by the cooks themselves. This guide covers what happens at the trami, from the hand-washing to the last course, and the manners that go with it. For the dishes themselves, see [Traditional Wazwan](/dishes).
@@ -654,6 +691,28 @@ After the first dishes, the wazas bring the gravies to each trami one course at 
 
 Restaurants serve Wazwan as set menus or as single dishes, so not every part of the ritual applies. Our guide to [restaurant, wedding and home Wazwan](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what changes, and [where to eat in Srinagar](/restaurants/best-wazwan-srinagar) lists places to try it.
 
+## Frequently asked questions
+
+### How many people share a trami?
+
+Four. Guests are grouped in fours, each group shares one trami, and each diner eats from their own quarter of it.
+
+### What is the tash-t-naer?
+
+A copper basin and ewer. Attendants bring it round so each guest can wash their hands before the food arrives, and again when the meal is over.
+
+### Is Wazwan eaten with the hands?
+
+Yes. Traditionally no spoons, forks or knives are used, and the food is eaten by hand, by custom the right hand. Hosts now usually provide napkins.
+
+### What is served first at a Wazwan?
+
+The trami arrives with a mound of rice and the first dishes laid on it: seekh kebabs, methi maaz, tabak maaz and chicken. The gravies follow one course at a time, commonly starting with rista and rogan josh.
+
+### Do guests take leftovers home?
+
+Usually. Guests are given bags for what is left on the trami, a custom one restaurateur says became accepted only in recent decades.
+
 ## Sources
 
 - Wikipedia, ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan).
@@ -674,10 +733,10 @@ Restaurants serve Wazwan as set menus or as single dishes, so not every part of 
     category: "wazwan",
     title: "History of Wazwan: Legends, Evidence and How the Feast Took Shape",
     description: "Where Wazwan comes from: the Timur story the wazas tell, what the historical record shows, the earliest descriptions of Kashmiri feasts, and how the menu changed.",
-    readTime: "8 min read",
+    readTime: "5 min read",
     author: "WazwanWay Team",
     date: "June 23, 2026",
-    updatedDate: "October 11, 2026",
+    updatedDate: "October 21, 2026",
     related: ["waza-meaning", "how-wazwan-is-served", "wazwan-vs-mughlai", "cost-guide"],
     stories: ["rogan-josh-history", "tabak-maaz-ribs-cooked-twice", "gushtaba-last-dish-of-wazwan"],
     content: `Ask where Wazwan comes from and you will usually hear one story: that Timur brought cooks from Samarkand. The written record tells a slower and less certain one. This page sets out what is documented, what is told, and where the two part ways. The short version is on our [Traditional Wazwan](/dishes) page.
@@ -720,6 +779,24 @@ The core techniques continue: meat is still pounded by hand and cooked over wood
 
 > "When the last Waza puts down his copper ladle, it will not be a recipe that is lost. It will be a language."
 
+## Frequently asked questions
+
+### How old is Wazwan?
+
+No document dates it. Reuters puts its arrival from Central Asia in the 14th century and Sahapedia about 600 years ago, but neither cites a source. The earliest description of feasts like it is in the *Tuhfat-ul-Ahbab*, a Persian work completed in the early 17th century.
+
+### When did the 36-course Wazwan begin?
+
+No source records it. Thirty-six is the number most often given for a full royal Wazwan, a 2016 review gives seven to 36 dishes, and a waza told Reuters in 2026 that his forefathers served seven mutton dishes where about 20 are served now.
+
+### Has the government ever limited Wazwan?
+
+Yes. In the 1960s G. M. Sadiq, then head of the state government, tried to phase it out and then limited guest numbers. In February 2017 the state government announced an order capping weddings at seven non-vegetarian and seven vegetarian dishes plus two sweets.
+
+### What makes Wazwan's red dishes red?
+
+Kashmiri chilli and mawal, dried cockscomb flowers, rather than tomato, which reached Indian cooking only after Europeans introduced it.
+
 ## Sources
 
 - Jammu & Kashmir Tourism Development Corporation, ["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx).
@@ -739,7 +816,7 @@ The core techniques continue: meat is still pounded by hand and cooked over wood
     "category": "wazwan",
     "title": "Wazwan vs Mughlai Cuisine: Understanding the Differences",
     "description": "A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India.",
-    "readTime": "9 min read",
+    "readTime": "2 min read",
     "author": "WazwanWay Team",
     "date": "June 23, 2026",
     "updatedDate": "October 11, 2026",

@@ -2,6 +2,38 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { wazwanGuides } from "../data/wazwanGuides";
 import { metadata as dishesMetadata } from "../app/dishes/layout";
+import { stripLeadingTitle } from "./markdownTitle";
+import { countWords, readMinutes, sourcesFromMarkdown } from "./storyStructure";
+import { faqsFromMarkdown } from "./markdownFaq";
+
+const WAZWAN_GUIDES = wazwanGuides.filter((g) => g.category === "wazwan");
+
+describe("every Wazwan guide", () => {
+  it("states the read time its words give (words ÷ 230, link URLs not counted)", () => {
+    for (const g of WAZWAN_GUIDES) {
+      expect(g.readTime, g.slug).toBe(`${readMinutes(countWords(stripLeadingTitle(g.content, g.title)))} min read`);
+    }
+  });
+
+  it("lists its sources, apart from the four guides still waiting for a sourced rewrite", () => {
+    const unsourced = WAZWAN_GUIDES.filter((g) => sourcesFromMarkdown(g.content).length === 0).map((g) => g.slug);
+    // Shrink this list as each is rewritten from sources; a new guide must never join it.
+    expect(unsourced.sort()).toEqual(["cost-guide", "restaurant-vs-wedding-vs-home", "vegetarian-wazwan", "wazwan-vs-mughlai"]);
+  });
+
+  it("gives every question in a FAQ section an answer", () => {
+    const withFaq = WAZWAN_GUIDES.filter((g) => /^##\s+frequently asked questions\s*$/im.test(g.content));
+    expect(withFaq.map((g) => g.slug).sort()).toEqual(
+      ["gi-tag-gushtaba-tabak-maaz", "history-of-wazwan", "how-wazwan-is-served", "rista-vs-gushtaba", "waza-meaning", "wazwan-calories"],
+    );
+    for (const g of withFaq) {
+      const faqs = faqsFromMarkdown(g.content);
+      const asked = (g.content.split(/^##\s+frequently asked questions\s*$/im)[1].split(/^##\s/m)[0].match(/^###\s/gm) || []).length;
+      expect(faqs.length, g.slug).toBe(asked);
+      for (const faq of faqs) expect(faq.answer.length, `${g.slug}: ${faq.question}`).toBeGreaterThan(40);
+    }
+  });
+});
 
 const guide = (slug) => wazwanGuides.find((g) => g.slug === slug);
 const number = (text) => Number(String(text).replace(/[^0-9]/g, ""));
