@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import dishesData from "@/data/dishes.json";
 import { sanitizeDish } from "@/lib/dishContent";
 import { withoutRemovedDishes } from "@/lib/removedDishes";
-import { arrangeWazwan, vesselIndex } from "@/lib/wazwanSequence";
+import { ESSENTIAL_ORDER, arrangeWazwan, vesselIndex } from "@/lib/wazwanSequence";
 import WazwanHero from "@/components/wazwan/WazwanHero";
 import ChapterNav from "@/components/wazwan/ChapterNav";
 import ServiceOrder from "@/components/wazwan/ServiceOrder";
@@ -17,6 +17,7 @@ import JsonLd, {
   buildSlugItemListSchema,
 } from "@/components/JsonLd";
 import { PILLAR_REVIEWED, WAZWAN_FAQ, WAZWAN_IN_BRIEF } from "@/data/wazwanPillar";
+import { WAZWAN_ENTITY, dishEntity } from "@/data/coreSevenFacts";
 import { inlineText } from "@/lib/markdownFaq";
 import styles from "@/components/wazwan/wazwan.module.css";
 
@@ -66,6 +67,9 @@ async function loadWazwanDishes() {
 // the questions answered on the page, and the dishes listed, in serving order.
 function pageSchemas(chapters) {
   const url = "https://wazwanway.com/dishes";
+  const slugs = chapters.flatMap((chapter) => chapter.dishes.map((dish) => dish.slug));
+  // The seven essential dishes shown here, each named as an entity (Wikipedia, Wikidata) with its story.
+  const mentions = ESSENTIAL_ORDER.filter((slug) => slugs.includes(slug)).map(dishEntity).filter(Boolean);
   const article = {
     ...buildArticleSchema({
       title: "Traditional Wazwan",
@@ -76,9 +80,9 @@ function pageSchemas(chapters) {
       dateModified: PILLAR_REVIEWED,
       category: "Wazwan",
     }),
-    about: { "@type": "Thing", name: "Wazwan", sameAs: "https://en.wikipedia.org/wiki/Wazwan" },
+    about: WAZWAN_ENTITY,
+    ...(mentions.length ? { mentions } : {}),
   };
-  const slugs = chapters.flatMap((chapter) => chapter.dishes.map((dish) => dish.slug));
   return [
     article,
     buildBreadcrumbSchema([

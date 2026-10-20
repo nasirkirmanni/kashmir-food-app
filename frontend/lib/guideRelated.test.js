@@ -45,6 +45,7 @@ describe("guideCrumbName", () => {
       "rista-vs-gushtaba": "Rista vs Gushtaba",
       "gi-tag-gushtaba-tabak-maaz": "Gushtaba and Tabak Maaz GI Tags",
       "waza-meaning": "What Does Waza Mean?",
+      "wazwan-calories": "How Many Calories Are in a Wazwan?",
       "how-wazwan-is-served": "How Wazwan Is Served",
       "history-of-wazwan": "History of Wazwan",
       "wazwan-vs-mughlai": "Wazwan vs Mughlai Cuisine",

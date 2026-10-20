@@ -13,7 +13,7 @@ export const PILLAR_REVIEWED = "2026-10-11";
 
 export const WAZWAN_IN_BRIEF = {
   definition:
-    "**Wazwan** is the formal multi-course feast of Kashmir. Its dishes, mostly mutton, are cooked by professional cooks called wazas under a head cook, the vasta waza, and served on a copper trami that four guests share. It is best known from Kashmiri Muslim weddings, and it is a different thing from everyday Kashmiri home cooking.",
+    "**Wazwan** is the formal multi-course feast of Kashmir. Its dishes, mostly mutton, are cooked by professional cooks called wazas under a head cook, the vasta waza, and served on a copper trami that four guests share. It is best known from Kashmiri Muslim weddings, and it is a different thing from everyday Kashmiri home cooking. The name joins *waz*, cook, and *wan*, usually given as shop.",
   facts: [
     { term: "Dishes", value: "7 to 36, depending on the occasion", source: "rather-2016" },
     { term: "Cooked by", value: "Wazas, led by a vasta waza", source: "jktdc" },
@@ -60,7 +60,7 @@ The craft runs in families. Ghulam Nabi Baba, a 74-year-old waza, told Reuters i
     title: "How many dishes",
     body: `There is no fixed number. A 2016 review in the *Journal of Ethnic Foods* puts a Wazwan at seven to 36 dishes ([Rather, Masoodi and Akhter](https://doi.org/10.1016/j.jef.2016.12.002)). Thirty-six is the traditional figure for the grandest feasts ([JKTDC](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)), but most menus are smaller.
 
-Sahapedia describes the feast growing from a seven-dish meal to 12 to 24 dishes ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), and Ghulam Nabi Baba told Reuters there were seven mutton dishes in his forefathers' time and about 20 now ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). A funeral Wazwan usually has at least seven dishes, a Kashmiri restaurateur told Asia Media Centre ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Restaurants serve smaller set menus or single dishes.
+Sahapedia describes the feast growing from a seven-dish meal to 12 to 24 dishes ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), and Ghulam Nabi Baba told Reuters there were seven mutton dishes in his forefathers' time and about 20 now ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). A funeral Wazwan usually has at least seven dishes, according to Asia Media Centre ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Restaurants serve smaller set menus or single dishes.
 
 The dishes on this page are the Wazwan dishes in our catalogue, in the order they're served. Seven of them are commonly listed as essential, and they're marked.`,
   },
