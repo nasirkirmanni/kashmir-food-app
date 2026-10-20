@@ -86,3 +86,22 @@ describe("/dishes title", () => {
     expect(`${title} | Wazwan Way`.length).toBeLessThanOrEqual(75);
   });
 });
+
+describe("the Waza AI page's server-rendered description", () => {
+  it("links example questions to pages that exist and hold the answers", async () => {
+    const { WAZA_EXAMPLES } = await import("../components/AboutWaza");
+    const { blogPosts } = await import("../data/blogPosts");
+    expect(WAZA_EXAMPLES).toHaveLength(3);
+    const hrefs = WAZA_EXAMPLES.map((e) => e.href);
+    expect(hrefs).toContain("/dishes");
+    for (const href of hrefs.filter((h) => h.startsWith("/blog/"))) {
+      expect(blogPosts.some((p) => `/blog/${p.slug}` === href), href).toBe(true);
+    }
+    for (const e of WAZA_EXAMPLES) expect(e.answer.length, e.question).toBeGreaterThan(40);
+  });
+
+  it("is announced in llms.txt", () => {
+    const llms = readFileSync(new URL("../public/llms.txt", import.meta.url), "utf8");
+    expect(llms).toContain("https://wazwanway.com/waza-ai)");
+  });
+});
