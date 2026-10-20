@@ -105,3 +105,46 @@ describe("the Waza AI page's server-rendered description", () => {
     expect(llms).toContain("https://wazwanway.com/waza-ai)");
   });
 });
+
+describe("release 20: restaurants named where AI answers look", () => {
+  it("both stories name the three all-five-lists restaurants with links", async () => {
+    const { blogPosts } = await import("../data/blogPosts");
+    for (const slug of ["rogan-josh-history", "tabak-maaz-ribs-cooked-twice"]) {
+      const post = blogPosts.find((p) => p.slug === slug);
+      for (const href of ["/restaurants/ahdoos", "/restaurants/mughal-darbar", "/restaurants/shamyana"]) {
+        expect(post.content, `${slug} → ${href}`).toContain(`](${href})`);
+      }
+      expect(post.content, slug).toContain("all five published Srinagar lists we compared in September 2026");
+    }
+  });
+
+  it("every venue fact carries at least one dated source link, and the guide covers the same three", async () => {
+    const { RESTAURANT_FACTS } = await import("../data/restaurantFacts");
+    const { restaurantGuides } = await import("../data/restaurantGuides");
+    expect(Object.keys(RESTAURANT_FACTS).sort()).toEqual(["ahdoos", "mughal-darbar", "shamyana"]);
+    for (const [slug, venue] of Object.entries(RESTAURANT_FACTS)) {
+      expect(venue.summary.length, slug).toBeLessThanOrEqual(230);
+      expect(venue.facts.length, slug).toBeGreaterThanOrEqual(3);
+      for (const fact of venue.facts) {
+        expect(fact.refs.length, `${slug}: ${fact.text.slice(0, 40)}`).toBeGreaterThan(0);
+        for (const ref of fact.refs) {
+          expect(ref.href, ref.label).toMatch(/^https:\/\//);
+          expect(ref.label).toMatch(/\d{4}|Sahapedia/);
+        }
+      }
+      expect(restaurantGuides[0].content, slug).toContain(`(/restaurants/${slug})`);
+    }
+  });
+
+  it("the guide's additions keep the sourcing rules", async () => {
+    const { restaurantGuides } = await import("../data/restaurantGuides");
+    const guide = restaurantGuides[0].content;
+    expect(guide).toContain("Also named on published lists.");
+    expect(guide).toContain("Kareema");
+    expect(guide).toContain("it doesn't single out Wazwan there");
+    expect(guide).toContain("Courses, and ordering for two.");
+    expect(guide).toContain("- **Kareema and Stream:**");
+    expect(guide).toContain("- **Serving format (trami and gushtaba):**");
+    expect(restaurantGuides[0].updated).toBe("October 21, 2026");
+  });
+});
