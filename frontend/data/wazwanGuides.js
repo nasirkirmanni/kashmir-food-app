@@ -460,6 +460,105 @@ Open the two records on the GI Registry's public search: [application 1336](http
   }
   ,
 
+  {
+    slug: "wazwan-calories",
+    category: "wazwan",
+    title: "How Many Calories Are in a Wazwan? The Dish-by-Dish Figures",
+    description: "About 5,500 calories a guest in the one published count, a 2012 Srinagar wedding where a trami for four held 21,933 with rice. Dish by dish, with sources.",
+    readTime: "7 min read",
+    author: "WazwanWay Team",
+    date: "October 20, 2026",
+    updatedDate: "October 20, 2026",
+    related: ["how-wazwan-is-served", "rista-vs-gushtaba", "cost-guide"],
+    stories: ["rista-pounded-meatballs", "gushtaba-last-dish-of-wazwan", "tabak-maaz-ribs-cooked-twice"],
+    content: `A Wazwan came to about 5,500 calories a guest in the only published count we know of. At a Srinagar wedding in the autumn of 2012, three researchers from the Sher-i-Kashmir Institute of Medical Sciences (SKIMS) had the vasta waza record every ingredient he used, and worked out that a trami for four carried 18,484 calories in its eleven dishes and about 3,450 in rice: 21,933 in all, or 5,483 for each guest ([Ahmad, Akhter and Masoodi, *JMS SKIMS*, 2012](https://www.jmsskims.org/index.php/jms/article/view/153)). A 2026 health advisory in Srinagar estimated less, 6,000 to 9,000 calories a trami, or 1,500 to 2,250 a person ([Kashmir Reader, 2026](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/)).
+
+This page sets out what was counted, dish by dish, and why the two figures differ. It reports published figures; it isn't dietary or medical advice.
+
+## How the feast was counted
+
+The three were Mushtaq Ahmad, of the SKIMS department of medicine, and Sakina Akhter and Shariq R. Masoodi, of its department of endocrinology. They chose one wedding at random, with the consent of the host and of the vasta waza, the head cook, and the waza was asked "to keep a record of every ingredient used and the number of servings prepared". The calories were worked out from those lists with the reference tables for Indian foods published by the National Institute of Nutrition in Hyderabad. Because the meat on a trami "varies greatly (usually from 3 kg to 5 kg)", they repeated the exercise three times and averaged the results ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)).
+
+It is a two-page brief report, and it is open about its limits: one wedding, calories estimated from the ingredients rather than measured in a laboratory, and no count of any nutrient but calories, which the authors call "beyond the scope of this study". Its text also has a slip, giving the highest figure, 3,597 calories, to rista; the paper's own table gives that figure to the chicken, and the table is what this page uses.
+
+## The dishes, in serving order
+
+The paper lists the eleven dishes it counted "in the order in which they are served". Per trami is the platter four guests share; per guest is the paper's own division by four. Where the paper spells a dish differently, its spelling is in brackets.
+
+| | Dish | Calories per trami | Per guest |
+|---|---|---|---|
+| 1 | [Methi maaz](/dishes/methi-maaz) (meethi), sheep's intestine and omentum | 1,356 | 339 |
+| 2 | Whole chicken, fried in ghee ([waza kokur](/dishes/waza-kokur)) | 3,597 | 899 |
+| 3 | [Seekh kebab](/dishes/seekh-kebab) (kabab) | 2,960 | 740 |
+| 4 | [Tabak maaz](/dishes/tabak-maaz) (tabakmaaz) | 1,470 | 367 |
+| 5 | Dani, a single piece of meat on the bone | 709 | 177 |
+| 6 | [Rista](/dishes/rista) | 1,814 | 454 |
+| 7 | [Rogan josh](/dishes/rogan-josh) (roganjosh) | 1,322 | 331 |
+| 8 | Tamatar paneer, paneer in tomato gravy ([ruwangan chaman](/dishes/ruwangan-chaman)) | 1,475 | 369 |
+| 9 | [Aab gosht](/dishes/aab-gosht) (aab ghosh) | 934 | 234 |
+| 10 | [Marchwangan korma](/dishes/marchwangan-korma) (marchawangan korma) | 1,059 | 265 |
+| 11 | [Gushtaba](/dishes/gushtaba) (goshtaba) | 1,787 | 447 |
+| | **The eleven dishes** | **18,484** | **4,621** |
+| | Rice, 1 to 2 kg a trami | about 3,450 | |
+| | **With the rice** | **21,933** | **5,483** |
+
+Each figure is the average of the three counts, and the paper gives the spread for each, from 60 calories either way for the dani to 1,348 either way for the chicken. Daniwal korma and yakhni were not among the dishes counted, and the total leaves out the spinach and the fruit and vegetable dishes that the paper lists as also served.
+
+## Where the calories come from
+
+**The chicken.** The whole chicken, one or two to a trami and fried in ghee, carried the most of any dish: 899 calories a guest, with the ghee counted in. The authors called it "the biggest surprise of the study", against "the popular belief that chicken is better than mutton dishes" ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)).
+
+**The kebabs.** Two to four seekh kebabs, each 20 to 30 cm long, came next, at 740 calories a guest.
+
+**The pounded meatballs.** Of the dishes served in a gravy, rista, four balls to a trami, carried the most, 454 calories a guest, just ahead of gushtaba, one ball of 500 to 750 g for the four, at 447. Fat is pounded into both. In a university study of gushtaba, the recipe adds a "considerable amount of animal fat (20 %)" to hold the emulsion, and the traditional batch measured 17 per cent fat and 15.4 per cent protein once cooked ([Rather and others, 2015](https://pmc.ncbi.nlm.nih.gov/articles/PMC4648903/)). A study at SKUAST-Kashmir notes that traditional gushtaba "with an average fat content of 15–25% is having a high sensory appeal" ([Jalal and others, 2015](https://epubs.icar.org.in/index.php/IJAnS/article/download/52460/22155/380222)). Those were batches made for research, not a wedding's, but they show where the calories sit. The craft behind both is in the stories of [rista](/blog/rista-pounded-meatballs) and [gushtaba](/blog/gushtaba-last-dish-of-wazwan).
+
+**The lightest dishes.** The single piece of meat called dani carried 177 calories a guest, [aab gosht](/blog/aab-gosht-milk-curry), cooked in milk, 234, and marchwangan korma 265.
+
+**The rice.** One to two kilograms of rice went on each trami, about 3,450 calories: on its own, about as much as the chicken.
+
+## The 2026 estimate
+
+In June 2026 *Kashmir Reader* published a health advisory by Dr S. Muhammad Salim Khan. It estimated that a trami for four "may contain between 6,000 and 9,000 calories", about 1,500 to 2,250 a person, or "80 to 125 per cent" of an adult's daily need, which it put at 2,300 to 2,700 calories for a moderately active man and 1,800 to 2,200 for a woman. It named large portions of rice, red meat, "meatballs such as Rista and Gushtaba", kebabs, tabak maaz and gravies rich in fats and oils as the main sources, and it closed: "Wazwan is a celebration, not an everyday meal" ([Kashmir Reader](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/)).
+
+The two figures differ by a factor of two or more. The 2012 count is of one wedding's actual ingredients, ghee and rice included. The 2026 article doesn't say how its estimate was made, only that the total depends on the quantity and preparation of the dishes. Trami differ, too: the 2012 authors found 3 to 5 kg of meat on one. What the two agree on is where the calories come from: the rice, the meatballs and the fat.
+
+## What the 2012 authors concluded
+
+The study was written with obesity and diabetes in mind, both "now very common" in Kashmir, the authors noted, and with ready-made Wazwan making it easier to eat the feast more often. They didn't suggest giving it up. Being "rich in protein, calories, iron and vitamin B12", they wrote, it can be useful for growing children and for pregnant and breastfeeding women. Their suggestion was to "reduce the amount served per person" ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). The 2026 advisory makes the same point.
+
+For how the dishes come to the trami, and in what order, see [how Wazwan is served](/kashmiri-food/wazwan/guide/how-wazwan-is-served) and [the full feast, dish by dish](/dishes).
+
+## Frequently asked questions
+
+### How many calories are in a Wazwan?
+
+About 5,500 a guest in the only published count we know of, at a Srinagar wedding in 2012: a trami for four held 18,484 calories in its eleven dishes and 21,933 with the rice. A 2026 health advisory estimated 1,500 to 2,250 a person.
+
+### Which Wazwan dish has the most calories?
+
+The whole chicken fried in ghee, at 899 calories a guest in the 2012 count, then the seekh kebabs at 740. Of the dishes served in a gravy, rista carried the most, 454 a guest, just ahead of gushtaba at 447.
+
+### How many calories are in rista and gushtaba?
+
+In the 2012 count, rista carried 454 calories a guest (1,814 for the four balls on a trami) and gushtaba 447 (1,787 for the one large ball). Both are made from mutton pounded with fat.
+
+### Which Wazwan dishes are the lightest?
+
+Dani, a single piece of meat on the bone, at 177 calories a guest, then aab gosht, cooked in milk, at 234, and marchwangan korma at 265.
+
+### What did the researchers recommend?
+
+Eating less of it rather than giving it up: the 2012 study suggested reducing "the amount served per person", and the 2026 advisory called Wazwan "a celebration, not an everyday meal".
+
+## Sources
+
+- Mushtaq Ahmad, Sakina Akhter and Shariq R. Masoodi, ["Wazwan the Kashmiri Cuisine - A Caloric Bomb"](https://www.jmsskims.org/index.php/jms/article/view/153), *JMS SKIMS* 15(2), 2012, pp. 174 to 175.
+- ["Choose moderation in Wazwan as single trami may contain 6,000-9,000 calories: Health advisory"](https://kashmirreader.com/2026/06/19/choose-moderation-in-wazwan-as-single-trami-may-contain-6000-9000-calories-health-advisory/), *Kashmir Reader*, 19 June 2026.
+- S. A. Rather, R. Akhter, F. A. Masoodi, A. Gani and S. M. Wani, ["Xanthan gum as a fat replacer in goshtaba, a traditional meat product of India: effects on quality and acceptability"](https://pmc.ncbi.nlm.nih.gov/articles/PMC4648903/), *Journal of Food Science and Technology* 52(12), 2015.
+- Heena Jalal, Syed Arshad Hussain, M. Mansoor Bhat and Mir Salahuddin, ["Evaluation of hydrated oatmeal as fat replacer on the shelf life of low fat goshtaba"](https://epubs.icar.org.in/index.php/IJAnS/article/download/52460/22155/380222), *Indian Journal of Animal Sciences* 85(10), 2015.`,
+  }
+  ,
+
 
 
   {
@@ -512,8 +611,8 @@ Younger men are leaving the trade ([Sahapedia](https://www.sahapedia.org/wazwan-
   {
     slug: "how-wazwan-is-served",
     category: "wazwan",
-    title: "How Wazwan Is Served: The Trami, the Order and the Etiquette",
-    description: "How a Wazwan is served: the hand-washing, the shared copper trami, the order of the courses from the first dishes to gushtaba, and the manners at the trami.",
+    title: "How Wazwan Is Served: The Trami, Serving Order and Etiquette",
+    description: "How a Wazwan is served: the hand-washing, the shared copper trami, the serving order from the first dishes to gushtaba, and the manners at the trami.",
     readTime: "6 min read",
     author: "WazwanWay Team",
     date: "June 23, 2026",
@@ -530,13 +629,13 @@ Guests traditionally sit cross-legged on a *dastarkhwan*, a long white cloth spr
 
 Before the food arrives, attendants bring round the **tash-t-naer**, a copper basin and ewer, and pour water over each guest's hands; it comes round again when the meal is over ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [JK Arts Foundation](https://www.jkartsfoundation.in/post/the-art-of-producing-and-designing-copperware)). Traditionally no spoons, forks or knives are used ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)): Wazwan is eaten by hand, by custom the right hand. Hosts now usually provide napkins ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
-## The trami
+## What is a trami?
 
 The **trami** (also written traem or tarami) is a large copper platter. Copperware like it has been made in downtown Srinagar, around Zaina Kadal, since the 19th century, engraved with chinar, almond and arch motifs, and everyday copper is lined with tin, known as *kalai* ([JK Arts Foundation](https://www.jkartsfoundation.in/post/the-art-of-producing-and-designing-copperware)). The trami usually arrives under a copper cover, the *sarposh* ([Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258)).
 
 When the cover comes off, the trami holds a mound of rice with the first dishes laid on it. Wikipedia and the Budgam district administration list two seekh kebabs crossing the rice to divide it into quarters, four pieces of methi maaz, two of tabak maaz, and two chickens, one white (*safed kokur*) and one saffron-coloured (*zafran kokur*) ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [District Budgam](https://budgam.nic.in/culinary-delight/wazwan/)). *Outlook India* describes two halves or two whole chickens. Chutneys and yogurt usually come separately, in small bowls ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)).
 
-## The order of the courses
+## The serving order
 
 After the first dishes, the wazas bring the gravies to each trami one course at a time and serve them onto the rice, usually four pieces at a time, one for each diner ([Gulf News](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710)). The exact dishes vary from cook to cook, and *Outlook India* notes there are no set rules about which are served. A common sequence starts with rista and rogan josh, moves through the other meat dishes, and ends with yakhni and then gushtaba ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan); [Outlook India](https://www.outlookindia.com/national/why-kashmir-s-famed-wazwan-is-always-on-the-diplomacy-menu-news-193258)).
 

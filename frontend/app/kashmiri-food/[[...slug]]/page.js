@@ -104,8 +104,12 @@ export async function generateMetadata({ params }) {
           description: "A waza is a professional Wazwan cook, led by a vasta waza. What the word means, how the teams work, where wazas come from and how the craft is passed on.",
         },
         "how-wazwan-is-served": {
-          title: "How Wazwan Is Served: Trami, Order, Etiquette",
-          description: "How a Wazwan is served: the hand-washing, the shared copper trami, the order of the courses from the first dishes to gushtaba, and the manners at the trami.",
+          title: "How Wazwan Is Served: Trami, Serving Order, Etiquette",
+          description: "How a Wazwan is served: the hand-washing, the shared copper trami, the serving order from the first dishes to gushtaba, and the manners at the trami.",
+        },
+        "wazwan-calories": {
+          title: "How Many Calories Are in a Wazwan? Dish by Dish",
+          description: "About 5,500 calories a guest in the one published count, a 2012 Srinagar wedding where a trami for four held 21,933 with rice. Dish by dish, with sources.",
         },
         "history-of-wazwan": {
           title: "History of Wazwan: Legends and Evidence",

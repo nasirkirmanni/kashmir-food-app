@@ -31,16 +31,19 @@ const GUIDES = {
   wazwan: { href: "/dishes", title: "Traditional Wazwan: the feast, dish by dish" },
   vegetarian: { href: "/kashmiri-food/wazwan/guide/vegetarian-wazwan", title: "Vegetarian Wazwan: What to Expect and What to Order" },
   ristaVsGushtaba: { href: "/kashmiri-food/wazwan/guide/rista-vs-gushtaba", title: "Rista vs Gushtaba: The Twin Meatballs of Kashmir" },
+  // Gives the calories of each dish it lists, from the one published count (SKIMS, 2012).
+  calories: { href: "/kashmiri-food/wazwan/guide/wazwan-calories", title: "How Many Calories Are in a Wazwan? The Dish-by-Dish Figures" },
 };
 
 const ARTICLES_BY_DISH = {
   "daniwal-korma": [BLOG.daniwalKormaStory],
-  "tabak-maaz": [BLOG.tabakMaazStory],
-  "rogan-josh": [BLOG.roganJoshHistory, BLOG.panditFood, BLOG.spicy],
-  gushtaba: [BLOG.gushtabaStory, GUIDES.ristaVsGushtaba, BLOG.spicy],
-  rista: [BLOG.ristaStory, GUIDES.ristaVsGushtaba, BLOG.spicy],
-  "marchwangan-korma": [BLOG.marchwanganKormaStory, BLOG.spicy],
-  "aab-gosht": [BLOG.aabGoshtStory, BLOG.spicy],
+  "tabak-maaz": [BLOG.tabakMaazStory, GUIDES.calories],
+  "rogan-josh": [BLOG.roganJoshHistory, BLOG.panditFood, BLOG.spicy, GUIDES.calories],
+  gushtaba: [BLOG.gushtabaStory, GUIDES.ristaVsGushtaba, GUIDES.calories, BLOG.spicy],
+  rista: [BLOG.ristaStory, GUIDES.ristaVsGushtaba, GUIDES.calories, BLOG.spicy],
+  "marchwangan-korma": [BLOG.marchwanganKormaStory, BLOG.spicy, GUIDES.calories],
+  "aab-gosht": [BLOG.aabGoshtStory, BLOG.spicy, GUIDES.calories],
+  "waza-kokur": [GUIDES.calories],
   "noon-chai": [BLOG.noonChai, BLOG.kahwaVsNoonChai, BLOG.breakfast],
   "kashmiri-kahwa": [BLOG.kahwaVsNoonChai, BLOG.whatToBuy],
   "dum-oluv": [BLOG.panditFood, BLOG.vegetarianFood],

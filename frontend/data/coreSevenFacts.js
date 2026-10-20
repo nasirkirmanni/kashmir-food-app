@@ -124,7 +124,7 @@ export const CORE_SEVEN_FACTS = {
       ["Base", "Yogurt and stock, with praan (the Kashmiri shallot) and garlic roasted golden"],
       ["Herb", "Fresh coriander leaf, not the seed, added at the end"],
       ["Heat", "None: no chilli in any account; the one that names a colour calls the gravy white"],
-      ["Calories", `No published figure: it was not among the dishes weighed in the one study ([SKIMS, 2012](${SKIMS}))`],
+      ["Calories", `No published figure: it was not among the dishes counted in the one study ([SKIMS, 2012](${SKIMS}))`],
     ],
     about: thing("Daniwal korma", "daniwal-korma", [WP("Daniwal_korme"), WD("Q136297320")]),
     mentions: [WAZWAN_ENTITY],
@@ -210,6 +210,6 @@ export const CORE_SEVEN_HUB_FAQ = [
   {
     question: "How were the stories researched?",
     answer:
-      "From sources that could be read and checked: Grierson's Dictionary of the Kashmiri Language, Walter Lawrence's The Valley of Kashmir (1895), Kashmiri cookbooks including the Waza family's own, a 2012 study by doctors at the Sher-i-Kashmir Institute of Medical Sciences that weighed a wedding feast, food-science papers from Srinagar's universities, government figures, the Geographical Indications Registry and reporting from Kashmir. Each story lists its sources, and sources that could not be read are not cited as if they had been.",
+      "From sources that could be read and checked: Grierson's Dictionary of the Kashmiri Language, Walter Lawrence's The Valley of Kashmir (1895), Kashmiri cookbooks including the Waza family's own, a 2012 study by researchers at the Sher-i-Kashmir Institute of Medical Sciences that counted the calories in a wedding feast, food-science papers from Srinagar's universities, government figures, the Geographical Indications Registry and reporting from Kashmir. Each story lists its sources, and sources that could not be read are not cited as if they had been.",
   },
 ];

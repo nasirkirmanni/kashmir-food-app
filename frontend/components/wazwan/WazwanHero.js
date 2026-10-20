@@ -35,8 +35,8 @@ export default function WazwanHero({ total, index }) {
             </div>
             <div className={styles.heroAside}>
               <p className={styles.heroDek}>
-                Kashmir’s formal feast, traditionally cooked through the night by teams of wazas and shared by
-                four diners from a copper trami. Below: {total} of its dishes in the order they’re served, and
+                Wazwan is Kashmir’s formal feast, traditionally cooked through the night by teams of wazas and
+                shared by four diners from a copper trami. Below: {total} of its dishes in the order they’re served, and
                 the story behind the feast.
               </p>
             </div>
