@@ -16,6 +16,8 @@ const SITE = "https://wazwanway.com";
 // pre-examination.
 export const GI_CHECKED = "17 October 2026";
 
+import { coreSevenStoryForDish } from "./coreSevenSeries";
+
 const thing = (name, dish, sameAs = []) => ({
   "@type": "Thing",
   name,
@@ -173,3 +175,41 @@ export const CORE_SEVEN_FACTS = {
     photo: null,
   },
 };
+
+/**
+ * The dish as an entity for its own page's Recipe schema: its identity elsewhere, and the story
+ * about it (Thing.subjectOf). Only the seven essentials have one.
+ */
+export function dishEntity(dishSlug) {
+  const story = coreSevenStoryForDish(dishSlug);
+  const facts = story && CORE_SEVEN_FACTS[story.slug];
+  if (!facts) return null;
+  return {
+    ...facts.about,
+    subjectOf: { "@type": "Article", headline: story.title, url: `${SITE}${story.href}` },
+  };
+}
+
+/** The questions the series page answers, shown on the page and sent as FAQPage schema. */
+export const CORE_SEVEN_HUB_FAQ = [
+  {
+    question: "What are the seven essential dishes of a Wazwan?",
+    answer:
+      "Tabak maaz, rista, rogan josh, aab gosht, daniwal korma, marchwangan korma and gushtaba. Three different sources name the same seven: Wikipedia, citing The Hindu; the Waza family's cookbook, published by Roli Books; and the former tourism director M. Saleem Beg in the Daily Excelsior.",
+  },
+  {
+    question: "Were these the original seven dishes of the Wazwan?",
+    answer:
+      "No one can show that. The feast is often said to have begun as a seven-dish meal, and a 74-year-old waza told Reuters in 2026 that there were only seven mutton dishes in his forefathers' time, but no document names which seven. The stories treat the claim as a tradition, not a record.",
+  },
+  {
+    question: "In what order are the seven served?",
+    answer:
+      "Tabak maaz is on the trami when it arrives; rista opens the gravies; rogan josh, daniwal korma and marchwangan korma follow in the middle of the meal; aab gosht comes among the pale dishes; gushtaba is last. Kitchens vary in the middle of the feast, and the stories say where the accounts differ.",
+  },
+  {
+    question: "How were the stories researched?",
+    answer:
+      "From sources that could be read and checked: Grierson's Dictionary of the Kashmiri Language, Walter Lawrence's The Valley of Kashmir (1895), Kashmiri cookbooks including the Waza family's own, a 2012 study by doctors at the Sher-i-Kashmir Institute of Medical Sciences that weighed a wedding feast, food-science papers from Srinagar's universities, government figures, the Geographical Indications Registry and reporting from Kashmir. Each story lists its sources, and sources that could not be read are not cited as if they had been.",
+  },
+];

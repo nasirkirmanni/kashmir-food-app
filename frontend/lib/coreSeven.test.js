@@ -8,7 +8,8 @@ import {
   coreSevenStory,
   coreSevenStoryForDish,
 } from "../data/coreSevenSeries";
-import { CORE_SEVEN_FACTS, GI_CHECKED } from "../data/coreSevenFacts";
+import { CORE_SEVEN_FACTS, CORE_SEVEN_HUB_FAQ, GI_CHECKED, dishEntity } from "../data/coreSevenFacts";
+import { buildFaqSchema, buildRecipeSchema } from "../components/JsonLd";
 import { ESSENTIAL_ORDER, arrangeWazwan } from "./wazwanSequence";
 import { sectionHeadings } from "./storyStructure";
 
@@ -114,5 +115,57 @@ describe("/dishes", () => {
       expect(entry.story, entry.slug).toEqual(story ? { href: story.href, title: story.title } : null);
     }
     expect(entries.filter((e) => e.story)).toHaveLength(7);
+  });
+});
+
+describe("dish pages", () => {
+  it("give each essential dish its entity and its story, and other dishes nothing", () => {
+    for (const story of CORE_SEVEN_SERIES) {
+      const entity = dishEntity(story.dish);
+      expect(entity.name).toBe(story.name);
+      expect(entity.subjectOf).toEqual({ "@type": "Article", headline: story.title, url: `https://wazwanway.com${story.href}` });
+    }
+    expect(dishEntity("yakhni")).toBeNull();
+  });
+
+  it("put the entity on the Recipe schema as its subject", () => {
+    const rista = dishes.find((d) => d.slug === "rista");
+    const schema = buildRecipeSchema(rista, { about: dishEntity("rista") });
+    expect(schema.about.sameAs).toContain("https://en.wikipedia.org/wiki/Riste_(dish)");
+    expect(schema.about.subjectOf.url).toBe("https://wazwanway.com/blog/rista-pounded-meatballs");
+    expect(buildRecipeSchema(rista).about).toBeUndefined();
+  });
+});
+
+describe("the series page FAQ", () => {
+  it("has questions with substantial answers and matching schema", () => {
+    expect(CORE_SEVEN_HUB_FAQ.length).toBeGreaterThanOrEqual(3);
+    for (const { question, answer } of CORE_SEVEN_HUB_FAQ) {
+      expect(question).toMatch(/\?$/);
+      expect(answer.length).toBeGreaterThan(120);
+      expect(answer).not.toMatch(/original seven dishes were/i);
+    }
+    const schema = buildFaqSchema(CORE_SEVEN_HUB_FAQ);
+    expect(schema.mainEntity.map((q) => q.name)).toEqual(CORE_SEVEN_HUB_FAQ.map((f) => f.question));
+  });
+});
+
+describe("links into the series from older posts", () => {
+  it("exist where the subject calls for them, and the posts carry an updated date", () => {
+    const expected = {
+      "kashmiri-cuisine-explained": ["/blog/core-seven"],
+      "is-kashmiri-food-spicy": ["/blog/marchwangan-korma-chilli", "/blog/rista-pounded-meatballs"],
+      "kashmiri-pandit-food": ["/blog/rogan-josh-history", "/blog/tabak-maaz-ribs-cooked-twice"],
+      "kashmiri-food-sources": ["/blog/core-seven"],
+      "what-to-eat-in-kashmir": ["/blog/core-seven"],
+      "kashmiri-red-chili": ["/blog/rista-pounded-meatballs", "/blog/rogan-josh-history", "/blog/marchwangan-korma-chilli"],
+      "fennel-and-dry-ginger-wazwan": ["/blog/aab-gosht-milk-curry", "/blog/gushtaba-last-dish-of-wazwan"],
+    };
+    for (const [slug, links] of Object.entries(expected)) {
+      const post = blogPosts.find((p) => p.slug === slug);
+      expect(post, slug).toBeTruthy();
+      for (const link of links) expect(post.content, `${slug} → ${link}`).toContain(`](${link})`);
+      expect(post.updatedDate, slug).toBe("October 20, 2026");
+    }
   });
 });

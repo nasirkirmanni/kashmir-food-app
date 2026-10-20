@@ -1,5 +1,5 @@
 import { blogPosts } from "@/data/blogPosts";
-import { CORE_SEVEN_HUB, CORE_SEVEN_PUBLISHED, coreSevenStory } from "@/data/coreSevenSeries";
+import { CORE_SEVEN_HUB, CORE_SEVEN_PUBLISHED, CORE_SEVEN_UPDATED, coreSevenStory } from "@/data/coreSevenSeries";
 import { scenicDrives } from "@/data/scenicDrivesData";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import { PILLAR_REVIEWED } from "@/data/wazwanPillar";
@@ -138,6 +138,7 @@ export default async function sitemap() {
       CORE_SEVEN_HUB,
       latestContentDate(
         CORE_SEVEN_PUBLISHED,
+        CORE_SEVEN_UPDATED,
         ...blogPosts.filter((post) => coreSevenStory(post.slug)).map(articleLastModified)
       )
     ),

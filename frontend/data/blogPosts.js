@@ -1259,6 +1259,7 @@ Early among the gravies: after the first dishes on the trami and after rista, be
     title: "What to Eat in Kashmir: A First-Timer's Guide to the Valley's Food",
     author: "Wazwan Way Team",
     date: "September 15, 2026",
+    updatedDate: "October 20, 2026",
     category: "Travel & Food Guides",
     readTime: "10 min read",
     excerpt: "What to eat in Kashmir, from everyday rice and haakh to Wazwan, bakery breads, noon chai, street food and winter harissa, plus when and where to find each.",
@@ -1314,7 +1315,7 @@ Dishes to look for:
 - **Rogan josh**: mutton in a deep red, aromatic gravy. Its colour comes largely from Kashmiri chilli and traditional colourings, and its heat varies from cook to cook.
 - **Gushtaba**: pounded meatballs in a yogurt gravy, traditionally the last main dish of the meal.
 
-Start with [What is Wazwan?](/dishes) for the full picture, and read [How to Experience Wazwan](/how-to-experience) before you book a table.
+Start with [What is Wazwan?](/dishes) for the full picture, and read [How to Experience Wazwan](/how-to-experience) before you book a table. For the seven dishes every Wazwan has, each with its own long story, see [the core seven](/blog/core-seven).
 
 ## 3. Drink noon chai and eat from the neighbourhood bakery
 
@@ -1802,6 +1803,7 @@ Harissa is the one winter classic vegetarians will have to skip.
     title: "Kashmiri Cuisine Explained: Two Kitchens, Everyday Food and the Wazwan Feast",
     author: "Wazwan Way Team",
     date: "September 15, 2026",
+    updatedDate: "October 20, 2026",
     category: "Heritage Cookery",
     readTime: "11 min read",
     excerpt: "Kashmiri cuisine explained: Pandit and Muslim kitchens, rice and haakh, the spices behind the red colour, bakery and tea culture, and where Wazwan fits in.",
@@ -1945,7 +1947,7 @@ Wazwan is Kashmiri cuisine's grandest expression, but it's a feast, not everyday
   - Wikipedia gives 36 courses, without a citation.
   - A Kashmiri restaurateur quoted by Asia Media Centre has put it at up to 72.
   - Read "36" as the grand ideal, not a fixed number.
-- **The core.** Wikipedia lists seven essential dishes: tabak maaz, rista, rogan josh, daniwal korma, aab gosht, marchwangan korma and gushtaba.
+- **The core.** Wikipedia lists seven essential dishes: tabak maaz, rista, rogan josh, daniwal korma, aab gosht, marchwangan korma and gushtaba. Each has a long story of its own in [the core seven](/blog/core-seven).
 - **How it's served.** Diners wash their hands at a basin called the *tash-t-naer*, then share a copper platter, the *trami*, in groups of four (Wikipedia).
 - **Who cooks it.** Teams of wazas, led by a vasta waza, cook through the night.
 - **Attempts at restraint.** Governments have tried more than once to rein in the size of wedding feasts:
@@ -2166,6 +2168,7 @@ Yes. Harissa is a winter breakfast in Srinagar, sold from early morning, roughly
     title: "Is Kashmiri Food Spicy? Colour, Heat and How It Differs From North Indian Food",
     author: "Wazwan Way Team",
     date: "September 15, 2026",
+    updatedDate: "October 20, 2026",
     category: "Spice Heritage",
     readTime: "8 min read",
     excerpt: "Is Kashmiri food spicy? Mostly aromatic rather than hot: why it looks red, which dishes are mild or hot, and how it differs from North Indian cooking.",
@@ -2290,6 +2293,8 @@ No:
 - **Adulteration.** Wikipedia notes that chilli powder is sometimes adulterated, giving brick powder as an example.
 
 Cooking at home and want the colour without much heat? Kashmir's traditional answer is *mawal* or *ratanjot*, the red colourings that, according to Wikipedia, tomato is now wrongly used to replace.
+
+The one dish on the trami that is hot is marchwangan korma, and [its story](/blog/marchwangan-korma-chilli) explains how a mild chilli makes it so; [rista's story](/blog/rista-pounded-meatballs) shows why red is not the same as hot.
 
 Read [our guide to Kashmiri red chilli](/blog/kashmiri-red-chili). For the bigger picture, see [Kashmiri cuisine explained](/blog/kashmiri-cuisine-explained).
 
@@ -2510,6 +2515,7 @@ Mostly it's aromatic rather than hot, built on fennel, dry ginger and yogurt. So
     title: "Kashmiri Pandit Food: Dishes, Customs and How It Differs From Wazwan",
     author: "Wazwan Way Team",
     date: "September 15, 2026",
+    updatedDate: "October 20, 2026",
     category: "Heritage Cookery",
     readTime: "9 min read",
     excerpt: "Kashmiri Pandit food explained: why it isn't vegetarian, cooking with asafoetida instead of onion and garlic, signature dishes, and Herath festival food.",
@@ -2621,6 +2627,8 @@ Wazwan is the feast tradition of Kashmir's professional Muslim cooks, the *wazas
 | Fried rib dish | Kabargah | Tabak maaz |
 | Salted pink tea | Sheer chai | Noon chai |
 | Where it's cooked | Mostly home kitchens | Wazwan: professional wazas, for weddings and big occasions |
+
+The two rogan joshes have [a story of their own](/blog/rogan-josh-history), and so do the fried ribs, [tabak maaz and kabargah](/blog/tabak-maaz-ribs-cooked-twice).
 
 Our pillar guide, [Kashmiri cuisine explained](/blog/kashmiri-cuisine-explained), shows how both traditions fit into the Valley's food as a whole.
 
@@ -3177,6 +3185,7 @@ For centuries, Kashmiri traditional medicine has revered saffron. Its high antio
     title: "Kashmiri Red Chili: The Spice That Gives Wazwan Its Iconic Color",
     author: "Adnan Kirmanni",
     date: "June 23, 2026",
+    updatedDate: "October 20, 2026",
     category: "Spice Heritage",
     readTime: "5 min read",
     content: `
@@ -3207,6 +3216,8 @@ To achieve this iconic look, the Wazas (chefs) utilize a technique called "bloom
 Kashmiri cuisine rarely relies on the heavy onion-garlic-tomato bases common in the rest of India. Instead, it builds flavor architectures around yogurt (curd), mustard oil, fennel powder (*saunf*), and dry ginger (*sonth*). 
 
 If a highly pungent, hot chili were used, it would instantly overpower the delicate, aromatic notes of the fennel and the sour tang of the yogurt. The mild, sweet profile of the Kashmiri Red Chili acts as the perfect canvas, bringing visual drama and subtle earthy flavor to the feast without destroying the delicate balance of the royal Wazwan.
+
+Read how the chilli colours [rista](/blog/rista-pounded-meatballs) and [rogan josh](/blog/rogan-josh-history), and how it makes [marchwangan korma](/blog/marchwangan-korma-chilli) the one hot dish of the feast.
     `
   },
   {
@@ -3250,6 +3261,7 @@ Whether simmering in a royal Yakhni or sizzling in street-side hot oil, Nadru re
     title: "Fennel and Dry Ginger: The Flavor Foundation of Traditional Wazwan",
     author: "Waza Rashid",
     date: "June 23, 2026",
+    updatedDate: "October 20, 2026",
     category: "Spice Heritage",
     readTime: "6 min read",
     content: `
@@ -3276,6 +3288,8 @@ The master chefs of Kashmir (*Vasta Waza*) do not simply dump these powders into
 Wazas understand osmosis and infusion. Spices are often simmered in stocks or used to create "flavored water," which is then added to the meat. Because many Wazwan dishes are slow-cooked in large copper *degs* over firewood for hours, the fennel and ginger have time to thoroughly permeate the meat fibers right down to the bone.
 
 In Kashmiri cuisine, spices are not meant to "shout" or burn the tongue; they are meant to build a complex, aromatic warmth. Fennel and dry ginger are the undisputed masters of this subtle symphony.
+
+The two spices are at work in [aab gosht](/blog/aab-gosht-milk-curry) and [gushtaba](/blog/gushtaba-last-dish-of-wazwan), whose stories follow them from the mortar to the pot.
     `
   },
 
@@ -3475,6 +3489,7 @@ The pink cup endures. In every kitchen in the Kashmir Valley, every morning, the
     title: "Kashmiri Food and Wazwan: Sources and Further Reading",
     author: "Wazwan Way Team",
     date: "October 12, 2026",
+    updatedDate: "October 20, 2026",
     category: "Travel & Food Guides",
     readTime: "5 min read",
     excerpt: "The published sources behind Wazwan Way's pages on Kashmiri food and Wazwan: reference works, reporting, cookbooks and eating-out guides, with what each is useful for and where it falls short.",
@@ -3524,6 +3539,7 @@ These are ours, listed for convenience and not ranked against the sources above.
 
 - [Traditional Wazwan](/dishes): the feast and its dishes, in serving order
 - [History of Wazwan](/kashmiri-food/wazwan/guide/history-of-wazwan): the legends and the evidence
+- [The core seven](/blog/core-seven): a long story for each essential Wazwan dish, each with its sources listed
 - [Kashmiri Cuisine Explained](/blog/kashmiri-cuisine-explained): the two kitchens, everyday food and where Wazwan fits
 - [Kashmiri Pandit Food](/blog/kashmiri-pandit-food): dishes, customs and how they differ from Wazwan
 - [Where to eat Kashmiri food in Srinagar](/restaurants/best-wazwan-srinagar): each place with the published sources behind it

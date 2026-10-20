@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { wazwanGuides } from "../data/wazwanGuides";
 import { blogPosts } from "../data/blogPosts";
-import { guideRelatedMarkdown } from "./guideRelated";
+import { guideCrumbName, guideRelatedMarkdown } from "./guideRelated";
 
 const links = (markdown) => [...markdown.matchAll(/\]\(([^)]+)\)/g)].map((m) => m[1]);
 
@@ -32,5 +32,23 @@ describe("guideRelatedMarkdown", () => {
     const targets = links(guideRelatedMarkdown(guide, wazwanGuides));
     expect(targets.filter((t) => t.startsWith("/kashmiri-food/wazwan/guide/")).length).toBeGreaterThan(0);
     expect(targets).not.toContain(`/kashmiri-food/wazwan/guide/${guide.slug}`);
+  });
+});
+
+describe("guideCrumbName", () => {
+  it("shortens each guide title to a breadcrumb name", () => {
+    const names = Object.fromEntries(wazwanGuides.map((g) => [g.slug, guideCrumbName(g.title)]));
+    expect(names).toEqual({
+      "cost-guide": "How Much Does Wazwan Cost?",
+      "vegetarian-wazwan": "Vegetarian Wazwan",
+      "restaurant-vs-wedding-vs-home": "Restaurant vs Wedding vs Home",
+      "rista-vs-gushtaba": "Rista vs Gushtaba",
+      "gi-tag-gushtaba-tabak-maaz": "Gushtaba and Tabak Maaz GI Tags",
+      "waza-meaning": "What Does Waza Mean?",
+      "how-wazwan-is-served": "How Wazwan Is Served",
+      "history-of-wazwan": "History of Wazwan",
+      "wazwan-vs-mughlai": "Wazwan vs Mughlai Cuisine",
+    });
+    expect(guideCrumbName("Plain title")).toBe("Plain title");
   });
 });

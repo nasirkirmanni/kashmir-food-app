@@ -20,7 +20,7 @@ import { relatedReadingForDish } from "@/data/relatedReading";
 import { dishNotesFor } from "@/data/dishNotes";
 import DishNotes from "@/components/DishNotes";
 
-export default function DishDetailClient({ initialDish = null }) {
+export default function DishDetailClient({ initialDish = null, entity = null }) {
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
@@ -218,7 +218,7 @@ export default function DishDetailClient({ initialDish = null }) {
 
   const relatedReading = relatedReadingForDish(dish);
   const notes = dishNotesFor(dish.slug);
-  const recipeSchema = buildRecipeSchema(dish);
+  const recipeSchema = buildRecipeSchema(dish, { about: entity || undefined });
 
   return (
     <div className="wazwan-shell">

@@ -16,7 +16,7 @@ import { isoDay } from "@/lib/contentDate";
 import { markdownSummary, toMetaDescription } from "@/lib/metaText";
 import { faqsFromMarkdown } from "@/lib/markdownFaq";
 import { stripLeadingTitle } from "@/lib/markdownTitle";
-import { countWords, headingId, nodeText, sectionHeadings, splitIntro } from "@/lib/storyStructure";
+import { countWords, headingId, nodeText, sectionHeadings, sourcesFromMarkdown, splitIntro } from "@/lib/storyStructure";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -164,6 +164,7 @@ export default function BlogPostPage({ params }) {
     path: `/blog/${post.slug}`,
     readTime: post.readTime,
     wordCount: countWords(content),
+    citation: sourcesFromMarkdown(content),
     ...(facts && {
       about: facts.about,
       mentions: facts.mentions,

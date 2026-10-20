@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dynamic from "next/dynamic";
@@ -10,10 +9,11 @@ import AskWazaAIPrompt from "../AskWazaAIPrompt";
 import dishesData from "@/data/dishes.json";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import JsonLd from "@/components/JsonLd";
-import { buildArticleSchema, buildBreadcrumbSchema } from "@/components/JsonLd";
+import { buildArticleSchema } from "@/components/JsonLd";
 import { toMetaDescription } from "@/lib/metaText";
 import { stripLeadingTitle } from "@/lib/markdownTitle";
-import { guideRelatedMarkdown } from "@/lib/guideRelated";
+import { guideCrumbName, guideRelatedMarkdown } from "@/lib/guideRelated";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export function generateStaticParams() {
   const paths = [
@@ -301,19 +301,20 @@ export default function Page({ params }) {
               readTime: article.readTime,
             })}
           />
-          <JsonLd
-            data={buildBreadcrumbSchema([
-              { name: "Kashmiri Food", url: "https://wazwanway.com/kashmiri-food" },
-              { name: `${category.replace("-", " ")} guide`, url: `https://wazwanway.com/kashmiri-food/${category}/guide` },
-              { name: article.title, url: `https://wazwanway.com/kashmiri-food/${category}/guide/${article.slug}` },
-            ])}
-          />
-          <Link
-            href={`/kashmiri-food/${category}/guide`}
-            className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--saffron)] transition-colors mb-10 text-xs sm:text-sm uppercase tracking-wider font-semibold"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to Guide Index
-          </Link>
+          {/* The visible trail and its BreadcrumbList schema, from one list. Wazwan guides sit
+              under the main Wazwan page, as the guide index's own back link does. */}
+          <div className="mb-10">
+            <Breadcrumbs
+              items={[
+                { name: "Home", href: "/" },
+                category === "wazwan"
+                  ? { name: "Traditional Wazwan", href: "/dishes" }
+                  : { name: "Kashmiri food", href: "/kashmiri-food" },
+                { name: `${category === "wazwan" ? "Wazwan" : category.replace("-", " ")} guides`, href: `/kashmiri-food/${category}/guide` },
+                { name: guideCrumbName(article.title), href: `/kashmiri-food/${category}/guide/${article.slug}` },
+              ]}
+            />
+          </div>
           
           {/* Metadata headers */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-6">

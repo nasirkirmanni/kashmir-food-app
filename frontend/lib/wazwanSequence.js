@@ -94,7 +94,7 @@ export const DISH_PHOTOS = {
   "/images/scroll/RISTA.png": { framed: true, focal: "50% 66%", alt: "Rista meatballs in red gravy in a cooking pot, seen from above" },
   "/images/scroll/ROGAN.png": { framed: true, focal: "50% 58%", alt: "Rogan josh in a cooking pot, seen from above" },
   "/images/scroll/AAB.png": { framed: true, focal: "50% 60%", alt: "Aab gosht, lamb in a pale milk gravy, in a cooking pot" },
-  "/images/scroll/GUSHTABA.png": { framed: true, focal: "50% 62%", alt: "Gushtaba meatballs in yoghurt gravy in a cooking pot, seen from above" },
+  "/images/scroll/GUSHTABA.png": { framed: true, focal: "50% 62%", alt: "Gushtaba meatballs in a golden broth in a cooking pot, seen from above" },
   "/images/dishes/mughal-marchwangan.jpg": { framed: false, focal: "50% 50%", alt: "Marchhwangan korma in a white bowl" },
 };
 
