@@ -51,7 +51,7 @@ _Owner's brief, 20 October 2026: "Continue with seo and aeo boosting. Research t
 4. **Freshness of the newest pages.** /dishes has only just been indexed; the seven stories went live on 15 October and the series page on 17 October. Rankings for new pages take weeks to settle.
 5. **Smaller on-page gaps** on /dishes (title rewrite, definition position, name meaning), fixed in release 17.
 
-## Release 17 (built 20 October 2026, branch `seo/rank-wazwan`)
+## Release 17 (live 20 October 2026, merge `3216651`)
 
 - **/dishes:** the title no longer starts "Wazwan:" ("Kashmiri Wazwan: The Feast and Its Dishes, in Serving Order"); the line under the title now opens "Wazwan is Kashmir's formal feast…", 27 words after the H1; In brief explains the name (*waz*, cook; *wan*, usually given as shop); Article schema names Wazwan with its Wikidata identity (Q4102393) and mentions the seven essential dishes as entities. The funeral figure was attributed to a restaurateur; Asia Media Centre doesn't attribute that paragraph to her, so it is now credited to the article.
 - **New guide:** [How Many Calories Are in a Wazwan?](/kashmiri-food/wazwan/guide/wazwan-calories), from the 2012 SKIMS paper (PDF re-read in full on 20 October), the June 2026 *Kashmir Reader* advisory (re-read), and two gushtaba fat studies. It targets a query whose first page is a PDF, ResearchGate and social posts. Linked from seven dish pages, the rista and gushtaba stories, the guides index, the sitemap, llms.txt and llms-full.txt.
@@ -74,3 +74,17 @@ Dates were not moved on /dishes or the serving guide: the edits are small, and d
 ## How to measure
 
 Re-run these same Startpage searches (no region and India) and compare with the tables above; read Search Console for "wazwan", "wazwan dishes", "what is wazwan" and "wazwan calories" around 9 November and again in late November; re-run the Profound report and compare with the September baseline (10.3%, ChatGPT and Perplexity 0%).
+
+## 21 October: what Google has indexed, and release 18
+
+**Indexed (Startpage, Google results, `site:` and exact-title searches):** /dishes, the series page and all seven stories, and two Wazwan guides, What Does Waza Mean? and the calories guide (indexed within a day of going live). Searching each other guide's exact title on the site returns pages that link to it, never the guide itself, so How Wazwan Is Served, History of Wazwan, Rista vs Gushtaba, Wazwan vs Mughlai, the GI guide, the cost guide, Vegetarian Wazwan and Restaurant vs Wedding vs Home look unindexed. All ten return 200, are self-canonical, `index, follow`, in the sitemap, and linked from the home page and /dishes; their wording overlaps /dishes by 0 to 14 per cent, and the indexed waza guide overlaps it most. So they are most likely sitting in "Discovered" or "Crawled – currently not indexed". The direct fix is the owner's Search Console: URL Inspection, then Request indexing, for each.
+
+**Ranking, where indexed:** "why does wazwan end with gushtaba" #2 (the gushtaba story), "rogan josh history" #7 (the story), "what is rista made of" #5 (/dishes/rista); "tabak maaz meaning" not in the top 10.
+
+**Release 18 (branch `seo/guides-aeo`):**
+- Every guide's Article schema now carries its sources as `citation`, its word count, the core-seven dishes it links as `mentions`, and, for Wazwan guides, `about` Wazwan (Wikidata Q4102393) and `isPartOf` the Wazwan guides collection; guides with a visible FAQ section send matching FAQPage schema.
+- FAQ sections, answered only from what each guide already sources, on How Wazwan Is Served, Rista vs Gushtaba, What Does Waza Mean? and History of Wazwan (dated 21 October 2026).
+- Read times recalculated for every guide by the stories' rule (words ÷ 230, link URLs not counted); several were overstated, Wazwan vs Mughlai most (9 minutes shown for about 2).
+- Rista vs Gushtaba now says where each size comes from and that the sources differ on gushtaba (Sahapedia 200 to 400 g; the 2012 SKIMS paper 500 to 750 g).
+- Corrections: Asia Media Centre's article calls Azmat Ali Mir "her"; the rista and rogan josh stories said "him" and "he", now "her" and "she". The waza guide credited the "15 to 20 degs" figure to the restaurateur; the article states it in its own voice, so it is now credited to the article.
+- Still unsourced, and listed in a test so no new guide joins them: the cost guide, Vegetarian Wazwan, Restaurant vs Wedding vs Home and Wazwan vs Mughlai. Each needs a sourced rewrite; the cost guide also needs current prices from the owner.
