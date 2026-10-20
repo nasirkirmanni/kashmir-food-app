@@ -72,5 +72,6 @@ Each dish page has what the dish is, its place in the feast and a recipe, with s
 
 - [Full text of the Journal and the Wazwan guides](https://wazwanway.com/llms-full.txt): every story, post and guide as markdown in one file
 - [Journal feed](https://wazwanway.com/blog/feed.xml): RSS
+- [Waza AI](https://wazwanway.com/waza-ai): A chat guide that answers from this site's own catalogue of dishes, recipes, restaurants and destinations, and says so when it doesn't know
 - [About Wazwan Way](https://wazwanway.com/about)
 - [Sitemap](https://wazwanway.com/sitemap.xml)
