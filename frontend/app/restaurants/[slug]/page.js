@@ -1,4 +1,6 @@
 import RestaurantDetailClient from "@/components/RestaurantDetailClient";
+import RestaurantFacts from "@/components/RestaurantFacts";
+import { RESTAURANT_FACTS } from "@/data/restaurantFacts";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
@@ -69,7 +71,9 @@ export async function generateMetadata({ params }) {
 
     // No brand here: the restaurants layout's title template appends " | Wazwan Way".
     const title = `${restaurant.name}${restaurant.city ? `, ${restaurant.city}` : ""}: Kashmiri Restaurant`;
+    // A venue the guide covers gets its sourced, dated summary as the description.
     const description = toMetaDescription(
+      RESTAURANT_FACTS[restaurant.slug || params.slug]?.summary ||
       restaurant.description ||
       `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`
     );
@@ -105,9 +109,12 @@ export async function generateMetadata({ params }) {
     const canonicalUrl = `${CANONICAL_BASE}/restaurants/${params.slug}`;
     const name = slugToName(params.slug);
     const title = name ? `${name}: Kashmiri Restaurant` : "Kashmiri Restaurant";
-    const description = name
-      ? `${name} is an authentic Kashmiri restaurant. Discover the menu, ambiance, and Wazwan specialties.`
-      : "Explore authentic Kashmiri restaurants on Wazwan Way.";
+    const description = toMetaDescription(
+      RESTAURANT_FACTS[params.slug]?.summary ||
+      (name
+        ? `${name} is an authentic Kashmiri restaurant. Discover the menu, ambiance, and Wazwan specialties.`
+        : "Explore authentic Kashmiri restaurants on Wazwan Way.")
+    );
     return {
       title,
       description,
@@ -152,6 +159,12 @@ export default async function RestaurantDetailPage({ params }) {
 
   const otherRestaurants = await getOtherRestaurants(restaurant?.slug || params.slug, restaurant?._id || params.slug);
 
-  return <RestaurantDetailClient initialRestaurant={restaurant} otherRestaurants={otherRestaurants} />;
+  return (
+    <>
+      <RestaurantDetailClient initialRestaurant={restaurant} otherRestaurants={otherRestaurants} />
+      {/* Sourced, dated facts for the venues the Srinagar guide covers, in the server HTML. */}
+      <RestaurantFacts slug={restaurant?.slug || params.slug} />
+    </>
+  );
 }
 

@@ -95,7 +95,7 @@ It has changed, and the governments of the day have tried to change it faster. A
 
 ## Eating it for the first time
 
-Most visitors meet tabak maaz in a Srinagar restaurant, where it is served as a starter or as one plate among several; our [guide to eating in Srinagar](/restaurants/best-wazwan-srinagar) lists places that serve Wazwan, and the [cost guide](/kashmiri-food/wazwan/guide/cost-guide) covers prices. Expect pieces of rib that are crisp and brown at the edges and soft between the bones, with the fat left on, no gravy, and little spice; it is eaten with the fingers, with rice, and it comes first. If a menu lists kabargah instead, you now know what the difference is, and isn't.
+Most visitors meet tabak maaz in a Srinagar restaurant, where it is served as a starter or as one plate among several; our [guide to eating in Srinagar](/restaurants/best-wazwan-srinagar) lists places that serve Wazwan — [Ahdoos](/restaurants/ahdoos), [Mughal Darbar](/restaurants/mughal-darbar) and [Shamyana](/restaurants/shamyana) were the only restaurants on all five published Srinagar lists we compared in September 2026 — and the [cost guide](/kashmiri-food/wazwan/guide/cost-guide) covers prices. Expect pieces of rib that are crisp and brown at the edges and soft between the bones, with the fat left on, no gravy, and little spice; it is eaten with the fingers, with rice, and it comes first. If a menu lists kabargah instead, you now know what the difference is, and isn't.
 
 ## Frequently asked questions
 
@@ -1179,7 +1179,7 @@ None of this is a reason to avoid the dish outside Kashmir. It is a reason to kn
 
 ## Eating it for the first time
 
-Weddings are private, so most visitors meet rogan josh in a Srinagar restaurant, as a single dish or as part of a set trami. Our [guide to eating in Srinagar](/restaurants/best-wazwan-srinagar) lists places that serve it, and the [cost guide](/kashmiri-food/wazwan/guide/cost-guide) explains prices.
+Weddings are private, so most visitors meet rogan josh in a Srinagar restaurant, as a single dish or as part of a set trami. Our [guide to eating in Srinagar](/restaurants/best-wazwan-srinagar) lists places that serve it — [Ahdoos](/restaurants/ahdoos), [Mughal Darbar](/restaurants/mughal-darbar) and [Shamyana](/restaurants/shamyana) were the only restaurants on all five published Srinagar lists we compared in September 2026 — and the [cost guide](/kashmiri-food/wazwan/guide/cost-guide) explains prices.
 
 What to expect: a deep red gravy with a layer of oil on top, pieces of mutton on the bone, and no sweetness from tomato. Eat it with rice. Its heat varies from kitchen to kitchen: the chilli itself is mild, but India's Consumer Education and Research Centre found two branded "Kashmiri chilli" powders at 48,000 and 60,000 Scoville units ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_red_chilli)), so ask if you are sensitive. [Is Kashmiri food spicy?](/blog/is-kashmiri-food-spicy) covers the rest of the menu. If a menu offers a Pandit-style rogan josh, you now know what the difference is.
 

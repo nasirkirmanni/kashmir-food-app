@@ -3,6 +3,7 @@ import { CORE_SEVEN_HUB, CORE_SEVEN_PUBLISHED, CORE_SEVEN_UPDATED, coreSevenStor
 import { scenicDrives } from "@/data/scenicDrivesData";
 import { wazwanGuides } from "@/data/wazwanGuides";
 import { PILLAR_REVIEWED } from "@/data/wazwanPillar";
+import { restaurantGuides } from "@/data/restaurantGuides";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
 import { isRemovedDish } from "@/lib/removedDishes";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
@@ -71,10 +72,12 @@ export default async function sitemap() {
     "/contact",
     "/privacy",
     "/terms",
-  ].map((p) =>
-    // The main Wazwan page carries the date its text and sources were last checked.
-    entry(p, p === "/dishes" ? latestContentDate(PILLAR_REVIEWED) : undefined)
-  );
+  ].map((p) => {
+    // Pages whose text carries a checked/updated date pass it on as lastmod.
+    if (p === "/dishes") return entry(p, latestContentDate(PILLAR_REVIEWED));
+    if (p === "/restaurants/best-wazwan-srinagar") return entry(p, latestContentDate(restaurantGuides[0].updated));
+    return entry(p, undefined);
+  });
 
   // A category guide index is listed only once that category has articles; until
   // then the page is an empty shell (and is noindexed).
