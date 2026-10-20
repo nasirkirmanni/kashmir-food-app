@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 import { blogPosts } from "../data/blogPosts";
 import { wazwanGuides } from "../data/wazwanGuides";
@@ -5,6 +6,8 @@ import { CORE_SEVEN_SERIES } from "../data/coreSevenSeries";
 import { journalFeedXml, llmsFullText, postsByDate } from "./journalFeed";
 import { GET as feedRoute } from "../app/blog/feed.xml/route";
 import { GET as fullRoute } from "../app/llms-full.txt/route";
+
+const require = createRequire(import.meta.url);
 
 describe("the Journal feed", () => {
   const xml = journalFeedXml();
@@ -58,5 +61,13 @@ describe("llms-full.txt", () => {
     const res = fullRoute();
     expect(res.headers.get("Content-Type")).toContain("text/markdown");
     expect(await res.text()).toBe(text);
+  });
+
+  it("asks search engines not to index it, and is the only wazwanway.com path that does", async () => {
+    const rules = await require("../next.config.js").headers();
+    const noindex = rules.filter(
+      (rule) => !rule.has && !rule.missing && rule.headers.some((h) => h.key === "X-Robots-Tag" && /noindex/i.test(h.value)),
+    );
+    expect(noindex.map((rule) => rule.source)).toEqual(["/llms-full.txt"]);
   });
 });

@@ -1,6 +1,6 @@
 # SEO and AEO, release 15
 
-_Built 17 to 20 October 2026 on branch `seo/aeo-release-15` (off `60e0fa1`, release 14), after the owner said "go ahead with the indexnow ping. Do whatever you can in your capacity boost aeo seo" and then "Continue with seo and aeo boosting". Not deployed until the owner approves the push._
+_Built 17 to 20 October 2026 on branch `seo/aeo-release-15` (off `60e0fa1`, release 14), after the owner said "go ahead with the indexnow ping. Do whatever you can in your capacity boost aeo seo" and then "Continue with seo and aeo boosting". Deployed 20 October 2026 (merge `4ef7a08`) after the owner said "push it to production"._
 
 ## Done before this release
 
@@ -28,6 +28,12 @@ _Built 17 to 20 October 2026 on branch `seo/aeo-release-15` (off `60e0fa1`, rele
 ## Checks
 
 151 tests (24 + 12 new across releases 14 and 15) and the production build pass. `scratchpad/tier1/verify15.py` and the release 14 checks pass against the local production build: citations equal the visible sources on all seven stories; dish-page entities; FAQ schema matches the visible questions; the feed parses as XML with 26 items; `llms-full.txt` holds every post and guide; one feed link on the home page, a story, a guide, /blog and a dish page; guide breadcrumbs visible equal schema; dates on the seven edited posts and the series page; no horizontal overflow at 375 and 1440 px; the series link is present but not visible on the phone homepage.
+
+## After the deploy
+
+- **Production, 20 October 2026:** `verify15.py` and the release 14 checks passed against wazwanway.com; Vercel reported the deployment complete.
+- **IndexNow, 20 October 2026:** the 36 pages this release changed (the home page, the series page, /about, the guides index and the nine guides, the seven stories, the seven older posts, the seven dish pages, /dishes and /blog) were submitted with the site's key. Response: HTTP 200. `/blog/feed.xml` and `/llms-full.txt` were left out: neither is a page, and `llms-full.txt` repeats every article's text.
+- **Release 16:** `/llms-full.txt` now sends `X-Robots-Tag: noindex` (`next.config.js`), so search engines are pointed at the articles rather than a copy of their text. `noindex` doesn't stop anyone fetching the file, and robots.txt still allows it, since a Disallow would hide the header from search engines and shut out tools that obey robots.txt. A test keeps it the only wazwanway.com path that asks not to be indexed. The feed stays indexable: it carries only titles and summaries.
 
 ## Still for the owner
 
