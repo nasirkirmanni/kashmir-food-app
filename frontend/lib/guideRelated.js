@@ -32,3 +32,17 @@ export function guideRelatedMarkdown(article, guides = []) {
   }
   return `\n\n## Related Articles\n\n` + relatedLinks.join("\n");
 }
+
+/**
+ * A guide's name for its breadcrumb: the title up to its first colon or question mark ("History
+ * of Wazwan", "What Does Waza Mean?"). When that leaves a single word, the part after the colon
+ * stands in, up to any dash ("Restaurant vs Wedding vs Home").
+ */
+export function guideCrumbName(title) {
+  const text = String(title || "").trim();
+  const match = text.match(/^(.+?)(\?|:)\s/);
+  if (!match) return text;
+  const head = match[2] === "?" ? `${match[1]}?` : match[1];
+  if (/\s/.test(match[1].trim())) return head.trim();
+  return text.slice(match[0].length).split(/\s+[—–-]\s+/)[0].trim();
+}

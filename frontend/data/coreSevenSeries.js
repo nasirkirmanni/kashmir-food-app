@@ -13,6 +13,8 @@ export const CORE_SEVEN_HUB = "/blog/core-seven";
 export const CORE_SEVEN_NAME = "The core seven";
 // The date the series page was published; the sitemap and the page's structured data use it.
 export const CORE_SEVEN_PUBLISHED = "October 17, 2026";
+// The last change to the series page itself (its FAQ was added).
+export const CORE_SEVEN_UPDATED = "October 20, 2026";
 
 export const CORE_SEVEN_SERIES = [
   {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, Clock, User, Search } from "lucide-react";
 import { useState } from "react";
+import { CORE_SEVEN_HUB, CORE_SEVEN_SERIES } from "@/data/coreSevenSeries";
 
 export default function GuidebookIndexClient({ categoryArticles, label, category }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,6 +53,27 @@ export default function GuidebookIndexClient({ categoryArticles, label, category
           </div>
         </div>
         
+        {category === "wazwan" ? (
+          <section aria-labelledby="core-seven-guides" className="mb-4 rounded-2xl border border-[var(--saffron)]/25 bg-[var(--saffron)]/[0.05] p-6 sm:p-8">
+            <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-2 block">In the Journal</span>
+            <h2 id="core-seven-guides" className="font-display text-2xl sm:text-3xl text-white mb-2">The core seven</h2>
+            <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-5 max-w-2xl">
+              One long story for each dish a Wazwan cannot do without, with its sources: {" "}
+              {CORE_SEVEN_SERIES.map((story, i) => (
+                <span key={story.slug}>
+                  <Link href={story.href} className="text-[var(--saffron)] hover:text-amber-400 underline decoration-white/20 underline-offset-4">
+                    {story.name.toLowerCase()}
+                  </Link>
+                  {i < CORE_SEVEN_SERIES.length - 2 ? ", " : i === CORE_SEVEN_SERIES.length - 2 ? " and " : "."}
+                </span>
+              ))}
+            </p>
+            <Link href={CORE_SEVEN_HUB} className="text-xs font-bold uppercase tracking-wider text-[var(--saffron)] hover:text-amber-400">
+              All seven stories &rarr;
+            </Link>
+          </section>
+        ) : null}
+
         {filteredArticles.length === 0 ? (
           <div className="glass-panel p-8 rounded-2xl border border-white/5 text-center my-12">
             <p className="text-white/40 text-sm mb-4">No articles found matching "{searchQuery}".</p>

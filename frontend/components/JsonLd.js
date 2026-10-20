@@ -125,7 +125,7 @@ function isoMinutes(mins) {
 // Google requires an image for a recipe, and only a real photo of the dish belongs in it, never a
 // placeholder. A dish without one gets no Recipe markup at all, rather than markup Google counts as
 // invalid; the markup comes back by itself once the dish has a photo.
-export function buildRecipeSchema(dish) {
+export function buildRecipeSchema(dish, { about } = {}) {
   const photo = resolveContentPhoto(dish.image);
   if (!photo) return null;
   const r = dish.recipe || {};
@@ -159,6 +159,8 @@ export function buildRecipeSchema(dish) {
     ...(cook && { cookTime: cook }),
     ...(total && { totalTime: total }),
     ...(r.servings && { recipeYield: String(r.servings) }),
+    // The dish the recipe is for, as an entity: its identity elsewhere and the story about it.
+    ...(about && { about }),
     // Google-required for Recipe rich results — emitted as soon as the dish
     // record carries authored recipe data.
     ...(Array.isArray(ingredients) &&
@@ -252,7 +254,11 @@ export function buildArticleSchema(article) {
     ...(article.mentions?.length && { mentions: article.mentions }),
     ...(article.isPartOf && { isPartOf: article.isPartOf }),
     ...(Number.isInteger(article.position) && { position: article.position }),
-    ...(Number.isInteger(article.wordCount) && article.wordCount > 0 && { wordCount: article.wordCount })
+    ...(Number.isInteger(article.wordCount) && article.wordCount > 0 && { wordCount: article.wordCount }),
+    // The works the page lists as its sources, so the citations are machine-readable too.
+    ...(article.citation?.length && {
+      citation: article.citation.map((source) => ({ "@type": "CreativeWork", name: source.name, url: source.url })),
+    })
   };
 }
 

@@ -169,6 +169,9 @@ export default function RootLayout({ children }) {
     <html lang="en" className="dark overflow-x-hidden w-full" suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="https://api.wazwanway.com" />
+        {/* The Journal's feed, on every page. A page's own `alternates` metadata replaces a
+            layout's, so the link lives here rather than in metadata. */}
+        <link rel="alternate" type="application/rss+xml" title="Wazwan Way Journal" href={`${BASE_URL}/blog/feed.xml`} />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${hanken.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
         <NextTopLoader

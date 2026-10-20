@@ -141,6 +141,37 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* How the site is researched */}
+        <section aria-labelledby="how-we-research" className="mb-20 bg-white/5 border border-white/10 rounded-[32px] p-8 sm:p-10">
+          <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">
+            How We Work
+          </span>
+          <h2 id="how-we-research" className="font-display text-3xl text-white mb-6">How we research</h2>
+          <div className="text-white/60 text-sm md:text-base leading-relaxed space-y-4">
+            <p>
+              Our Wazwan pages name a source for each factual statement, inline, and list them at the end: Grierson&apos;s{" "}
+              <em>Dictionary of the Kashmiri Language</em>, Walter Lawrence&apos;s <em>The Valley of Kashmir</em> (1895), Kashmiri
+              cookbooks including the Waza family&apos;s own, medical and food-science papers from Srinagar&apos;s institutions,
+              government figures, the Geographical Indications Registry, and reporting from Kashmir.
+            </p>
+            <p>
+              Where sources disagree, we say so, and we separate what is documented from what is told. A source we could not read
+              is not cited as if we had. When we find an error we correct it and date the update on the page.
+            </p>
+            <p>
+              The method is laid out on the series page for{" "}
+              <Link href="/blog/core-seven" className="text-[var(--saffron)] hover:text-amber-400 underline decoration-white/20 underline-offset-4">
+                the core seven
+              </Link>
+              , and the books and papers worth reading yourself are in{" "}
+              <Link href="/blog/kashmiri-food-sources" className="text-[var(--saffron)] hover:text-amber-400 underline decoration-white/20 underline-offset-4">
+                Kashmiri food and Wazwan: sources to read
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+
         {/* Call to Action */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}

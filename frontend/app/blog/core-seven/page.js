@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { blogPosts } from "@/data/blogPosts";
-import JsonLd from "@/components/JsonLd";
+import JsonLd, { buildFaqSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import {
   CORE_SEVEN_HUB,
   CORE_SEVEN_NAME,
   CORE_SEVEN_PUBLISHED,
   CORE_SEVEN_SERIES,
+  CORE_SEVEN_UPDATED,
 } from "@/data/coreSevenSeries";
-import { CORE_SEVEN_FACTS, WAZWAN_ENTITY } from "@/data/coreSevenFacts";
+import { CORE_SEVEN_FACTS, CORE_SEVEN_HUB_FAQ, WAZWAN_ENTITY } from "@/data/coreSevenFacts";
 import { isoDay } from "@/lib/contentDate";
 
 const SITE = "https://wazwanway.com";
@@ -49,6 +50,7 @@ export default function CoreSevenPage() {
     { name: CORE_SEVEN_NAME, href: CORE_SEVEN_HUB },
   ];
   const published = isoDay(CORE_SEVEN_PUBLISHED);
+  const updated = isoDay(CORE_SEVEN_UPDATED);
 
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -57,6 +59,7 @@ export default function CoreSevenPage() {
     description: DESCRIPTION,
     url: PAGE_URL,
     ...(published && { datePublished: published }),
+    ...(updated && { dateModified: updated }),
     about: WAZWAN_ENTITY,
     publisher: { "@type": "Organization", name: "Wazwan Way", url: SITE },
     mainEntity: {
@@ -78,12 +81,16 @@ export default function CoreSevenPage() {
       <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
       <article className="w-full max-w-3xl relative z-10">
         <JsonLd data={collectionSchema} />
+        <JsonLd data={buildFaqSchema(CORE_SEVEN_HUB_FAQ)} />
         <div className="mb-10">
           <Breadcrumbs items={crumbs} />
         </div>
 
         <p className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-4">A series in the Journal</p>
-        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-[1.1]">{TITLE}</h1>
+        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-[1.1]">{TITLE}</h1>
+        <p className="mb-10 text-[0.7rem] uppercase tracking-wider font-bold text-white/50">
+          Published {CORE_SEVEN_PUBLISHED} · Updated {CORE_SEVEN_UPDATED}
+        </p>
 
         <div className="text-white/70 font-body text-lg leading-relaxed space-y-6 mb-14 pb-10 border-b border-white/10">
           <p>
@@ -137,6 +144,16 @@ export default function CoreSevenPage() {
             </li>
           ))}
         </ol>
+
+        <section aria-labelledby="faq" className="mt-16 pt-10 border-t border-white/10 text-white/70 font-body text-lg leading-relaxed">
+          <h2 id="faq" className="font-display text-3xl text-[var(--saffron)] mb-6">Frequently asked questions</h2>
+          {CORE_SEVEN_HUB_FAQ.map((item) => (
+            <div key={item.question} className="mb-8">
+              <h3 className="font-display text-2xl text-white mb-3">{item.question}</h3>
+              <p>{item.answer}</p>
+            </div>
+          ))}
+        </section>
 
         <section aria-labelledby="how-researched" className="mt-16 pt-10 border-t border-white/10 text-white/70 font-body text-lg leading-relaxed space-y-6">
           <h2 id="how-researched" className="font-display text-3xl text-[var(--saffron)]">How the stories were researched</h2>

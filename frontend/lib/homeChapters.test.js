@@ -25,6 +25,7 @@ const STATIC_ROUTES = {
   "/how-to-experience": "app/how-to-experience/page.js",
   "/kashmiri-food": "app/kashmiri-food/[[...slug]]/page.js",
   "/restaurants/best-wazwan-srinagar": "app/restaurants/best-wazwan-srinagar/page.js",
+  "/blog/core-seven": "app/blog/core-seven/page.js",
 };
 
 const pages = new Set([

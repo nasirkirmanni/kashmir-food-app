@@ -5,6 +5,7 @@ import path from "path";
 import { dishCategoryLabel, sanitizeDish } from "@/lib/dishContent";
 import { resolveContentPhoto } from "@/lib/contentImages";
 import { toMetaDescription } from "@/lib/metaText";
+import { dishEntity } from "@/data/coreSevenFacts";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -132,6 +133,7 @@ export default async function DishDetailPage({ params }) {
     console.error("Failed to fetch dish on server side:", err);
   }
 
-  return <DishDetailClient initialDish={dish} />;
+  // The seven essentials carry their identity and their story in the Recipe schema.
+  return <DishDetailClient initialDish={dish} entity={dishEntity(dish.slug)} />;
 }
 

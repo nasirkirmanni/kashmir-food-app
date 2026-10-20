@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { blogPosts } from "../data/blogPosts";
+import { CORE_SEVEN_SERIES } from "../data/coreSevenSeries";
 import { stripLeadingTitle } from "./markdownTitle";
 import {
   countWords,
@@ -8,6 +9,7 @@ import {
   plainHeadingText,
   readMinutes,
   sectionHeadings,
+  sourcesFromMarkdown,
   splitIntro,
 } from "./storyStructure";
 
@@ -83,12 +85,54 @@ describe("countWords", () => {
   });
 
   it("agrees with the read time on each core-seven story", () => {
-    const stories = blogPosts.filter((post) => post.category === "Heritage Cookery" && post.updatedDate === "October 17, 2026");
+    const stories = CORE_SEVEN_SERIES.map((story) => blogPosts.find((post) => post.slug === story.slug));
     expect(stories).toHaveLength(7);
     for (const post of stories) {
       const minutes = readMinutes(countWords(stripLeadingTitle(post.content, post.title)));
       expect(post.readTime, post.slug).toBe(`${minutes} min read`);
       expect(minutes, post.slug).toBeGreaterThanOrEqual(20);
+    }
+  });
+});
+
+describe("sourcesFromMarkdown", () => {
+  it("reads the links under ## Sources, once each, and nothing from other sections", () => {
+    const markdown = [
+      "Body with [a link](https://example.com/body).",
+      "",
+      "## Sources",
+      "",
+      "- G. A. Grierson, *Dictionary*, entries [gōshĕth, p. 309](https://dsal.uchicago.edu/a) and [yĕkhañĕ](https://dsal.uchicago.edu/b).",
+      "- Wikipedia, [\"Wazwan\"](https://en.wikipedia.org/wiki/Wazwan), checked.",
+      "- Again [Wazwan](https://en.wikipedia.org/wiki/Wazwan).",
+      "- [\"Riste (dish)\"](https://en.wikipedia.org/wiki/Riste_(dish)) and [Samoon](https://doi.org/10.1016/0309-1740(94)90052-3), 1994.",
+      "",
+      "## After",
+      "",
+      "[not a source](https://example.com/after)",
+    ].join("\n");
+    expect(sourcesFromMarkdown(markdown)).toEqual([
+      { name: "gōshĕth, p. 309", url: "https://dsal.uchicago.edu/a" },
+      { name: "yĕkhañĕ", url: "https://dsal.uchicago.edu/b" },
+      { name: '"Wazwan"', url: "https://en.wikipedia.org/wiki/Wazwan" },
+      { name: '"Riste (dish)"', url: "https://en.wikipedia.org/wiki/Riste_(dish)" },
+      { name: "Samoon", url: "https://doi.org/10.1016/0309-1740(94)90052-3" },
+    ]);
+    expect(sourcesFromMarkdown("No sources here.")).toEqual([]);
+  });
+
+  it("finds a full source list on every core-seven story", () => {
+    const stories = CORE_SEVEN_SERIES.map((story) => blogPosts.find((post) => post.slug === story.slug));
+    expect(stories).toHaveLength(7);
+    for (const post of stories) {
+      const sources = sourcesFromMarkdown(post.content);
+      expect(sources.length, post.slug).toBeGreaterThanOrEqual(15);
+      for (const s of sources) {
+        expect(s.url, post.slug).toMatch(/^https?:\/\//);
+        // Parentheses in a URL are balanced: none was cut off at its first ")".
+        expect(s.url.split("(").length, `${post.slug} ${s.url}`).toBe(s.url.split(")").length);
+        expect(post.content, `${post.slug} ${s.url}`).toContain(`(${s.url})`);
+      }
     }
   });
 });

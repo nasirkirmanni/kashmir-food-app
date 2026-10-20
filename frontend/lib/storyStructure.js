@@ -73,3 +73,26 @@ export function countWords(markdown) {
 export function readMinutes(words) {
   return Math.max(1, Math.round(words / 230));
 }
+
+/**
+ * The works a post lists under its "## Sources" heading, as {name, url}, one per distinct URL,
+ * in the order they appear. A post without a Sources section gives an empty list.
+ */
+export function sourcesFromMarkdown(markdown) {
+  const text = String(markdown || "");
+  const start = text.search(/(^|\n)##\s+Sources\s*(\n|$)/);
+  if (start === -1) return [];
+  const after = text.slice(text.indexOf("\n", start + 1) + 1);
+  const end = after.search(/(^|\n)##\s/);
+  const section = end === -1 ? after : after.slice(0, end);
+  const seen = new Set();
+  const sources = [];
+  // A URL may hold balanced parentheses, as in Riste_(dish) or a DOI such as 0309-1740(94)90052-3.
+  for (const match of section.matchAll(/\[([^\]]+)\]\((https?:\/\/(?:[^()\s]|\([^()\s]*\))+)\)/g)) {
+    const url = match[2];
+    if (seen.has(url)) continue;
+    seen.add(url);
+    sources.push({ name: plainHeadingText(match[1]), url });
+  }
+  return sources;
+}

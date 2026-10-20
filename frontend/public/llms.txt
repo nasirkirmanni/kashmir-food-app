@@ -68,5 +68,7 @@ Each dish page has what the dish is, its place in the feast and a recipe, with s
 
 ## Optional
 
+- [Full text of the Journal and the Wazwan guides](https://wazwanway.com/llms-full.txt): every story, post and guide as markdown in one file
+- [Journal feed](https://wazwanway.com/blog/feed.xml): RSS
 - [About Wazwan Way](https://wazwanway.com/about)
 - [Sitemap](https://wazwanway.com/sitemap.xml)
