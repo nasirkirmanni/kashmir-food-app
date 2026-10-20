@@ -107,6 +107,13 @@ const nextConfig = {
         missing: [{ type: 'host', value: '(www\\.)?wazwanway\\.com' }],
         headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
       },
+      // /llms-full.txt repeats the full text of every Journal post and Wazwan guide for language
+      // models. Search should send readers to the articles, not to this copy, so it asks not to be
+      // indexed. robots.txt leaves it crawlable: the header has to be fetched to be seen.
+      {
+        source: '/llms-full.txt',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
       {
         source: '/(.*)',
         headers: [
