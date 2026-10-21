@@ -1,24 +1,86 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useParams, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { endpoints, request, streamRequest } from "@/lib/api";
+import { endpoints, request } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
-import ReactMarkdown from "react-markdown";
 import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
-import { resolveImageUrl } from "@/lib/imageUtils";
-import AuthRequiredModal from "@/components/AuthRequiredModal";
-import StickyMobileNav from "@/components/StickyMobileNav";
-import ExpandableText from "@/components/ExpandableText";
+import DishNotes from "@/components/DishNotes";
+import { resolveContentPhoto } from "@/lib/contentImages";
 import { sanitizeDish } from "@/lib/dishContent";
 import { relatedReadingForDish } from "@/data/relatedReading";
 import { dishNotesFor } from "@/data/dishNotes";
-import DishNotes from "@/components/DishNotes";
+import { coreSevenStoryForDish } from "@/data/coreSevenSeries";
+import styles from "@/components/dish/dishPage.module.css";
+
+// Only needed after a tap, so they load then rather than with the page.
+const DishRecipeModal = dynamic(() => import("@/components/dish/DishRecipeModal"), { ssr: false });
+const AuthRequiredModal = dynamic(() => import("@/components/AuthRequiredModal"), { ssr: false });
+
+function BackIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  );
+}
+
+function HeartIcon({ filled }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"
+      />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12.5l4.5 4.5L19 7.5" />
+    </svg>
+  );
+}
+
+/** Highlights the chip of the section being read, without a scroll listener. */
+function useActiveSection(ids) {
+  const [active, setActive] = useState(ids[0] || null);
+  const key = ids.join("|");
+  useEffect(() => {
+    if (!ids.length || !("IntersectionObserver" in window)) return undefined;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return active;
+}
 
 export default function DishDetailClient({ initialDish = null, entity = null }) {
   const { user } = useAuth();
@@ -33,541 +95,491 @@ export default function DishDetailClient({ initialDish = null, entity = null }) 
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [saveError, setSaveError] = useState(null);
   const [authContext, setAuthContext] = useState(null);
-
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
-  const [recipeLoading, setRecipeLoading] = useState(false);
-  const [recipeResult, setRecipeResult] = useState(null);
-  const [recipeError, setRecipeError] = useState(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (showAuthModal || recipeModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [showAuthModal, recipeModalOpen]);
-
-  const handleExploreRecipe = async () => {
-    setRecipeModalOpen(true);
-    setRecipeLoading(true);
-    setRecipeResult("");
-    setRecipeError(null);
-
-    try {
-      const response = await streamRequest(endpoints.chat, {
-        method: "POST",
-        body: JSON.stringify({
-          isRecipeExplore: true,
-          messages: [
-            {
-              role: "user",
-              content: `Please provide a minimal, precise, and step-wise guided recipe for ${dish.name}. No introductory or concluding remarks, just the recipe steps and minimal ingredients list.`
-            }
-          ]
-        }),
-      });
-
-      setRecipeLoading(false);
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder("utf-8");
-      let done = false;
-      let fullRecipe = "";
-      let buffer = "";
-
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-        if (value) {
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const dataStr = line.replace("data: ", "").trim();
-              if (dataStr === "[DONE]") continue;
-              try {
-                const parsed = JSON.parse(dataStr);
-                if (parsed.reply) {
-                  fullRecipe += parsed.reply;
-                  setRecipeResult(fullRecipe);
-                } else if (parsed.error) {
-                  throw new Error(parsed.error);
-                }
-              } catch (e) {
-                // Ignore invalid JSON lines
-              }
-            }
-          }
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      if (err.requiresAuth) {
-        setRecipeModalOpen(false);
-        setAuthContext("recipe");
-        setShowAuthModal(true);
-      } else {
-        setRecipeError("Failed to fetch the secret recipe. Please try again.");
-      }
-      setRecipeLoading(false);
-    }
-  };
-
-  const handleToggleFavorite = async () => {
-    if (!user) {
-      setAuthContext("favorite");
-      setShowAuthModal(true);
+    if (!params.slug) return;
+    if (dish && (dish.slug === params.slug || dish._id === params.slug)) {
+      if (/^[0-9a-fA-F]{24}$/.test(params.slug) && dish.slug) router.replace(`/dishes/${dish.slug}`);
       return;
     }
-    
+    setLoading(true);
+    setError(null);
+    request(endpoints.dish(params.slug))
+      .then((data) => {
+        setDish(data);
+        if (/^[0-9a-fA-F]{24}$/.test(params.slug) && data.slug) router.replace(`/dishes/${data.slug}`);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch dish:", err);
+        setError("We couldn't load this dish. Please try again.");
+        setDish(null);
+      })
+      .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.slug, router]);
+
+  useEffect(() => {
+    if (!user || !dish) return;
+    request(endpoints.favorites)
+      .then((favs) => setIsFavorite(favs.some((f) => f.item?._id === dish._id || f.item === dish._id)))
+      .catch(console.error);
+  }, [user, dish]);
+
+  const goBack = useCallback(() => {
+    if (window.history.length > 1) router.back();
+    else router.push("/dishes");
+  }, [router]);
+
+  const toggleFavorite = async () => {
+    if (!user) {
+      setAuthContext("favorite");
+      return;
+    }
     setIsSaving(true);
+    setSaveError(null);
     try {
       await request(endpoints.favorites, {
         method: isFavorite ? "DELETE" : "POST",
-        body: JSON.stringify({ itemId: dish._id, itemType: "dish" })
+        body: JSON.stringify({ itemId: dish._id, itemType: "dish" }),
       });
       setIsFavorite(!isFavorite);
     } catch (err) {
       console.error(err);
-      alert("Failed to update saved dishes.");
+      setSaveError("Couldn't update your saved dishes. Please try again.");
     } finally {
       setIsSaving(false);
     }
   };
 
+  // The sign-in prompt sits above everything, with the page held still behind it.
   useEffect(() => {
-    if (params.slug) {
-      if (dish && (dish.slug === params.slug || dish._id === params.slug)) {
-        if (params.slug.match(/^[0-9a-fA-F]{24}$/) && dish.slug) {
-          router.replace(`/dishes/${dish.slug}`);
-        }
-        return;
-      }
-      setLoading(true);
-      setError(null);
-      request(endpoints.dish(params.slug))
-        .then((data) => {
-          setDish(data);
-          if (params.slug.match(/^[0-9a-fA-F]{24}$/) && data.slug) {
-            router.replace(`/dishes/${data.slug}`);
-          }
-        })
-        .catch((err) => {
-          console.error("Failed to fetch dish:", err);
-          setError("Failed to load dish details. Please try again later.");
-          setDish(null);
-        })
-        .finally(() => setLoading(false));
-    }
-  }, [params.slug, router]);
+    if (!authContext) return undefined;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [authContext]);
 
+  const requireRecipeAuth = useCallback(() => {
+    setRecipeModalOpen(false);
+    setAuthContext("recipe");
+  }, []);
+
+  const hasRecipe = dish?.recipe?.ingredients?.length > 0 && dish?.recipe?.instructions?.length > 0;
+  const relatedReading = dish ? relatedReadingForDish(dish) : [];
+  const notes = dish ? dishNotesFor(dish.slug) : null;
+  const hasHistory = Boolean(dish?.history || dish?.touristTip);
+
+  const sections = [
+    hasHistory && { id: "history", label: dish?.history ? "History" : "Tip" },
+    { id: "where", label: "Where to eat" },
+    notes?.sections?.length && { id: "about", label: "More" },
+    hasRecipe && { id: "recipe", label: "Recipe" },
+    relatedReading.length && { id: "reading", label: "Read more" },
+  ].filter(Boolean);
+  const activeSection = useActiveSection(dish ? sections.map((s) => s.id) : []);
+
+  // Keep the current section's chip in view as the reader moves down the page.
+  const chipBarRef = useRef(null);
   useEffect(() => {
-    if (user && dish) {
-      request(endpoints.favorites)
-        .then((favs) => {
-          setIsFavorite(favs.some((f) => f.item?._id === dish._id || f.item === dish._id));
-        })
-        .catch(console.error);
-    }
-  }, [user, dish]);
+    const bar = chipBarRef.current;
+    const chip = bar?.querySelector('[aria-current="true"]');
+    if (!bar || !chip || bar.scrollWidth <= bar.clientWidth) return;
+    const left = chip.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2;
+    bar.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+  }, [activeSection]);
 
   if (loading) {
     return (
-      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--saffron)]"></div>
-          <p className="text-[var(--saffron)] font-bold uppercase tracking-widest text-sm animate-pulse">Loading Dish...</p>
+      <div className={styles.page}>
+        <div className={styles.state} role="status">
+          <div>
+            <div className={styles.spinner} />
+            <p className={`${styles.stateText} mt-4`}>Loading the dish…</p>
+          </div>
         </div>
       </div>
     );
   }
 
-  if (error) {
+  if (error || !dish) {
     return (
-      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
-        <div className="text-center space-y-4">
-          <div className="text-red-400 font-bold text-xl">{error}</div>
-          <button onClick={() => window.location.reload()} className="rounded-full bg-white/10 px-6 py-2 text-white hover:bg-white/20 transition-colors">Try Again</button>
+      <div className={styles.page}>
+        <div className={styles.state}>
+          <div>
+            <p className={styles.stateText}>{error || "We couldn't find this dish."}</p>
+            <button
+              type="button"
+              className={styles.stateButton}
+              onClick={() => (error ? window.location.reload() : router.push("/dishes"))}
+            >
+              {error ? "Try again" : "See all dishes"}
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  if (!dish) {
-    return (
-      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
-        <div className="text-center space-y-4">
-          <div className="text-white/60 font-medium text-xl">Dish not found.</div>
-          <button onClick={() => router.back()} className="rounded-full bg-[var(--saffron)] px-6 py-2 text-black font-bold hover:scale-105 transition-transform">Go Back</button>
-        </div>
-      </div>
-    );
-  }
-
-  const relatedReading = relatedReadingForDish(dish);
-  const notes = dishNotesFor(dish.slug);
+  const photo = resolveContentPhoto(dish.image);
+  const story = coreSevenStoryForDish(dish.slug);
   const recipeSchema = buildRecipeSchema(dish, { about: entity || undefined });
+  const facts = [
+    dish.foodType && { term: "Diet", value: dish.foodType },
+    dish.spiceLevel && { term: "Spice", value: dish.spiceLevel },
+    dish.priceRange && { term: "Price", value: dish.priceRange },
+    dish.popularityRating && { term: "Popularity", value: `${dish.popularityRating} / 5` },
+  ].filter(Boolean);
+  const recipe = dish.recipe || {};
+  const recipeStats = [
+    recipe.prepTimeMinutes && { term: "Prep", value: `${recipe.prepTimeMinutes} min` },
+    recipe.cookTimeMinutes && { term: "Cook", value: `${recipe.cookTimeMinutes} min` },
+    recipe.servings && { term: "Serves", value: recipe.servings },
+    recipe.difficulty && { term: "Level", value: recipe.difficulty },
+    recipe.tradition && { term: "Tradition", value: recipe.tradition },
+  ].filter(Boolean);
+  const kashmiriName =
+    recipe.kashmiriName && recipe.kashmiriName.trim().toLowerCase() !== dish.name.trim().toLowerCase() ? recipe.kashmiriName : null;
+  const eyebrow = [dish.category, story?.place].filter(Boolean).join(" · ");
+
+  const openRecipe = () => {
+    if (hasRecipe) {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById("recipe")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    } else {
+      setRecipeModalOpen(true);
+    }
+  };
 
   return (
-    <div className="wazwan-shell">
-      {/* JSON-LD Structured Data */}
+    <div className={styles.page}>
       {recipeSchema ? <JsonLd data={recipeSchema} /> : null}
 
-      <StickyMobileNav title={dish.name} />
-
-      <section className="place-hero">
-        <div>
-          <div className="hidden md:block">
-            <Breadcrumbs items={[
-              { name: "Home", href: "/" },
-              { name: "Dishes", href: "/dishes" },
-              { name: dish.name, href: `/dishes/${dish.slug}` },
-            ]} />
-          </div>
-          <button 
-            onClick={() => router.back()} 
-            className="mb-6 hidden md:flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back
-          </button>
-          <span className="place-eyebrow">{dish.category}</span>
-          <h1>{dish.name}</h1>
-          <ExpandableText text={dish.fullDescription} threshold={100} />
-          <div className="mt-6 flex flex-wrap gap-2">
-            <span className="place-badge">{dish.foodType}</span>
-            <span className="place-badge">{dish.spiceLevel}</span>
-            <span className="place-badge">{dish.priceRange}</span>
-            <span className="place-badge">{dish.popularityRating} / 5 popularity</span>
-            {dish.category === "Wazwan" ? (
-              <span className="place-badge border-[var(--saffron)] text-[var(--saffron)] bg-[var(--saffron-pale)] font-bold">★ Traditional Wazwan Course</span>
-            ) : (
-              <span className="place-badge border-blue-500/40 text-blue-300 bg-blue-500/10 font-bold">❀ Traditional Home-style Recipe</span>
-            )}
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-4 items-center">
-            <button
-              onClick={() => {
-                // Written recipe lives on this page — scroll to it. Waza AI
-                // stays the fallback for dishes without an authored recipe.
-                if (dish.recipe?.instructions?.length) {
-                  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                  document.getElementById("recipe")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-                } else {
-                  handleExploreRecipe();
-                }
-              }}
-              className="rounded-full bg-[var(--saffron)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-transform hover:scale-105 active:scale-95"
-            >
-              Explore Recipe
-            </button>
-            <div className="flex flex-wrap gap-3 items-center">
-              <button
-                onClick={handleToggleFavorite}
-                disabled={isSaving}
-                className={`rounded-full px-8 py-3 text-sm font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95 border ${isFavorite ? 'border-[var(--saffron)] text-[var(--saffron)]' : 'border-white/20 text-white hover:border-white/50'}`}
-              >
-                {isSaving ? "Saving..." : (isFavorite ? "✓ Saved Dish" : "+ Add to Saved Dishes")}
-              </button>
-              
-              {isFavorite && (
-                <Link
-                  href="/favorites"
-                  className="rounded-full bg-white/5 border border-white/10 px-6 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-white/10 hover:border-white/30 hover:text-[var(--saffron)]"
-                >
-                  View Saved Dishes &rarr;
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-[20px] border border-[var(--border)] bg-white/5 p-4 shadow-card overflow-hidden">
-          <div className="relative h-[320px] w-full">
+      <header className={photo ? styles.hero : `${styles.hero} ${styles.heroPlain}`}>
+        {photo ? (
+          <div className={styles.media}>
             <ImageWithSkeleton
-              src={resolveImageUrl(dish.image)}
+              src={photo}
               alt={dish.name}
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="restaurant-cover object-cover rounded-[12px]"
+              sizes="(min-width: 768px) 46vw, 100vw"
+              className={styles.mediaImg}
             />
-          </div>
-        </div>
-      </section>
-
-      <section className="places-wrap pt-0">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr,1.05fr]">
-          {(dish.history || dish.touristTip) && (
-            <article className="restaurant-place-card self-start">
-              {dish.history && (
-                <>
-                  <span className="place-eyebrow">History</span>
-                  <h2 className="card-title">{dish.name} in Kashmiri tradition</h2>
-                  <ExpandableText text={dish.history} className="restaurant-desc whitespace-pre-wrap text-justify" threshold={150} />
-                </>
-              )}
-              {dish.touristTip && (
-                <div className={`rounded-[16px] bg-[var(--saffron-pale)] p-5 ${dish.history ? "mt-6" : ""}`}>
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
-                    Tourist Tip
-                  </p>
-                  <p className="restaurant-desc mt-3 whitespace-pre-wrap text-justify">{dish.touristTip}</p>
-                </div>
-              )}
-            </article>
-          )}
-
-          <div className="space-y-6">
-            <article className="restaurant-place-card">
-              <span className="place-eyebrow">Where To Try It</span>
-              <h2 className="card-title">Restaurants serving {dish.name}</h2>
-              <div className="mt-2 space-y-4">
-                {dish.restaurants && dish.restaurants.map((restaurant) => (
-                  <div key={restaurant._id || restaurant.name} className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-black/40 p-4">
-                    <div>
-                      <p className="font-semibold text-white">{restaurant.name}</p>
-                      <p className="text-sm text-white/60">{restaurant.location}</p>
-                    </div>
-                    <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} className="wazwan-btn-ghost text-xs">
-                      View -&gt;
-                    </Link>
-                  </div>
-                ))}
-                {!dish.restaurants?.length && (
-                  <p className="restaurant-desc">
-                    No restaurant on Wazwan Way lists {dish.name} yet.{" "}
-                    <Link href="/restaurants" className="text-[var(--saffron)] hover:underline">
-                      Browse restaurants
-                    </Link>
-                  </p>
-                )}
-              </div>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-      <DishNotes dishName={dish.name} notes={notes} />
-
-      {dish.recipe?.ingredients?.length > 0 && dish.recipe?.instructions?.length > 0 && (
-        <section className="places-wrap pt-0" id="recipe">
-          <div className="mb-8 border-l-2 border-[var(--saffron)] pl-4">
-            <span className="place-eyebrow">The Recipe</span>
-            <h2 className="text-2xl md:text-4xl font-display font-medium text-white">
-              How to make {dish.name}
-              {/* The Kashmiri name, only when it differs from the one already in the heading. */}
-              {dish.recipe.kashmiriName && dish.recipe.kashmiriName.trim().toLowerCase() !== dish.name.trim().toLowerCase() ? (
-                <>
-                  {" "}
-                  <span className="text-white/40 text-lg md:text-2xl ml-3">({dish.recipe.kashmiriName})</span>
-                </>
-              ) : null}
-            </h2>
-            {/* Skip the intro when it is already the description shown in the hero. */}
-            {dish.recipe.intro && dish.recipe.intro !== dish.fullDescription ? (
-              <p className="restaurant-desc mt-3 max-w-3xl">{dish.recipe.intro}</p>
-            ) : null}
-            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/60">
-              {dish.recipe.prepTimeMinutes ? <span>Prep {dish.recipe.prepTimeMinutes} min</span> : null}
-              {dish.recipe.cookTimeMinutes ? <span>Cook {dish.recipe.cookTimeMinutes} min</span> : null}
-              {dish.recipe.servings ? <span>Serves {dish.recipe.servings}</span> : null}
-              {dish.recipe.difficulty ? <span className="text-[var(--saffron)]">{dish.recipe.difficulty}</span> : null}
-              {dish.recipe.tradition ? <span>{dish.recipe.tradition}</span> : null}
+            <div className={styles.mediaShade} aria-hidden="true" />
+            <div className={styles.topControls}>
+              <button type="button" className={styles.iconButton} onClick={goBack} aria-label="Back">
+                <BackIcon />
+              </button>
             </div>
           </div>
-
-          <div className="grid gap-8 lg:grid-cols-[0.8fr,1.2fr]">
-            <article className="restaurant-place-card self-start">
-              <span className="place-eyebrow">Ingredients</span>
-              <ul className="mt-4 space-y-2.5">
-                {dish.recipe.ingredients.map((ing, i) => (
-                  <li key={i} className="restaurant-desc flex gap-3">
-                    <span className="text-[var(--saffron)] shrink-0 mt-[2px]">·</span>
-                    <span>{ing}</span>
-                  </li>
-                ))}
-              </ul>
-              {dish.recipe.wazaTips?.length > 0 && (
-                <div className="rounded-[16px] bg-[var(--saffron-pale)] p-5 mt-6">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--saffron)]">
-                    Waza Tips
-                  </p>
-                  <ul className="mt-3 space-y-2">
-                    {dish.recipe.wazaTips.map((tip, i) => (
-                      <li key={i} className="restaurant-desc">{tip}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </article>
-
-            <article className="restaurant-place-card">
-              <span className="place-eyebrow">Method</span>
-              <ol className="mt-4 space-y-5">
-                {dish.recipe.instructions.map((step, i) => (
-                  <li key={i} className="flex gap-4">
-                    <span className="shrink-0 w-8 h-8 rounded-full border border-[var(--saffron)]/40 text-[var(--saffron)] flex items-center justify-center text-sm font-semibold">
-                      {i + 1}
-                    </span>
-                    <p className="restaurant-desc pt-1">{step}</p>
-                  </li>
-                ))}
-              </ol>
-              {dish.recipe.commonMistakes?.length > 0 && (
-                <div className="mt-8">
-                  <span className="place-eyebrow">Common Mistakes</span>
-                  <ul className="mt-3 space-y-2">
-                    {dish.recipe.commonMistakes.map((m, i) => (
-                      <li key={i} className="restaurant-desc flex gap-3">
-                        <span className="text-white/30 shrink-0 mt-[2px]">×</span>
-                        <span>{m}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {dish.recipe.homeAdaptation ? (
-                <div className="mt-8">
-                  <span className="place-eyebrow">At Home</span>
-                  <p className="restaurant-desc mt-3">{dish.recipe.homeAdaptation}</p>
-                </div>
-              ) : null}
-              {dish.recipe.servingSuggestions ? (
-                <div className="mt-8">
-                  <span className="place-eyebrow">Serving</span>
-                  <p className="restaurant-desc mt-3">{dish.recipe.servingSuggestions}</p>
-                </div>
-              ) : null}
-            </article>
+        ) : (
+          <div className={`${styles.topControls} ${styles.topControlsStatic} md:hidden`}>
+            <button type="button" className={styles.iconButton} onClick={goBack} aria-label="Back">
+              <BackIcon />
+            </button>
           </div>
-        </section>
-      )}
+        )}
 
-      {relatedReading.length > 0 && (
-        <section className="places-wrap pt-0" aria-labelledby="related-reading-heading">
-          <article className="restaurant-place-card">
-            <span className="place-eyebrow">Further Reading</span>
-            <h2 id="related-reading-heading" className="card-title">Read more about {dish.name}</h2>
-            <ul className="mt-4 space-y-3">
-              {relatedReading.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} prefetch={false} className="restaurant-desc text-[var(--saffron)] hover:underline">
-                    {link.title}
+        <div className={photo ? styles.heroBody : `${styles.heroBody} ${styles.heroBodyPlain}`}>
+          <div className={styles.crumbs}>
+            <Breadcrumbs
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Dishes", href: "/dishes" },
+                { name: dish.name, href: `/dishes/${dish.slug}` },
+              ]}
+            />
+          </div>
+          {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+          <h1 className={styles.title}>
+            {dish.name}
+            {kashmiriName ? <span className={styles.kashmiri}>{kashmiriName}</span> : null}
+          </h1>
+          {dish.fullDescription ? <p className={styles.summary}>{dish.fullDescription}</p> : null}
+
+          {facts.length ? (
+            <dl className={styles.facts} style={{ "--fact-count": facts.length }}>
+              {facts.map((fact) => (
+                <div key={fact.term}>
+                  <dt>{fact.term}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+
+          <div className={styles.actions}>
+            <button type="button" className={styles.primary} onClick={openRecipe}>
+              {hasRecipe ? "Go to the recipe" : "Ask Waza for a recipe"}
+            </button>
+            <button
+              type="button"
+              className={styles.secondary}
+              onClick={toggleFavorite}
+              disabled={isSaving}
+              aria-pressed={isFavorite}
+            >
+              <HeartIcon filled={isFavorite} />
+              {isSaving ? "Saving…" : isFavorite ? "Saved" : "Save"}
+            </button>
+          </div>
+          {saveError ? (
+            <p className={styles.saveError} role="alert">
+              {saveError}
+            </p>
+          ) : null}
+          {isFavorite ? (
+            <Link href="/favorites" className={styles.savedLink}>
+              See your saved dishes
+            </Link>
+          ) : null}
+
+          {story ? (
+            <Link href={`/blog/${story.slug}`} className={styles.story}>
+              <span className={styles.eyebrow}>The full story</span>
+              <span className={styles.storyTitle}>{story.title}</span>
+              <span className={styles.storyCta}>
+                Read it <ArrowIcon />
+              </span>
+            </Link>
+          ) : null}
+        </div>
+      </header>
+
+      {sections.length > 1 ? (
+        <nav className={styles.sectionNav} aria-label="On this page">
+          <div className={styles.sectionNavInner} ref={chipBarRef}>
+            <button type="button" className={styles.navBack} onClick={goBack} aria-label="Back">
+              <BackIcon />
+            </button>
+            <span className={styles.navDivider} aria-hidden="true" />
+            {sections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className={styles.chip}
+                aria-current={activeSection === section.id ? "true" : undefined}
+              >
+                {section.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      ) : null}
+
+      <div className={styles.body}>
+        {hasHistory ? (
+          <section id="history" className={styles.section} aria-labelledby="history-heading">
+            {dish.history ? (
+              <>
+                <p className={styles.eyebrow}>History</p>
+                <h2 id="history-heading" className={styles.sectionTitle}>
+                  {dish.name} in Kashmiri tradition
+                </h2>
+                <div className={styles.prose}>
+                  {dish.history
+                    .split(/\n{2,}/)
+                    .filter(Boolean)
+                    .map((para) => (
+                      <p key={para.slice(0, 40)}>{para}</p>
+                    ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <p className={styles.eyebrow}>Before you order</p>
+                <h2 id="history-heading" className={styles.sectionTitle}>
+                  Eating {dish.name}
+                </h2>
+              </>
+            )}
+            {dish.touristTip ? (
+              <div className={styles.callout}>
+                <p className={styles.eyebrow}>Tip</p>
+                <p>{dish.touristTip}</p>
+              </div>
+            ) : null}
+          </section>
+        ) : null}
+
+        <section id="where" className={styles.section} aria-labelledby="where-heading">
+          <p className={styles.eyebrow}>Where to try it</p>
+          <h2 id="where-heading" className={styles.sectionTitle}>
+            Restaurants serving {dish.name}
+          </h2>
+          {dish.restaurants?.length ? (
+            <ul className={styles.rows}>
+              {dish.restaurants.map((restaurant) => (
+                <li key={restaurant._id || restaurant.name}>
+                  <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} prefetch={false} className={styles.rowLink}>
+                    <span>
+                      <span className={styles.rowName}>{restaurant.name}</span>
+                      {restaurant.location ? <span className={styles.rowMeta}>{restaurant.location}</span> : null}
+                    </span>
+                    <span className={styles.rowArrow}>
+                      <ArrowIcon />
+                    </span>
                   </Link>
                 </li>
               ))}
             </ul>
-          </article>
-        </section>
-      )}
-
-      {mounted && createPortal(
-        <>
-          {/* Recipe Modal */}
-          <AnimatePresence>
-            {recipeModalOpen && (
-              <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="relative w-full max-w-2xl max-h-[85vh] rounded-[32px] border border-white/10 bg-[#0A0A0A] p-6 md:p-10 shadow-2xl overflow-hidden flex flex-col"
-                >
-                  <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/5 shrink-0">
-                    <div>
-                      <h3 className="text-2xl font-display font-medium text-white mb-1">Authentic Recipe</h3>
-                      <p className="text-[var(--saffron)] text-sm">{dish.name}</p>
-                    </div>
-                    <button
-                      onClick={() => setRecipeModalOpen(false)}
-                      className="text-white/40 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-
-                  <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
-                    {recipeLoading ? (
-                      <div className="flex flex-col items-center justify-center py-20 text-center">
-                        <div className="w-16 h-16 border-4 border-white/10 border-t-[var(--saffron)] rounded-full animate-spin mb-6"></div>
-                        <p className="text-white/60 animate-pulse font-medium tracking-wide">
-                          Waza AI is crafting the perfect authentic recipe...
-                        </p>
-                      </div>
-                    ) : recipeError ? (
-                      <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-center">
-                        <p className="text-red-400 mb-4">{recipeError}</p>
-                        <button 
-                          onClick={handleExploreRecipe}
-                          className="px-6 py-2 bg-red-500/20 text-red-300 rounded-full text-sm font-medium hover:bg-red-500/30 transition-colors"
-                        >
-                          Try Again
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10">
-                        <ReactMarkdown
-                          components={{
-                            h1: ({ node, ...props }) => <h1 className="text-2xl font-display text-[var(--saffron)] mb-6 pb-4 border-b border-white/10" {...props} />,
-                            h2: ({ node, ...props }) => <h2 className="text-xl font-display text-white mt-8 mb-4 flex items-center gap-3 before:content-[''] before:block before:w-2 before:h-2 before:bg-[var(--saffron)] before:rounded-full" {...props} />,
-                            h3: ({ node, ...props }) => <h3 className="text-lg font-bold text-white/90 mt-6 mb-3" {...props} />,
-                            p: ({ node, ...props }) => <p className="mb-4 text-white/70 leading-loose" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-sm text-white/80" {...props} />,
-                            li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
-                            strong: ({ node, ...props }) => <strong className="font-bold text-[var(--saffron)]" {...props} />,
-                            code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-xs text-[var(--saffron)]" {...props} />,
-                            blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-[var(--saffron)] pl-3 italic text-white/60 my-3" {...props} />,
-                          }}
-                        >
-                          {recipeResult}
-                        </ReactMarkdown>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              </div>
-            )}
-          </AnimatePresence>
-
-          {showAuthModal && (
-            <AuthRequiredModal
-              titleLine1={authContext === "recipe" ? "Unlock Secret" : "Save Your"}
-              titleLine2={authContext === "recipe" ? "Recipes" : "Favorites"}
-              message={authContext === "recipe" 
-                ? "You've explored your 2 free recipes.\nSign in or create an account to unlock unlimited authentic Kashmiri recipes." 
-                : "Sign in or create an account to save dishes to your favorites."}
-              onClose={() => setShowAuthModal(false)}
-              onSuccess={() => {
-                setShowAuthModal(false);
-                if (authContext === "favorite" && !isFavorite) {
-                  handleToggleFavorite();
-                }
-              }}
-            />
+          ) : (
+            <p className={styles.text}>
+              No restaurant on Wazwan Way lists {dish.name} yet.{" "}
+              <Link href="/restaurants" prefetch={false} className="text-[#c9a063] underline underline-offset-4">
+                Browse restaurants
+              </Link>
+            </p>
           )}
-        </>,
-        document.body
-      )}
+        </section>
+
+        <DishNotes dishName={dish.name} notes={notes} id="about" />
+      </div>
+
+      {hasRecipe ? (
+        <div className={`${styles.body} ${styles.recipeBody}`}>
+          <section id="recipe" className={styles.section} aria-labelledby="recipe-heading">
+            <p className={styles.eyebrow}>The recipe</p>
+            <h2 id="recipe-heading" className={styles.sectionTitle}>
+              How to make {dish.name}
+            </h2>
+            {recipe.intro && recipe.intro !== dish.fullDescription ? <p className={`${styles.text} ${styles.prose}`}>{recipe.intro}</p> : null}
+            {recipeStats.length ? (
+              <dl className={styles.stats} style={{ "--stat-count": recipeStats.length }}>
+                {recipeStats.map((stat) => (
+                  <div key={stat.term}>
+                    <dt>{stat.term}</dt>
+                    <dd>{stat.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+
+            <div className={styles.recipeGrid}>
+              <div className={styles.recipeAside}>
+                <h3 className={styles.subTitle}>Ingredients</h3>
+                <p className={styles.checkHint}>Tap an ingredient to tick it off.</p>
+                <ul className={styles.ingredients}>
+                  {recipe.ingredients.map((ingredient, i) => (
+                    <li key={`${i}-${ingredient}`}>
+                      <label className={styles.ingredient}>
+                        <input type="checkbox" className={styles.ingredientInput} />
+                        <span className={styles.check} aria-hidden="true">
+                          <CheckIcon />
+                        </span>
+                        <span className={styles.ingredientText}>{ingredient}</span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+                {recipe.wazaTips?.length ? (
+                  <div className={styles.callout}>
+                    <h3 className={styles.eyebrow}>Waza tips</h3>
+                    <ul>
+                      {recipe.wazaTips.map((tip) => (
+                        <li key={tip}>{tip}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+
+              <div>
+                <h3 className={styles.subTitle}>Method</h3>
+                <ol className={styles.steps}>
+                  {recipe.instructions.map((step, i) => (
+                    <li key={`${i}-${step.slice(0, 24)}`}>
+                      <span className={styles.stepNumber} aria-hidden="true">
+                        {i + 1}
+                      </span>
+                      <p>{step}</p>
+                    </li>
+                  ))}
+                </ol>
+                {recipe.commonMistakes?.length ? (
+                  <>
+                    <h3 className={styles.subTitle}>Common mistakes</h3>
+                    <ul className={styles.mistakes}>
+                      {recipe.commonMistakes.map((mistake) => (
+                        <li key={mistake}>
+                          <span className={styles.mistakeMark} aria-hidden="true">
+                            ×
+                          </span>
+                          <span>{mistake}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
+                {recipe.homeAdaptation ? (
+                  <>
+                    <h3 className={styles.subTitle}>At home</h3>
+                    <p className={styles.text}>{recipe.homeAdaptation}</p>
+                  </>
+                ) : null}
+                {recipe.servingSuggestions ? (
+                  <>
+                    <h3 className={styles.subTitle}>Serving</h3>
+                    <p className={styles.text}>{recipe.servingSuggestions}</p>
+                  </>
+                ) : null}
+              </div>
+            </div>
+          </section>
+        </div>
+      ) : null}
+
+      {relatedReading.length ? (
+        <div className={styles.body}>
+          <section id="reading" className={styles.section} aria-labelledby="reading-heading">
+            <p className={styles.eyebrow}>Further reading</p>
+            <h2 id="reading-heading" className={styles.sectionTitle}>
+              Read more about {dish.name}
+            </h2>
+            <ul className={styles.rows}>
+              {relatedReading.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} prefetch={false} className={styles.rowLink}>
+                    <span className={styles.rowName}>{link.title}</span>
+                    <span className={styles.rowArrow}>
+                      <ArrowIcon />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      ) : null}
+
+      {recipeModalOpen ? (
+        <DishRecipeModal dishName={dish.name} onClose={() => setRecipeModalOpen(false)} onRequireAuth={requireRecipeAuth} />
+      ) : null}
+
+      {authContext
+        ? createPortal(
+        <AuthRequiredModal
+          titleLine1={authContext === "recipe" ? "Unlock Secret" : "Save Your"}
+          titleLine2={authContext === "recipe" ? "Recipes" : "Favorites"}
+          message={
+            authContext === "recipe"
+              ? "You've explored your 2 free recipes.\nSign in or create an account to unlock unlimited authentic Kashmiri recipes."
+              : "Sign in or create an account to save dishes to your favorites."
+          }
+          onClose={() => setAuthContext(null)}
+          onSuccess={() => {
+            const wasFavorite = authContext === "favorite";
+            setAuthContext(null);
+            if (wasFavorite && !isFavorite) toggleFavorite();
+          }}
+        />,
+        document.body,
+      )
+        : null}
     </div>
   );
 }

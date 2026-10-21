@@ -77,7 +77,7 @@ export const CORE_SEVEN_SERIES = [
     name: "Gushtaba",
     title: "Gushtaba: Why the Wazwan Ends With a Meatball",
     angle: "Why the Wazwan ends with a meatball",
-    place: "Last",
+    place: "The last course",
     linkText: "why the feast ends with gushtaba",
   },
 ].map((story, index) => ({ ...story, number: index + 1, href: `/blog/${story.slug}` }));
