@@ -7,6 +7,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { createPortal } from "react-dom";
 import AuthRequiredModal from "@/components/AuthRequiredModal";
+import { InlineBackButton } from "@/components/BackButton";
 import { CHIPS, dishMatchesChip, isRecipeDish } from "@/lib/recipeFilters";
 import { buildImageUrl } from "@/lib/imageProvider";
 
@@ -170,15 +171,18 @@ export default function RecipesPage() {
           </p>
         </div>
 
-        {/* Sticky search + chips on mobile (solid backdrop, no blur);
-            on md+ this doubles as the header of the original list block. */}
-        <div className="sticky top-0 z-30 -mx-4 px-4 py-3 bg-[#0a0a0a] max-md:border-b max-md:border-white/10 sm:-mx-6 sm:px-6 md:static md:z-auto md:mx-0 md:bg-[#141414] md:rounded-t-3xl md:border md:border-white/5 md:p-5">
-          <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Wazwan recipes..."
-            className="w-full rounded-xl border border-white/10 bg-black/40 text-white/90 placeholder-white/30 px-4 py-3 text-sm outline-none focus:border-[var(--saffron)] transition-colors"
-          />
+        {/* Sticky search + chips on mobile (solid backdrop, no blur), with Back while it is
+            pinned; on md+ this doubles as the header of the original list block. */}
+        <div data-back-bar="" className="sticky top-0 z-30 -mx-4 px-4 py-3 bg-[#0a0a0a] max-md:border-b max-md:border-white/10 sm:-mx-6 sm:px-6 md:static md:z-auto md:mx-0 md:bg-[#141414] md:rounded-t-3xl md:border md:border-white/5 md:p-5">
+          <div className="flex items-center gap-2">
+            <InlineBackButton className="recipes-search-back -ml-2 h-11 w-11 shrink-0 place-items-center rounded-full text-white/85" />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search Wazwan recipes..."
+              className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 text-white/90 placeholder-white/30 px-4 py-3 text-sm outline-none focus:border-[var(--saffron)] transition-colors"
+            />
+          </div>
           <div className="recipes-chip-rail mt-3 flex gap-2 overflow-x-auto pb-1 md:pb-0" data-h-scroll>
             {CHIPS.map((c) => (
               <motion.button

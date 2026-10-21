@@ -5,7 +5,6 @@ import CinematicBackground from "@/components/explore/CinematicBackground";
 import CarouselSection from "@/components/explore/CarouselSection";
 import CollectionMarquee from "@/components/explore/CollectionMarquee";
 import ExploreHero from "@/components/explore/ExploreHero";
-import StickyMobileNav from "@/components/StickyMobileNav";
 import { Calendar, Car, Clock, Compass, Mountain, ArrowRight } from "lucide-react";
 import ExploreClient from "./ExploreClient";
 import DestinationIndex from "@/components/explore/DestinationIndex";
@@ -70,11 +69,8 @@ export default async function ExplorePage() {
   } = data;
 
   return (
-    <>
-      <StickyMobileNav />
-      <ExploreClient data={data}>
-        <DestinationIndex />
-      </ExploreClient>
-    </>
+    <ExploreClient data={data}>
+      <DestinationIndex />
+    </ExploreClient>
   );
 }

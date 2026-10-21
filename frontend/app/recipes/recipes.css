@@ -11,3 +11,16 @@
 .recipes-chip-rail::-webkit-scrollbar {
   display: none;
 }
+
+/* Phones: the search bar pins to the top of the screen, and Back moves into it only while it is
+   pinned (components/BackButton.js marks it data-pinned and tucks the floating button away), so
+   the first screen never shows two. */
+.recipes-search-back {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  [data-pinned] .recipes-search-back {
+    display: grid;
+  }
+}

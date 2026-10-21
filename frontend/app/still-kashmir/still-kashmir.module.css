@@ -67,7 +67,8 @@
   position: absolute;
   z-index: 2;
   top: calc(env(safe-area-inset-top, 0px) + 16px);
-  left: 16px;
+  /* Top right on phones: the floating Back button holds the top-left corner. */
+  right: 16px;
   padding: 7px 12px;
   border-radius: 999px;
   background: rgba(12, 10, 8, 0.55);
@@ -235,6 +236,7 @@
 
   .caption {
     top: 20px;
+    right: auto;
     left: 20px;
   }
 }

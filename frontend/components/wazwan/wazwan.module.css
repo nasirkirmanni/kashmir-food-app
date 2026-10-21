@@ -176,41 +176,6 @@
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
 }
 
-.back {
-  position: absolute;
-  z-index: 4;
-  top: calc(var(--ww-top) + 20px + env(safe-area-inset-top, 0px));
-  left: var(--ww-gutter);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 0 16px 0 12px;
-  border: 1px solid rgba(241, 232, 218, 0.14);
-  border-radius: 999px;
-  background: rgba(13, 11, 9, 0.62);
-  font: inherit;
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  color: rgba(241, 232, 218, 0.86);
-  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.75);
-  cursor: pointer;
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.back:hover {
-  color: var(--ww-ivory);
-  background: rgba(13, 11, 9, 0.82);
-}
-
-.backArrow {
-  transition: transform 0.4s var(--ww-ease);
-}
-
-.back:hover .backArrow {
-  transform: translateX(-4px);
-}
-
 .heroContent {
   position: absolute;
   z-index: 3;
@@ -744,6 +709,12 @@
   justify-content: space-between;
   gap: 24px;
   min-height: var(--ww-nav-height);
+}
+
+/* Phones only: there the bar pins to the top of the screen and carries Back while the floating
+   button steps aside (components/BackButton.js). The desktop top bar has its own. */
+.chapterNavBack {
+  display: none;
 }
 
 .chapterNavTitle {
@@ -1569,12 +1540,40 @@
 
   .chapterNavInner {
     padding-inline: 0;
+    gap: 0;
+  }
+
+  .chapterNavBack {
+    position: relative;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0 9px 0 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--ww-ivory);
+    cursor: pointer;
+  }
+
+  .chapterNavBack::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: -5px;
+    width: 1px;
+    height: 20px;
+    background: var(--ww-line-strong);
   }
 
   .chapterNavList {
-    width: 100%;
-    padding-inline: var(--ww-gutter);
-    scroll-padding-inline: var(--ww-gutter);
+    flex: 1;
+    min-width: 0;
+    padding-inline: 4px var(--ww-gutter);
+    scroll-padding-inline: 4px var(--ww-gutter);
   }
 
   .pair {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { InlineBackButton } from "@/components/BackButton";
 import styles from "./wazwan.module.css";
 
 /**
@@ -68,9 +69,10 @@ export default function ChapterNav({ items }) {
   }, [active]);
 
   return (
-    <nav aria-label="Chapters" className={styles.chapterNav}>
+    <nav aria-label="Chapters" className={styles.chapterNav} data-back-bar="">
       <span ref={progressRef} className={styles.chapterNavProgress} aria-hidden="true" />
       <div className={`${styles.container} ${styles.chapterNavInner}`}>
+        <InlineBackButton className={styles.chapterNavBack} />
         <a href="#top" className={styles.chapterNavTitle}>
           Traditional Wazwan
         </a>

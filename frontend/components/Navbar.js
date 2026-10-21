@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import HamburgerMenu from "./HamburgerMenu";
+import { TopBarBackButton } from "./BackButton";
 import { User } from "lucide-react";
 import { SITE_SECTIONS } from "@/lib/siteSections";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
@@ -23,6 +24,18 @@ const SHOW_FROM = {
   "/itineraries": "hidden xl:inline-flex",
   "/explore": "hidden xl:inline-flex",
   "/blog": "hidden lg:inline-flex",
+};
+
+/* Every page but home starts the bar with Back (56px), so there each link waits for a little
+   more width: measured the same way, with Back, on /dishes. */
+const SHOW_FROM_WITH_BACK = {
+  ...SHOW_FROM,
+  "/kashmiri-food": "hidden min-[1080px]:inline-flex",
+  "/restaurants": "hidden min-[1080px]:inline-flex",
+  [STILL_KASHMIR_HREF]: "hidden min-[1440px]:inline-flex",
+  "/itineraries": "hidden min-[1320px]:inline-flex",
+  "/explore": "hidden min-[1320px]:inline-flex",
+  "/blog": "hidden min-[1080px]:inline-flex",
 };
 
 export default function Navbar() {
@@ -95,7 +108,8 @@ export default function Navbar() {
     >
       <div className="flex h-20 items-center justify-between w-full pl-3 pr-6 lg:pl-6 lg:pr-12 2xl:pl-8 2xl:pr-16">
 
-        {/* Left Side: Logo */}
+        {/* Left Side: Back (every page but home), then the logo */}
+        {pathname !== "/" && <TopBarBackButton />}
         <Link
           href="/"
           className="font-display text-[28px] font-black uppercase leading-[0.9] tracking-[-0.02em] text-white mr-8 shrink-0 flex items-baseline"
@@ -113,7 +127,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               prefetch={false}
-              className={`${SHOW_FROM[link.href] ?? "hidden"} whitespace-nowrap transition-colors hover:text-[#C8A46A]`}
+              className={`${(pathname === "/" ? SHOW_FROM : SHOW_FROM_WITH_BACK)[link.href] ?? "hidden"} whitespace-nowrap transition-colors hover:text-[#C8A46A]`}
             >
               {link.label}
             </Link>

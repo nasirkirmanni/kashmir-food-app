@@ -2,11 +2,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { Sparkles, Bookmark, Share2, ArrowLeft } from 'lucide-react';
+import { Sparkles, Bookmark, Share2 } from 'lucide-react';
 
 export default function HeroSection({ data }) {
-  const router = useRouter();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 300]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
@@ -39,21 +37,6 @@ export default function HeroSection({ data }) {
           transition={{ duration: 1, ease: "easeOut" }}
           className="max-w-4xl"
         >
-          {/* Back Button */}
-          <button 
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.history.length > 1) {
-                router.back();
-              } else {
-                router.push('/explore');
-              }
-            }}
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-6 text-[11px] font-bold uppercase tracking-widest group"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            Back
-          </button>
-
           <div className="flex items-center gap-4 mb-6">
             <span className="px-4 py-1.5 rounded-full border border-[#D4A85D]/40 text-[#D4A85D] text-[10px] uppercase tracking-widest font-bold bg-[#D4A85D]/10 backdrop-blur-md">
               Premium Destination

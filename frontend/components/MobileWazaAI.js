@@ -1,20 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { request, streamRequest, endpoints } from "@/lib/api";
 import ReactMarkdown from "react-markdown";
 
 /* ── SVG Icons ───────────────────────────────────────────── */
-
-const ArrowLeftIcon = ({ size = 22, className = "" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="19" y1="12" x2="5" y2="12" />
-    <polyline points="12 19 5 12 12 5" />
-  </svg>
-);
 
 const SendIcon = ({ size = 18, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -127,7 +119,6 @@ const staggerContainer = {
 /* ── Component ───────────────────────────────────────────── */
 
 export default function MobileWazaAI({ initialPrompt }) {
-  const router = useRouter();
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -310,16 +301,7 @@ export default function MobileWazaAI({ initialPrompt }) {
         transition={{ duration: 0.5 }}
         className="relative z-10 flex flex-col items-center pt-4 pb-3 px-5 shrink-0"
       >
-        {/* Back button */}
-        <button
-          onClick={() => router.back()}
-          className="absolute left-4 top-4 p-2 rounded-full text-white/60 hover:text-white hover:bg-white/5 transition-all"
-          aria-label="Go Back"
-        >
-          <ArrowLeftIcon size={22} />
-        </button>
-
-        {/* Logo + Title */}
+        {/* Logo + Title (Back is the site's floating button, top left) */}
         <WazaLeafLogo size={38} />
         {/* Styled title, not a heading: the /waza-ai page provides its own <h1>. */}
         <p
