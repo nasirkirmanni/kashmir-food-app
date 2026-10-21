@@ -457,13 +457,16 @@
   transform: scale(1.045);
 }
 
-.hoverable:hover .photoImg {
-  transform: scale(1.025);
-  filter: saturate(1) brightness(1);
-}
+/* Only where a pointer can hover: on a phone a tap would leave the photo stuck mid-zoom. */
+@media (hover: hover) and (pointer: fine) {
+  .hoverable:hover .photoImg {
+    transform: scale(1.025);
+    filter: saturate(1) brightness(1);
+  }
 
-.hoverable:hover .photoFramed {
-  transform: scale(1.09);
+  .hoverable:hover .photoFramed {
+    transform: scale(1.09);
+  }
 }
 
 .vessel {
@@ -1625,6 +1628,14 @@
   }
 
   .plateCard .frame_plate {
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Square photos on phones: the tall 4:5 and 3:4 frames made each dish card nearly a full
+     screen. The focal point set per photo keeps the dish in frame. */
+  .feature .frame_feature,
+  .feature .frame_portrait,
+  .frame_finale {
     aspect-ratio: 1 / 1;
   }
 

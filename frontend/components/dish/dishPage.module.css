@@ -1,0 +1,890 @@
+/*
+ * The dish page (/dishes/<slug>), mobile first. It shares the Traditional Wazwan page's ground,
+ * gold and Bodoni display face (components/wazwan/wazwan.module.css), so moving from the feast to
+ * a dish feels like one publication. Flat on purpose: no backdrop-filter, no large shadows and no
+ * hover lifts, which made the old card layout stutter while scrolling on phones.
+ */
+
+.page {
+  --dp-ground: #0d0b09;
+  --dp-raised: #15110d;
+  --dp-line: rgba(244, 236, 223, 0.1);
+  --dp-ink: #f4ecdf;
+  --dp-text: rgba(244, 236, 223, 0.8);
+  --dp-dim: rgba(244, 236, 223, 0.58);
+  --dp-gold: #c9a063;
+  --dp-gold-soft: rgba(201, 160, 99, 0.1);
+  --dp-display: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --dp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  z-index: 10;
+  background: var(--dp-ground);
+  color: var(--dp-text);
+  /* Clears the floating tab bar on phones. */
+  padding-bottom: calc(120px + env(safe-area-inset-bottom));
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--dp-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dp-gold);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+}
+
+.media {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 70svh;
+  overflow: hidden;
+  background: var(--dp-raised);
+}
+
+.mediaShade {
+  position: absolute;
+  inset: 0;
+  /* Above the image, which ImageWithSkeleton lifts to z-index 10 inside this isolated frame. */
+  z-index: 11;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 11, 9, 0.55) 0%,
+    rgba(13, 11, 9, 0) 20%,
+    rgba(13, 11, 9, 0) 50%,
+    rgba(13, 11, 9, 0.82) 84%,
+    #0d0b09 100%
+  );
+}
+
+.mediaImg {
+  object-fit: cover;
+}
+
+.topControls {
+  position: absolute;
+  z-index: 12;
+  top: calc(env(safe-area-inset-top) + 12px);
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.topControlsStatic {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  padding: calc(env(safe-area-inset-top) + 12px) 16px 0;
+}
+
+.iconButton {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: var(--dp-ink);
+  background: rgba(13, 11, 9, 0.6);
+  border: 1px solid rgba(244, 236, 223, 0.2);
+  transition: transform 150ms var(--dp-ease), background-color 150ms var(--dp-ease);
+}
+
+.iconButton:active {
+  transform: scale(0.94);
+}
+
+.heroBody {
+  position: relative;
+  z-index: 2;
+  margin-top: -76px;
+  padding: 0 20px;
+}
+
+.heroBodyPlain {
+  margin-top: 0;
+  padding-top: 20px;
+}
+
+.crumbs {
+  display: none;
+}
+
+.title {
+  margin-top: 10px;
+  font-family: var(--dp-display);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 11.5vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--dp-ink);
+  text-wrap: balance;
+}
+
+.kashmiri {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--dp-display);
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--dp-dim);
+}
+
+.summary {
+  margin-top: 14px;
+  max-width: 60ch;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--dp-text);
+}
+
+/* Diet, spice, price and popularity: one hairline grid, two across on phones. */
+.facts {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--dp-line);
+  border: 1px solid var(--dp-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.facts > div {
+  background: var(--dp-ground);
+  padding: 12px 14px;
+}
+
+.facts > div:last-child:nth-child(odd) {
+  grid-column: span 2;
+}
+
+.facts dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dp-dim);
+}
+
+.facts dd {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--dp-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.primary,
+.secondary {
+  min-height: 52px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: transform 150ms var(--dp-ease), background-color 150ms var(--dp-ease), border-color 150ms var(--dp-ease),
+    color 150ms var(--dp-ease);
+}
+
+.primary {
+  flex: 1 1 180px;
+  padding: 0 22px;
+  background: var(--dp-gold);
+  color: #0d0b09;
+}
+
+.secondary {
+  flex: 0 0 auto;
+  padding: 0 20px;
+  color: var(--dp-ink);
+  border: 1px solid rgba(244, 236, 223, 0.24);
+}
+
+.secondary[aria-pressed="true"] {
+  color: var(--dp-gold);
+  border-color: var(--dp-gold);
+}
+
+.primary:active,
+.secondary:active {
+  transform: scale(0.98);
+}
+
+.saveError {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #f2a7a0;
+}
+
+.savedLink {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: var(--dp-gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The long-form story, for the seven essential dishes. */
+.story {
+  margin-top: 22px;
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(201, 160, 99, 0.32);
+  background: var(--dp-gold-soft);
+  transition: border-color 150ms var(--dp-ease);
+}
+
+.storyTitle {
+  font-family: var(--dp-display);
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: var(--dp-ink);
+}
+
+.storyCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dp-gold);
+}
+
+/* ---------- On-this-page bar (phones) ---------- */
+
+.sectionNav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin-top: 30px;
+  background: var(--dp-ground);
+  border-top: 1px solid var(--dp-line);
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.sectionNavInner {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 12px 4px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sectionNavInner::-webkit-scrollbar {
+  display: none;
+}
+
+.navBack {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--dp-ink);
+  border-radius: 999px;
+}
+
+.navDivider {
+  flex: none;
+  width: 1px;
+  height: 20px;
+  margin: 0 6px 0 2px;
+  background: var(--dp-line);
+}
+
+.chip {
+  flex: none;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  color: var(--dp-dim);
+  transition: color 150ms var(--dp-ease), background-color 150ms var(--dp-ease);
+}
+
+.chip[aria-current="true"] {
+  color: var(--dp-ink);
+  background: rgba(244, 236, 223, 0.08);
+}
+
+/* ---------- Sections ---------- */
+
+.body {
+  padding: 0 20px;
+}
+
+.section {
+  scroll-margin-top: 64px;
+  padding-top: 40px;
+}
+
+.section + .section {
+  margin-top: 40px;
+  border-top: 1px solid var(--dp-line);
+}
+
+.sectionTitle {
+  margin-top: 8px;
+  font-family: var(--dp-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 7.6vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--dp-ink);
+  text-wrap: balance;
+}
+
+.prose {
+  max-width: 65ch;
+}
+
+.prose p,
+.text {
+  margin-top: 14px;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--dp-text);
+}
+
+.prose a {
+  color: var(--dp-gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 160, 99, 0.45);
+  text-underline-offset: 3px;
+}
+
+.prose strong {
+  color: var(--dp-ink);
+  font-weight: 600;
+}
+
+.prose ul {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.prose li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--dp-text);
+}
+
+.prose li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.75em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--dp-gold);
+}
+
+.callout {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--dp-gold);
+  border-radius: 0 12px 12px 0;
+  background: var(--dp-gold-soft);
+}
+
+.callout p {
+  margin-top: 6px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--dp-ink);
+}
+
+.callout ul {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px;
+}
+
+.callout li {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--dp-ink);
+}
+
+.noteTitle,
+.subTitle {
+  margin-top: 30px;
+  font-family: var(--dp-display);
+  font-weight: 500;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  color: var(--dp-ink);
+}
+
+/* Rows that lead somewhere: restaurants, further reading. */
+.rows {
+  margin-top: 18px;
+  border-top: 1px solid var(--dp-line);
+}
+
+.rows > li {
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.rowLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px 0;
+  color: var(--dp-ink);
+  transition: background-color 150ms var(--dp-ease);
+}
+
+.rowLink:active {
+  background: rgba(244, 236, 223, 0.04);
+}
+
+.rowName {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.rowMeta {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--dp-dim);
+}
+
+.rowArrow {
+  flex: none;
+  color: var(--dp-gold);
+}
+
+/* Sources, folded on phones. */
+.sources {
+  margin-top: 30px;
+  border: 1px solid var(--dp-line);
+  border-radius: 14px;
+}
+
+.sources summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 16px;
+  font-size: 0.9375rem;
+  color: var(--dp-ink);
+}
+
+.sources summary::-webkit-details-marker {
+  display: none;
+}
+
+.sourcesChevron {
+  flex: none;
+  color: var(--dp-gold);
+  transition: transform 200ms var(--dp-ease);
+}
+
+.sources[open] .sourcesChevron {
+  transform: rotate(180deg);
+}
+
+.sourcesBody {
+  padding: 0 16px 16px;
+}
+
+.sourcesNote {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--dp-dim);
+}
+
+.sourcesList {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+  counter-reset: source;
+}
+
+.sourcesList li {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--dp-dim);
+}
+
+.sourcesList a {
+  text-decoration: underline;
+  text-decoration-color: rgba(244, 236, 223, 0.2);
+  text-underline-offset: 2px;
+}
+
+/* ---------- Recipe ---------- */
+
+.stats {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--dp-line);
+  border: 1px solid var(--dp-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.stats > div {
+  background: var(--dp-ground);
+  padding: 12px 14px;
+}
+
+.stats > div:last-child:nth-child(odd) {
+  grid-column: span 2;
+}
+
+.stats dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dp-dim);
+}
+
+.stats dd {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--dp-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.checkHint {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  color: var(--dp-dim);
+}
+
+.ingredients {
+  margin-top: 8px;
+}
+
+/* Tap an ingredient to tick it off while cooking; plain checkboxes, no script. */
+.ingredient {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 48px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--dp-line);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ingredientInput {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.check {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(201, 160, 99, 0.6);
+  display: grid;
+  place-items: center;
+  color: #0d0b09;
+  transition: background-color 150ms var(--dp-ease), border-color 150ms var(--dp-ease);
+}
+
+.check svg {
+  opacity: 0;
+  transition: opacity 150ms var(--dp-ease);
+}
+
+.ingredientText {
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--dp-text);
+  transition: color 150ms var(--dp-ease);
+}
+
+.ingredientInput:checked + .check {
+  background: var(--dp-gold);
+  border-color: var(--dp-gold);
+}
+
+.ingredientInput:checked + .check svg {
+  opacity: 1;
+}
+
+.ingredientInput:checked ~ .ingredientText {
+  color: var(--dp-dim);
+  text-decoration: line-through;
+  text-decoration-color: rgba(244, 236, 223, 0.35);
+}
+
+.ingredientInput:focus-visible + .check {
+  outline: 2px solid var(--dp-gold);
+  outline-offset: 3px;
+}
+
+.steps {
+  margin-top: 4px;
+}
+
+.steps > li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.stepNumber {
+  font-family: var(--dp-display);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--dp-gold);
+  font-variant-numeric: lining-nums;
+}
+
+.steps p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--dp-text);
+}
+
+.mistakes {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.mistakes li {
+  display: flex;
+  gap: 12px;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--dp-text);
+}
+
+.mistakeMark {
+  flex: none;
+  color: var(--dp-dim);
+}
+
+/* ---------- States ---------- */
+
+.state {
+  min-height: 60svh;
+  display: grid;
+  place-items: center;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.stateText {
+  font-size: 1rem;
+  color: var(--dp-text);
+}
+
+.stateButton {
+  margin-top: 16px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--dp-gold);
+  color: #0d0b09;
+  font-weight: 600;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border-radius: 999px;
+  border: 2px solid rgba(201, 160, 99, 0.25);
+  border-top-color: var(--dp-gold);
+  animation: dpSpin 900ms linear infinite;
+}
+
+@keyframes dpSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Tablet and desktop ---------- */
+
+@media (min-width: 768px) {
+  .page {
+    padding-bottom: 96px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 56px;
+    align-items: end;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 120px 32px 0;
+  }
+
+  .heroPlain {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 824px;
+  }
+
+  .media {
+    order: 2;
+    aspect-ratio: 4 / 5;
+    max-height: 640px;
+    border-radius: 18px;
+  }
+
+  .mediaShade,
+  .topControls {
+    display: none;
+  }
+
+  .heroBody {
+    order: 1;
+    margin-top: 0;
+    padding: 0 0 8px;
+  }
+
+  .heroBodyPlain {
+    padding-top: 0;
+  }
+
+  .crumbs {
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .facts {
+    grid-template-columns: repeat(var(--fact-count, 4), minmax(0, 1fr));
+  }
+
+  .facts > div:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .sectionNav {
+    display: none;
+  }
+
+  .body {
+    max-width: 824px;
+    margin: 0 auto;
+    padding: 24px 32px 0;
+  }
+
+  .stats {
+    grid-template-columns: repeat(var(--stat-count, 4), minmax(0, 1fr));
+  }
+
+  .stats > div:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1100px) {
+  .recipeBody {
+    max-width: 1160px;
+  }
+
+  .recipeGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  .recipeAside {
+    position: sticky;
+    top: 104px;
+  }
+}
+
+/* Hover states only where a pointer can hover, so a tap on a phone never leaves one stuck on. */
+@media (hover: hover) and (pointer: fine) {
+  .iconButton:hover {
+    background: rgba(13, 11, 9, 0.85);
+  }
+
+  .primary:hover {
+    background: #d8b277;
+  }
+
+  .secondary:hover {
+    border-color: rgba(244, 236, 223, 0.5);
+  }
+
+  .story:hover {
+    border-color: rgba(201, 160, 99, 0.6);
+  }
+
+  .rowLink:hover .rowName {
+    color: var(--dp-gold);
+  }
+
+  .chip:hover {
+    color: var(--dp-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
