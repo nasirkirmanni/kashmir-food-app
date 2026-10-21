@@ -75,42 +75,6 @@
   object-fit: cover;
 }
 
-.topControls {
-  position: absolute;
-  z-index: 12;
-  top: calc(env(safe-area-inset-top) + 12px);
-  left: 16px;
-  right: 16px;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.topControlsStatic {
-  position: relative;
-  top: auto;
-  left: auto;
-  right: auto;
-  padding: calc(env(safe-area-inset-top) + 12px) 16px 0;
-}
-
-.iconButton {
-  pointer-events: auto;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  color: var(--dp-ink);
-  background: rgba(13, 11, 9, 0.6);
-  border: 1px solid rgba(244, 236, 223, 0.2);
-  transition: transform 150ms var(--dp-ease), background-color 150ms var(--dp-ease);
-}
-
-.iconButton:active {
-  transform: scale(0.94);
-}
-
 .heroBody {
   position: relative;
   z-index: 2;
@@ -118,9 +82,10 @@
   padding: 0 20px;
 }
 
+/* With no photo the page opens on the title, so it starts below the floating Back button. */
 .heroBodyPlain {
   margin-top: 0;
-  padding-top: 20px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 76px);
 }
 
 .crumbs {
@@ -788,8 +753,7 @@
     border-radius: 18px;
   }
 
-  .mediaShade,
-  .topControls {
+  .mediaShade {
     display: none;
   }
 
@@ -855,10 +819,6 @@
 
 /* Hover states only where a pointer can hover, so a tap on a phone never leaves one stuck on. */
 @media (hover: hover) and (pointer: fine) {
-  .iconButton:hover {
-    background: rgba(13, 11, 9, 0.85);
-  }
-
   .primary:hover {
     background: #d8b277;
   }

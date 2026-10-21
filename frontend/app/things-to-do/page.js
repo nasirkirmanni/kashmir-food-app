@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, MapPin, Navigation } from "lucide-react";
+import { MapPin, Navigation } from "lucide-react";
+import { InlineBackButton } from "@/components/BackButton";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
 const activities = [
@@ -41,8 +41,6 @@ const activities = [
 ];
 
 export default function ThingsToDoPage() {
-  const router = useRouter();
-
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white relative overflow-x-clip selection:bg-[var(--saffron)] selection:text-black">
       
@@ -54,13 +52,8 @@ export default function ThingsToDoPage() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-center bg-gradient-to-b from-[#0A0A0A]/90 to-transparent backdrop-blur-md">
-        <button 
-          onClick={() => router.back()}
-          className="absolute left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md hover:bg-white/10 transition-colors"
-        >
-          <ArrowLeft size={20} className="text-white" />
-        </button>
+      <header data-back-bar="" className="sticky top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-center bg-gradient-to-b from-[#0A0A0A]/90 to-transparent backdrop-blur-md">
+        <InlineBackButton className="absolute left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white backdrop-blur-md hover:bg-white/10 transition-colors md:hidden" />
         <span className="font-display font-medium text-[15px] tracking-[0.2em] uppercase text-white/90">Kashmir Travel</span>
       </header>
 

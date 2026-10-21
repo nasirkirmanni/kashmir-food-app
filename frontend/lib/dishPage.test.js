@@ -19,7 +19,7 @@ describe("dish page on phones", () => {
   });
 
   it("gives tap targets at least 44px and keeps the page clear of the floating tab bar", () => {
-    expect(css).toMatch(/\.iconButton \{[^}]*width: 44px;[^}]*height: 44px;/);
+    expect(css).toMatch(/\.navBack \{[^}]*width: 44px;[^}]*height: 44px;/);
     expect(css).toMatch(/\.ingredient \{[^}]*min-height: 48px;/);
     expect(css).toMatch(/padding-bottom: calc\(120px \+ env\(safe-area-inset-bottom\)\)/);
   });

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import BackLink from "./BackLink";
 import DishPhoto from "./DishPhoto";
 import styles from "./wazwan.module.css";
 
@@ -21,8 +20,6 @@ export default function WazwanHero({ total, index }) {
           <div className={styles.heroShade} aria-hidden="true" />
           <p className={styles.heroCaption}>Pounding meat by hand</p>
         </div>
-
-        <BackLink className={styles.back} arrowClassName={styles.backArrow} />
 
         <div className={styles.heroContent}>
           <div className={`${styles.container} ${styles.heroGrid}`}>

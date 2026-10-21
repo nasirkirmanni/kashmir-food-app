@@ -12,11 +12,12 @@ import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import { resolveImageUrl } from "@/lib/imageUtils";
-import StickyMobileNav from "@/components/StickyMobileNav";
+import { useGoBack } from "@/components/BackButton";
 
 export default function RestaurantDetailClient({ initialRestaurant = null, otherRestaurants = [] }) {
   const params = useParams();
   const router = useRouter();
+  const goBack = useGoBack();
   const [restaurant, setRestaurant] = useState(initialRestaurant);
   const [loading, setLoading] = useState(!initialRestaurant);
   const [error, setError] = useState(null);
@@ -77,7 +78,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
       <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
         <div className="text-center space-y-4">
           <div className="text-white/60 font-medium text-xl">Restaurant not found.</div>
-          <button onClick={() => router.back()} className="rounded-full bg-[var(--saffron)] px-6 py-2 text-black font-bold hover:scale-105 transition-transform">Go Back</button>
+          <button onClick={goBack} className="rounded-full bg-[var(--saffron)] px-6 py-2 text-black font-bold hover:scale-105 transition-transform">Go Back</button>
         </div>
       </div>
     );
@@ -88,8 +89,6 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
       {/* JSON-LD Structured Data */}
       <JsonLd data={buildRestaurantSchema(restaurant)} />
 
-      <StickyMobileNav title={restaurant.name} />
-
       <section className="place-hero !grid-cols-1 md:!grid-cols-[1.2fr_0.8fr]">
         <div>
           <div className="hidden md:block">
@@ -99,15 +98,6 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
               { name: restaurant.name, href: `/restaurants/${restaurant.slug}` },
             ]} />
           </div>
-          <button 
-            onClick={() => router.back()} 
-            className="mb-6 hidden md:flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--saffron)] transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back
-          </button>
           <span className="place-eyebrow">{restaurant.city}</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl">{restaurant.name}</h1>
           <p>{restaurant.description}</p>

@@ -9,6 +9,7 @@ import { endpoints, request } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { BackIcon, useGoBack } from "@/components/BackButton";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import DishNotes from "@/components/DishNotes";
 import { resolveContentPhoto } from "@/lib/contentImages";
@@ -21,14 +22,6 @@ import styles from "@/components/dish/dishPage.module.css";
 // Only needed after a tap, so they load then rather than with the page.
 const DishRecipeModal = dynamic(() => import("@/components/dish/DishRecipeModal"), { ssr: false });
 const AuthRequiredModal = dynamic(() => import("@/components/AuthRequiredModal"), { ssr: false });
-
-function BackIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-    </svg>
-  );
-}
 
 function HeartIcon({ filled }) {
   return (
@@ -128,10 +121,7 @@ export default function DishDetailClient({ initialDish = null, entity = null }) 
       .catch(console.error);
   }, [user, dish]);
 
-  const goBack = useCallback(() => {
-    if (window.history.length > 1) router.back();
-    else router.push("/dishes");
-  }, [router]);
+  const goBack = useGoBack();
 
   const toggleFavorite = async () => {
     if (!user) {
@@ -270,19 +260,8 @@ export default function DishDetailClient({ initialDish = null, entity = null }) 
               className={styles.mediaImg}
             />
             <div className={styles.mediaShade} aria-hidden="true" />
-            <div className={styles.topControls}>
-              <button type="button" className={styles.iconButton} onClick={goBack} aria-label="Back">
-                <BackIcon />
-              </button>
-            </div>
           </div>
-        ) : (
-          <div className={`${styles.topControls} ${styles.topControlsStatic} md:hidden`}>
-            <button type="button" className={styles.iconButton} onClick={goBack} aria-label="Back">
-              <BackIcon />
-            </button>
-          </div>
-        )}
+        ) : null}
 
         <div className={photo ? styles.heroBody : `${styles.heroBody} ${styles.heroBodyPlain}`}>
           <div className={styles.crumbs}>
@@ -351,7 +330,7 @@ export default function DishDetailClient({ initialDish = null, entity = null }) 
       </header>
 
       {sections.length > 1 ? (
-        <nav className={styles.sectionNav} aria-label="On this page">
+        <nav className={styles.sectionNav} aria-label="On this page" data-back-bar="">
           <div className={styles.sectionNavInner} ref={chipBarRef}>
             <button type="button" className={styles.navBack} onClick={goBack} aria-label="Back">
               <BackIcon />

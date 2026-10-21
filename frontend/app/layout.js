@@ -3,6 +3,7 @@ import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, 
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
+import { FloatingBackButton } from "@/components/BackButton";
 import ConditionalFooter from "@/components/ConditionalFooter";
 import GlobalBackground from "@/components/GlobalBackground";
 import dynamic from "next/dynamic";
@@ -190,6 +191,8 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <MobileNavigationProvider>
             <div className="min-h-screen relative z-10 pb-24 md:pb-0">
+              {/* First in tab order, as the top bar's Back is on desktop. */}
+              <FloatingBackButton />
               <Navbar />
               <MobileSwipeContainer coverDishes={coverDishes}>
                 <main>{children}</main>
@@ -198,7 +201,6 @@ export default function RootLayout({ children }) {
               <WazaAI />
               <GlobalSearchModal />
               <MobileNav />
-
             </div>
           </MobileNavigationProvider>
         </AuthProvider>

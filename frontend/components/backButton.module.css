@@ -1,0 +1,88 @@
+/* The site's Back control (components/BackButton.js). Flat like the dish pages: no blur, no shadow. */
+
+.floating {
+  position: fixed;
+  /* Over pinned page bars (z 30-40), under dialogs and overlays (z 50 and up). */
+  z-index: 45;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 999px;
+  color: #f4ecdf;
+  background: rgba(13, 11, 9, 0.78);
+  border: 1px solid rgba(244, 236, 223, 0.2);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 220ms ease;
+}
+
+.floating:active {
+  transform: scale(0.94);
+}
+
+.tucked {
+  transform: translateY(calc(-100% - 16px - env(safe-area-inset-top, 0px)));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* A keyboard user tabbing to it gets it back wherever the page is. */
+.floating:focus-visible {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+  outline: 2px solid #c9a063;
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .floating {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating {
+    transition: opacity 150ms linear;
+  }
+
+  .tucked {
+    transform: none;
+  }
+}
+
+.topBar {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 16px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.82);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .topBar:hover {
+    color: #c8a46a;
+    border-color: #c8a46a;
+  }
+}
+
+.topBar:focus-visible {
+  outline: 2px solid #c8a46a;
+  outline-offset: 3px;
+}
