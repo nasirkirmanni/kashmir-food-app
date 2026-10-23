@@ -7,8 +7,8 @@ import { createPortal } from "react-dom";
 import dishesData from "@/data/dishes.json";
 import WazaAITeaser from "@/components/WazaAITeaser";
 import "./kashmiri.css";
-import { resolveContentImage } from "@/lib/contentImages";
-import { ESSENTIAL_ORDER } from "@/lib/wazwanSequence";
+import { chapterDishes } from "@/lib/dishTrays";
+import DishTray from "./DishTray";
 import { CORE_SEVEN_HUB, CORE_SEVEN_SERIES } from "@/data/coreSevenSeries";
 
 const wazaExchanges = [
@@ -17,124 +17,20 @@ const wazaExchanges = [
   { q: 'What comes last in a real wazwan?', a: "<b>Gushtaba</b>, always — it's considered too rich to serve any earlier." }
 ];
 
-const overrides = {
-  // Wazwan
-  'aab-gosht': 'Mild milk-based lamb',
-  'al-hachh-mutton': 'Dried gourd mutton',
-  'aloo-bukhar-korma': 'Plum-laced meatballs',
-  'anardana-chetin': 'Pomegranate chutney',
-  'bam-tsoonth': 'Spiced quince curry',
-  'bum-tschunth-tschaman': 'Tangy paneer stew',
-  'dani-phol': 'Rich mutton drumstick',
-  'daniwal-korma': 'Coriander yogurt curry',
-  'doon-chetin': 'Walnut–green chili chutney',
-  'dum-oluv': 'Yogurt-braised potatoes',
-  'gand-t-maaz': 'Slow-simmered offal',
-  'gande-tsitin': 'Onion–chili chutney',
-  'gogji-mutton': 'Turnip mutton curry',
-  'gogji-raakh': 'Turnip greens side',
-  'haak-t-tschaman': 'Greens with paneer',
-  'haakh': 'Kashmiri collard greens',
-  'haakh-t-maaz': 'Greens with meat',
-  'kabab': 'Charcoal minced skewers',
-  'marchwangan-korma': 'Fiery red chili mutton',
-  'matsgand': 'Spicy red meatballs',
-  'methi-maaz': 'Fenugreek tripe',
-  'muji-chetin': 'Radish walnut chutney',
-  'muji-gaad': 'Radish fish curry',
-  'mutton-yakhni': 'Curd-based mutton',
-  'palak-t-tschaman': 'Spinach paneer dish',
-  'pudin-chetin': 'Mint chutney',
-  'rice': 'Base of every trami',
-  'rista': 'Bright red meatballs',
-  'rogan-josh': 'Iconic red lamb curry',
-  'ruwangan-chaman': 'Tomato-based paneer',
-  'ruwangan-chetin': 'Tomato chutney',
-  'ruwangan-mutton': 'Tomato mutton curry',
-  'seekh-kebab': 'Traditional ground skewers',
-  'syoon': 'Kashmiri Pandit lamb',
-  'syun': 'Slow-cooked mutton',
-  'tsaman-yakhni': 'Paneer in yogurt gravy',
-  'tsoek-wangangan': 'Sour spicy eggplant',
-  'veth-chaman': 'Rich paneer curry',
-  'wangangan-chaman': 'Eggplant paneer curry',
-  'waza-kokur': 'Whole spiced chicken',
-  'waza-palak': 'Spinach with meatballs',
-  'wazwaan-mushroom': 'Mushroom Wazwan prep',
-  'yakhni': 'Curd-based gravy',
-  'zere-chetin': 'Cumin chutney',
-  'waza-paneer': 'Rich fried paneer',
-  'gushtaba': 'Velvety pounded meatballs',
-  'tabakh-maaz': 'Crispy fried lamb ribs',
-  // Street Food & Bakery
-  'bakerkhani': 'Flaky layered flatbread',
-  'basrakh': 'Sweet crispy snack',
-  'czochworu': 'Sesame tandoor bread',
-  'girda': 'Everyday round bread',
-  'kashmiri-harissa': 'Winter meat paste',
-  'lavas': 'Thin soft flatbread',
-  'masala-tsot': 'Spiced small bread',
-  'mutton-tujji': 'Coal-grilled skewers',
-  'nadur-monji': 'Lotus stem fritters',
-  'suji-halwa': 'Semolina sweet dish',
-  'tabak-maaz': 'Crispy fried lamb ribs',
-  'kashmiri-kulcha': 'Crumbly bakery biscuits',
-  'aloo-monji': 'Crispy potato fritters',
-  'tujji': 'Coal-grilled meat skewers',
-  'monje': 'Crispy lotus fritters',
-  // Beverages
-  'kahwa': 'Saffron green tea',
-  'noon-chai': 'Pink salted tea',
-  'harissa': 'Winter meat paste',
-  'tsot': 'Small everyday bread',
-  'lavasa': 'Thin blistered flatbread',
-  'riste': 'Spiced meatball curry',
-};
-
-function getShortNote(dish) {
-  if (dish.shortNote) return dish.shortNote;
-  if (overrides[dish.slug]) return overrides[dish.slug];
-  
-  if (dish.description) {
-    const phrase = dish.description.split('.')[0].split(',')[0];
-    const words = phrase.split(' ');
-    return words.slice(0, 4).join(' ');
-  }
-  return dish.category || "Traditional Kashmiri";
-}
-
-
-function DishCard({ dish, index }) {
-  // Stored image paths that don't exist resolve to a verified photo or placeholder.
-  const [imgSrc, setImgSrc] = useState(resolveContentImage(dish.image) || '/placeholder-dish.jpg');
-  const shortNote = getShortNote(dish);
-
+// A chapter: its photograph with the copy on the left and the picture open on the right, then the
+// tray of its dishes underneath.
+function Chapter({ id, image, glow, tray, children }) {
   return (
-    <Link href={`/dishes/${dish.slug || dish._id}`} className="block focus:outline-none focus:ring-2 focus:ring-[var(--gold)] rounded-md">
-      <div className="dish-card">
-        <Image
-          src={imgSrc}
-          alt={dish.name}
-          fill
-          quality={70}
-          sizes="(max-width: 640px) 200px, 200px"
-          className="object-cover -z-20"
-          onError={() => setImgSrc('/placeholder-dish.jpg')}
-          loading="lazy"
-        />
-        <div className="shade -z-10"></div>
-        <div className="info z-0 w-full">
-          <div className="num" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <span style={{ fontSize: '0.55rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--ivory-dim)' }}>
-              {dish.courseType ? (dish.courseType.charAt(0).toUpperCase() + dish.courseType.slice(1)) : (dish.foodType || "Veg")}
-            </span>
-          </div>
-          <div className="name leading-tight">{dish.name}</div>
-          <div className="note">{shortNote}</div>
+    <section className="chapter relative z-0" id={id}>
+      <div className="chapter-stage">
+        {image}
+        <div className="chapter-shade" style={{ "--glow": glow }} aria-hidden="true" />
+        <div className="chapter-inner">
+          <div className="chapter-content">{children}</div>
         </div>
       </div>
-    </Link>
+      <DishTray id={id} {...tray} />
+    </section>
   );
 }
 
@@ -195,13 +91,7 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
     { id: 'street', label: 'Street Food' },
   ];
 
-  const wazwanDishes = initialDishes.filter((d) => d.categoryType === "wazwan");
-  // The Wazwan chapter shows only the seven dishes every Wazwan must have, in the order they're
-  // served; the rest were added around them over time, and /dishes lists every one.
-  const coreWazwanDishes = ESSENTIAL_ORDER.map((slug) => wazwanDishes.find((d) => d.slug === slug)).filter(Boolean);
-  const beverageDishes = initialDishes.filter((d) => d.categoryType === "beverage");
-  const bakeryDishes = initialDishes.filter((d) => d.categoryType === "bakery");
-  const streetFoodDishes = initialDishes.filter((d) => d.categoryType === "kashmiri_cuisine" && d.category === "Street Food");
+  const trays = chapterDishes(initialDishes);
 
   useEffect(() => {
     setPortalReady(true);
@@ -277,14 +167,15 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
     
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Chapter spy observer
+    // Chapter spy observer: a chapter is current while it crosses the middle of the screen (each
+    // chapter, with its tray, is taller than the screen, so half of one is never in view).
     const spyObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           setActiveChapter(e.target.id);
         }
       });
-    }, { threshold: 0.5 });
+    }, { rootMargin: '-45% 0px -50% 0px' });
     
     chapters.forEach(c => {
       const el = document.getElementById(c.id);
@@ -405,22 +296,22 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
           <a className="trami-wedge" href="#wazwan" onClick={(e) => { e.preventDefault(); scrollToSection('wazwan'); }}>
             <span className="wedge-icon">◆ FEAST</span>
             <span className="wedge-name">Wazwan</span>
-            <span className="wedge-count">{wazwanDishes.length} items</span>
+            <span className="wedge-count">{trays.wazwanAll.length} items</span>
           </a>
           <a className="trami-wedge" href="#beverages" onClick={(e) => { e.preventDefault(); scrollToSection('beverages'); }}>
             <span className="wedge-icon">◆ WARMTH</span>
             <span className="wedge-name">Beverages</span>
-            <span className="wedge-count">{beverageDishes.length} beverages</span>
+            <span className="wedge-count">{trays.beverages.length} beverages</span>
           </a>
           <a className="trami-wedge" href="#bakery" onClick={(e) => { e.preventDefault(); scrollToSection('bakery'); }}>
             <span className="wedge-icon">◆ MORNING</span>
             <span className="wedge-name">Bakery</span>
-            <span className="wedge-count">{bakeryDishes.length} breads</span>
+            <span className="wedge-count">{trays.bakery.length} breads</span>
           </a>
           <a className="trami-wedge" href="#street" onClick={(e) => { e.preventDefault(); scrollToSection('street'); }}>
             <span className="wedge-icon">◆ STANDING</span>
             <span className="wedge-name">Street Food</span>
-            <span className="wedge-count">{streetFoodDishes.length} eats</span>
+            <span className="wedge-count">{trays.street.length} eats</span>
           </a>
 
           <div className="trami-center">
@@ -432,154 +323,125 @@ export default function KashmiriFoodClient({ initialDishes = dishesData, categor
       </section>
 
       {/* Wazwan Chapter */}
-      <section className="chapter relative z-0" id="wazwan">
-        <Image src="/images/kashmiri-food/wazwan.webp" alt="Wazwan" fill className="object-cover object-center -z-20" loading="lazy" />
-        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.93) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.88) 100%), radial-gradient(ellipse at 30% 60%, rgba(181,105,58,0.10), transparent 60%)' }}></div>
-        
-        <div className="chapter-inner">
-          <div className="chapter-content">
-            <div className="chapter-index reveal fade-right">CHAPTER 01</div>
-            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The Royal <span className="accent">Wazwan</span>.</h2>
-            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Seven dishes at its heart.</div>
-            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
-              Seven dishes are a must at a Wazwan: tabak maaz, rista, rogan josh, aab gosht, daniwal korma, marchwangan korma and gushtaba. The feast is said to have begun as a seven-dish meal, and it has grown since: a wedding Wazwan today usually runs to 12 to 24 dishes.
-            </p>
-            <p className="desc reveal fade-right" style={{ transitionDelay: '0.22s' }}>
-              Everything beyond the seven is added around them, and it changes from feast to feast. Vegetarian dishes such as Wazwan Mushroom and Waza Palak have joined in recent years.{" "}
-              <Link href="/dishes#how-many-dishes" className="underline decoration-[var(--gold)] underline-offset-4 hover:text-[var(--gold)]">
-                How the feast grew, with sources
+      <Chapter
+        id="wazwan"
+        image={<Image src="/images/kashmiri-food/wazwan.webp" alt="Wazwan" fill className="object-cover object-center -z-20" loading="lazy" />}
+        glow="radial-gradient(ellipse at 30% 60%, rgba(181,105,58,0.10), transparent 60%)"
+        tray={{
+          title: "The seven essentials",
+          sub: "The dishes every Wazwan must have, in the order they are served.",
+          dishes: trays.wazwan,
+          more: { href: "/dishes", title: "The full feast", sub: `All ${trays.wazwanAll.length} Wazwan dishes, in serving order` },
+        }}
+      >
+        <div className="chapter-index reveal fade-right">CHAPTER 01</div>
+        <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The Royal <span className="accent">Wazwan</span>.</h2>
+        <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Seven dishes at its heart.</div>
+        <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+          Seven dishes are a must at a Wazwan: tabak maaz, rista, rogan josh, aab gosht, daniwal korma, marchwangan korma and gushtaba. The feast is said to have begun as a seven-dish meal, and it has grown since: a wedding Wazwan today usually runs to 12 to 24 dishes.
+        </p>
+        <p className="desc reveal fade-right" style={{ transitionDelay: '0.22s' }}>
+          Everything beyond the seven is added around them, and it changes from feast to feast. Vegetarian dishes such as Wazwan Mushroom and Waza Palak have joined in recent years.{" "}
+          <Link href="/dishes#how-many-dishes" className="underline decoration-[var(--gold)] underline-offset-4 hover:text-[var(--gold)]">
+            How the feast grew, with sources
+          </Link>
+        </p>
+        <p className="desc reveal fade-right" style={{ transitionDelay: '0.24s' }}>
+          Each of the seven has its own long story in the Journal:{" "}
+          {CORE_SEVEN_SERIES.map((story, i) => (
+            <Fragment key={story.slug}>
+              {i === CORE_SEVEN_SERIES.length - 1 ? "and " : ""}
+              <Link href={story.href} className="underline decoration-[var(--gold)]/60 underline-offset-4 hover:text-[var(--gold)]">
+                {story.linkText}
               </Link>
-            </p>
-            <p className="desc reveal fade-right" style={{ transitionDelay: '0.24s' }}>
-              Each of the seven has its own long story in the Journal:{" "}
-              {CORE_SEVEN_SERIES.map((story, i) => (
-                <Fragment key={story.slug}>
-                  {i === CORE_SEVEN_SERIES.length - 1 ? "and " : ""}
-                  <Link href={story.href} className="underline decoration-[var(--gold)]/60 underline-offset-4 hover:text-[var(--gold)]">
-                    {story.linkText}
-                  </Link>
-                  {i < CORE_SEVEN_SERIES.length - 1 ? ", " : "."}
-                </Fragment>
-              ))}
-            </p>
-            <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
-              <div><span className="n">7</span><span className="l">Essential dishes</span></div>
-              <div><span className="n">12–24</span><span className="l">At a wedding today</span></div>
-              <div><span className="n">4</span><span className="l">People per Trami</span></div>
-            </div>
-            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
-              <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
-              <Link href={CORE_SEVEN_HUB} className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Read the seven stories</Link>
-            </div>
-          </div>
-          <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail" data-h-scroll>
-              {coreWazwanDishes.map((dish, idx) => (
-                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
-              ))}
-              <Link
-                href="/dishes"
-                className="shrink-0 flex flex-col items-center justify-center gap-3 rounded-md border border-[var(--gold)]/40 bg-white/[0.03] hover:border-[var(--gold)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
-                style={{ flex: "0 0 200px", height: "260px" }}
-              >
-                <span className="text-[var(--gold)] text-2xl">→</span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--ivory)]/80 text-center px-3">
-                  The full feast: all {wazwanDishes.length} dishes
-                </span>
-              </Link>
-            </div>
-          </div>
+              {i < CORE_SEVEN_SERIES.length - 1 ? ", " : "."}
+            </Fragment>
+          ))}
+        </p>
+        <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+          <div><span className="n">7</span><span className="l">Essential dishes</span></div>
+          <div><span className="n">12–24</span><span className="l">At a wedding today</span></div>
+          <div><span className="n">4</span><span className="l">People per Trami</span></div>
         </div>
-      </section>
+        <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
+          <Link href="/dishes" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore the feast</Link>
+          <Link href={CORE_SEVEN_HUB} className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Read the seven stories</Link>
+        </div>
+      </Chapter>
 
       {/* Beverages Chapter */}
-      <section className="chapter relative z-0" id="beverages">
-        <Image src="/images/kashmiri-food/beverages.webp" alt="Beverages" fill className="object-cover object-[center_30%] -z-20" loading="lazy" />
-        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.85) 100%), radial-gradient(ellipse at 70% 30%, rgba(212,162,86,0.08), transparent 60%)' }}></div>
-        
-        <div className="chapter-inner">
-          <div className="chapter-content">
-            <div className="chapter-index reveal fade-right">CHAPTER 02</div>
-            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>Pink tea & <span className="accent">Saffron</span>.</h2>
-            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>A culture of warmth.</div>
-            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
-              From the savory, blush-pink Noon Chai brewed with baking soda and salt, to the aromatic Kahwa steeped with saffron, almonds, and cardamom. Beverages here are about hospitality.
-            </p>
-            <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
-              <div><span className="n">Salt</span><span className="l">In daily tea</span></div>
-              <div><span className="n">Samovar</span><span className="l">Copper brewing pot</span></div>
-            </div>
-            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
-              <Link href="/kashmiri-food/beverages" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore beverages</Link>
-            </div>
-          </div>
-          <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail" data-h-scroll>
-              {beverageDishes.map((dish, idx) => (
-                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
-              ))}
-            </div>
-          </div>
+      <Chapter
+        id="beverages"
+        image={<Image src="/images/kashmiri-food/beverages.webp" alt="Beverages" fill className="object-cover object-[center_30%] -z-20" loading="lazy" />}
+        glow="radial-gradient(ellipse at 70% 30%, rgba(212,162,86,0.08), transparent 60%)"
+        tray={{
+          title: "Teas and drinks",
+          sub: "Salted pink noon chai, saffron kahwa, and babribyol for iftar.",
+          dishes: trays.beverages,
+        }}
+      >
+        <div className="chapter-index reveal fade-right">CHAPTER 02</div>
+        <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>Pink tea & <span className="accent">Saffron</span>.</h2>
+        <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>A culture of warmth.</div>
+        <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+          From the savory, blush-pink Noon Chai brewed with baking soda and salt, to the aromatic Kahwa steeped with saffron, almonds, and cardamom. Beverages here are about hospitality.
+        </p>
+        <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+          <div><span className="n">Salt</span><span className="l">In daily tea</span></div>
+          <div><span className="n">Samovar</span><span className="l">Copper brewing pot</span></div>
         </div>
-      </section>
+        <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
+          <Link href="/kashmiri-food/beverages" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore beverages</Link>
+        </div>
+      </Chapter>
 
       {/* Bakery Chapter */}
-      <section className="chapter relative z-0" id="bakery">
-        <Image src="/images/kashmiri-food/bakery.webp" alt="Bakery" fill className="object-cover object-[center_38%] -z-20" loading="lazy" />
-        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.48) 55%, rgba(12,10,8,0.82) 100%), radial-gradient(ellipse at 30% 40%, rgba(212,162,86,0.08), transparent 60%)' }}></div>
-        
-        <div className="chapter-inner">
-          <div className="chapter-content">
-            <div className="chapter-index reveal fade-right">CHAPTER 03</div>
-            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The local <span className="accent">Kandur</span>.</h2>
-            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Fresh bread on the hour.</div>
-            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
-              No Kashmiri bakes bread at home. Every neighborhood has a Kandur (baker) who fires up the tandoor at dawn. Different breads are baked at specific hours of the day.
-            </p>
-            <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
-              <div><span className="n">Girda</span><span className="l">Morning staple</span></div>
-              <div><span className="n">Lavasa</span><span className="l">Afternoon wrap</span></div>
-            </div>
-            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
-              <Link href="/kashmiri-food/bakery" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore bakery</Link>
-            </div>
-          </div>
-          <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail" data-h-scroll>
-              {bakeryDishes.map((dish, idx) => (
-                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
-              ))}
-            </div>
-          </div>
+      <Chapter
+        id="bakery"
+        image={<Image src="/images/kashmiri-food/bakery.webp" alt="Bakery" fill className="object-cover object-[center_38%] -z-20" loading="lazy" />}
+        glow="radial-gradient(ellipse at 30% 40%, rgba(212,162,86,0.08), transparent 60%)"
+        tray={{
+          title: "Bakery breads",
+          sub: "Traditional breads from Kashmir's kandurs, each with its own texture, flavor and time.",
+          dishes: trays.bakery,
+        }}
+      >
+        <div className="chapter-index reveal fade-right">CHAPTER 03</div>
+        <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>The local <span className="accent">Kandur</span>.</h2>
+        <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Fresh bread on the hour.</div>
+        <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+          No Kashmiri bakes bread at home. Every neighborhood has a Kandur (baker) who fires up the tandoor at dawn. Different breads are baked at specific hours of the day.
+        </p>
+        <div className="chapter-stats reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+          <div><span className="n">Girda</span><span className="l">Morning staple</span></div>
+          <div><span className="n">Lavasa</span><span className="l">Afternoon wrap</span></div>
         </div>
-      </section>
+        <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.3s' }}>
+          <Link href="/kashmiri-food/bakery" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore bakery</Link>
+        </div>
+      </Chapter>
 
       {/* Street Food Chapter */}
-      <section className="chapter relative z-0" id="street">
-        <Image src="/images/kashmiri-food/street-food.webp" alt="Street Food" fill className="object-cover object-[center_40%] -z-20" loading="lazy" />
-        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.5) 55%, rgba(12,10,8,0.85) 100%), radial-gradient(ellipse at 65% 65%, rgba(181,105,58,0.10), transparent 60%)' }}></div>
-        
-        <div className="chapter-inner">
-          <div className="chapter-content">
-            <div className="chapter-index reveal fade-right">CHAPTER 04</div>
-            <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>Srinagar's <span className="accent">Streets</span>.</h2>
-            <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Smoke & spice.</div>
-            <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
-              Outside the formal feasts lies a bustling street food culture. Coal-grilled Tujji skewers, deep-fried lotus stems, and rich winter Harissa paste cooked overnight.
-            </p>
-            <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.25s' }}>
-              <Link href="/kashmiri-food/street-food" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore street food</Link>
-            </div>
-          </div>
-          <div className="chapter-gallery reveal fade-left">
-            <div className="dish-rail" data-h-scroll>
-              {streetFoodDishes.map((dish, idx) => (
-                <DishCard key={dish._id || dish.slug} dish={dish} index={idx} />
-              ))}
-            </div>
-          </div>
+      <Chapter
+        id="street"
+        image={<Image src="/images/kashmiri-food/street-food.webp" alt="Street Food" fill className="object-cover object-[center_40%] -z-20" loading="lazy" />}
+        glow="radial-gradient(ellipse at 65% 65%, rgba(181,105,58,0.10), transparent 60%)"
+        tray={{
+          title: "Street food and sweets",
+          sub: "Coal-grilled tujji, crisp nadur monji, masala tsot wraps and winter harissa.",
+          dishes: trays.street,
+        }}
+      >
+        <div className="chapter-index reveal fade-right">CHAPTER 04</div>
+        <h2 className="reveal fade-right" style={{ transitionDelay: '0.1s' }}>Srinagar's <span className="accent">Streets</span>.</h2>
+        <div className="tagline reveal fade-right" style={{ transitionDelay: '0.15s' }}>Smoke & spice.</div>
+        <p className="desc reveal fade-right" style={{ transitionDelay: '0.2s' }}>
+          Outside the formal feasts lies a bustling street food culture. Coal-grilled Tujji skewers, deep-fried lotus stems, and rich winter Harissa paste cooked overnight.
+        </p>
+        <div className="chapter-cta reveal fade-right" style={{ transitionDelay: '0.25s' }}>
+          <Link href="/kashmiri-food/street-food" className="btn-ghost focus:outline-none focus:ring-2 focus:ring-[var(--gold)]">Explore street food</Link>
         </div>
-      </section>
+      </Chapter>
 
       {/* Waza AI Teaser */}
       <WazaAITeaser qaData={wazaExchanges} />

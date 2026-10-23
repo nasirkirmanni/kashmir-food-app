@@ -298,25 +298,41 @@
   @media (max-width:900px){ .chapter-dial{ display:none; } }
 
   /* ---------------- CHAPTER SECTIONS ---------------- */
+  /* Each chapter is a stage (its photograph, the copy on the left, the picture open on the right)
+     and, underneath, a tray of its dishes. */
   .chapter{
     position:relative;
-    min-height:100vh;
-    display:flex; align-items:center;
-    padding:100px 48px;
-    scroll-margin-top:90px;
+    scroll-margin-top:80px;
+    background:var(--charcoal-950);
+    --chapter-gutter:48px;
+  }
+  @media (max-width:767px){ .chapter{ --chapter-gutter:24px; } }
+  .chapter-stage{
+    position:relative;
+    isolation:isolate;
     overflow:hidden;
+    min-height:min(72vh, 720px);
+    display:flex; align-items:center;
+    padding:120px var(--chapter-gutter) 72px;
   }
-  .chapter-gallery{ min-width: 0; }
-  .chapter-inner{
-    max-width:1500px; margin:0 auto; width:100%;
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:end;
+  .chapter-shade{
+    position:absolute; inset:0; z-index:-1;
+    background:
+      var(--glow, none),
+      linear-gradient(100deg, rgba(12,10,8,0.95) 0%, rgba(12,10,8,0.86) 32%, rgba(12,10,8,0.45) 54%, rgba(12,10,8,0.12) 76%, rgba(12,10,8,0.24) 100%),
+      linear-gradient(180deg, rgba(12,10,8,0.35) 0%, rgba(12,10,8,0) 22%, rgba(12,10,8,0) 70%, var(--charcoal-950) 100%);
   }
-  @media (max-width:1000px){ .chapter-inner{ grid-template-columns:1fr; } }
-
-  
-  
-  
-  
+  /* Narrow screens: the copy runs across the photograph, so it is shaded evenly. */
+  @media (max-width:1000px){
+    .chapter-stage{ min-height:0; padding-top:96px; padding-bottom:48px; }
+    .chapter-shade{
+      background:
+        var(--glow, none),
+        linear-gradient(180deg, rgba(12,10,8,0.74) 0%, rgba(12,10,8,0.82) 62%, var(--charcoal-950) 100%);
+    }
+  }
+  .chapter-inner{ max-width:1500px; margin:0 auto; width:100%; }
+  .chapter-content{ max-width:560px; }
 
   .chapter-index{ font-family:var(--font-mono); font-size:0.72rem; color:var(--gold); letter-spacing:0.1em; margin-bottom:18px; }
   .chapter h2{
@@ -333,46 +349,160 @@
 
   .chapter-cta{ margin-top:38px; display:flex; flex-wrap:wrap; gap:12px; }
 
-  /* Dish gallery */
-  .dish-rail{
-    display:flex; gap:16px; overflow-x:auto; overflow-y:hidden; padding-bottom:14px;
-    scrollbar-width:thin; scrollbar-color:var(--gold) transparent;
+  /* ---------------- DISH TRAY ---------------- */
+  .dish-tray{ padding:4px var(--chapter-gutter) 72px; }
+  .tray-head{
+    max-width:1500px; margin:0 auto 22px;
+    display:flex; align-items:center; flex-wrap:wrap; column-gap:22px; row-gap:6px;
+    min-height:44px;
   }
-  /* Any horizontally-scrolling strip tagged with data-h-scroll owns its own touch
-     gestures — exempted from the mobile swipe-screen container's gesture capture
-     (see MobileSwipeContainer.js). touch-action:pan-x lets the browser handle the
-     horizontal drag natively instead of the JS swipe handler intercepting it. */
-  [data-h-scroll]{
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
+  .tray-title{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(1.6rem, 2.2vw, 2rem); line-height:1.1; color:var(--ivory);
   }
-  .dish-rail::after {
-    content: '';
-    flex: 0 0 32px;
+  .tray-sub{
+    flex:1 1 320px; min-width:0;
+    font-family:var(--font-display); font-style:italic;
+    font-size:1.05rem; line-height:1.4; color:var(--ivory-dim);
   }
-  .dish-rail::-webkit-scrollbar{ height:5px; }
-  .dish-rail::-webkit-scrollbar-thumb{ background:var(--gold-soft); border-radius:10px; }
-  .dish-card{
-    flex:0 0 200px; height:260px; border-radius:6px; position:relative;
-    background:linear-gradient(160deg, var(--charcoal-800), var(--charcoal-900));
+  .tray-arrows{ display:flex; gap:10px; margin-left:auto; }
+  .tray-arrow{
+    width:44px; height:44px; border-radius:999px;
+    display:grid; place-items:center;
+    background:transparent; color:var(--ivory-dim);
     border:1px solid var(--line);
-    overflow:hidden;
-    display:flex; align-items:flex-end;
-    transition:transform .3s ease, border-color .3s ease;
-    /* own stacking context: the fill Image (-z-20) and .shade (-z-10) inside the
-       card must paint above this card's background, not escape to the section
-       stacking context where the chapter overlay/backdrop buries them */
+    transition:border-color .2s ease, color .2s ease, background-color .2s ease, opacity .2s ease;
+  }
+  .tray-arrow:not(:disabled){ border-color:var(--gold-soft); color:var(--gold); }
+  .tray-arrow:disabled{ opacity:.35; cursor:default; }
+  .tray-arrow:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  .tray-rail{
+    --tray-cols:6;
+    max-width:1500px; margin:0 auto;
+    display:flex; gap:16px;
+    list-style:none;
+    overflow-x:auto; overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    /* A sideways swipe moves the tray; an upward or downward one still scrolls the page. The
+       data-h-scroll attribute keeps the phone tab swiper (MobileSwipeContainer.js) out of it. */
+    touch-action:pan-x pan-y;
+  }
+  .tray-rail::-webkit-scrollbar{ display:none; }
+  .tray-item{
+    flex:0 0 calc((100% - (var(--tray-cols) - 1) * 16px) / var(--tray-cols));
+    display:flex;
+    scroll-snap-align:start;
+  }
+  /* Cards stay about 190-245px wide at every width. */
+  @media (max-width:1359px){ .tray-rail{ --tray-cols:5; } }
+  @media (max-width:1099px){ .tray-rail{ --tray-cols:4; } }
+  @media (max-width:899px){ .tray-rail{ --tray-cols:3; } }
+
+  .tray-card{
+    position:relative;
     isolation:isolate;
+    flex:1; min-width:0;
+    display:flex; flex-direction:column;
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--charcoal-900);
+    border:1px solid var(--line);
+    color:var(--ivory);
+    transition:border-color .25s ease;
   }
-  .dish-card:hover{ transform:translateY(-6px); border-color:var(--gold-soft); }
-  .dish-card .shade{
-    position:absolute; inset:0;
-    background:linear-gradient(to top, rgba(12,10,8,0.9) 20%, transparent 65%);
+  .tray-photo{
+    position:relative;
+    aspect-ratio:4 / 3;
+    overflow:hidden;
+    background:var(--charcoal-800);
   }
-  .dish-card .info{ position:relative; padding:18px; }
-  .dish-card .num{ font-family:var(--font-mono); font-size:0.66rem; color:var(--gold); }
-  .dish-card .name{ font-family:var(--font-display); font-size:1.2rem; margin-top:4px; }
-  .dish-card .note{ font-family:var(--font-body); font-size:0.74rem; color:var(--ivory-dim); margin-top:4px; }
+  .tray-photo img{ object-fit:cover; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  /* These photographs carry a thin border in the file, cropped off by drawing them a little larger. */
+  .tray-photo img.framed{ transform:scale(1.045); }
+  /* The photograph fades into the card; the dish's number sits on the fade. */
+  .tray-photo::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:46%;
+    background:linear-gradient(180deg, rgba(22,17,13,0), var(--charcoal-900));
+    pointer-events:none;
+  }
+  .tray-meta{
+    position:absolute; z-index:1; left:18px; bottom:10px;
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--gold);
+  }
+  .tray-diet{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--font-body); font-size:0.62rem; font-weight:600;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--ivory-dim);
+  }
+  .tray-diet-veg svg{ color:#6fb07e; }
+  .tray-diet-non-veg svg{ color:#d4744f; }
+  .tray-body{
+    flex:1;
+    display:flex; flex-direction:column;
+    padding:8px 18px 18px;
+  }
+  .tray-name{
+    font-family:var(--font-display); font-weight:500;
+    font-size:1.55rem; line-height:1.1; color:var(--ivory);
+  }
+  /* The whole card is the link; its name is what a screen reader announces. */
+  .tray-link{ color:inherit; }
+  .tray-link::after{ content:""; position:absolute; inset:0; z-index:2; border-radius:10px; }
+  .tray-link:focus-visible{ outline:none; }
+  .tray-link:focus-visible::after{ outline:2px solid var(--gold); outline-offset:-2px; }
+  .tray-desc{
+    margin-top:8px;
+    font-size:0.84rem; line-height:1.55; color:var(--ivory-dim);
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .tray-more{
+    margin-top:auto; padding-top:14px;
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.8rem; font-weight:500; color:var(--gold);
+  }
+  .tray-more svg{ transition:transform .25s ease; }
+  .tray-card:active{ border-color:var(--gold-soft); }
+
+  /* The Wazwan tray ends with the way to the whole feast. */
+  .tray-more-card{
+    gap:10px;
+    padding:20px 18px 22px;
+    background:linear-gradient(160deg, var(--charcoal-850), var(--charcoal-950));
+  }
+  .tray-more-icon{
+    width:44px; height:44px; margin-bottom:auto;
+    display:grid; place-items:center;
+    border-radius:999px; border:1px solid var(--gold-soft); color:var(--gold);
+  }
+  .tray-more-title{ font-family:var(--font-display); font-weight:500; font-size:1.55rem; line-height:1.1; }
+  .tray-more-sub{ font-size:0.84rem; line-height:1.55; color:var(--ivory-dim); }
+  .tray-more-card:focus-visible{ outline:2px solid var(--gold); outline-offset:-2px; }
+
+  @media (hover:hover) and (pointer:fine){
+    .tray-card:hover{ border-color:var(--gold-soft); }
+    .tray-card:hover .tray-photo img{ transform:scale(1.04); }
+    .tray-card:hover .tray-photo img.framed{ transform:scale(1.09); }
+    .tray-card:hover .tray-more svg{ transform:translateX(3px); }
+    .tray-arrow:not(:disabled):hover{ border-color:var(--gold); background:rgba(212,162,86,0.1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tray-photo img, .tray-more svg{ transition:none; }
+  }
+
+  /* Phones: the tray runs edge to edge and is swiped; the next card peeks in from the right. */
+  @media (max-width:767px){
+    .dish-tray{ padding:0 0 56px; }
+    .tray-head{ padding:0 var(--chapter-gutter); flex-direction:column; align-items:flex-start; margin-bottom:18px; }
+    .tray-sub{ flex:none; font-size:1rem; }
+    .tray-arrows{ display:none; }
+    .tray-rail{ gap:12px; padding-left:var(--chapter-gutter); scroll-padding-inline:var(--chapter-gutter); }
+    /* Room after the last card (padding at the end of a scrolling row is not kept everywhere). */
+    .tray-rail::after{ content:""; flex:0 0 calc(var(--chapter-gutter) - 12px); }
+    .tray-item{ flex-basis:min(74vw, 290px); }
+  }
 
   /* ---------------- WAZA AI TEASER (compact) ---------------- */
   .waza-teaser{
