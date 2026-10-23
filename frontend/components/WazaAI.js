@@ -108,10 +108,18 @@ export default function WazaAI() {
       const seen = localStorage.getItem("hasSeenWazaAI");
       if (!seen) {
         setHasSeenWazaAI(false);
-        const timer = setTimeout(() => {
-          setHasSeenWazaAI(true);
-        }, 10000);
-        return () => clearTimeout(timer);
+        // The label introduces Waza on arrival, then makes way for the page: it goes after ten
+        // seconds, or as soon as the reader scrolls past the first screen.
+        const hide = () => setHasSeenWazaAI(true);
+        const timer = setTimeout(hide, 10000);
+        const onScroll = () => {
+          if (window.scrollY > 400) hide();
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => {
+          clearTimeout(timer);
+          window.removeEventListener("scroll", onScroll);
+        };
       }
     }
   }, []);
