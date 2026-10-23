@@ -135,18 +135,6 @@ export default function MobileWazaAI({ initialPrompt }) {
     messagesRef.current = messages;
   }, [messages]);
 
-  // Inject Uber Move font
-  useEffect(() => {
-    if (typeof document !== "undefined" && !document.getElementById("uber-move-font")) {
-      // Load Plus Jakarta Sans from Google Fonts (closest match to Uber Move)
-      const link = document.createElement("link");
-      link.id = "uber-move-font";
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap";
-      document.head.appendChild(link);
-    }
-  }, []);
-
   const userJustSentRef = useRef(false);
   const isLoadingRef = useRef(isLoading);
 
@@ -283,7 +271,7 @@ export default function MobileWazaAI({ initialPrompt }) {
       className="flex flex-col h-[100dvh] w-full overflow-hidden relative"
       style={{
         background: "#0B0B0B",
-        fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif"
+        fontFamily: "var(--font-body), 'SF Pro Display', -apple-system, sans-serif"
       }}
     >
       {/* Subtle background pattern */}
@@ -306,7 +294,7 @@ export default function MobileWazaAI({ initialPrompt }) {
         {/* Styled title, not a heading: the /waza-ai page provides its own <h1>. */}
         <p
           className="mt-1 text-[20px] font-bold tracking-wide"
-          style={{ color: "#ECECEC", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
+          style={{ color: "#ECECEC", fontFamily: "var(--font-jakarta), var(--font-body), sans-serif" }}
         >
           Waza AI
         </p>
@@ -428,13 +416,13 @@ export default function MobileWazaAI({ initialPrompt }) {
                   <div className="flex-1 min-w-0">
                     <h3
                       className="text-[14px] font-semibold leading-snug mb-0.5"
-                      style={{ color: "#ECECEC", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
+                      style={{ color: "#ECECEC", fontFamily: "var(--font-jakarta), var(--font-body), sans-serif" }}
                     >
                       {s.title}
                     </h3>
                     <p
                       className="text-[12px] leading-relaxed"
-                      style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}
+                      style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-jakarta), var(--font-body), sans-serif" }}
                     >
                       {s.subtitle}
                     </p>
