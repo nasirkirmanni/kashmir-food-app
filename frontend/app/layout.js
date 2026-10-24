@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda, Hanken_Grotesk } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda, Hanken_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
@@ -91,6 +91,16 @@ const hanken = Hanken_Grotesk({
   adjustFontFallback: false
 });
 
+// Plus Jakarta Sans (the closest Google face to Uber Move) for the Waza AI phone
+// screen's title and suggestion cards (components/MobileWazaAI.js).
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  preload: false,
+  variable: "--font-jakarta",
+  display: "swap",
+  adjustFontFallback: false
+});
+
 const BASE_URL = "https://wazwanway.com";
 
 // The swipe deck's home-screen copy only needs each cover dish's slug and image;
@@ -174,7 +184,7 @@ export default function RootLayout({ children }) {
             layout's, so the link lives here rather than in metadata. */}
         <link rel="alternate" type="application/rss+xml" title="Wazwan Way Journal" href={`${BASE_URL}/blog/feed.xml`} />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${hanken.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${cormorant.variable} ${bodoni.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${hanken.variable} ${jakarta.variable} antialiased min-h-[100dvh] w-full bg-black text-white relative font-body selection:bg-[var(--saffron)] selection:text-black`} suppressHydrationWarning>
         <NextTopLoader
           color="#C8A46A"
           initialPosition={0.08}

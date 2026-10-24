@@ -18,9 +18,6 @@ export default function RouteDetailTemplate({ trail, heroImage }) {
 
   return (
     <div className="scenic-drives-root min-h-screen">
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-      
       <style dangerouslySetInnerHTML={{ __html: `
         .scenic-drives-root {
           --ink: #08080a;
@@ -34,10 +31,16 @@ export default function RouteDetailTemplate({ trail, heroImage }) {
           
           background: var(--ink);
           color: var(--ivory);
-          font-family: 'Inter', sans-serif;
+          font-family: var(--font-body), sans-serif;
           -webkit-font-smoothing: antialiased;
           overflow-x: hidden;
         }
+
+        /* The route faces, self-hosted by app/layout.js: Cormorant Garamond for headings,
+           IBM Plex Mono for labels and readouts, Inter for the rest */
+        .scenic-drives-root .font-serif { font-family: var(--font-display), Georgia, serif; }
+        .scenic-drives-root .font-mono { font-family: var(--font-ibm-plex), ui-monospace, monospace; }
+        .scenic-drives-root .font-sans { font-family: var(--font-body), sans-serif; }
 
         /* Hide global layout components for an immersive experience */
         body > nav, 
