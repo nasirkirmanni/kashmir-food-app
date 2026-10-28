@@ -15,16 +15,26 @@ describe("every Wazwan guide", () => {
     }
   });
 
-  it("lists its sources, apart from the four guides still waiting for a sourced rewrite", () => {
+  it("lists its sources, apart from the one guide still waiting for a sourced rewrite", () => {
     const unsourced = WAZWAN_GUIDES.filter((g) => sourcesFromMarkdown(g.content).length === 0).map((g) => g.slug);
     // Shrink this list as each is rewritten from sources; a new guide must never join it.
-    expect(unsourced.sort()).toEqual(["cost-guide", "restaurant-vs-wedding-vs-home", "vegetarian-wazwan", "wazwan-vs-mughlai"]);
+    expect(unsourced.sort()).toEqual(["cost-guide"]);
   });
 
   it("gives every question in a FAQ section an answer", () => {
     const withFaq = WAZWAN_GUIDES.filter((g) => /^##\s+frequently asked questions\s*$/im.test(g.content));
     expect(withFaq.map((g) => g.slug).sort()).toEqual(
-      ["gi-tag-gushtaba-tabak-maaz", "history-of-wazwan", "how-wazwan-is-served", "rista-vs-gushtaba", "waza-meaning", "wazwan-calories"],
+      [
+        "gi-tag-gushtaba-tabak-maaz",
+        "history-of-wazwan",
+        "how-wazwan-is-served",
+        "restaurant-vs-wedding-vs-home",
+        "rista-vs-gushtaba",
+        "vegetarian-wazwan",
+        "waza-meaning",
+        "wazwan-calories",
+        "wazwan-vs-mughlai",
+      ],
     );
     for (const g of withFaq) {
       const faqs = faqsFromMarkdown(g.content);

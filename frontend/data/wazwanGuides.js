@@ -118,207 +118,187 @@ Some waza teams travel to cook outside Kashmir, and Wazwan is served at Kashmiri
   {
     slug: "vegetarian-wazwan",
     category: "wazwan",
-    title: "Vegetarian Wazwan: What to Expect and What to Order",
-    description: "A honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
-    readTime: "5 min read",
+    title: "Vegetarian Wazwan: The Vegetable Dishes at the Feast, and What to Order",
+    description: "Wazwan is a mutton feast, but it has always carried a few vegetable dishes. Which ones, how they are made, what a vegetarian can eat at a wedding or a Srinagar restaurant, and where Kashmir's vegetarian cooking is richest.",
+    readTime: "7 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
-    updatedDate: "October 11, 2026",
-    related: ["restaurant-vs-wedding-vs-home", "cost-guide", "how-wazwan-is-served", "wazwan-vs-mughlai"],
-    content: `
-# Vegetarian Wazwan: What to Expect and What to Order
+    updatedDate: "October 28, 2026",
+    related: ["restaurant-vs-wedding-vs-home", "cost-guide", "how-wazwan-is-served", "wazwan-calories"],
+    content: `Wazwan is a meat feast. Wikipedia's summary is blunt: almost all of its dishes are meat-based, with few vegetarian ones ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). But few is not none. A handful of vegetable dishes have always had a place on the trami, more have been added in recent years, and the everyday cooking of Kashmiri homes is far more vegetable-led than the feast. This guide sets out what those dishes are, what the sources record about each, and how to eat well as a vegetarian at a wedding or in a Srinagar restaurant. For the feast as a whole, see [Traditional Wazwan](/dishes).
 
-The honest answer first: traditional Wazwan is a meat feast. Almost every dish at its core — rista, gushtaba, rogan josh, tabak maaz, seekh kebab — is built around lamb. If you're vegetarian and someone invites you to a Kashmiri wedding, you should know that going in.
+## Is there such a thing as a vegetarian Wazwan?
 
-But that's not the end of the story. Vegetarian dishes have always had a place at the Wazwan table, and in recent years that presence has grown. This guide covers what those dishes actually are, where they come from, and how to eat well in Srinagar as a vegetarian — even if a full Wazwan thali isn't for you.
+Not as a tradition. Wazwan is defined by its mutton dishes, [rista](/dishes/rista), [rogan josh](/dishes/rogan-josh), [tabak maaz](/dishes/tabak-maaz), [aab gosht](/dishes/aab-gosht) and the [gushtaba](/dishes/gushtaba) that ends the meal, and by the order they come in. A Kashmiri restaurateur told Asia Media Centre that "the order is set in stone" and that the meal must end with gushtaba ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
----
+What exists is a vegetarian strand within the feast. Wikipedia names "distinctive delicacies" for vegetarians, dum aloo, nadru (lotus stem) and haakh (collard greens), lists spinach, collards and mushrooms "cooked by a waza" among the main dishes, and says a vegetarian pulao is often included ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Sahapedia's account of the wazas' kitchen singles out two vegetarian dishes, tamatar chaman (tomatoes and paneer) and mushrooms ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). And the strand is growing: over the last few years chicken and vegetarian dishes have been added, paneer in tomato gravy is "popular", and a mushroom dish has been added "as diets have changed" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
-## Does Wazwan Have Vegetarian Dishes?
+There is one measured example. When three SKIMS researchers recorded every dish at a Srinagar wedding in 2012, the eleven dishes on the trami included one vegetarian dish, tamatar paneer, at 1,475 calories a trami, or 369 a guest ([Ahmad, Akhter and Masoodi](https://www.jmsskims.org/index.php/jms/article/view/153)). Our [calories guide](/kashmiri-food/wazwan/guide/wazwan-calories) has the full table.
 
-Yes — but they're accompaniments, not the centrepiece.
+## The vegetarian dishes, one by one
 
-A traditional Wazwan spread has always included a small number of vegetarian dishes alongside the meat courses. These were never meant to replace the lamb; they were there to provide contrast, texture variety, and a lighter note between rich meat gravies.
+**Ruwangan chaman (paneer in tomato gravy).** Paneer pieces fried and then cooked in a tomato gravy ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Sahapedia has the paneer boiled in turmeric water and fried in mustard oil before it goes into the gravy ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), and Asia Media Centre calls it a popular vegetarian option ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). It is the vegetarian dish you are most likely to meet at a Wazwan today. See [ruwangan chaman](/dishes/ruwangan-chaman).
 
-The vegetables most commonly found in a Wazwan context:
+**Waza hedar (mushrooms).** Mushrooms cooked in the waza's way ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Sahapedia records button mushrooms boiled and cooked in a gravy of onions, shallots and curd, and, for special occasions, guchi, the Kashmiri morel, in a milk and cream gravy ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). See [Wazwan mushroom](/dishes/wazwan-mushroom-guchhi-yakhni).
 
-**Dum Aloo** — Baby potatoes deep-fried and then slow-cooked in a yogurt and spice gravy. It is one of the best-known Kashmiri vegetarian dishes, and it appears in both Wazwan and everyday home meals. The preparation is distinct from north Indian dum aloo: it's cooked without onion or tomato, relying on fennel, dried ginger, and Kashmiri chilli for its flavour.
+**Waza palak and waza haakh (spinach and collards).** Greens cooked by a waza, which Wikipedia lists among the main dishes ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). See [waza palak](/dishes/waza-palak).
 
-**Haakh** — Collard greens cooked simply in mustard oil with Kashmiri chillies. One of the oldest staples in Kashmiri cuisine, eaten daily in most households. At a Wazwan it provides a clean, slightly bitter contrast to the meat dishes.
+**Dum aloo (dum olav).** Potatoes cooked slowly in a spiced yogurt gravy. Wikipedia lists it among the Wazwan dishes but calls it rare there ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)); its list of Kashmiri dishes has the potatoes "cooked with ginger powder, fennel and other hot spices" ([Wikipedia](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)), and the dish's own article places its origin in Kashmir, in Kashmiri Pandit cooking, with a sauce of yogurt or khoya ([Wikipedia](https://en.wikipedia.org/wiki/Dum_aloo)). J&K Tourism names dum aloo and methi chaman among the Valley's delicacies ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)). See [dum aloo](/dishes/dum-oluv).
 
-**Nadur (Lotus Stem)** — A uniquely Kashmiri ingredient. Lotus roots are harvested from Dal Lake and surrounding water bodies and cooked in various ways — most commonly as nadur yakhni (in a yogurt-based gravy) or nadur palak (with spinach). The texture is crunchy, somewhere between water chestnut and bamboo shoot.
+**Nadru (lotus stem).** Sahapedia calls nadru "a staple in Kashmiri households" ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Wikipedia's list has it cooked with yogurt as nadir yakhni and with spinach as nadir palak, "a side dish served in big feasts and dinners" ([Wikipedia](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)). Sliced and fried, it is also the street snack [nadur monji](/dishes/nadur-monji).
 
-**Ruwangan Tsaman** — Paneer cooked in a spiced tomato gravy with Kashmiri chilli, cardamom, and black cumin. This is one of the more recent additions to the Wazwan context — it's one of the vegetarian dishes added to Wazwan menus in recent years ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)), and it now appears in many restaurant spreads.
+**Haakh (collard greens).** The Valley's everyday green. Wikipedia's list gives a dozen versions, from plain haakh to haakh with lotus root or with potatoes ([Wikipedia](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)), and the phrase *haakh-batte*, greens and rice, is the Kashmiri equivalent of "bread and butter" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)).
 
-**Waza Palak** — Spinach cooked in the Waza style. In its vegetarian form (some versions include meatballs) it's a simple, well-spiced green that works as a side.
+**Rice, chutneys and yogurt.** A vegetarian [pulao](/dishes/kashmiri-pulao) is often included ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). The chutneys are vegetarian too, among them [muji chetin](/dishes/muji-chetin), radish with walnut, and gande tsitin, chopped onion with chilli, salt and yogurt; yogurt and chutney come separately in small earthen pots ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)).
 
-**Waza Heddar** — Mushroom dish, a more recent addition. Chicken and vegetarian items like mushroom have been added to Wazwan in recent years as dietary preferences have broadened.
+## At a wedding
 
----
+A wedding Wazwan is cooked for the whole guest list at once, so the vegetarian dishes are the ones the host has ordered. Two things help. First, the vegetable dishes above are on the wazas' list. Second, in February 2017 the then state government announced an order capping wedding menus at seven non-vegetarian and seven vegetarian dishes plus two sweets ([Gulf News/IANS](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267)); whatever its effect on menus since, it counted vegetarian dishes as a normal part of the spread. If you don't eat mutton but do eat chicken, the trami usually arrives with two chickens, one in a white sauce and one in saffron ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)); see [waza kokur](/dishes/waza-kokur).
 
-## The 2017 Order on Wedding Menus
+What a vegetarian guest will not get is the thing itself: the rista, the gushtaba, the sequence. The seating, the shared copper trami, the washing of hands and the kahwa at the end are open to everyone; our [serving guide](/kashmiri-food/wazwan/guide/how-wazwan-is-served) covers them.
 
-In February 2017 the then state government announced an order limiting the size of wedding feasts: seven non-vegetarian and seven vegetarian dishes, plus two sweets, with limits on the number of guests ([Gulf News/IANS](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267)). We haven't found evidence of how the order is applied today, so treat it as a cap rather than a description of current menus.
+## In a Srinagar restaurant
 
----
+Restaurants sell Wazwan dishes by the plate ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)) and as set thalis, Outlook Traveller's word for Kareema's ([Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)), so a vegetarian can order the vegetable dishes on their own. From the same kitchens, look for ruwangan chaman, dum aloo, nadru yakhni and haakh. Our [Srinagar guide](/restaurants/best-wazwan-srinagar) lists the restaurants and what each has been recommended for, and [vegetarian food in Kashmir](/blog/vegetarian-food-in-kashmir) covers the wider city, including the Pandit dishes below.
 
-## The Kashmiri Pandit Tradition: A Different Vegetarian Richness
+## Not vegan: curd, ghee and mustard oil
 
-A note worth including here: Wazwan as most people know it is a Kashmiri Muslim tradition. Kashmiri Pandit cooking isn't vegetarian either — Pandit families have traditionally eaten mutton and fish, though not beef or pork — but it has a rich vegetarian repertoire of its own, and it's exceptional.
+Vegetarian is not vegan here. J&K Tourism's description of Kashmiri cooking says that no vegetarian or non-vegetarian dish, except certain kababs, is cooked without curd ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)). A Kashmiri restaurateur says an authentic Wazwan can only be cooked with ghee, while mustard oil is preferred for home-cooked food ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)), and Sahapedia has the paneer for tamatar chaman fried in mustard oil ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Ask before you assume.
 
-Kashmiri Pandit cuisine traditionally avoids onion, garlic, and tomato, using asafoetida (*heeng*), fennel, dried ginger, and cardamom as its aromatic base. The result is a distinct flavour profile unlike anything else in Indian vegetarian cooking. Staple dishes include:
+## The Kashmiri Pandit kitchen
 
-- **Nadur yakhni** — Lotus stem in a yogurt-based gravy
-- **Lyader tsaman** — Cottage cheese in a rich yellow cream gravy (distinct from ruwangan tsaman)
-- **Modur pulao** — Saffron rice cooked with dry fruits; served at weddings and celebrations
-- **Chuk wangun** — Eggplant in a tamarind-based gravy, tangy and unusual
+Wazwan, as J&K Tourism presents it, is a Kashmiri Muslim banquet ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)). Kashmiri Pandits are not vegetarian: they eat mutton and fish but not beef ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_Pandits)), and one Pandit writer insists that "it's always lamb meat and not goat" ([Outlook India](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403)). What differs is the seasoning. Pandit cooking uses asafoetida and curd where Muslim cooking uses onions, garlic and shallots ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)), with dry ginger and fennel powder as the aromatics ([Outlook India](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403)). Wikipedia's list even records a name for the Pandits who were fully vegetarian and ate neither onions nor tomatoes: *dal battas* ([Wikipedia](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)).
 
-This isn't technically Wazwan, but if you're a vegetarian visitor interested in the depth of Kashmiri cooking, Pandit-style vegetarian food is where you'll find the richest tradition.
+From that kitchen come the vegetarian dishes with the most depth: nadir yakhni; lyader tsaman, paneer turned yellow with turmeric; razma gogji, kidney beans with turnips; al yakhni, bottle gourd in a yogurt gravy; and tsaman monje kaliya, kohlrabi with paneer, which Wikipedia's list says used to be made in big pots on the mehndi night before a wedding ([Wikipedia](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)). "Paneer, collard greens, lotus stem and Kashmiri turnips all contribute to the colour in our thali," a Pandit writer puts it ([Outlook India](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403)). Our guide to [Kashmiri Pandit food](/blog/kashmiri-pandit-food) goes further.
 
----
+## Frequently asked questions
 
-## What to Order as a Vegetarian at a Srinagar Restaurant
+### Is there a fully vegetarian Wazwan?
 
-Most restaurants that serve Wazwan also offer individual vegetarian dishes from the same kitchen. If you're not ordering the full non-veg thali, here's what to prioritise:
+Not as a tradition. Wazwan is defined by its mutton dishes and the order they are served in. Vegetarian dishes are served alongside them, and more have been added in recent years, but a Wazwan without rista and gushtaba is not what the word means.
 
-1. **Dum Aloo** — Order this everywhere. Quality varies significantly; a good version will be richly spiced and have potatoes that have absorbed the gravy through the cooking process.
-2. **Nadur dishes** — Nadur yakhni or nadur palak, if available. Lotus stem is genuinely Kashmiri and something you won't find in most of India.
-3. **Haakh** — Straightforward, often underrated. A good marker of whether a kitchen is cooking Kashmiri food properly or catering to tourist expectations.
-4. **Ruwangan tsaman** — If you want something heartier, this is the vegetarian dish closest in richness to the meat curries.
+### Which Wazwan dishes are vegetarian?
 
----
+Ruwangan chaman (paneer in tomato gravy), waza hedar (mushrooms), waza palak and waza haakh (spinach and collards), dum aloo, the nadru dishes, a vegetarian pulao, and the chutneys and yogurt. Wikipedia lists the greens and mushrooms among the main dishes and calls dum aloo rare at a Wazwan.
 
-## The Honest Picture for Vegetarians
+### Can a vegetarian go to a Kashmiri wedding?
 
-If you're visiting Srinagar and you're strictly vegetarian, you won't go hungry — Kashmiri vegetarian cooking is genuinely excellent. But you should calibrate your expectations around Wazwan specifically: the ceremony, the trami format, the whole experience of sitting with three others around a copper plate — that is built around meat.
+Yes. The vegetable dishes, rice, chutneys, yogurt and kahwa are all there, and a 2017 government order counted seven vegetarian dishes as a normal part of a wedding menu. The mutton dishes that define the feast are not for you, and that is the honest picture.
 
-What you can experience fully is the setting, the kahwa, the rice, the vegetable sides, and the ruwangan tsaman. What you won't get is the gushtaba, the rista, or the tabak maaz that define what Wazwan actually is.
+### Are the vegetarian dishes vegan?
 
-That's not a gap in Kashmir's hospitality. It's just an accurate picture of what the tradition is, and what it offers people who eat differently.
+Usually not. J&K Tourism says almost every Kashmiri dish is cooked with curd, and a restaurateur says an authentic Wazwan is cooked in ghee. Ask the restaurant.
 
----
+### What is the most Kashmiri vegetarian ingredient?
 
-## FAQ
+Nadru, lotus stem, which Sahapedia calls a staple of Kashmiri households. It is cooked in yogurt as nadir yakhni, with spinach as nadir palak, and fried as the street snack nadur monji.
 
-**Is there a fully vegetarian Wazwan?**
-Not in the traditional sense. Some restaurants now offer "vegetarian Wazwan thalis" as a separate menu item, but these are restaurant adaptations rather than a traditional format. The original Wazwan is defined by its meat dishes.
+## Sources
 
-**Can I attend a Kashmiri wedding as a vegetarian?**
-Yes. A 2017 order capped wedding menus at seven vegetarian dishes alongside seven meat dishes; whatever the menu, you'll eat well — dum aloo, haakh, nadur, paneer dishes — even if the heart of the feast isn't for you.
-
-**Is Kashmiri food generally vegetarian-friendly?**
-More so than its reputation suggests. Everyday Kashmiri cooking has many vegetarian dishes, a good number of them from Kashmiri Pandit kitchens, which aren't vegetarian but whose vegetable dishes have real depth. For what to order and how, see our guide to [vegetarian food in Kashmir](/blog/vegetarian-food-in-kashmir).
-
-**Does Wazwan use ghee in vegetarian dishes?**
-Authentic Wazwan cooking uses ghee as the primary fat, so vegetable dishes are not vegan. Check with individual restaurants if that matters for you.
-
-**What's the most distinctly Kashmiri vegetarian ingredient?**
-Nadur — lotus stem. It's grown locally, deeply embedded in Kashmiri cooking, and not something you'll find in most other Indian cuisines.
-
----
-
-*For the dishes in serving order and what the full feast involves, see [Traditional Wazwan](/dishes).*
-`
+- Wikipedia, ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["List of Kashmiri dishes"](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine), ["Dum aloo"](https://en.wikipedia.org/wiki/Dum_aloo) and ["Kashmiri Pandits"](https://en.wikipedia.org/wiki/Kashmiri_Pandits).
+- Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.
+- Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
+- Mushtaq Ahmad, Sakina Akhter and Shariq R. Masoodi, ["Wazwan the Kashmiri Cuisine - A Caloric Bomb"](https://www.jmsskims.org/index.php/jms/article/view/153), *JMS SKIMS* 15(2), 2012.
+- Jammu & Kashmir Tourism Development Corporation, ["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx).
+- IANS, ["Curbs on guests, dishes at Kashmir weddings"](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267), Gulf News, 21 February 2017.
+- Amit Bamzai, ["A Pandit Must Know His Meat"](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403), Outlook India, 29 May 2022.
+- ["Of Kashmiri Wazwan and more"](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more), Outlook Traveller, February 2022.`,
   }
   ,
   {
     slug: "restaurant-vs-wedding-vs-home",
     category: "wazwan",
-    title: "Wazwan: Restaurant vs Wedding vs Home — What's Actually Different",
-    description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
-    readTime: "6 min read",
+    title: "Wedding, Restaurant and Home: What Changes in a Wazwan",
+    description: "The same dishes, three different meals. What a wedding Wazwan involves, from the vur to the last gushtaba; what a Srinagar restaurant can and can't reproduce; and why what Kashmiris cook at home isn't Wazwan at all.",
+    readTime: "10 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
-    updatedDate: "October 11, 2026",
+    updatedDate: "October 28, 2026",
     related: ["cost-guide", "how-wazwan-is-served", "waza-meaning", "vegetarian-wazwan"],
     stories: ["aab-gosht-milk-curry", "gushtaba-last-dish-of-wazwan"],
-    content: `
-# Wazwan: Restaurant vs Wedding vs Home — What's Actually Different
+    content: `People who have eaten Wazwan at a Kashmiri wedding and people who have eaten it at a Srinagar restaurant have, in a real sense, eaten different meals. The dishes carry the same names. The cooks, the fire, the quantities, the order of service and the occasion are not the same, and what Kashmiris cook at home on an ordinary evening is different again. This guide sets out the three, with what the sources record about each. For the dishes themselves, see [Traditional Wazwan](/dishes).
 
-People who've eaten Wazwan at a Kashmiri wedding and people who've eaten it at a Srinagar restaurant have sometimes had what felt like completely different meals. That's not just nostalgia talking. The setting, the cook, the fuel source, the ingredients, the number of courses, and the entire social context are genuinely different across these three versions — and understanding how changes what you look for when you seek Wazwan out.
+## The wedding: the feast the tradition was built for
 
----
+Wikipedia puts Wazwan where it belongs, among dishes "prepared for weddings and special occasions like Eid" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)). It is cooked at the family's home, in the open, not brought in. A waza quoted by Sahapedia describes work "with fire, smoke, and heavy copper daigs, starting at dawn" ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); Asia Media Centre describes logs of wood lined up in the courtyard with copper degs mounted on top ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). A Gulf News writer at a wedding watched the wazas arrive around evening in two red wagons, "carrying the cooking weaponry: ladles, pestles, knives and the army", and cook at the *vur*, an open kitchen, "the old fusty way with firewood" ([Gulf News](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710)).
 
-## The Wedding Wazwan: The Original
+**Who cooks.** A head cook, the *vasta waza* (Sahapedia spells it *wasta*), oversees the preparation; a typical wedding needing 200 to 300 kg of meat takes three or four wazas with their assistants ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Many of the dishes are cooked through the entire night under the vasta waza's supervision ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)); Wikipedia likewise has the meal cooked overnight ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Wazas are paid by skill, from 700 rupees a day for beginners to 2,000 to 3,000 for trained wazas ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Our guide to [what a waza is](/kashmiri-food/wazwan/guide/waza-meaning) covers the trade.
 
-A wedding Wazwan is what the tradition was built for. Everything about it is different from a restaurant experience.
+**The fire and the pots.** The wood is from fruit trees, apple, walnut or plum, with acacia and willow occasionally used, and the cooking is done in large copper cauldrons, *daigs* ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Reuters' 2026 photo essay from a Srinagar wedding shows the same: meat "still pounded by hand and slow-cooked over wood fires, giving Wazwan its distinct texture and smoky flavour", in heavy-bottomed copper pots ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)).
 
-**The waza comes to you.** A family hires a *vasta waza* (head chef) and his team, who arrive the evening before the feast and set up a temporary outdoor kitchen, called a *vur*, at the family's home ([Gulf News](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710)). They cook through the night. The pounding of meat for rista and gushtaba, the noise of ladles on copper degs, the smell of firewood — these are audible signals to the whole neighbourhood that a wedding is happening.
+**How much.** A 74-year-old waza, Ghulam Nabi Baba, told Reuters that "at an average marriage we cook 200kg" of meat; forty years ago, at one wedding in Delina, he cooked 4,500 kg ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). Sahapedia's figure is 200 to 300 kg ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), and Asia Media Centre puts the food served at around 2.5 kg a person ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). An opinion piece in *Kashmir Reader* in October 2026 did the arithmetic for a typical wedding: a *saal traem*, the meat platter for four, at 5,000 to 7,000 rupees; 500 to 600 guests, so 125 to 150 tramis and 300 to 500 kg of mutton; between 6.25 and 10.5 lakh rupees on the Wazwan alone ([Kashmir Reader](https://kashmirreader.com/2026/10/26/how-our-obsession-with-wazwan-turned-tradition-into-a-social-crisis/)). Those are one writer's estimates, not a survey, but they show the scale. *Kashmir Life* put a whole multi-day wedding at 20 to 40 lakh rupees or more in 2025 ([Kashmir Life](https://kashmirlife.net/kashmir-weddings-extravagance-mental-health-crisis-392742/)).
 
-**Firewood, not gas.** This is one of the most significant practical differences. Authentic Wazwan is cooked over slow-burning dry wood from fruit trees such as apple, walnut or plum ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), in large nickel-plated copper *degs*. Restaurants use gas burners. The slow, even heat of wood fire over many hours is not replicable on a commercial gas range, and experienced Kashmiri diners can often taste the difference in the depth of the gravies.
+**The ingredients.** Praan, the Kashmiri shallot, is the allium of the feast; the restaurateur Azmat Ali Mir calls it "the life of Wazwan", available only once a year and difficult to source ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Sahapedia gives the quantities: 7 to 10 kg of praan paste for every 100 kg of Wazwan, at 500 to 1,000 rupees a kilogram ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). The rice is Mushqbudji, a short-grained aromatic variety from the higher reaches of the Valley, traditionally served at marriages and festivals and given a geographical indication on 31 July 2023 ([Wikipedia](https://en.wikipedia.org/wiki/Mushqbudji_rice)); it "takes centre stage in Wazwan" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). And the fat is ghee: an authentic Wazwan "can only be cooked with ghee" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
-**The ingredients are sourced specifically.** *Praan* — Kashmiri shallots, the preferred allium in Wazwan — are seasonal, available once a year, and priced at ₹500–₹1,000 per kg during wedding season. For every 100 kg of Wazwan, a waza uses 7–10 kg of praan paste. *Mushk Budiji*, a short-grain Kashmiri rice variety, is used rather than standard basmati. Everything is cooked in ghee. Restaurants may source some of these ingredients, but rarely all of them at this standard.
+**How it is served.** Four guests share one copper trami ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), topped with "hot rice enough for eight people" ([Gulf News](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710)). The wazas bring each course from the cauldron, "exactly four pieces" at a time, and guests have less than ten minutes before the next dish appears ([Gulf News](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710)). The order is "set in stone", and the meal must end with [gushtaba](/dishes/gushtaba) ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Guests take the leftovers home in bags the host provides ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Our [serving guide](/kashmiri-food/wazwan/guide/how-wazwan-is-served) walks through it.
 
-**The sequence is set.** A wedding Wazwan can run to as many as 36 dishes, served in a set order — opening with tabak maaz and seekh kebab on the trami, always closing with gushtaba. One gushtaba is shared by the four at a trami, and the eldest of them portions it ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Guests eat together from shared copper platters, seated on the floor on a dastarkhwan.
+**How many dishes.** The sources disagree, because weddings differ. A waza told Reuters there were seven mutton dishes in his forefathers' time and around 20 now ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)); Sahapedia says 12 to 24 ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); Wikipedia and J&K Tourism give 36 courses, 15 to 30 of them meat ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)); Asia Media Centre says a wedding can run to 72 dishes, while a funeral Wazwan usually has at least seven ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). *The Kashmir Walla* reported in 2022 that Wazwan "used to be a measured eight meal course" and that wazas had cooked 21 on demand, which Ashraf Waza, cooking for five decades, called "nothing but a show off and an entire waste of money and food" ([The Kashmir Walla](https://thekashmirwalla.com/in-kashmir-lavish-wazwan-and-its-evolution-worsens-late-marriage-crisis/)). *Kashmir Life* reported 30 to 40 dishes at wedding feasts in 2025, and a shift from four guests a trami to two ([Kashmir Life](https://kashmirlife.net/kashmir-weddings-extravagance-mental-health-crisis-392742/)). In February 2017 the state government announced a cap of seven non-vegetarian and seven vegetarian dishes plus two sweets ([Gulf News/IANS](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267)); our [history guide](/kashmiri-food/wazwan/guide/history-of-wazwan) covers the attempts to limit the feast.
 
-**You take the leftovers home.** Guests are usually given bags for what they couldn't finish. One restaurateur says the custom became accepted only in recent decades and was once thought shameful ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
+**When.** The marriage season runs from mid-April to the end of October, with a break during Ramadan, by *The Tribune*'s 2015 account ([The Tribune](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343)). Sahapedia adds that Wazwan, once reserved for weddings, is now served at other family functions too ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
 
----
+## The restaurant: the same dishes, by the plate
 
-## The Restaurant Wazwan: Accessible but Different
+Restaurants serving the Wazwan dishes "by the plate" have sprung up ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and for visitors they are the way in, because weddings are private.
 
-Restaurants in Srinagar serve something honest and often very good — but it is a different thing from a wedding Wazwan, and the best restaurants don't pretend otherwise.
+**What changes.** The fire, first of all. Azmat Ali Mir, whose Bangalore restaurant Sarposh is built around Kashmiri food, says that restaurants like his come "tantalizingly close", but "replicating this experience within their walls is challenging, especially since firewood cooking isn't feasible in a restaurant" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). The format, second: a restaurant sells a set thali or platter, or single dishes. Outlook Traveller's word for Kareema's offering is a "Wazwan thali" ([Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)), and no restaurant serves the wedding sequence course by course to a trami of four. The scale, third: a kitchen cooking for a dining room is not a team cooking 200 kg through the night.
 
-**What a restaurant can do well:** The core dishes — rogan josh, rista, tabak maaz, gushtaba — can be excellent in a good restaurant kitchen. The Kashmiri spice profile, the slow cooking, the hand-pounded meatballs — these techniques are carried forward by skilled restaurant chefs. For a visitor who won't be attending a Kashmiri wedding, a well-run restaurant is the right way to experience Wazwan.
+**What a restaurant can do.** Serve the dishes well, at a known price, on any day of the year. In January 2024 Outlook Traveller's Srinagar guide put a meal for two at about ₹1,500 at [Ahdoos](/restaurants/ahdoos), ₹1,000 at [Mughal Darbar](/restaurants/mughal-darbar) and ₹800 at [Shamyana](/restaurants/shamyana) ([Outlook Traveller](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)). Ahdoos, which began as a bakery on Residency Road in 1918 ([WION](https://www.wionews.com/india-news/bite-of-history-srinagars-iconic-restaurant-turns-100-36510)), is called the first restaurant in the Valley to serve Kashmiri Wazwan ([Kashmir Life](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/)). The restaurant trade is also where some of the craft is going: Reuters reports that the son of the waza it interviewed chose to open a restaurant rather than work weddings, and that some younger chefs have moved from wedding catering into restaurant work ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)).
 
-**What a restaurant changes:**
+Our [Srinagar guide](/restaurants/best-wazwan-srinagar) compares the restaurants from dated sources, and the [cost guide](/kashmiri-food/wazwan/guide/cost-guide) covers prices across the three settings.
 
-- *Gas over wood fire.* Restaurant kitchens generally cook on gas; a Kashmiri restaurateur told Asia Media Centre that cooking on wood isn't feasible in a restaurant ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). The flavour difference is real, though subtle enough that most first-time visitors won't notice it — they're too busy enjoying the food, as they should be.
-- *Fewer courses.* A restaurant set menu has far fewer dishes. The full sequence of a wedding Wazwan — which can run to 36 courses served over hours — isn't something a restaurant kitchen is structured to deliver.
-- *Individual portions.* Most restaurants serve individual thalis rather than the shared-trami-for-four format. Some offer the trami experience for groups, but even then the communal floor-seating context of a wedding isn't there.
-- *Ingredient sourcing varies.* Praan, Mushk Budiji rice, and seasonal ghee are expensive and sometimes hard to source consistently. Not every restaurant uses all of them.
+## Home: Kashmiri cooking, which is not Wazwan
 
-**The honest advice:** Don't visit Srinagar expecting a restaurant Wazwan to be identical to a wedding Wazwan. Approach it as the best available version of the cuisine in a restaurant setting — which, at the right places, is excellent on its own terms.
+The commonest confusion is to call any Kashmiri mutton dish a Wazwan. Wazwan is the feast. The everyday food of Kashmiri homes is something else, with its own logic.
 
----
+**Rice, greens and mustard oil.** Rice has been the staple since ancient times, and bread is generally eaten only with tea ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)). Mustard oil "is used extensively in Kashmiri cuisine" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)), and the restaurateur Azmat Ali Mir draws the line exactly there: "while mustard oil is preferred for home-cooked food, an authentic Wazwan meal can only be cooked with ghee" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). In Kashmiri Muslim homes vegetable curries are common, "with meat traditionally considered an expensive indulgence" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)); the everyday phrase *haakh-batte*, greens and rice, does the work that "bread and butter" does in English ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)), and nadru, lotus stem, is "a staple in Kashmiri households" ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
 
-## The Home Wazwan: Everyday Kashmiri Cooking
+**The home rogan josh.** One dish name hides two methods. The wazas' [rogan josh](/dishes/rogan-josh), as Sahapedia records it, simmers the meat with garlic, ginger, red chilli powder, clove, cardamom, cinnamon and praan paste ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). The 1988 Pandit cookbook *Culinary Art of Kashmir* makes its home rogan josh with mustard oil, curd, dry ginger and asafoetida, and nothing from the onion family ([Kilam and Kilam](https://ikashmir.net/cookbook/recipes/40.html)); a Pandit writer in *Outlook* fries the mutton "in mustard oil in a heavy pan or a pressure cooker", then adds asafoetida, dry ginger and fennel ([Outlook India](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403)). Wikipedia's rogan josh article records both strands, praan and mawal petals for some cooks, yogurt and asafoetida for others, with Brahmin versions leaving out onions, ginger and garlic ([Wikipedia](https://en.wikipedia.org/wiki/Rogan_josh)). Our [rogan josh story](/blog/rogan-josh-history) follows the dish through both.
 
-This is the most misunderstood category. Wazwan is a ceremonial feast tradition — it's not what Kashmiris eat at home on a daily basis.
+**What home cooking is not.** It is one or two dishes with rice, not a sequence; it is cooked by the family, not by wazas; and it is not pounded, portioned and served four pieces at a time to a trami. When a family hosts a Wazwan at home, for a wedding or another function, it is the wazas who cook it, in the courtyard, as above. The difference is the cook and the occasion, not the address.
 
-What Kashmiris cook at home is related to Wazwan in flavour and technique, but scaled down, simplified, and adapted to what a family kitchen can realistically produce. Home versions of rogan josh, dum aloo, or haakh use the same spice palette — fennel, dried ginger, Kashmiri chilli — but without the all-night waza-led production, the copper degs, the praan paste in bulk, or the full trami format.
+## Which one to seek out
 
-A few specific differences in home cooking:
+If you are visiting Srinagar, the restaurant version is what is open to you, and at the right places it is very good; go with others so you can share a platter. If you are invited to a wedding, go: the fire, the sequence and the scale cannot be bought. And if you eat in a Kashmiri home, enjoy it as the cooking it is, and don't measure it against the feast.
 
-- **Mustard oil instead of ghee.** Ghee is the fat of an authentic Wazwan. At home, mustard oil is the everyday standard — it's cheaper, more available, and most Kashmiri households use it for daily cooking.
-- **Onion and garlic sometimes appear.** Traditional Wazwan relies on praan, a Kashmiri shallot, as its main allium, though some waza recipes also use garlic ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Home cooking is less strict about this.
-- **Dishes are single, not sequential.** A family dinner might be rogan josh with rice and haakh — not a 12-course sequence. The multi-course ceremonial format belongs to the waza context.
+## Frequently asked questions
 
-The Kashmiri home kitchen is its own rich tradition, but calling it Wazwan would be like calling a home pasta dinner a restaurant tasting menu. Related, shaped by the same culture, different in kind.
+### Is restaurant Wazwan authentic?
 
----
+The dishes are real and often well made, but the setting changes the meal. A restaurant cooks indoors, without the wood fire that one restaurateur says can't be replicated within its walls; it serves a thali or single dishes rather than the full sequence; and it cooks for a dining room rather than for hundreds of guests at once.
 
-## Which Version Should You Try?
+### How many dishes does a wedding Wazwan have?
 
-**If you're a visitor to Srinagar:** A restaurant Wazwan is what's available to you, and it's genuinely worth doing. Choose a restaurant that serves a shared trami format for the closest approximation of the communal eating experience, if you're with others.
+It depends on the wedding. Sources give 12 to 24, around 20, 36 and even 72; a waza told Reuters his forefathers served seven mutton dishes, and in 2017 the government tried to cap menus at seven meat and seven vegetarian dishes.
 
-**If you're invited to a Kashmiri wedding:** Go. This is the unreplicable version — the full sequence, the firewood, the trami, the sheer scale of hospitality. Most Kashmiris would agree that even the best restaurant Wazwan is a different experience from a well-made wedding feast.
+### How much meat does a wedding Wazwan use?
 
-**If you're eating in a Kashmiri home:** You're experiencing everyday Kashmiri cooking, which is excellent and distinct. Don't mentally compare it to Wazwan — appreciate it as what it actually is.
+About 200 kg at an average wedding, a veteran waza told Reuters in 2026. Sahapedia gives 200 to 300 kg, and a 2026 estimate for a wedding of 500 to 600 guests runs to 300 to 500 kg.
 
----
+### Does the wood fire really change the taste?
 
-## FAQ
+Reuters describes the slow cooking over wood fires as giving Wazwan "its distinct texture and smoky flavour", and a restaurateur devoted to the cuisine says firewood cooking is the part a restaurant can't replicate. Whether a first-time visitor would notice is another question.
 
-**Is restaurant Wazwan "fake"?**
-No — that framing isn't useful. It's an adaptation of the tradition to a restaurant setting, with real limits and real strengths. The dishes are genuine; the context is different.
+### What do Kashmiris eat at home?
 
-**Can a tourist hire a waza for a private Wazwan experience?**
-It's possible but requires local contacts and planning. Some wazas may take smaller private bookings outside the wedding season, but this isn't a standard tourist offering you can book online.
+Rice with greens, vegetable curries and, less often, meat, cooked in mustard oil rather than the ghee of a Wazwan. Haakh-batte, greens and rice, is the everyday meal, and lotus stem is a household staple.
 
-**Does the firewood really make a difference to the taste?**
-Yes, according to both wazas and experienced Kashmiri diners. The slow, sustained heat of a fruit-wood fire through the night ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)) produces a depth in the gravies that gas cooking doesn't replicate. Whether a first-time visitor would notice is another question.
+## Sources
 
-**What's the minimum number of dishes in a proper Wazwan?**
-Wazwan is said to have begun as a seven-dish meal ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), and a funeral Wazwan usually has at least seven dishes, a Kashmiri restaurateur told Asia Media Centre. Wedding menus usually run to about 12 to 24 dishes; 36 is the traditional figure for the grandest feasts.
-
-**Are home-cooked Kashmiri dishes available anywhere in Srinagar?**
-Some smaller, locally-oriented restaurants and dhabas serve food closer to home-style Kashmiri cooking — simpler, less ceremonial, often very good value.
-
----
-
-*For the Wazwan dishes in serving order, see [Traditional Wazwan](/dishes). To understand what Wazwan costs across these different contexts, see our [Wazwan Cost Guide](/kashmiri-food/wazwan/guide/cost-guide).*
-`
+- Wikipedia, ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine), ["Rogan josh"](https://en.wikipedia.org/wiki/Rogan_josh) and ["Mushqbudji rice"](https://en.wikipedia.org/wiki/Mushqbudji_rice).
+- Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.
+- Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
+- Reuters, ["Photos: Kashmir's 600-year-old Wazwan wedding feast adapts to modern life"](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life), Al Jazeera, 30 September 2026.
+- Sadiq Shaban, ["Rogan Josh, Tabak Maaz, Rista, Goshtaba… royal Kashmiri wazwan, a feast for the senses"](https://gulfnews.com/food/rogan-josh-tabak-maaz-rista-goshtaba-royal-kashmiri-wazwan-a-feast-for-the-senses-1.1642605703710), Gulf News, 20 January 2022.
+- Jammu & Kashmir Tourism Development Corporation, ["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx).
+- Basit Rasool Thokero, ["How Our Obsession With Wazwan Turned Tradition Into A Social Crisis"](https://kashmirreader.com/2026/10/26/how-our-obsession-with-wazwan-turned-tradition-into-a-social-crisis/), Kashmir Reader, 26 October 2026 (opinion).
+- Mehvish Nazir, ["Have Kashmiri Weddings Lost Their Way?"](https://kashmirlife.net/kashmir-weddings-extravagance-mental-health-crisis-392742/), Kashmir Life, 2 June 2025.
+- ["In Kashmir, lavish wazwan, and its evolution, worsens late marriage crisis"](https://thekashmirwalla.com/in-kashmir-lavish-wazwan-and-its-evolution-worsens-late-marriage-crisis/), The Kashmir Walla, 11 October 2022.
+- IANS, ["Curbs on guests, dishes at Kashmir weddings"](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267), Gulf News, 21 February 2017.
+- ["Wazas get going as marriage season arrives in Valley"](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343), The Tribune, 2015.
+- ["Of Kashmiri Wazwan and more"](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more), Outlook Traveller, February 2022, and ["All about Srinagar, the land of lakes and gardens"](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens), Outlook Traveller, January 2024.
+- ["Bite of history: Srinagar's iconic restaurant turns 100"](https://www.wionews.com/india-news/bite-of-history-srinagars-iconic-restaurant-turns-100-36510), WION, 2018, and ["Kashmir breads and bakeries"](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/), Kashmir Life, 2025.
+- Amit Bamzai, ["A Pandit Must Know His Meat"](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403), Outlook India, 29 May 2022.
+- S. S. Kaul Kilam and Shyam Rani Kilam, *Culinary Art of Kashmir* (1988), [recipe 40, Neni Rogan Josh](https://ikashmir.net/cookbook/recipes/40.html), ikashmir.net.`,
   }
   ,
 
@@ -812,16 +792,91 @@ Kashmiri chilli and mawal, dried cockscomb flowers, rather than tomato, which re
   }
   ,
   {
-    "slug": "wazwan-vs-mughlai",
-    "category": "wazwan",
-    "title": "Wazwan vs Mughlai Cuisine: Understanding the Differences",
-    "description": "A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India.",
-    "readTime": "2 min read",
-    "author": "WazwanWay Team",
-    "date": "June 23, 2026",
-    "updatedDate": "October 11, 2026",
-    "related": ["history-of-wazwan", "rista-vs-gushtaba", "vegetarian-wazwan", "how-wazwan-is-served"],
-    "stories": ["daniwal-korma-coriander", "rogan-josh-history"],
-    "content": "# Wazwan vs Mughlai Cuisine: Understanding the Differences\n\nBecause Kashmiri Wazwan and Mughlai cuisine both share historical roots in Central Asia and Persia, and because both are renowned for their elaborate meat dishes, they are often confused by outsiders. \n\nMany restaurants outside of Kashmir blur the lines, serving heavy Mughlai curries and calling them Wazwan. However, to a culinary historian—and certainly to a Kashmiri—the two cuisines are vastly different in their ingredients, techniques, and underlying philosophies.\n\n## The Historical Divergence\n\n**Mughlai Cuisine** evolved in the imperial kitchens of the Mughal Empire in cities like Delhi, Agra, and Lahore. It is a cuisine of the plains, heavily influenced by the extreme wealth of the emperors, leading to the generous use of heavy creams, extensive dry fruits, and complex, thick gravies.\n\n**Wazwan** developed in the isolated, mountainous Kashmir Valley. Like Mughlai cooking, it draws on Persian and Central Asian traditions, but it adapted to the harsh winters and specific agricultural profile of the Himalayas. It is a cuisine of the mountains—sharper, more aromatic, and structurally different.\n\n## The Gravy Base: Onion/Tomato vs Yogurt/Fennel\n\nThis is the most critical difference between the two cuisines.\n\n**Mughlai Gravies:**\nMughlai food relies heavily on a *bhuna* (sautéed) base of onions, garlic, ginger, and, later, tomatoes. The gravies are thickened with heavy dairy—cream (*malai*), butter, and pastes made from cashews or almonds. The result is a thick, sweet, and overwhelmingly rich sauce.\n\n**Wazwan Gravies:**\nWazwan's meat gravies are built on yogurt, milk and praan rather than tomato and cream. The primary thickening agent in Wazwan is **Yogurt (Curd)**. Instead of common onions, Wazwan uses *Praan* (Kashmiri shallots). The flavor profile is driven by aromatics rather than heavy fats: Fennel powder (*Saunf*) and Dried Ginger powder (*Soonth*) are the undisputed pillars of Wazwan cooking. The resulting gravies are thinner, tangier, and far more aromatic.\n\n## The Meat Preparation\n\n**Mughlai:** \nMughlai cuisine features a lot of marinated, tandoor-roasted meats (like Chicken Tikka) and minced meats cooked on skewers (Seekh Kebabs). Meat is often marinated in yogurt and papaya to tenderize it before cooking.\n\n**Wazwan:** \nWazwan is obsessed with boiling and pounding. The tandoor is practically non-existent in traditional Wazwan cooking (Kashmiris use tandoors for bakery bread, not meat). Meats are boiled with aromatics to create rich stocks, or they are laboriously hand-pounded into elastic pastes for dishes like Rista and Gushtaba. Ribs (Tabak Maaz) are boiled in milk before being fried.\n\n## The Spices and Color\n\n**Mughlai:** Uses complex spice blends (Garam Masala) extensively. Color often comes from turmeric, saffron, or modern food coloring.\n\n**Wazwan:** Uses spices surgically. The intense red color of Wazwan dishes comes naturally from a combination of mild Kashmiri Red Chilies and the extract of the *Mawal* (cockscomb) flower. \n\n## The Dining Format\n\n**Mughlai:** A buffet or a plated dining experience, often accompanied by a wide variety of flatbreads (Naan, Roti, Paratha).\n\n**Wazwan:** A highly ritualistic, communal dining experience. Four people eat from a single copper *Trami*. It is served on rice.\n\n## Summary\n\nIf a dish is thick, creamy, sweet with ground nuts, and heavy on tomato and onion, it is Mughlai. If a dish features a thin, aromatic gravy driven by yogurt, fennel, and dried ginger, with a layer of glistening oil on top, you are experiencing the true art of the Kashmiri Wazwan."
-}
+    slug: "wazwan-vs-mughlai",
+    category: "wazwan",
+    title: "Wazwan vs Mughlai: How Kashmir's Feast Differs from the Court Cooking of North India",
+    description: "Both have Persian roots, both are famous for meat, and menus mix them up. What Mughlai cuisine is, what Wazwan is, where the two met under Mughal rule, and the differences you can taste: praan, curd, Kashmiri chilli, the wood fire and the trami.",
+    readTime: "7 min read",
+    author: "WazwanWay Team",
+    date: "June 23, 2026",
+    updatedDate: "October 28, 2026",
+    related: ["history-of-wazwan", "rista-vs-gushtaba", "vegetarian-wazwan", "how-wazwan-is-served"],
+    stories: ["daniwal-korma-coriander", "rogan-josh-history"],
+    content: `Kashmiri Wazwan and Mughlai cuisine get confused for understandable reasons. Both descend in part from Persian cooking, both are famous for meat, and both use the words korma, kebab and rogan josh. Even the names on the street mislead: Mughal Darbar, upstairs on Residency Road in Srinagar since 1984, is a Wazwan restaurant, recommended for its rista and gushtaba ([Kashmir Life](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/); [Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)). Sahapedia puts the difference in one ingredient: praan, the Kashmiri shallot, "distinguishes wazwan from its Mughlai counterparts" ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). This guide sets out what each cuisine is, where they met, and what separates them at the table. For Wazwan's dishes, see [Traditional Wazwan](/dishes).
+
+## What Mughlai cuisine is
+
+Wikipedia defines Mughlai cuisine as "delicately-spiced dishes developed or popularised in the early-modern Indo-Persian cultural centres of the Mughal Empire", a combination of the subcontinent's cooking with "the cooking styles and recipes of Persian cuisine", created for the Mughal court ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)). Its tastes "vary from extremely mild to spicy", and it is associated with "a distinctive aroma and the use of ground and whole spices" ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)). The Mughals "brought cooking methods including the tandoor clay oven"; kebabs had been introduced earlier, under the Delhi Sultanate ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)). The representative dishes are biryani, kebabs, korma, murgh musallam, pasanda, "marinated meat in a creamy sauce with yoghurt, nuts, and mild spices", Mughlai paratha and shahi tukra, a rich bread pudding ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)). The cuisine "has been adapted by restaurants and roadside food stalls for a mass market", where its dishes are commonly "cooked in a thick sauce based on tomato or cream" ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)).
+
+The korma shows the lineage. Kormas "were prepared in the Mughal court kitchens", first mentioned in cookery books from the reign of Shah Alam (1643–1712); in the 18th century court cooks "enriched the Persian-style stew with almonds, garlic, spices, and yoghurt", and a 19th-century Lucknow *quarama* held ghee, yoghurt, cream, crushed almonds, cloves, cardamom and saffron ([Wikipedia](https://en.wikipedia.org/wiki/Korma)). The curry-house korma that descends from it is "a mildly spiced dish with a thick sauce", often with almonds, cashews or coconut ([Wikipedia](https://en.wikipedia.org/wiki/Korma)).
+
+## What Wazwan is
+
+Wazwan is the multi-course feast of Kashmiri cuisine, cooked overnight under a master cook, the *vasta waza*, and eaten by groups of four from a large copper plate, the trami ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). Of its thirty-six courses, fifteen to thirty can be meat ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)). It is cooked for weddings and special occasions, not every day ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)), over wood from fruit trees in copper cauldrons ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), with the meat "pounded by hand and slow-cooked over wood fires" ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). Its allium is praan, its fat ghee, its rice the short-grained Mushqbudji, and its dishes come in a set order that ends with gushtaba ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). The wazas who cook it are a trade with their own training and hierarchy ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); see [what a waza is](/kashmiri-food/wazwan/guide/waza-meaning).
+
+## Where the two met
+
+Kashmir came under Mughal rule in 1586 ([Wikipedia](https://en.wikipedia.org/wiki/Mughal_conquest_of_Kashmir)), and *Kashmir Life*'s reading of the earliest Persian sources is that the feast went on taking shape under the Mughals and then the Afghans ([Kashmir Life](https://kashmirlife.net/kashmir-wazwan-issue-42-vol-12-257951/)); our [history guide](/kashmiri-food/wazwan/guide/history-of-wazwan) sets out the evidence. The names of many Kashmiri dishes are Persian: rogan josh, yakhni, aab gosht, rista and gushtaba "stem from Persian sources", while kabab is Arabic in origin and korma has Turkish roots ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)). Dum cooking, the slow sealed cooking behind Kashmir's dum aloo, "was made popular by the Mughal courts around the 16th century" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine); [Wikipedia](https://en.wikipedia.org/wiki/Dum_aloo)).
+
+Rogan josh is the dish on both lists. Wikipedia's Mughlai article includes it, as "Kashmiri red meat in an aromatic sauce" ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)); the dish's own article calls it a Kashmiri dish "from the time of the Mughal Empire", with a Persian antecedent of meat fried in hot butter, brought to North India by the Mughals and later "a staple of Kashmiri cuisine" ([Wikipedia](https://en.wikipedia.org/wiki/Rogan_josh)). The food writer Vir Sanghvi tells the same story with its hedges left in: it "came to India with the Mughals (we think) perhaps from Persia" ([Vir Sanghvi](https://virsanghvi.com/Article-Details.aspx?key=1076)), and a 2016 review calls the traditional knowledge behind Wazwan's meat dishes "poorly documented" ([Rather, Masoodi and Akhter](https://doi.org/10.1016/j.jef.2016.12.002)). Our [rogan josh story](/blog/rogan-josh-history) follows the evidence.
+
+So the two cuisines share ancestors and a few names. What they don't share is the kitchen.
+
+## The differences you can taste
+
+**The base of the gravy.** In Wazwan it is curd and stock. "No vegetarian or non-vegetarian dish, except certain kababs, is cooked without curd" ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)); "the main skill of a wazwan lies in the preparation of this stock made of onions and shallots", in which the rista and gushtaba are poached ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)); Sahapedia's gushtaba gravy is yogurt, mutton broth, shallots, ginger and garlic paste with cinnamon and cardamom ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). In Mughlai cooking the richness comes from cream and nuts, the pasanda's "creamy sauce with yoghurt, nuts, and mild spices", the korma's almonds and cream ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine); [Wikipedia](https://en.wikipedia.org/wiki/Korma)), and in mass-market versions from a thick sauce "based on tomato or cream" ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)).
+
+**The allium.** Praan, the Kashmiri shallot, "the life of Wazwan" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)): 7 to 10 kg of praan paste go into every 100 kg of Wazwan, and Sahapedia makes it the ingredient that separates Wazwan from Mughlai cooking ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
+
+**The colour.** Wazwan's red is Kashmiri chilli, mawal, the dried cockscomb flower, and, in rogan josh, the root of ratanjot ([Wikipedia](https://en.wikipedia.org/wiki/Rogan_josh)). Tomato "is incorrectly used as a substitute when mawal and rattanjot are not available" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)): it reached Indian cooking only after Europeans introduced it ([Wikipedia](https://en.wikipedia.org/wiki/Tomato)), and it is Western and British versions of rogan josh that add tomatoes, and sometimes red peppers, for the colour ([Wikipedia](https://en.wikipedia.org/wiki/Rogan_josh)).
+
+**The spices.** Kashmiri cooking seasons with fennel and dry ginger. A Pandit cook adds "shonth (dry ginger powder) and badiyan (fennel powder)" ([Outlook India](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403)); Wikipedia's Wazwan has lamb "cooked with a fennel-based spice mixture, cardamom and partially evaporated milk" ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and dum aloo "cooked with ginger powder, fennel and other hot spices" ([Wikipedia](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes)). Mughlai cooking is known for "ground and whole spices", and its kormas for cloves, cardamom and saffron ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine); [Wikipedia](https://en.wikipedia.org/wiki/Korma)).
+
+**The technique.** Wazwan's signature work is pounding: meat beaten by hand before it is simmered ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)), the [rista](/dishes/rista) and [gushtaba](/dishes/gushtaba) poached in stock ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)), the [tabak maaz](/dishes/tabak-maaz) ribs cooked and then fried in ghee ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). Its one grill is the [seekh kebab](/dishes/seekh-kebab), "minced meat roasted on skewers over hot coals" ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)). The Mughals' method was the tandoor ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)); in Kashmir, bread is the baker's trade, brought fresh from the *kandur* to be eaten with tea ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)). See our guide to the [Kashmiri bakery](/kashmiri-food/bakery).
+
+**The fire.** Wood from fruit trees at a wedding ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy); [Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)), which a restaurateur says can't be replicated within a restaurant's walls ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Mughlai cuisine went from the court to "restaurants and roadside food stalls" ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)).
+
+**Rice, not bread.** Wazwan is served on a mound of rice ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and in most Kashmiri cooking "bread is not part of the meal" ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)). Mughlai meals have their breads, the Mughlai paratha among them ([Wikipedia](https://en.wikipedia.org/wiki/Mughlai_cuisine)).
+
+**The table.** Four to a trami, a fixed order, gushtaba last ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan); [Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Our [serving guide](/kashmiri-food/wazwan/guide/how-wazwan-is-served) covers the manners.
+
+## One word, two dishes: korma
+
+Kashmir's [daniwal korma](/dishes/daniwal-korma) is mutton in a gravy of yogurt and stock with praan, garlic and fresh coriander; the Mughlai korma is the court stew enriched with almonds, garlic and yoghurt, and in Lucknow with cream and saffron ([Wikipedia](https://en.wikipedia.org/wiki/Korma)). They share the word, from the Turkic *qawirma*, "a fried thing" ([Wikipedia](https://en.wikipedia.org/wiki/Korma)), and the braising, and little in the pot. Our [daniwal korma story](/blog/daniwal-korma-coriander) makes the comparison in full.
+
+## Frequently asked questions
+
+### Is Wazwan a kind of Mughlai cuisine?
+
+No. Mughlai cuisine is the cooking developed for the Mughal court and spread by restaurants and street stalls across North India; Wazwan is the feast of Kashmiri cuisine, cooked by a guild of wazas over wood fires for weddings and other occasions. They share Persian ancestors and a few dish names, and Sahapedia names praan, the Kashmiri shallot, as the ingredient that separates them.
+
+### Is rogan josh Kashmiri or Mughlai?
+
+Wikipedia's Mughlai article lists it as a Kashmiri dish, and the dish's own article dates it to the Mughal era, with a Persian antecedent and a later home in Kashmiri cuisine. The documentation is thin: a food writer hedges the Mughal story with "we think", and a 2016 review calls the tradition poorly documented.
+
+### Why are Wazwan gravies red without tomato?
+
+The red comes from Kashmiri chilli, mawal (cockscomb flower) and, in rogan josh, ratanjot. Tomato reached Indian cooking only after Europeans introduced it, and Wikipedia calls it an incorrect substitute for mawal and ratanjot.
+
+### Does Wazwan use a tandoor?
+
+No. The tandoor came to North India with the Mughals. Wazwan's only grilled dish is the seekh kebab, cooked over coals; the rest is simmered, poached or fried in copper pots over a wood fire. In Kashmir, bread comes from the kandur, the neighbourhood baker, not from the waza.
+
+### What single ingredient separates Wazwan from Mughlai food?
+
+Praan, the Kashmiri shallot, which Sahapedia says distinguishes Wazwan from its Mughlai counterparts and which a restaurateur calls the life of Wazwan.
+
+## Sources
+
+- Wikipedia, ["Mughlai cuisine"](https://en.wikipedia.org/wiki/Mughlai_cuisine), ["Korma"](https://en.wikipedia.org/wiki/Korma), ["Rogan josh"](https://en.wikipedia.org/wiki/Rogan_josh), ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine), ["List of Kashmiri dishes"](https://en.wikipedia.org/wiki/List_of_Kashmiri_dishes), ["Dum aloo"](https://en.wikipedia.org/wiki/Dum_aloo), ["Mughal conquest of Kashmir"](https://en.wikipedia.org/wiki/Mughal_conquest_of_Kashmir) and ["Tomato"](https://en.wikipedia.org/wiki/Tomato).
+- Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.
+- Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
+- Reuters, ["Photos: Kashmir's 600-year-old Wazwan wedding feast adapts to modern life"](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life), Al Jazeera, 30 September 2026.
+- Jammu & Kashmir Tourism Development Corporation, ["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx).
+- ["Kashmir Wazwan"](https://kashmirlife.net/kashmir-wazwan-issue-42-vol-12-257951/), Kashmir Life, 21 January 2021, and ["Kashmir breads and bakeries"](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/), Kashmir Life, 2025.
+- ["Of Kashmiri Wazwan and more"](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more), Outlook Traveller, February 2022.
+- Amit Bamzai, ["A Pandit Must Know His Meat"](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403), Outlook India, 29 May 2022.
+- Vir Sanghvi, ["Rogan Josh is India's greatest mutton curry"](https://virsanghvi.com/Article-Details.aspx?key=1076), virsanghvi.com, undated.
+- Rather, Masoodi and Akhter, ["Ethnic meat products of Kashmiri wazwan: a review"](https://doi.org/10.1016/j.jef.2016.12.002), *Journal of Ethnic Foods*, 2016 (abstract).`,
+  }
 ];

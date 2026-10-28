@@ -91,12 +91,12 @@ export async function generateMetadata({ params }) {
           description: "What does Wazwan cost in Srinagar? A breakdown of restaurant, wedding, and fine dining price ranges — and what's driving them.",
         },
         "vegetarian-wazwan": {
-          title: "Vegetarian Wazwan: What to Expect & Order",
-          description: "An honest guide to vegetarian dishes in Wazwan — what's traditionally included, what restaurants offer, and where Kashmiri vegetarian food is actually at its best.",
+          title: "Vegetarian Wazwan: The Vegetable Dishes and What to Order",
+          description: "Wazwan is a mutton feast, but it has always carried a few vegetable dishes. Which ones, how they are made, what a vegetarian can eat at a wedding or a Srinagar restaurant, and where Kashmir's vegetarian cooking is richest.",
         },
         "restaurant-vs-wedding-vs-home": {
-          title: "Wazwan: Restaurant vs Wedding vs Home",
-          description: "The setting, the cook, the fuel, and the ingredients are genuinely different across these three versions of Wazwan. Here's what changes and why it matters.",
+          title: "Wazwan: Wedding vs Restaurant vs Home",
+          description: "The same dishes, three different meals. What a wedding Wazwan involves, from the vur to the last gushtaba; what a Srinagar restaurant can and can't reproduce; and why what Kashmiris cook at home isn't Wazwan at all.",
         },
         "rista-vs-gushtaba": {
           title: "Rista vs Gushtaba: Kashmir's Twin Meatballs",
@@ -119,8 +119,8 @@ export async function generateMetadata({ params }) {
           description: "Where Wazwan comes from: the Timur story the wazas tell, what the historical record shows, the earliest descriptions of Kashmiri feasts, and how the menu changed.",
         },
         "wazwan-vs-mughlai": {
-          title: "Wazwan vs Mughlai Cuisine: Key Differences",
-          description: "A detailed comparative analysis separating the unique traditions of Kashmiri Wazwan from the broader Mughlai cuisine of Northern India.",
+          title: "Wazwan vs Mughlai Cuisine: The Differences",
+          description: "Both have Persian roots, both are famous for meat, and menus mix them up. What Mughlai cuisine is, what Wazwan is, where the two met under Mughal rule, and the differences you can taste: praan, curd, Kashmiri chilli, the wood fire and the trami.",
         },
       },
       bakery: {

@@ -41,14 +41,14 @@ describe("guideCrumbName", () => {
     expect(names).toEqual({
       "cost-guide": "How Much Does Wazwan Cost?",
       "vegetarian-wazwan": "Vegetarian Wazwan",
-      "restaurant-vs-wedding-vs-home": "Restaurant vs Wedding vs Home",
+      "restaurant-vs-wedding-vs-home": "Wedding, Restaurant and Home",
       "rista-vs-gushtaba": "Rista vs Gushtaba",
       "gi-tag-gushtaba-tabak-maaz": "Gushtaba and Tabak Maaz GI Tags",
       "waza-meaning": "What Does Waza Mean?",
       "wazwan-calories": "How Many Calories Are in a Wazwan?",
       "how-wazwan-is-served": "How Wazwan Is Served",
       "history-of-wazwan": "History of Wazwan",
-      "wazwan-vs-mughlai": "Wazwan vs Mughlai Cuisine",
+      "wazwan-vs-mughlai": "Wazwan vs Mughlai",
     });
     expect(guideCrumbName("Plain title")).toBe("Plain title");
   });
