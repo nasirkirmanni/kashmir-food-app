@@ -87,8 +87,8 @@ export async function generateMetadata({ params }) {
           description: "Guides to the Wazwan feast: how it's served, where it comes from, the wazas who cook it, what it costs and what vegetarians can eat.",
         },
         "cost-guide": {
-          title: "How Much Does Wazwan Cost? A Price Guide",
-          description: "What does Wazwan cost in Srinagar? A breakdown of restaurant, wedding, and fine dining price ranges — and what's driving them.",
+          title: "How Much Does Wazwan Cost? Dated Prices",
+          description: "What Wazwan costs in a Srinagar restaurant and at a wedding, with every figure dated: meals for two, single dishes, the platter for four, the meat, the wazas' wages, praan, ghee and rice, and why the bill keeps growing.",
         },
         "vegetarian-wazwan": {
           title: "Vegetarian Wazwan: The Vegetable Dishes and What to Order",
