@@ -15,16 +15,17 @@ describe("every Wazwan guide", () => {
     }
   });
 
-  it("lists its sources, apart from the one guide still waiting for a sourced rewrite", () => {
+  it("lists its sources", () => {
     const unsourced = WAZWAN_GUIDES.filter((g) => sourcesFromMarkdown(g.content).length === 0).map((g) => g.slug);
-    // Shrink this list as each is rewritten from sources; a new guide must never join it.
-    expect(unsourced.sort()).toEqual(["cost-guide"]);
+    // Every guide is now written from sources; a new guide must never appear here.
+    expect(unsourced).toEqual([]);
   });
 
   it("gives every question in a FAQ section an answer", () => {
     const withFaq = WAZWAN_GUIDES.filter((g) => /^##\s+frequently asked questions\s*$/im.test(g.content));
     expect(withFaq.map((g) => g.slug).sort()).toEqual(
       [
+        "cost-guide",
         "gi-tag-gushtaba-tabak-maaz",
         "history-of-wazwan",
         "how-wazwan-is-served",

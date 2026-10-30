@@ -5,114 +5,100 @@ export const wazwanGuides = [
     slug: "cost-guide",
     category: "wazwan",
     title: "How Much Does Wazwan Cost? A Practical Price Guide",
-    description: "A breakdown of what Wazwan costs across restaurants, weddings, and fine dining in Srinagar — and what's actually driving those prices.",
-    readTime: "5 min read",
+    description: "What Wazwan costs in a Srinagar restaurant and at a wedding, with every figure dated: meals for two, single dishes, the platter for four, the meat, the wazas' wages, praan, ghee and rice, and why the bill keeps growing.",
+    readTime: "8 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
-    updatedDate: "October 11, 2026",
+    updatedDate: "October 30, 2026",
     related: ["restaurant-vs-wedding-vs-home", "vegetarian-wazwan", "how-wazwan-is-served", "waza-meaning"],
     stories: ["tabak-maaz-ribs-cooked-twice"],
-    content: `
-# How Much Does Wazwan Cost? A Practical Price Guide
+    content: `What a Wazwan costs depends on where you eat it. In a Srinagar restaurant it is a meal with a price on the menu; at a wedding it is the largest single expense a Kashmiri family takes on, and the guest pays nothing. This guide gives the figures we could find in print, each with the date it was reported, and explains what drives them. Prices move, so treat every number as a marker, not a quote. For the dishes themselves, see [Traditional Wazwan](/dishes).
 
-Wazwan is one of the most generous meals you can eat in Kashmir — a multi-course feast shared from a single copper trami. But what does it actually cost? The honest answer: it depends entirely on where and how you're eating it. A restaurant thali and a wedding wazwan are different experiences at very different price points, and the gap between the cheapest and priciest restaurant options in Srinagar is wider than most visitors expect.
+## In a restaurant: by the plate or by the platter
 
-This guide breaks down what you'll pay across the main contexts — and explains what's actually driving those prices.
+Restaurants sell the Wazwan dishes by the plate, and many are run by hereditary waza families ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)); most also sell a set thali or platter. Outlook Traveller's word for Kareema's is a "Wazwan thali", which it calls "popular for its authentic Wazwan thali at reasonable prices" ([Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)).
 
----
+**Meals for two, as reported.** In January 2024 Outlook Traveller's Srinagar guide put a meal for two at about ₹1,500 at [Ahdoos](/restaurants/ahdoos), ₹1,000 at [Mughal Darbar](/restaurants/mughal-darbar) and ₹800 at [Shamyana](/restaurants/shamyana) ([Outlook Traveller](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)). TravelTriangle's Srinagar list, updated December 2024, gives ₹800 for two at Stream on Boulevard Road ([TravelTriangle](https://traveltriangle.com/blog/restaurants-in-srinagar/)). From those figures, a restaurant Wazwan works out at roughly ₹400 to ₹750 a head.
 
-## The Three Contexts and What They Cost
+**By the dish.** When we checked on 30 October 2026, the online shop at mughaldarbar.in, which gives its address as Residency Road, listed rogan josh (four pieces) at ₹600, gushtaba at ₹650, daniwal korma at ₹600, tabak maaz at ₹350, methi korma at ₹300 and seekh kebab at ₹220 ([Mughal Darbar](https://mughaldarbar.in/shop/wazwan)). That is the shape of most menus: the pounded-meat dishes and rogan josh cost the most, kebabs and tabak maaz the least.
 
-> **About these prices:** they are indicative ranges, not figures taken from dated menus. Check current prices with the restaurant before you go.
+**The trami.** The traditional platter serves four, and one gushtaba is shared by the four and divided by the eldest ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); restaurants that offer it price it for the group. No restaurant serves the wedding sequence, which "can have as many as 36 courses" ([Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)). Our [Srinagar guide](/restaurants/best-wazwan-srinagar) compares the restaurants from dated sources, and [wedding, restaurant and home](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what changes between the settings.
 
-### 1. Restaurant Wazwan: ₹600–₹1,200+ per person
+## At a wedding: what the host pays
 
-Most visitors encounter Wazwan in a restaurant setting, where it's typically served as a thali or trami — a set spread of rice, seekh kebab, rogan josh, rista, tabak maaz, gushtaba, and a few accompaniments, all on one plate.
+A wedding Wazwan is cooked for hundreds at once. Wikipedia describes the feast as "traditionally only available as a large feast serving dozens or hundreds of guests" ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), and the cost follows the meat.
 
-Prices across Srinagar's established restaurants currently range from around **₹600 to ₹1,200 per person**, depending on the restaurant's tier, location, and how many courses they include. Budget-friendly spots aim to be accessible to locals and students; heritage restaurants with older reputations and larger dining rooms charge more.
+**The meat.** A veteran waza, Ghulam Nabi Baba, told Reuters in 2026 that "at an average marriage we cook 200kg"; forty years ago, at one wedding, he cooked 4,500 kg ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)). Sahapedia puts a typical wedding at 200 to 300 kg ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). A July 2026 report on a mutton shortage gives higher figures: "around 500 kilogrammes of mutton and 150 kilogrammes of chicken are consumed at an average Kashmiri wedding, while more than a tonne of mutton is used at the lavish ones" ([DT Next](https://www.dtnext.in/news/national/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab)). Asia Media Centre puts the food served at around 2.5 kg a person ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
-A few things that push the price up within the restaurant category:
+**The team.** Three or four wazas with their assistants cook a 200 to 300 kg wedding, through the night under the head cook, the vasta waza; beginners earn about ₹700 a day and trained wazas ₹2,000 to ₹3,000 ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy); [J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)). Our guide to [what a waza is](/kashmiri-food/wazwan/guide/waza-meaning) covers the trade.
 
-- **Number of courses.** A basic thali might include four or five dishes; a fuller trami spread with additional items like methi maaz or aab gosh costs more.
-- **Gravy refills.** Some restaurants offer unlimited rice and gravy refills; others charge per portion.
+**The bill.** An opinion piece in *Kashmir Reader* in October 2026 did the arithmetic for a typical wedding: a *saal traem*, the meat platter for four, at ₹5,000 to ₹7,000; 500 to 600 guests, so 125 to 150 tramis and 300 to 500 kg of mutton; between ₹6.25 lakh and ₹10.5 lakh on the Wazwan alone, within a wedding budget of ₹25 to ₹40 lakh ([Kashmir Reader](https://kashmirreader.com/2026/10/26/how-our-obsession-with-wazwan-turned-tradition-into-a-social-crisis/)). Those are one writer's estimates rather than a survey, but they match the other published figures: *Kashmir Life* put a multi-day wedding at ₹20 to ₹40 lakh or more in 2025 ([Kashmir Life](https://kashmirlife.net/kashmir-weddings-extravagance-mental-health-crisis-392742/)), and *The Kashmir Walla* reported in 2022 that a conventional marriage ran "between 5 lakh to 30 lakh rupees", quoting a social reformer, Abdul Rashid Naik, that "a simple marriage would not cost more than five lakh" ([The Kashmir Walla](https://thekashmirwalla.com/in-kashmir-lavish-wazwan-and-its-evolution-worsens-late-marriage-crisis/)).
 
-> **Practical note:** At most Srinagar restaurants, one trami is designed to feed four people eating together — the traditional way. If you're dining solo, you'll typically be served a thali-style individual portion, and the per-person cost is roughly the same.
+**Why the bill keeps growing.** The number of dishes. *The Kashmir Walla* reported that Wazwan "used to be a measured eight meal course" and that wazas had cooked 21 courses on demand; Ashraf Waza, cooking for five decades, called that "nothing but a show off and an entire waste of money and food" ([The Kashmir Walla](https://thekashmirwalla.com/in-kashmir-lavish-wazwan-and-its-evolution-worsens-late-marriage-crisis/)). *Kashmir Life* counted 30 to 40 dishes at wedding feasts in 2025, "many of which remain uneaten", and noted a shift from four guests a trami to two ([Kashmir Life](https://kashmirlife.net/kashmir-weddings-extravagance-mental-health-crisis-392742/)). In February 2017 the state government announced an order capping wedding menus at seven non-vegetarian and seven vegetarian dishes plus two sweets, with up to 500 guests for a daughter's wedding and 400 for a son's ([Gulf News/IANS](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267)). The guest, meanwhile, pays nothing, and usually takes the leftovers home in bags the host provides ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)).
 
----
+## What drives the price
 
-### 2. Wedding Wazwan: The Cost Is in the Mutton
+**Mutton.** Meat was "traditionally considered an expensive indulgence" in Kashmiri homes ([Wikipedia](https://en.wikipedia.org/wiki/Kashmiri_cuisine)), and its price is set as much by politics as by the market. After a four-month standoff between dealers and the administration, the official rate was fixed at ₹535 a kilogram in March 2021 ([Kashmir Life](https://kashmirlife.net/mutton-crisis-over-as-ice-melts-after-crucial-meet-262120/)). By January 2026 residents told a news agency that the official rate had moved from ₹650 to ₹700 a kilogram, with butchers charging ₹750 "and even higher in some areas" ([Roshan Kashmir](https://roshankashmir.net/2026/01/20/mutton-prices-soar-in-kashmir-ahead-of-ramzan-locals-cry-foul-over-unchecked-hike/)). Much of the livestock comes from outside the Valley, and in July 2026 dealers said a shortage had "dampened the wedding fervour" ([DT Next](https://www.dtnext.in/news/national/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab)). At ₹700 a kilogram, the 200 kg of an average wedding is ₹1.4 lakh of meat before anything is cooked.
 
-If you're attending a Kashmiri wedding, you're not paying directly — but understanding the economics explains why the feast feels as lavish as it does.
+**Praan.** The Kashmiri shallot is "the life of Wazwan", available only once a year and difficult to source, which "drive[s] up the price" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Every 100 kg of Wazwan takes 7 to 10 kg of praan paste, at ₹500 to ₹1,000 a kilogram ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)).
 
-A traditional wedding Wazwan is priced by the host almost entirely on **how much mutton is slaughtered**. The amount of meat is the main measure of a wedding's scale: a veteran waza told Reuters in 2026 that an average wedding takes about 200 kg ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)).
+**Ghee and rice.** An authentic Wazwan "can only be cooked with ghee", and "Mushk Budiji and ghee, crucial to the authenticity of Wazwan, also come with a hefty price tag" ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). Mushqbudji, the short-grained aromatic rice served at marriages and festivals, received its geographical indication on 31 July 2023 ([Wikipedia](https://en.wikipedia.org/wiki/Mushqbudji_rice)); Kashmir's Director of Agriculture put its price at "around Rs 15,000 to 20,000 per quintal" in 2023, which is ₹150 to ₹200 a kilogram ([The Kashmir Walla](https://thekashmirwalla.com/kashmirs-mushkbudij-rice-set-to-hit-international-market/)).
 
-The full spread can run to 20+ courses, and four guests share each trami. The waza (master chef) and their team are hired separately, and they charge for labour on top of the raw ingredient cost that the host provides or procures.
+**Labour and fire.** The meat is "pounded by hand and slow-cooked over wood fires" ([Reuters](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life)), the wood from fruit trees, in copper cauldrons ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), through the night ([J&K Tourism](https://www.jktdc.co.in/cuisines-of-kashmir.aspx)). That is why a restaurant, which cannot cook on firewood indoors ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)), is the cheaper way to eat the same dishes.
 
-For a guest, the wedding Wazwan is simply the fullest, most generous version of the meal you'll encounter — the standard against which restaurants are always judged.
+## Other occasions, and the season
 
----
+Wazwan was once reserved for weddings and is now served at other family functions ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); a funeral Wazwan usually has at least seven dishes ([Asia Media Centre](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan)). The marriage season runs from mid-April to the end of October, with a break during Ramadan, by *The Tribune*'s 2015 account, and wazas are booked well ahead ([The Tribune](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343)). Wazwan is also served at Kashmiri food festivals and reunions abroad ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)).
 
-### 3. Fine Dining and Hotel Wazwan: ₹1,500–₹2,500+ per person
+## Getting value
 
-A handful of hotel restaurants and upscale dining venues in Srinagar offer curated Wazwan experiences at a significant premium. Here, the price reflects:
+Our advice, not a source's: share a trami or platter for four rather than ordering individual thalis, since the format is built for sharing; order single dishes if you want to try the pounded-meat dishes without the full spread; and check the price before you go, because everything above is dated. Our [calories guide](/kashmiri-food/wazwan/guide/wazwan-calories) explains why one trami goes a long way.
 
-- Private or semi-private dining settings
-- A larger number of courses, often presented with explanation
-- Heritage interiors or Dal Lake views
-- Service standards closer to fine dining
+## Frequently asked questions
 
-This tier typically starts around ₹1,500 per person and can go considerably higher for packages that include Kahwa, dessert courses like phirni, and dedicated service. If you're booking for a group occasion, some hotels let you pre-book a private trami experience.
+### Is Wazwan expensive?
 
----
+Compared with everyday meals in Srinagar, yes: it is mutton cooked in ghee by a hired team over a wood fire. In a restaurant it is a meal for two at roughly ₹800 to ₹1,500 by the latest dated reports; at a wedding it is lakhs of rupees for the host and free for the guest.
 
-## Why Wazwan Costs What It Does
+### What does a Wazwan cost in a Srinagar restaurant?
 
-The price of any Wazwan — restaurant, wedding, or hotel — ultimately traces back to two factors:
+Dated reports give a meal for two at about ₹1,500 at Ahdoos, ₹1,000 at Mughal Darbar and ₹800 at Shamyana (January 2024) and ₹800 at Stream (December 2024); single dishes on one Residency Road menu ran from ₹220 for seekh kebab to ₹650 for gushtaba in October 2026.
 
-**1. Mutton is the main ingredient, and it's not cheap.**
+### What does a wedding Wazwan cost the host?
 
-Every authentic Wazwan uses freshly slaughtered lamb. The carcass is fully utilised, but a whole animal's worth of prep — manual pounding with a wooden *goshpare*, slow cooking over wood fire in large copper *degs*, hand-rolling meatballs — is hours of skilled labour. The rista and gushtaba alone require meat to be pounded to a paste by hand; there are no shortcuts in a real Wazwan kitchen.
+One October 2026 estimate puts the platter for four at ₹5,000 to ₹7,000, and a 500 to 600-guest wedding at ₹6.25 to ₹10.5 lakh for the Wazwan alone; whole weddings are reported at ₹20 to ₹40 lakh, and a simple one at under ₹5 lakh.
 
-**2. The spice profile is premium.**
+### How much meat does a wedding Wazwan use?
 
-Wazwan doesn't use everyday pantry spices. Kashmiri saffron, whole black cardamom, *mawal* (dried cockscomb flowers for natural colour), and cooking in pure ghee rather than oil all add to the cost. These aren't decorative flourishes — they're what makes the flavour profile distinct from any other mutton curry you've eaten elsewhere in India.
+About 200 kg at an average wedding, a veteran waza told Reuters in 2026; Sahapedia gives 200 to 300 kg, and a July 2026 report puts the average at 500 kg of mutton and 150 kg of chicken, with more than a tonne at lavish weddings.
 
----
+### Is Wazwan available all year?
 
-## Getting Value at Different Budgets
+In restaurants, yes. Weddings cluster between mid-April and the end of October, with a break during Ramadan, so that is when an invitation is most likely.
 
-**If you're on a tight budget (under ₹700):**
-Look for local restaurants in the city centre rather than tourist-facing areas near Dal Lake. A solid thali with the core dishes — kebab, rogan josh, rista, gushtaba — is available without paying a premium for ambience.
+### Can I eat Wazwan outside Kashmir?
 
-**If you want a full trami experience (₹800–₹1,200):**
-Choose a restaurant that serves the meal on a shared copper trami for four and offers gravy refills. This is the closest to the authentic format — eating together from one plate is part of the Wazwan experience, not just a cost-cutting measure.
+Yes. Wikipedia records it served at Kashmiri food festivals and reunions abroad, and restaurants in other Indian cities serve the dishes, though the praan, rice and ghee that define the feast are Kashmiri and cost more to bring in.
 
-**If you want the full occasion (₹1,500+):**
-A hotel or heritage restaurant with a curated spread is worth it for a special meal, especially if you want to go beyond the standard 5–6 dish thali and try less-common dishes like *daniwal korma* or *aab gosh*.
+## Sources
 
----
-
-## FAQ
-
-**Is Wazwan expensive compared to other Kashmiri food?**
-Yes, relative to everyday meals in Srinagar, which is consistent with what the meat, the ghee and the hours of cooking cost.
-
-**Do restaurants serve Wazwan for one person?**
-Most do — you'll get an individual thali version. The shared trami format (four people, one plate) is ideal if you're visiting with others, and some restaurants require a minimum party size for the full trami experience.
-
-**Is the hotel/fine dining version worth the extra cost?**
-It depends what you're after. Fine dining versions often include more courses and better service, but the fundamentals — how good the rista is, whether the gushtaba is properly pounded — are the same markers of quality regardless of price.
-
-**Is Wazwan available year-round in Srinagar?**
-Yes, most restaurants serve it daily. Weddings cluster in the warmer months (in 2015 *The Tribune* reported a season from mid-April to the end of October, with a break during Ramadan; [The Tribune](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343)), so if you're visiting then and receive an invitation, consider it a rare chance to experience the feast in its original social context.
-
-**Can I get a Wazwan catered outside Kashmir?**
-Some waza teams travel to cook outside Kashmir, and Wazwan is served at Kashmiri festivals and gatherings abroad ([Wikipedia](https://en.wikipedia.org/wiki/Wazwan)), though authentic ingredients (especially local lamb and fresh mawal) are harder to source outside the Valley, which affects the result.
-
----
-
-*Want to know what dishes make up a Wazwan, and what the feast is? See [Traditional Wazwan](/dishes), which lists every dish in serving order.*
-`
+- ["All about Srinagar, the land of lakes and gardens"](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens), Outlook Traveller, January 2024, and ["Of Kashmiri Wazwan and more"](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more), Outlook Traveller, February 2022.
+- ["Restaurants in Srinagar"](https://traveltriangle.com/blog/restaurants-in-srinagar/), TravelTriangle, updated December 2024.
+- Mughal Darbar, [online shop, Wazwan category](https://mughaldarbar.in/shop/wazwan), checked 30 October 2026.
+- Wikipedia, ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine) and ["Mushqbudji rice"](https://en.wikipedia.org/wiki/Mushqbudji_rice).
+- Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
+- Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.
+- Reuters, ["Photos: Kashmir's 600-year-old Wazwan wedding feast adapts to modern life"](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life), Al Jazeera, 30 September 2026.
+- ["Mutton shortage clouds Kashmiri weddings, traders blame Punjab"](https://www.dtnext.in/news/national/mutton-shortage-clouds-kashmiri-weddings-traders-blame-punjab), DT Next, 1 July 2026.
+- Basit Rasool Thokero, ["How Our Obsession With Wazwan Turned Tradition Into A Social Crisis"](https://kashmirreader.com/2026/10/26/how-our-obsession-with-wazwan-turned-tradition-into-a-social-crisis/), Kashmir Reader, 26 October 2026 (opinion).
+- Mehvish Nazir, ["Have Kashmiri Weddings Lost Their Way?"](https://kashmirlife.net/kashmir-weddings-extravagance-mental-health-crisis-392742/), Kashmir Life, 2 June 2025.
+- ["In Kashmir, lavish wazwan, and its evolution, worsens late marriage crisis"](https://thekashmirwalla.com/in-kashmir-lavish-wazwan-and-its-evolution-worsens-late-marriage-crisis/), The Kashmir Walla, 11 October 2022.
+- IANS, ["Curbs on guests, dishes at Kashmir weddings"](https://gulfnews.com/world/asia/india/curbs-on-guests-dishes-at-kashmir-weddings-1.1982267), Gulf News, 21 February 2017.
+- ["Wazas get going as marriage season arrives in Valley"](https://www.tribuneindia.com/news/archive/community/wazas-get-going-as-marriage-season-arrives-in-valley-71343), The Tribune, 2015.
+- ["Mutton Crisis Over As Ice Melts After Crucial Meet"](https://kashmirlife.net/mutton-crisis-over-as-ice-melts-after-crucial-meet-262120/), Kashmir Life, 17 March 2021.
+- Aazan Manzoor, ["Mutton Prices Soar in Kashmir Ahead of Ramzan"](https://roshankashmir.net/2026/01/20/mutton-prices-soar-in-kashmir-ahead-of-ramzan-locals-cry-foul-over-unchecked-hike/), Roshan Kashmir, 20 January 2026.
+- ["Kashmir's Mushkbudij rice set to hit international market"](https://thekashmirwalla.com/kashmirs-mushkbudij-rice-set-to-hit-international-market/), The Kashmir Walla, 1 May 2023.
+- Jammu & Kashmir Tourism Development Corporation, ["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx).`,
   }
   ,
   {
