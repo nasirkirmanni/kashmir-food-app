@@ -1,0 +1,73 @@
+/* "The Wazwan." (#the-wazwan, night). Sizes are set at 1440×900; 1024–1279 is the same layout with --f-m 48,
+   and 768–1023 has its own block at the end. The word crosses the copper disc: .title is masked out inside
+   the circle and .cross (Kagaz) is clipped to it, both centred where the disc is, on the h2's foot.
+   .root .doors is qualified by its container: the shared f.list on the same element sets margin: 0, and the
+   qualified rule wins whatever order the two modules load in. */
+
+.root { min-height: 100vh; padding: clamp(96px, 12vh, 128px) 0 96px; overflow: clip; }
+.kicker { grid-column: col 1 / col 9; }
+.stage { --disc: clamp(420px, 41vw, 600px); grid-column: col 1 / content-end; position: relative; margin-top: 28px; }
+.title {
+  position: relative; z-index: 1; margin: 0;
+  font-family: var(--f-display); font-weight: 400; color: var(--f-text);
+  -webkit-mask-image: radial-gradient(circle calc(var(--disc) / 2) at calc(100% - var(--disc) / 2) 100%, transparent calc(100% - 0.5px), #000 calc(100% + 0.5px));
+  mask-image: radial-gradient(circle calc(var(--disc) / 2) at calc(100% - var(--disc) / 2) 100%, transparent calc(100% - 0.5px), #000 calc(100% + 0.5px));
+}
+.the { font-size: clamp(48px, 5vw, 72px); line-height: 1; }
+.wazwan { font-size: clamp(150px, 17vw, 248px); line-height: 1; letter-spacing: -0.02em; margin-top: 4px; }
+.italic { font-family: var(--f-display); font-style: italic; font-weight: 400; color: var(--f-accent); }
+.disc { position: absolute; z-index: 0; right: 0; top: calc(100% - var(--disc) / 2); width: var(--disc); aspect-ratio: 1; pointer-events: none; }
+.trami { display: block; width: 100%; height: 100%; }
+.ring { transform-box: view-box; transform-origin: 50% 50%; transition: transform 1600ms var(--f-ease) 200ms; }
+[data-feast-motion] .stage:not([data-shown]) .ring { transform: rotate(-51.43deg); }
+/* .cross (a <p>) is sized by its height, not a bottom inset, so a reader's paragraph spacing (WCAG 1.4.12
+   sets 2em below every <p>) cannot lift its circle off the disc. */
+.cross {
+  position: absolute; inset: 0 0 auto; height: 100%; z-index: 2; margin: 0; pointer-events: none; user-select: none;
+  font-family: var(--f-display); font-weight: 400; color: var(--f-kagaz);
+  clip-path: circle(calc(var(--disc) / 2) at calc(100% - var(--disc) / 2) 100%);
+}
+.cross .italic { color: var(--f-kagaz); }
+.caption { position: absolute; right: 0; top: calc(100% + var(--disc) / 2 + 20px); width: var(--disc); text-align: center; }
+.leadOne { grid-column: col 1 / col 7; margin: 40px 0 0; font: 400 24px/1.45 var(--f-sans); color: var(--f-text); }
+.leadTwo { grid-column: col 1 / col 7; margin: 16px 0 0; font: 400 18px/1.6 var(--f-sans); color: var(--f-text-2); text-wrap: pretty; }
+.actions { grid-column: col 1 / content-end; margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; }
+.search { display: flex; align-items: center; gap: 12px; width: min(420px, 100%); height: 56px; padding: 0 20px;
+  border: 1px solid rgba(200, 164, 106, 0.55); border-radius: 2px; background: var(--f-panel); color: var(--f-text-2);
+  font: 400 16px/1 var(--f-sans); text-align: left; cursor: pointer; transition: border-color 200ms; }
+.searchGlyph { flex: none; width: 18px; height: 18px; color: var(--f-caption); }
+.begin { height: 56px; padding: 0 28px; border-radius: 2px; background: var(--f-accent); color: var(--f-on-accent);
+  font: 600 15px/1 var(--f-sans); transition: background-color 200ms; }
+.doors { grid-column: col 1 / col 9; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--f-g); }
+.root .doors { margin-top: 40px; }
+.door { display: flex; flex-direction: column; gap: 6px; min-height: 64px; padding-top: 16px; border-top: 1px solid var(--f-hair); color: var(--f-text); }
+.doorLabel { display: inline-flex; align-items: center; gap: 0.35em; font: 500 28px/1.1 var(--f-display); }
+.doorArrow { flex: none; width: 0.7em; height: 0.7em; color: var(--f-accent); transition: transform 200ms var(--f-ease); }
+.doorLine { font: 400 15px/1.45 var(--f-sans); color: var(--f-text-2); text-wrap: balance; } /* two even lines, never one stranded word, wherever a door is under ~256px */
+@media (hover: hover) and (pointer: fine) {
+  .search:hover { border-color: var(--f-accent); }
+  .begin:hover { background: var(--f-accent-hover); }
+  .door:hover .doorArrow { transform: translateX(6px); }
+}
+.door:focus-visible .doorArrow { transform: translateX(6px); }
+/* The names on the rim are set at 16 of the disc's 600 units: 11.2px on the 420px disc at 1024 and larger
+   above it. Below 1024 the disc shrinks to 300-400px and they would set under 11px, so they hide there, and
+   the caption that names them hides with them. */
+@media (max-width: 1023px) { .ring, .caption { display: none; } }
+@media (max-width: 1023px) {
+  .stage { --disc: clamp(300px, 40vw, 400px); min-height: calc(var(--disc) + 40px); }
+  .disc { top: 0; }
+  .title {
+    -webkit-mask-image: radial-gradient(circle calc(var(--disc) / 2) at calc(100% - var(--disc) / 2) calc(var(--disc) / 2), transparent calc(100% - 0.5px), #000 calc(100% + 0.5px));
+    mask-image: radial-gradient(circle calc(var(--disc) / 2) at calc(100% - var(--disc) / 2) calc(var(--disc) / 2), transparent calc(100% - 0.5px), #000 calc(100% + 0.5px));
+  }
+  .cross { clip-path: circle(calc(var(--disc) / 2) at calc(100% - var(--disc) / 2) calc(var(--disc) / 2)); }
+  .caption { top: calc(var(--disc) + 12px); }
+  .leadOne, .leadTwo { grid-column: col 1 / col 11; }
+  .kicker, .doors { grid-column: col 1 / content-end; } /* the kicker needs ~474px; columns 1-8 are 461px at 768 */
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring { transition: none !important; transform: none !important; }
+  .doorArrow { transition: none !important; transform: none !important; }
+  .search, .begin { transition: none; }
+}

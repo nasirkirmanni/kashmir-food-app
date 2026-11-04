@@ -1,0 +1,107 @@
+/* The seven (#seven), the signature section. A statement, then a 5:7 split: a sticky panel with no fill
+   (the vessel top right, holding the current course's photograph, the course's numeral bottom left, cropped
+   by the viewport foot while the panel sticks, and a 2px rule down its right edge that fills as the list
+   passes) beside the seven entries in columns 7 to 12. Sizes are given at 1440x900. Only the numerals, the
+   photographs and the fill transform; none contains a sticky element. */
+
+.root { margin: 0; }
+
+/* Statement */
+.statement { padding-top: 136px; }
+.kicker { grid-column: 1 / 9; }
+.title { grid-column: 1 / -1; margin: 24px 0 0; font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(88px, 10.5vw, 152px); line-height: 1; letter-spacing: -0.015em; color: var(--f-text); }
+.indent { padding-left: calc(4 * (100% + var(--f-g)) / 12); } /* line 2 starts at column 5 */
+.lead { grid-column: 5 / 11; margin: 40px 0 0; font: 400 22px/1.5 var(--f-sans); color: var(--f-text-2); text-wrap: pretty; }
+.caveat { grid-column: 5 / 11; margin: 12px 0 0; font: 400 15px/1.5 var(--f-sans); color: var(--f-caption); }
+
+/* The panel: 545 x 779 at 1440x900, its right edge (the rule) in the middle of the gap after column 5.
+   The vessel (358px) sits at y 54-412 and the numeral from y 485. They never meet: the numeral is at most
+   52vh tall, so its line starts at least 64.6vh - 121px down the panel, and the vessel's height cap
+   (58.6vh - 169px, below its top at 6vh) ends it at least 48px above that line in any window 533px tall or
+   more (at 1440x760 the vessel ends at 322 and the numeral starts at 370; the hairline of 05 rises 18px
+   above its line). The panel clips sideways only.
+   While it sticks, its foot is the viewport foot, which crops the numeral's lowest 15%; once it lets go
+   after 07, the numeral shows whole, its foot (37-52px) hanging into the outro's empty 72px top padding,
+   left of the outro link. A clip at the panel's foot would slice it flat in mid-screen there. */
+.line { margin-top: 96px; }
+.panel { grid-column: col 1 / col 6; grid-row: 1; margin-inline-end: calc(var(--f-g) / -2); align-self: start;
+  position: sticky; top: var(--f-stick); height: calc(100vh - var(--f-stick)); overflow-x: clip; color: var(--f-accent); }
+.vesselWrap { position: absolute; top: clamp(32px, 6vh, 64px); right: clamp(24px, 3vw, 48px);
+  width: min(clamp(240px, 26vw, 440px), calc(58.6vh - 169px)); aspect-ratio: 1; }
+/* The vessel seen from above. Its rim, the faint ring and the solid one, is drawn over the photographs; each
+   course's photograph fills the solid ring's circle (r 86 of 100, so 7% in from each side), zoomed and
+   placed by the crops in FeastSeven.js. A course without a photograph keeps the empty vessel: the dashed
+   and faint inner rings, and the dish's name in their middle. */
+.vessel { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.photo { position: absolute; inset: 7%; border-radius: 50%; overflow: clip; }
+.photoImg { object-fit: cover; object-position: var(--at); transform-origin: var(--at); scale: var(--zoom); }
+.empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 18%;
+  text-align: center; font: 400 15px/1.3 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--f-accent); }
+.numerals li { position: absolute; left: 0; bottom: 0; translate: 0 15%; font-family: var(--f-display); font-weight: 400;
+  font-size: min(clamp(240px, 30vw, 432px), 52vh); line-height: 0.8; letter-spacing: -0.03em; color: var(--f-accent); }
+.rule { position: absolute; top: 0; bottom: 0; right: 0; width: 2px; background: var(--f-hair); }
+.fill { position: absolute; inset: 0; background: var(--f-accent); transform-origin: top center; }
+
+/* The list: columns 7 to 12 (644px at 1440), one ruled entry per course. Its bottom margin lengthens the grid
+   row the sticky panel moves in, so the panel is still fully stuck when 07 reaches the middle of the viewport
+   and holds it for 15vh more: half a viewport, less the last entry's minimum height, plus 15vh (225px at
+   1440x900, 154px at 1440x760, 270px at 1920x1080). A margin, not padding, so the list's box, its last
+   hairline and the fill's ratio stay as they are. The margin is qualified by its container (.line .list):
+   the shared f.list on the same element sets margin: 0, and the qualified rule wins whatever order the two
+   modules load in. */
+.list { grid-column: col 7 / content-end; grid-row: 1; border-bottom: 1px solid var(--f-hair); }
+.line .list { margin-bottom: max(0px, 65vh - max(40vh, 340px)); }
+.entry { min-height: max(40vh, 340px); display: flex; flex-direction: column; justify-content: center; padding-block: 48px;
+  border-top: 1px solid var(--f-hair); }
+.rowNumeral { display: none; }
+.meta { color: var(--f-caption); }
+.metaNum { color: var(--f-accent); }
+.name { margin: 16px 0 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(60px, 6vw, 88px);
+  line-height: 1; letter-spacing: -0.01em; text-transform: lowercase; color: var(--f-text); }
+.angle { margin: 16px 0 0; font: 400 22px/1.45 var(--f-sans); color: var(--f-text-2); text-wrap: pretty; }
+.accent { color: var(--f-accent-2); }
+.links { margin: 24px 0 0; display: flex; gap: 24px; }
+.link { color: var(--f-accent); transition: color 200ms var(--f-ease); }
+.outro { padding: 72px 0 136px; text-align: right; font: 400 18px/1.4 var(--f-sans); color: var(--f-accent); }
+.outro a { transition: color 200ms var(--f-ease); }
+
+/* Course states. Without JavaScript the first course shows and the rule is full. SevenProgress marks the
+   section data-live and writes data-current, 0 to 7, as each entry's top passes the middle of the viewport:
+   at 0 the first photograph shows while the first numeral waits in the caption colour; from 1 the current
+   numeral and photograph show, crossfading from the last. */
+.numerals li, .courses li { opacity: 0; }
+.numerals li[data-n="1"], .courses li[data-n="1"] { opacity: 1; }
+.root[data-live] .numerals li, .root[data-live] .courses li { opacity: 0; transition: opacity 300ms var(--f-ease), color 300ms var(--f-ease); }
+.root[data-live][data-current="0"] .numerals li[data-n="1"] { opacity: 1; color: var(--f-caption); }
+.root[data-live][data-current="0"] .courses li[data-n="1"],
+.root[data-live][data-current="1"] .numerals li[data-n="1"], .root[data-live][data-current="1"] .courses li[data-n="1"],
+.root[data-live][data-current="2"] .numerals li[data-n="2"], .root[data-live][data-current="2"] .courses li[data-n="2"],
+.root[data-live][data-current="3"] .numerals li[data-n="3"], .root[data-live][data-current="3"] .courses li[data-n="3"],
+.root[data-live][data-current="4"] .numerals li[data-n="4"], .root[data-live][data-current="4"] .courses li[data-n="4"],
+.root[data-live][data-current="5"] .numerals li[data-n="5"], .root[data-live][data-current="5"] .courses li[data-n="5"],
+.root[data-live][data-current="6"] .numerals li[data-n="6"], .root[data-live][data-current="6"] .courses li[data-n="6"],
+.root[data-live][data-current="7"] .numerals li[data-n="7"], .root[data-live][data-current="7"] .courses li[data-n="7"] { opacity: 1; }
+.fill { transform: none; } /* no JS: the full rule */
+.root[data-live] .fill { transform: scaleY(0); } /* the island writes the live value inline */
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover, .outro a:hover { color: var(--f-accent-hover); }
+}
+.link:focus-visible, .outro a:focus-visible { color: var(--f-accent-hover); } /* focus shows hover's change, beside the ring */
+
+/* 768-1023: no panel; the list takes the full width and each entry carries its own numeral. */
+@media (max-width: 1023px) {
+  .lead, .caveat { grid-column: 1 / 11; }
+  .panel { display: none; }
+  .list { grid-column: col 1 / content-end; }
+  .line .list { margin-bottom: 0; }
+  .entry { min-height: auto; padding-block: 40px; }
+  .rowNumeral { display: block; margin-bottom: 12px; font: 400 96px/0.9 var(--f-display); letter-spacing: -0.03em; color: var(--f-accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-live] .numerals li, .root[data-live] .courses li { transition: none !important; }
+  .root[data-live] .fill { transform: none !important; }
+  .link, .outro a { transition: none; }
+}

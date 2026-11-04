@@ -1,0 +1,52 @@
+/* The line (#line): night over paper, at least max(80vh, 640px) tall. Two equal grid rows meet at the seam
+   (50%): .top is Sarposh, .bottom Kagaz with the heading and the anchors. "Wazwan." is set at --size and
+   crosses the seam; --seam is how far down its 1em line box the edge falls. Tune --seam only, so the edge
+   crosses the middle of the x-height as on deck slide 7. At line-height 1 the face's baseline sits 0.8625em
+   down the box and its x-height is 0.46em (the same in the 11pt and the opsz-96 cuts), so the middle is at
+   0.633em; slide 7 set the edge at 0.63em (189px of 300). At 1440 the word is 1,166px wide, inside the
+   1312px column. Under a reader's text-spacing override (WCAG 1.4.12) its box is wider than the viewport
+   from 1024 to about 1460, but the ink still ends at least 11px inside it (28px at 1440): only the 0.12em
+   of spacing after the period runs past the edge, inside the section's clip. */
+
+.root { --size: clamp(160px, 21vw, 300px); --seam: 0.63em; position: relative; display: grid; grid-template-rows: 1fr 1fr;
+  min-height: max(80vh, 640px); overflow: clip; }
+.top { grid-row: 1; }
+.bottom { grid-row: 2; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: calc(var(--size) * 0.32 + 40px) var(--f-m) 72px; }
+
+/* The word's box is a band from --seam above the seam to --seam below it, not the whole section. The band is
+   symmetric about the seam, so each layer's 50% clip falls exactly on it and the glyphs' top lands where it
+   would in a full-section box; and the band's top is the top of the word's line box, so FeastMotion (which
+   reveals a [data-reveal] element when its box comes into view) starts the rise as the word comes into
+   view, not half a screen earlier. font-size makes --seam's em the word's size here too. The band holds
+   the glyphs' ink, including the 0.2em they start below their place. It is sized by its height, not a
+   bottom inset, so a reader's paragraph spacing (WCAG 1.4.12 sets 2em below every <p>) cannot collapse it. */
+.word { position: absolute; inset: calc(50% - var(--seam)) 0 auto; height: calc(2 * var(--seam)); z-index: 1; margin: 0;
+  font-size: var(--size); pointer-events: none; user-select: none; }
+.layer { position: absolute; inset: 0; display: block; }
+.layerNight { clip-path: inset(0 0 50% 0); color: var(--f-pashmina); }
+.layerDay { clip-path: inset(50% 0 0 0); color: var(--f-doon); }
+/* Windows contrast themes draw a backplate behind text; the decorative word (aria-hidden, above the heading)
+   would lay its plate over the top half of the h2. It opts out and draws in the theme's text colour. The
+   colour goes through a custom property because the build's CSS minifier rewrites "color: CanvasText" to
+   "color: initial", which Chrome draws black, unseen on a dark theme. */
+@media (forced-colors: active) {
+  .word { forced-color-adjust: none; --f-forced-text: CanvasText; }
+  .layerNight, .layerDay { color: var(--f-forced-text); }
+}
+.glyphs { position: absolute; left: 0; right: 0; top: calc(50% - var(--seam)); text-align: center;
+  font: 400 var(--size)/1 var(--f-display); letter-spacing: -0.02em; white-space: nowrap;
+  transition: transform 900ms var(--f-ease), opacity 900ms var(--f-ease); }
+/* The glyphs rise inside the fixed clip layers on entry; the heading rises in its own line box. */
+[data-feast-motion] .word:not([data-shown]) .glyphs { transform: translateY(0.2em); opacity: 0; }
+
+.title { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(52px, 6vw, 86px); line-height: 1.05; color: var(--f-text); }
+.anchors { margin: 24px 0 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; }
+.anchor { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: 0 10px;
+  font: 400 13px/1 var(--f-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--f-tram); }
+.dot { color: var(--f-bark); }
+@media (hover: hover) and (pointer: fine) { .anchor:hover { text-decoration: underline; text-underline-offset: 6px; } }
+
+/* 768–1023: a smaller word (604px at 768) in a shorter section. */
+@media (max-width: 1023px) { .root { --size: clamp(150px, 20vw, 200px); min-height: max(70vh, 560px); } }
+@media (prefers-reduced-motion: reduce) { .glyphs { transition: none !important; transform: none !important; opacity: 1 !important; } }

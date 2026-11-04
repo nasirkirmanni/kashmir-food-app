@@ -4,9 +4,9 @@ import { join, relative } from "node:path";
 import { describe, expect, it } from "vitest";
 import seoRedirects from "../seo-redirects.json";
 import { SITE_SECTIONS } from "./siteSections";
-import { STILL_KASHMIR_HREF } from "./stillKashmir";
+import { STILL_KASHMIR_HREF, STILL_KASHMIR_PLAN, STILL_KASHMIR_SITE } from "./stillKashmir";
 
-// Visit Kashmir is the gateway to Still Kashmir, Wazwan Way's own travel agency (coming soon). The
+// Visit Kashmir is the gateway to Still Kashmir, Wazwan Way's own travel agency, live at stillkashmir.com. The
 // third-party agency features it replaced must not come back: no agency pages, no links to them,
 // and every old address redirects to Still Kashmir.
 
@@ -43,11 +43,15 @@ describe("Visit Kashmir", () => {
     expect(visit.href).toBe(STILL_KASHMIR_HREF);
   });
 
-  it("has a Still Kashmir page that says it is coming soon", () => {
+  it("has a Still Kashmir page that links to the agency's live site", () => {
     const page = readFileSync(join(FRONTEND, "app/still-kashmir/page.js"), "utf8");
     expect(STILL_KASHMIR_HREF).toBe("/still-kashmir");
-    expect(page).toContain("Coming soon");
+    expect(STILL_KASHMIR_SITE).toBe("https://stillkashmir.com");
+    expect(STILL_KASHMIR_PLAN).toBe(`${STILL_KASHMIR_SITE}/plan-your-journey`);
+    expect(page).toContain("href={STILL_KASHMIR_SITE}");
+    expect(page).toContain("href={STILL_KASHMIR_PLAN}");
     expect(page).toContain("Your journey to Kashmir begins here.");
+    expect(page).not.toMatch(/coming soon|opens soon|opening soon/i);
   });
 });
 
