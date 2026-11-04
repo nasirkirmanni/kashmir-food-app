@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import seoRedirects from "../seo-redirects.json";
 import { SITE_SECTIONS } from "./siteSections";
 import { STILL_KASHMIR_HREF, STILL_KASHMIR_PLAN, STILL_KASHMIR_SITE } from "./stillKashmir";
+import { STILL_KASHMIR_CONTACT, STILL_KASHMIR_DRIVES, STILL_KASHMIR_INCLUDES, STILL_KASHMIR_JOURNEYS_HREF, STILL_KASHMIR_WAYS } from "../data/stillKashmir";
 
 // Visit Kashmir is the gateway to Still Kashmir, Wazwan Way's own travel agency, live at stillkashmir.com. The
 // third-party agency features it replaced must not come back: no agency pages, no links to them,
@@ -52,6 +53,37 @@ describe("Visit Kashmir", () => {
     expect(page).toContain("href={STILL_KASHMIR_PLAN}");
     expect(page).toContain("Your journey to Kashmir begins here.");
     expect(page).not.toMatch(/coming soon|opens soon|opening soon/i);
+  });
+});
+
+describe("the Visit Kashmir page's account of Still Kashmir", () => {
+  it("links only into stillkashmir.com, and to pages that exist there", () => {
+    const links = [
+      ...STILL_KASHMIR_WAYS.map((way) => way.href),
+      ...STILL_KASHMIR_DRIVES.places.map((place) => place.href),
+      STILL_KASHMIR_DRIVES.from.href,
+      STILL_KASHMIR_JOURNEYS_HREF,
+    ];
+    for (const href of links) expect(href.startsWith(`${STILL_KASHMIR_SITE}/`), href).toBe(true);
+    expect(new Set(links).size).toBe(links.length);
+  });
+
+  it("keeps the agency's own eight ways in, four inclusions and its contact details", () => {
+    expect(STILL_KASHMIR_WAYS).toHaveLength(8);
+    expect(STILL_KASHMIR_INCLUDES).toHaveLength(4);
+    for (const item of [...STILL_KASHMIR_WAYS, ...STILL_KASHMIR_INCLUDES]) {
+      expect(item.title.trim(), item.title).not.toBe("");
+      expect(item.line.trim(), item.title).not.toBe("");
+    }
+    expect(STILL_KASHMIR_CONTACT.whatsapp.href).toBe("https://wa.me/917006654379");
+    expect(STILL_KASHMIR_CONTACT.call.href).toBe("tel:+917006654379");
+    expect(STILL_KASHMIR_CONTACT.email).toBe("hello@stillkashmir.com");
+  });
+
+  it("renders the agency's lines from the data module, not from the page's own text", () => {
+    const page = readFileSync(join(FRONTEND, "app/still-kashmir/page.js"), "utf8");
+    expect(page).toContain('from "@/data/stillKashmir"');
+    for (const way of STILL_KASHMIR_WAYS) expect(page, way.title).not.toContain(way.line);
   });
 });
 

@@ -1,490 +1,849 @@
-/* Still Kashmir coming-soon page. The palette is the site's own (app/shared-tokens.css): charcoal,
-   ivory and gold, Cormorant Garamond for display type, Inter for text and IBM Plex Mono for labels. */
+/* Visit Kashmir: the gateway to Still Kashmir, set in the agency's own look (stillkashmir.com): ink, ivory,
+   plum, sand and copper, Gilda Display for display type, Jost for text, chamfered corners and arch crops.
+   Contrast: ivory on ink 14.06:1, ink on ivory 14.06, ink-60 on ivory 6.74 (on sand 5.47), ivory-60 on ink
+   9.04, sand on plum 12.34. The brand copper is only 4.25 on ivory, so small copper text uses a darker copper
+   on light grounds (5.88) and a lighter one on ink (5.28); the brand copper itself sets large numerals only. */
 
 .root {
-  --sk-bg: #0c0a08;
-  --sk-ivory: #f4ecdf;
-  --sk-ivory-dim: #cfc4b3;
-  --sk-gold: #d4a256;
-  --sk-gold-soft: rgba(212, 162, 86, 0.45);
-  --sk-line: rgba(244, 236, 223, 0.12);
-  --sk-nav: 0px;
-  --sk-ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --sk-mono: var(--font-ibm-plex), ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --sk-serif: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --ink: #17233b;
+  --ivory: #f3f3ec;
+  --plum: #340c24;
+  --sand: #e7d9c3;
+  --copper: #a6623a;
+  --copper-on-ivory: #8a4e2b;
+  --copper-on-ink: #c8875c;
+  --ink-60: #4c5565;
+  --ivory-60: #c3c5c5;
+  --rule-ivory: rgba(23, 35, 59, 0.18);
+  --rule-ink: rgba(243, 243, 236, 0.18);
+  --chamfer: clamp(10px, 1.1vw, 18px);
+  --thicken: calc(0.45px + 0.022em);
+  --display: var(--font-sk-display), "Didot", "Bodoni 72", Georgia, serif;
+  --body: var(--font-sk-body), "Jost", "Futura", "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(20px, 5vw, 72px);
+  --max: 1320px;
+  --bar: 0px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  background: var(--sk-bg);
-  color: var(--sk-ivory);
-  font-family: var(--font-body), system-ui, sans-serif;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--body);
   overflow-x: clip;
 }
 
 @media (min-width: 768px) {
   .root {
-    --sk-nav: 80px; /* the fixed top bar (components/Navbar.js, h-20) */
+    --bar: calc(5rem + 1px); /* the fixed top bar (components/Navbar.js, h-20 plus its border) */
   }
 }
 
+.inner {
+  width: min(100% - 2 * var(--gutter), var(--max));
+  margin-inline: auto;
+}
+
 .root a:focus-visible {
-  outline: 2px solid var(--sk-gold);
-  outline-offset: 3px;
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 
-/* ---------- Hero ---------- */
-
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+/* The top bar is translucent glass. On the light sections it would turn grey, so this band sits behind it,
+   sticky at the top of the page, and keeps it ink. Desktop only: phones have no top bar. */
+.barUnder {
+  display: none;
 }
 
-.media {
-  position: relative;
-  order: -1;
+@media (min-width: 768px) {
+  .barUnder {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    height: 0;
+  }
+
+  .barUnder::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--bar);
+    background: var(--ink);
+  }
+}
+
+/* ---------- Shared type ---------- */
+
+.kicker {
   margin: 0;
-  margin-top: var(--sk-nav);
-  height: 62svh;
-  min-height: 340px;
-  overflow: hidden;
-  background: #2a1f24;
+  font: 500 12px/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--copper-on-ivory);
 }
 
-.photo {
-  object-fit: cover;
-  object-position: 50% 80%;
-  animation: sk-settle 2.2s var(--sk-ease) both;
+.h2 {
+  margin: 0;
+  font: 400 clamp(44px, 6vw, 100px) / 0.98 var(--display);
+  text-wrap: balance;
 }
 
-/* Fades the photo into the page, so the copy below reads as part of the same scene. */
-.media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(12, 10, 8, 0) 42%, rgba(12, 10, 8, 0.7) 82%, var(--sk-bg) 100%);
-  pointer-events: none;
+.head {
+  display: grid;
+  gap: 18px;
+  max-width: 48rem;
+  margin-bottom: clamp(44px, 5.5vw, 80px);
 }
 
-.caption {
-  position: absolute;
-  z-index: 2;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  /* Top right on phones: the floating Back button holds the top-left corner. */
-  right: 16px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  background: rgba(12, 10, 8, 0.55);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  font-family: var(--sk-mono);
-  font-size: 0.66rem;
+.headIntro {
+  margin: 4px 0 0;
+  max-width: 34em;
+  font: 400 clamp(17px, 1.3vw, 20px) / 1.6 var(--body);
+  color: var(--ink-60);
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+/* ---------- Buttons: the agency's chamfered shape, drawn on a layer so the focus ring is never clipped ---------- */
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 26px;
+  font: 500 13px/1 var(--body);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--sk-ivory);
 }
 
-.copy {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: -88px;
-  padding: 0 20px 72px;
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  clip-path: polygon(
+    var(--chamfer) 0,
+    calc(100% - var(--chamfer)) 0,
+    100% var(--chamfer),
+    100% calc(100% - var(--chamfer)),
+    calc(100% - var(--chamfer)) 100%,
+    var(--chamfer) 100%,
+    0 calc(100% - var(--chamfer)),
+    0 var(--chamfer)
+  );
+  transition: background-color 200ms var(--ease);
 }
 
-.copy > * {
-  animation: sk-rise 1s var(--sk-ease) both;
+.btn::before {
+  inset: 0;
 }
-.copy > :nth-child(2) { animation-delay: 0.08s; }
-.copy > :nth-child(3) { animation-delay: 0.16s; }
-.copy > :nth-child(4) { animation-delay: 0.26s; }
-.copy > :nth-child(5) { animation-delay: 0.34s; }
-.copy > :nth-child(6) { animation-delay: 0.42s; }
+
+.btn::after {
+  display: none;
+}
+
+.btnOnInk {
+  color: var(--ink);
+}
+
+.btnOnInk::before {
+  background: var(--ivory);
+}
+
+.btnOnIvory {
+  color: var(--ivory);
+}
+
+.btnOnIvory::before {
+  background: var(--ink);
+}
+
+/* An outlined chamfer: an ivory layer with an ink layer one pixel inside it. Used on ink grounds only. */
+.btnGhost {
+  color: var(--ivory);
+}
+
+.btnGhost::before {
+  background: rgba(243, 243, 236, 0.55);
+}
+
+.btnGhost::after {
+  display: block;
+  inset: 1px;
+  background: var(--ink);
+}
+
+.root .btn:focus-visible {
+  outline-color: var(--copper-on-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btnOnInk:hover::before {
+    background: var(--sand);
+  }
+
+  .btnGhost:hover::before {
+    background: var(--ivory);
+  }
+}
+
+/* ---------- Hero (ink) ---------- */
+
+.hero {
+  background: var(--ink);
+  color: var(--ivory);
+  padding-block: calc(var(--bar) + clamp(72px, 10vh, 120px)) clamp(72px, 10vh, 128px);
+}
+
+.heroGrid {
+  display: grid;
+  gap: clamp(48px, 6vw, 96px);
+  align-items: end;
+}
+
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  }
+}
+
+.heroCopy {
+  min-width: 0;
+}
 
 .eyebrow {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
-  margin: 0 0 20px;
-  font-family: var(--sk-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.28em;
+  gap: 14px 18px;
+  margin: 0;
+  font: 500 12px/1.4 var(--body);
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--sk-gold);
+  color: var(--copper-on-ink);
 }
 
-.eyebrow::after {
-  content: "";
-  width: 44px;
+.eyebrowRule {
+  width: 48px;
   height: 1px;
-  background: var(--sk-gold-soft);
+  background: currentColor;
 }
 
 .status {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin: 0 0 26px;
-  padding: 8px 16px 8px 14px;
-  border: 1px solid var(--sk-gold-soft);
-  border-radius: 999px;
-  background: rgba(212, 162, 86, 0.08);
-  font-family: var(--sk-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--sk-ivory);
+  padding: 7px 12px;
+  border: 1px solid var(--rule-ink);
+  color: var(--ivory);
+  letter-spacing: 0.2em;
 }
 
 .dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--sk-gold);
-  animation: sk-pulse 2.6s ease-out infinite;
-}
-
-.wordmark {
-  margin: 0 0 24px;
-  font-family: var(--sk-serif);
-  font-weight: 500;
-  font-size: clamp(3.6rem, 17vw, 5.4rem);
-  line-height: 0.88;
-  letter-spacing: -0.015em;
-  color: var(--sk-ivory);
-}
-
-.wordmark em {
-  display: block;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--sk-gold);
-}
-
-.tagline {
-  margin: 0 0 18px;
-  max-width: 20ch;
-  font-family: var(--sk-serif);
-  font-size: clamp(1.6rem, 6.4vw, 2.2rem);
-  line-height: 1.15;
-  color: var(--sk-ivory);
-  text-wrap: balance;
-}
-
-.lede {
-  margin: 0 0 34px;
-  max-width: 34rem;
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  color: var(--sk-ivory-dim);
-  text-wrap: pretty;
-}
-
-.ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.btnPrimary,
-.btnGhost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 26px;
-  border-radius: 999px;
-  font-family: var(--sk-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.25s var(--sk-ease), box-shadow 0.25s ease, background-color 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.btnPrimary {
-  background: var(--sk-gold);
-  color: var(--sk-bg);
-}
-
-.btnPrimary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(212, 162, 86, 0.28);
-}
-
-.btnGhost {
-  border: 1px solid var(--sk-line);
-  color: var(--sk-ivory);
-}
-
-.btnGhost:hover {
-  border-color: var(--sk-gold);
-  background: rgba(212, 162, 86, 0.08);
-}
-
-@media (min-width: 640px) {
-  .copy {
-    padding: 0 40px 88px;
-  }
-}
-
-@media (min-width: 768px) {
-  .media {
-    height: 56svh;
-  }
-
-  .caption {
-    top: 20px;
-    right: auto;
-    left: 20px;
-  }
-}
-
-/* Side by side from 1024px: the copy on the left, the photograph framed on the right. */
-@media (min-width: 1024px) {
-  .hero {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    min-height: 100svh;
-    padding-top: var(--sk-nav);
-  }
-
-  .media {
-    order: 0;
-    height: auto;
-    min-height: 560px;
-    margin: 20px 20px 20px 0;
-    border-radius: 3px;
-  }
-
-  .media::after {
-    background: linear-gradient(180deg, rgba(12, 10, 8, 0.18) 0%, rgba(12, 10, 8, 0) 22%, rgba(12, 10, 8, 0) 70%, rgba(12, 10, 8, 0.4) 100%);
-  }
-
-  /* A hairline frame inside the photograph, like a print mount. */
-  .media::before {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 14px;
-    border: 1px solid rgba(244, 236, 223, 0.3);
-    pointer-events: none;
-  }
-
-  .photo {
-    object-position: 50% 100%;
-  }
-
-  .caption {
-    top: auto;
-    bottom: 30px;
-    left: 30px;
-  }
-
-  .copy {
-    justify-content: center;
-    margin-top: 0;
-    padding: 48px clamp(40px, 6vw, 112px) 64px;
-  }
-
-  .wordmark {
-    font-size: clamp(5rem, 7.8vw, 8.75rem);
-  }
-
-  .tagline {
-    font-size: clamp(1.75rem, 2.3vw, 2.35rem);
-  }
-}
-
-/* ---------- Until Still Kashmir opens ---------- */
-
-.meantime {
-  border-top: 1px solid var(--sk-line);
-  padding: clamp(72px, 10vw, 136px) 20px;
-}
-
-@media (min-width: 640px) {
-  .meantime {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-}
-
-.inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.sectionHead {
-  max-width: 40rem;
-  margin-bottom: clamp(36px, 5vw, 56px);
-}
-
-.sectionHead .eyebrow {
-  margin-bottom: 16px;
-}
-
-.sectionTitle {
-  margin: 0;
-  font-family: var(--sk-serif);
-  font-weight: 500;
-  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
-  line-height: 1.05;
-  color: var(--sk-ivory);
-  text-wrap: balance;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (min-width: 900px) {
-  .cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-  }
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  height: 100%;
-  min-height: 236px;
-  padding: 28px 26px 24px;
-  border: 1px solid var(--sk-line);
-  border-radius: 3px;
-  background: linear-gradient(180deg, rgba(244, 236, 223, 0.03), rgba(244, 236, 223, 0));
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s var(--sk-ease);
-}
-
-.card:hover {
-  border-color: var(--sk-gold-soft);
-  background-color: rgba(212, 162, 86, 0.05);
-  transform: translateY(-3px);
-}
-
-.cardNum {
-  font-family: var(--sk-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  color: var(--sk-gold);
-}
-
-.cardTitle {
-  margin: 4px 0 0;
-  font-family: var(--sk-serif);
-  font-weight: 500;
-  font-size: 1.85rem;
-  line-height: 1.1;
-  color: var(--sk-ivory);
-}
-
-.cardText {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: var(--sk-ivory-dim);
-  text-wrap: pretty;
-}
-
-.cardGo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 10px;
-  font-family: var(--sk-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--sk-ivory);
-}
-
-.cardGo svg {
-  color: var(--sk-gold);
-  transition: transform 0.25s var(--sk-ease);
-}
-
-.card:hover .cardGo svg {
-  transform: translateX(4px);
-}
-
-.signoff {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin: clamp(56px, 7vw, 88px) 0 0;
-  font-family: var(--sk-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--sk-ivory-dim);
-}
-
-.signoffLink {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.signoffDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--sk-gold);
-}
-
-/* ---------- Motion ---------- */
-
-@keyframes sk-rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes sk-settle {
-  from {
-    opacity: 0;
-    transform: scale(1.06);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  background: var(--copper-on-ink);
+  animation: sk-pulse 2.4s ease-out infinite;
 }
 
 @keyframes sk-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(212, 162, 86, 0.55);
+    box-shadow: 0 0 0 0 rgba(200, 135, 92, 0.55);
   }
   70% {
-    box-shadow: 0 0 0 9px rgba(212, 162, 86, 0);
+    box-shadow: 0 0 0 10px rgba(200, 135, 92, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(212, 162, 86, 0);
+    box-shadow: 0 0 0 0 rgba(200, 135, 92, 0);
+  }
+}
+
+/* The wordmark, set like the agency's own: spaced capitals at display size, one word to a line. */
+.wordmark {
+  margin: clamp(28px, 4vh, 44px) 0 0;
+  font: 400 clamp(56px, 9.2vw, 140px) / 0.92 var(--display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+
+.wordLine {
+  display: block;
+  white-space: nowrap;
+}
+
+.tagline {
+  margin: clamp(22px, 3vh, 32px) 0 0;
+  max-width: 18em;
+  font: 400 clamp(26px, 2.5vw, 40px) / 1.15 var(--display);
+  -webkit-text-stroke: var(--thicken) currentColor;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 20px 0 0;
+  max-width: 34em;
+  font: 400 clamp(16px, 1.15vw, 18px) / 1.65 var(--body);
+  color: var(--ivory-60);
+  text-wrap: pretty;
+}
+
+.heroContact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+  margin: 18px 0 0;
+  font: 400 14px/1.6 var(--body);
+  color: var(--ivory-60);
+}
+
+.sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.arch {
+  margin: 0;
+  width: min(100%, 480px);
+  justify-self: center;
+}
+
+@media (min-width: 1024px) {
+  .arch {
+    width: 100%;
+    justify-self: stretch;
+  }
+}
+
+.archFrame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px 0 0;
+  overflow: hidden;
+  background: var(--plum);
+}
+
+.archPhoto {
+  object-fit: cover;
+  object-position: 50% 78%;
+}
+
+.archCaption {
+  margin-top: 14px;
+  font: 500 11px/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ivory-60);
+}
+
+/* ---------- Eight ways to begin (ivory) ---------- */
+
+.ways {
+  padding-block: clamp(88px, 11vw, 168px);
+}
+
+.waysList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid var(--rule-ivory);
+}
+
+@media (min-width: 1024px) {
+  .waysList {
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(48px, 6vw, 96px);
+  }
+}
+
+.way {
+  display: grid;
+  grid-template-columns: 2.8em minmax(0, 1fr);
+  grid-template-areas:
+    "num title"
+    "num line"
+    "num go";
+  gap: 10px 18px;
+  align-items: baseline;
+  padding: clamp(24px, 2.4vw, 34px) 0;
+  border-bottom: 1px solid var(--rule-ivory);
+}
+
+@media (min-width: 640px) {
+  .way {
+    grid-template-columns: 3.2em minmax(0, 1fr) auto;
+    grid-template-areas:
+      "num title go"
+      "num line go";
+  }
+}
+
+.wayNum {
+  grid-area: num;
+  font: 500 13px/1 var(--body);
+  letter-spacing: 0.2em;
+  color: var(--copper-on-ivory);
+}
+
+.wayTitle {
+  grid-area: title;
+  font: 400 clamp(26px, 2.4vw, 38px) / 1.1 var(--display);
+  -webkit-text-stroke: var(--thicken) currentColor;
+  transition: color 200ms var(--ease);
+}
+
+.wayLine {
+  grid-area: line;
+  max-width: 30em;
+  font: 400 15.5px/1.6 var(--body);
+  color: var(--ink-60);
+}
+
+.wayGo {
+  grid-area: go;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  font: 500 12px/1 var(--body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper-on-ivory);
+  transition: transform 200ms var(--ease);
+}
+
+.way:focus-visible .wayTitle {
+  color: var(--copper-on-ivory);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .way:hover .wayTitle {
+    color: var(--copper-on-ivory);
+  }
+
+  .way:hover .wayGo {
+    transform: translateX(4px);
+  }
+}
+
+/* ---------- The promise (plum) ---------- */
+
+.promise {
+  background: var(--plum);
+  color: var(--ivory);
+  padding-block: clamp(96px, 13vw, 184px);
+}
+
+.promise .kicker {
+  color: var(--sand);
+}
+
+.promiseFigure {
+  margin: clamp(28px, 4vw, 48px) 0 0;
+}
+
+.promiseQuote {
+  margin: 0;
+}
+
+.promiseQuote p {
+  margin: 0;
+  max-width: 15em;
+  font: 400 clamp(34px, 4.6vw, 76px) / 1.08 var(--display);
+  text-wrap: balance;
+}
+
+.promiseCite {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(28px, 3vw, 40px);
+  font: 500 12px/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.promiseCite::before {
+  content: "";
+  width: 48px;
+  height: 1px;
+  background: currentColor;
+}
+
+/* ---------- Every journey includes (sand) ---------- */
+
+.includes {
+  background: var(--sand);
+  padding-block: clamp(88px, 11vw, 160px);
+}
+
+.headSplit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: clamp(44px, 5vw, 72px);
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font: 500 13px/1 var(--body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+}
+
+.includeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 44px 32px;
+}
+
+@media (min-width: 640px) {
+  .includeList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  .includeList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.include {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding-top: 22px;
+  border-top: 1px solid var(--ink);
+}
+
+/* Decorative (aria-hidden) and large, so the brand copper is used as it is. */
+.includeNum {
+  font: 400 clamp(44px, 4.4vw, 72px) / 1 var(--display);
+  color: var(--copper);
+}
+
+.includeTitle {
+  margin: 0;
+  font: 400 clamp(24px, 2vw, 30px) / 1.15 var(--display);
+  -webkit-text-stroke: var(--thicken) currentColor;
+}
+
+.includeLine {
+  margin: 0;
+  font: 400 15.5px/1.6 var(--body);
+  color: var(--ink-60);
+}
+
+/* ---------- Drive times from Srinagar (ink): set like a road board ---------- */
+
+.drives {
+  background: var(--ink);
+  color: var(--ivory);
+  padding-block: clamp(88px, 11vw, 160px);
+}
+
+.drivesGrid {
+  display: grid;
+  gap: clamp(40px, 5vw, 80px);
+}
+
+@media (min-width: 1024px) {
+  .drivesGrid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+.drivesHead .kicker {
+  color: var(--copper-on-ink);
+}
+
+.drivesTitle {
+  margin: 0;
+  font: 400 clamp(56px, 8vw, 128px) / 0.95 var(--display);
+}
+
+.drivesTitle .kicker {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.drivesFrom {
+  display: block;
+}
+
+.drivesLink {
+  margin-top: 22px;
+}
+
+.drivesNote {
+  margin: 18px 0 0;
+  font: 400 16px/1.6 var(--body);
+  color: var(--ivory-60);
+}
+
+.driveList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule-ink);
+}
+
+.drive {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  min-height: 44px;
+  padding: clamp(14px, 1.5vw, 22px) 0;
+  border-bottom: 1px solid var(--rule-ink);
+}
+
+.driveName {
+  font: 400 clamp(28px, 3vw, 46px) / 1.1 var(--display);
+  -webkit-text-stroke: var(--thicken) currentColor;
+  white-space: nowrap;
+  transition: color 200ms var(--ease);
+}
+
+.driveLeader {
+  flex: 1;
+  min-width: 24px;
+  border-bottom: 1px dotted rgba(243, 243, 236, 0.4);
+}
+
+.driveTime {
+  font: 500 14px/1 var(--body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--copper-on-ink);
+}
+
+.drive:focus-visible .driveName {
+  color: var(--copper-on-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .drive:hover .driveName {
+    color: var(--copper-on-ink);
+  }
+}
+
+.drivesSource {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: 400 13px/1.5 var(--body);
+  color: var(--ivory-60);
+}
+
+/* ---------- Start planning with Wazwan Way (ivory) ---------- */
+
+.planning {
+  padding-block: clamp(88px, 11vw, 160px);
+}
+
+.planList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule-ivory);
+}
+
+.planRow {
+  display: grid;
+  grid-template-columns: 2.8em minmax(0, 1fr);
+  grid-template-areas:
+    "num title"
+    "num text"
+    "num go";
+  gap: 10px 18px;
+  align-items: baseline;
+  padding: clamp(24px, 2.4vw, 34px) 0;
+  border-bottom: 1px solid var(--rule-ivory);
+}
+
+@media (min-width: 900px) {
+  .planRow {
+    grid-template-columns: 3.2em minmax(0, 4fr) minmax(0, 5fr) auto;
+    grid-template-areas: "num title text go";
+  }
+}
+
+.planNum {
+  grid-area: num;
+  font: 500 13px/1 var(--body);
+  letter-spacing: 0.2em;
+  color: var(--copper-on-ivory);
+}
+
+.planTitle {
+  grid-area: title;
+  font: 400 clamp(26px, 2.4vw, 38px) / 1.1 var(--display);
+  -webkit-text-stroke: var(--thicken) currentColor;
+  transition: color 200ms var(--ease);
+}
+
+.planText {
+  grid-area: text;
+  font: 400 15.5px/1.6 var(--body);
+  color: var(--ink-60);
+}
+
+.planGo {
+  grid-area: go;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 12px/1 var(--body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--copper-on-ivory);
+}
+
+.planRow:focus-visible .planTitle {
+  color: var(--copper-on-ivory);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .planRow:hover .planTitle {
+    color: var(--copper-on-ivory);
+  }
+}
+
+/* ---------- Finale (ink) ---------- */
+
+.finale {
+  background: var(--ink);
+  color: var(--ivory);
+  padding-block: clamp(96px, 12vw, 176px) clamp(88px, 10vw, 140px);
+}
+
+.finaleTitle {
+  margin: 0;
+  max-width: 11em;
+  font: 400 clamp(46px, 7vw, 116px) / 0.98 var(--display);
+  text-wrap: balance;
+}
+
+.contact {
+  display: grid;
+  gap: 28px 40px;
+  margin: clamp(56px, 6vw, 88px) 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule-ink);
+}
+
+@media (min-width: 640px) {
+  .contact {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.contact dt {
+  font: 500 11px/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--copper-on-ink);
+}
+
+.contact dd {
+  margin: 6px 0 0;
+  font: 400 16px/1.5 var(--body);
+  color: var(--ivory);
+}
+
+.hours {
+  display: block;
+  color: var(--ivory-60);
+}
+
+/* ---------- Motion: one quiet entrance, nothing that holds back the first paint ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .archFrame {
+    animation: sk-arch 1300ms var(--ease) both;
+  }
+
+  .tagline,
+  .lede,
+  .ctas,
+  .heroContact {
+    animation: sk-fade 800ms var(--ease) 150ms both;
+  }
+}
+
+@keyframes sk-arch {
+  from {
+    clip-path: inset(18% 0 0 0 round 999px 999px 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 999px 999px 0 0);
+  }
+}
+
+@keyframes sk-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .root *,
-  .root *::before,
-  .root *::after {
-    animation: none !important;
-    transition: none !important;
+  .dot {
+    animation: none;
+  }
+
+  .wayTitle,
+  .wayGo,
+  .driveName,
+  .planTitle,
+  .btn::before {
+    transition: none;
   }
 }
