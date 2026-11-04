@@ -2,22 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import destinationIds from "@/destinations-static-ids.json";
+import { STILL_KASHMIR_PLAN, STILL_KASHMIR_SITE } from "@/lib/stillKashmir";
 import styles from "./still-kashmir.module.css";
 
-// Visit Kashmir's page: the coming-soon gateway to Still Kashmir, Wazwan Way's own travel agency
-// (see lib/stillKashmir.js). It says only what's settled (Still Kashmir is Wazwan Way's agency and
-// it opens soon) and points to the site's own planning guides in the meantime. No launch date,
-// sign-up form or service list until those exist.
+// Visit Kashmir's page: the gateway to Still Kashmir, Wazwan Way's own travel agency, which is live at
+// stillkashmir.com (see lib/stillKashmir.js). It says only what's settled (Still Kashmir is Wazwan Way's
+// agency, its site is live, and the site describes its trips as private journeys through the Kashmir
+// valley), links to that site and to its journey planner, and keeps the site's own planning guides.
 
-const DESCRIPTION =
-  "Still Kashmir is Wazwan Way's own travel agency, and it opens soon. Your journey to Kashmir begins here.";
+const INTRO = "Still Kashmir is Wazwan Way's own travel agency, now live at stillkashmir.com.";
+const DESCRIPTION = `${INTRO} Private journeys through the Kashmir valley. Your journey to Kashmir begins here.`;
+const TITLE = "Still Kashmir: Wazwan Way's Travel Agency";
 
 export const metadata = {
-  title: "Still Kashmir: Coming Soon",
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "https://wazwanway.com/still-kashmir" },
   openGraph: {
-    title: "Still Kashmir: Coming Soon",
+    title: TITLE,
     description: DESCRIPTION,
     url: "https://wazwanway.com/still-kashmir",
     images: [
@@ -31,7 +33,7 @@ export const metadata = {
   },
 };
 
-const MEANTIME = [
+const PLANNING = [
   {
     href: "/itineraries",
     title: "Kashmir itineraries",
@@ -60,23 +62,22 @@ export default function StillKashmirPage() {
           <p className={styles.eyebrow}>Visit Kashmir</p>
           <p className={styles.status}>
             <span className={styles.dot} aria-hidden="true" />
-            Coming soon
+            Now live
           </p>
           <h1 id="still-kashmir-title" className={styles.wordmark}>
             Still <em>Kashmir</em>
           </h1>
           <p className={styles.tagline}>Your journey to Kashmir begins here.</p>
           <p className={styles.lede}>
-            Still Kashmir is Wazwan Way&apos;s own travel agency, and it opens soon. When it does, planning your
-            trip to Kashmir will start right here.
+            {INTRO} Its site plans private journeys through the Kashmir valley.
           </p>
           <div className={styles.ctas}>
-            <Link href="/itineraries" className={styles.btnPrimary}>
-              Browse itineraries
-            </Link>
-            <Link href="/destinations" className={styles.btnGhost}>
-              Explore destinations
-            </Link>
+            <a href={STILL_KASHMIR_SITE} className={styles.btnPrimary}>
+              Visit stillkashmir.com
+            </a>
+            <a href={STILL_KASHMIR_PLAN} className={styles.btnGhost}>
+              Plan your journey
+            </a>
           </div>
         </div>
 
@@ -96,14 +97,14 @@ export default function StillKashmirPage() {
       <section className={styles.meantime} aria-labelledby="still-kashmir-meantime">
         <div className={styles.inner}>
           <header className={styles.sectionHead}>
-            <p className={styles.eyebrow}>Until Still Kashmir opens</p>
+            <p className={styles.eyebrow}>Before you go</p>
             <h2 id="still-kashmir-meantime" className={styles.sectionTitle}>
               Start planning with Wazwan Way
             </h2>
           </header>
 
           <ol className={styles.cards}>
-            {MEANTIME.map((item, index) => (
+            {PLANNING.map((item, index) => (
               <li key={item.href}>
                 <Link href={item.href} className={styles.card}>
                   <span className={styles.cardNum}>{String(index + 1).padStart(2, "0")}</span>
@@ -121,7 +122,9 @@ export default function StillKashmirPage() {
           <p className={styles.signoff}>
             <span>Still Kashmir</span>
             <span aria-hidden="true" className={styles.signoffDot} />
-            <span>Opening soon</span>
+            <a href={STILL_KASHMIR_SITE} className={styles.signoffLink}>
+              stillkashmir.com
+            </a>
           </p>
         </div>
       </section>

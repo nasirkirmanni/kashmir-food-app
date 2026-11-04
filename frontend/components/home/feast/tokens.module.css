@@ -1,0 +1,56 @@
+/* Tokens for the desktop homepage (components/home/feast). Every name starts with --f- so nothing here
+   meets --gold, --ivory, --line or --font-mono from shared-tokens.css, or --saffron/--cream from globals.
+   .root never declares display: Tailwind's hidden / md:block on the same element own it. */
+
+.root {
+  /* palette (plan §2) */
+  --f-sarposh: #0c0a08; --f-deg: #16110d; --f-walnut-ink: #211a15; --f-pashmina: #f4ecdf; --f-pashmina-2: #cfc4b3;
+  --f-ash: #9c9284; --f-kong: #c8a46a; --f-kong-hi: #e6c875; --f-tram-text: #c97a4a;
+  --f-kagaz: #f6f0e4; --f-paper: #ede4d3; --f-doon: #2a1c14; --f-walnut: #4a3428; --f-bark: #6b5748; --f-tram: #9a4e24; --f-kong-deep: #8a5a12;
+  --f-hair-night: rgba(200, 164, 106, 0.16); --f-hair-day: #b9a68c; --f-hair-doon: rgba(246, 240, 228, 0.16);
+  /* faces */
+  --f-display: var(--font-feast-display), var(--font-bodoni), "Bodoni Moda", Didot, Georgia, serif;
+  --f-sans: var(--font-body), Inter, system-ui, sans-serif;
+  --f-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+  /* grid, chrome, rhythm, motion */
+  --f-m: 64px; --f-g: 24px; --f-max: 1312px;
+  --f-bar: calc(5rem + 1px); --f-strip: 44px; --f-stick: calc(var(--f-bar) + var(--f-strip));
+  --f-pad: clamp(96px, 12vh, 144px);
+  --f-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* focus: every control reads both from itself; surfaces and components set the variables */
+  --f-ring: var(--f-kong-hi); --f-ring-offset: 2px;
+  font-family: var(--f-sans);
+  font-synthesis: none;
+}
+@media (max-width: 1279px) { .root { --f-m: 48px; } }
+@media (max-width: 1023px) { .root { --f-m: 32px; } }
+
+/* Night and day surfaces */
+.night { --f-surface: var(--f-sarposh); --f-band: var(--f-deg); --f-panel: var(--f-walnut-ink); --f-text: var(--f-pashmina);
+  --f-text-2: var(--f-pashmina-2); --f-caption: var(--f-ash); --f-accent: var(--f-kong); --f-accent-hover: var(--f-kong-hi);
+  --f-accent-2: var(--f-tram-text); --f-ring: var(--f-kong-hi); --f-hair: var(--f-hair-night); --f-on-accent: var(--f-sarposh);
+  background: var(--f-surface); color: var(--f-text); }
+.day { --f-surface: var(--f-kagaz); --f-band: var(--f-paper); --f-panel: var(--f-paper); --f-text: var(--f-doon);
+  --f-text-2: var(--f-walnut); --f-caption: var(--f-bark); --f-accent: var(--f-tram); --f-accent-hover: var(--f-tram);
+  --f-accent-2: var(--f-kong-deep); --f-ring: var(--f-tram); --f-hair: var(--f-hair-day); --f-on-accent: var(--f-kagaz);
+  background: var(--f-surface); color: var(--f-text); }
+
+/* Fields: on* classes set tokens only; field* classes add the background. */
+.onKong { --f-text: var(--f-sarposh); --f-text-2: var(--f-sarposh); --f-caption: var(--f-walnut); --f-accent: var(--f-sarposh);
+  --f-accent-hover: var(--f-sarposh); --f-ring: var(--f-sarposh); --f-hair: rgba(12, 10, 8, 0.24); color: var(--f-text); }
+.fieldKong { composes: onKong; background: var(--f-kong); }
+.onDoon { --f-text: var(--f-kagaz); --f-text-2: var(--f-pashmina-2); --f-caption: var(--f-ash); --f-accent: var(--f-kong);
+  --f-accent-hover: var(--f-kong-hi); --f-ring: var(--f-kong-hi); --f-hair: var(--f-hair-doon); color: var(--f-text); }
+.fieldDoon { composes: onDoon; background: var(--f-doon); }
+.onTram { --f-text: var(--f-kagaz); --f-text-2: var(--f-kagaz); --f-accent: var(--f-kagaz); --f-accent-hover: var(--f-kagaz);
+  --f-ring: var(--f-kagaz); --f-hair: rgba(246, 240, 228, 0.4); color: var(--f-text); }
+.fieldTram { composes: onTram; background: var(--f-tram); }
+
+/* Section helpers, focus rings and focus scrolling. Components change a ring only through --f-ring and
+   --f-ring-offset, set on the control or an ancestor; this is the one rule that draws it. */
+.section { position: relative; scroll-margin-top: var(--f-stick); }
+.stripScope { position: relative; }
+.root a:focus-visible, .root button:focus-visible, .root input:focus-visible {
+  outline: 2px solid var(--f-ring); outline-offset: var(--f-ring-offset); }
+.section:focus-visible { outline: none; } /* a section focused by an in-page link (FeastMotion) is not a control */
+.root :is(a, button, input) { scroll-margin-top: calc(var(--f-stick) + 16px); }

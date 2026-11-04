@@ -1,0 +1,34 @@
+/* The contents strip (islands/ContentsStrip.js): 44px of mono anchors, sticky under the top bar over every
+   section from the feast in brief to the journal. Night by default; day over the paper sections. The ring
+   sits inside each link (offset -4px), Kong-hi on night and Tram on day. */
+
+.strip { --f-ring: var(--f-kong-hi); position: sticky; top: var(--f-bar); z-index: 30; height: var(--f-strip);
+  display: flex; align-items: center; background: var(--f-sarposh); color: var(--f-ash);
+  border-bottom: 1px solid var(--f-hair-night); transition: background-color 200ms, color 200ms; }
+/* The top bar is translucent glass. This underlay sits exactly behind it while the strip is stuck, so the
+   bar reads dark over the gold and paper sections. Unstuck, it covers only the Name band's empty bottom
+   padding, Sarposh on Sarposh. */
+.strip::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: var(--f-bar);
+  background: var(--f-sarposh); pointer-events: none; }
+.strip[data-surface="day"] { --f-ring: var(--f-tram); background: var(--f-kagaz); color: var(--f-bark); border-bottom-color: var(--f-hair-day); }
+.list { width: min(100% - 2 * var(--f-m), var(--f-max)); margin: 0 auto; padding: 0; list-style: none; display: flex; gap: 4px; }
+/* No transition of its own: the site gives every link a 300ms colour fade, which restarted on each frame of
+   the strip's 200ms one and left the labels faint for a quarter of a second after each change of surface.
+   The labels inherit the strip's colour, so they fade with it, and switch at once under reduced motion. */
+.link { --f-ring-offset: -4px; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px;
+  padding: 0 12px; font: 400 13px/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: inherit;
+  transition: none; }
+/* The first label lines up with column 1. The link keeps its padding and moves left by it instead, so the
+   inside ring clears the first letter rather than crossing it. */
+.list li:first-child .link { margin-inline-start: -12px; }
+.link[aria-current="location"] { color: var(--f-kong); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.strip[data-surface="day"] .link[aria-current="location"] { color: var(--f-tram); }
+@media (hover: hover) and (pointer: fine) {
+  .link:hover { color: var(--f-kong-hi); }
+  .strip[data-surface="day"] .link:hover { color: var(--f-tram); }
+}
+@media (max-width: 1023px) {
+  .link { padding: 0 8px; letter-spacing: 0.08em; }
+  .list li:first-child .link { margin-inline-start: -8px; }
+}
+@media (prefers-reduced-motion: reduce) { .strip { transition: none; } }

@@ -2,7 +2,7 @@
 
 // Owned itinerary view (T6). Fetches the persisted plan (owner-only) and renders
 // the shared artifact. Its call to action leads to Still Kashmir, Wazwan Way's own
-// travel agency (coming soon), which replaced booking through third-party operators.
+// travel agency (live at stillkashmir.com), which replaced booking through third-party operators.
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";

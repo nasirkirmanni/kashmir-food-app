@@ -1,0 +1,68 @@
+/* Where it is served (#tables), build spec 5.7.
+   From 1024px: a Doon field over the margin and columns 1-5, paper over columns 6-12 and the margin, the two
+   meeting in the middle of the gap. The title row ends on that seam; the h2 (Kagaz) is clipped there and the
+   aria-hidden copy (Doon) shows only what lies past it, so the colour changes exactly at the edge. The panel
+   sticks under the contents strip while the ledger (columns 7-12) scrolls past it.
+   768-1023px: stacked, the Doon field (title, panel) above the paper (ledger); nothing crosses, nothing sticks.
+   Where a rule here changes a property that a shared class (f.mono, f.bar) on the same element also sets, it is
+   qualified by its container, so it wins whatever order the two modules load in. */
+
+.root { margin: 0; }
+.grid { grid-template-rows: auto auto; }
+.kicker { margin: 0; text-wrap: balance; }
+
+.field { grid-column: full-start / col 6; grid-row: 1 / 3; margin-inline-end: calc(var(--f-g) / -2); }
+.paper { grid-column: col 6 / full-end; grid-row: 1 / 3; margin-inline-start: calc(var(--f-g) / -2); background: var(--f-paper); }
+
+/* The title's size is capped at 104px, not 112px: above 1440 the columns stop widening (the seam stays 545px from
+   column 1) while 7.2vw keeps growing, so a 112px cap moved the split into the word space ("is | served").
+   At 104px the seam cuts the "s" of "served" with 36% of the line on the paper from 1024 to 1920.
+   The line is wider than its row by design, so both layers keep it on one line (nowrap): display lines
+   otherwise wrap when they outgrow their column (feast.module.css). The copy (a <p>) is sized by its height,
+   not a bottom inset, so a reader's paragraph spacing (WCAG 1.4.12 sets 2em below every <p>) cannot shrink
+   it to nothing. */
+.titleRow { grid-column: col 1 / col 6; grid-row: 1; margin: 120px calc(var(--f-g) / -2) 0 0; position: relative; }
+.title { margin: 0; overflow-x: clip; font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 7.2vw, 104px);
+  line-height: 1; letter-spacing: -0.015em; white-space: nowrap; }
+.titleOver { position: absolute; inset: 0 0 auto; height: 100%; margin: 0; pointer-events: none; user-select: none; color: var(--f-doon);
+  font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 7.2vw, 104px); line-height: 1; letter-spacing: -0.015em;
+  white-space: nowrap; clip-path: inset(0 -100vw 0 100%); }
+
+/* The panel: Kong on Doon (7.04). Its last link ends about 365px from the viewport top while it sticks, clear of
+   the consent and Waza zones. */
+.panelInner { grid-column: col 1 / col 5; grid-row: 2; align-self: start; position: sticky; top: calc(var(--f-stick) + 48px);
+  padding-block: 64px 120px; display: flex; flex-direction: column; gap: 24px; }
+.ctas { margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; font: 400 18px/1.4 var(--f-sans); }
+.cta { color: var(--f-accent); }
+.cta:focus-visible { color: var(--f-kong-hi); }
+
+/* The ledger, on paper: names Doon (13.05), summaries Walnut (9.18), area and credits Bark (5.40). */
+.ledger { grid-column: col 7 / content-end; grid-row: 2; padding-block: 64px 120px; }
+.ledger .bar { background: var(--f-doon); }
+.entry { padding-block: 40px; border-bottom: 1px solid var(--f-hair); }
+.name { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(52px, 5.6vw, 80px); line-height: 1.02;
+  letter-spacing: -0.01em; color: var(--f-text); }
+.name a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; }
+.name a:focus-visible { text-decoration: underline; text-decoration-color: var(--f-tram); text-decoration-thickness: 2px;
+  text-underline-offset: 8px; }
+.entry .area { margin-top: 12px; }
+.summary { margin: 16px 0 0; max-width: 62ch; font: 400 17px/1.55 var(--f-sans); color: var(--f-text-2); }
+.entry .credits { margin-top: 12px; text-wrap: balance; }
+.credit { white-space: nowrap; } /* a source label never breaks inside: lines break only between sources */
+.rupee { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cta:hover { color: var(--f-kong-hi); }
+  .name a:hover { text-decoration: underline; text-decoration-color: var(--f-tram); text-decoration-thickness: 2px;
+    text-underline-offset: 8px; }
+}
+
+@media (max-width: 1023px) {
+  .field { grid-column: full-start / full-end; grid-row: 1 / 3; margin: 0; }
+  .paper { grid-column: full-start / full-end; grid-row: 3; margin: 0; }
+  .titleRow { grid-column: col 1 / content-end; margin: 96px 0 0; }
+  .title { overflow-x: visible; }
+  .titleOver { display: none; }
+  .panelInner { grid-column: col 1 / content-end; grid-row: 2; position: static; padding-block: 32px 72px; }
+  .ledger { grid-column: col 1 / content-end; grid-row: 3; padding-block: 48px 96px; }
+}

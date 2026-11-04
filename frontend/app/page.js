@@ -1,6 +1,6 @@
 import HomePageHero from "@/components/HomePageHero";
-import HomePageClient from "@/components/HomePageClient";
 import HomeIntro from "@/components/home/HomeIntro";
+import HomeFeast from "@/components/home/feast/HomeFeast";
 import JsonLd, { buildWebsiteSchema, buildOrganizationSchema } from "@/components/JsonLd";
 import dishesData from "@/data/dishes.json";
 import { pickCoverDishes } from "@/lib/dailyTable";
@@ -19,30 +19,22 @@ const coverDishes = pickCoverDishes(dishesData)
   .map(({ slug, image }) => ({ slug, image: resolveContentPhoto(image) }))
   .filter((dish) => dish.image);
 
-// No FAQPage markup here: structured data may only describe questions and answers
-// that are visible on the page, and the home page doesn't show an FAQ.
+// No FAQPage markup here: the questions under #ask are the series page's FAQ, which carries the
+// FAQPage markup once for the site.
 
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
-      {/* Subtle ambient background — desktop only (the mobile film strip paints its own) */}
-      <div
-        className="pointer-events-none fixed inset-0 z-[5] hidden bg-[url('/hero-background.avif')] bg-cover bg-center opacity-[0.15] md:block"
-        style={{ filter: "blur(80px)" }}
-      />
-
-      {/* Scrolling gradient overlay */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-[6] hidden md:block"
-        style={{ background: "linear-gradient(to bottom, rgba(5, 5, 5, 0.1) 0%, rgba(5, 5, 5, 0.7) 800px, rgba(5, 5, 5, 0.85) 100%)" }}
-      />
-
       <div className="relative z-10">
         <JsonLd data={buildWebsiteSchema()} />
         <JsonLd data={buildOrganizationSchema()} />
         <HomePageHero initialDishes={coverDishes} />
-        <HomeIntro />
-        <HomePageClient />
+        {/* Phone only. `contents` gives the wrapper no box, so the phone layout is unchanged. */}
+        <div className="contents md:hidden">
+          <HomeIntro />
+        </div>
+        {/* Desktop only (≥768px): The Feast, Condensed, after the kept video hero. */}
+        <HomeFeast />
       </div>
     </div>
   );

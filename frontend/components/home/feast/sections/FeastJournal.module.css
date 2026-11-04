@@ -1,0 +1,86 @@
+/* The journal (#journal): the closing band, on Deg. Sizes are at 1440×900; 1024–1279 is the same layout
+   with --f-m 48, and 768–1023 stacks the two lists and the latest posts (at the end of this file).
+   Two rules below are qualified by their element (section.root, h3.colTitle) so they outrank the shared
+   class they override (the night surface's background, the kicker's margin) whatever order the CSS
+   modules load in. The title's "j" sits in the shared descender box (feast.module.css, 0.14em below the line). */
+
+section.root { background: var(--f-band); padding: 136px 0 120px; }
+
+/* Head: "The journal." across all 12 columns at up to 200px (1,072px wide at 1440), the lead on its own
+   row at columns 7–12. */
+.head { align-items: end; }
+.title {
+  grid-column: 1 / -1; margin: 0;
+  font-family: var(--f-display); font-weight: 400; font-size: clamp(112px, 14vw, 200px);
+  line-height: 1; letter-spacing: -0.02em; color: var(--f-text);
+}
+.lead {
+  grid-column: 7 / 13; margin: 32px 0 0;
+  font: 400 18px/1.6 var(--f-sans); color: var(--f-text-2); text-wrap: pretty;
+}
+
+/* Two 6px Kong bars (the colour and height come from the shared .bar). */
+.bar { margin-top: 64px; }
+.columns + .bar { margin-top: 48px; }
+.columns, .latest { margin-top: 32px; }
+
+/* The core seven at columns 1–7 and the guides at 9–12: ruled lists, numerals and read times in Ash. */
+.seven { grid-column: 1 / 8; }
+.guides { grid-column: 9 / 13; }
+h3.colTitle { margin-bottom: 16px; }
+
+.sevenRow {
+  position: relative; display: grid; grid-template-columns: 48px 1fr auto; gap: 16px; align-items: baseline;
+  min-height: 60px; padding-block: 14px; border-bottom: 1px solid var(--f-hair); color: var(--f-text);
+}
+.storyTitle { font: 500 22px/1.3 var(--f-display); color: var(--f-text); text-wrap: pretty; transition: color 200ms var(--f-ease); }
+.num, .time { color: var(--f-caption); }
+.time { white-space: nowrap; }
+
+.guideRow {
+  position: relative; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline;
+  min-height: 48px; padding-block: 12px; border-bottom: 1px solid var(--f-hair); color: var(--f-text);
+}
+.guideTitle { font: 400 15px/1.45 var(--f-sans); color: var(--f-text); text-wrap: pretty; transition: color 200ms var(--f-ease); }
+
+/* Latest: three across under a hairline each. The link fills its grid cell and the read time sits at the
+   foot, so the three read times share one line whatever each title's length. */
+.latestList { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.latestItem {
+  position: relative; display: flex; flex-direction: column; gap: 10px; height: 100%; min-height: 120px;
+  padding-top: 16px; border-top: 1px solid var(--f-hair); color: var(--f-text);
+}
+.latestTitle { font: 500 24px/1.25 var(--f-display); color: var(--f-text); text-wrap: pretty; transition: color 200ms var(--f-ease); }
+.latestItem .time { margin-top: auto; }
+
+/* Foot: the updated date (mono) and the two exits in Kong. */
+.foot { margin-top: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+.links { margin: 0; display: flex; flex-wrap: wrap; gap: 0 32px; font: 400 16px/1.4 var(--f-sans); }
+.link { color: var(--f-accent); }
+
+/* Hover and focus: titles turn Kong; the exits brighten. Rings come from the shared focus rule. */
+@media (hover: hover) and (pointer: fine) {
+  .sevenRow:hover .storyTitle,
+  .guideRow:hover .guideTitle,
+  .latestItem:hover .latestTitle { color: var(--f-accent); }
+  .link:hover { color: var(--f-accent-hover); }
+}
+.sevenRow:focus-visible .storyTitle,
+.guideRow:focus-visible .guideTitle,
+.latestItem:focus-visible .latestTitle { color: var(--f-accent); }
+.link:focus-visible { color: var(--f-accent-hover); }
+
+/* 768–1023: the lead takes the full row (kept to a reading measure), the two lists stack 48px apart, and
+   the latest posts run one per row. */
+@media (max-width: 1023px) {
+  .lead { grid-column: 1 / -1; max-width: 36em; }
+  .seven, .guides { grid-column: 1 / -1; }
+  .guides { margin-top: 48px; }
+  .latestList { grid-template-columns: 1fr; }
+  .latestItem .time { margin-top: 0; }
+}
+
+/* Reduced motion: colour changes are immediate. */
+@media (prefers-reduced-motion: reduce) {
+  .storyTitle, .guideTitle, .latestTitle, .sevenRow, .guideRow, .latestItem, .link { transition: none; }
+}

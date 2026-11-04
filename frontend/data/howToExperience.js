@@ -2,10 +2,9 @@
  * The visitor guide at /how-to-experience: six things to know before sitting at the trami, then
  * the manners of the trami itself.
  *
- * The six essentials keep the page's original wording. The notes on the trami follow
- * /kashmiri-food/wazwan/guide/how-wazwan-is-served, which cites its sources, and the serving
- * order follows the homepage film (data/homeChapters.js), which follows the same guide. Photos
- * are described by what they show, never more.
+ * The six essentials keep the page's original wording. The notes on the trami and the serving
+ * order follow /kashmiri-food/wazwan/guide/how-wazwan-is-served (SERVED_GUIDE), which cites its
+ * sources. Photos are described by what they show, never more.
  */
 
 export const SERVED_GUIDE = "/kashmiri-food/wazwan/guide/how-wazwan-is-served";

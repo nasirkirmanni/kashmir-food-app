@@ -1,0 +1,45 @@
+/* Shared layout and type primitives for the desktop homepage (components/home/feast). */
+
+/* 12 content columns between two flexible margin tracks. Lines: full-start, col 1…col 12, content-end, full-end.
+   "col a / col b" spans columns a … b−1. At 1440: margins 40px + 24px gap = 64px visible, columns 87.33px,
+   content 1312px. Split fields meet in the middle of a gap: give the field margin-inline-end (or -start)
+   of calc(var(--f-g) / -2). */
+.bleed { display: grid; column-gap: var(--f-g);
+  grid-template-columns: [full-start] minmax(calc(var(--f-m) - var(--f-g)), 1fr)
+    repeat(12, [col] minmax(0, calc((var(--f-max) - 11 * var(--f-g)) / 12)))
+    [content-end] minmax(calc(var(--f-m) - var(--f-g)), 1fr) [full-end]; }
+.container { width: min(100% - 2 * var(--f-m), var(--f-max)); margin-inline: auto; }
+.grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--f-g); }
+.list { list-style: none; margin: 0; padding: 0; }
+.kicker { margin: 0; font: 500 12px/1.2 var(--f-sans); letter-spacing: 0.22em; text-transform: uppercase; color: var(--f-accent); }
+.mono { margin: 0; font: 400 12px/1.4 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--f-caption); }
+.monoLink { display: inline-flex; align-items: center; gap: 0.5em; min-height: 44px; min-width: 44px;
+  font: 400 13px/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.bar { display: block; height: 6px; background: var(--f-accent); }
+
+/* Display lines: a box that clips its line, so the line can rise into place on entry. The box is as tall
+   as the line it holds, never a fixed height, and the line wraps only when it no longer fits its column:
+   at default spacing every display line has at least 4% slack (the build spec's fit table), so none wraps,
+   and the swap from the layout's Bodoni to the display cut moves nothing. A reader's text-spacing override
+   (WCAG 1.4.12: taller lines, wider letters and words) can make a line longer than its column; it then
+   wraps and its box grows with it, instead of running over the next column, past a field's edge or off the
+   viewport. A line meant to cross an edge (the Tables title) sets nowrap in its own module.
+   The descender box adds 0.14em below the line: at line-height 1 the baseline sits 0.8625em down the line
+   and the "y" and "j" reach about 1.126em; the risen-from state (105% down) still hides the tallest glyph. */
+.lineBox { display: block; overflow-x: visible; overflow-y: clip; }
+.lineBoxDesc { padding-bottom: 0.14em; }
+.lineInner { display: block; }
+[data-feast-motion] [data-reveal]:not([data-shown]) .lineInner { transform: translateY(105%); }
+[data-feast-motion] [data-reveal] .lineInner { transition: transform 900ms var(--f-ease); transition-delay: calc(var(--i, 0) * 120ms); }
+
+.arrowLink { display: inline-flex; align-items: center; gap: 0.45em; min-height: 44px; }
+.arrow { flex: none; width: 0.9em; height: 0.9em; transition: transform 200ms var(--f-ease); }
+@media (hover: hover) and (pointer: fine) { .arrowLink:hover .arrow { transform: translateX(6px); } }
+.arrowLink:focus-visible .arrow { transform: translateX(6px); }
+.stretch::after { content: ""; position: absolute; inset: 0; } /* parent must be position: relative */
+.photo { margin: 0; }
+.photoFrame { position: relative; display: block; aspect-ratio: 1; border-radius: 50%; overflow: clip; }
+.photoImg { object-fit: cover; }
+@media (prefers-reduced-motion: reduce) {
+  .lineInner, .arrow { transition: none !important; transform: none !important; }
+}

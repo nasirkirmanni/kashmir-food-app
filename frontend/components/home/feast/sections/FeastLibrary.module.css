@@ -1,0 +1,56 @@
+/* The rest of the table (#library): the first paper band. Sizes are at 1440×900; 1024–1279 is the same
+   layout with --f-m 48, and 768–1023 puts the total under the title (end of file). Three rules are
+   qualified by their container (.total .totalCap, .root .bar, .row .sub) so they outrank the shared class
+   they override (.mono's margin, .bar's colour) whatever order the CSS modules load in. */
+
+.root { padding-block: 120px; }
+
+/* Head: the title at columns 1–8 beside the catalogue's total at 9–12, set giant, both on the row's foot. */
+.head { align-items: end; }
+.title { grid-column: 1 / 9; align-self: end; margin: 0; font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(40px, 5vw, 72px); line-height: 1.05; letter-spacing: -0.01em; color: var(--f-text); }
+.total { grid-column: 9 / 13; margin: 0; text-align: right; }
+.totalNum { display: block; font: 400 clamp(140px, 14vw, 200px)/0.85 var(--f-display); color: var(--f-accent); }
+.total .totalCap { display: block; margin-top: 8px; }
+
+/* A 6px Doon bar over four ruled rows: the word (the row's only link) over its breakdown, the count at the
+   right. "street food and more" (the row counts the whole kashmiri_cuisine type, which also holds kabargah,
+   neither street food nor a sweet) and its count stay on one line from 768 to 1920 (about 1,031px at 1440,
+   with the word's 16px padding).
+   The word's column is minmax(0, 1fr), so under a reader's text-spacing override (WCAG 1.4.12) the word
+   wraps and the count keeps its place inside the page.
+   align-content: end keeps a short row's word on the row's foot when min-height leaves room above it. */
+.root .bar { margin-top: 40px; background: var(--f-text); }
+.rows { margin: 0; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "word count" "sub count"; column-gap: 32px;
+  align-items: end; align-content: end; min-height: 130px; padding-block: 20px; border-bottom: 1px solid var(--f-hair); }
+/* Hover and focus slide the word 16px right inside its link, never the link itself: a moving link slid out
+   from under a pointer resting on its first 16px, dropped its hover and slid back, again and again. The
+   link's 16px right padding keeps the slid word inside its box and its focus ring. */
+.word { grid-area: word; justify-self: start; padding-right: 16px; font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(48px, 6.8vw, 98px); line-height: 1; letter-spacing: -0.015em; color: var(--f-text);
+  transition: color 200ms; }
+.wordText { display: inline-block; transition: transform 200ms var(--f-ease); }
+.row .sub { grid-area: sub; margin-top: 10px; }
+.count { grid-area: count; align-self: center; font: 400 clamp(56px, 6vw, 88px)/1 var(--f-display); color: var(--f-accent); }
+
+.links { margin: 40px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
+  font: 400 18px/1.4 var(--f-sans); color: var(--f-accent); }
+.link { color: inherit; }
+
+@media (hover: hover) and (pointer: fine) {
+  .word:hover { color: var(--f-accent); }
+  .word:hover .wordText { transform: translateX(16px); }
+}
+.word:focus-visible { color: var(--f-accent); }
+.word:focus-visible .wordText { transform: translateX(16px); }
+
+/* 768–1023: the title across the row and the total under it, left-aligned; sizes near their clamp minimums. */
+@media (max-width: 1023px) {
+  .title { grid-column: 1 / -1; }
+  .total { grid-column: 1 / -1; text-align: left; margin-top: 24px; }
+}
+/* Reduced motion: the row word changes colour only. */
+@media (prefers-reduced-motion: reduce) {
+  .wordText { transition: none !important; transform: none !important; }
+}

@@ -11,7 +11,6 @@ import { useAuth } from "@/context/AuthContext";
 // server — so every URL's HTML contains its own page exactly once and never
 // another route's content (e.g. the homepage hero on a dish page).
 const HomePageHero = dynamic(() => import("@/components/HomePageHero"), { ssr: false });
-const HomePageClient = dynamic(() => import("@/components/HomePageClient"), { ssr: false });
 const RestaurantsPage = dynamic(() => import("@/app/restaurants/page"), { ssr: false });
 const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: false });
 const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: false });
@@ -337,7 +336,6 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
         return (
           <>
             <HomePageHero initialDishes={coverDishes} isRoutePage={false} />
-            <HomePageClient />
           </>
         );
       case 1:

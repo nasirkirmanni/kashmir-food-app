@@ -1,0 +1,49 @@
+/* Where it comes from (#valley), build spec 5.8.
+   From 1024px: paper (the section's Kagaz) under columns 1-7, a Doon field from the middle of the gap after
+   column 7 to the right edge. 768-1023px: stacked, the fields above the Doon field.
+   Words and places are stretched links: the whole row is the target (112px and 64px tall) and the hover.
+   Where a rule here changes a property that a shared class (f.kicker, f.list, f.mono) on the same element also
+   sets, it is qualified by its container, so it wins whatever order the two modules load in. */
+
+.root { margin: 0; }
+
+/* The fields, on Kagaz: title and words Doon (14.52), kicker Tram (5.30), dates Bark (6.00). */
+.fields { grid-column: col 1 / col 8; grid-row: 1; padding-block: 120px; }
+.title { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 8vw, 120px); line-height: 1;
+  letter-spacing: -0.015em; color: var(--f-text); }
+.fields .kicker { margin: 64px 0 0; }
+.fields .entries { margin-top: 16px; }
+.entry { position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px;
+  min-height: 112px; padding-block: 20px; border-bottom: 1px solid var(--f-hair); }
+.word { font-family: var(--f-display); font-weight: 400; font-size: clamp(48px, 5.6vw, 80px); line-height: 1;
+  letter-spacing: -0.01em; color: var(--f-text); }
+.word:focus-visible { color: var(--f-tram); }
+.meta { color: var(--f-caption); }
+
+/* The Doon field: places Kagaz (14.52), kicker and links Kong (7.04), caption Ash (5.38). */
+.panel { grid-column: col 8 / full-end; grid-row: 1; margin-inline-start: calc(var(--f-g) / -2); }
+.panelInner { grid-column: col 8 / content-end; grid-row: 1; padding: 120px 0 120px 32px; }
+.placesKicker { margin: 0; color: var(--f-accent); }
+.panelInner .places { margin-top: 24px; }
+.placeRow { position: relative; display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid var(--f-hair); }
+.place { font-family: var(--f-display); font-weight: 400; font-size: clamp(32px, 3.4vw, 48px); line-height: 1.1;
+  color: var(--f-text); }
+.place:focus-visible { color: var(--f-kong); }
+.panelInner .caption { margin-top: 20px; text-wrap: balance; }
+.gateway { margin: 40px 0 0; font: 400 18px/1.55 var(--f-sans); color: var(--f-text); }
+.links { margin: 16px 0 0; display: flex; flex-direction: column; align-items: flex-start; font: 400 16px/1.4 var(--f-sans);
+  color: var(--f-accent); }
+.link { color: var(--f-accent); }
+.link:focus-visible { color: var(--f-accent-hover); }
+
+@media (hover: hover) and (pointer: fine) {
+  .word:hover { color: var(--f-tram); }
+  .place:hover { color: var(--f-kong); }
+  .link:hover { color: var(--f-accent-hover); }
+}
+
+@media (max-width: 1023px) {
+  .fields { grid-column: col 1 / content-end; grid-row: 1; }
+  .panel { grid-column: full-start / full-end; grid-row: 2; margin: 0; }
+  .panelInner { grid-column: col 1 / content-end; grid-row: 2; padding: 72px 0 96px; }
+}

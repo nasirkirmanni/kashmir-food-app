@@ -1,0 +1,55 @@
+/* Plan the days around the feast (#plan, FeastPlan.js): a title on paper over a full-bleed copper band of
+   two exits. Sizes at 1440x900; 1024-1279 is the same layout with --f-m 48; 768-1023 at the end. */
+
+.root { margin: 0; }
+.band { margin: 0; }
+.upper { padding: 120px 0 72px; }
+.kicker { grid-column: 1 / 9; }
+.title { grid-column: 1 / 9; margin: 24px 0 0; font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(60px, 7.4vw, 108px); line-height: 1; letter-spacing: -0.015em; color: var(--f-text); }
+.copy { grid-column: 9 / 13; align-self: end; margin: 0; font: 400 20px/1.5 var(--f-sans); color: var(--f-text-2); text-wrap: pretty; }
+
+/* Two halves of exactly 50%, so the divider sits at the page centre (flex halves, not grid columns). This
+   is the 768-1023 layout; from 1024 the block below moves the divider onto the Ask's seam. */
+.exits { display: flex; }
+.exits > li { flex: 1 1 0; min-width: 0; }
+.right { border-left: 1px solid var(--f-hair); }
+/* Kagaz on Tram, 5.30:1 at large text. Each exit is 240px tall (200px below 1024): 609 and 830px wide at
+   1440, half the page each below 1024; its ring sits 8px inside. */
+.exit { --f-ring: var(--f-kagaz); --f-ring-offset: -8px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  height: 240px; color: var(--f-text); }
+/* Centred halves: percent padding resolves against the li (half the page), so 100% − 656px = (page − 1312px) / 2
+   = column 1's x. */
+.left .exit { padding-left: max(var(--f-m), calc(100% - var(--f-max) / 2)); padding-right: calc(var(--f-g) / 2); }
+.right .exit { padding-left: calc(var(--f-g) / 2); padding-right: max(var(--f-m), calc(100% - var(--f-max) / 2)); }
+.exitLabel { font-family: var(--f-display); font-weight: 400; font-size: clamp(32px, 3.4vw, 48px); line-height: 1.1; }
+.exitArrow { flex: none; width: 32px; height: 32px; transition: transform 200ms var(--f-ease); }
+@media (hover: hover) and (pointer: fine) { .exit:hover .exitArrow { transform: translateX(12px); } }
+.exit:focus-visible .exitArrow { transform: translateX(12px); }
+/* The left exit's arrow ends 12px from the divider, so at rest its tip sits 16px from the li's edge and the
+   inset ring 8-10px from it: a 12px nudge would push the tip through the ring. Focus nudges it 3px. */
+.left .exit:focus-visible .exitArrow { transform: translateX(3px); }
+
+/* From 1024 the Ask below splits at 5/12, so the divider sits on that seam (the middle of the gap after
+   column 5) and runs on into the gold field's edge instead of standing 111px beside it (at 1440): the left
+   label starts on column 1 and its arrow ends on column 5, the right label starts on column 7 and its arrow
+   ends on column 12. The columns are the page grid's (feast.module.css .bleed), measured on the band:
+   100cqi is the band's width, which is the page's. The band holds nothing sticky, so its containment is
+   safe; a browser without container units keeps the centred halves. */
+@media (min-width: 1024px) {
+  @supports (width: 1cqi) {
+    .band { container-type: inline-size; }
+    .exits { display: grid; --col1: max(var(--f-m), (100cqi - var(--f-max)) / 2);
+      --colw: calc((min(100cqi - 2 * var(--f-m), var(--f-max)) - 11 * var(--f-g)) / 12);
+      grid-template-columns: calc(var(--col1) + 5 * var(--colw) + 4.5 * var(--f-g)) 1fr; }
+    .left .exit { padding-left: var(--col1); }
+    .right .exit { padding-left: calc(var(--colw) + 1.5 * var(--f-g)); padding-right: var(--col1); }
+  }
+}
+
+@media (max-width: 1023px) {
+  .kicker, .title { grid-column: 1 / -1; }
+  .copy { grid-column: 1 / 11; margin-top: 24px; }
+  .exit { height: 200px; }
+}
+@media (prefers-reduced-motion: reduce) { .exitArrow { transition: none !important; transform: none !important; } }
