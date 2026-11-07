@@ -3,7 +3,9 @@
  * beneath the client UI (the database records carry none of this, so crawlers used to see
  * only the client shell). Same rule as the Srinagar guide (data/restaurantGuides.js): every
  * fact names its source, and every price carries the year it was reported. The facts restate
- * the guide; change both together.
+ * the guide; change both together. `summary` is also the line the homepage's Tables section shows;
+ * `snippet` is the page's meta description only (app/restaurants/[slug]/page.js), at most 158
+ * characters, restating the facts below with their dates (lib/dishSnippets.test.js checks).
  */
 
 const WION_2018 = "https://www.wionews.com/india-news/bite-of-history-srinagars-iconic-restaurant-turns-100-36510";
@@ -19,6 +21,8 @@ export const RESTAURANT_FACTS = {
     area: "Residency Road, central Srinagar",
     summary:
       "Ahdoos, on Residency Road in central Srinagar, began as a bakery in 1918 and is called the first restaurant in the Valley to serve Kashmiri Wazwan. A meal for two was about ₹1,500 in January 2024.",
+    snippet:
+      "Ahdoos, Residency Road, Srinagar: a bakery in 1918, called the Valley's first Wazwan restaurant. Address, hours and a meal for two at about ₹1,500 (Jan 2024).",
     facts: [
       {
         text: "Ahdoos is on Residency Road in central Srinagar. It started as a bakery in 1918 and had become a restaurant by the 1920s.",
@@ -42,6 +46,8 @@ export const RESTAURANT_FACTS = {
     area: "Residency Road, central Srinagar",
     summary:
       "Mughal Darbar, upstairs on Residency Road in Srinagar, dates to 1984. Outlook Traveller recommended its rista and gushtaba in 2022 and put a meal for two at about ₹1,000 in January 2024.",
+    snippet:
+      "Mughal Darbar, Residency Road, Srinagar, dates to 1984. Outlook Traveller recommended its rista and gushtaba (2022); a meal for two was about ₹1,000 (2024).",
     facts: [
       {
         text: "Mughal Darbar is upstairs on Residency Road in central Srinagar, and Kashmir Life dates it to 1984.",
@@ -62,6 +68,8 @@ export const RESTAURANT_FACTS = {
     area: "Ghat No. 2, Boulevard Road, beside Dal Lake",
     summary:
       "Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake in Srinagar. Recommended for Wazwan by so.city in 2018 and Outlook Traveller in 2022; a meal for two was about ₹800 in January 2024.",
+    snippet:
+      "Shamyana, Boulevard Road, by Dal Lake, Srinagar: Wazwan recommended by so.city (2018) and Outlook Traveller (2022); a meal for two was about ₹800 (2024).",
     facts: [
       {
         text: "Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake.",

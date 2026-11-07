@@ -10,8 +10,10 @@ export const metadata = {
     default: "Kashmiri Wazwan: The Feast and Its Dishes, in Serving Order",
     template: "%s | Wazwan Way",
   },
+  // 157 characters: the old line was 167 and Google cut it short. "Tabak maaz to gushtaba" is
+  // the page's own serving order (first on the trami, last course).
   description:
-    "Wazwan is Kashmir's traditional multi-course feast. What it is, who cooks it, how it's served on a copper trami, its dishes in serving order and its history.",
+    "Wazwan is Kashmir's multi-course feast, cooked by wazas and shared from a copper trami. Its dishes in serving order, tabak maaz to gushtaba, and its history.",
   alternates: { canonical: "https://wazwanway.com/dishes" },
   openGraph: {
     title: "Kashmiri Wazwan: The Feast and Its Dishes, in Serving Order | Wazwan Way",

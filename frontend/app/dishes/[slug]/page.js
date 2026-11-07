@@ -5,6 +5,7 @@ import path from "path";
 import { dishCategoryLabel, sanitizeDish } from "@/lib/dishContent";
 import { resolveContentPhoto } from "@/lib/contentImages";
 import { toMetaDescription } from "@/lib/metaText";
+import { DISH_SNIPPETS } from "@/data/dishSnippets";
 import { dishEntity } from "@/data/coreSevenFacts";
 
 const CANONICAL_BASE = "https://wazwanway.com";
@@ -52,12 +53,14 @@ export async function generateMetadata({ params }) {
     // " | Wazwan Way" (13 characters) is appended by the layout template.
     const fullTitle = `${dish.name}: Traditional ${categoryLabel}`;
     const title = fullTitle.length <= 47 ? fullTitle : `${dish.name}: ${categoryLabel}`;
-    // One-line descriptions make thin snippets; the hand-written recipe intro is fuller.
+    // A hand-written snippet where the cut-down page text lost clicks (data/dishSnippets.js);
+    // otherwise the page text. One-line descriptions make thin snippets; the hand-written
+    // recipe intro is fuller.
     const intro = dish.recipe?.intro || "";
     const summary = (dish.description || "").length >= 70 || intro.length <= (dish.description || "").length ? dish.description : intro;
-    const description = toMetaDescription(
-      summary || `${dish.name} is a traditional ${categoryLabel.toLowerCase()}. Read about it on Wazwan Way.`
-    );
+    const description =
+      DISH_SNIPPETS[dish.slug || params.slug] ||
+      toMetaDescription(summary || `${dish.name} is a traditional ${categoryLabel.toLowerCase()}. Read about it on Wazwan Way.`);
     const photo = resolveContentPhoto(dish.image);
 
     const canonicalUrl = `${CANONICAL_BASE}/dishes/${dish.slug || params.slug}`;
@@ -91,9 +94,11 @@ export async function generateMetadata({ params }) {
     const canonicalUrl = `${CANONICAL_BASE}/dishes/${params.slug}`;
     const name = slugToName(params.slug);
     const title = name ? `${name}: Traditional Kashmiri Dish` : "Kashmiri Dish";
-    const description = name
-      ? `Discover ${name}, an authentic Kashmiri dish. Learn its history, ingredients, and where to try it in Kashmir.`
-      : "Explore authentic Kashmiri dishes on Wazwan Way.";
+    const description =
+      DISH_SNIPPETS[params.slug] ||
+      (name
+        ? `Discover ${name}, an authentic Kashmiri dish. Learn its history, ingredients, and where to try it in Kashmir.`
+        : "Explore authentic Kashmiri dishes on Wazwan Way.");
     return {
       title,
       description,
