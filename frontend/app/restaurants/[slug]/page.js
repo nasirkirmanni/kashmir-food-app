@@ -71,9 +71,11 @@ export async function generateMetadata({ params }) {
 
     // No brand here: the restaurants layout's title template appends " | Wazwan Way".
     const title = `${restaurant.name}${restaurant.city ? `, ${restaurant.city}` : ""}: Kashmiri Restaurant`;
-    // A venue the guide covers gets its sourced, dated summary as the description.
+    // A venue the guide covers gets its hand-written snippet, else its sourced, dated summary.
+    const facts = RESTAURANT_FACTS[restaurant.slug || params.slug];
     const description = toMetaDescription(
-      RESTAURANT_FACTS[restaurant.slug || params.slug]?.summary ||
+      facts?.snippet ||
+      facts?.summary ||
       restaurant.description ||
       `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`
     );
@@ -110,6 +112,7 @@ export async function generateMetadata({ params }) {
     const name = slugToName(params.slug);
     const title = name ? `${name}: Kashmiri Restaurant` : "Kashmiri Restaurant";
     const description = toMetaDescription(
+      RESTAURANT_FACTS[params.slug]?.snippet ||
       RESTAURANT_FACTS[params.slug]?.summary ||
       (name
         ? `${name} is an authentic Kashmiri restaurant. Discover the menu, ambiance, and Wazwan specialties.`

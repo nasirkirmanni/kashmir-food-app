@@ -53,6 +53,8 @@ const entry = (urlPath, lastModified) => ({
 });
 
 export default async function sitemap() {
+  // /list-restaurant (a form for restaurant owners) is deliberately left out: Google had never
+  // crawled it in a month of listing, and a sign-up form is not a page to rank.
   const staticPages = [
     "",
     "/dishes",
@@ -67,7 +69,6 @@ export default async function sitemap() {
     "/explore",
     "/blog",
     "/waza-ai",
-    "/list-restaurant",
     "/about",
     "/contact",
     "/privacy",
