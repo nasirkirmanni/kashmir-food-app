@@ -1,0 +1,748 @@
+{
+  "fetchedAt": "2026-11-08",
+  "source": "GET /api/dishes/<slug> for every dish in GET /api/dishes",
+  "dishes": {
+    "aab-gosht": {
+      "ingredients": 15,
+      "steps": 5,
+      "prepTimeMinutes": 18,
+      "cookTimeMinutes": 88,
+      "servings": "4–6",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Aab Gosht",
+      "reviewedAt": "2026-07-16T14:01:10.523Z",
+      "altSpellings": [
+        "Ab Gosht",
+        "Aab Gosh",
+        "Doodh Maaz",
+        "Dodhe Maaz"
+      ]
+    },
+    "aloo-monji": {
+      "ingredients": 10,
+      "steps": 6,
+      "prepTimeMinutes": 18,
+      "cookTimeMinutes": 18,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Aloo Monji / Olav Monje",
+      "reviewedAt": "2026-07-16T14:01:14.670Z",
+      "altSpellings": [
+        "Aloo Monje",
+        "Alu Monji",
+        "Olav Monji"
+      ]
+    },
+    "babribyol": {
+      "ingredients": 7,
+      "steps": 6,
+      "prepTimeMinutes": 8,
+      "servings": "2",
+      "difficulty": "Easy",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Babri Byol",
+      "reviewedAt": "2026-07-16T14:01:15.180Z",
+      "altSpellings": [
+        "Babri Byool",
+        "Babrie Byool",
+        "Babri Beol",
+        "Babri Treish",
+        "Babri Sharbat",
+        "Sabja Drink"
+      ]
+    },
+    "badam-phirni": {
+      "ingredients": 7,
+      "steps": 7,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 35,
+      "servings": "6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Badam Phirin",
+      "altSpellings": [
+        "Badam Phirni",
+        "Almond Phirni"
+      ]
+    },
+    "bakerkhani": {
+      "ingredients": 9,
+      "steps": 8,
+      "prepTimeMinutes": 53,
+      "cookTimeMinutes": 23,
+      "servings": "4 large breads",
+      "difficulty": "Involved",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Bakerkhani",
+      "reviewedAt": "2026-07-16T14:01:13.984Z",
+      "altSpellings": [
+        "Baqerkhani",
+        "Bakarkhani",
+        "Bakirkhani"
+      ]
+    },
+    "basrakh": {
+      "ingredients": 9,
+      "steps": 9,
+      "prepTimeMinutes": 53,
+      "cookTimeMinutes": 50,
+      "servings": "about 20 pieces",
+      "difficulty": "Involved",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Basrakh",
+      "reviewedAt": "2026-07-16T14:01:14.790Z",
+      "altSpellings": [
+        "Basrak",
+        "Basrekh"
+      ]
+    },
+    "cardamom-kahwa": {
+      "ingredients": 8,
+      "steps": 5,
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 12,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Elaichi Kahwa",
+      "altSpellings": [
+        "Cardamom Kahwa",
+        "Kehwa"
+      ]
+    },
+    "czochworu": {
+      "ingredients": 9,
+      "steps": 10,
+      "prepTimeMinutes": 48,
+      "cookTimeMinutes": 30,
+      "servings": "8 rings",
+      "difficulty": "Involved",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Czochworu / Tsochworu",
+      "reviewedAt": "2026-07-16T14:01:14.123Z",
+      "altSpellings": [
+        "Tsochwor",
+        "Chochwor",
+        "Telvor",
+        "Tilvor",
+        "Czochwor"
+      ]
+    },
+    "dani-phol": {
+      "ingredients": 10,
+      "steps": 7,
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 90,
+      "servings": "4",
+      "difficulty": "Involved",
+      "tradition": "Wazwan (Muslim)",
+      "kashmiriName": "Dani Phol",
+      "altSpellings": [
+        "Daeni Phol"
+      ]
+    },
+    "daniwal-korma": {
+      "ingredients": 18,
+      "steps": 7,
+      "prepTimeMinutes": 23,
+      "cookTimeMinutes": 68,
+      "servings": "4–6",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Daniwal Korma",
+      "reviewedAt": "2026-07-16T14:01:10.800Z",
+      "altSpellings": [
+        "Dhaniwal Korma",
+        "Daniwal Korme",
+        "Dhaniwal Korme"
+      ]
+    },
+    "dum-oluv": {
+      "ingredients": 14,
+      "steps": 9,
+      "prepTimeMinutes": 23,
+      "cookTimeMinutes": 50,
+      "servings": "4",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Pandit",
+      "kashmiriName": "Dama Oluv",
+      "reviewedAt": "2026-07-16T14:01:11.953Z",
+      "altSpellings": [
+        "Dam Aloo",
+        "Dama Olav",
+        "Dum Olav",
+        "Dum Aloo Kashmiri"
+      ]
+    },
+    "girda": {
+      "ingredients": 8,
+      "steps": 8,
+      "prepTimeMinutes": 38,
+      "cookTimeMinutes": 13,
+      "servings": "6 breads",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Girda / Tsot",
+      "reviewedAt": "2026-07-16T14:01:13.585Z",
+      "altSpellings": [
+        "Czot",
+        "Tchot",
+        "Kander Tsot",
+        "Girde"
+      ]
+    },
+    "gushtaba": {
+      "ingredients": 20,
+      "steps": 8,
+      "prepTimeMinutes": 98,
+      "cookTimeMinutes": 68,
+      "servings": "4–6 (makes 8–10 large meatballs)",
+      "difficulty": "Expert",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Gushtaba",
+      "reviewedAt": "2026-07-16T14:01:10.236Z",
+      "altSpellings": [
+        "Goshtaba",
+        "Goashtaba",
+        "Gustaba"
+      ]
+    },
+    "kabargah": {
+      "ingredients": 12,
+      "steps": 7,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 75,
+      "servings": "4",
+      "difficulty": "Involved",
+      "tradition": "Kashmiri Pandit",
+      "kashmiriName": "Kabargah",
+      "altSpellings": [
+        "Kamargah",
+        "Qabargah"
+      ]
+    },
+    "kashmiri-harissa": {
+      "ingredients": 13,
+      "steps": 7,
+      "prepTimeMinutes": 38,
+      "cookTimeMinutes": 600,
+      "servings": "6–8",
+      "difficulty": "Expert",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Harisa",
+      "reviewedAt": "2026-07-16T14:01:11.661Z",
+      "altSpellings": [
+        "Harissa (Kashmir)",
+        "Hareesa",
+        "Harisse"
+      ]
+    },
+    "kashmiri-kahwa": {
+      "ingredients": 9,
+      "steps": 5,
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 13,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Kahwa",
+      "reviewedAt": "2026-07-16T14:01:13.307Z",
+      "altSpellings": [
+        "Kehwa",
+        "Kahwah",
+        "Qahwa",
+        "Mogul Chai"
+      ]
+    },
+    "kashmiri-kulcha": {
+      "ingredients": 11,
+      "steps": 8,
+      "prepTimeMinutes": 30,
+      "cookTimeMinutes": 23,
+      "servings": "16–20 small kulchas",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Kulcha",
+      "reviewedAt": "2026-07-16T14:01:13.716Z",
+      "altSpellings": [
+        "Kandur Kulcha",
+        "Namkeen Kulcha",
+        "Khara Kulcha"
+      ]
+    },
+    "kashmiri-lassi": {
+      "ingredients": 7,
+      "steps": 6,
+      "prepTimeMinutes": 10,
+      "servings": "2",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Gurus (churned buttermilk); salted mint lassi",
+      "reviewedAt": "2026-07-16T14:01:15.061Z",
+      "altSpellings": [
+        "Gurus",
+        "Guras",
+        "Kashmiri Chaash",
+        "Salted Mint Lassi"
+      ]
+    },
+    "kashmiri-pulao": {
+      "ingredients": 18,
+      "steps": 7,
+      "prepTimeMinutes": 30,
+      "cookTimeMinutes": 53,
+      "servings": "6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Modur Pulao",
+      "reviewedAt": "2026-07-16T14:01:12.781Z",
+      "altSpellings": [
+        "Modur Polav",
+        "Kashmiri Sweet Pulao",
+        "Kashmiri Pulao"
+      ]
+    },
+    "lavas": {
+      "ingredients": 7,
+      "steps": 8,
+      "prepTimeMinutes": 25,
+      "cookTimeMinutes": 18,
+      "servings": "8 flatbreads",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Lavas / Lavasa",
+      "reviewedAt": "2026-07-16T14:01:13.842Z",
+      "altSpellings": [
+        "Lavasa",
+        "Lawas",
+        "Kashmiri Roti"
+      ]
+    },
+    "marchwangan-korma": {
+      "ingredients": 14,
+      "steps": 6,
+      "prepTimeMinutes": 28,
+      "cookTimeMinutes": 68,
+      "servings": "4–6",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Marchwangan Korma",
+      "reviewedAt": "2026-07-16T14:01:10.667Z",
+      "altSpellings": [
+        "Marchhwangan Korma",
+        "Martschwangan Korma",
+        "Marzwangan Korma",
+        "Marchawangan Korme"
+      ]
+    },
+    "masala-tsot": {
+      "ingredients": 12,
+      "steps": 6,
+      "prepTimeMinutes": 25,
+      "cookTimeMinutes": 38,
+      "servings": "4",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Masala Tsot / Masale Tsot",
+      "reviewedAt": "2026-07-16T14:01:14.530Z",
+      "altSpellings": [
+        "Masal Tchot",
+        "Masala Tchot",
+        "Lavasa Masala"
+      ]
+    },
+    "methi-maaz": {
+      "ingredients": 15,
+      "steps": 7,
+      "prepTimeMinutes": 38,
+      "cookTimeMinutes": 70,
+      "servings": "4–6 (small Wazwan-style portions)",
+      "difficulty": "Involved",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Methi Maaz",
+      "reviewedAt": "2026-07-16T14:01:11.514Z",
+      "altSpellings": [
+        "Meth Maaz",
+        "Methi Maz",
+        "Methi Keema (loose usage)"
+      ]
+    },
+    "muji-chetin": {
+      "ingredients": 8,
+      "steps": 4,
+      "prepTimeMinutes": 15,
+      "servings": "6 (as a condiment)",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Muji Chetein",
+      "reviewedAt": "2026-07-16T14:01:12.917Z",
+      "altSpellings": [
+        "Muji Chetin",
+        "Muji Chatin",
+        "Mujj Chetin",
+        "Muji Chetini"
+      ]
+    },
+    "mutton-tujji": {
+      "ingredients": 13,
+      "steps": 7,
+      "prepTimeMinutes": 35,
+      "cookTimeMinutes": 20,
+      "servings": "4 (about 8 skewers)",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Tujji / Seekh Tujj",
+      "reviewedAt": "2026-07-16T14:01:14.390Z",
+      "altSpellings": [
+        "Tujj",
+        "Tuji",
+        "Seekh Tuji",
+        "Kashmiri Tujji"
+      ]
+    },
+    "nadru-gaad": {
+      "ingredients": 10,
+      "steps": 7,
+      "prepTimeMinutes": 25,
+      "cookTimeMinutes": 45,
+      "servings": "4",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Pandit",
+      "kashmiriName": "Nadru Gaad",
+      "altSpellings": [
+        "Nadir Gaad",
+        "Fish with Lotus Stem"
+      ]
+    },
+    "nadru-yakhni": {
+      "ingredients": 13,
+      "steps": 7,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 45,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Nadru Yakhni",
+      "reviewedAt": "2026-07-16T14:01:11.224Z",
+      "altSpellings": [
+        "Nadur Yakhean",
+        "Nadir Yakhni",
+        "Nadroo Yakhni"
+      ]
+    },
+    "nadur-monji": {
+      "ingredients": 9,
+      "steps": 6,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 23,
+      "servings": "4 as a snack",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Nadur Monje",
+      "reviewedAt": "2026-07-16T14:01:12.381Z",
+      "altSpellings": [
+        "Nadir Monje",
+        "Nadir Monji",
+        "Nadru Monji",
+        "Nadur Munji"
+      ]
+    },
+    "noon-chai": {
+      "ingredients": 8,
+      "steps": 7,
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 50,
+      "servings": "4-6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Noon Chai",
+      "reviewedAt": "2026-07-16T14:01:13.447Z",
+      "altSpellings": [
+        "Sheer Chai",
+        "Nun Chai",
+        "Gulabi Chai",
+        "Namkeen Chai",
+        "Pink Tea"
+      ]
+    },
+    "phirni": {
+      "ingredients": 8,
+      "steps": 6,
+      "prepTimeMinutes": 13,
+      "cookTimeMinutes": 30,
+      "servings": "6",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Phirni",
+      "reviewedAt": "2026-07-16T14:01:13.173Z",
+      "altSpellings": [
+        "Firni",
+        "Phirin",
+        "Firin",
+        "Kong Phirin (saffron semolina variant)"
+      ]
+    },
+    "rice": {
+      "ingredients": 3,
+      "steps": 5,
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 25,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Batta",
+      "altSpellings": [
+        "Bat",
+        "Steamed Rice"
+      ]
+    },
+    "rista": {
+      "ingredients": 20,
+      "steps": 8,
+      "prepTimeMinutes": 75,
+      "cookTimeMinutes": 53,
+      "servings": "4–6 (makes 10–14 meatballs)",
+      "difficulty": "Expert",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Rista",
+      "reviewedAt": "2026-07-16T14:01:10.103Z",
+      "altSpellings": [
+        "Reshta",
+        "Rishta"
+      ]
+    },
+    "rogan-josh": {
+      "ingredients": 17,
+      "steps": 8,
+      "prepTimeMinutes": 30,
+      "cookTimeMinutes": 75,
+      "servings": "4–6",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Rogan Josh",
+      "reviewedAt": "2026-07-16T14:01:09.795Z",
+      "altSpellings": [
+        "Roghan Josh",
+        "Rogan Gosht",
+        "Roghanjosh"
+      ]
+    },
+    "ruwangan-chaman": {
+      "ingredients": 16,
+      "steps": 7,
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 33,
+      "servings": "4",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Pandit",
+      "kashmiriName": "Ruwangan Tsaman",
+      "reviewedAt": "2026-07-16T14:01:11.813Z",
+      "altSpellings": [
+        "Ruangan Chaman",
+        "Ruwangan Tschaman",
+        "Tamatar Chaman"
+      ]
+    },
+    "saffron-phirni": {
+      "ingredients": 6,
+      "steps": 6,
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 35,
+      "servings": "6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Kong Phirin",
+      "altSpellings": [
+        "Kong Phirni",
+        "Zafran Phirni"
+      ]
+    },
+    "seekh-kebab": {
+      "ingredients": 11,
+      "steps": 5,
+      "prepTimeMinutes": 35,
+      "cookTimeMinutes": 23,
+      "servings": "4–6 (makes 10–12 kababs)",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Seekh Kabab (Waza style)",
+      "reviewedAt": "2026-07-16T14:01:10.937Z",
+      "altSpellings": [
+        "Seekh Kebab",
+        "Kashmiri Seekh Kabab",
+        "Wazwan Kabab",
+        "Safed Kabab"
+      ]
+    },
+    "shami-kabab": {
+      "ingredients": 12,
+      "steps": 7,
+      "prepTimeMinutes": 30,
+      "cookTimeMinutes": 40,
+      "servings": "4",
+      "difficulty": "Moderate",
+      "tradition": "Wazwan (Muslim)",
+      "kashmiriName": "Shami Kabab",
+      "altSpellings": [
+        "Shaami Kabab"
+      ]
+    },
+    "sheera": {
+      "ingredients": 8,
+      "steps": 6,
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 20,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Sheera",
+      "altSpellings": [
+        "Suji Sheera",
+        "Semolina Pudding"
+      ]
+    },
+    "sheermal": {
+      "ingredients": 10,
+      "steps": 8,
+      "prepTimeMinutes": 35,
+      "cookTimeMinutes": 15,
+      "servings": "6 breads",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Muslim",
+      "kashmiriName": "Sheermal",
+      "reviewedAt": "2026-07-16T14:01:14.262Z",
+      "altSpellings": [
+        "Shirmal",
+        "Sheermaal"
+      ]
+    },
+    "shufta": {
+      "ingredients": 15,
+      "steps": 6,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 25,
+      "servings": "6",
+      "difficulty": "Moderate",
+      "tradition": "Kashmiri Pandit",
+      "kashmiriName": "Shufta",
+      "altSpellings": [
+        "Shufta Chaman"
+      ]
+    },
+    "tabak-maaz": {
+      "ingredients": 13,
+      "steps": 6,
+      "prepTimeMinutes": 18,
+      "cookTimeMinutes": 88,
+      "servings": "4–6",
+      "difficulty": "Involved",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Tabak Maaz",
+      "reviewedAt": "2026-07-16T14:01:10.381Z",
+      "altSpellings": [
+        "Tabakh Maaz",
+        "Tabak Maz",
+        "Tabaq Maz",
+        "Kabargah",
+        "Kabarg",
+        "Qabargah"
+      ]
+    },
+    "tosha": {
+      "ingredients": 9,
+      "steps": 7,
+      "prepTimeMinutes": 25,
+      "cookTimeMinutes": 30,
+      "servings": "6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Tosha",
+      "altSpellings": [
+        "Tosa",
+        "Tosha Shirini"
+      ]
+    },
+    "walnut-halwa": {
+      "ingredients": 7,
+      "steps": 6,
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 40,
+      "servings": "6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Doon Halwa",
+      "altSpellings": [
+        "Akhrot Halwa",
+        "Walnut Halwa"
+      ]
+    },
+    "waza-kokur": {
+      "ingredients": 17,
+      "steps": 8,
+      "prepTimeMinutes": 23,
+      "cookTimeMinutes": 53,
+      "servings": "4",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Dum Kokur",
+      "reviewedAt": "2026-07-16T14:01:11.363Z",
+      "altSpellings": [
+        "Dum Kokur",
+        "Dum Kukur",
+        "Kashmiri Dum Chicken",
+        "Waze Kokur",
+        "Waze Kokur (related)"
+      ]
+    },
+    "waza-palak": {
+      "ingredients": 8,
+      "steps": 6,
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 30,
+      "servings": "4",
+      "difficulty": "Easy",
+      "tradition": "Wazwan (Muslim)",
+      "kashmiriName": "Waza Palak",
+      "altSpellings": [
+        "Wazwan Palak"
+      ]
+    },
+    "wazwan-mushroom-guchhi-yakhni": {
+      "ingredients": 14,
+      "steps": 9,
+      "prepTimeMinutes": 35,
+      "cookTimeMinutes": 30,
+      "servings": "3–4",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Kanaguchhi Yakhni",
+      "reviewedAt": "2026-07-16T14:01:15.311Z",
+      "altSpellings": [
+        "Guchhi Yakhni",
+        "Gucchi Yakhni",
+        "Kanguchhi",
+        "Kan Gucchi",
+        "Kanaguchhi Yakhean",
+        "Morel Yakhni"
+      ]
+    },
+    "yakhni": {
+      "ingredients": 17,
+      "steps": 7,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 83,
+      "servings": "4–6",
+      "difficulty": "Moderate",
+      "tradition": "Shared (variants noted)",
+      "kashmiriName": "Neni Yakhni",
+      "reviewedAt": "2026-07-16T14:01:11.077Z",
+      "altSpellings": [
+        "Yakhean",
+        "Yakhni Maaz",
+        "Yoghurt Mutton Yakhni"
+      ]
+    }
+  }
+}
