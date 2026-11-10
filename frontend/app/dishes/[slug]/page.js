@@ -78,7 +78,7 @@ export async function generateMetadata({ params }) {
         description,
         images: photo
           ? [{ url: photo, width: 1200, height: 630, alt: dish.name }]
-          : [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+          : [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
       twitter: {
@@ -110,7 +110,7 @@ export async function generateMetadata({ params }) {
         url: canonicalUrl,
         title,
         description,
-        images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+        images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
       twitter: { card: "summary_large_image", title, description, images: ["/wazwan-hero.jpg"] },

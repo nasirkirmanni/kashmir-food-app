@@ -95,7 +95,7 @@ export async function generateMetadata({ params }) {
         description,
         images: restaurant.image
           ? [{ url: restaurant.image, width: 1200, height: 630, alt: restaurant.name }]
-          : [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way Restaurant" }],
+          : [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way Restaurant" }],
         siteName: "Wazwan Way",
       },
       twitter: {
@@ -129,7 +129,7 @@ export async function generateMetadata({ params }) {
         url: canonicalUrl,
         title,
         description,
-        images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+        images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
       // Otherwise the /restaurants hub's twitter tags are inherited from the layout.

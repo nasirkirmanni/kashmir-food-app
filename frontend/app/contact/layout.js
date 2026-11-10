@@ -7,7 +7,7 @@ export const metadata = {
     title: "Contact Us | Wazwan Way",
     description: "Get in touch with the Wazwan Way team.",
     url: "https://wazwanway.com/contact",
-    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+    images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
   },
 };
 

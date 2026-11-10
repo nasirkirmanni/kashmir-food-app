@@ -20,7 +20,7 @@ export const metadata = {
     description:
       "Kashmir's multi-course feast, cooked by wazas and shared four to a copper trami: its dishes in serving order, the cooks and the history.",
     url: "https://wazwanway.com/dishes",
-    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "A traditional Kashmiri Wazwan" }],
+    images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "A traditional Kashmiri Wazwan" }],
   },
   twitter: {
     title: "Kashmiri Wazwan: The Feast and Its Dishes | Wazwan Way",

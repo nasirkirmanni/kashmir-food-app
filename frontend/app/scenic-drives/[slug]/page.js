@@ -25,7 +25,7 @@ export function generateMetadata({ params }) {
       url: canonicalUrl,
       title,
       description,
-      images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: route.title }],
+      images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: route.title }],
       siteName: "Wazwan Way",
     },
   };

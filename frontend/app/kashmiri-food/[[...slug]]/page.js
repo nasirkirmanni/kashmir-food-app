@@ -191,7 +191,7 @@ export async function generateMetadata({ params }) {
       type: ogType,
       url: canonicalUrl,
       siteName: "Wazwan Way",
-      images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+      images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
     },
   });
 
