@@ -13,7 +13,7 @@ export const metadata = {
     title: "Scenic Drives | Wazwan Way",
     description: "Kashmir's most beautiful road trips, mapped with distances, road conditions, and elevation profiles.",
     url: "https://wazwanway.com/scenic-drives",
-    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Kashmir Scenic Drives" }],
+    images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Kashmir Scenic Drives" }],
   },
 };
 

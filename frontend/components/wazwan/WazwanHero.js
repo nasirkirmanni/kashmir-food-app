@@ -3,7 +3,7 @@ import DishPhoto from "./DishPhoto";
 import styles from "./wazwan.module.css";
 
 export default function WazwanHero({ total, index }) {
-  const photographed = index.reduce((sum, group) => sum + group.dishes.length, 0);
+  const shown = index.reduce((sum, group) => sum + group.dishes.length, 0);
 
   return (
     <header id="top" className={styles.hero}>
@@ -56,15 +56,15 @@ export default function WazwanHero({ total, index }) {
       </div>
 
       {index.length ? (
-        <nav aria-label="Photographed dishes, from the trami to the last course" className={styles.index}>
+        <nav aria-label="Dishes shown, from the trami to the last course" className={styles.index}>
           <div className={styles.container}>
             <div className={styles.indexHead}>
               <p className={styles.label}>From the trami to the last course</p>
               <p className={styles.indexNote}>
-                {photographed} of the {total} dishes, photographed in the pot
+                {shown} of the {total} dishes, shown in the pot
               </p>
             </div>
-            <ol className={styles.indexGroups} style={{ "--ww-count": photographed }}>
+            <ol className={styles.indexGroups} style={{ "--ww-count": shown }}>
               {index.map((group) => (
                 <li key={group.id} className={styles.indexGroup} style={{ "--ww-span": group.dishes.length }}>
                   <span className={`${styles.label} ${styles.indexStage}`}>{group.stage}</span>

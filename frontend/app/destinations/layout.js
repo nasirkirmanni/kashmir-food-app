@@ -26,7 +26,7 @@ export const metadata = {
     title: "Rare Destinations | Wazwan Way",
     description: "Hidden valleys, alpine lakes, and offbeat Kashmir destinations with practical travel guidance.",
     url: "https://wazwanway.com/destinations",
-    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Rare Kashmir Destinations" }],
+    images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Rare Kashmir Destinations" }],
   },
 };
 

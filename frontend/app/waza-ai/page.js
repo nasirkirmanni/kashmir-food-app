@@ -13,7 +13,7 @@ export const metadata = {
     title: "Waza AI: Chat With a Kashmiri Food Guide",
     description:
       "Ask about Wazwan dishes, recipes, Srinagar restaurants and Kashmir travel; Waza answers from Wazwan Way's own catalogue.",
-    images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: "Wazwan Way" }],
+    images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
   },
 };
 

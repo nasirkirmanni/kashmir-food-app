@@ -85,9 +85,10 @@ export const ESSENTIAL_SLUGS = new Set([
 // The same seven, in the order they're served.
 export const ESSENTIAL_ORDER = DISPLAY_ORDER.filter((slug) => ESSENTIAL_SLUGS.has(slug));
 
-// Framing for the photographs in use. The /images/scroll files are one series,
-// each dish shot from above in its cooking pot, with a thin border baked into
-// the file; `framed` draws them slightly oversized so the border is cropped.
+// Framing for the dish images in use. The /images/scroll files are one series of AI-generated
+// renders (their C2PA manifests name OpenAI's gpt-image), each dish seen from above in its cooking
+// pot with a thin border baked into the file, so no caption may call them photographs; `framed`
+// draws them slightly oversized so the border is cropped.
 export const DISH_PHOTOS = {
   "/images/scroll/KABAB.png": { framed: true, focal: "50% 66%", alt: "Seekh kebabs in a cooking pot, seen from above" },
   "/images/scroll/TABAKH.png": { framed: true, focal: "50% 64%", alt: "Tabak maaz ribs in a cooking pot, seen from above" },

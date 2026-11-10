@@ -172,23 +172,28 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
             <article className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 shadow-2xl overflow-hidden">
               <h2 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h2>
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                {withoutRemovedDishes(restaurant.linkedDishes || []).map((dish, index) => (
-                  <div key={dish._id} className="flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg transition hover:border-[var(--saffron)] hover:bg-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
-                    <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
-                      <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="114px" quality={60} className="object-cover" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>
-                      <div className="flex items-center gap-1.5 mt-1">
-                        <svg className="w-3.5 h-3.5 text-[#e69b00]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        <span className="text-sm font-medium text-[#e69b00]">{dish.popularityRating || "4.8"}</span>
+                {withoutRemovedDishes(restaurant.linkedDishes || []).map((dish, index) => {
+                  // Name and picture only: the catalogue's rating and price range belong to the dish,
+                  // not to this restaurant, so they are not shown here.
+                  const card = (
+                    <>
+                      <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
+                        <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="114px" quality={60} className="object-cover" />
                       </div>
+                      <p className="flex-1 min-w-0 font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>
+                    </>
+                  );
+                  const cardClass = "flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg";
+                  return dish.slug ? (
+                    <Link key={dish._id} href={`/dishes/${dish.slug}`} className={`${cardClass} transition hover:border-[var(--saffron)] hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]`}>
+                      {card}
+                    </Link>
+                  ) : (
+                    <div key={dish._id} className={cardClass}>
+                      {card}
                     </div>
-                    <div className="text-[0.95rem] text-white/60 pr-3 font-semibold whitespace-nowrap">
-                      {dish.priceRange ? `₹${dish.priceRange.match(/\d+/)?.[0] || '...'}` : ''}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </article>
 

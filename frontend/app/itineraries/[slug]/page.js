@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
       title: data.meta.seoTitle,
       description: data.meta.seoDescription,
       url,
-      images: [{ url: "/wazwan-hero.jpg", width: 1200, height: 630, alt: data.meta.seoTitle }],
+      images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: data.meta.seoTitle }],
     },
   };
 }
