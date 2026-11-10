@@ -111,6 +111,7 @@ export async function generateMetadata({ params }) {
 }
 
 import TarsarMarsarPage from "@/components/tarsar-marsar/TarsarMarsarPage";
+import WazwanNearby from "@/components/restaurants/WazwanNearby";
 
 export default async function DestinationDetailPage({ params }) {
   if (params.slug.toLowerCase().includes("tarsar")) {
@@ -138,5 +139,10 @@ export default async function DestinationDetailPage({ params }) {
     return <TarsarMarsarPage />;
   }
 
-  return <DestinationDetailClient initialDestination={destination} params={params} />;
+  return (
+    <>
+      <DestinationDetailClient initialDestination={destination} params={params} />
+      <WazwanNearby destinationSlug={params.slug} />
+    </>
+  );
 }

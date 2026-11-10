@@ -14,6 +14,8 @@ import {
   latestContentDate,
   parseContentDate,
 } from "./sitemapDates";
+import { DIRECTORY_UPDATED } from "../data/srinagarRestaurants";
+import { WAZWAN_NEARBY_DESTINATIONS, restaurantsForDish } from "./srinagarRestaurants";
 
 // Google uses a sitemap's <lastmod> only while it stays accurate, so every date must come from
 // the content the page shows, never from the build, and match the date in its structured data.
@@ -45,7 +47,10 @@ describe("content dates", () => {
 describe("page dates", () => {
   it("give a dish page its sourced notes' review date, or the last change to every dish page", () => {
     const july = "2026-07-16T10:00:00.000Z";
-    for (const slug of Object.keys(DISH_NOTES)) expect(dishLastModified({ slug, updatedAt: july })).toBe("2026-10-12");
+    // A dish page that lists Srinagar restaurants (lib/srinagarRestaurants.js) changed with the directory.
+    for (const slug of Object.keys(DISH_NOTES)) {
+      expect(dishLastModified({ slug, updatedAt: july }), slug).toBe(restaurantsForDish(slug).length ? DIRECTORY_UPDATED : "2026-10-12");
+    }
     expect(dishLastModified({ slug: "kashmiri-kulcha", updatedAt: july })).toBe(DISH_PAGES_REVISED);
     // A later edit to the record itself wins.
     expect(dishLastModified({ slug: "kashmiri-kulcha", updatedAt: "2026-11-02T08:00:00.000Z" })).toBe("2026-11-02");
@@ -58,7 +63,8 @@ describe("page dates", () => {
       description: "A breathtaking destination in South Kashmir, Anantnag famous for its natural landscapes and local hospitality.",
     });
     for (const slug of Object.keys(DESTINATION_PROFILES)) {
-      expect(destinationLastModified(sanitizeDestination(placeholder(slug))), slug).toBe("2026-10-12");
+      const expected = WAZWAN_NEARBY_DESTINATIONS.includes(slug) ? DIRECTORY_UPDATED : "2026-10-12";
+      expect(destinationLastModified(sanitizeDestination(placeholder(slug))), slug).toBe(expected);
     }
     const written = { ...placeholder("verinag"), description: "Our own description of Verinag." };
     expect(destinationLastModified(sanitizeDestination(written))).toBe("2026-07-11");
@@ -88,7 +94,11 @@ describe("the sitemap", () => {
   it("dates the pages changed this month from their own content", async () => {
     const dates = await offlineSitemap();
     expect(dates.get("/dishes")).toBe(latestContentDate(PILLAR_REVIEWED));
-    expect(dates.get("/dishes/rista")).toBe("2026-10-12");
+    expect(dates.get("/dishes/rista")).toBe(DIRECTORY_UPDATED);
+    expect(dates.get("/dishes/noon-chai")).toBe("2026-10-12");
+    expect(dates.get("/restaurants")).toBe(DIRECTORY_UPDATED);
+    expect(dates.get("/restaurants/kareema")).toBe(DIRECTORY_UPDATED);
+    expect(dates.get("/restaurants/mughal-darbar")).toBe(DIRECTORY_UPDATED);
     expect(dates.get("/destinations/verinag")).toBe("2026-10-12");
     for (const guide of wazwanGuides) {
       expect(dates.get(`/kashmiri-food/${guide.category}/guide/${guide.slug}`), guide.slug).toBe(articleLastModified(guide));

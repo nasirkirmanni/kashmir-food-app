@@ -782,13 +782,13 @@ Kashmiri chilli and mawal, dried cockscomb flowers, rather than tomato, which re
     category: "wazwan",
     title: "Wazwan vs Mughlai: How Kashmir's Feast Differs from the Court Cooking of North India",
     description: "Both have Persian roots, both are famous for meat, and menus mix them up. What Mughlai cuisine is, what Wazwan is, where the two met under Mughal rule, and the differences you can taste: praan, curd, Kashmiri chilli, the wood fire and the trami.",
-    readTime: "7 min read",
+    readTime: "8 min read",
     author: "WazwanWay Team",
     date: "June 23, 2026",
-    updatedDate: "October 28, 2026",
+    updatedDate: "November 10, 2026",
     related: ["history-of-wazwan", "rista-vs-gushtaba", "vegetarian-wazwan", "how-wazwan-is-served"],
     stories: ["daniwal-korma-coriander", "rogan-josh-history"],
-    content: `Kashmiri Wazwan and Mughlai cuisine get confused for understandable reasons. Both descend in part from Persian cooking, both are famous for meat, and both use the words korma, kebab and rogan josh. Even the names on the street mislead: Mughal Darbar, upstairs on Residency Road in Srinagar since 1984, is a Wazwan restaurant, recommended for its rista and gushtaba ([Kashmir Life](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/); [Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)). Sahapedia puts the difference in one ingredient: praan, the Kashmiri shallot, "distinguishes wazwan from its Mughlai counterparts" ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). This guide sets out what each cuisine is, where they met, and what separates them at the table. For Wazwan's dishes, see [Traditional Wazwan](/dishes).
+    content: `Kashmiri Wazwan and Mughlai cuisine get confused for understandable reasons. Both descend in part from Persian cooking, both are famous for meat, and both use the words korma, kebab and rogan josh. Even the names on the street mislead: [Mughal Darbar](/restaurants/mughal-darbar-upstairs), upstairs on Residency Road in Srinagar since 1984 by its own account, sells a Wazwan trami, plate and majma, and Outlook Traveller recommended Mughal Darbar for its rista and gushtaba ([Mughal Darbar](https://mughal-darbar.com/); [Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)). Sahapedia puts the difference in one ingredient: praan, the Kashmiri shallot, "distinguishes wazwan from its Mughlai counterparts" ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)). This guide sets out what each cuisine is, where they met, and what separates them at the table. For Wazwan's dishes, see [Traditional Wazwan](/dishes).
 
 ## What Mughlai cuisine is
 
@@ -859,7 +859,8 @@ Praan, the Kashmiri shallot, which Sahapedia says distinguishes Wazwan from its 
 - Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
 - Reuters, ["Photos: Kashmir's 600-year-old Wazwan wedding feast adapts to modern life"](https://www.aljazeera.com/gallery/2026/9/30/photos-kashmirs-600-year-old-wazwan-wedding-feast-adapts-to-modern-life), Al Jazeera, 30 September 2026.
 - Jammu & Kashmir Tourism Development Corporation, ["Cuisines of Kashmir"](https://www.jktdc.co.in/cuisines-of-kashmir.aspx).
-- ["Kashmir Wazwan"](https://kashmirlife.net/kashmir-wazwan-issue-42-vol-12-257951/), Kashmir Life, 21 January 2021, and ["Kashmir breads and bakeries"](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/), Kashmir Life, 2025.
+- ["Kashmir Wazwan"](https://kashmirlife.net/kashmir-wazwan-issue-42-vol-12-257951/), Kashmir Life, 21 January 2021.
+- [Mughal Darbar](https://mughal-darbar.com/), the upstairs restaurant's website, read 10 November 2026.
 - ["Of Kashmiri Wazwan and more"](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more), Outlook Traveller, February 2022.
 - Amit Bamzai, ["A Pandit Must Know His Meat"](https://www.outlookindia.com/national/a-pandit-must-know-his-meat-magazine-192403), Outlook India, 29 May 2022.
 - Vir Sanghvi, ["Rogan Josh is India's greatest mutton curry"](https://virsanghvi.com/Article-Details.aspx?key=1076), virsanghvi.com, undated.

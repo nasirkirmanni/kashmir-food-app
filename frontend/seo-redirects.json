@@ -48,5 +48,8 @@
   { "source": "/travel-agent/signup", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
   { "source": "/travel-agent/login", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
   { "source": "/travel-agent/dashboard", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
-  { "source": "/travel-agent/inbox", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." }
+  { "source": "/travel-agent/inbox", "destination": "/still-kashmir", "reason": "Third-party agency feature removed (15 Oct 2026); Visit Kashmir now leads to Still Kashmir, Wazwan Way's own travel agency." },
+  { "source": "/restaurants/6a5247d82519b282b59976f3", "destination": "/restaurants/ahdoos", "reason": "Database id of Ahdoos; its Srinagar directory profile lives at its name." },
+  { "source": "/restaurants/6a57c1a88fd85587836865dc", "destination": "/restaurants/shamyana", "reason": "Database id of Shamyana; its Srinagar directory profile lives at its name." },
+  { "source": "/restaurants/6a5247d82519b282b59976f4", "destination": "/restaurants/mughal-darbar", "reason": "Database id of the Mughal Darbar record; the two businesses of that name are compared at this address." }
 ]

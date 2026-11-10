@@ -8,7 +8,9 @@
  */
 
 import { dishNotesFor } from "../data/dishNotes";
+import { DIRECTORY_UPDATED } from "../data/srinagarRestaurants";
 import { parseContentDate } from "./contentDate";
+import { WAZWAN_NEARBY_DESTINATIONS, restaurantsForDish } from "./srinagarRestaurants";
 
 // The last change shared by every dish page: on 12 October 2026 release 1 removed the FAQ
 // structured data each one sent for questions it didn't show. Move this date only for a change
@@ -25,19 +27,30 @@ export function latestContentDate(...values) {
   return times.length ? new Date(Math.max(...times)).toISOString().slice(0, 10) : undefined;
 }
 
-/** A dish page: its record, its recipe review, its sourced notes, or the last change to every dish page. */
+/**
+ * A dish page: its record, its recipe review, its sourced notes, the Srinagar directory if the page
+ * lists restaurants from it, or the last change to every dish page.
+ */
 export function dishLastModified(dish) {
   return latestContentDate(
     dish?.updatedAt,
     dish?.recipe?.reviewedAt,
     dishNotesFor(dish?.slug)?.reviewed,
+    restaurantsForDish(dish?.slug).length ? DIRECTORY_UPDATED : undefined,
     DISH_PAGES_REVISED
   );
 }
 
-/** A destination page, given its sanitized record: a written profile brings the date it was checked. */
+/**
+ * A destination page, given its sanitized record: a written profile brings the date it was checked,
+ * and a page with a Wazwan block (components/restaurants/WazwanNearby.js) the directory's date.
+ */
 export function destinationLastModified(destination) {
-  return latestContentDate(destination?.updatedAt, destination?.sourcesChecked);
+  return latestContentDate(
+    destination?.updatedAt,
+    destination?.sourcesChecked,
+    WAZWAN_NEARBY_DESTINATIONS.includes(destination?.slug) ? DIRECTORY_UPDATED : undefined
+  );
 }
 
 /** A guide or blog post: its "updated" date, or its publication date. */

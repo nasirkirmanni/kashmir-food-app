@@ -9,7 +9,7 @@ export const restaurantGuides = [
     readTime: "6 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
-    updated: "October 21, 2026",
+    updated: "November 10, 2026",
     content: `
 # Where to Eat Kashmiri Food in Srinagar: Wazwan, Bakeries, Tea and Street Food
 
@@ -25,11 +25,13 @@ These three were the only restaurants named on all five Srinagar restaurant list
 
 **[Ahdoos](/restaurants/ahdoos), Residency Road.** Ahdoos started as a bakery in 1918 (WION, 2018; Kashmir Life, 2025) and had become a restaurant by the 1920s (The Tribune, 2018). Kashmir Life calls it the first restaurant in the Valley to serve Kashmiri Wazwan, and WION reported that tourists travel from around the world to eat its Wazwan. In January 2024, Outlook Traveller put a meal for two at about ₹1,500.
 
-**[Mughal Darbar](/restaurants/mughal-darbar), Residency Road.** Mughal Darbar is upstairs on Residency Road, and Kashmir Life dates it to 1984. Outlook Traveller recommended it for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000.
+**[Mughal Darbar](/restaurants/mughal-darbar), Residency Road.** Two businesses use the name a few steps apart: the [upstairs restaurant](/restaurants/mughal-darbar-upstairs), which dates itself to 1984 on its own website, and a [ground-floor one near the GPO](/restaurants/mughal-darbar-ground-floor). Outlook Traveller recommended Mughal Darbar for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000, without saying which floor.
 
 **[Shamyana](/restaurants/shamyana), Boulevard Road.** Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake. The city guide so.city recommended it for Wazwan in 2018, as did Outlook Traveller in 2022. Outlook's January 2024 guide put a meal for two at about ₹800.
 
-**Also named on published lists.** Outlook Traveller's 2022 Wazwan guide calls **Kareema** "popular for its authentic Wazwan thali at reasonable prices". TravelTriangle's Srinagar list (updated December 2024) includes **Stream**, on Boulevard Road at Dalgate, for Indian, Chinese and Kashmiri food at about ₹800 for two; it doesn't single out Wazwan there. Each appears on some of the published lists we checked, not all five.
+**Also named on published lists.** Outlook Traveller's 2022 Wazwan guide calls **[Kareema](/restaurants/kareema)** "popular for its authentic Wazwan thali at reasonable prices". TravelTriangle's Srinagar list (updated December 2024) includes **[Stream](/restaurants/stream-restaurant)**, on Boulevard Road at Dalgate, for Indian, Chinese and Kashmiri food at about ₹800 for two; it doesn't single out Wazwan there. Each appears on some of the published lists we checked, not all five.
+
+**Every Wazwan restaurant we found.** Our [Srinagar Wazwan directory](/restaurants) goes wider than this guide: 29 places with evidence that they serve Wazwan, from the restaurants' own menus, the press, Google listings and delivery apps, each with its address, phone, dishes and dated prices.
 
 **Courses, and ordering for two.** A full wedding feast "can have as many as 36 courses" (Outlook Traveller, 2022), and no restaurant serves that: restaurants sell Wazwan as a set thali or platter — Outlook Traveller's word for Kareema's is "Wazwan thali" — or as single dishes. The trami itself is a four-person format, and one gushtaba is shared by the four at it (Sahapedia). The meal-for-two prices above are from January 2024. [Restaurant vs wedding vs home](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what else changes, and [how many calories a feast carries](/kashmiri-food/wazwan/guide/wazwan-calories) is its own guide.
 
@@ -82,12 +84,12 @@ We only name places that independent publications have written about. Here's how
 - **Unsourced claims left out.** If we couldn't find a published source for something, such as today's plate prices at Khayam Chowk, we didn't include it.
 - **No ranking.** Places are grouped by what they serve, not placed in order.
 
-We last checked these sources on September 15, 2026, and the Outlook Traveller and TravelTriangle lists again on October 21, 2026. If something has changed, [let us know](/contact).
+We last checked these sources on September 15, 2026, the Outlook Traveller and TravelTriangle lists again on October 21, 2026, and the two Mughal Darbars' websites on November 10, 2026. If something has changed, [let us know](/contact).
 
 ### Sources
 
 - **Ahdoos:** [WION, March 2018](https://www.wionews.com/india-news/bite-of-history-srinagars-iconic-restaurant-turns-100-36510) · [The Tribune, June 2018](https://www.tribuneindia.com/news/archive/jammu-kashmir/at-100-srinagar-bakery-looks-ahead-611519/) · [Kashmir Life, April 2025](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
-- **Mughal Darbar:** [Kashmir Life, April 2025](https://kashmirlife.net/kashmir-breads-bakeries-vol-17-issue-01-386813/) · [Outlook Traveller, February 2022](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
+- **Mughal Darbar:** [mughal-darbar.com, November 2026](https://mughal-darbar.com/) · [mughaldarbar.in, November 2026](https://mughaldarbar.in/) · [Outlook Traveller, February 2022](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
 - **Shamyana:** [so.city, May 2018](https://so.city/srinagar/article/6-best-places-for-an-absolutely-delicious-wazwan-feast-in-srinagar) · [Outlook Traveller, February 2022](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more) · [Outlook Traveller, January 2024](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)
 - **Kareema and Stream:** [Outlook Traveller, February 2022](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more) · [TravelTriangle, December 2024](https://traveltriangle.com/blog/restaurants-in-srinagar/)
 - **Serving format (trami and gushtaba):** [Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)

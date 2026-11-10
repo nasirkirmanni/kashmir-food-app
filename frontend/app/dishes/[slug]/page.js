@@ -7,6 +7,7 @@ import { resolveContentPhoto } from "@/lib/contentImages";
 import { toMetaDescription } from "@/lib/metaText";
 import { DISH_SNIPPETS } from "@/data/dishSnippets";
 import { dishEntity } from "@/data/coreSevenFacts";
+import { restaurantsForDish } from "@/lib/srinagarRestaurants";
 
 const CANONICAL_BASE = "https://wazwanway.com";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://kashmir-food-app-api.onrender.com";
@@ -138,7 +139,14 @@ export default async function DishDetailPage({ params }) {
     console.error("Failed to fetch dish on server side:", err);
   }
 
-  // The seven essentials carry their identity and their story in the Recipe schema.
-  return <DishDetailClient initialDish={dish} entity={dishEntity(dish.slug)} />;
+  // The seven essentials carry their identity and their story in the Recipe schema. Where to eat it
+  // comes from the Srinagar directory: the places whose sources name the dish.
+  return (
+    <DishDetailClient
+      initialDish={dish}
+      entity={dishEntity(dish.slug)}
+      srinagarPlaces={restaurantsForDish(dish?.slug || params.slug)}
+    />
+  );
 }
 

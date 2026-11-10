@@ -156,6 +156,6 @@ describe("release 20: restaurants named where AI answers look", () => {
     expect(guide).toContain("Courses, and ordering for two.");
     expect(guide).toContain("- **Kareema and Stream:**");
     expect(guide).toContain("- **Serving format (trami and gushtaba):**");
-    expect(restaurantGuides[0].updated).toBe("October 21, 2026");
+    expect(restaurantGuides[0].updated).toBe("November 10, 2026");
   });
 });
