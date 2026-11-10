@@ -75,7 +75,7 @@ function useActiveSection(ids) {
   return active;
 }
 
-export default function DishDetailClient({ initialDish = null, entity = null }) {
+export default function DishDetailClient({ initialDish = null, entity = null, srinagarPlaces = [] }) {
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
@@ -390,7 +390,34 @@ export default function DishDetailClient({ initialDish = null, entity = null }) 
           <h2 id="where-heading" className={styles.sectionTitle}>
             Restaurants serving {dish.name}
           </h2>
-          {dish.restaurants?.length ? (
+          {srinagarPlaces.length ? (
+            <>
+              <p className={styles.text}>
+                In Srinagar, the restaurants&apos; own menus, the press, Google&apos;s menu highlights or reviews name {dish.name} at
+                these places. Each profile says which source, and when.
+              </p>
+              <ul className={styles.rows}>
+                {srinagarPlaces.map((place) => (
+                  <li key={place.slug}>
+                    <Link href={place.href} prefetch={false} className={styles.rowLink}>
+                      <span>
+                        <span className={styles.rowName}>{place.name}</span>
+                        <span className={styles.rowMeta}>{place.area}</span>
+                      </span>
+                      <span className={styles.rowArrow}>
+                        <ArrowIcon />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <p className={styles.text}>
+                <Link href="/restaurants" prefetch={false} className="text-[#c9a063] underline underline-offset-4">
+                  All Wazwan restaurants in Srinagar
+                </Link>
+              </p>
+            </>
+          ) : dish.restaurants?.length ? (
             <ul className={styles.rows}>
               {dish.restaurants.map((restaurant) => (
                 <li key={restaurant._id || restaurant.name}>

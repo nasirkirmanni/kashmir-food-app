@@ -1,6 +1,8 @@
 import RestaurantDetailClient from "@/components/RestaurantDetailClient";
 import RestaurantFacts from "@/components/RestaurantFacts";
+import RestaurantProfile from "@/components/restaurants/RestaurantProfile";
 import { RESTAURANT_FACTS } from "@/data/restaurantFacts";
+import { MUGHAL_DARBAR_SLUG, RESTAURANT_SLUGS, restaurantBySlug, restaurantMeta } from "@/lib/srinagarRestaurants";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
@@ -42,26 +44,49 @@ async function getOtherRestaurants(currentSlug, currentId) {
   }
 }
 
+// The Srinagar directory's profiles (data/srinagarRestaurants.js), then the database's other
+// restaurants. /restaurants/mughal-darbar has its own route, and the database ids of records a
+// profile now covers redirect to it (seo-redirects.json), so neither is generated here.
 export async function generateStaticParams() {
+  const paths = RESTAURANT_SLUGS.map((slug) => ({ slug }));
   try {
     const jsonPath = path.join(process.cwd(), "restaurants-static-ids.json");
     if (fs.existsSync(jsonPath)) {
-      const content = fs.readFileSync(jsonPath, "utf-8");
-      const list = JSON.parse(content);
-      const paths = [];
+      const list = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
       for (const item of list) {
-        if (item.slug) paths.push({ slug: item.slug });
+        if (!item.slug || item.slug === MUGHAL_DARBAR_SLUG || restaurantBySlug(item.slug)) continue;
+        paths.push({ slug: item.slug });
         if (item.id) paths.push({ slug: item.id });
       }
-      return paths;
     }
   } catch (err) {
     console.error("Failed to read static IDs in generateStaticParams:", err);
   }
-  return [];
+  return paths;
+}
+
+function profileMetadata(place) {
+  const { title, description, canonical } = restaurantMeta(place);
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      url: canonical,
+      title,
+      description,
+      // No photograph of the venue is licensed to the site, so the shared card uses the site's own image.
+      images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
+      siteName: "Wazwan Way",
+    },
+    twitter: { card: "summary_large_image", title, description, images: ["/wazwan-hero.jpg"] },
+  };
 }
 
 export async function generateMetadata({ params }) {
+  const place = restaurantBySlug(params.slug);
+  if (place) return profileMetadata(place);
   try {
     const res = await fetch(`${API_BASE}/api/restaurants/${params.slug}`, {
       next: { revalidate: 3600 },
@@ -144,6 +169,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function RestaurantDetailPage({ params }) {
+  // A Srinagar profile renders from the research data alone, with no call to the API.
+  const place = restaurantBySlug(params.slug);
+  if (place) return <RestaurantProfile place={place} />;
+
   let restaurant = null;
   try {
     const res = await fetch(`${API_BASE}/api/restaurants/${params.slug}`, {

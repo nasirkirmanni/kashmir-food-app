@@ -14,6 +14,8 @@ const KASHMIR_LIFE_2025 = "https://kashmirlife.net/kashmir-breads-bakeries-vol-1
 const OT_2022 = "https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more";
 const OT_2024 = "https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens";
 const SO_CITY_2018 = "https://so.city/srinagar/article/6-best-places-for-an-absolutely-delicious-wazwan-feast-in-srinagar";
+const MUGHAL_DARBAR_UPSTAIRS = "https://mughal-darbar.com/";
+const MUGHAL_DARBAR_GROUND = "https://mughaldarbar.in/";
 
 export const RESTAURANT_FACTS = {
   ahdoos: {
@@ -50,8 +52,14 @@ export const RESTAURANT_FACTS = {
       "Mughal Darbar, Residency Road, Srinagar, dates to 1984. Outlook Traveller recommended its rista and gushtaba (2022); a meal for two was about ₹1,000 (2024).",
     facts: [
       {
-        text: "Mughal Darbar is upstairs on Residency Road in central Srinagar, and Kashmir Life dates it to 1984.",
-        refs: [{ label: "Kashmir Life, 2025", href: KASHMIR_LIFE_2025 }],
+        // Kashmir Life's 1984 Mughal Darbar names no floor and a different founder, so the date is the
+        // upstairs restaurant's own; a separate Mughal Darbar trades on the ground floor
+        // (/restaurants/mughal-darbar compares the two).
+        text: "The upstairs Mughal Darbar on Residency Road, in central Srinagar, dates itself to 1984 on its own website. A separate business called Mughal Darbar trades on the ground floor nearby.",
+        refs: [
+          { label: "mughal-darbar.com, 2026", href: MUGHAL_DARBAR_UPSTAIRS },
+          { label: "mughaldarbar.in, 2026", href: MUGHAL_DARBAR_GROUND },
+        ],
       },
       {
         text: "Outlook Traveller recommended it for Wazwan in 2022, naming its rista and gushtaba.",

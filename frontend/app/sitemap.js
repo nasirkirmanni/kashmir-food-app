@@ -7,6 +7,8 @@ import { restaurantGuides } from "@/data/restaurantGuides";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
 import { isRemovedDish } from "@/lib/removedDishes";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
+import { RESTAURANT_SLUGS, MUGHAL_DARBAR_SLUG, restaurantPath } from "@/lib/srinagarRestaurants";
+import { DIRECTORY_UPDATED } from "@/data/srinagarRestaurants";
 import {
   articleLastModified,
   destinationLastModified,
@@ -77,6 +79,7 @@ export default async function sitemap() {
     // Pages whose text carries a checked/updated date pass it on as lastmod.
     if (p === "/dishes") return entry(p, latestContentDate(PILLAR_REVIEWED));
     if (p === "/restaurants/best-wazwan-srinagar") return entry(p, latestContentDate(restaurantGuides[0].updated));
+    if (p === "/restaurants") return entry(p, DIRECTORY_UPDATED);
     return entry(p, undefined);
   });
 
@@ -109,9 +112,15 @@ export default async function sitemap() {
     .filter((d) => d.slug && !isRemovedDish(d))
     .map((d) => entry(`/dishes/${d.slug}`, dishLastModified(d)));
 
-  const restaurantPages = restaurants.records
-    .filter((r) => r.slug)
-    .map((r) => entry(`/restaurants/${r.slug}`, latestContentDate(r.updatedAt)));
+  // The Srinagar directory's profiles and the two-Mughal-Darbars page come from the research data;
+  // the database adds any other restaurant it holds (Clove), dated by its own record.
+  const directoryPages = [...RESTAURANT_SLUGS, MUGHAL_DARBAR_SLUG].map((slug) => entry(restaurantPath(slug), DIRECTORY_UPDATED));
+  const restaurantPages = [
+    ...directoryPages,
+    ...restaurants.records
+      .filter((r) => r.slug && !directoryPages.some((page) => page.url.endsWith(`/restaurants/${r.slug}`)))
+      .map((r) => entry(`/restaurants/${r.slug}`, latestContentDate(r.updatedAt))),
+  ];
 
   // Destination pages with no written content are noindexed, so they're left out.
   // (The static fallback can't tell, so it lists every destination.)

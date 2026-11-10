@@ -12,7 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 // another route's content (e.g. the homepage hero on a dish page).
 const HomePageHero = dynamic(() => import("@/components/HomePageHero"), { ssr: false });
 // The client component, not the route's page.js: that one is a server wrapper that adds the structured data.
-const RestaurantsPage = dynamic(() => import("@/app/restaurants/RestaurantsIndex"), { ssr: false });
+const RestaurantsPage = dynamic(() => import("@/components/restaurants/DirectoryScreen"), { ssr: false });
 const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: false });
 const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: false });
 const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: false });
