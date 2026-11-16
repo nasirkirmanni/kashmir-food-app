@@ -1954,7 +1954,7 @@ Wazwan is Kashmiri cuisine's grandest expression, but it's a feast, not everyday
   - In the 1960s, J&K's then prime minister, Ghulam Mohammad Sadiq, asked for guest limits at weddings (Outlook India).
   - A government order announced in February 2017 capped wedding menus at seven non-vegetarian dishes, seven vegetarian dishes and two sweets.
 
-Start with [Traditional Wazwan](/dishes), which explains the feast and lists its dishes in serving order. For how Wazwan differs from the court cooking of North India, see [Wazwan vs Mughlai](/kashmiri-food/wazwan/guide/wazwan-vs-mughlai).
+Start with [Traditional Wazwan](/dishes), which explains the feast and lists its dishes in serving order. For how Wazwan differs from the court cooking of North India, see [Wazwan vs Mughlai](/kashmiri-food/wazwan/guide/wazwan-vs-mughlai). To eat it, see our [directory of Srinagar restaurants that serve Wazwan](/restaurants), with a source for every fact.
 
 ## Five common mistakes about Kashmiri food
 

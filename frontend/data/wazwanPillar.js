@@ -95,6 +95,13 @@ At the trami, wash your hands when the tash-t-naer comes round, eat from your ow
 // Shown on the page as written and used for the FAQPage structured data (with links reduced to text).
 export const WAZWAN_FAQ = [
   {
+    // The question people search most; the answer is the definition at the top of the page
+    // (WAZWAN_IN_BRIEF.definition) without the note on the name, which the next answer gives.
+    question: "What is Wazwan?",
+    answer:
+      "Wazwan is the formal multi-course feast of Kashmir. Its dishes, mostly mutton, are cooked by professional cooks called wazas under a head cook, the vasta waza, and served on a copper trami that four guests share. It is best known from Kashmiri Muslim weddings, and it is a different thing from everyday Kashmiri home cooking.",
+  },
+  {
     question: "What does “Wazwan” mean?",
     answer:
       "*Waz* means cook, and *wan* is usually given as shop ([Budgam district administration](https://budgam.nic.in/culinary-delight/wazwan/); [Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)), so the name points to the cooks rather than to a menu. *Outlook India* renders *wan* as “to spread”.",
@@ -132,7 +139,7 @@ export const WAZWAN_FAQ = [
   {
     question: "Can visitors eat Wazwan?",
     answer:
-      "Yes. Weddings are private, but restaurants in Srinagar serve Wazwan dishes and set menus; see our [guide to eating in Srinagar](/restaurants/best-wazwan-srinagar).",
+      "Yes. Weddings are private, but restaurants in Srinagar serve Wazwan dishes and set menus; see our [directory of Srinagar restaurants that serve Wazwan](/restaurants) and our [guide to eating in Srinagar](/restaurants/best-wazwan-srinagar).",
   },
 ];
 
