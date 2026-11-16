@@ -14,12 +14,14 @@ import { isoDay } from "@/lib/contentDate";
 
 const SITE = "https://wazwanway.com";
 const PAGE_URL = `${SITE}${CORE_SEVEN_HUB}`;
-const TITLE = "The Core Seven: A Story for Each Essential Wazwan Dish";
+// Named the way people ask for it ("What are the 7 dishes of Kashmiri Wazwan?" is a question Google
+// shows for Wazwan searches); the series keeps its name, The Core Seven, in the eyebrow and breadcrumb.
+const TITLE = "The 7 Essential Dishes of Kashmiri Wazwan";
 const DESCRIPTION =
-  "One long-form story for each dish a Wazwan cannot do without: tabak maaz, rista, rogan josh, aab gosht, daniwal korma, marchwangan korma and gushtaba.";
+  "Seven dishes are a must at a Kashmiri Wazwan: tabak maaz, rista, rogan josh, aab gosht, daniwal korma, marchwangan korma, gushtaba. A sourced story for each.";
 
 export const metadata = {
-  title: "The Core Seven: Stories of the Essential Wazwan Dishes",
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   openGraph: {
@@ -64,7 +66,7 @@ export default function CoreSevenPage() {
     publisher: { "@type": "Organization", name: "Wazwan Way", url: SITE },
     mainEntity: {
       "@type": "ItemList",
-      name: "The Core Seven",
+      name: TITLE,
       numberOfItems: stories.length,
       itemListOrder: "https://schema.org/ItemListOrderAscending",
       itemListElement: stories.map((story) => ({
@@ -86,7 +88,7 @@ export default function CoreSevenPage() {
           <Breadcrumbs items={crumbs} />
         </div>
 
-        <p className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-4">A series in the Journal</p>
+        <p className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-4">{CORE_SEVEN_NAME} · A series in the Journal</p>
         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-[1.1]">{TITLE}</h1>
         <p className="mb-10 text-[0.7rem] uppercase tracking-wider font-bold text-white/50">
           Published {CORE_SEVEN_PUBLISHED} · Updated {CORE_SEVEN_UPDATED}
