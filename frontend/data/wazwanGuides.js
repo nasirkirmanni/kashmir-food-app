@@ -6,13 +6,15 @@ export const wazwanGuides = [
     category: "wazwan",
     title: "How Much Does Wazwan Cost? A Practical Price Guide",
     description: "What Wazwan costs in a Srinagar restaurant and at a wedding, with every figure dated: meals for two, single dishes, the platter for four, the meat, the wazas' wages, praan, ghee and rice, and why the bill keeps growing.",
-    readTime: "8 min read",
+    readTime: "9 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
-    updatedDate: "October 30, 2026",
+    updatedDate: "November 17, 2026",
     related: ["restaurant-vs-wedding-vs-home", "vegetarian-wazwan", "how-wazwan-is-served", "waza-meaning"],
     stories: ["tabak-maaz-ribs-cooked-twice"],
     content: `What a Wazwan costs depends on where you eat it. In a Srinagar restaurant it is a meal with a price on the menu; at a wedding it is the largest single expense a Kashmiri family takes on, and the guest pays nothing. This guide gives the figures we could find in print, each with the date it was reported, and explains what drives them. Prices move, so treat every number as a marker, not a quote. For the dishes themselves, see [Traditional Wazwan](/dishes).
+
+In short: on 2024 reports a restaurant meal in Srinagar works out at roughly ₹400 to ₹750 a head; in November 2026 one restaurant, the upstairs Mughal Darbar, listed a full trami for four on its website at ₹6,200; and a wedding Wazwan costs its host lakhs of rupees.
 
 ## In a restaurant: by the plate or by the platter
 
@@ -20,9 +22,9 @@ Restaurants sell the Wazwan dishes by the plate, and many are run by hereditary 
 
 **Meals for two, as reported.** In January 2024 Outlook Traveller's Srinagar guide put a meal for two at about ₹1,500 at [Ahdoos](/restaurants/ahdoos), ₹1,000 at [Mughal Darbar](/restaurants/mughal-darbar) and ₹800 at [Shamyana](/restaurants/shamyana) ([Outlook Traveller](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens)). TravelTriangle's Srinagar list, updated December 2024, gives ₹800 for two at Stream on Boulevard Road ([TravelTriangle](https://traveltriangle.com/blog/restaurants-in-srinagar/)). From those figures, a restaurant Wazwan works out at roughly ₹400 to ₹750 a head.
 
-**By the dish.** When we checked on 30 October 2026, the online shop at mughaldarbar.in, which gives its address as Residency Road, listed rogan josh (four pieces) at ₹600, gushtaba at ₹650, daniwal korma at ₹600, tabak maaz at ₹350, methi korma at ₹300 and seekh kebab at ₹220 ([Mughal Darbar](https://mughaldarbar.in/shop/wazwan)). That is the shape of most menus: the pounded-meat dishes and rogan josh cost the most, kebabs and tabak maaz the least.
+**By the dish.** When we checked on 30 October and again on 17 November 2026, the online shop at mughaldarbar.in, the ground-floor Mughal Darbar on Residency Road (one of [two restaurants of that name](/restaurants/mughal-darbar) a few steps apart), listed rogan josh (four pieces) at ₹600, gushtaba at ₹650, daniwal korma at ₹600, tabak maaz at ₹350, methi korma at ₹300 and seekh kebab at ₹220 ([Mughal Darbar, ground floor](https://mughaldarbar.in/shop/wazwan)). That is the shape of most menus: the pounded-meat dishes and rogan josh cost the most, kebabs and tabak maaz the least.
 
-**The trami.** The traditional platter serves four, and one gushtaba is shared by the four and divided by the eldest ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); restaurants that offer it price it for the group. No restaurant serves the wedding sequence, which "can have as many as 36 courses" ([Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)). Our [Srinagar guide](/restaurants/best-wazwan-srinagar) compares the restaurants from dated sources, and [wedding, restaurant and home](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what changes between the settings.
+**The trami.** The traditional platter serves four, and one gushtaba is shared by the four and divided by the eldest ([Sahapedia](https://www.sahapedia.org/wazwan-culinary-legacy)); restaurants that offer it price it for the group. The upstairs Mughal Darbar, which dates itself to 1984, sells a full Wazwan trami for four through its website: ₹6,200 when we checked on 17 November 2026, marked down from ₹6,800, against ₹1,300 for a full plate for one person (from ₹1,800) and ₹10,000 for a 10 kg majma (from ₹11,000) ([Mughal Darbar, upstairs](https://mughal-darbar.com/)). That is about ₹1,550 a head, inside the ₹5,000 to ₹7,000 an October 2026 estimate gives for a wedding's meat platter for four (below). No restaurant serves the wedding sequence, which "can have as many as 36 courses" ([Outlook Traveller](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more)). Our [Srinagar guide](/restaurants/best-wazwan-srinagar) compares the restaurants from dated sources, and [wedding, restaurant and home](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what changes between the settings.
 
 ## At a wedding: what the host pays
 
@@ -58,11 +60,15 @@ Our advice, not a source's: share a trami or platter for four rather than orderi
 
 ### Is Wazwan expensive?
 
-Compared with everyday meals in Srinagar, yes: it is mutton cooked in ghee by a hired team over a wood fire. In a restaurant it is a meal for two at roughly ₹800 to ₹1,500 by the latest dated reports; at a wedding it is lakhs of rupees for the host and free for the guest.
+Compared with everyday meals in Srinagar, yes: it is mutton cooked in ghee by a hired team over a wood fire. In a restaurant it is a meal for two at roughly ₹800 to ₹1,500 on 2024 reports, or ₹6,200 for a full trami for four at one restaurant in November 2026; at a wedding it is lakhs of rupees for the host and free for the guest.
 
 ### What does a Wazwan cost in a Srinagar restaurant?
 
-Dated reports give a meal for two at about ₹1,500 at Ahdoos, ₹1,000 at Mughal Darbar and ₹800 at Shamyana (January 2024) and ₹800 at Stream (December 2024); single dishes on one Residency Road menu ran from ₹220 for seekh kebab to ₹650 for gushtaba in October 2026.
+Dated reports give a meal for two at about ₹1,500 at Ahdoos, ₹1,000 at Mughal Darbar and ₹800 at Shamyana (January 2024) and ₹800 at Stream (December 2024); single dishes on the ground-floor Mughal Darbar's menu run from ₹220 for seekh kebab to ₹650 for gushtaba, and the upstairs Mughal Darbar sells a full trami for four at ₹6,200 (both checked November 2026).
+
+### How much is a Wazwan trami for four?
+
+In a restaurant, the upstairs Mughal Darbar on Residency Road listed a full trami for four on its website at ₹6,200 in November 2026, marked down from ₹6,800. At a wedding, an October 2026 estimate puts the meat platter for four at ₹5,000 to ₹7,000.
 
 ### What does a wedding Wazwan cost the host?
 
@@ -84,7 +90,8 @@ Yes. Wikipedia records it served at Kashmiri food festivals and reunions abroad,
 
 - ["All about Srinagar, the land of lakes and gardens"](https://www.outlooktraveller.com/destinations/india/city-guide-all-about-srinagar-the-land-of-lakes-and-gardens), Outlook Traveller, January 2024, and ["Of Kashmiri Wazwan and more"](https://www.outlooktraveller.com/experiences/food-and-drink/of-kashmiri-wazwan-and-more), Outlook Traveller, February 2022.
 - ["Restaurants in Srinagar"](https://traveltriangle.com/blog/restaurants-in-srinagar/), TravelTriangle, updated December 2024.
-- Mughal Darbar, [online shop, Wazwan category](https://mughaldarbar.in/shop/wazwan), checked 30 October 2026.
+- Mughal Darbar (ground floor, Residency Road), [online shop, Wazwan category](https://mughaldarbar.in/shop/wazwan), checked 30 October and 17 November 2026.
+- Mughal Darbar (upstairs, Residency Road), [website and shop](https://mughal-darbar.com/), checked 17 November 2026.
 - Wikipedia, ["Wazwan"](https://en.wikipedia.org/wiki/Wazwan), ["Kashmiri cuisine"](https://en.wikipedia.org/wiki/Kashmiri_cuisine) and ["Mushqbudji rice"](https://en.wikipedia.org/wiki/Mushqbudji_rice).
 - Anusha Kulal, ["The intricacies of Kashmiri Wazwan"](https://www.asiamediacentre.org.nz/features/the-intricacies-of-kashmiri-wazwan), Asia Media Centre, 29 May 2024.
 - Raja Muzaffar Bhat, ["Wazwan: A Culinary Legacy"](https://www.sahapedia.org/wazwan-culinary-legacy), Sahapedia.

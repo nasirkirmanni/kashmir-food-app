@@ -156,6 +156,52 @@ describe("release 20: restaurants named where AI answers look", () => {
     expect(guide).toContain("Courses, and ordering for two.");
     expect(guide).toContain("- **Kareema and Stream:**");
     expect(guide).toContain("- **Serving format (trami and gushtaba):**");
-    expect(restaurantGuides[0].updated).toBe("November 10, 2026");
+    expect(restaurantGuides[0].updated).toBe("November 17, 2026");
+  });
+});
+
+describe("release 37: what a trami costs, and which Mughal Darbar", () => {
+  const cost = () => WAZWAN_GUIDES.find((g) => g.slug === "cost-guide");
+
+  it("names the ground-floor Mughal Darbar for the per-dish prices, checked again in November", () => {
+    const { content, updatedDate } = cost();
+    expect(updatedDate).toBe("November 17, 2026");
+    expect(content).toContain("the online shop at mughaldarbar.in, the ground-floor Mughal Darbar on Residency Road");
+    expect(content).toContain("[two restaurants of that name](/restaurants/mughal-darbar)");
+    expect(content).not.toContain("which gives its address as Residency Road");
+  });
+
+  it("gives the upstairs Mughal Darbar's trami price with its date and source", () => {
+    const { content } = cost();
+    expect(content).toContain("₹6,200 when we checked on 17 November 2026, marked down from ₹6,800");
+    expect(content).toContain("([Mughal Darbar, upstairs](https://mughal-darbar.com/))");
+    expect(content).toContain("### How much is a Wazwan trami for four?");
+    expect(content).toContain("- Mughal Darbar (upstairs, Residency Road), [website and shop](https://mughal-darbar.com/), checked 17 November 2026.");
+    expect(content).toContain("checked 30 October and 17 November 2026.");
+  });
+
+  it("opens with the short answer", () => {
+    const { content } = cost();
+    const firstParagraphs = content.split("## In a restaurant")[0];
+    expect(firstParagraphs).toContain("In short: on 2024 reports a restaurant meal in Srinagar works out at roughly ₹400 to ₹750 a head");
+  });
+
+  it("puts the same trami price, dated, in the Srinagar guide", async () => {
+    const { restaurantGuides } = await import("../data/restaurantGuides");
+    const guide = restaurantGuides[0].content;
+    expect(guide).toContain("The upstairs restaurant's own website sells a full Wazwan trami for four at ₹6,200 (17 November 2026).");
+    expect(guide).toContain("the two Mughal Darbars' websites on November 17, 2026");
+  });
+
+  it("gives the Srinagar guide the read time its words give, and reads its sources for the Article markup", async () => {
+    const { restaurantGuides } = await import("../data/restaurantGuides");
+    const { guideSources } = await import("../app/restaurants/best-wazwan-srinagar/page");
+    const [guide] = restaurantGuides;
+    const body = stripLeadingTitle(guide.content, guide.title);
+    expect(guide.readTime).toBe(`${readMinutes(countWords(body))} min read`);
+    const sources = guideSources(body);
+    expect(sources.length).toBeGreaterThanOrEqual(20);
+    expect(sources.map((s) => s.url)).toContain("https://mughal-darbar.com/");
+    expect(new Set(sources.map((s) => s.url)).size).toBe(sources.length);
   });
 });

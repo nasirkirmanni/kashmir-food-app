@@ -6,10 +6,10 @@ export const restaurantGuides = [
     slug: "best-wazwan-srinagar",
     title: "Where to Eat Kashmiri Food in Srinagar: Wazwan, Bakeries, Tea and Street Food",
     description: "Where to eat Wazwan, bakery goods, noon chai and street food in Srinagar, with the published sources and dates behind every place we name.",
-    readTime: "6 min read",
+    readTime: "7 min read",
     author: "WazwanWay Team",
     date: "June 19, 2026",
-    updated: "November 10, 2026",
+    updated: "November 17, 2026",
     content: `
 # Where to Eat Kashmiri Food in Srinagar: Wazwan, Bakeries, Tea and Street Food
 
@@ -25,7 +25,7 @@ These three were the only restaurants named on all five Srinagar restaurant list
 
 **[Ahdoos](/restaurants/ahdoos), Residency Road.** Ahdoos started as a bakery in 1918 (WION, 2018; Kashmir Life, 2025) and had become a restaurant by the 1920s (The Tribune, 2018). Kashmir Life calls it the first restaurant in the Valley to serve Kashmiri Wazwan, and WION reported that tourists travel from around the world to eat its Wazwan. In January 2024, Outlook Traveller put a meal for two at about ₹1,500.
 
-**[Mughal Darbar](/restaurants/mughal-darbar), Residency Road.** Two businesses use the name a few steps apart: the [upstairs restaurant](/restaurants/mughal-darbar-upstairs), which dates itself to 1984 on its own website, and a [ground-floor one near the GPO](/restaurants/mughal-darbar-ground-floor). Outlook Traveller recommended Mughal Darbar for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000, without saying which floor.
+**[Mughal Darbar](/restaurants/mughal-darbar), Residency Road.** Two businesses use the name a few steps apart: the [upstairs restaurant](/restaurants/mughal-darbar-upstairs), which dates itself to 1984 on its own website, and a [ground-floor one near the GPO](/restaurants/mughal-darbar-ground-floor). Outlook Traveller recommended Mughal Darbar for Wazwan in 2022, naming its rista and gushtaba, and in January 2024 put a meal for two at about ₹1,000, without saying which floor. The upstairs restaurant's own website sells a full Wazwan trami for four at ₹6,200 (17 November 2026).
 
 **[Shamyana](/restaurants/shamyana), Boulevard Road.** Shamyana is at Ghat No. 2 on Boulevard Road, beside Dal Lake. The city guide so.city recommended it for Wazwan in 2018, as did Outlook Traveller in 2022. Outlook's January 2024 guide put a meal for two at about ₹800.
 
@@ -33,7 +33,7 @@ These three were the only restaurants named on all five Srinagar restaurant list
 
 **Every Wazwan restaurant we found.** Our [Srinagar Wazwan directory](/restaurants) goes wider than this guide: 29 places with evidence that they serve Wazwan, from the restaurants' own menus, the press, Google listings and delivery apps, each with its address, phone, dishes and dated prices.
 
-**Courses, and ordering for two.** A full wedding feast "can have as many as 36 courses" (Outlook Traveller, 2022), and no restaurant serves that: restaurants sell Wazwan as a set thali or platter — Outlook Traveller's word for Kareema's is "Wazwan thali" — or as single dishes. The trami itself is a four-person format, and one gushtaba is shared by the four at it (Sahapedia). The meal-for-two prices above are from January 2024. [Restaurant vs wedding vs home](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what else changes, and [how many calories a feast carries](/kashmiri-food/wazwan/guide/wazwan-calories) is its own guide.
+**Courses, and ordering for two.** A full wedding feast "can have as many as 36 courses" (Outlook Traveller, 2022), and no restaurant serves that: restaurants sell Wazwan as a set thali or platter — Outlook Traveller's word for Kareema's is "Wazwan thali" — or as single dishes. The trami itself is a four-person format, and one gushtaba is shared by the four at it (Sahapedia). The meal-for-two prices above are from January 2024, the trami price from November 2026; the [Wazwan cost guide](/kashmiri-food/wazwan/guide/cost-guide) has the rest. [Restaurant vs wedding vs home](/kashmiri-food/wazwan/guide/restaurant-vs-wedding-vs-home) explains what else changes, and [how many calories a feast carries](/kashmiri-food/wazwan/guide/wazwan-calories) is its own guide.
 
 **What to order.** If you only try two dishes, make them rista and gushtaba, the two Wazwan meatballs made from pounded mutton. [Rista vs Gushtaba](/kashmiri-food/wazwan/guide/rista-vs-gushtaba) explains how they differ, and [Traditional Wazwan](/dishes) covers the rest of the feast.
 
@@ -84,7 +84,7 @@ We only name places that independent publications have written about. Here's how
 - **Unsourced claims left out.** If we couldn't find a published source for something, such as today's plate prices at Khayam Chowk, we didn't include it.
 - **No ranking.** Places are grouped by what they serve, not placed in order.
 
-We last checked these sources on September 15, 2026, the Outlook Traveller and TravelTriangle lists again on October 21, 2026, and the two Mughal Darbars' websites on November 10, 2026. If something has changed, [let us know](/contact).
+We last checked these sources on September 15, 2026, the Outlook Traveller and TravelTriangle lists again on October 21, 2026, and the two Mughal Darbars' websites on November 17, 2026. If something has changed, [let us know](/contact).
 
 ### Sources
 
