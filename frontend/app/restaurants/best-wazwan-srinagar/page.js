@@ -1,9 +1,17 @@
-import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, RefreshCw, User } from "lucide-react";
+import { Calendar, Clock, RefreshCw, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import JsonLd, { buildArticleSchema } from "@/components/JsonLd";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { restaurantGuides } from "@/data/restaurantGuides";
+import { countWords, sourcesFromMarkdown } from "@/lib/storyStructure";
 
-const CANONICAL_URL = "https://wazwanway.com/restaurants/best-wazwan-srinagar";
+const PATH = "/restaurants/best-wazwan-srinagar";
+const CANONICAL_URL = `https://wazwanway.com${PATH}`;
+
+/** The works the guide lists under its "### Sources" heading, read the way the other guides' are. */
+export function guideSources(markdown) {
+  return sourcesFromMarkdown(String(markdown || "").replace(/\n###\s+Sources\s*\n/, "\n## Sources\n"));
+}
 
 export const metadata = {
   // The headline is too long for search results once the restaurants layout's
@@ -40,12 +48,33 @@ export default function BestWazwanSrinagarPage() {
       <div className="absolute inset-0 bg-radial-gradient from-amber-500/5 via-transparent to-transparent pointer-events-none z-0" />
       
       <article className="w-full max-w-3xl relative z-10">
-        <Link 
-          href="/restaurants" 
-          className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--saffron)] transition-colors mb-10 text-xs sm:text-sm uppercase tracking-wider font-semibold"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Restaurants
-        </Link>
+        {/* What the page shows, as the other guides give it: headline, byline, dates and sources. */}
+        <JsonLd
+          data={buildArticleSchema({
+            title: article.title,
+            description: article.description,
+            author: article.author,
+            datePublished: article.date,
+            dateModified: article.updated,
+            category: "Srinagar food guide",
+            path: PATH,
+            image: "/wazwan-hero.jpg",
+            readTime: article.readTime,
+            wordCount: countWords(body),
+            citation: guideSources(body),
+          })}
+        />
+        {/* The visible trail and its BreadcrumbList schema, from one list; the site's Back button
+            stays top-left, so the old "Back to Restaurants" link is gone. */}
+        <div className="mb-10">
+          <Breadcrumbs
+            items={[
+              { name: "Home", href: "/" },
+              { name: "Restaurants", href: "/restaurants" },
+              { name: "Where to eat in Srinagar", href: PATH },
+            ]}
+          />
+        </div>
         
         {/* Metadata headers */}
         <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-6">
