@@ -84,6 +84,8 @@ function toCard(dish, detail) {
     slug: dish.slug,
     name: dish.name.trim(),
     kashmiriName: figures.kashmiriName,
+    // What the name means, for the dishes that carry one (data/addedDishIndex.js).
+    gloss: text(dish.gloss),
     category: dish.category || "",
     essential: ESSENTIAL_SLUGS.has(dish.slug),
     photo: image && !isPlaceholderImage(image) ? image : null,
@@ -95,7 +97,7 @@ function toCard(dish, detail) {
       ["Serves", figures.serves],
       ["Level", figures.level],
     ].filter(([, value]) => value),
-    search: searchText([dish.name, figures.kashmiriName, ...figures.altSpellings, dish.category]),
+    search: searchText([dish.name, figures.kashmiriName, dish.gloss, ...figures.altSpellings, dish.category]),
   };
 }
 

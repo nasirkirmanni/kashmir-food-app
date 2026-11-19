@@ -119,7 +119,8 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
   }, [params.slug, router]);
 
   useEffect(() => {
-    if (!user || !dish) return;
+    // A dish written in the frontend (lib/addedDishes.js) has no database id, so it can't be saved.
+    if (!user || !dish?._id) return;
     request(endpoints.favorites)
       .then((favs) => setIsFavorite(favs.some((f) => f.item?._id === dish._id || f.item === dish._id)))
       .catch(console.error);
@@ -166,10 +167,13 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
   const relatedReading = dish ? relatedReadingForDish(dish) : [];
   const notes = dish ? dishNotesFor(dish.slug) : null;
   const hasHistory = Boolean(dish?.history || dish?.touristTip);
+  // An added dish is a recipe page: with no restaurant to name, "where to eat it" is left out
+  // instead of saying that no restaurant lists a dish cooked at home.
+  const showWhere = Boolean(dish) && !(dish.recipeOnly && !srinagarPlaces.length && !dish.restaurants?.length);
 
   const sections = [
     hasHistory && { id: "history", label: dish?.history ? "History" : "Tip" },
-    { id: "where", label: "Where to eat" },
+    showWhere && { id: "where", label: "Where to eat" },
     notes?.sections?.length && { id: "about", label: "More" },
     hasRecipe && { id: "recipe", label: "Recipe" },
     relatedReading.length && { id: "reading", label: "Read more" },
@@ -237,6 +241,8 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
   ].filter(Boolean);
   const kashmiriName =
     recipe.kashmiriName && recipe.kashmiriName.trim().toLowerCase() !== dish.name.trim().toLowerCase() ? recipe.kashmiriName : null;
+  // Under the name: its Kashmiri name where that differs, else what the name means (added dishes).
+  const secondName = kashmiriName || dish.gloss || null;
   const eyebrow = [dish.category, story?.place].filter(Boolean).join(" · ");
 
   const openRecipe = () => {
@@ -280,7 +286,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
           {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
           <h1 className={styles.title}>
             {dish.name}
-            {kashmiriName ? <span className={styles.kashmiri}>{kashmiriName}</span> : null}
+            {secondName ? <span className={styles.kashmiri}>{secondName}</span> : null}
           </h1>
           {dish.fullDescription ? <p className={styles.summary}>{dish.fullDescription}</p> : null}
 
@@ -299,16 +305,18 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
             <button type="button" className={styles.primary} onClick={openRecipe}>
               {hasRecipe ? "Go to the recipe" : "Ask Waza for a recipe"}
             </button>
-            <button
-              type="button"
-              className={styles.secondary}
-              onClick={toggleFavorite}
-              disabled={isSaving}
-              aria-pressed={isFavorite}
-            >
-              <HeartIcon filled={isFavorite} />
-              {isSaving ? "Saving…" : isFavorite ? "Saved" : "Save"}
-            </button>
+            {dish._id ? (
+              <button
+                type="button"
+                className={styles.secondary}
+                onClick={toggleFavorite}
+                disabled={isSaving}
+                aria-pressed={isFavorite}
+              >
+                <HeartIcon filled={isFavorite} />
+                {isSaving ? "Saving…" : isFavorite ? "Saved" : "Save"}
+              </button>
+            ) : null}
           </div>
           {saveError ? (
             <p className={styles.saveError} role="alert">
@@ -354,101 +362,105 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
         </nav>
       ) : null}
 
-      <div className={styles.body}>
-        {hasHistory ? (
-          <section id="history" className={styles.section} aria-labelledby="history-heading">
-            {dish.history ? (
-              <>
-                <p className={styles.eyebrow}>History</p>
-                <h2 id="history-heading" className={styles.sectionTitle}>
-                  {dish.name} in Kashmiri tradition
-                </h2>
-                <div className={styles.prose}>
-                  {dish.history
-                    .split(/\n{2,}/)
-                    .filter(Boolean)
-                    .map((para) => (
-                      <p key={para.slice(0, 40)}>{para}</p>
-                    ))}
+      {hasHistory || showWhere || notes?.sections?.length ? (
+        <div className={styles.body}>
+          {hasHistory ? (
+            <section id="history" className={styles.section} aria-labelledby="history-heading">
+              {dish.history ? (
+                <>
+                  <p className={styles.eyebrow}>History</p>
+                  <h2 id="history-heading" className={styles.sectionTitle}>
+                    {dish.name} in Kashmiri tradition
+                  </h2>
+                  <div className={styles.prose}>
+                    {dish.history
+                      .split(/\n{2,}/)
+                      .filter(Boolean)
+                      .map((para) => (
+                        <p key={para.slice(0, 40)}>{para}</p>
+                      ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className={styles.eyebrow}>Before you order</p>
+                  <h2 id="history-heading" className={styles.sectionTitle}>
+                    Eating {dish.name}
+                  </h2>
+                </>
+              )}
+              {dish.touristTip ? (
+                <div className={styles.callout}>
+                  <p className={styles.eyebrow}>Tip</p>
+                  <p>{dish.touristTip}</p>
                 </div>
-              </>
-            ) : (
-              <>
-                <p className={styles.eyebrow}>Before you order</p>
-                <h2 id="history-heading" className={styles.sectionTitle}>
-                  Eating {dish.name}
-                </h2>
-              </>
-            )}
-            {dish.touristTip ? (
-              <div className={styles.callout}>
-                <p className={styles.eyebrow}>Tip</p>
-                <p>{dish.touristTip}</p>
-              </div>
-            ) : null}
-          </section>
-        ) : null}
+              ) : null}
+            </section>
+          ) : null}
 
-        <section id="where" className={styles.section} aria-labelledby="where-heading">
-          <p className={styles.eyebrow}>Where to try it</p>
-          <h2 id="where-heading" className={styles.sectionTitle}>
-            Restaurants serving {dish.name}
-          </h2>
-          {srinagarPlaces.length ? (
-            <>
-              <p className={styles.text}>
-                In Srinagar, the restaurants&apos; own menus, the press, Google&apos;s menu highlights or reviews name {dish.name} at
-                these places. Each profile says which source, and when.
-              </p>
-              <ul className={styles.rows}>
-                {srinagarPlaces.map((place) => (
-                  <li key={place.slug}>
-                    <Link href={place.href} prefetch={false} className={styles.rowLink}>
-                      <span>
-                        <span className={styles.rowName}>{place.name}</span>
-                        <span className={styles.rowMeta}>{place.area}</span>
-                      </span>
-                      <span className={styles.rowArrow}>
-                        <ArrowIcon />
-                      </span>
+          {showWhere ? (
+            <section id="where" className={styles.section} aria-labelledby="where-heading">
+              <p className={styles.eyebrow}>Where to try it</p>
+              <h2 id="where-heading" className={styles.sectionTitle}>
+                Restaurants serving {dish.name}
+              </h2>
+              {srinagarPlaces.length ? (
+                <>
+                  <p className={styles.text}>
+                    In Srinagar, the restaurants&apos; own menus, the press, Google&apos;s menu highlights or reviews name {dish.name} at
+                    these places. Each profile says which source, and when.
+                  </p>
+                  <ul className={styles.rows}>
+                    {srinagarPlaces.map((place) => (
+                      <li key={place.slug}>
+                        <Link href={place.href} prefetch={false} className={styles.rowLink}>
+                          <span>
+                            <span className={styles.rowName}>{place.name}</span>
+                            <span className={styles.rowMeta}>{place.area}</span>
+                          </span>
+                          <span className={styles.rowArrow}>
+                            <ArrowIcon />
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className={styles.text}>
+                    <Link href="/restaurants" prefetch={false} className="text-[#c9a063] underline underline-offset-4">
+                      All Wazwan restaurants in Srinagar
                     </Link>
-                  </li>
-                ))}
-              </ul>
-              <p className={styles.text}>
-                <Link href="/restaurants" prefetch={false} className="text-[#c9a063] underline underline-offset-4">
-                  All Wazwan restaurants in Srinagar
-                </Link>
-              </p>
-            </>
-          ) : dish.restaurants?.length ? (
-            <ul className={styles.rows}>
-              {dish.restaurants.map((restaurant) => (
-                <li key={restaurant._id || restaurant.name}>
-                  <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} prefetch={false} className={styles.rowLink}>
-                    <span>
-                      <span className={styles.rowName}>{restaurant.name}</span>
-                      {restaurant.location ? <span className={styles.rowMeta}>{restaurant.location}</span> : null}
-                    </span>
-                    <span className={styles.rowArrow}>
-                      <ArrowIcon />
-                    </span>
+                  </p>
+                </>
+              ) : dish.restaurants?.length ? (
+                <ul className={styles.rows}>
+                  {dish.restaurants.map((restaurant) => (
+                    <li key={restaurant._id || restaurant.name}>
+                      <Link href={`/restaurants/${restaurant.slug || restaurant._id}`} prefetch={false} className={styles.rowLink}>
+                        <span>
+                          <span className={styles.rowName}>{restaurant.name}</span>
+                          {restaurant.location ? <span className={styles.rowMeta}>{restaurant.location}</span> : null}
+                        </span>
+                        <span className={styles.rowArrow}>
+                          <ArrowIcon />
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={styles.text}>
+                  No restaurant on Wazwan Way lists {dish.name} yet.{" "}
+                  <Link href="/restaurants" prefetch={false} className="text-[#c9a063] underline underline-offset-4">
+                    Browse restaurants
                   </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className={styles.text}>
-              No restaurant on Wazwan Way lists {dish.name} yet.{" "}
-              <Link href="/restaurants" prefetch={false} className="text-[#c9a063] underline underline-offset-4">
-                Browse restaurants
-              </Link>
-            </p>
-          )}
-        </section>
+                </p>
+              )}
+            </section>
+          ) : null}
 
-        <DishNotes dishName={dish.name} notes={notes} id="about" />
-      </div>
+          <DishNotes dishName={dish.name} notes={notes} id="about" />
+        </div>
+      ) : null}
 
       {hasRecipe ? (
         <div className={`${styles.body} ${styles.recipeBody}`}>

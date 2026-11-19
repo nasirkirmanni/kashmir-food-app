@@ -4,6 +4,8 @@ import fs from "fs";
 import path from "path";
 import { dishCategoryLabel, sanitizeDish } from "@/lib/dishContent";
 import { applyRecipeRevision } from "@/lib/recipeRevisions";
+import { addedDish } from "@/lib/addedDishes";
+import { ADDED_DISH_SLUGS } from "@/data/addedDishIndex";
 import { resolveContentPhoto } from "@/lib/contentImages";
 import { toMetaDescription } from "@/lib/metaText";
 import { DISH_SNIPPETS } from "@/data/dishSnippets";
@@ -24,6 +26,8 @@ function slugToName(slug) {
 }
 
 export async function generateStaticParams() {
+  // Dishes written in the frontend (data/addedDishes.js) are always built, whatever the snapshot holds.
+  const added = ADDED_DISH_SLUGS.map((slug) => ({ slug }));
   try {
     const jsonPath = path.join(process.cwd(), "dishes-static-ids.json");
     if (fs.existsSync(jsonPath)) {
@@ -34,28 +38,34 @@ export async function generateStaticParams() {
         if (item.slug) paths.push({ slug: item.slug });
         if (item.id) paths.push({ slug: item.id });
       }
-      return paths;
+      return [...paths, ...added];
     }
   } catch (err) {
     console.error("Failed to read static IDs in generateStaticParams:", err);
   }
-  return [];
+  return added;
 }
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) throw new Error("Not found");
+    // A dish written in the frontend (lib/addedDishes.js) has no record to fetch.
+    let record = addedDish(params.slug);
+    if (!record) {
+      const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
+        next: { revalidate: 3600 },
+      });
+      if (!res.ok) throw new Error("Not found");
+      // A revised recipe first (lib/recipeRevisions.js), so its intro is the one the description can fall back on.
+      record = applyRecipeRevision(await res.json());
+    }
     // Seed-script boilerplate is dropped; the hand-written recipe intro stands in.
-    // A revised recipe first (lib/recipeRevisions.js), so its intro is the one the description can fall back on.
-    const dish = sanitizeDish(applyRecipeRevision(await res.json()));
+    const dish = sanitizeDish(record);
     const categoryLabel = dishCategoryLabel(dish.category);
 
-    // " | Wazwan Way" (13 characters) is appended by the layout template.
+    // " | Wazwan Way" (13 characters) is appended by the layout template. An added dish brings its
+    // own title: "Traditional" is not ours to say of a dish we know from one recipe.
     const fullTitle = `${dish.name}: Traditional ${categoryLabel}`;
-    const title = fullTitle.length <= 47 ? fullTitle : `${dish.name}: ${categoryLabel}`;
+    const title = dish.seoTitle || (fullTitle.length <= 47 ? fullTitle : `${dish.name}: ${categoryLabel}`);
     // A hand-written snippet where the cut-down page text lost clicks (data/dishSnippets.js);
     // otherwise the page text. One-line descriptions make thin snippets; the hand-written
     // recipe intro is fuller.
@@ -122,23 +132,26 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function DishDetailPage({ params }) {
-  let dish = null;
-  try {
-    const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
-      next: { revalidate: 3600 },
-    });
-    if (res.ok) {
-      // Cleaned here as well as in DishDetailClient, so the data sent for hydration matches the page.
-      dish = sanitizeDish(applyRecipeRevision(await res.json()));
-    } else if (res.status === 404) {
-      // The record genuinely doesn't exist — return a real 404, not a stub.
-      // Network errors fall through to the client shell so a transient API
-      // outage never 404s a real dish.
-      notFound();
+  // A dish written in the frontend (lib/addedDishes.js) is rendered from its own record.
+  let dish = sanitizeDish(addedDish(params.slug)) || null;
+  if (!dish) {
+    try {
+      const res = await fetch(`${API_BASE}/api/dishes/${params.slug}`, {
+        next: { revalidate: 3600 },
+      });
+      if (res.ok) {
+        // Cleaned here as well as in DishDetailClient, so the data sent for hydration matches the page.
+        dish = sanitizeDish(applyRecipeRevision(await res.json()));
+      } else if (res.status === 404) {
+        // The record genuinely doesn't exist — return a real 404, not a stub.
+        // Network errors fall through to the client shell so a transient API
+        // outage never 404s a real dish.
+        notFound();
+      }
+    } catch (err) {
+      if (err?.digest === "NEXT_NOT_FOUND") throw err;
+      console.error("Failed to fetch dish on server side:", err);
     }
-  } catch (err) {
-    if (err?.digest === "NEXT_NOT_FOUND") throw err;
-    console.error("Failed to fetch dish on server side:", err);
   }
 
   // The seven essentials carry their identity and their story in the Recipe schema. Where to eat it
@@ -146,7 +159,7 @@ export default async function DishDetailPage({ params }) {
   return (
     <DishDetailClient
       initialDish={dish}
-      entity={dishEntity(dish.slug)}
+      entity={dishEntity(dish?.slug || params.slug)}
       srinagarPlaces={restaurantsForDish(dish?.slug || params.slug)}
     />
   );

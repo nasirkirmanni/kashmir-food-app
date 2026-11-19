@@ -181,7 +181,7 @@ function RecipeCard({ card }) {
           {card.essential ? <span className={styles.kickerNote}> · One of the seven</span> : null}
         </p>
         <h3 className={styles.name}>{card.name}</h3>
-        {card.kashmiriName ? <p className={styles.kname}>{card.kashmiriName}</p> : null}
+        {card.kashmiriName || card.gloss ? <p className={styles.kname}>{card.kashmiriName || card.gloss}</p> : null}
         {card.meta.length ? (
           <p className={styles.meta}>
             {card.meta.map(([term, value]) => (

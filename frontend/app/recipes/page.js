@@ -3,12 +3,14 @@ import dishesData from "@/data/dishes.json";
 import JsonLd, { buildBreadcrumbSchema, buildSlugItemListSchema } from "@/components/JsonLd";
 import RecipeBrowser from "@/components/recipes/RecipeBrowser";
 import { buildRecipeIndex } from "@/lib/recipeIndex";
+import { addedDish, withAddedDishes } from "@/lib/addedDishes";
 import styles from "./recipes.module.css";
 
 /**
  * /recipes: every written recipe on the site as a cookbook index — on paper, in the site's Bodoni
  * and Inter, with the Wazwan dishes in serving order and the rest of the Kashmiri kitchen after
- * them. Each card carries the figures its recipe gives (prep, cook, serves, level) and opens the
+ * them. Each card carries the figures its recipe gives (prep, cook, serves, level; the recipes added
+ * from Dr Rukhsaar Sayeed's videos give few, so their cards show few) and opens the
  * recipe on the dish's own page. The list is rendered here on the server; the search box and
  * chips are the one client island (components/recipes/RecipeBrowser.js).
  */
@@ -25,15 +27,18 @@ async function fetchJson(path, timeout) {
   return res.json();
 }
 
-/** The live catalogue, or the committed dishes.json snapshot when the API can't be reached. */
+/**
+ * The live catalogue, or the committed dishes.json snapshot when the API can't be reached. Either
+ * way the dishes written in the frontend (lib/addedDishes.js) are added to it.
+ */
 async function loadCatalogue() {
   try {
     const records = await fetchJson("/api/dishes", 20_000);
     if (!Array.isArray(records) || records.length === 0) throw new Error("empty response");
-    return { dishes: records, live: true };
+    return { dishes: withAddedDishes(records), live: true };
   } catch (err) {
     console.error(`[recipes] /api/dishes unavailable (${err.message}); using dishes.json`);
-    return { dishes: dishesData, live: false };
+    return { dishes: withAddedDishes(dishesData), live: false };
   }
 }
 
@@ -42,7 +47,8 @@ async function loadCatalogue() {
  * card on the dated snapshot (data/recipeMeta.json), so a slow backend never blanks a figure.
  */
 async function loadDetails(dishes) {
-  const queue = dishes.filter((dish) => dish?.slug).map((dish) => dish.slug);
+  // An added dish is already its full record, and the API has nothing to send for it.
+  const queue = dishes.filter((dish) => dish?.slug && !addedDish(dish.slug)).map((dish) => dish.slug);
   const details = {};
   await Promise.all(
     Array.from({ length: 6 }, async () => {
@@ -66,7 +72,7 @@ async function loadIndex() {
 export async function generateMetadata() {
   const { count } = await loadIndex();
   const title = `${count} Kashmiri Recipes, Written Step by Step`;
-  const description = `${count} Kashmiri recipes with ingredients, steps and timings: the Wazwan dishes in serving order, then breads, street food, desserts and drinks.`;
+  const description = `${count} Kashmiri recipes with ingredients and steps: the Wazwan dishes in serving order, then other Kashmiri dishes, breads, street food, desserts and drinks.`;
   return {
     title,
     description,
@@ -102,8 +108,9 @@ export default async function RecipesPage() {
           <p className={styles.eyebrow}>Recipes</p>
           <h1 className={styles.title}>Kashmiri recipes, written step by step</h1>
           <p className={styles.lede}>
-            Every recipe on Wazwan Way, with its ingredients, steps and timings: the Wazwan dishes in the order
-            they reach the trami, then the breads, street food, desserts and drinks of the Kashmiri kitchen.
+            Every recipe on Wazwan Way, with its ingredients and steps: the Wazwan dishes in the order they
+            reach the trami, then the other dishes, breads, street food, desserts and drinks of the Kashmiri
+            kitchen.
           </p>
           <dl className={styles.facts}>
             <div className={styles.fact}>
@@ -115,7 +122,7 @@ export default async function RecipesPage() {
               <dd>{wazwanCount}</dd>
             </div>
             <div className={styles.fact}>
-              <dt>On each card</dt>
+              <dt>On most cards</dt>
               <dd className={styles.factText}>Prep time, serves, level</dd>
             </div>
           </dl>

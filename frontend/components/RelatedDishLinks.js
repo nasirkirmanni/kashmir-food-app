@@ -1,6 +1,7 @@
 import Link from "next/link";
 import dishesData from "@/data/dishes.json";
 import { dishSlugsForArticle } from "@/data/relatedReading";
+import { addedDishEntry } from "@/data/addedDishIndex";
 
 /**
  * "Dishes in this article" — links an article back to the dish pages it is about,
@@ -8,7 +9,8 @@ import { dishSlugsForArticle } from "@/data/relatedReading";
  */
 export default function RelatedDishLinks({ articlePath }) {
   const dishes = dishSlugsForArticle(articlePath)
-    .map((slug) => dishesData.find((dish) => dish.slug === slug))
+    // The catalogue snapshot, or the index of dishes written in the frontend.
+    .map((slug) => dishesData.find((dish) => dish.slug === slug) || addedDishEntry(slug))
     .filter(Boolean);
 
   if (dishes.length === 0) return null;
