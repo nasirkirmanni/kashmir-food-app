@@ -1,13 +1,21 @@
 import styles from "./dishPage.module.css";
-import { WAZA_SERIES } from "@/data/recipeRevisions";
+import { WAZA_SERIES } from "@/data/rukhsaarSayeed";
 
 /**
- * Who a rewritten recipe is based on (data/recipeRevisions.js): the credit, what we changed, and
- * links to the video, the reel where we have it, and her profile. Shown under the recipe on the
- * dish page; the Recipe markup names the same work as `isBasedOn`.
+ * Who a recipe, or a variation under it, is based on (data/recipeRevisions.js): the credit, what
+ * we changed, and links to each video, the reel where we have it, and her profile. Shown under the
+ * recipe on the dish page. The Recipe markup names the video as `isBasedOn` only where the recipe
+ * itself is hers.
  */
-export default function RecipeSource({ source }) {
-  if (!source?.url) return null;
+export default function RecipeSource({ source, variations = [] }) {
+  if (!source?.credit) return null;
+  // The recipe's own video first, then each variation's.
+  const videos = [source.url ? source : null, ...(variations || []).map((variation) => variation.source)].filter(Boolean);
+  // One row a link: each video, then its reel where we have confirmed it.
+  const links = videos.flatMap((video) => [
+    { href: video.url, label: `Watch “${video.title}” on YouTube (${video.publishedLabel})` },
+    ...(video.reel ? [{ href: video.reel, label: "The same recipe as an Instagram reel" }] : []),
+  ]);
   return (
     <aside className={styles.recipeSource} aria-labelledby="recipe-source-heading">
       <h3 id="recipe-source-heading" className={styles.eyebrow}>
@@ -18,18 +26,13 @@ export default function RecipeSource({ source }) {
       </p>
       {source.note ? <p>{source.note}</p> : null}
       <ul>
-        <li>
-          <a href={source.url} rel="noopener">
-            Watch “{source.title}” on YouTube ({source.publishedLabel})
-          </a>
-        </li>
-        {source.reel ? (
-          <li>
-            <a href={source.reel} rel="noopener">
-              The same recipe as an Instagram reel
+        {links.map((link) => (
+          <li key={link.href}>
+            <a href={link.href} rel="noopener">
+              {link.label}
             </a>
           </li>
-        ) : null}
+        ))}
         <li>
           <a href={WAZA_SERIES.instagram} rel="noopener">
             {WAZA_SERIES.author} on Instagram, {WAZA_SERIES.instagramHandle}

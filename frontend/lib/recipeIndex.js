@@ -47,9 +47,10 @@ export function formatMinutes(minutes) {
 export function recipeFigures(dish, detail) {
   // Each source counts only where it has a value: the full record, then the list's record, then the snapshot.
   const fromSnapshot = snapshot.dishes[dish?.slug] || {};
-  // A revised recipe's own figures (data/recipeRevisions.js) come last, as on the dish page.
+  // A revised recipe's own figures (data/recipeRevisions.js) come last, as on the dish page. They are
+  // not stripped: a revision that sets servings to "" withdraws a count that no longer fits.
   const revised = recipeRevisionFor(dish?.slug)?.recipe || {};
-  const r = { ...fromSnapshot, ...stripEmpty(dish?.recipe || {}), ...stripEmpty(detail?.recipe || {}), ...stripEmpty(revised) };
+  const r = { ...fromSnapshot, ...stripEmpty(dish?.recipe || {}), ...stripEmpty(detail?.recipe || {}), ...revised };
   const prep = positive(r.prepTimeMinutes);
   const cook = positive(r.cookTimeMinutes);
   const name = text(dish?.name) || "";
