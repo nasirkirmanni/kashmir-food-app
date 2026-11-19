@@ -310,7 +310,7 @@ Kashmiri hosts press food on their guests, and Onmanorama writes that Kashmiris 
 
 Sahapedia describes fatty ribs simmered in water with cardamom, cinnamon, ginger powder, garlic paste and cloves, then cut and fried in ghee until crisp and caramelised outside and succulent inside, a balance that earns a waza particular praise (${link("sahapedia", "Sahapedia")}).
 
-Other accounts differ on the liquid. Wikipedia has the ribs simmered in milk (${link("wikipedia-tabak-maaz", "Wikipedia")}), and Onmanorama describes them cooked in ghee and then simmered in yogurt until dry (${link("onmanorama", "Onmanorama")}). Our recipe below uses milk. A Srinagar chef told Deccan Chronicle that tabak maaz is deep-fried in ghee and that the chest gives "the required softness and taste" (${link("deccan-chronicle", "Deccan Chronicle")}).`,
+Other accounts differ on the liquid. Wikipedia has the ribs simmered in milk (${link("wikipedia-tabak-maaz", "Wikipedia")}), and Onmanorama describes them cooked in ghee and then simmered in yogurt until dry (${link("onmanorama", "Onmanorama")}). Our recipe below follows the wazas' method: water for the first boil, then the ribs' own stock. A Srinagar chef told Deccan Chronicle that tabak maaz is deep-fried in ghee and that the chest gives "the required softness and taste" (${link("deccan-chronicle", "Deccan Chronicle")}).`,
       },
       {
         title: "Tabak maaz and kabargah",
@@ -464,7 +464,7 @@ A published Kashmiri recipe for modur polav adds almonds, raisins, dried dates, 
         title: "How it tastes and looks",
         body: `The sources agree on a yogurt gravy with plenty of fresh coriander (${link("wikipedia-daniwal", "Wikipedia")}; ${link("outlook-diplomacy", "Outlook India")}). None of them mentions chilli, and none describes the colour. Wikipedia's Wazwan article describes lamb roasted with yogurt, spices and onion purée, topped with coriander leaves (${link("wikipedia-wazwan", "Wikipedia")}).
 
-Our recipe below keeps the gravy pale, adds the coriander twice, once to cook into the gravy and once fresh at the end, and uses black pepper for warmth; turmeric is optional.`,
+Our recipe below follows a waza's version, credited with the recipe: the curd is boiled before it goes in, the gravy takes turmeric, dry ginger and saffron, and the coriander is added fresh before serving.`,
       },
     ],
     // The corrected history paragraph cites these too.

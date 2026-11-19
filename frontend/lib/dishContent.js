@@ -11,6 +11,7 @@
  */
 
 import DISH_TEXT_CORRECTIONS from "../data/dishTextCorrections.json";
+import { recipeRevisionFor } from "../data/recipeRevisions";
 
 // Distinctive phrases from the seed template (compare
 // backend/src/scripts/merge_duplicate_dishes.js BOILER).
@@ -64,10 +65,22 @@ function applyTextCorrections(dish) {
   return corrected;
 }
 
-/** Returns a copy of the dish with known-wrong text corrected and generated boilerplate fields emptied. */
+/**
+ * A Wazwan recipe rewritten to the waza's method (data/recipeRevisions.js) is laid over the stored
+ * one, field by field: what the revision gives replaces the record's, the rest stays. The recipe
+ * then carries the date it was revised and the work it is based on (`basedOn`), which the page
+ * credits and the Recipe markup names. A dish without a stored recipe is left alone.
+ */
+export function applyRecipeRevision(dish) {
+  const revision = recipeRevisionFor(dish?.slug);
+  if (!revision || !dish.recipe) return dish;
+  return { ...dish, recipe: { ...dish.recipe, ...revision.recipe, reviewedAt: revision.revised, basedOn: revision.source } };
+}
+
+/** Returns a copy of the dish with known-wrong text corrected, its recipe revision applied and generated boilerplate fields emptied. */
 export function sanitizeDish(dish) {
   if (!dish) return dish;
-  const record = applyTextCorrections(dish);
+  const record = applyRecipeRevision(applyTextCorrections(dish));
   const intro = realText(record.recipe?.intro);
   const description = realText(record.description) || intro;
   return {

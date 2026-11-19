@@ -4,6 +4,7 @@ import { blogPosts } from "../data/blogPosts";
 import { DESTINATION_PROFILES } from "../data/destinationProfiles";
 import { DISH_NOTES } from "../data/dishNotes";
 import { PILLAR_REVIEWED } from "../data/wazwanPillar";
+import { recipeRevisionFor } from "../data/recipeRevisions";
 import { wazwanGuides } from "../data/wazwanGuides";
 import { sanitizeDestination } from "./destinationContent";
 import {
@@ -48,9 +49,12 @@ describe("page dates", () => {
   it("give a dish page its sourced notes' review date, or the last change to every dish page", () => {
     const july = "2026-07-16T10:00:00.000Z";
     // A dish page that lists Srinagar restaurants (lib/srinagarRestaurants.js) changed with the directory.
+    // A recipe rewritten to the waza's method (data/recipeRevisions.js) is the page's latest change.
     for (const slug of Object.keys(DISH_NOTES)) {
-      expect(dishLastModified({ slug, updatedAt: july }), slug).toBe(restaurantsForDish(slug).length ? DIRECTORY_UPDATED : "2026-10-12");
+      const expected = latestContentDate(recipeRevisionFor(slug)?.revised, restaurantsForDish(slug).length ? DIRECTORY_UPDATED : "2026-10-12");
+      expect(dishLastModified({ slug, updatedAt: july }), slug).toBe(expected);
     }
+    expect(dishLastModified({ slug: "rogan-josh", updatedAt: july })).toBe(recipeRevisionFor("rogan-josh").revised);
     expect(dishLastModified({ slug: "kashmiri-kulcha", updatedAt: july })).toBe(DISH_PAGES_REVISED);
     // A later edit to the record itself wins.
     expect(dishLastModified({ slug: "kashmiri-kulcha", updatedAt: "2026-11-02T08:00:00.000Z" })).toBe("2026-11-02");
