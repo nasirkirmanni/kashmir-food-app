@@ -12,6 +12,7 @@ import { isPlaceholderImage, resolveContentImage } from "./contentImages";
 import { ESSENTIAL_SLUGS, arrangeWazwan } from "./wazwanSequence";
 import { searchText } from "./recipeSearch";
 import snapshot from "../data/recipeMeta.json";
+import { recipeRevisionFor } from "../data/recipeRevisions";
 
 // The page's sections, in reading order. Keys match the chips in lib/recipeFilters.js; categories
 // are the catalogue's. The Wazwan section follows the serving order of /dishes; the rest are
@@ -46,7 +47,9 @@ export function formatMinutes(minutes) {
 export function recipeFigures(dish, detail) {
   // Each source counts only where it has a value: the full record, then the list's record, then the snapshot.
   const fromSnapshot = snapshot.dishes[dish?.slug] || {};
-  const r = { ...fromSnapshot, ...stripEmpty(dish?.recipe || {}), ...stripEmpty(detail?.recipe || {}) };
+  // A revised recipe's own figures (data/recipeRevisions.js) come last, as on the dish page.
+  const revised = recipeRevisionFor(dish?.slug)?.recipe || {};
+  const r = { ...fromSnapshot, ...stripEmpty(dish?.recipe || {}), ...stripEmpty(detail?.recipe || {}), ...stripEmpty(revised) };
   const prep = positive(r.prepTimeMinutes);
   const cook = positive(r.cookTimeMinutes);
   const name = text(dish?.name) || "";

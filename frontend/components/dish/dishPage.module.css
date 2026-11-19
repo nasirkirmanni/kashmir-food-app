@@ -418,6 +418,42 @@
   color: var(--dp-ink);
 }
 
+/* Who a rewritten recipe is based on: credit, what we changed, links out. */
+.recipeSource {
+  margin-top: 36px;
+  padding: 18px 20px 14px;
+  border: 1px solid var(--dp-line);
+  border-radius: 14px;
+  max-width: 72ch;
+}
+
+.recipeSource p {
+  margin-top: 8px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--dp-text);
+}
+
+.recipeSource ul {
+  margin-top: 8px;
+}
+
+.recipeSource li {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--dp-text);
+}
+
+/* Each link is its own row, tall enough for a thumb. */
+.recipeSource a {
+  display: inline-block;
+  padding: 8px 0;
+  color: var(--dp-gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 160, 99, 0.45);
+  text-underline-offset: 3px;
+}
+
 /* Rows that lead somewhere: restaurants, further reading. */
 .rows {
   margin-top: 18px;

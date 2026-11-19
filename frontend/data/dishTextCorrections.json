@@ -19,6 +19,11 @@
       "field": "recipe.servingSuggestions",
       "from": "a November-to-March pleasure",
       "to": "a winter pleasure, from late autumn to March"
+    },
+    {
+      "field": "recipe.ingredients",
+      "from": " (some makers use rice flour or a rice-and-wheat mix — see flags)",
+      "to": " (some makers use rice flour or a rice-and-wheat mix)"
     }
   ],
   "yakhni": [
@@ -87,6 +92,11 @@
       "field": "recipe.significance",
       "from": "onion-tomato gravies, heavy yogurt marinades, and ratanjot root for colour are all shortcuts of the restaurant trade",
       "to": "onion-tomato gravies and heavy yogurt marinades are shortcuts of the restaurant trade (ratan jot, by contrast, is the traditional colouring of the Pandit version)"
+    },
+    {
+      "field": "recipe.ingredients",
+      "from": "2 tbsp plain whole-milk yogurt, whisked (optional — see flags)",
+      "to": "2 tbsp plain whole-milk yogurt, whisked (optional)"
     }
   ],
   "rista": [
@@ -163,6 +173,11 @@
       "field": "recipe.significance",
       "from": ", and 'Tabak Maaz' for ribs finished slowly between sealed clay plates (tabaq) over embers; that clay-plate finish, which likely gave the dish its name, is now rare even in Kashmir.",
       "to": "."
+    },
+    {
+      "field": "fullDescription",
+      "from": "by simmering ribs in milk and spices before",
+      "to": "by simmering ribs until tender, in their own stock in the wazas' kitchens and in milk in others, before"
     }
   ],
   "kabargah": [
@@ -249,6 +264,16 @@
       "field": "image",
       "from": "/images/dishes/dish-placeholder.webp",
       "to": "/images/dishes/kashmiri-pulao.jpg"
+    },
+    {
+      "field": "recipe.ingredients",
+      "from": "200-250 g sugar (see flags — traditional feast versions run much sweeter)",
+      "to": "200-250 g sugar (traditional feast versions run much sweeter)"
+    },
+    {
+      "field": "recipe.commonMistakes",
+      "from": " (unless that is the intent — see flags)",
+      "to": " (unless that is the intent)"
     }
   ],
   "aab-gosht": [
@@ -303,6 +328,11 @@
       "field": "recipe.servingSuggestions",
       "from": "Served in the mid-sequence of the Wazwan as its spiciest course, deliberately placed among milder dishes. ",
       "to": ""
+    },
+    {
+      "field": "recipe.ingredients",
+      "from": "2 tbsp praan (shallot) paste, fried and ground — see flags",
+      "to": "2 tbsp praan (shallot) paste, fried and ground"
     }
   ],
   "daniwal-korma": [
@@ -330,6 +360,11 @@
       "field": "image",
       "from": "/images/dishes/dish-placeholder.webp",
       "to": "/images/dishes/daniwal-korma.jpg"
+    },
+    {
+      "field": "recipe.ingredients",
+      "from": "1/4 tsp turmeric (optional — see flags)",
+      "to": "1/4 tsp turmeric (optional)"
     }
   ],
   "bakerkhani": [
@@ -365,6 +400,41 @@
       "field": "image",
       "from": "/images/dishes/dish-placeholder.webp",
       "to": "/images/dishes/tosha.jpg"
+    }
+  ],
+  "masala-tsot": [
+    {
+      "field": "recipe.ingredients",
+      "from": ", soaked overnight — some versions use yellow split peas; see flags",
+      "to": ", soaked overnight (some versions use yellow split peas)"
+    }
+  ],
+  "muji-chetin": [
+    {
+      "field": "recipe.ingredients",
+      "from": "2 tbsp walnuts, toasted and roughly crushed (optional — see flags)",
+      "to": "2 tbsp walnuts, toasted and roughly crushed (optional)"
+    }
+  ],
+  "mutton-tujji": [
+    {
+      "field": "recipe.ingredients",
+      "from": " (some Khayam stalls marinate without curd — see flags)",
+      "to": " (some Khayam stalls marinate without curd)"
+    }
+  ],
+  "phirni": [
+    {
+      "field": "recipe.ingredients",
+      "from": " for the Kashmiri Kong Phirin variant — see flags)",
+      "to": " for the Kashmiri Kong Phirin variant)"
+    }
+  ],
+  "sheermal": [
+    {
+      "field": "recipe.ingredients",
+      "from": " (some versions use baking powder instead — see flags)",
+      "to": " (some versions use baking powder instead)"
     }
   ]
 }

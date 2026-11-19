@@ -161,6 +161,19 @@ export function buildRecipeSchema(dish, { about } = {}) {
     ...(r.servings && { recipeYield: String(r.servings) }),
     // The dish the recipe is for, as an entity: its identity elsewhere and the story about it.
     ...(about && { about }),
+    // A recipe rewritten from someone's published recipe says so, as the page does (RecipeSource).
+    // A plain CreativeWork: a VideoObject here would ask Google for a thumbnail and upload date we
+    // have no business supplying for someone else's video.
+    // Not where only a variation on the page comes from it (waza palak).
+    ...(r.basedOn?.url && r.basedOn.scope !== "variation" && {
+      isBasedOn: {
+        "@type": "CreativeWork",
+        name: r.basedOn.title,
+        url: r.basedOn.url,
+        ...(r.basedOn.published && { datePublished: r.basedOn.published }),
+        author: { "@type": "Person", name: "Rukhsaar Sayeed" },
+      },
+    }),
     // Google-required for Recipe rich results — emitted as soon as the dish
     // record carries authored recipe data.
     ...(Array.isArray(ingredients) &&

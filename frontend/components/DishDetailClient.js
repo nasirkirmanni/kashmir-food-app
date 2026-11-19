@@ -14,6 +14,7 @@ import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import DishNotes from "@/components/DishNotes";
 import { resolveContentPhoto } from "@/lib/contentImages";
 import { sanitizeDish } from "@/lib/dishContent";
+import RecipeSource from "@/components/dish/RecipeSource";
 import { relatedReadingForDish } from "@/data/relatedReading";
 import { dishNotesFor } from "@/data/dishNotes";
 import { coreSevenStoryForDish } from "@/data/coreSevenSeries";
@@ -527,6 +528,16 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
                     <p className={styles.text}>{recipe.homeAdaptation}</p>
                   </>
                 ) : null}
+                {recipe.variation?.paragraphs?.length ? (
+                  <>
+                    <h3 className={styles.subTitle}>{recipe.variation.title}</h3>
+                    {recipe.variation.paragraphs.map((paragraph) => (
+                      <p key={paragraph.slice(0, 32)} className={styles.text}>
+                        {paragraph}
+                      </p>
+                    ))}
+                  </>
+                ) : null}
                 {recipe.servingSuggestions ? (
                   <>
                     <h3 className={styles.subTitle}>Serving</h3>
@@ -535,6 +546,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
                 ) : null}
               </div>
             </div>
+            <RecipeSource source={recipe.basedOn} />
           </section>
         </div>
       ) : null}

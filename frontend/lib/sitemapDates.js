@@ -9,6 +9,7 @@
 
 import { dishNotesFor } from "../data/dishNotes";
 import { DIRECTORY_UPDATED } from "../data/srinagarRestaurants";
+import { recipeRevisionFor } from "../data/recipeRevisions";
 import { parseContentDate } from "./contentDate";
 import { WAZWAN_NEARBY_DESTINATIONS, restaurantsForDish } from "./srinagarRestaurants";
 
@@ -28,7 +29,7 @@ export function latestContentDate(...values) {
 }
 
 /**
- * A dish page: its record, its recipe review, its sourced notes, the Srinagar directory if the page
+ * A dish page: its record, its recipe review or revision, its sourced notes, the Srinagar directory if the page
  * lists restaurants from it, or the last change to every dish page.
  */
 export function dishLastModified(dish) {
@@ -36,6 +37,7 @@ export function dishLastModified(dish) {
     dish?.updatedAt,
     dish?.recipe?.reviewedAt,
     dishNotesFor(dish?.slug)?.reviewed,
+    recipeRevisionFor(dish?.slug)?.revised,
     restaurantsForDish(dish?.slug).length ? DIRECTORY_UPDATED : undefined,
     DISH_PAGES_REVISED
   );

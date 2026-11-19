@@ -20,11 +20,17 @@ export const DISH_SNIPPETS = {
   "methi-maaz":
     "Methi maaz: tripe cooked with dried fenugreek leaves and spices, served early in the Wazwan with the tabak maaz. Its history, where to eat it and the recipe.",
   "tabak-maaz":
-    "Tabak maaz: lamb ribs simmered in spiced milk, then fried in ghee until crisp. First on the trami at a Wazwan. Its history, where to eat it and the recipe.",
+    "Tabak maaz: lamb ribs simmered tender in their own stock, then fried in ghee until crisp. First on the trami at a Wazwan. Its history and the wazas' recipe.",
   kabargah:
     "Kabargah: mutton ribs simmered in milk with fennel and cardamom, then batter-fried in ghee. The Kashmiri Pandit name for tabak maaz: history and recipe.",
   "kashmiri-harissa":
     "Harissa: Srinagar's winter breakfast of mutton and rice cooked overnight to a smooth paste, sold mornings in the old city from late autumn to March.",
   "kashmiri-kulcha":
     "Kashmiri kulcha: a small, hard, crumbly biscuit topped with poppy seeds, baked by the kandur and dipped in noon chai. Sweet and savoury kinds, and the recipe.",
+  // Added 19 November 2026 with their rewritten recipes (data/recipeRevisions.js): the new opening
+  // lines run past 158 characters, and a cut-off sentence is what this file exists to prevent.
+  "rogan-josh":
+    "Rogan josh: Kashmiri mutton in a red gravy of chilli water, fried shallots and ghee, one of a Wazwan's seven essentials. Its history and the wazas' recipe.",
+  "daniwal-korma":
+    "Daniwal korma: mutton in a curd gravy with turmeric, dry ginger and saffron, finished with fresh coriander. A Wazwan essential: history and the wazas' recipe.",
 };
