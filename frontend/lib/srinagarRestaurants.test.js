@@ -35,6 +35,7 @@ import {
 } from "./srinagarRestaurants";
 import { restaurantSchema } from "./restaurantSchema";
 import { dishLastModified, destinationLastModified } from "./sitemapDates";
+import { recipeRevisionFor } from "../data/recipeRevisions";
 
 // The Srinagar directory publishes research: these tests keep it to what the research found.
 
@@ -238,8 +239,10 @@ describe("the directory", () => {
   });
 
   it("dates the dish and destination pages that gained its links", () => {
-    expect(dishLastModified({ slug: "rista" })).toBe(DIRECTORY_UPDATED);
-    expect(dishLastModified({ slug: "noon-chai" })).toBe("2026-10-12");
+    // A dish whose page lists places is dated by the directory, unless its recipe was revised later.
+    expect(dishLastModified({ slug: "kabargah" })).toBe(restaurantsForDish("kabargah").length ? DIRECTORY_UPDATED : "2026-10-12");
+    expect(dishLastModified({ slug: "rista" })).toBe([recipeRevisionFor("rista").revised, DIRECTORY_UPDATED].sort().at(-1));
+    expect(dishLastModified({ slug: "sheermal" })).toBe("2026-10-12");
     expect(destinationLastModified({ slug: "srinagar" })).toBe(DIRECTORY_UPDATED);
     const nearby = readFileSync(join(FRONTEND, "components/restaurants/WazwanNearby.js"), "utf8");
     for (const slug of WAZWAN_NEARBY_DESTINATIONS) expect(nearby).toContain(`${slug.includes("-") ? `"${slug}"` : slug}: {`);

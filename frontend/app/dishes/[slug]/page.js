@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import { dishCategoryLabel, sanitizeDish } from "@/lib/dishContent";
+import { applyRecipeRevision } from "@/lib/recipeRevisions";
 import { resolveContentPhoto } from "@/lib/contentImages";
 import { toMetaDescription } from "@/lib/metaText";
 import { DISH_SNIPPETS } from "@/data/dishSnippets";
@@ -48,7 +49,8 @@ export async function generateMetadata({ params }) {
     });
     if (!res.ok) throw new Error("Not found");
     // Seed-script boilerplate is dropped; the hand-written recipe intro stands in.
-    const dish = sanitizeDish(await res.json());
+    // A revised recipe first (lib/recipeRevisions.js), so its intro is the one the description can fall back on.
+    const dish = sanitizeDish(applyRecipeRevision(await res.json()));
     const categoryLabel = dishCategoryLabel(dish.category);
 
     // " | Wazwan Way" (13 characters) is appended by the layout template.
@@ -127,7 +129,7 @@ export default async function DishDetailPage({ params }) {
     });
     if (res.ok) {
       // Cleaned here as well as in DishDetailClient, so the data sent for hydration matches the page.
-      dish = sanitizeDish(await res.json());
+      dish = sanitizeDish(applyRecipeRevision(await res.json()));
     } else if (res.status === 404) {
       // The record genuinely doesn't exist — return a real 404, not a stub.
       // Network errors fall through to the client shell so a transient API

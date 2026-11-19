@@ -102,7 +102,10 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
     setLoading(true);
     setError(null);
     request(endpoints.dish(params.slug))
-      .then((data) => {
+      .then(async (data) => {
+        // The server normally sends the dish with its recipe revision applied; here we fetched it ourselves.
+        const { applyRecipeRevision } = await import("@/lib/recipeRevisions");
+        data = applyRecipeRevision(data);
         setDish(data);
         if (/^[0-9a-fA-F]{24}$/.test(params.slug) && data.slug) router.replace(`/dishes/${data.slug}`);
       })
@@ -485,7 +488,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
                 </ul>
                 {recipe.wazaTips?.length ? (
                   <div className={styles.callout}>
-                    <h3 className={styles.eyebrow}>Waza tips</h3>
+                    <h3 className={styles.eyebrow}>{recipe.tipsTitle || "Waza tips"}</h3>
                     <ul>
                       {recipe.wazaTips.map((tip) => (
                         <li key={tip}>{tip}</li>
@@ -528,16 +531,16 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
                     <p className={styles.text}>{recipe.homeAdaptation}</p>
                   </>
                 ) : null}
-                {recipe.variation?.paragraphs?.length ? (
-                  <>
-                    <h3 className={styles.subTitle}>{recipe.variation.title}</h3>
-                    {recipe.variation.paragraphs.map((paragraph) => (
+                {(recipe.variations || []).map((variation) => (
+                  <div key={variation.title}>
+                    <h3 className={styles.subTitle}>{variation.title}</h3>
+                    {variation.paragraphs.map((paragraph) => (
                       <p key={paragraph.slice(0, 32)} className={styles.text}>
                         {paragraph}
                       </p>
                     ))}
-                  </>
-                ) : null}
+                  </div>
+                ))}
                 {recipe.servingSuggestions ? (
                   <>
                     <h3 className={styles.subTitle}>Serving</h3>
@@ -546,7 +549,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
                 ) : null}
               </div>
             </div>
-            <RecipeSource source={recipe.basedOn} />
+            <RecipeSource source={recipe.basedOn} variations={recipe.variations} />
           </section>
         </div>
       ) : null}

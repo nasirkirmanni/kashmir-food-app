@@ -67,20 +67,27 @@ describe("the recipe snapshot", () => {
 
 describe("recipeFigures", () => {
   it("takes timings from the snapshot when the list record has none", () => {
-    const f = recipeFigures(catalogue[1]);
-    expect(f.prep).toBe(snapshot.dishes.rista.prepTimeMinutes);
-    expect(f.cook).toBe(snapshot.dishes.rista.cookTimeMinutes);
+    const f = recipeFigures(catalogue[0]);
+    expect(f.prep).toBe(snapshot.dishes.gushtaba.prepTimeMinutes);
+    expect(f.cook).toBe(snapshot.dishes.gushtaba.cookTimeMinutes);
     expect(f.total).toBe(f.prep + f.cook);
     expect(f.serves).toBe("4"); // the live record's servings win
     expect(f.level).toBe("Moderate");
   });
   it("lets a full live record override the snapshot, but not with empty values", () => {
-    const detail = { recipe: { prepTimeMinutes: 99, cookTimeMinutes: "", difficulty: null, kashmiriName: "Rista" } };
-    const f = recipeFigures(catalogue[1], detail);
+    const detail = { recipe: { prepTimeMinutes: 99, cookTimeMinutes: "", difficulty: null, kashmiriName: "Gushtaba" } };
+    const f = recipeFigures(catalogue[0], detail);
     expect(f.prep).toBe(99);
-    expect(f.cook).toBe(snapshot.dishes.rista.cookTimeMinutes);
+    expect(f.cook).toBe(snapshot.dishes.gushtaba.cookTimeMinutes);
     expect(f.level).toBe("Moderate");
     expect(f.kashmiriName).toBeNull(); // same as the dish name, so not repeated
+  });
+  it("lets a recipe revision's figures win, and withdraw a serving count", () => {
+    // Rista follows Dr Sayeed's home recipe (data/recipeRevisions.js): its own times, no serving count.
+    const f = recipeFigures(catalogue[1], { recipe: { prepTimeMinutes: 99, servings: "4–6" } });
+    expect(f.prep).toBe(90);
+    expect(f.cook).toBe(30);
+    expect(f.serves).toBeNull();
   });
   it("knows nothing about a dish outside the snapshot", () => {
     const f = recipeFigures({ slug: "new-dish", name: "New Dish", recipe: { servings: "2" } });
@@ -121,12 +128,15 @@ describe("buildRecipeIndex", () => {
   });
 
   it("builds each card from the record and the snapshot", () => {
+    const gushtaba = index.sections[0].cards.find((c) => c.slug === "gushtaba");
+    expect(gushtaba).toMatchObject({ href: "/dishes/gushtaba#recipe", category: "Wazwan", essential: true, kashmiriName: null });
+    expect(gushtaba).not.toHaveProperty("figures");
+    expect(gushtaba.photo).toBe(PHOTO);
+    expect(gushtaba.meta.map(([term]) => term)).toEqual(["Prep", "Cook", "Serves", "Level"]);
+    expect(gushtaba.search).toContain("gushtaba");
+    // Rista's revised recipe gives no serving count, so its card shows none.
     const rista = index.sections[0].cards.find((c) => c.slug === "rista");
-    expect(rista).toMatchObject({ href: "/dishes/rista#recipe", category: "Wazwan", essential: true, kashmiriName: null });
-    expect(rista).not.toHaveProperty("figures");
-    expect(rista.photo).toBe(PHOTO);
-    expect(rista.meta.map(([term]) => term)).toEqual(["Prep", "Cook", "Serves", "Level"]);
-    expect(rista.search).toContain("rista");
+    expect(rista.meta.map(([term]) => term)).toEqual(["Prep", "Cook", "Level"]);
     const lavas = index.sections[1].cards.find((c) => c.slug === "lavas");
     expect(lavas.essential).toBe(false);
   });

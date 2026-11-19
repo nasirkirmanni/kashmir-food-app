@@ -98,8 +98,10 @@ describe("the sitemap", () => {
   it("dates the pages changed this month from their own content", async () => {
     const dates = await offlineSitemap();
     expect(dates.get("/dishes")).toBe(latestContentDate(PILLAR_REVIEWED));
-    expect(dates.get("/dishes/rista")).toBe(DIRECTORY_UPDATED);
-    expect(dates.get("/dishes/noon-chai")).toBe("2026-10-12");
+    // Rista and noon chai follow Dr Sayeed's recipes since 19 November (data/recipeRevisions.js).
+    expect(dates.get("/dishes/rista")).toBe(latestContentDate(recipeRevisionFor("rista").revised, DIRECTORY_UPDATED));
+    expect(dates.get("/dishes/noon-chai")).toBe(recipeRevisionFor("noon-chai").revised);
+    expect(dates.get("/dishes/kabargah")).toBe(latestContentDate(restaurantsForDish("kabargah").length ? DIRECTORY_UPDATED : undefined, "2026-10-12"));
     expect(dates.get("/restaurants")).toBe(DIRECTORY_UPDATED);
     expect(dates.get("/restaurants/kareema")).toBe(DIRECTORY_UPDATED);
     expect(dates.get("/restaurants/mughal-darbar")).toBe(DIRECTORY_UPDATED);
