@@ -1,8 +1,7 @@
 /**
- * Dishes that have a page but no record in the dish database: the recipes of Dr Rukhsaar Sayeed's
- * that match no dish we already had (data/addedDishIndex.js for who they are, data/addedDishes.js
- * for the page). Each is turned here into a record of the same shape the API sends, so the dish
- * page, /recipes and the sitemap treat it like any other dish.
+ * Dishes that have a page but no record in the dish database (data/addedDishIndex.js for who they
+ * are, data/addedDishes.js for the page). Each is turned here into a record of the same shape the
+ * API sends, so the dish page, /recipes and the sitemap treat it like any other dish.
  *
  * Server-side only: this file carries every added recipe, so client components must not import it.
  * They use data/addedDishIndex.js (search, article links) or are handed the record as a prop.
@@ -10,7 +9,7 @@
  * An added dish stands in for any database record with the same slug until its entry is deleted.
  */
 import { ADDED_DISH_INDEX } from "../data/addedDishIndex";
-import { ADDED_DISH_PAGES, ADDED_ON } from "../data/addedDishes";
+import { ADDED_DISH_PAGES, ADDED_ON, UPDATED_ON } from "../data/addedDishes";
 
 function toRecord(entry) {
   const page = ADDED_DISH_PAGES[entry.slug];
@@ -26,7 +25,7 @@ function toRecord(entry) {
     // No photograph yet, so no Recipe markup either (components/JsonLd.js).
     image: null,
     createdAt: ADDED_ON,
-    updatedAt: ADDED_ON,
+    updatedAt: UPDATED_ON,
     seoTitle: page.seoTitle,
     // Nothing in the database: no id to save to a profile, and no restaurant list to show.
     recipeOnly: true,
@@ -35,8 +34,8 @@ function toRecord(entry) {
       altSpellings: entry.also || [],
       ...(page.tradition && { tradition: page.tradition }),
       ...page.recipe,
-      reviewedAt: ADDED_ON,
-      basedOn: page.source,
+      reviewedAt: UPDATED_ON,
+      ...(page.note && { note: page.note }),
     },
   };
 }

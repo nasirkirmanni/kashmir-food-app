@@ -83,7 +83,7 @@ describe("recipeFigures", () => {
     expect(f.kashmiriName).toBeNull(); // same as the dish name, so not repeated
   });
   it("lets a recipe revision's figures win, and withdraw a serving count", () => {
-    // Rista follows Dr Sayeed's home recipe (data/recipeRevisions.js): its own times, no serving count.
+    // Rista is a revised home recipe (data/recipeRevisions.js): its own times, no serving count.
     const f = recipeFigures(catalogue[1], { recipe: { prepTimeMinutes: 99, servings: "4–6" } });
     expect(f.prep).toBe(90);
     expect(f.cook).toBe(30);

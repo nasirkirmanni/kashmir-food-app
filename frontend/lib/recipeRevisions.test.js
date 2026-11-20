@@ -1,10 +1,13 @@
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import dishes from "../data/dishes.json";
 import { blogPosts } from "../data/blogPosts";
 import DISH_TEXT_CORRECTIONS from "../data/dishTextCorrections.json";
 import { dishNotesFor } from "../data/dishNotes";
 import { DISH_SNIPPETS } from "../data/dishSnippets";
-import { RECIPE_REVISIONS, WAZA_SERIES, recipeRevisionFor } from "../data/recipeRevisions";
+import { RECIPE_REVISIONS, recipeRevisionFor } from "../data/recipeRevisions";
 import { buildRecipeSchema } from "../components/JsonLd";
 import { correctText, sanitizeDish } from "./dishContent";
 import { toMetaDescription } from "./metaText";
@@ -17,11 +20,12 @@ const entries = Object.entries(RECIPE_REVISIONS);
 const full = entries.filter(([, revision]) => revision.recipe.ingredients);
 const variationOnly = entries.filter(([, revision]) => !revision.recipe.ingredients);
 const today = new Date().toISOString().slice(0, 10);
-const YOUTUBE = /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/;
+// Nothing in a recipe points at a person or at where it was published.
+const UNNAMED = /\b(she|her|hers)\b|video|series|narration|channel|audition|\breels?\b|youtube|instagram|https?:/i;
 
-// The recipes a waza cooks in her Wazwan series, and her own home recipes.
-const WAZA_FILMED = ["aab-gosht", "daniwal-korma", "marchwangan-korma", "methi-maaz", "rogan-josh", "tabak-maaz"];
-const HER_HOME = ["basrakh", "dum-oluv", "kashmiri-harissa", "masala-tsot", "noon-chai", "phirni", "rista", "yakhni"];
+// The recipes that follow a waza's method, and the home recipes.
+const WAZA_METHOD = ["aab-gosht", "daniwal-korma", "marchwangan-korma", "methi-maaz", "rogan-josh", "tabak-maaz"];
+const HOME = ["basrakh", "dum-oluv", "kashmiri-harissa", "masala-tsot", "noon-chai", "phirni", "rista", "yakhni"];
 
 // A stored record as the API sends it: the old recipe a revision is laid over.
 const stored = (slug) => ({
@@ -51,18 +55,9 @@ const stored = (slug) => ({
 // What the server does before it renders a dish.
 const shown = (slug) => sanitizeDish(applyRecipeRevision(stored(slug)));
 
-function checkVideo(video, where) {
-  expect(video.url, where).toMatch(YOUTUBE);
-  expect(video.title.length, where).toBeGreaterThan(5);
-  expect(video.published, where).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-  // The label shown on the page is the same date.
-  expect(new Date(`${video.publishedLabel} UTC`).toISOString().slice(0, 10), where).toBe(video.published);
-  if (video.reel) expect(video.reel, where).toMatch(/^https:\/\/www\.instagram\.com\/reel\/[\w-]+\/$/);
-}
-
-// Our own prose in an entry: everything but the titles of her videos.
+// Every word of an entry that reaches the page.
 function ourWords(revision) {
-  const { recipe, source } = revision;
+  const { recipe, note } = revision;
   return [
     recipe.intro,
     ...(recipe.ingredients || []),
@@ -71,53 +66,44 @@ function ourWords(revision) {
     ...(recipe.commonMistakes || []),
     recipe.homeAdaptation,
     ...(recipe.variations || []).flatMap((variation) => [variation.title, ...variation.paragraphs]),
-    source.credit,
-    source.note,
+    note,
   ]
     .filter(Boolean)
     .join("\n");
 }
 
-describe("the recipes that follow hers", () => {
-  it("are for dishes in the catalogue, each dated and credited in our own words", () => {
-    expect(full.map(([slug]) => slug).sort()).toEqual([...WAZA_FILMED, ...HER_HOME].sort());
+describe("the revised recipes", () => {
+  it("are for dishes in the catalogue, each dated, and none says where it came from", () => {
+    expect(full.map(([slug]) => slug).sort()).toEqual([...WAZA_METHOD, ...HOME].sort());
     for (const [slug, revision] of entries) {
-      const { revised, source } = revision;
+      const { revised } = revision;
       expect(SLUGS.has(slug), slug).toBe(true);
       expect(revised, slug).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(revised <= today, `${slug} is dated in the future`).toBe(true);
-      expect(source.credit, slug).toContain("Dr Rukhsaar Sayeed");
-      expect(source.credit, slug).toContain("in our own words");
-      for (const link of source.also || []) expect(link.url, slug).toMatch(YOUTUBE);
+      // An entry is a date, a note for the cook where one is needed, and the recipe: no source, credit or link.
+      expect(Object.keys(revision).every((key) => ["revised", "note", "recipe"].includes(key)), slug).toBe(true);
+      for (const variation of revision.recipe.variations || []) expect(Object.keys(variation), variation.title).toEqual(["title", "paragraphs"]);
       const text = ourWords(revision);
       expect(text, slug).not.toMatch(/see flags|TODO|undefined|\s{2,}/i);
-      // The house spellings, and no brand from a sponsored video.
-      expect(text, slug).not.toMatch(/Rukhsar |Wazwaan|goshtab|kormé|Cannes|Tata /i);
+      // The house spellings, and no brand.
+      expect(text, slug).not.toMatch(/Wazwaan|goshtab|kormé|Cannes|Tata /i);
+      expect(text, slug).not.toMatch(UNNAMED);
     }
-    expect(WAZA_SERIES.instagram).toBe("https://www.instagram.com/masterchefrukhsaarsayeed/");
   });
 
-  it("name one video for each recipe and each variation, and no video twice as a recipe", () => {
-    const recipeVideos = new Set();
-    for (const [slug, { revised, source, recipe }] of full) {
-      checkVideo(source, slug);
-      expect(source.published <= revised, slug).toBe(true);
-      expect(source.scope, slug).toBeUndefined();
-      expect(recipeVideos.has(source.url), `${slug} shares a video`).toBe(false);
-      recipeVideos.add(source.url);
-      for (const variation of recipe.variations || []) if (variation.source) checkVideo(variation.source, `${slug}: ${variation.title}`);
+  it("carry a note only where the cook needs one, and only variations where the stored recipe stays", () => {
+    for (const [slug, { note }] of full) {
+      if (note === undefined) continue;
+      expect(note.length, slug).toBeGreaterThan(40);
+      expect(note, slug).toMatch(/\.$/);
     }
-    for (const [slug, { source, recipe }] of variationOnly) {
-      // Only the variations are hers, so the entry has no video of its own and says whose the recipe is.
-      expect(source.scope, slug).toBe("variation");
-      expect(source.url, slug).toBeUndefined();
-      expect(source.credit, slug).toMatch(/is our own and is not from her videos?\./);
+    expect(full.filter(([, revision]) => revision.note).map(([slug]) => slug).sort()).toEqual(
+      ["aab-gosht", "daniwal-korma", "kashmiri-harissa", "methi-maaz", "phirni", "rista", "rogan-josh", "tabak-maaz", "yakhni"]
+    );
+    for (const [slug, { note, recipe }] of variationOnly) {
+      expect(note, slug).toBeUndefined();
       expect(Object.keys(recipe), slug).toEqual(["variations"]);
       expect(recipe.variations.length, slug).toBeGreaterThanOrEqual(1);
-      for (const variation of recipe.variations) {
-        checkVideo(variation.source, `${slug}: ${variation.title}`);
-        expect(recipeVideos.has(variation.source.url), `${slug}: ${variation.title} repeats a recipe's video`).toBe(false);
-      }
     }
   });
 
@@ -131,9 +117,9 @@ describe("the recipes that follow hers", () => {
       expect(typeof recipe.homeAdaptation, slug).toBe("string");
       for (const line of [...recipe.ingredients, ...recipe.instructions]) expect(typeof line === "string" && line.trim() === line && line.length > 3, `${slug}: ${line}`).toBe(true);
     }
-    // Her home recipes are labelled as hers, not as a waza's.
-    for (const slug of HER_HOME) expect(RECIPE_REVISIONS[slug].recipe.tipsTitle, slug).toBe("Dr Sayeed's tips");
-    for (const slug of WAZA_FILMED) expect(RECIPE_REVISIONS[slug].recipe.tipsTitle, slug).toBeUndefined();
+    // A home recipe's tips are not labelled as a waza's.
+    for (const slug of HOME) expect(RECIPE_REVISIONS[slug].recipe.tipsTitle, slug).toBe("Tips");
+    for (const slug of WAZA_METHOD) expect(RECIPE_REVISIONS[slug].recipe.tipsTitle, slug).toBeUndefined();
   });
 
   it("write every variation as a title and two or three paragraphs", () => {
@@ -150,7 +136,7 @@ describe("the recipes that follow hers", () => {
     }
   });
 
-  it("cook the waza's way where a waza was filmed: boiled first, on the meat's own stock", () => {
+  it("cook the waza's way where the method is a waza's: boiled first, on the meat's own stock", () => {
     for (const slug of ["rogan-josh", "tabak-maaz", "marchwangan-korma", "daniwal-korma", "aab-gosht"]) {
       const { ingredients, instructions } = RECIPE_REVISIONS[slug].recipe;
       expect(instructions.slice(0, 2).join(" "), slug).toMatch(/boil/i);
@@ -159,16 +145,16 @@ describe("the recipes that follow hers", () => {
     expect(RECIPE_REVISIONS["rogan-josh"].recipe.ingredients.join(" ")).not.toMatch(/mustard oil|yogurt|fennel/i);
     expect(RECIPE_REVISIONS["tabak-maaz"].recipe.ingredients.join(" ")).not.toMatch(/milk|fennel/i);
     expect(RECIPE_REVISIONS["aab-gosht"].recipe.ingredients.join(" ")).not.toMatch(/chilli|turmeric/i);
-    // The fenugreek her written list leaves out and her narration adds.
+    // The fenugreek the dish is named for goes in last, and we have no amount for it.
     expect(RECIPE_REVISIONS["methi-maaz"].recipe.ingredients.at(-1)).toContain("fenugreek");
-    expect(RECIPE_REVISIONS["methi-maaz"].source.note).toContain("missing from her written list");
+    expect(RECIPE_REVISIONS["methi-maaz"].note).toContain("no measured amount for the dried fenugreek leaves");
   });
 
   it("say where a home recipe is a home recipe", () => {
-    expect(RECIPE_REVISIONS.rista.source.note).toContain("At a Wazwan the meat and fat are pounded by hand");
-    expect(RECIPE_REVISIONS.yakhni.source.note).toContain("home version");
-    expect(RECIPE_REVISIONS["kashmiri-harissa"].source.note).toContain("home version");
-    // A serving count is withdrawn where the stored one was for another quantity and she gives none.
+    expect(RECIPE_REVISIONS.rista.note).toContain("At a Wazwan the meat and fat are pounded by hand");
+    expect(RECIPE_REVISIONS.yakhni.note).toContain("home version");
+    expect(RECIPE_REVISIONS["kashmiri-harissa"].note).toContain("home version");
+    // A serving count is withdrawn where the stored one was for another quantity and none is given.
     for (const slug of ["rista", "yakhni", "noon-chai", "phirni", "basrakh"]) expect(RECIPE_REVISIONS[slug].recipe.servings, slug).toBe("");
   });
 
@@ -184,7 +170,7 @@ describe("the recipes that follow hers", () => {
 });
 
 describe("a revision on the page", () => {
-  it("replaces the stored recipe's fields, keeps the rest, and carries its date and source", () => {
+  it("replaces the stored recipe's fields, keeps the rest, and carries its date and its note", () => {
     for (const [slug, revision] of full) {
       const { recipe } = shown(slug);
       expect(recipe.ingredients, slug).toEqual(revision.recipe.ingredients);
@@ -192,7 +178,8 @@ describe("a revision on the page", () => {
       expect(recipe.intro, slug).toBe(revision.recipe.intro);
       expect(recipe.servingSuggestions, slug).toBe("Serve over rice.");
       expect(recipe.reviewedAt, slug).toBe(revision.revised);
-      expect(recipe.basedOn, slug).toBe(revision.source);
+      expect(recipe.note, slug).toBe(revision.note);
+      expect("basedOn" in recipe, slug).toBe(false);
       expect(JSON.stringify(recipe), slug).not.toContain("Old ");
     }
     expect(shown("aab-gosht").recipe.servings).toBe("4–5");
@@ -200,7 +187,7 @@ describe("a revision on the page", () => {
     expect(shown("rista").recipe.cookTimeMinutes).toBe(30);
   });
 
-  it("keeps the stored recipe where only a variation is hers", () => {
+  it("keeps the stored recipe where only a variation is added", () => {
     for (const [slug, revision] of variationOnly) {
       const { recipe } = shown(slug);
       expect(recipe.ingredients, slug).toEqual(stored(slug).recipe.ingredients);
@@ -208,10 +195,11 @@ describe("a revision on the page", () => {
       expect(recipe.wazaTips, slug).toEqual(["Old tip."]);
       expect(recipe.variations, slug).toBe(revision.recipe.variations);
       expect(recipe.reviewedAt, slug).toBe(revision.revised);
+      expect("note" in recipe, slug).toBe(false);
     }
     expect(shown("waza-palak").recipe.variations[0].paragraphs[1]).toContain("30 per cent");
     expect(shown("seekh-kebab").recipe.variations.map((v) => v.title)).toEqual([
-      "Without a grill or skewers: Dr Sayeed's home method",
+      "Without a grill or skewers: a home method",
       "Lahabi kabab, the boat-shaped kebab of the feast",
     ]);
   });
@@ -237,16 +225,11 @@ describe("a revision on the page", () => {
     expect(sanitizeDish(applyRecipeRevision(seeded)).description).toBe(RECIPE_REVISIONS.phirni.recipe.intro);
   });
 
-  it("names the video in the Recipe markup only where the recipe itself is hers", () => {
+  it("names no source in the Recipe markup", () => {
     for (const [slug, revision] of full) {
       const schema = buildRecipeSchema(shown(slug));
-      expect(schema.isBasedOn, slug).toEqual({
-        "@type": "CreativeWork",
-        name: revision.source.title,
-        url: revision.source.url,
-        datePublished: revision.source.published,
-        author: { "@type": "Person", name: "Rukhsaar Sayeed" },
-      });
+      expect(schema.isBasedOn, slug).toBeUndefined();
+      expect(JSON.stringify(schema), slug).not.toMatch(/youtube|instagram/i);
       expect(schema.recipeIngredient, slug).toEqual(revision.recipe.ingredients);
       expect(schema.recipeInstructions.map((step) => step.text), slug).toEqual(revision.recipe.instructions);
       expect(schema.dateModified, slug).toBe(revision.revised);
@@ -278,22 +261,20 @@ describe("a revision on the page", () => {
 describe("what else says how these dishes are cooked", () => {
   const story = (slug) => blogPosts.find((post) => post.slug === slug);
 
-  it("the tabak maaz story no longer says our recipe uses milk, and cites the filmed waza", () => {
+  it("the tabak maaz story no longer says our recipe uses milk, and cites nothing filmed", () => {
     const { content, updatedDate } = story("tabak-maaz-ribs-cooked-twice");
     expect(content).not.toContain("Our own [recipe](/dishes/tabak-maaz) uses milk.");
-    expect(content).toContain("Our own [recipe](/dishes/tabak-maaz) follows the wazas");
-    expect(content).toContain("([Rukhsaar Sayeed](https://www.youtube.com/watch?v=_E7zsxjzfcU))");
-    expect(content).toContain('- Rukhsaar Sayeed, ["Waza Style Tabakh Maaz"](https://www.youtube.com/watch?v=_E7zsxjzfcU)');
-    expect(updatedDate).toBe("November 19, 2026");
+    expect(content).toContain("Our own [recipe](/dishes/tabak-maaz) follows the wazas: water for the first boil and the ribs' own stock for the second.");
+    expect(content).not.toMatch(/youtube\.com|filmed/i);
+    expect(updatedDate).toBe("November 20, 2026");
   });
 
-  it("the daniwal korma story has the second step-by-step account, and our recipe adds the coriander once", () => {
+  it("the daniwal korma story keeps its one cited step-by-step account, and our recipe adds the coriander once", () => {
     const { content, updatedDate } = story("daniwal-korma-coriander");
-    expect(content).not.toContain("The one step-by-step account we have");
-    expect(content).toContain("A second was filmed at a wedding in 2026");
-    expect(content).toContain("adds it once, fresh, just before serving");
-    expect(content).toContain('- Rukhsaar Sayeed, ["Wazwan Dhaniwal Kormaé"](https://www.youtube.com/watch?v=rU_cLzGjpFc)');
-    expect(updatedDate).toBe("November 19, 2026");
+    expect(content).toContain("One step-by-step account comes from a chef's notes on cooking with a Gulmarg waza.");
+    expect(content).toContain("Our own [recipe](/dishes/daniwal-korma) adds it once, fresh, just before serving.");
+    expect(content).not.toMatch(/youtube\.com|filmed/i);
+    expect(updatedDate).toBe("November 20, 2026");
   });
 
   it("the dish notes describe the recipes as they now are", () => {
@@ -316,5 +297,36 @@ describe("what else says how these dishes are cooked", () => {
     }
     const flagged = Object.values(DISH_TEXT_CORRECTIONS).flat().filter((c) => /see flags/i.test(c.from));
     expect(flagged.length).toBe(11);
+  });
+});
+
+describe("the source of these recipes", () => {
+  // Its author asked not to be named (owner's instruction, 20 November 2026), so no file of the site
+  // may carry the name, the handle or the title. The pattern is put together from pieces so that
+  // this file does not carry them either.
+  const NAME = new RegExp([["ruk", "hsa+r"], ["master", "chef"], ["dr\\.? ", "say", "eed"], ["say", "eed's"]].map((parts) => parts.join("")).join("|"), "i");
+  const root = fileURLToPath(new URL("..", import.meta.url));
+  function* files(dir) {
+    for (const name of readdirSync(dir)) {
+      if (name === "node_modules" || name.startsWith(".")) continue;
+      const path = join(dir, name);
+      if (statSync(path).isDirectory()) yield* files(path);
+      else if (/\.(js|jsx|mjs|cjs|json|css|md|txt|xml|html)$/.test(name)) yield path;
+    }
+  }
+
+  it("is named nowhere in the site's code, text or public files", () => {
+    expect("Dr Say" + "eed's tips").toMatch(NAME);
+    const named = [];
+    for (const dir of ["app", "components", "context", "data", "hooks", "lib", "public", "scripts"]) {
+      for (const path of files(join(root, dir))) if (NAME.test(readFileSync(path, "utf8"))) named.push(path.slice(root.length));
+    }
+    expect(named).toEqual([]);
+  });
+
+  it("is linked from no recipe", () => {
+    for (const file of ["data/recipeRevisions.js", "data/addedDishes.js"]) {
+      expect(readFileSync(join(root, file), "utf8"), file).not.toMatch(/youtu\.?be|instagram|https?:\/\//i);
+    }
   });
 });

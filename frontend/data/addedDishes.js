@@ -1,18 +1,15 @@
 /**
- * Dish pages written from Dr Rukhsaar Sayeed's recipes for dishes the database has no record of
- * (the owner's chosen reference, with her agreement as the owner reports it). Who each dish is —
- * its name, category and spellings — is in data/addedDishIndex.js; this file holds the page.
+ * Dish pages for dishes the database has no record of, written in November 2026 from the same
+ * reference as data/recipeRevisions.js. Who each dish is — its name, category and spellings — is in
+ * data/addedDishIndex.js; this file holds the page.
  *
- * Every page is taken from the written recipe under one of her videos (the YouTube description and
- * the Instagram caption carry the same text), read on 19 November 2026, and from nothing else:
- * - what the dish is, and anything said about its place in Kashmiri life, is what she says, and the
- *   page says it is her account;
- * - the ingredients, quantities and order of work are hers, in our own words, never hers;
- * - where her method leaves out an ingredient that is on her list, or names one that is not,
- *   `source.note` says what we did;
- * - sponsors, brands and health claims in her captions are left out;
- * - no cooking time, difficulty, price or rating is given, because she gives none. A serving
- *   count appears only where she states one.
+ * The source is not named anywhere on the site (see data/recipeRevisions.js): no name, no link, and
+ * nothing from the author's own life. Each page says only what the dish is and how it is made:
+ * - the ingredients, quantities and order of work are the reference's, in our own words;
+ * - sponsors, brands and health claims are left out;
+ * - no cooking time, difficulty, price or rating is given, because the reference gives none. A
+ *   serving count appears only where one is stated;
+ * - `note` is a line for the cook, shown under the recipe as "About this recipe".
  *
  * None of these dishes has a photograph yet, so their pages carry no Recipe markup
  * (components/JsonLd.js). When a dish gets a database record, delete it here and in the index.
@@ -21,34 +18,23 @@
  * every entry.
  */
 
-/** The date these pages were written (UTC), shown to search engines as published and last changed. */
+/** The date these pages were first published (UTC). */
 export const ADDED_ON = "2026-11-19";
+/** The date they were last changed (UTC), shown to search engines as last modified. */
+export const UPDATED_ON = "2026-11-20";
 
-const video = (id, title, published, publishedLabel) => ({
-  title,
-  url: `https://www.youtube.com/watch?v=${id}`,
-  published,
-  publishedLabel,
-});
-
-const TIPS = "Dr Sayeed's tips";
+const TIPS = "Tips";
 
 export const ADDED_DISH_PAGES = {
   shabdeg: {
     seoTitle: "Shabdeg: A One-Hour Recipe With Chicken",
     description:
-      "Shabdeg is a Kashmiri winter dish that usually cooks overnight. Dr Rukhsaar Sayeed's home version, with country chicken and pumpkin, is made in about an hour.",
+      "Shabdeg is a Kashmiri winter dish that usually cooks overnight. This home version, with country chicken and pumpkin, is made in about an hour.",
     summary:
-      "Shabdeg is a traditional Kashmiri winter dish that usually cooks slowly overnight. This is the home version Dr Rukhsaar Sayeed cooked at her MasterChef audition: country chicken and fried pumpkin with dried plums, made in a pressure cooker in the one hour she was given.",
-    source: {
-      ...video("kT6SAmxE4ok", "Lost Kashmiri Dish- Shabdeg", "2025-12-04", "4 December 2025"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's home version of shabdeg: her ingredients, quantities and order of work, in our own words.",
-      note: "Her video was made with a cookware brand, which we have left out. Her method does not say when the ginger-garlic paste, coriander powder and black pepper on her list go in; we have added the paste after the onions and the two powders with the other ground spices.",
-    },
+      "Shabdeg is a traditional Kashmiri winter dish that usually cooks slowly overnight. This is a quick home version: country chicken and fried pumpkin with dried plums, made in a pressure cooker in about an hour.",
     recipe: {
       intro:
-        "Dr Sayeed calls this the modern, fast version of shabdeg. The chicken is cooked under pressure with fried-onion paste and Kashmiri spices, and the fried pumpkin and dried plums go in for the last few minutes. She says any chicken can be used in place of country chicken.",
+        "This is a modern, fast version of shabdeg. The chicken is cooked under pressure with fried-onion paste and Kashmiri spices, and the fried pumpkin and dried plums go in for the last few minutes. Any chicken can be used in place of country chicken.",
       servings: "3–4",
       ingredients: [
         "700–800 g country chicken, or any chicken",
@@ -82,7 +68,7 @@ export const ADDED_DISH_PAGES = {
       ],
       tipsTitle: TIPS,
       wazaTips: [
-        "The ver masala is optional, but she says it does a great deal for the aroma.",
+        "The ver masala is optional, but it does a great deal for the aroma.",
         "How long the chicken needs under pressure depends on the bird.",
       ],
     },
@@ -93,14 +79,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Dagith haakh is Kashmiri pounded collard greens: boiled, squeezed and pounded, then cooked in mustard oil with garlic, green chillies and fried onion.",
     summary:
-      "Dagith haakh is pounded haakh, Kashmiri collard greens. The leaves are boiled, squeezed dry and pounded to a coarse mash, then cooked in mustard oil with a paste of garlic and green chillies, a few ground spices and fried onion. Dr Rukhsaar Sayeed calls it a traditional Kashmiri comfort food, best eaten with steamed rice.",
-    source: {
-      ...video("Hea87BtellU", "Dagith Haakh", "2025-08-20", "20 August 2025"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for dagith haakh: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Dagith haakh is pounded haakh, Kashmiri collard greens. The leaves are boiled, squeezed dry and pounded to a coarse mash, then cooked in mustard oil with a paste of garlic and green chillies, a few ground spices and fried onion. It is eaten with steamed rice.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. She says mustard greens or spinach can be used in place of haakh.",
+      intro: "Mustard greens or spinach can be used in place of haakh; the method is the same.",
       ingredients: [
         "500 g fresh haakh (collard greens), or mustard greens or spinach",
         "¼ tsp baking soda",
@@ -134,17 +115,10 @@ export const ADDED_DISH_PAGES = {
     description:
       "Tchok wangan is Kashmiri sour aubergine: fried in mustard oil, then simmered in a hot, tangy gravy soured with lemon, tamarind or raw grape juice.",
     summary:
-      "Tchok wangan, khatte baingan in Hindi, is aubergine fried in mustard oil and simmered in a sour, chilli-red gravy. Dr Rukhsaar Sayeed describes it as a classic summer dish that Kashmiri households make at least once a week.",
-    source: {
-      ...video("fBGrdphE_G4", "Kashmiri Khatte Baingan | Tchok Wangan", "2026-06-17", "17 June 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for tchok wangan: her ingredients, quantities and order of work, in our own words.",
-      note: "Her July 2025 video gives the same recipe and asks for small aubergines. Her method does not say when the green chillies go in; we have added them with the fried aubergines.",
-      also: [{ label: "Her July 2025 video of the same recipe", url: "https://www.youtube.com/watch?v=Zq9jMUF60LY" }],
-    },
+      "Tchok wangan, khatte baingan in Hindi, is aubergine fried in mustard oil and simmered in a sour, chilli-red gravy. The sourness comes from lemon juice, tamarind, vinegar or the juice of raw grapes.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. The sourness can come from lemon juice, tamarind pulp, vinegar or the juice of raw grapes, and she says to adjust every spice to your own taste.",
+        "Small aubergines are slit into quarters and fried until soft before they meet the gravy. Adjust every spice to your own taste.",
       ingredients: [
         "6–8 small aubergines (brinjal), slit into quarters",
         "4–5 tbsp mustard oil",
@@ -170,13 +144,12 @@ export const ADDED_DISH_PAGES = {
         "Let it rest for a while before serving.",
       ],
       tipsTitle: TIPS,
-      wazaTips: ["It tastes even better the next day, she says.", "Adjust the amount of each spice to your own taste."],
+      wazaTips: ["It tastes even better the next day.", "Use whichever souring you have: lemon juice, tamarind pulp, vinegar or raw grape juice."],
       variations: [
         {
-          title: "Her earlier version, with onion, garlic and sour grape juice",
-          source: video("Fh6nHzswT1U", "Kashmiri Khatte Baingan / Tchok Wangan / Brinjal Recipe", "2024-08-18", "18 August 2024"),
+          title: "Another version, with onion, garlic and sour grape juice",
           paragraphs: [
-            "Dr Sayeed's first video of the dish is a different recipe. ½ kg of long Chinese aubergines are each cut into 4 long pieces, washed, drained and salted, then fried golden brown in 2 cups of refined or mustard oil in a deep pan and lifted out.",
+            "There is a second way of making the dish. ½ kg of long Chinese aubergines are each cut into 4 long pieces, washed, drained and salted, then fried golden brown in 2 cups of refined or mustard oil in a deep pan and lifted out.",
             "2 cups of sliced onions are cooked in the same pan on a medium flame. A handful of garlic, 4–5 green chillies, 2 tsp red chilli powder, 1 tsp ginger powder, 1 tbsp cumin seeds, 3 tsp fennel powder, salt and some water go in and cook until the spices are done.",
             "The gravy is brought to the boil and the fried aubergines are boiled in it for 5 minutes. 1 cup of sour grape juice (or tamarind pulp, lemon or vinegar) is added, and it boils for 2 minutes more, or until the oil separates.",
           ],
@@ -190,15 +163,10 @@ export const ADDED_DISH_PAGES = {
     description:
       "Bezze wangan is Kashmiri-style baingan bharta: aubergines roasted over coals, mashed, and cooked in mustard oil with pounded garlic, chillies and coriander.",
     summary:
-      "Bezze wangan is the Kashmiri way with baingan ka bharta. Aubergines are charred over live coals or a gas flame, peeled and mashed, then cooked in mustard oil with fried onion and a freshly pounded paste of garlic, green chillies and coriander. Dr Rukhsaar Sayeed gives it as her mother-in-law's recipe.",
-    source: {
-      ...video("CDxFoVNdi0w", "Bezze Wangan / Kashmiri Style Baingan Barta", "2025-07-30", "30 July 2025"),
-      credit:
-        "This recipe follows the recipe for bezze wangan that Dr Rukhsaar Sayeed gives as her mother-in-law's: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Bezze wangan is the Kashmiri way with baingan ka bharta. Aubergines are charred over live coals or a gas flame, peeled and mashed, then cooked in mustard oil with fried onion and a freshly pounded paste of garlic, green chillies and coriander.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. The two things she holds to are roasting the aubergines over coals where you can, and pounding the paste fresh in a mortar.",
+        "Two things matter here: roasting the aubergines over coals where you can, and pounding the paste fresh in a mortar.",
       ingredients: [
         "2 large aubergines (brinjal)",
         "1 bowl cold water, for peeling",
@@ -221,27 +189,21 @@ export const ADDED_DISH_PAGES = {
         "Serve hot with Kashmiri roti, paratha or plain rice.",
       ],
       tipsTitle: TIPS,
-      wazaTips: ["She prefers live coals to a gas flame for roasting.", "It tastes even better the next day, she says."],
+      wazaTips: ["Live coals are better than a gas flame for roasting.", "It tastes even better the next day."],
     },
   },
 
   teher: {
     seoTitle: "Teher: Kashmiri Turmeric Rice Recipe",
     description:
-      "Teher is Kashmiri turmeric rice dressed with mustard oil, cumin and fried onions, cooked and shared out on happy occasions. Dr Rukhsaar Sayeed's recipe.",
+      "Teher is Kashmiri turmeric rice dressed with mustard oil, cumin and fried onions, cooked and shared out on happy occasions.",
     summary:
-      "Teher is rice boiled with turmeric, finished on dum, and dressed with hot mustard oil, cumin and crisp fried onions. Dr Rukhsaar Sayeed describes it as a ritual as much as a dish, cooked and given out in Kashmiri households after a happy dream, at the birth of a child, at a wedding or to mark an auspicious moment, and shared as tabarruk.",
-    source: {
-      ...video("J_wJQapqqgY", "Kashmiri Téher", "2026-01-05", "5 January 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for teher: her ingredients, quantities and order of work, in our own words.",
-      note: "Her ingredient list says rice; her method names basmati.",
-    },
+      "Teher is rice boiled with turmeric, finished on dum, and dressed with hot mustard oil, cumin and crisp fried onions. In Kashmiri households it is cooked to mark a happy or auspicious occasion and shared out as tabarruk, blessed food.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. She says teher is traditionally served plain, is often eaten by hand, and needs nothing alongside it.",
+        "Teher is served plain, mixed gently just before serving, and needs nothing alongside it.",
       ingredients: [
-        "2 cups rice (her method uses basmati)",
+        "2 cups rice, such as basmati",
         "Water, for boiling",
         "½ tsp turmeric powder",
         "Salt, to taste",
@@ -265,16 +227,10 @@ export const ADDED_DISH_PAGES = {
     description:
       "Nadru kofta, or nadre machh, is grated lotus stem bound with gram flour, fried in mustard oil and simmered in a spiced yogurt gravy. A Kashmiri recipe.",
     summary:
-      "Nadru kofta, also called nadre machh, is koftas of grated lotus stem bound with gram flour and spices, fried in mustard oil and then simmered in a tangy yogurt gravy. Dr Rukhsaar Sayeed serves it with steamed rice or plain roti.",
-    source: {
-      ...video("gXtt-8OMj7E", "Nadru Kofta Handi | Nadre Machh", "2024-12-07", "7 December 2024"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for nadru kofta: her ingredients, quantities and order of work, in our own words.",
-      note: "Her method names ginger powder for the koftas where her list has ajwain, chilli powder, coriander powder and cumin seeds; we have followed the list. It does not say when the garam masala and dried fenugreek leaves go in; we have added them at the end.",
-    },
+      "Nadru kofta, also called nadre machh, is koftas of grated lotus stem bound with gram flour and spices, fried in mustard oil and then simmered in a tangy yogurt gravy. It is served with steamed rice or plain roti.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe for soft koftas in a hot, tangy gravy. The koftas are fried first and finish cooking in the yogurt.",
+        "Soft koftas in a hot, tangy gravy: they are fried first and finish cooking in the yogurt.",
       ingredients: [
         "For the koftas: 2 cups lotus stem (nadru), grated or finely minced",
         "3–4 tbsp gram flour (besan), or more",
@@ -311,7 +267,7 @@ export const ADDED_DISH_PAGES = {
       ],
       tipsTitle: TIPS,
       wazaTips: [
-        "Squeeze the water out of the grated lotus stem before mixing; she says more gram flour can be added.",
+        "Squeeze the water out of the grated lotus stem before mixing; add more gram flour if the mixture needs it.",
         "Add the yogurt slowly and keep stirring, so that it does not curdle.",
       ],
     },
@@ -322,16 +278,11 @@ export const ADDED_DISH_PAGES = {
     description:
       "Gaade te hoakh syun is Kashmiri fish with dried vegetables: fried fish layered over lotus stem with sun-dried tomatoes and aubergines, simmered until thick.",
     summary:
-      "Gaade te hoakh syun is fish with dried vegetables. Pieces of fish are fried crisp in mustard oil, layered over fried lotus stem with soaked sun-dried tomatoes and aubergines and a tomato purée, and simmered with whole and ground spices until the gravy is absorbed. Dr Rukhsaar Sayeed serves the fish and the dried vegetables in two separate dishes.",
-    source: {
-      ...video("nYOVWR7D7CE", "Kashmiri Fish with Dried Vegetables | Gaadé teh Hoakh Syun", "2024-09-29", "29 September 2024"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for gaade te hoakh syun: her ingredients, quantities and order of work, in our own words.",
-      note: "She measures the spices in spoons without saying which spoon, and calls the amounts a guide; we have kept her wording.",
-    },
+      "Gaade te hoakh syun is fish with dried vegetables. Pieces of fish are fried crisp in mustard oil, layered over fried lotus stem with soaked sun-dried tomatoes and aubergines and a tomato purée, and simmered with whole and ground spices until the gravy is absorbed. The fish and the dried vegetables are served in two separate dishes.",
+    note: "The spice amounts are in spoons, with no size given; treat them as a guide and season to your own taste.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe, for 1 kg of fish. She gives the spice quantities as a reference and says to use them to your own taste.",
+        "This recipe is for 1 kg of fish. The spice quantities are a guide; use them to your own taste.",
       ingredients: [
         "1 kg fish, cleaned and cut into small pieces",
         "1 tsp turmeric powder and 1 spoon salt, to marinate the fish",
@@ -368,17 +319,11 @@ export const ADDED_DISH_PAGES = {
     description:
       "Paneer kaliya is a Kashmiri Pandit dish: paneer soaked in turmeric water, fried in mustard oil and simmered in a milk gravy with fennel and dry ginger.",
     summary:
-      "Paneer kaliya is fried paneer in a mild milk gravy, spiced with fennel, dry ginger and turmeric. Dr Rukhsaar Sayeed calls it a household favourite and a dish that represents Kashmiri Pandit cooking. Her recipe has no onion, garlic or chilli in it.",
+      "Paneer kaliya is fried paneer in a mild milk gravy, spiced with fennel, dry ginger and turmeric. It belongs to Kashmiri Pandit cooking, and this recipe has no onion, garlic or chilli in it.",
     tradition: "Kashmiri Pandit",
-    source: {
-      ...video("NWsj37JEPGA", "Kashmiri Pandith Style Paneer Kaliya", "2024-10-08", "8 October 2024"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for paneer kaliya: her ingredients, quantities and order of work, in our own words.",
-      note: "Her written steps put the turmeric soak before the frying, and we have kept that order. Her method names fennel powder where her list has cumin powder, and does not say when the salt goes in; we have followed the list and salted the gravy.",
-    },
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. The paneer is soaked in boiling turmeric water, and that water then goes into the gravy with the milk. She serves it with steamed rice or Kashmiri naan.",
+        "The paneer is soaked in boiling turmeric water, and that water then goes into the gravy with the milk. Serve it with steamed rice or Kashmiri naan.",
       ingredients: [
         "250 g paneer, cubed",
         "2 cups water",
@@ -413,15 +358,10 @@ export const ADDED_DISH_PAGES = {
     description:
       "Alle korme is a mild bottle gourd korma: lauki softened in ghee, then cooked with a paste of fried onions and cashews, milk and cream. Serves 3–4.",
     summary:
-      "Alle korme, lauki ka korma, is bottle gourd cooked slowly in ghee with a paste of fried onions and cashews, milk and a little cream. Dr Rukhsaar Sayeed calls it a mild, aromatic korma for summer that wins over people who do not care for lauki.",
-    source: {
-      ...video("5QMg1NRTqR0", "Allè Kormè | Lauki ka Korma", "2026-04-20", "20 April 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for alle korme: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Alle korme, lauki ka korma, is bottle gourd cooked slowly in ghee with a paste of fried onions and cashews, milk and a little cream. It is a mild, aromatic korma.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. The gourd is cooked in ghee until it is soft and its moisture has gone before the spices, the paste and the milk go in.",
+        "The gourd is cooked in ghee until it is soft and its moisture has gone before the spices, the paste and the milk go in.",
       servings: "3–4",
       ingredients: [
         "500 g bottle gourd (lauki), peeled and cut into thin slices or strips",
@@ -451,17 +391,12 @@ export const ADDED_DISH_PAGES = {
   "tchok-mujje": {
     seoTitle: "Tchok Mujje: Kashmiri Sour Radish Recipe",
     description:
-      "Tchok mujje is Kashmiri sour radish: slices of radish fried in mustard oil, then simmered with tamarind and spices until soft. Dr Rukhsaar Sayeed's recipe.",
+      "Tchok mujje is Kashmiri sour radish: slices of radish fried in mustard oil, then simmered with tamarind and spices until soft.",
     summary:
-      "Tchok mujje, khatti mooli, is a sour radish curry: sliced radish fried golden in mustard oil and simmered in tamarind water with fennel, dry ginger and red chilli. Dr Rukhsaar Sayeed describes it as a traditional Kashmiri dish, the one to try after khatte baingan (tchok wangan), and one of the underrated Kashmiri recipes.",
-    source: {
-      ...video("ctw5HoyO4Ow", "Tchok Mujje | Kashmiri Khatti Mooli", "2026-04-09", "9 April 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for tchok mujje: her ingredients, quantities and order of work, in our own words.",
-      note: "She gives no quantity for the whole spices or the tamarind.",
-    },
+      "Tchok mujje, khatti mooli, is a sour radish curry: sliced radish fried golden in mustard oil and simmered in tamarind water with fennel, dry ginger and red chilli. Like tchok wangan, the sour aubergine dish, it is fried first and then simmered in a sour gravy.",
+    note: "There is no set quantity for the whole spices or the tamarind; add them to your taste.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. She serves it hot with rice or roti.",
+      intro: "The radish is fried golden before it meets the sour gravy. Serve it hot with rice or roti.",
       ingredients: [
         "2–3 medium radishes (mooli), peeled and sliced",
         "2–3 tbsp mustard oil",
@@ -487,7 +422,7 @@ export const ADDED_DISH_PAGES = {
         "Cover and cook until the radish is soft and the oil begins to separate.",
       ],
       tipsTitle: TIPS,
-      wazaTips: ["Add the ground spices with the flame off: she says it keeps them from burning."],
+      wazaTips: ["Add the ground spices with the flame off: it keeps them from burning."],
     },
   },
 
@@ -496,14 +431,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Tchaer chetin is a Kashmiri chutney of raw apricots pounded with soaked dried red chillies and salt: sour, hot and coarse. Three ingredients.",
     summary:
-      "Tchaer chetin is a chutney of three things: sour raw apricots, dried red chillies soaked until soft, and salt, ground together into a thick, coarse paste. Dr Rukhsaar Sayeed describes it as a bold, rustic Kashmiri chutney, sharp and hot.",
-    source: {
-      ...video("fD5Olo2pEb0", "Raw Apricot Chutney / Tchaèr Chetin", "2026-04-23", "23 April 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for tchaer chetin: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Tchaer chetin is a chutney of three things: sour raw apricots, dried red chillies soaked until soft, and salt, ground together into a thick, coarse paste. It is sharp and hot.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. The chillies are ground first, and the apricots are crushed into them only briefly.",
+      intro: "The chillies are ground first, and the apricots are crushed into them only briefly.",
       ingredients: ["1 cup raw apricots, washed, stoned and sliced", "4–6 dried red chillies", "Salt, to taste", "A few drops of water, only if needed"],
       instructions: [
         "Soak the dried red chillies in warm water for 15–20 minutes, until soft.",
@@ -521,15 +451,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "A Kashmiri pickle of garlic scapes: the shoots are dried for a day or two, mixed with chilli, cumin, pickling spices and oil, and left for about two weeks.",
     summary:
-      "This is a pickle of garlic scapes, the shoots of the garlic plant, mixed with salt, red chilli, cumin, a pickling masala and oil and left in a warm place for about two weeks. Dr Rukhsaar Sayeed calls it a Kashmiri favourite and her mother's recipe, and says she likes it best in summer.",
-    source: {
-      ...video("rJVzggiqevs", "Kashmiri Garlic Shoot Pickle", "2026-05-19", "19 May 2026"),
-      credit:
-        "This recipe follows the garlic scape pickle that Dr Rukhsaar Sayeed gives as her mother's: her ingredients, quantities and order of work, in our own words.",
-      also: [{ label: "Her May 2025 video of the same pickle", url: "https://www.youtube.com/watch?v=kH5ByMIyNDQ" }],
-    },
+      "This is a pickle of garlic scapes, the shoots of the garlic plant, mixed with salt, red chilli, cumin, a pickling masala and oil and left in a warm place for about two weeks.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe, for 1 kg of scapes. She eats the pickle with rice or roti.",
+      intro: "This recipe is for 1 kg of scapes. The pickle is eaten with rice or roti.",
       ingredients: [
         "1 kg garlic scapes",
         "1 cup salt",
@@ -547,7 +471,7 @@ export const ADDED_DISH_PAGES = {
         "It takes about two weeks to be ready.",
       ],
       tipsTitle: TIPS,
-      wazaTips: ["How much of each spice to use is a matter of taste, she says."],
+      wazaTips: ["How much of each spice to use is a matter of taste."],
     },
   },
 
@@ -556,15 +480,10 @@ export const ADDED_DISH_PAGES = {
     description:
       "Demin is Kashmiri fried tripe: sheep tripe cleaned, pressure-cooked with whole spices, fried in mustard oil and simmered in a light onion masala.",
     summary:
-      "Demin is sheep tripe, cooked until tender, fried in mustard oil and simmered in a light onion masala made with its own stock. Dr Rukhsaar Sayeed calls it a hearty, traditional Kashmiri comfort dish in which the tripe stays the centre of the plate.",
-    source: {
-      ...video("bbC9SK_IeEo", "Kashmiri Fried Tripe / Demin", "2026-05-30", "30 May 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for demin: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Demin is sheep tripe, cooked until tender, fried in mustard oil and simmered in a light onion masala made with its own stock. The tripe is cleaned and boiled twice before it is fried, and the dish is finished with dried fenugreek leaves and ghee.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe, for 1 kg of tripe. It is cleaned and boiled twice before it is fried, and she says her quantities are a guide to adjust to taste.",
+        "This recipe is for 1 kg of tripe. The quantities are a guide to adjust to taste.",
       ingredients: [
         "1 kg sheep tripe, cleaned",
         "1 tsp turmeric, for the first boil",
@@ -606,15 +525,10 @@ export const ADDED_DISH_PAGES = {
     description:
       "Thoole tchaman is a Kashmiri dish of steamed eggs: beaten with milk, turmeric and crushed spring onion greens, set like paneer and cut into cubes.",
     summary:
-      "Thoole tchaman looks like paneer but is made of eggs: beaten with milk, turmeric and hand-crushed spring onion greens, steamed until set, cooled and cut into soft, spongy cubes. Dr Rukhsaar Sayeed says the name roughly means \"paneer made from eggs\", and that the recipe is her grandmother's.",
-    source: {
-      ...video("tOH73rmxzx0", "Thoolé Tchaman | Kashmiri Steamed Eggs", "2026-04-28", "28 April 2026"),
-      credit:
-        "This recipe follows the recipe for thoole tchaman that Dr Rukhsaar Sayeed gives as her grandmother's: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Thoole tchaman looks like paneer but is made of eggs: beaten with milk, turmeric and hand-crushed spring onion greens, steamed until set, cooled and cut into soft, spongy cubes. The name roughly means \"paneer made from eggs\".",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. She says her mother made it whenever the house had plenty of fresh desi eggs, and that the crushed greens of spring onion (puch gande) or shallot (puch praan) are what lift its flavour and texture.",
+        "The crushed greens of spring onion (puch gande) or shallot (puch praan) are what lift its flavour and texture.",
       ingredients: ["5 eggs", "½ cup milk", "Salt, to taste", "¼ tsp turmeric powder", "2 tbsp spring onion greens or shallot greens, crushed by hand"],
       instructions: [
         "Put the eggs, milk, salt and turmeric in a bowl and add the crushed greens.",
@@ -630,16 +544,11 @@ export const ADDED_DISH_PAGES = {
   baegli: {
     seoTitle: "Baegli: Kashmiri Crispy Fava Beans Recipe",
     description:
-      "Baegli are fava beans. In Dr Rukhsaar Sayeed's recipe they are blanched, skinned, split and roasted or fried until crisp, then tossed with salt and spices.",
+      "Baegli are fava beans. In this Kashmiri recipe they are blanched, skinned, split and roasted or fried until crisp, then tossed with salt and spices.",
     summary:
-      "Baegli is Dr Rukhsaar Sayeed's name for fava beans. In her recipe the fresh beans are blanched, slipped out of their skins, split and roasted in the oven until crisp and golden, then tossed with a seasoning of your choice while still warm. She also gives a deep-fried version.",
-    source: {
-      ...video("O6MupFRJ_kw", "Crispy Fava Beans / Kashmiri Baégli", "2026-06-10", "10 June 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for crispy baegli: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Baegli are fava beans. The fresh beans are blanched, slipped out of their skins, split and roasted in the oven until crisp and golden, then tossed with a seasoning of your choice while still warm. A deep-fried version follows the recipe.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe, for 2 cups of shelled beans. The seasoning is left open: she lists six to choose from.",
+      intro: "This recipe is for 2 cups of shelled beans. The seasoning is left open: there are six to choose from.",
       ingredients: [
         "2 cups fresh fava beans (baegli), shelled",
         "1 tbsp oil",
@@ -660,8 +569,8 @@ export const ADDED_DISH_PAGES = {
         {
           title: "Deep-fried instead of roasted",
           paragraphs: [
-            "The same video gives a fried version. The beans are blanched, skinned and dried thoroughly, as above, and split in half.",
-            "They are fried in medium-hot oil until golden and crisp, drained well and seasoned at once, while hot. She warns against very high heat, which burns the outside before the inside has crisped.",
+            "The beans can be fried instead of roasted. They are blanched, skinned and dried thoroughly, as above, and split in half.",
+            "They are fried in medium-hot oil until golden and crisp, drained well and seasoned at once, while hot. Avoid very high heat, which burns the outside before the inside has crisped.",
           ],
         },
       ],
@@ -671,17 +580,12 @@ export const ADDED_DISH_PAGES = {
   "handh-te-kokur": {
     seoTitle: "Handh te Kokur: Dandelion Greens and Chicken",
     description:
-      "Handh te kokur is a Kashmiri dish of dandelion greens and chicken, traditionally cooked for mothers after childbirth. Dr Rukhsaar Sayeed's recipe.",
+      "Handh te kokur is a Kashmiri dish of dandelion greens and chicken, traditionally cooked for mothers after childbirth.",
     summary:
-      "Handh te kokur is dandelion greens cooked with chicken and its stock, a little fat and a few warming spices into an earthy broth. Dr Rukhsaar Sayeed describes it as a Kashmiri dish traditionally prepared for a mother's recovery after childbirth, and one traditionally cooked in copper pots at a slow simmer.",
-    source: {
-      ...video("sPn-FjGxkZA", "Kashmiri Postpartum Handh te Kokur", "2026-05-21", "21 May 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for handh te kokur: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Handh te kokur is dandelion greens cooked with chicken and its stock, a little fat and a few warming spices into an earthy broth. In Kashmir it is traditionally cooked for mothers recovering after childbirth.",
     recipe: {
       intro:
-        "This is Dr Rukhsaar Sayeed's recipe. The greens are blanched and squeezed several times to take out their bitterness, then pounded, not blended.",
+        "The greens are blanched and squeezed several times to take out their bitterness, then pounded, not blended.",
       ingredients: [
         "2 bunches dandelion greens (handh)",
         "500 g chicken on the bone, and its stock",
@@ -707,7 +611,7 @@ export const ADDED_DISH_PAGES = {
       tipsTitle: TIPS,
       wazaTips: [
         "How many times the greens are boiled depends on how bitter they are.",
-        "She says it is traditionally cooked in copper, at a slow simmer.",
+        "Cook it at a slow simmer.",
       ],
     },
   },
@@ -717,14 +621,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Kutta hua ghosht is Kashmiri-style dry mutton, pressure-cooked with onions, garlic, chillies and achari masala, then pounded until stringy.",
     summary:
-      "Kutta hua ghosht is dry, shredded mutton: boneless meat cooked in mustard oil with onions, garlic, dried red chillies and achari masala until the water has gone, then lightly pounded so that the fibres come apart, and finished with fried onions, fresh mint and lemon. Dr Rukhsaar Sayeed calls it Kashmiri-style, bold and fiery.",
-    source: {
-      ...video("4iyfBVrELCE", "Kutta Hua Ghosht", "2025-12-31", "31 December 2025"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for kutta hua ghosht: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Kutta hua ghosht is dry, shredded mutton: boneless meat cooked in mustard oil with onions, garlic, dried red chillies and achari masala until the water has gone, then lightly pounded so that the fibres come apart, and finished with fried onions, fresh mint and lemon. It is a hot, sharp dish.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. She serves it hot with rice and extra lemon.",
+      intro: "The mutton is cooked until dry and then pounded lightly, so that it shreds. Serve it hot with rice and extra lemon.",
       ingredients: [
         "600–700 g boneless mutton",
         "4 tbsp mustard oil",
@@ -760,15 +659,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Chicken kanti is a Kashmiri snack of crisp fried chicken tossed on a high flame with marinated onions and tomatoes. A recipe with no MSG or food colour.",
     summary:
-      "Chicken kanti is a Kashmiri snack: cubes of boneless chicken, marinated and fried crisp in mustard oil, then tossed on a high flame with onions and tomatoes that have sat in vinegar and spices. Dr Rukhsaar Sayeed says it is eaten at home and in restaurants alike; her version uses no MSG and no food colour.",
-    source: {
-      ...video("KdDw2SWEObY", "Kashmiri Chicken Kanti", "2025-02-11", "11 February 2025"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for chicken kanti: her ingredients, quantities and order of work, in our own words.",
-      also: [{ label: "Her November 2025 video of the same recipe", url: "https://www.youtube.com/watch?v=SFZwo5vXlK0" }],
-    },
+      "Chicken kanti is a Kashmiri snack: cubes of boneless chicken, marinated and fried crisp in mustard oil, then tossed on a high flame with onions and tomatoes that have sat in vinegar and spices. This version uses no MSG and no food colour.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. The chicken and the vegetables are marinated separately, and she serves the kanti hot with naan or paratha.",
+      intro: "The chicken and the vegetables are marinated separately. Serve the kanti hot with naan or paratha.",
       ingredients: [
         "For the chicken: 500 g boneless chicken, cut into cubes",
         "1 tbsp vinegar",
@@ -810,18 +703,13 @@ export const ADDED_DISH_PAGES = {
   },
 
   "mutton-kanti": {
-    seoTitle: "Mutton Kanti Recipe: A Kashmiri Eid Snack",
+    seoTitle: "Mutton Kanti Recipe: A Kashmiri Snack",
     description:
       "Mutton kanti is a Kashmiri snack of marinated boneless mutton, pressure-cooked and dried off, then tossed with onions, tomato and capsicum.",
     summary:
-      "Mutton kanti is small cubes of boneless mutton, marinated in yogurt, vinegar and spices, cooked until tender and dry, and tossed with barely cooked onions, tomato and capsicum. Dr Rukhsaar Sayeed describes it as a much-loved snack in Kashmiri households, above all at Bakra Eid.",
-    source: {
-      ...video("sjnoAFLns_E", "Eid Special | Mutton Kanti", "2025-06-02", "2 June 2025"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for mutton kanti: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Mutton kanti is small cubes of boneless mutton, marinated in yogurt, vinegar and spices, cooked until tender and dry, and tossed with barely cooked onions, tomato and capsicum.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. The mutton needs at least 2 hours in its marinade, and she says to adjust all the spices to your own taste.",
+      intro: "The mutton needs at least 2 hours in its marinade. Adjust all the spices to your own taste.",
       ingredients: [
         "For the mutton: 500 g boneless mutton, cut into small cubes",
         "5 tbsp yogurt",
@@ -861,14 +749,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Kabab kanti is a Kashmiri snack: ready-made mutton kebabs cut up and fried crisp, then tossed on a high flame with spiced onion, tomato and capsicum.",
     summary:
-      "Kabab kanti is kanti made with kebabs. Mutton kebabs are cut into bite-sized pieces and fried crisp, then tossed in a very hot pan with garlic and with onion, tomato and capsicum that have sat in vinegar and spices. Dr Rukhsaar Sayeed calls it a little Kashmiri snack with a lot of flavour, and serves it with naan and chutney.",
-    source: {
-      ...video("AIr7IItHEqg", "Kabab Kanti", "2026-10-05", "5 October 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for kabab kanti: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Kabab kanti is kanti made with kebabs. Mutton kebabs are cut into bite-sized pieces and fried crisp, then tossed in a very hot pan with garlic and with onion, tomato and capsicum that have sat in vinegar and spices. It is served with naan and chutney.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. It starts from four mutton kebabs that are already made.",
+      intro: "It starts from four mutton kebabs that are already made; the cooking is all frying and tossing on a high flame.",
       ingredients: [
         "4 ready-made mutton kebabs",
         "Oil, for frying",
@@ -896,7 +779,7 @@ export const ADDED_DISH_PAGES = {
         "Finish with fresh coriander and serve hot with naan and chutney.",
       ],
       tipsTitle: TIPS,
-      wazaTips: ["Keep the pan really hot and do not overcook the vegetables: she says the slight crunch is what makes it."],
+      wazaTips: ["Keep the pan really hot and do not overcook the vegetables: the slight crunch is what makes it."],
     },
   },
 
@@ -905,14 +788,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Tcher tchot is a thin Kashmiri bread of rice-flour batter with ghee and cumin, cooked on a hot tawa like a dosa and eaten hot with noon chai.",
     summary:
-      "Tcher tchot is Kashmiri rice bread: a thin, crêpe-like round made from a pourable batter of rice flour, ghee and cumin seeds, spread on a hot tawa and cooked until soft with lightly crisp edges. Dr Rukhsaar Sayeed calls it Kashmir's answer to the dosa and serves it hot with noon chai.",
-    source: {
-      ...video("TXb2Xp_lqWk", "Tcher Tchot (Kashmiri Rice Bread)", "2025-08-18", "18 August 2025"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for tcher tchot: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Tcher tchot is Kashmiri rice bread: a thin, crêpe-like round made from a pourable batter of rice flour, ghee and cumin seeds, spread on a hot tawa and cooked until soft with lightly crisp edges. It is served hot with noon chai.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe, for 1 cup of rice flour. The batter is thin enough to pour, and each bread is steamed under a lid before it is crisped.",
+      intro: "This recipe is for 1 cup of rice flour. The batter is thin enough to pour, and each bread is steamed under a lid before it is crisped.",
       ingredients: [
         "1 cup short-grain rice flour",
         "1 tsp salt, or to taste",
@@ -936,14 +814,9 @@ export const ADDED_DISH_PAGES = {
     description:
       "Nishasta halwa is a Kashmiri-style halwa of wheat starch cooked in ghee with saffron, sugar and nuts until thick and glossy. Makes 2–3 servings.",
     summary:
-      "Nishasta halwa is made from nishasta, wheat starch, soaked to a slurry and cooked slowly in ghee with saffron and sugar until it thickens and turns glossy, then finished with chopped nuts. Dr Rukhsaar Sayeed says it is traditionally given in Kashmir in winter.",
-    source: {
-      ...video("K41eDlA0It0", "Halwa for Your Bones!", "2026-07-13", "13 July 2026"),
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's Kashmiri-style recipe for nishasta halwa: her ingredients, quantities and order of work, in our own words.",
-    },
+      "Nishasta halwa is made from nishasta, wheat starch, soaked to a slurry and cooked slowly in ghee with saffron and sugar until it thickens and turns glossy, then finished with chopped nuts.",
     recipe: {
-      intro: "This is Dr Rukhsaar Sayeed's recipe. The starch has to soak for 2–3 hours before it is cooked.",
+      intro: "The starch has to soak for 2–3 hours before it is cooked, so start well ahead.",
       servings: "2–3",
       ingredients: [
         "4 tbsp nishasta (wheat starch)",

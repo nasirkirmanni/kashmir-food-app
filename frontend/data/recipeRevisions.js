@@ -1,50 +1,37 @@
 /**
- * Recipes that follow Dr Rukhsaar Sayeed's published recipes (the owner's chosen reference, with
- * her agreement as the owner reports it).
+ * Recipes revised in November 2026 from the reference the owner chose.
  *
- * Two kinds of source, and each entry says which:
- * - her Wazwan series (autumn 2026): short videos in which a waza cooks the feast's dishes for her
- *   sister's wedding. Each written recipe was checked against the video's narration.
- * - her own home recipes (2024 to 2026), which she presents as home versions. These were taken from
- *   her written recipes.
- * The YouTube description and the Instagram caption of a video carry the same text. Read on
- * 19 November 2026.
+ * The source is not named anywhere on the site, at its author's wish (owner's instruction,
+ * 20 November 2026): no name, no link, no title, and nothing from the author's own life. Do not add
+ * a credit here or on the page. The working notes are kept off the site.
  *
- * A revision keeps her ingredients, quantities and order of work and is written in our own words,
- * never hers. Whatever we changed, scaled or added is said in `source.note`. Where her recipe is a
- * different take on a dish (chicken for mutton, a pressure cooker for an oven) or belongs with a
- * dish we have, it is added to the closest page as a `variations` entry and the stored recipe stays.
- * Her recipes for dishes we had no page for have pages of their own (data/addedDishes.js).
- * Times are our estimates from the durations she gives; a serving count is shown only where the
- * stored one still fits her quantities or she states one.
+ * Two kinds of recipe, and each introduction says which:
+ * - a waza's method, as cooked for a wedding (the six Wazwan recipes, and the variations that say
+ *   "a waza makes it like this");
+ * - home versions, presented as home versions.
+ *
+ * A revision keeps the reference's ingredients, quantities and order of work and is written in our
+ * own words. Where a recipe is a different take on a dish (chicken for mutton, a pressure cooker
+ * for an oven) or belongs with a dish we have, it is added to the closest page as a `variations`
+ * entry and the stored recipe stays. Recipes for dishes we had no page for have pages of their own
+ * (data/addedDishes.js). Times are our estimates from the durations given; a serving count is shown
+ * only where the stored one still fits the quantities or one is stated.
+ *
+ * `note` is a line for the cook, shown under the recipe as "About this recipe"
+ * (components/dish/RecipeNote.js): what kind of version it is, or something about its quantities.
  *
  * lib/recipeRevisions.js lays a revision over the stored recipe on the server (dish page, Recipe
- * markup, /recipes, sitemap); the database record is untouched. The dish page credits the source
- * under the recipe (components/dish/RecipeSource.js), and the Recipe markup names the video as
- * `isBasedOn` only where the recipe itself, not just a variation, is hers.
- * lib/recipeRevisions.test.js checks every entry.
+ * markup, /recipes, sitemap); the database record is untouched. lib/recipeRevisions.test.js checks
+ * every entry.
  */
-
-import { WAZA_SERIES } from "./rukhsaarSayeed";
-
-export { WAZA_SERIES };
 
 // Said once, used by several recipes below.
 const CHILLI_WATER = "chilli water: dried red chillies soaked, ground with a little water, thinned with more water and strained";
 
 export const RECIPE_REVISIONS = {
   "rogan-josh": {
-    revised: "2026-11-19",
-    source: {
-      title: "Waza Style Mutton Roganjosh",
-      url: "https://www.youtube.com/watch?v=s5g8je17FEI",
-      published: "2026-10-17",
-      publishedLabel: "17 October 2026",
-      credit:
-        "This recipe follows the rogan josh a waza cooks in Dr Rukhsaar Sayeed's Wazwan series: her ingredients and order of work, in our own words.",
-      note: "Her quantities are for 2 kg of mutton; ours are halved. The salt is from her narration, which adds it before serving; her written list leaves it out.",
-      also: [{ label: "Her home-style rogan josh, which she says differs from the Wazwan's", url: "https://www.youtube.com/watch?v=Y_H25MDNO2M" }],
-    },
+    revised: "2026-11-20",
+    note: "The quantities are halved from a recipe for 2 kg of mutton.",
     recipe: {
       intro:
         "Rogan josh as a waza cooks it for a wedding: the mutton is boiled, skimmed and washed first, then cooked down in its own stock with ghee, fried-shallot paste and chilli water until the gravy is thick and red. There is no tomato and no yogurt in it.",
@@ -70,7 +57,7 @@ export const RECIPE_REVISIONS = {
       ],
       wazaTips: [
         "The mutton is boiled, skimmed and washed before anything else; the stock that is left is the cooking liquid.",
-        "Chilli water and fried-shallot paste are the two things Dr Sayeed calls essential to Wazwan dishes. Make both before you start.",
+        "Chilli water and fried-shallot paste are the base of this dish. Make both before you start.",
         "Boil the turmeric in the stock until its raw smell has gone before the paste, chilli water and ghee go in.",
         "Salt goes in at the end.",
       ],
@@ -79,15 +66,14 @@ export const RECIPE_REVISIONS = {
         "Stopping before the stock has reduced to a thick gravy.",
       ],
       homeAdaptation:
-        "If you have no shallots, fry onions, grind them and use that paste, as Dr Sayeed says in the video. Her separate home recipe pressure-cooks raw mutton with onions, garlic, oil and ground spices; she notes that it is not what a Wazwan serves, because a home kitchen has neither the high heat nor the mutton stock.",
+        "If you have no shallots, fry onions, grind them and use that paste. A home rogan josh that pressure-cooks raw mutton with onions, garlic, oil and ground spices is not what a Wazwan serves: a home kitchen has neither the high heat nor the mutton stock.",
       variations: [
         {
           title: "Hindi rogan josh, with yogurt and tamarind",
-          source: { title: "Hindi Roganjosh", url: "https://www.youtube.com/watch?v=sIZcQLAYVCQ", published: "2026-11-16", publishedLabel: "16 November 2026" },
           paragraphs: [
-            "The Wazwan has a second rogan josh, which Dr Sayeed calls Hindi rogan josh and describes as a lesser-known dish made for the groom and his party. It is tangy, from yogurt and tamarind. In her Wazwan series a waza makes it like this, for four or five.",
+            "The Wazwan has a second, lesser-known rogan josh, called Hindi rogan josh. It is tangy, from yogurt and tamarind. A waza makes it like this, for four or five.",
             "750 g cooked mutton goes into a heavy pan with 2 tbsp garlic paste, 2 black and 4 green cardamom pods, 2 small pieces of cinnamon, 5–6 cloves, salt, ½ cup mustard oil and 2 tbsp desi ghee. On the heat, 1½ cups mutton stock, ½ tsp turmeric, ½ cup fried shallots and 1½ cups whisked yogurt are added and cooked until the yogurt is worked in.",
-            "Then 2 tbsp Kashmiri red chilli powder, ¼ cup tamarind water and ½ cup onion paste go in. The pan is covered and simmered until the gravy thickens and the mutton is tender. She advises adding the tamarind a little at a time.",
+            "Then 2 tbsp Kashmiri red chilli powder, ¼ cup tamarind water and ½ cup onion paste go in. The pan is covered and simmered until the gravy thickens and the mutton is tender. Add the tamarind a little at a time.",
           ],
         },
       ],
@@ -95,16 +81,8 @@ export const RECIPE_REVISIONS = {
   },
 
   "tabak-maaz": {
-    revised: "2026-11-19",
-    source: {
-      title: "Waza Style Tabakh Maaz",
-      url: "https://www.youtube.com/watch?v=_E7zsxjzfcU",
-      published: "2026-10-19",
-      publishedLabel: "19 October 2026",
-      credit:
-        "This recipe follows the tabak maaz a waza cooks in Dr Rukhsaar Sayeed's Wazwan series: her ingredients, quantities and order of work, in our own words.",
-      note: "The Waza family's published recipe, quoted in our story on tabak maaz, has the same two cookings and adds dry ginger and black cardamom to the second pot.",
-    },
+    revised: "2026-11-20",
+    note: "The Waza family's published recipe, quoted in our story on tabak maaz, has the same two cookings and adds dry ginger and black cardamom to the second pot.",
     recipe: {
       intro:
         "Tabak maaz as a waza cooks it: mutton ribs boiled and washed, simmered again in their own stock with cloves, garlic and turmeric until completely tender, then trimmed and fried in plenty of ghee until crisp. The wazas' pot holds water and stock, not milk; our story on the dish sets out who uses which.",
@@ -140,18 +118,7 @@ export const RECIPE_REVISIONS = {
   },
 
   "marchwangan-korma": {
-    revised: "2026-11-19",
-    source: {
-      title: "Wazwan Style Marchewangan Kormé",
-      url: "https://www.youtube.com/watch?v=4n732w3Cslw",
-      reel: "https://www.instagram.com/reel/Df4SmDiyVrb/",
-      published: "2026-11-18",
-      publishedLabel: "18 November 2026",
-      credit:
-        "This recipe follows the marchwangan korma a waza cooks in Dr Rukhsaar Sayeed's Wazwan series: her ingredients, quantities and order of work, in our own words.",
-      note: "Her written method mentions a ginger-garlic paste and a garlic powder that are not in her ingredient list; we have followed the list. The fennel powder is in her list and not in her method; we add it with the other powders.",
-      also: [{ label: "Her own home-style version, with smoked mustard oil, fried-shallot paste and dried mint", url: "https://www.youtube.com/watch?v=iGGxzIPH35c" }],
-    },
+    revised: "2026-11-20",
     recipe: {
       intro:
         "Marchwangan korma as a waza cooks it: mutton boiled until tender, fried in mustard oil and ghee with garlic and whole spices, cooked down in its own stock with chilli water until the pot is nearly dry, and finished with a great deal of Kashmiri chilli powder. Kashmiri chilli is mild; the heat comes from how much of it goes in.",
@@ -190,23 +157,13 @@ export const RECIPE_REVISIONS = {
         "Leaving stock in the pot. The korma is fried nearly dry before the chilli powder goes in.",
       ],
       homeAdaptation:
-        "Adjust the chilli powder to the heat you want, as her recipe says. Dr Sayeed's own home versions differ from the waza's: one fries the mutton in smoked mustard oil and adds fried-shallot paste and dried mint.",
+        "Adjust the chilli powder to the heat you want. Home versions differ from the waza's: one fries the mutton in smoked mustard oil and adds fried-shallot paste and dried mint.",
     },
   },
 
   "daniwal-korma": {
-    revised: "2026-11-19",
-    source: {
-      title: "Wazwan Dhaniwal Kormaé",
-      url: "https://www.youtube.com/watch?v=rU_cLzGjpFc",
-      reel: "https://www.instagram.com/reel/DfEzF6mSVwx/",
-      published: "2026-10-29",
-      publishedLabel: "29 October 2026",
-      credit:
-        "This recipe follows the daniwal korma a waza cooks in Dr Rukhsaar Sayeed's Wazwan series: her ingredients, quantities and order of work, in our own words.",
-      note: "Her recipe says to adjust the spices, ghee and stock to your taste and to the consistency you want.",
-      also: [{ label: "Her earlier home-style daniwal korma", url: "https://www.youtube.com/watch?v=4pj9lB9AZfc" }],
-    },
+    revised: "2026-11-20",
+    note: "Adjust the spices, ghee and stock to your taste and to the consistency you want.",
     recipe: {
       intro:
         "Daniwal korma as a waza cooks it: small pieces of mutton boiled and washed, fried in plenty of desi ghee with garlic and whole spices, cooked tender on their own stock, then joined by boiled curd, raw onion paste, turmeric and dry ginger. Saffron goes in near the end, and the fresh coriander that names the dish goes on just before serving.",
@@ -246,22 +203,13 @@ export const RECIPE_REVISIONS = {
         "Adding red chilli; the waza's version has none.",
       ],
       homeAdaptation:
-        "Dr Sayeed's earlier home version pressure-cooks the mutton with the whole spices and whisks the yogurt over a high flame, stirring all the time, until it boils; she suggests an egg or 2 tbsp of gram flour in the yogurt to stop it splitting.",
+        "A home version pressure-cooks the mutton with the whole spices and whisks the yogurt over a high flame, stirring all the time, until it boils; an egg or 2 tbsp of gram flour in the yogurt stops it splitting.",
     },
   },
 
   "methi-maaz": {
-    revised: "2026-11-19",
-    source: {
-      title: "Wazwan Series | Methi Maaz",
-      url: "https://www.youtube.com/watch?v=HrGfuG00c8U",
-      reel: "https://www.instagram.com/reel/De9EBP2yorC/",
-      published: "2026-10-26",
-      publishedLabel: "26 October 2026",
-      credit:
-        "This recipe follows the methi maaz a waza cooks in Dr Rukhsaar Sayeed's Wazwan series: her ingredients, quantities and order of work, in our own words.",
-      note: "The dried fenugreek leaves are in her narration, added at the end, and missing from her written list, so we have no amount for them.",
-    },
+    revised: "2026-11-20",
+    note: "We have no measured amount for the dried fenugreek leaves; add them to taste.",
     recipe: {
       intro:
         "Methi maaz as a waza cooks it: the sheep's stomach, tripe and intestines, cleaned, boiled tender and chopped small, then simmered in mutton stock with ghee, chilli water, garlic and a few spices until the gravy is thick. Dried fenugreek leaves, the methi of the name, go in at the end.",
@@ -300,18 +248,8 @@ export const RECIPE_REVISIONS = {
   },
 
   "aab-gosht": {
-    revised: "2026-11-19",
-    source: {
-      title: "Mutton Aabgosh | Kashmiri Mutton-Milk Stew",
-      url: "https://www.youtube.com/watch?v=MCb0gYfmLXA",
-      reel: "https://www.instagram.com/reel/DfWzu03y1Um/",
-      published: "2026-11-05",
-      publishedLabel: "5 November 2026",
-      credit:
-        "This recipe follows the aab gosht a waza cooks in Dr Rukhsaar Sayeed's Wazwan series: her ingredients, quantities and order of work, in our own words.",
-      note: "The waza in the video makes the milk from milk powder. Our story on aab gosht covers the older practice of reducing fresh milk.",
-      also: [{ label: "Her earlier home-style aab gosht", url: "https://www.youtube.com/watch?v=F9lIVxJ9Y20" }],
-    },
+    revised: "2026-11-20",
+    note: "The waza whose method this is makes the milk from milk powder. Our story on aab gosht covers the older practice of reducing fresh milk.",
     recipe: {
       intro:
         "Aab gosht as a waza cooks it: mutton boiled and washed, cooked in its own stock with ghee, fried-shallot paste, fennel, cardamom and cloves until the stock has reduced, then simmered in milk until the gravy is thick and creamy. It has no chilli and no turmeric.",
@@ -345,32 +283,20 @@ export const RECIPE_REVISIONS = {
         "Boiling hard once the milk is in; it is simmered on a low heat.",
       ],
       homeAdaptation:
-        "Dr Sayeed's earlier home version pressure-cooks the mutton with whole spices, ginger-garlic paste and fennel, makes the milk from milk powder in the same way, and finishes with a little sugar and ghee.",
+        "A home version pressure-cooks the mutton with whole spices, ginger-garlic paste and fennel, makes the milk from milk powder in the same way, and finishes with a little sugar and ghee.",
     },
   },
 
   // The catalogue's waza palak is a vegetarian spinach dish; the feast also has spinach with small
-  // meatballs, which is what her video shows. The stored recipe stays; this adds the variation.
+  // meatballs. The stored recipe stays; this adds that as a variation.
   "waza-palak": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The palak riste method comes from Dr Rukhsaar Sayeed's Wazwan series, where a waza cooks it; it is told in our own words. The vegetarian recipe above it is our own and is not from her video.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
           title: "With meatballs: palak riste",
-          source: {
-            title: "Wazwan Style Palak Risté",
-            url: "https://www.youtube.com/watch?v=C4j0M17ztH0",
-            reel: "https://www.instagram.com/reel/DfhHojESt6q/",
-            published: "2026-11-09",
-            publishedLabel: "9 November 2026",
-          },
           paragraphs: [
-            "The wazas also cook spinach with small meatballs, as palak riste. In Dr Rukhsaar Sayeed's Wazwan series a waza makes it like this.",
+            "The wazas also cook spinach with small meatballs, as palak riste. A waza makes it like this.",
             "For the riste, 500 g of boneless mutton and about 150 g of mutton fat are pounded separately on stone until smooth, then pounded together, the fat at about 30 per cent, into a fine paste. Small balls of it are boiled gently in water with 3–4 green cardamom pods, a piece of cinnamon, 1 tsp garlic paste, 1 tsp dry ginger powder, ½ tsp turmeric and salt. Once they are cooked, 2 tbsp fried-shallot paste and ½ cup of chilli water go in and the pot simmers on a low heat.",
             "For the spinach, 500 g is blanched, strained, squeezed dry and roughly chopped, then fried with 1 tbsp garlic paste and salt in 2 tbsp oil. 2 tbsp desi ghee is added, then the riste with their gravy, and the two simmer together for a few minutes.",
           ],
@@ -380,24 +306,15 @@ export const RECIPE_REVISIONS = {
   },
 
   // ---------------------------------------------------------------------------------------------
-  // Her own home recipes, used as the recipe. She presents each as a home version, and so do we.
+  // Home recipes, used as the recipe. Each is presented as a home version.
   // ---------------------------------------------------------------------------------------------
 
   rista: {
-    revised: "2026-11-19",
-    source: {
-      title: "Homemade Wazwan Style Rista in a Grinder",
-      url: "https://www.youtube.com/watch?v=KVVI0NTmSho",
-      published: "2024-07-23",
-      publishedLabel: "23 July 2024",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's home recipe for rista: her ingredients, quantities and order of work, in our own words.",
-      note: "It is her home version, made in a grinder for cooks without the stone and mallet. At a Wazwan the meat and fat are pounded by hand, as our story on rista describes and as a waza does in her palak riste video.",
-      also: [{ label: "A waza pounding and shaping rista, in her palak riste video", url: "https://www.youtube.com/watch?v=C4j0M17ztH0" }],
-    },
+    revised: "2026-11-20",
+    note: "This is a home version, made in a grinder for cooks without the stone and mallet. At a Wazwan the meat and fat are pounded by hand, as our story on rista describes.",
     recipe: {
       intro:
-        "Rista at home, as Dr Rukhsaar Sayeed makes it: chilled mutton mince and fat worked to a smooth paste in a grinder, rolled into balls and boiled in spiced mutton stock with fried-onion paste and ghee. At a Wazwan the meat is pounded by hand on stone; our story on rista describes that.",
+        "Rista at home: chilled mutton mince and fat worked to a smooth paste in a grinder, rolled into balls and boiled in spiced mutton stock with fried-onion paste and ghee. At a Wazwan the meat is pounded by hand on stone; our story on rista describes that.",
       prepTimeMinutes: 90,
       cookTimeMinutes: 30,
       servings: "",
@@ -429,7 +346,7 @@ export const RECIPE_REVISIONS = {
         "Add the whole spices, the powdered spices, the ginger-garlic paste, the fried-onion paste, the ghee and the colour to the stock.",
         "Boil for 20–25 minutes, until the ristas have swollen and the gravy is thick and glossy. Serve hot.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "Keep the meat cold: a grinder heats it, and warm meat spoils the texture.",
         "The fat must be completely cool before it goes in.",
@@ -441,19 +358,11 @@ export const RECIPE_REVISIONS = {
   },
 
   yakhni: {
-    revised: "2026-11-19",
-    source: {
-      title: "Kashmiri Mutton Yakhni",
-      url: "https://www.youtube.com/watch?v=EEF468g3bg4",
-      published: "2025-03-26",
-      publishedLabel: "26 March 2025",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's home recipe for mutton yakhni: her ingredients, quantities and order of work, in our own words.",
-      note: "It is her home version, with a pressure cooker and an egg in the yogurt. Her Wazwan series has no yakhni yet.",
-    },
+    revised: "2026-11-20",
+    note: "This is a home version, with a pressure cooker and an egg in the yogurt.",
     recipe: {
       intro:
-        "Yakhni is mutton in a yogurt gravy with fennel, dry ginger and dried mint. This is Dr Rukhsaar Sayeed's home version: the mutton is pressure-cooked, and an egg whisked into the yogurt keeps it from curdling.",
+        "Yakhni is mutton in a yogurt gravy with fennel, dry ginger and dried mint. This is a home version: the mutton is pressure-cooked, and an egg whisked into the yogurt keeps it from curdling.",
       cookTimeMinutes: 50,
       servings: "",
       ingredients: [
@@ -480,7 +389,7 @@ export const RECIPE_REVISIONS = {
         "Sprinkle in the dried mint and simmer for 10–15 minutes.",
         "Serve hot with steamed rice.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "The egg is there to stop the yogurt curdling; keep stirring until it boils.",
         "Fry the shallots to a golden brown before blending them.",
@@ -492,19 +401,10 @@ export const RECIPE_REVISIONS = {
   },
 
   "dum-oluv": {
-    revised: "2026-11-19",
-    source: {
-      title: "Silkiest Kashmiri Dum Aloo",
-      url: "https://www.youtube.com/watch?v=rutffC8ovFE",
-      published: "2026-07-02",
-      publishedLabel: "2 July 2026",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's home recipe for dum aloo: her ingredients, quantities and order of work, in our own words.",
-      note: "The potato paste in the gravy is her own touch. The garam masala at the end is in her written recipe and not in her video, as she notes.",
-    },
+    revised: "2026-11-20",
     recipe: {
       intro:
-        "Kashmiri dum aloo: baby potatoes pricked and fried golden, then simmered in a spiced yogurt gravy until the oil separates. This is Dr Rukhsaar Sayeed's home recipe, and her own touch is to thicken the gravy with a paste of a few of the boiled potatoes.",
+        "Kashmiri dum aloo: baby potatoes pricked and fried golden, then simmered in a spiced yogurt gravy until the oil separates. This is a home recipe, and its own touch is to thicken the gravy with a paste of a few of the boiled potatoes.",
       ingredients: [
         "500 g baby potatoes",
         "Oil, for deep-frying",
@@ -533,7 +433,7 @@ export const RECIPE_REVISIONS = {
         "Add the potato paste, the fried potatoes, salt and a little water. Cover and simmer until the gravy is thick and the oil separates.",
         "Finish with the garam masala and serve hot.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "Prick the potatoes after peeling, so the gravy gets in.",
         "The paste of boiled potato is what makes the gravy silky.",
@@ -545,20 +445,11 @@ export const RECIPE_REVISIONS = {
   },
 
   "kashmiri-harissa": {
-    revised: "2026-11-19",
-    source: {
-      title: "Mutton Harissa",
-      url: "https://www.youtube.com/watch?v=4sw-WeeRpDk",
-      published: "2025-10-30",
-      publishedLabel: "30 October 2025",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's home recipe for harissa: her ingredients, quantities and order of work, in our own words.",
-      note: "It is a home version, thickened with rice flour and started in a pressure cooker; the harissa shops of Srinagar cook theirs overnight. Her method puts garlic paste and green cardamom in the stock, though her ingredient list has no garlic and keeps the cardamom for the spice bundle; and her list has a sliced onion that her method does not mention, which we have put with the fried-onion garnish.",
-      also: [{ label: "Her longer harissa video, with the same recipe", url: "https://www.youtube.com/watch?v=p4-hc9zlxZ0" }],
-    },
+    revised: "2026-11-20",
+    note: "This is a home version, thickened with rice flour and started in a pressure cooker; the harissa shops of Srinagar cook theirs overnight.",
     recipe: {
       intro:
-        "Harissa at home, as Dr Rukhsaar Sayeed makes it: a stock from the mutton bones, the meat pressure-cooked with fennel and whole spices, cooked down for hours and thickened with rice flour until it mashes smooth.",
+        "Harissa at home: a stock from the mutton bones, the meat pressure-cooked with fennel and whole spices, cooked down for hours and thickened with rice flour until it mashes smooth.",
       cookTimeMinutes: 240,
       ingredients: [
         "1.5 kg mutton on the bone",
@@ -581,10 +472,10 @@ export const RECIPE_REVISIONS = {
         "Mash the meat into the gravy with a wooden spoon or a masher until smooth. Adjust the salt.",
         "Serve hot, topped with mustard oil and fried onions.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "Stir all the time while the rice-flour slurry goes in.",
-        "The stock from the bones is what gives the harissa its depth, she says.",
+        "The stock from the bones is what gives the harissa its depth.",
         "Mash until the meat disappears into the gravy.",
       ],
       commonMistakes: [],
@@ -593,20 +484,10 @@ export const RECIPE_REVISIONS = {
   },
 
   "noon-chai": {
-    revised: "2026-11-19",
-    source: {
-      title: "2-Ways Kashmiri Noon-Chai",
-      url: "https://www.youtube.com/watch?v=ZBnSG6SUy_Y",
-      published: "2025-11-17",
-      publishedLabel: "17 November 2025",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's traditional method for noon chai: her ingredients, quantities and order of work, in our own words.",
-      note: "Her recipe says to boil the tea down and repeat it twice; we have written it as she does.",
-      also: [{ label: "Her earlier video on noon chai in a pressure cooker", url: "https://www.youtube.com/watch?v=xOmq72D16gQ" }],
-    },
+    revised: "2026-11-20",
     recipe: {
       intro:
-        "Noon chai is Kashmir's salted pink tea: tea leaves boiled down with a pinch of baking soda, shocked with cold water, then simmered with milk and salt. This is the traditional method as Dr Rukhsaar Sayeed makes it; her quicker pressure-cooker method is below.",
+        "Noon chai is Kashmir's salted pink tea: tea leaves boiled down with a pinch of baking soda, shocked with cold water, then simmered with milk and salt. This is the traditional method; a quicker pressure-cooker method is below.",
       servings: "",
       ingredients: [
         "1 heaped tsp Kashmiri tea leaves",
@@ -619,13 +500,13 @@ export const RECIPE_REVISIONS = {
       ],
       instructions: [
         "Roast the tea leaves in a heavy pan on a low flame for 10–20 seconds.",
-        "Add the baking soda and the 2 cups of water. Boil on a medium heat for 10–15 minutes, until it has reduced by half and turned a deep reddish brown. Repeat this twice, as she does.",
+        "Add the baking soda and the 2 cups of water. Boil on a medium heat for 10–15 minutes, until it has reduced by half and turned a deep reddish brown. Repeat this twice.",
         "Add the cup of cold water and whisk hard for 2–3 minutes.",
         "Simmer for another 10 minutes; the tea turns a dark ruby pink.",
         "Add the milk, stirring gently, and simmer slowly for 10 minutes, until it is a creamy rose pink.",
         "Add the salt and, if you like, the malai. Serve hot with lavasa, girda or bakerkhani.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "Long brewing is the key: reducing the tea is what develops the colour.",
         "Air matters: whisk the tea, or pour it, to bring out the pink.",
@@ -638,16 +519,15 @@ export const RECIPE_REVISIONS = {
         {
           title: "In a pressure cooker",
           paragraphs: [
-            "The same video gives a quicker way. Put 2 cups of water, 1 heaped tsp of tea leaves and ¼ tsp of baking soda in a pressure cooker and stir. Cook on a high flame to the first whistle, then on a low flame for 5 minutes, and let the pressure fall by itself.",
+            "There is a quicker way. Put 2 cups of water, 1 heaped tsp of tea leaves and ¼ tsp of baking soda in a pressure cooker and stir. Cook on a high flame to the first whistle, then on a low flame for 5 minutes, and let the pressure fall by itself.",
             "Open the cooker, add 1 cup of cold water and stir hard. Add 1 cup of milk, or more, bring to a gentle boil and simmer for 5–7 minutes, until the tea is a rich pink. Add ½ tsp of salt and a spoonful of malai if you like, and strain into cups.",
           ],
         },
         {
           title: "With tomle sott, roasted rice flour",
-          source: { title: "Tomlé Sott- Kashmiri Superfood", url: "https://www.youtube.com/watch?v=ryKfdNcupy0", published: "2025-07-23", publishedLabel: "23 July 2025" },
           paragraphs: [
-            "Tomle sott is rice that has been slowly roasted and stone-ground to a fine powder. Dr Sayeed describes it as what Kashmir turned to for energy long before breakfast cereals, traditionally mixed into hot salted noon chai at breakfast or with the evening tea.",
-            "A spoonful goes into the cup, she says, and makes the tea filling. Her written note gives no quantities for making the sott itself.",
+            "Tomle sott is rice that has been slowly roasted and stone-ground to a fine powder. It is traditionally mixed into hot salted noon chai at breakfast or with the evening tea.",
+            "A spoonful goes into the cup and makes the tea filling. We have no quantities for making the sott itself.",
           ],
         },
       ],
@@ -655,19 +535,11 @@ export const RECIPE_REVISIONS = {
   },
 
   phirni: {
-    revised: "2026-11-19",
-    source: {
-      title: "Kashmiri Phirni | Ramadan Special",
-      url: "https://www.youtube.com/watch?v=pWLuU1Hb9U0",
-      published: "2026-02-21",
-      publishedLabel: "21 February 2026",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for Kashmiri phirni: her ingredients, quantities and order of work, in our own words.",
-      note: "Hers is made with semolina, where our earlier recipe used ground rice.",
-    },
+    revised: "2026-11-20",
+    note: "This phirni is made with semolina, not ground rice.",
     recipe: {
       intro:
-        "Kashmiri phirni: semolina cooked slowly in full-fat milk with sugar, coconut, almonds and raisins, set in earthen bowls under roasted poppy seeds. This is Dr Rukhsaar Sayeed's recipe, the one she makes for Ramadan.",
+        "Kashmiri phirni: semolina cooked slowly in full-fat milk with sugar, coconut, almonds and raisins, set in earthen bowls under roasted poppy seeds.",
       servings: "",
       ingredients: [
         "1.5 litres full-fat milk",
@@ -689,11 +561,11 @@ export const RECIPE_REVISIONS = {
         "Pour the phirni into the earthen bowls and top with the poppy seeds.",
         "Leave it to cool completely; it thickens and turns creamy as it cools.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "Soak the semolina first: it prevents lumps.",
         "Cook it low and slow, and stop while it is still pourable. It thickens as it cools.",
-        "She counts the earthen bowls and the poppy seeds as part of the dish.",
+        "The earthen bowls and the poppy seeds are part of the dish.",
       ],
       commonMistakes: [],
       homeAdaptation: "",
@@ -701,19 +573,10 @@ export const RECIPE_REVISIONS = {
   },
 
   "masala-tsot": {
-    revised: "2026-11-19",
-    source: {
-      title: "Masaal Tchot | Iconic Kashmiri Street Food",
-      url: "https://www.youtube.com/watch?v=pfhnrhjDywQ",
-      published: "2025-04-16",
-      publishedLabel: "16 April 2025",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for masala tsot: her ingredients, quantities and order of work, in our own words.",
-      note: "Her method names cumin and coriander powders where her ingredient list has cumin seeds and fresh coriander; we have followed the list.",
-    },
+    revised: "2026-11-20",
     recipe: {
       intro:
-        "Masala tsot is a Kashmiri street wrap: a soft lavasa spread with radish-and-onion chutney and a thick paste of boiled white peas, then rolled. This is Dr Rukhsaar Sayeed's recipe; she notes that it uses no oil.",
+        "Masala tsot is a Kashmiri street wrap: a soft lavasa spread with radish-and-onion chutney and a thick paste of boiled white peas, then rolled. This recipe uses no oil.",
       ingredients: [
         "For the pea paste: 1 cup dried white peas (safed matar)",
         "Salt, to taste",
@@ -735,7 +598,7 @@ export const RECIPE_REVISIONS = {
         "Lay a lavasa flat and spread it generously with chutney, then with a layer of the pea paste. Add another spoonful of chutney on top if you like it hot.",
         "Roll it up tightly and serve at once.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: ["Dry the cooked peas well before mashing, so the paste is thick.", "Serve as soon as it is rolled."],
       commonMistakes: [],
       homeAdaptation: "",
@@ -743,19 +606,10 @@ export const RECIPE_REVISIONS = {
   },
 
   basrakh: {
-    revised: "2026-11-19",
-    source: {
-      title: "Basrakh",
-      url: "https://www.youtube.com/watch?v=WBKtEpGKJMY",
-      published: "2024-11-08",
-      publishedLabel: "8 November 2024",
-      credit:
-        "This recipe follows Dr Rukhsaar Sayeed's recipe for basrakh: her ingredients, quantities and order of work, in our own words.",
-      note: "Her video was made with an oil brand, which we have left out. The powdered sugar and the salt are in her ingredient list and not in her method; we add them with the flour.",
-    },
+    revised: "2026-11-20",
     recipe: {
       intro:
-        "Basrakh is a Kashmiri festive sweet: a stiff ghee dough shaped into small bowls, fried slowly until crisp and dipped in cardamom sugar syrup. This is Dr Rukhsaar Sayeed's recipe.",
+        "Basrakh is a Kashmiri festive sweet: a stiff ghee dough shaped into small bowls, fried slowly until crisp and dipped in cardamom sugar syrup.",
       servings: "",
       ingredients: [
         "For the dough: 2 cups all-purpose flour (maida)",
@@ -780,7 +634,7 @@ export const RECIPE_REVISIONS = {
         "Dip the fried basrakh in the warm syrup to coat them, leave them in it for a minute, then set them on a plate and top with dry fruits.",
         "Let them cool completely: the syrup hardens to a crunchy coating. They keep in an airtight container for up to a week.",
       ],
-      tipsTitle: "Dr Sayeed's tips",
+      tipsTitle: "Tips",
       wazaTips: [
         "Rub the ghee in until the flour looks like breadcrumbs before any water goes in.",
         "Fry slowly, and cool the basrakh completely before the syrup.",
@@ -792,26 +646,20 @@ export const RECIPE_REVISIONS = {
   },
 
   // ---------------------------------------------------------------------------------------------
-  // Her recipes added as variations: a different take on the dish, or a dish we have no page for.
-  // The stored recipe stays, and the credit says so.
+  // Recipes added as variations: a different take on the dish, or a dish we have no page for.
+  // The stored recipe stays.
   // ---------------------------------------------------------------------------------------------
 
   gushtaba: {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The chicken version comes from Dr Rukhsaar Sayeed's home recipe and is told in our own words. The mutton recipe above it is our own and is not from her video.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
-          title: "With chicken: Dr Sayeed's home-style gushtaba",
-          source: { title: "Home Style Kashmiri Goshtabé", url: "https://www.youtube.com/watch?v=ToS3WQsY0Ew", published: "2026-08-03", publishedLabel: "3 August 2026" },
+          title: "With chicken: a home-style gushtaba",
           paragraphs: [
-            "Dr Rukhsaar Sayeed makes a lighter gushtaba at home with chicken, which she presents as her own take on the dish.",
-            "For the meatballs she blends 500 g boneless chicken with 70 g rendered and cooled mutton fat (or ghee), 1 tsp salt, the seeds of 1 black cardamom pod, 1 tsp cumin seeds and 8–10 ice cubes to a smooth, sticky paste, shapes it into balls and cooks them in boiling water, keeping 2 cups of the stock.",
-            "For the gravy, 500 g yogurt is whisked with 1 egg or 2 tbsp gram flour and cooked, whisking all the time, until it boils. In go 1 black and 2 green cardamom pods, a small stick of cinnamon, 2 cloves, 1 tsp cumin seeds, ½ tsp each of fennel and dry ginger powder, 1 tbsp ginger-garlic paste, 1 tbsp oil and salt. When it has thickened a little she adds the meatballs, the stock, 2 tbsp fried-shallot paste, ½ tsp mint powder and 1 tbsp ghee, covers the pot and simmers it for a few minutes. Her advice is to keep the chicken, fat and grinder cold, and to use mutton fat for the Wazwan flavour.",
+            "A lighter gushtaba can be made at home with chicken. It is a home cook's take on the dish, not the Wazwan's.",
+            "For the meatballs, 500 g boneless chicken is blended with 70 g rendered and cooled mutton fat (or ghee), 1 tsp salt, the seeds of 1 black cardamom pod, 1 tsp cumin seeds and 8–10 ice cubes to a smooth, sticky paste, shaped into balls and cooked in boiling water; 2 cups of the stock are kept.",
+            "For the gravy, 500 g yogurt is whisked with 1 egg or 2 tbsp gram flour and cooked, whisking all the time, until it boils. In go 1 black and 2 green cardamom pods, a small stick of cinnamon, 2 cloves, 1 tsp cumin seeds, ½ tsp each of fennel and dry ginger powder, 1 tbsp ginger-garlic paste, 1 tbsp oil and salt. When it has thickened a little, the meatballs, the stock, 2 tbsp fried-shallot paste, ½ tsp mint powder and 1 tbsp ghee go in, and the pot is covered and simmered for a few minutes. Keep the chicken, fat and grinder cold, and use mutton fat for the Wazwan flavour.",
           ],
         },
       ],
@@ -819,20 +667,14 @@ export const RECIPE_REVISIONS = {
   },
 
   "wazwan-mushroom-guchhi-yakhni": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The quick mushroom curry comes from Dr Rukhsaar Sayeed's home recipe and is told in our own words. The morel recipe above it is our own and is not from her video.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
-          title: "With ordinary mushrooms: Dr Sayeed's quick curry",
-          source: { title: "Kashmiri Wazwan Mushroom Curry", url: "https://www.youtube.com/watch?v=HvNDwOuymvY", published: "2026-01-31", publishedLabel: "31 January 2026" },
+          title: "With ordinary mushrooms: a quick curry",
           paragraphs: [
-            "Dr Rukhsaar Sayeed's Wazwan-style mushroom curry uses canned or fresh button mushrooms and takes about 15 minutes.",
-            "She whisks 1 cup of yogurt with 2–3 green cardamom pods, a small stick of cinnamon, 3–4 cloves and 1 tbsp gram flour over a high flame until it boils and thickens a little, and sets it aside.",
+            "A quick Wazwan-style mushroom curry uses canned or fresh button mushrooms and takes about 15 minutes.",
+            "1 cup of yogurt is whisked with 2–3 green cardamom pods, a small stick of cinnamon, 3–4 cloves and 1 tbsp gram flour over a high flame until it boils and thickens a little, and is set aside.",
             "In another pan 2 medium onions, thinly sliced, are fried golden in 2–3 tbsp oil. In goes 1 cup of mushrooms (halved, if fresh), then salt, a pinch of turmeric and red chilli, coriander, cumin, fennel and dry ginger powders to taste. The yogurt is poured in and cooked until the oil starts to separate, and the curry is finished with 1 tsp dried mint and fresh coriander.",
           ],
         },
@@ -841,29 +683,21 @@ export const RECIPE_REVISIONS = {
   },
 
   "waza-kokur": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The pot-roasted chicken and the dum kokur come from Dr Rukhsaar Sayeed's home recipes and are told in our own words. The recipe above them is our own and is not from her videos.",
-      note: "Her video was made with a spice brand, which we have left out.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
-          title: "Dr Sayeed's Wazwan-style pot-roasted chicken",
-          source: { title: "Wazwan Pot-Roasted Chicken", url: "https://www.youtube.com/watch?v=yBZlyvULnbI", published: "2024-10-31", publishedLabel: "31 October 2024" },
+          title: "A home version, battered and fried",
           paragraphs: [
-            "Dr Rukhsaar Sayeed's home version of the feast's chicken is boiled in its marinade, then battered and fried until crisp.",
+            "A home version of the feast's chicken is boiled in its marinade, then battered and fried until crisp.",
             "500 g of chicken pieces, cut deeply, are marinated for at least 2 hours, or overnight, in ½ cup white vinegar with 2 tbsp ginger-garlic paste, 2 tbsp red chilli powder, ½ tsp turmeric, 1 tbsp fennel powder, 1 tsp cumin powder, 1 tbsp coriander powder, 1 tbsp meat masala, ½ tsp dry ginger powder and salt.",
             "The chicken is boiled in the marinade for about 15 minutes, until four-fifths cooked, then coated in a thick batter of the same spice mixture with ½–1 cup of cornflour and deep-fried in batches until golden and crisp, 5–7 minutes a piece.",
           ],
         },
         {
-          title: "Dum kokur, the home dish she calls a lost recipe",
-          source: { title: "Lost Kashmiri Recipe - Dum Kokur", url: "https://www.youtube.com/watch?v=lbFfR1230uU", published: "2026-08-20", publishedLabel: "20 August 2026" },
+          title: "Dum kokur, a home dish",
           paragraphs: [
-            "Dr Rukhsaar Sayeed gives the name dum kokur to a home dish she calls a lost Kashmiri recipe: once made in Kashmiri homes, she says, and now almost forgotten. The chicken is cooked on dum with yogurt, saffron and mint and finished with a little honey.",
+            "Dum kokur is also the name of a home dish: chicken cooked on dum with yogurt, saffron and mint and finished with a little honey.",
             "750 g of chicken is marinated for at least 2 hours, and preferably overnight, in 2 cups of thick whisked yogurt and ¼ cup of saffron milk with 1 tbsp ginger-garlic paste, 2 handfuls of chopped fresh mint, 4–5 chopped green chillies, 2 tbsp Kashmiri chilli powder, ½ tsp turmeric, ½ tsp fennel powder, 1 tbsp coriander powder, salt and 2 tbsp mustard or cooking oil.",
             "In a deep, heavy pan, 1 tsp cumin seeds, 3–4 green cardamom pods, 1 black cardamom pod, 3–4 cloves and a small stick of cinnamon go into hot oil, then 2 thinly sliced onions, fried golden brown, and 1 tbsp ginger-garlic paste. The marinated chicken is added and brought to the boil, with 1 tsp dried fenugreek leaves and ½–1 tsp chilli flakes. It is covered and cooked on a low heat until the chicken is done, the gravy thick and the oil separating, and 1–2 tsp of honey is stirred in at the end.",
           ],
@@ -873,28 +707,21 @@ export const RECIPE_REVISIONS = {
   },
 
   "seekh-kebab": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The two kebab variations on this page come from Dr Rukhsaar Sayeed's videos and are told in our own words: her home method without a grill, and the lahabi kabab a waza makes in her Wazwan series. The main recipe is our own and is not from her videos.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
-          title: "Without a grill or skewers: Dr Sayeed's home method",
-          source: { title: "Kashmiri Seekh Kababs | No-Oven | No-Seekh", url: "https://www.youtube.com/watch?v=AEIPLYnZv-g", published: "2025-01-16", publishedLabel: "16 January 2025" },
+          title: "Without a grill or skewers: a home method",
           paragraphs: [
-            "Kashmiri kababs need coals, a grill and skewers, Dr Rukhsaar Sayeed says, and this is her way of making them in a kitchen that has none of the three.",
+            "Kashmiri kababs need coals, a grill and skewers. This is a way of making them in a kitchen that has none of the three.",
             "250 g boneless mutton, with 25–30 per cent fat, is chopped fine on a board with 1½ tbsp chilli powder, 2 tsp fennel, 1 tsp dry ginger powder, 1 tsp black cardamom powder, ½ tsp black pepper and salt. 1 tbsp cumin seeds, a handful of chopped coriander and 1 egg are mixed in, and the mince rests in the freezer for at least 30 minutes.",
-            "She folds skewers out of thick aluminium foil, as the video shows, shapes the mince on to them with wet hands, and lays them across a smoking-hot pan so that the meat does not touch it. They cook on a high flame for 10–15 minutes, turned all the time. If there is no fat, she says, add ghee and never oil.",
+            "Skewers are folded out of thick aluminium foil, the mince is shaped on to them with wet hands, and they are laid across a smoking-hot pan so that the meat does not touch it. They cook on a high flame for 10–15 minutes, turned all the time. If the meat has no fat, add ghee and never oil.",
           ],
         },
         {
           title: "Lahabi kabab, the boat-shaped kebab of the feast",
-          source: { title: "Wazwan Special Lahbi Kabab", url: "https://www.youtube.com/watch?v=bSeT6k2brWs", published: "2026-10-22", publishedLabel: "22 October 2026" },
           paragraphs: [
-            "Lahabi, or lahabdar, kabab is a Wazwan kebab shaped like a boat and cooked in gravy. Dr Sayeed learnt it from the waza at her sister's wedding.",
+            "Lahabi, or lahabdar, kabab is a Wazwan kebab shaped like a boat and cooked in gravy. A waza makes it like this.",
             "500 g boneless mutton is chopped fine with salt and 1 tbsp red chilli powder and passed through a mincer once or twice. 1 egg, ½ tbsp dried mint, ½ tbsp turmeric and ½ tbsp cumin seeds are added, and it is minced again until smooth, then shaped by hand into boats.",
             "1 litre of mutton stock is boiled with ½ tbsp turmeric and 1 tbsp red chilli powder. The kebabs go in, followed by 2–3 cloves, 1 tbsp garlic paste, 3–4 green cardamom pods, ¼ tbsp dry ginger powder, 1–2 tbsp ghee, ½ cup whisked curd and a little onion or shallot paste to thicken. They simmer until the gravy is thick and the ghee separates.",
           ],
@@ -904,21 +731,15 @@ export const RECIPE_REVISIONS = {
   },
 
   czochworu: {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The pressure-cooker method comes from Dr Rukhsaar Sayeed's home recipe and is told in our own words. The oven recipe above it is our own and is not from her video.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
           title: "Without an oven: in a pressure cooker",
-          source: { title: "Chochwur in a Cooker | Kashmiri Styled Bagels", url: "https://www.youtube.com/watch?v=vsk26vK1VY0", published: "2025-01-09", publishedLabel: "9 January 2025" },
           paragraphs: [
-            "Czochworu is baked by the kandur in a tandoor. Dr Rukhsaar Sayeed bakes it at home on the hot wall of a pressure cooker.",
-            "Her dough is 1½ cups flour, 1 tsp instant yeast and 1 tsp sugar frothed in ½ cup warm water, ½ tsp salt and 1 tbsp oil or melted butter, left to double for 1–1½ hours. Without knocking it back she shapes it into rings, boils each for 30–60 seconds a side in water with sugar and baking soda, brushes them with milk and scatters sesame or poppy seeds over.",
-            "For the baking she takes the gasket and the whistle off the cooker's lid, heats the empty cooker for 10 minutes and sprinkles salt water inside. Each ring is wetted underneath and stuck to the inside of the cooker, covered with the lid and cooked for 2–3 minutes; then the cooker is turned over the flame for 5–7 minutes, until the bread has golden spots on both sides.",
+            "Czochworu is baked by the kandur in a tandoor. At home it can be baked on the hot wall of a pressure cooker.",
+            "The dough is 1½ cups flour, 1 tsp instant yeast and 1 tsp sugar frothed in ½ cup warm water, ½ tsp salt and 1 tbsp oil or melted butter, left to double for 1–1½ hours. Without being knocked back it is shaped into rings; each is boiled for 30–60 seconds a side in water with sugar and baking soda, brushed with milk and scattered with sesame or poppy seeds.",
+            "For the baking, the gasket and the whistle come off the cooker's lid, the empty cooker is heated for 10 minutes and salt water is sprinkled inside. Each ring is wetted underneath and stuck to the inside of the cooker, covered with the lid and cooked for 2–3 minutes; then the cooker is turned over the flame for 5–7 minutes, until the bread has golden spots on both sides.",
           ],
         },
       ],
@@ -926,21 +747,15 @@ export const RECIPE_REVISIONS = {
   },
 
   girda: {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The pressure-cooker method comes from Dr Rukhsaar Sayeed's home recipe and is told in our own words. The recipe above it is our own and is not from her video.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
           title: "Without an oven: girda in a pressure cooker",
-          source: { title: "Kashmiri Roti Without Oven", url: "https://www.youtube.com/watch?v=bd83bh3f9Tg", published: "2024-11-26", publishedLabel: "26 November 2024" },
           paragraphs: [
-            "Dr Rukhsaar Sayeed makes girda at home without yeast or an oven, on the hot wall of a pressure cooker.",
+            "Girda can be made at home without yeast or an oven, on the hot wall of a pressure cooker.",
             "1 cup flour is mixed with ¼ tsp baking soda, ½ tsp sugar and ½ tsp salt, then kneaded with 3 tbsp curd and warm water to a soft dough; 1 tbsp oil is worked in for 5–7 minutes and the dough rests for an hour under a damp cloth. It makes 4–5 thick discs, pressed in the middle with the fingertips to give the bread its dimples.",
-            "The cooker is used as for her czochworu: gasket and whistle off, heated empty for 10 minutes, salt water sprinkled inside. Each girda is wetted underneath and stuck to the inside, covered and cooked for 2–3 minutes, then the cooker is turned over the flame for 5–7 minutes until the bread has golden spots. She brushes them with butter or ghee.",
+            "The cooker is used as for czochworu: gasket and whistle off, heated empty for 10 minutes, salt water sprinkled inside. Each girda is wetted underneath and stuck to the inside, covered and cooked for 2–3 minutes, then the cooker is turned over the flame for 5–7 minutes until the bread has golden spots. Brush them with butter or ghee.",
           ],
         },
       ],
@@ -948,29 +763,22 @@ export const RECIPE_REVISIONS = {
   },
 
   "kashmiri-kahwa": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The four kehwas and the winter premix that end the recipe come from Dr Rukhsaar Sayeed's videos and are told in our own words. The main recipe is our own and is not from her videos.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
-          title: "Four kehwas, as Dr Sayeed makes them",
-          source: { title: "4 Authentic Kashmiri Kehwas", url: "https://www.youtube.com/watch?v=6Uyso2tSCrw", published: "2025-01-13", publishedLabel: "13 January 2025" },
+          title: "Four kinds of kehwa",
           paragraphs: [
-            "Dr Rukhsaar Sayeed says recipes online muddle the kehwas together, and she keeps four apart. Each of hers makes two cups.",
+            "There is more than one kehwa. These are four, and each recipe makes two cups.",
             "Kong kehwa, the saffron one, has no tea in it: 6–8 saffron strands are soaked in 2 tbsp hot water for 5 minutes; 2 cups of water are boiled with 2 pounded cardamom pods; the saffron and sugar or honey go in, and it simmers for 2–3 minutes and is served with almond slivers. Dodh kehwa is the same made with milk: 2 cups boiled with the saffron and cardamom, sweetened and simmered for 5 minutes.",
             "Mulethi, or shangri, kehwa is 1 tsp liquorice root, 1 tsp sepistan and a small piece of cinnamon, lightly pounded, boiled in 2 cups of water with sugar for 8–10 minutes and strained. The green tea kehwa, dum tyoth, is 2 cups of water boiled with a small stick of cinnamon and sugar, then simmered for 3–4 minutes with 1 tsp green tea or noon chai leaves and strained.",
           ],
         },
         {
           title: "A winter kehwa premix",
-          source: { title: "Winter Kehwa Premix", url: "https://www.youtube.com/watch?v=um4m_kZvM-s", published: "2025-12-06", publishedLabel: "6 December 2025" },
           paragraphs: [
-            "Dr Sayeed also keeps a ground mix for winter, which she describes as a traditional blend in the Ayurvedic and Unani manner, made from whole spices and herbs.",
-            "It is equal weights, 50 g each, of eight things, in her names for them: shanger, sonth (dried ginger), Bombay chai mix (a green tea), sapistaan (lisoda), black pepper, cinnamon, green cardamom and dried rose petals. They are cleaned and dried if they need it, ground coarse or fine, mixed and stored in an airtight jar.",
+            "A ground mix of whole spices and herbs can be kept through the winter and brewed a cup at a time.",
+            "It is equal weights, 50 g each, of eight things: shanger, sonth (dried ginger), Bombay chai mix (a green tea), sapistaan (lisoda), black pepper, cinnamon, green cardamom and dried rose petals. They are cleaned and dried if they need it, ground coarse or fine, mixed and stored in an airtight jar.",
             "To use it, ½ tsp of the mix is boiled in 1 cup of water for 5–7 minutes, strained, sweetened with honey and drunk warm.",
           ],
         },
@@ -979,28 +787,21 @@ export const RECIPE_REVISIONS = {
   },
 
   "muji-chetin": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "The walnut and onion chutneys on this page come from Dr Rukhsaar Sayeed's Wazwan series and are told in our own words. The radish chutney is our own and is not from her videos.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
           title: "Doon chetin, the walnut chutney",
-          source: { title: "Wazwan Doon Chetin | Walnut Chutney", url: "https://www.youtube.com/watch?v=drbWTbMebBU", published: "2026-10-24", publishedLabel: "24 October 2026" },
           paragraphs: [
-            "The walnut chutney served at Kashmiri weddings has radish in it too, as Dr Sayeed shows in her Wazwan series.",
+            "The walnut chutney served at Kashmiri weddings has radish in it too.",
             "1 cup of soaked walnuts is chopped fine. Half a radish, half an onion and 3–4 green chillies are ground to a fine paste. ½ cup of thick curd is whisked with a little water until smooth, and the walnuts, the paste, salt and ½ tbsp cumin seeds are stirred in.",
           ],
         },
         {
           title: "Gande chetin, the onion chutney",
-          source: { title: "Wazwan Onion Chutney", url: "https://www.youtube.com/watch?v=OFubII7Jmt4", published: "2026-11-02", publishedLabel: "2 November 2026" },
           paragraphs: [
-            "The onion chutney of the feast is sharp, hot and sour, and by her account helps a heavy meal go down. This quantity serves six to eight.",
-            "4 large onions are sliced thin and 8–10 green chillies chopped fine. Both are washed well in a large bowl, strained and squeezed dry. ¼ cup vinegar, 1 tsp cumin seeds, 2 tbsp red chilli powder and 1–1½ tsp salt are massaged in by hand, and the chutney rests for 15–20 minutes before it is served. An earlier home version of hers adds fresh coriander and mint.",
+            "The onion chutney of the feast is sharp, hot and sour. This quantity serves six to eight.",
+            "4 large onions are sliced thin and 8–10 green chillies chopped fine. Both are washed well in a large bowl, strained and squeezed dry. ¼ cup vinegar, 1 tsp cumin seeds, 2 tbsp red chilli powder and 1–1½ tsp salt are massaged in by hand, and the chutney rests for 15–20 minutes before it is served. A home version adds fresh coriander and mint.",
           ],
         },
       ],
@@ -1008,29 +809,22 @@ export const RECIPE_REVISIONS = {
   },
 
   "nadur-monji": {
-    revised: "2026-11-19",
-    source: {
-      scope: "variation",
-      credit:
-        "Nadre churme, which she calls her own version, and the nadru chaat, which is her own idea, come from Dr Rukhsaar Sayeed's recipes and are told in our own words. The recipe above them is our own and is not from her videos.",
-    },
+    revised: "2026-11-20",
     recipe: {
       variations: [
         {
           title: "Another lotus-stem snack: nadre churme",
-          source: { title: "Nadre Churme | Kashmiri Fries with Nadru", url: "https://www.youtube.com/watch?v=YebB_FKHwkk", published: "2025-08-02", publishedLabel: "2 August 2025" },
           paragraphs: [
-            "Nadre churme are crushed, fried pieces of lotus stem tossed in a sour, hot spice mix. This is Dr Rukhsaar Sayeed's version.",
+            "Nadre churme are crushed, fried pieces of lotus stem tossed in a sour, hot spice mix. This is one home version.",
             "2–3 cleaned lotus stems are cut into large pieces and crushed gently, without mashing them. They can be tossed with 1–2 tbsp rice flour or cornflour and salt for extra crispness, or fried as they are, and are deep-fried until golden and crisp.",
             "The spice mix is ½ tsp salt, 1 tsp chaat masala and ½ tsp each of red chilli powder, coriander powder, roasted cumin powder and dried mint. It is sprinkled over the hot churme with a squeeze of lemon, and they are served at once.",
           ],
         },
         {
-          title: "Dr Sayeed's nadru chaat",
-          source: { title: "Kashmiri Style Chaat", url: "https://www.youtube.com/watch?v=6pD94tdZ7Zw", published: "2025-11-01", publishedLabel: "1 November 2025" },
+          title: "A nadru chaat",
           paragraphs: [
-            "This chaat is Dr Sayeed's own, one she says you will not have seen before: crisp slices of lotus stem take the place of papdi, over yogurt with saffron and caramelised onion, a pomegranate chutney and a walnut and mint chutney.",
-            "For the yogurt, a medium onion, thinly sliced, is caramelised until golden with a pinch of salt in 1 tsp ghee or oil and folded into 1 cup of thick whisked yogurt with 2 pinches of saffron; her list allows ½ tsp salt in all, and ½ tsp sugar if liked. For the pomegranate chutney, ½ cup of juice is simmered until slightly thick, then 1 tbsp jaggery or sugar, ½ tsp each of Kashmiri chilli powder, roasted cumin powder and fennel powder, and salt go in; it is cooked to a syrup and cooled. The walnut chutney is ¼ cup walnuts, ½ cup coriander leaves, ¼ cup mint leaves, 1–2 green chillies, 1 tbsp lemon juice, 2 tbsp yogurt, salt and 2–3 tbsp water, blended smooth.",
+            "This chaat is a new idea, not a traditional dish: crisp slices of lotus stem take the place of papdi, over yogurt with saffron and caramelised onion, a pomegranate chutney and a walnut and mint chutney.",
+            "For the yogurt, a medium onion, thinly sliced, is caramelised until golden with a pinch of salt in 1 tsp ghee or oil and folded into 1 cup of thick whisked yogurt with 2 pinches of saffron; allow ½ tsp salt in all, and ½ tsp sugar if liked. For the pomegranate chutney, ½ cup of juice is simmered until slightly thick, then 1 tbsp jaggery or sugar, ½ tsp each of Kashmiri chilli powder, roasted cumin powder and fennel powder, and salt go in; it is cooked to a syrup and cooled. The walnut chutney is ¼ cup walnuts, ½ cup coriander leaves, ¼ cup mint leaves, 1–2 green chillies, 1 tbsp lemon juice, 2 tbsp yogurt, salt and 2–3 tbsp water, blended smooth.",
             "One medium lotus stem is sliced paper-thin and coated with 2 tbsp cornflour, ½ tsp Kashmiri chilli powder, ½ tsp dried mint powder, salt and 1–2 tbsp of water, then fried until crisp and golden. To serve, the saffron yogurt is spread on a plate, both chutneys go over it, then the crisp nadru, and it is finished with pomegranate seeds, thin slices of apple or pear and mint leaves, and eaten at once.",
           ],
         },
