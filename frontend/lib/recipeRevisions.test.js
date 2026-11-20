@@ -138,7 +138,7 @@ describe("the recipes that follow hers", () => {
 
   it("write every variation as a title and two or three paragraphs", () => {
     const blocks = entries.flatMap(([slug, { recipe }]) => (recipe.variations || []).map((variation) => [slug, variation]));
-    expect(blocks.length).toBe(14);
+    expect(blocks.length).toBe(18);
     const titles = new Set();
     for (const [slug, variation] of blocks) {
       expect(variation.title.length, slug).toBeGreaterThan(8);

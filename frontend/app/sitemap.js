@@ -6,6 +6,7 @@ import { PILLAR_REVIEWED } from "@/data/wazwanPillar";
 import { restaurantGuides } from "@/data/restaurantGuides";
 import { hasWrittenDestinationContent, sanitizeDestination } from "@/lib/destinationContent";
 import { isRemovedDish } from "@/lib/removedDishes";
+import { withAddedDishes } from "@/lib/addedDishes";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 import { RESTAURANT_SLUGS, MUGHAL_DARBAR_SLUG, restaurantPath } from "@/lib/srinagarRestaurants";
 import { DIRECTORY_UPDATED } from "@/data/srinagarRestaurants";
@@ -108,7 +109,8 @@ export default async function sitemap() {
   ]);
 
   // Removed dishes redirect, so they're left out until the database no longer returns them.
-  const dishPages = dishes.records
+  // The dishes written in the frontend (lib/addedDishes.js) are pages too, whichever list this is.
+  const dishPages = withAddedDishes(dishes.records)
     .filter((d) => d.slug && !isRemovedDish(d))
     .map((d) => entry(`/dishes/${d.slug}`, dishLastModified(d)));
 

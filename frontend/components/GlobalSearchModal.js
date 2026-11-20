@@ -83,8 +83,9 @@ export default function GlobalSearchModal() {
       try {
         const searchParam = `?search=${encodeURIComponent(trimmed)}`;
         
-        // Fetch dishes and restaurants in parallel
-        const [dishesRes, restaurantsRes] = await Promise.all([
+        // Fetch dishes and restaurants in parallel, and ask the dishes written in the frontend,
+        // which the API's search doesn't know (lib/addedDishSearch.js, loaded on the first search).
+        const [dishesRes, restaurantsRes, addedRes] = await Promise.all([
           request(endpoints.dishes(searchParam)).catch(err => {
             console.error("Failed to fetch dishes in search:", err);
             return [];
@@ -92,11 +93,19 @@ export default function GlobalSearchModal() {
           request(endpoints.restaurants(searchParam)).catch(err => {
             console.error("Failed to fetch restaurants in search:", err);
             return [];
-          })
+          }),
+          import("@/lib/addedDishSearch")
+            .then(({ searchAddedDishes }) => searchAddedDishes(trimmed))
+            .catch(() => [])
         ]);
 
         setResults({
-          dishes: Array.isArray(dishesRes) ? withoutRemovedDishes(dishesRes).map(sanitizeDish) : [],
+          dishes: [
+            ...(Array.isArray(dishesRes) ? withoutRemovedDishes(dishesRes).map(sanitizeDish) : []).filter(
+              (dish) => !addedRes.some((added) => added.slug === dish.slug)
+            ),
+            ...addedRes,
+          ],
           restaurants: Array.isArray(restaurantsRes) ? restaurantsRes : []
         });
       } catch (err) {
@@ -228,7 +237,7 @@ export default function GlobalSearchModal() {
                       <div className="grid gap-2">
                         {results.dishes.map((dish) => (
                           <Link
-                            key={dish._id}
+                            key={dish._id || dish.slug}
                             href={`/dishes/${dish.slug || dish._id}`}
                             onClick={() => setIsOpen(false)}
                             className="group flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 p-3 transition duration-300 hover:border-[#C8A46A]/30 hover:bg-[#C8A46A]/5"

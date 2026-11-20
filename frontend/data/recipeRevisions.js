@@ -12,8 +12,9 @@
  *
  * A revision keeps her ingredients, quantities and order of work and is written in our own words,
  * never hers. Whatever we changed, scaled or added is said in `source.note`. Where her recipe is a
- * different take on a dish (chicken for mutton, a pressure cooker for an oven) or a dish we have no
- * page for, it is added to the closest page as a `variations` entry and the stored recipe stays.
+ * different take on a dish (chicken for mutton, a pressure cooker for an oven) or belongs with a
+ * dish we have, it is added to the closest page as a `variations` entry and the stored recipe stays.
+ * Her recipes for dishes we had no page for have pages of their own (data/addedDishes.js).
  * Times are our estimates from the durations she gives; a serving count is shown only where the
  * stored one still fits her quantities or she states one.
  *
@@ -641,6 +642,14 @@ export const RECIPE_REVISIONS = {
             "Open the cooker, add 1 cup of cold water and stir hard. Add 1 cup of milk, or more, bring to a gentle boil and simmer for 5–7 minutes, until the tea is a rich pink. Add ½ tsp of salt and a spoonful of malai if you like, and strain into cups.",
           ],
         },
+        {
+          title: "With tomle sott, roasted rice flour",
+          source: { title: "Tomlé Sott- Kashmiri Superfood", url: "https://www.youtube.com/watch?v=ryKfdNcupy0", published: "2025-07-23", publishedLabel: "23 July 2025" },
+          paragraphs: [
+            "Tomle sott is rice that has been slowly roasted and stone-ground to a fine powder. Dr Sayeed describes it as what Kashmir turned to for energy long before breakfast cereals, traditionally mixed into hot salted noon chai at breakfast or with the evening tea.",
+            "A spoonful goes into the cup, she says, and makes the tea filling. Her written note gives no quantities for making the sott itself.",
+          ],
+        },
       ],
     },
   },
@@ -836,7 +845,7 @@ export const RECIPE_REVISIONS = {
     source: {
       scope: "variation",
       credit:
-        "The pot-roasted chicken comes from Dr Rukhsaar Sayeed's home recipe and is told in our own words. The recipe above it is our own and is not from her video.",
+        "The pot-roasted chicken and the dum kokur come from Dr Rukhsaar Sayeed's home recipes and are told in our own words. The recipe above them is our own and is not from her videos.",
       note: "Her video was made with a spice brand, which we have left out.",
     },
     recipe: {
@@ -848,6 +857,15 @@ export const RECIPE_REVISIONS = {
             "Dr Rukhsaar Sayeed's home version of the feast's chicken is boiled in its marinade, then battered and fried until crisp.",
             "500 g of chicken pieces, cut deeply, are marinated for at least 2 hours, or overnight, in ½ cup white vinegar with 2 tbsp ginger-garlic paste, 2 tbsp red chilli powder, ½ tsp turmeric, 1 tbsp fennel powder, 1 tsp cumin powder, 1 tbsp coriander powder, 1 tbsp meat masala, ½ tsp dry ginger powder and salt.",
             "The chicken is boiled in the marinade for about 15 minutes, until four-fifths cooked, then coated in a thick batter of the same spice mixture with ½–1 cup of cornflour and deep-fried in batches until golden and crisp, 5–7 minutes a piece.",
+          ],
+        },
+        {
+          title: "Dum kokur, the home dish she calls a lost recipe",
+          source: { title: "Lost Kashmiri Recipe - Dum Kokur", url: "https://www.youtube.com/watch?v=lbFfR1230uU", published: "2026-08-20", publishedLabel: "20 August 2026" },
+          paragraphs: [
+            "Dr Rukhsaar Sayeed gives the name dum kokur to a home dish she calls a lost Kashmiri recipe: once made in Kashmiri homes, she says, and now almost forgotten. The chicken is cooked on dum with yogurt, saffron and mint and finished with a little honey.",
+            "750 g of chicken is marinated for at least 2 hours, and preferably overnight, in 2 cups of thick whisked yogurt and ¼ cup of saffron milk with 1 tbsp ginger-garlic paste, 2 handfuls of chopped fresh mint, 4–5 chopped green chillies, 2 tbsp Kashmiri chilli powder, ½ tsp turmeric, ½ tsp fennel powder, 1 tbsp coriander powder, salt and 2 tbsp mustard or cooking oil.",
+            "In a deep, heavy pan, 1 tsp cumin seeds, 3–4 green cardamom pods, 1 black cardamom pod, 3–4 cloves and a small stick of cinnamon go into hot oil, then 2 thinly sliced onions, fried golden brown, and 1 tbsp ginger-garlic paste. The marinated chicken is added and brought to the boil, with 1 tsp dried fenugreek leaves and ½–1 tsp chilli flakes. It is covered and cooked on a low heat until the chicken is done, the gravy thick and the oil separating, and 1–2 tsp of honey is stirred in at the end.",
           ],
         },
       ],
@@ -934,7 +952,7 @@ export const RECIPE_REVISIONS = {
     source: {
       scope: "variation",
       credit:
-        "The four kehwas that end the recipe come from Dr Rukhsaar Sayeed's video and are told in our own words. The main recipe is our own and is not from her video.",
+        "The four kehwas and the winter premix that end the recipe come from Dr Rukhsaar Sayeed's videos and are told in our own words. The main recipe is our own and is not from her videos.",
     },
     recipe: {
       variations: [
@@ -945,6 +963,15 @@ export const RECIPE_REVISIONS = {
             "Dr Rukhsaar Sayeed says recipes online muddle the kehwas together, and she keeps four apart. Each of hers makes two cups.",
             "Kong kehwa, the saffron one, has no tea in it: 6–8 saffron strands are soaked in 2 tbsp hot water for 5 minutes; 2 cups of water are boiled with 2 pounded cardamom pods; the saffron and sugar or honey go in, and it simmers for 2–3 minutes and is served with almond slivers. Dodh kehwa is the same made with milk: 2 cups boiled with the saffron and cardamom, sweetened and simmered for 5 minutes.",
             "Mulethi, or shangri, kehwa is 1 tsp liquorice root, 1 tsp sepistan and a small piece of cinnamon, lightly pounded, boiled in 2 cups of water with sugar for 8–10 minutes and strained. The green tea kehwa, dum tyoth, is 2 cups of water boiled with a small stick of cinnamon and sugar, then simmered for 3–4 minutes with 1 tsp green tea or noon chai leaves and strained.",
+          ],
+        },
+        {
+          title: "A winter kehwa premix",
+          source: { title: "Winter Kehwa Premix", url: "https://www.youtube.com/watch?v=um4m_kZvM-s", published: "2025-12-06", publishedLabel: "6 December 2025" },
+          paragraphs: [
+            "Dr Sayeed also keeps a ground mix for winter, which she describes as a traditional blend in the Ayurvedic and Unani manner, made from whole spices and herbs.",
+            "It is equal weights, 50 g each, of eight things, in her names for them: shanger, sonth (dried ginger), Bombay chai mix (a green tea), sapistaan (lisoda), black pepper, cinnamon, green cardamom and dried rose petals. They are cleaned and dried if they need it, ground coarse or fine, mixed and stored in an airtight jar.",
+            "To use it, ½ tsp of the mix is boiled in 1 cup of water for 5–7 minutes, strained, sweetened with honey and drunk warm.",
           ],
         },
       ],
@@ -985,7 +1012,7 @@ export const RECIPE_REVISIONS = {
     source: {
       scope: "variation",
       credit:
-        "Nadre churme comes from Dr Rukhsaar Sayeed's home recipe, which she calls her own version, and is told in our own words. The recipe above it is our own and is not from her video.",
+        "Nadre churme, which she calls her own version, and the nadru chaat, which is her own idea, come from Dr Rukhsaar Sayeed's recipes and are told in our own words. The recipe above them is our own and is not from her videos.",
     },
     recipe: {
       variations: [
@@ -996,6 +1023,15 @@ export const RECIPE_REVISIONS = {
             "Nadre churme are crushed, fried pieces of lotus stem tossed in a sour, hot spice mix. This is Dr Rukhsaar Sayeed's version.",
             "2–3 cleaned lotus stems are cut into large pieces and crushed gently, without mashing them. They can be tossed with 1–2 tbsp rice flour or cornflour and salt for extra crispness, or fried as they are, and are deep-fried until golden and crisp.",
             "The spice mix is ½ tsp salt, 1 tsp chaat masala and ½ tsp each of red chilli powder, coriander powder, roasted cumin powder and dried mint. It is sprinkled over the hot churme with a squeeze of lemon, and they are served at once.",
+          ],
+        },
+        {
+          title: "Dr Sayeed's nadru chaat",
+          source: { title: "Kashmiri Style Chaat", url: "https://www.youtube.com/watch?v=6pD94tdZ7Zw", published: "2025-11-01", publishedLabel: "1 November 2025" },
+          paragraphs: [
+            "This chaat is Dr Sayeed's own, one she says you will not have seen before: crisp slices of lotus stem take the place of papdi, over yogurt with saffron and caramelised onion, a pomegranate chutney and a walnut and mint chutney.",
+            "For the yogurt, a medium onion, thinly sliced, is caramelised until golden with a pinch of salt in 1 tsp ghee or oil and folded into 1 cup of thick whisked yogurt with 2 pinches of saffron; her list allows ½ tsp salt in all, and ½ tsp sugar if liked. For the pomegranate chutney, ½ cup of juice is simmered until slightly thick, then 1 tbsp jaggery or sugar, ½ tsp each of Kashmiri chilli powder, roasted cumin powder and fennel powder, and salt go in; it is cooked to a syrup and cooled. The walnut chutney is ¼ cup walnuts, ½ cup coriander leaves, ¼ cup mint leaves, 1–2 green chillies, 1 tbsp lemon juice, 2 tbsp yogurt, salt and 2–3 tbsp water, blended smooth.",
+            "One medium lotus stem is sliced paper-thin and coated with 2 tbsp cornflour, ½ tsp Kashmiri chilli powder, ½ tsp dried mint powder, salt and 1–2 tbsp of water, then fried until crisp and golden. To serve, the saffron yogurt is spread on a plate, both chutneys go over it, then the crisp nadru, and it is finished with pomegranate seeds, thin slices of apple or pear and mint leaves, and eaten at once.",
           ],
         },
       ],
