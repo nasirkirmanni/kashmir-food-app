@@ -105,7 +105,7 @@ export function createCredentialPool(credentials, { invalidRecheckMs = 30 * MINU
       }
       if (error.kind === "aborted") return;
       own.failures += 1;
-      own.lastFailure = { kind: error.kind, status: error.status ?? null, at: now() };
+      own.lastFailure = { kind: error.kind, status: error.status ?? null, at: now(), model, detail: error.detail || null };
       if (error.scope === "credential") {
         // The provider does not accept this key. Asking again soon would only be refused again.
         own.setAsideUntil = now() + grow(invalidRecheckMs, own.strikes);
@@ -153,7 +153,8 @@ export function createCredentialPool(credentials, { invalidRecheckMs = 30 * MINU
           resting,
           uses: own.uses,
           failures: own.failures,
-          lastFailure: own.lastFailure ? { kind: own.lastFailure.kind, status: own.lastFailure.status, at: new Date(own.lastFailure.at).toISOString() } : null,
+          // `said` is the provider's own account of it (with anything key-like removed): which limit, which model.
+          lastFailure: own.lastFailure ? { kind: own.lastFailure.kind, status: own.lastFailure.status, at: new Date(own.lastFailure.at).toISOString(), model: own.lastFailure.model, said: own.lastFailure.detail } : null,
         };
       });
     },

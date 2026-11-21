@@ -96,7 +96,8 @@ export function loadConfig(env = process.env) {
       baseDelayMs: positive(env.WAZA_RETRY_BASE_MS, 400),
       maxDelayMs: positive(env.WAZA_RETRY_MAX_MS, 4_000),
       // When nothing else can answer, a rate limit that clears within this long is waited out.
-      waitForLimitMs: atLeastZero(env.WAZA_WAIT_FOR_LIMIT_MS, 8_000),
+      // Fifteen seconds covers the shorter of the two pauses Google gave on 21 November 2026.
+      waitForLimitMs: atLeastZero(env.WAZA_WAIT_FOR_LIMIT_MS, 15_000),
     },
     breaker: {
       // After this many failures in a row a model is rested, so a dead model does not slow every answer.
@@ -106,6 +107,8 @@ export function loadConfig(env = process.env) {
       maxCoolDownMs: positive(env.WAZA_BREAKER_MAX_COOLDOWN_MS, 15 * 60_000),
       // A resting model that failed this recently is not asked again as a last resort.
       lastResortGapMs: atLeastZero(env.WAZA_LAST_RESORT_GAP_MS, 10_000),
+      // A model that answered within this long and is then silent once is asked again at once.
+      recentAnswerMs: atLeastZero(env.WAZA_RECENT_ANSWER_MS, 10 * 60_000),
     },
     keys: {
       // How long a key the provider rejected is set aside before it is looked at again.

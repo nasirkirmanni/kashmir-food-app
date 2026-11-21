@@ -204,6 +204,49 @@ test("a pause of a few seconds is waited out when no other model can answer", as
   assert.ok(result.attempts.some((attempt) => attempt.outcome === "waited_for_limit"));
 });
 
+test("a per-minute limit that the provider calls a quota is still a pause: waited out, not 'come back later'", async () => {
+  // What the live site met on 21 November 2026: the one model that answers is refused with a 429
+  // worded as a quota and a wait of seconds; the same model through a second provider has no
+  // credit; the larger model on the same key never starts.
+  const waits = [];
+  let clock = 4_000_000;
+  let limited = true;
+  const server = await openai(({ model }) => {
+    if (model === "light") return limited ? { status: 429, retryAfter: 6, message: "You exceeded your current quota, please check your plan and billing details." } : { text: "After the pause, the usual model." };
+    if (model === "light-elsewhere") return { status: 402, message: "Insufficient credits" };
+    return { hang: true };
+  });
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:light,openrouter:light-elsewhere,custom:large", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k", OPENROUTER_BASE_URL: server.url, OPENROUTER_API_KEY: "o", WAZA_TOTAL_TIMEOUT_MS: "30000" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const wait = async (ms) => {
+    waits.push(ms);
+    clock += ms;
+    limited = false;
+  };
+  const { result, error } = await run(config, { pool, now: () => clock, wait });
+  assert.equal(error, undefined);
+  assert.equal(result.text, "After the pause, the usual model.");
+  assert.deepEqual(result.attempts.map((attempt) => attempt.outcome), ["rate_limit", "credits", "timeout_first_byte", "waited_for_limit", "ok"]);
+  assert.ok(waits.some((ms) => ms >= 6_000 && ms <= 6_100), `waited ${waits} ms: what the provider asked for`);
+  // The log keeps what each provider said, so the next reading of it needs no guessing.
+  assert.match(result.attempts[0].said, /exceeded your current quota/);
+  assert.match(result.attempts[1].said, /Insufficient credits/);
+  // The owner's diagnostics say the same about the key.
+  const key = pool.snapshot().find((entry) => entry.provider === "openrouter");
+  assert.deepEqual([key.lastFailure.kind, key.lastFailure.status, key.lastFailure.model], ["credits", 402, "light-elsewhere"]);
+  assert.match(key.lastFailure.said, /Insufficient credits/);
+});
+
+test("a pause too long to wait out is told to the visitor as a pause, with its length", async () => {
+  let clock = 6_000_000;
+  const server = await openai(({ model }) => (model === "light" ? { status: 429, retryAfter: 58, message: "You exceeded your current quota, please check your plan and billing details." } : { hang: true }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:light,custom:large", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const { error } = await run(config, { pool, now: () => clock });
+  assert.equal(error.kind, "rate_limit", "not `quota`: the visitor would be told to come back later, for a wait under a minute");
+  assert.ok(error.retryAfterMs > 57_000 && error.retryAfterMs <= 58_000);
+});
+
 test("a provider's outage is not blamed on the key", async () => {
   const server = await openai(({ model }) => (model === "primary" ? { status: 500, message: "internal" } : { text: "Second model." }));
   const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,custom:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEYS: "one=k1,two=k2" });
@@ -229,7 +272,30 @@ test("each provider's way of saying what went wrong is read the same", () => {
   const old = [{ error: { code: 429, status: "RESOURCE_EXHAUSTED", message: "Resource has been exhausted", details: [{ "@type": "type.googleapis.com/google.rpc.QuotaFailure", violations: [{ quotaId: "GenerateRequestsPerDayPerProjectPerModel-FreeTier" }] }, { "@type": "type.googleapis.com/google.rpc.RetryInfo", retryDelay: "36s" }] } }];
   const exhausted = errorFromResponse(429, old, {});
   assert.deepEqual([exhausted.kind, exhausted.retryAfterMs, exhausted.scope], ["quota", 36_000, "domain"]);
+  // The same shape for a limit counted by the minute is a pause, whatever the message calls it.
+  // (Illustrative: Google's layout for this error, not a response captured from the live site.)
+  const advice = "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.5-flash-lite\nPlease retry in 12.4s.";
+  const perMinute = errorFromResponse(429, [{ error: { code: 429, status: "RESOURCE_EXHAUSTED", message: advice, details: [{ "@type": "type.googleapis.com/google.rpc.QuotaFailure", violations: [{ quotaMetric: "generativelanguage.googleapis.com/generate_content_free_tier_requests", quotaId: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier", quotaValue: "15" }] }, { "@type": "type.googleapis.com/google.rpc.RetryInfo", retryDelay: "12s" }] } }], {});
+  assert.deepEqual([perMinute.kind, perMinute.retryAfterMs, perMinute.retryable], ["rate_limit", 12_000, true]);
+  // What is kept for the log names the limit and drops the links.
+  assert.match(perMinute.detail, /RESOURCE_EXHAUSTED/);
+  assert.match(perMinute.detail, /GenerateRequestsPerMinutePerProjectPerModel-FreeTier, limit 15/);
+  assert.match(perMinute.detail, /Quota exceeded for metric/);
+  assert.doesNotMatch(perMinute.detail, /https?:|head to/);
+  assert.ok(perMinute.detail.length <= 300);
+  // With only the message to go on: the wait it gives in words settles it.
+  const inWords = errorFromResponse(429, { error: { code: 429, message: advice } }, {});
+  assert.deepEqual([inWords.kind, inWords.retryAfterMs], ["rate_limit", 12_400]);
+  // "Quota" with no wait given, or with a long one, is still a used-up allowance.
+  assert.equal(kind(429, { error: { code: 429, message: "You exceeded your current quota, please check your plan and billing details." } }), "quota");
+  assert.equal(kind(429, { error: { code: "quota_exceeded", message: "You exceeded your current quota" } }, { "retry-after": "7200" }), "quota");
+  assert.equal(kind(429, { error: { code: "quota_exceeded", message: "You exceeded your current quota" } }, { "retry-after": "45" }), "rate_limit");
+  // A limit named by the day is never a pause, however short the wait the provider attaches (the case above).
+  assert.equal(kind(429, { error: { code: 429, message: "Quota exceeded: requests per day" } }, { "retry-after": "20" }), "quota");
+  // Google's older one-line refusal names nothing and stays a rate limit.
+  assert.equal(kind(429, { error: { code: 429, status: "RESOURCE_EXHAUSTED", message: "Resource has been exhausted (e.g. check quota)." } }), "rate_limit");
   // OpenAI
+  assert.equal(kind(429, { error: { code: "insufficient_quota", message: "You exceeded your current quota" } }, { "retry-after": "20" }), "quota");
   assert.equal(kind(429, { error: { code: "insufficient_quota", message: "You exceeded your current quota" } }), "quota");
   assert.equal(kind(401, { error: { code: "invalid_api_key" } }), "auth");
   // OpenRouter: a number for a code, and headers that say when to come back
@@ -247,6 +313,10 @@ test("nothing key-like survives into a log line", () => {
   const line = redact("401 for Bearer sk-or-v1-0123456789abcdef0123456789abcdef and key=AIzaSyA1234567890abcdefghijklmnopqrstuv, also sk-ant-api03-abcdefghijklmnop and https://x.test/v1?key=SECRETVALUE123&x=1");
   for (const secret of ["0123456789abcdef0123456789abcdef", "SyA1234567890abcdefghijklmnopqrstuv", "abcdefghijklmnop", "SECRETVALUE123"]) assert.equal(line.includes(secret), false, secret);
   assert.match(line, /sk-or-v1-…/, "enough is left to tell which kind of key it was");
+  // The provider's own words are kept for the log, so they pass through the same sieve.
+  const said = errorFromResponse(403, { error: { code: "permission_denied", message: "API key AIzaSyA1234567890abcdefghijklmnopqrstuv (sk-live-abc123) is not allowed for projects/123456789012" } }, {}).detail;
+  for (const secret of ["SyA1234567890abcdefghijklmnopqrstuv", "abc123", "123456789012"]) assert.equal(said.includes(secret), false, secret);
+  assert.match(said, /permission_denied \| API key AIza/);
 });
 
 test("a key can be checked without asking a model anything", async () => {

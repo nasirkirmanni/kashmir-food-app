@@ -149,7 +149,8 @@ provider's own list.
 | `WAZA_BREAKER_MAX_COOLDOWN_MS` | 900000 | The rest doubles each time a model fails on being let back, up to this. |
 | `WAZA_PROBE_TIMEOUT_MS` | 6000 | How long a model let back after a rest is given to start answering. |
 | `WAZA_LAST_RESORT_GAP_MS` | 10000 | A resting model that failed this recently is not asked again as a last resort. |
-| `WAZA_WAIT_FOR_LIMIT_MS` | 8000 | When nothing else can answer, a rate limit that clears within this long is waited out. |
+| `WAZA_WAIT_FOR_LIMIT_MS` | 15000 | When nothing else can answer, a rate limit that clears within this long is waited out. |
+| `WAZA_RECENT_ANSWER_MS` | 600000 | A model that answered within this long and is then silent once is asked again at once (0 turns this off). |
 | `WAZA_KEY_RECHECK_MIN` | 30 | How long a rejected key is set aside. |
 | `WAZA_QUOTA_COOLDOWN_MIN` / `WAZA_CREDITS_COOLDOWN_MIN` | 15 / 30 | Rest after a quota / an empty account, when the provider gives no figure. |
 | `WAZA_CACHE`, `WAZA_CACHE_TTL_MIN`, `WAZA_CACHE_MAX` | on, 360, 400 | The answer cache. |
@@ -168,12 +169,14 @@ browser, and not written to logs: a key appears in logs and diagnostics as an id
 | 401 | the key is wrong | That key is set aside for 30 minutes (longer each time). The next key of that provider is tried; with none, the next provider. |
 | 403 | the key is not allowed (project restricted, key reported leaked) | The same. A 403 that is a moderation refusal of the question is treated as a refusal, not a bad key. |
 | 402, or "credit balance too low" | the account is empty | Every key of that quota domain is rested for every model. The next domain or provider is tried. |
-| 429 naming a daily or monthly quota | quota used up | Every key of that domain is rested for that model, for as long as the provider says, else 15 minutes and growing. |
-| 429 otherwise | a rate limit | Waited out if the provider asks for 4 seconds or less; otherwise the domain is rested for the time asked and the next route is tried. |
+| 429 naming a daily or monthly limit, a spend cap or an unpaid account | quota used up | Every key of that domain is rested for that model, for as long as the provider says, else 15 minutes and growing. |
+| 429 naming a per-minute limit, or saying only "quota" with a wait of two minutes or less | a rate limit (a pause) | Waited out if the provider asks for 4 seconds or less; otherwise the domain is rested for the time asked and the next route is tried. |
+| 429 saying only "quota", with no wait or a longer one | quota used up | As for a daily limit. |
+| 429 otherwise | a rate limit | As for a pause. |
 | 404 | the provider does not know the model | The next model. |
 | 400 | the request was refused | Sent once more in its barest form (a provider may reject a field it does not know), then the next model. |
 | 5xx, 503, 529, a broken or empty stream | the provider is in trouble | The same key again after a pause with jitter, then the next model. |
-| no start within 12 seconds, or no text within 25 | the model is slow | The next model at once: the same model asked again is unlikely to be quicker. |
+| no start within 12 seconds, or no text within 25 | the model is slow | The next model at once: the same model asked again is unlikely to be quicker. The exception is a model that answered within the last ten minutes: it is asked once more straight away, with six seconds to start, because one stuck request is likelier than an outage. |
 | the stream breaks after text has reached the visitor | interrupted | Not restarted: a second answer after half of the first would be worse. Shown as interrupted, with Try again. |
 
 Two failures in a row rest a model for a minute. When the minute is up it gets one short try (six
@@ -184,9 +187,15 @@ When every model is resting after failures, each is still asked once (a short tr
 visitor is turned away, unless it failed within the last ten seconds.
 
 When the model that normally answers is paused by its provider (a rate limit or a quota) and nothing
-else can answer, the visitor is told Waza is busy and when to come back, whatever a lesser fallback
-did in the meantime. If the pause ends within eight seconds, Waza waits for it and answers. A key the provider has rejected or rested is not asked early: that is the provider's
-instruction.
+else can answer, the visitor is told Waza is busy and, for a rate limit, how long to wait ("try
+again in about 40 seconds"), whatever a lesser fallback did in the meantime. If the pause ends
+within fifteen seconds, Waza waits for it and answers. A key the provider has rejected or rested is
+not asked early: that is the provider's instruction.
+
+Google words a per-minute limit as a quota ("You exceeded your current quota"). On 21 November 2026
+the live site was refused twice that way and the model answered again 15 and 58 seconds later, so a
+429 is read by what it names and by the wait attached, not by the word "quota" (`usedUp` in
+`providers/errors.js`).
 
 When nothing can answer, the visitor sees one of a small set of messages (`FAILURES` in
 `service.js`), each with a code the page uses to decide whether to offer Try again. Greetings and
@@ -239,12 +248,14 @@ stream, so an answer the provider itself cut off cannot be continued, only retri
 
 - **One log line per question** (`evt: "waza_chat"`): request id, what the question was taken to be,
   which model and key answered, every attempt and how it ended, tokens, estimated cost, timings,
-  whether the conversation was the site's record or the page's copy. No question text, no answer
+  whether the conversation was the site's record or the page's copy. A failed attempt carries
+  `said`: the provider's own account of the failure (its code, the limit it names, its message
+  without links, at most 300 characters, anything key-like removed). No question text, no answer
   text, no key.
 - **`GET /api/chat/status`** (public): whether Waza can answer, whether conversations are kept, the
   index version.
 - **`GET /api/chat/diagnostics`** (admin sign-in): models in use, each key's state (ready, resting
-  and until when, invalid) by id and fingerprint, the breaker, cache, answers in progress, today's
+  and until when, invalid) by id and fingerprint, its last failure and what the provider said, the breaker, cache, answers in progress, today's
   usage and estimated cost, the last seven days, the budget, latency percentiles, failures by model.
 - **`POST /api/chat/diagnostics/check-keys`** (admin sign-in): asks each provider whether it accepts
   each key, without generating anything.
@@ -258,7 +269,7 @@ No test calls a real provider or a real database.
 
 ```bash
 cd backend
-npm run test:waza        # 118 tests: failover, keys, quota domains, conversations, recovery, budget
+npm run test:waza        # 122 tests: failover, keys, quota domains, conversations, recovery, budget
                          # (one more, against a real MongoDB, is skipped unless MONGODB_URI_TEST is set)
 npm run eval:waza        # how 245 questions are read and what is fetched for them (no model)
 npm run check:waza       # which models and keys the environment gives, and whether keys are accepted
@@ -291,9 +302,11 @@ MONGODB_URI_TEST=<a throwaway database> node --test src/tests/waza/mongo.integra
 Nothing here needs a new service, queue or database. MongoDB gains two collections on first use
 (`wazaconversations`, `wazausages`); nothing existing is changed or migrated.
 
-1. **Before**: on Render, confirm `OPENROUTER_API_KEY` is set (it is what production uses now). To
-   ask Gemini directly as well, add `GEMINI_API_KEY`; for a provider independent of both, add
-   `ANTHROPIC_API_KEY`. Optionally set `WAZA_DAILY_BUDGET_USD`.
+1. **Before**: on Render, at least one provider key must be set. `GEMINI_API_KEY` is asked first
+   (Gemini directly); `OPENROUTER_API_KEY` gives the same models through a second provider;
+   `ANTHROPIC_API_KEY` gives one independent of both. A key only helps while its account can pay for
+   the call: a route whose account has no credit is skipped, and tried again every half hour.
+   Optionally set `WAZA_DAILY_BUDGET_USD`.
 2. **Push to `main`.** Vercel builds the frontend and Render the backend, at different speeds. Both
    orders are safe: the new page falls back to the old request form if the backend refuses the new
    fields, and the new backend still sends the fields the old page reads.
@@ -312,15 +325,21 @@ Nothing here needs a new service, queue or database. MongoDB gains two collectio
 
 ## 10. What it does not do
 
-- It has not been run against a real model, a real provider error, or a real MongoDB on the machine
-  it was built on: there were no keys and no database there. Everything is tested against simulated
-  providers that behave as each provider's documentation says, and an in-memory store with the same
-  rules as the MongoDB one. `check-providers.mjs --live`, `run-online.mjs` and the integration test
-  above are how to close that gap.
+- The automated tests call no real model and no real database: the machine it was built on has no
+  keys. They use simulated providers that behave as each provider's documentation says, and an
+  in-memory store with the same rules as the MongoDB one. On the live site (from 21 November 2026)
+  it runs against a real model and the real MongoDB, and what was met there is in the code as
+  comments and tests: a per-minute limit worded as a quota, an account with no credit, a model that
+  is overloaded or never starts, one silent request from a healthy model. Provider failures not yet
+  met live are still only simulated. `check-providers.mjs --live`, `run-online.mjs` and the
+  integration test above test the rest against real services.
 - State that makes it fast (which keys are resting, the breaker, the cache, answers in progress) is
   in one process's memory. That is right for one server. With several, each would learn separately
   and a browser could reconnect to a server that does not hold its answer; shared state would be
-  needed first.
-- Answer quality with the chosen models is unmeasured until the online evaluation is run.
+  needed first. On a host that stops an idle server and starts a new one for the next visitor, that
+  memory is lost at each start: a model known to be down is given its full time once more, and the
+  first question waits for the server itself.
+- Answer quality has been sampled on the live site by hand, not scored: the online evaluation
+  (`run-online.mjs`) has not been run against production.
 - It searches by words, not by meaning. A question phrased far from the site's own wording can miss.
 - A provider's stream cannot be resumed; see section 6.

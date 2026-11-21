@@ -44,6 +44,7 @@ export function sleep(ms, signal) {
  */
 export function createBreaker({ failures, coolDownMs, maxCoolDownMs = 15 * 60_000 }, now = Date.now) {
   const state = new Map(); // id -> { fails, openedAt, trips }
+  const answered = new Map(); // id -> when it last answered
   const restOf = (entry) => Math.min(maxCoolDownMs, coolDownMs * 2 ** Math.max(0, entry.trips - 1));
   const rested = (entry) => now() - entry.openedAt >= restOf(entry);
   return {
@@ -58,6 +59,11 @@ export function createBreaker({ failures, coolDownMs, maxCoolDownMs = 15 * 60_00
     },
     success(id) {
       state.delete(id);
+      answered.set(id, now());
+    },
+    /** True when the model gave an answer within the last `withinMs`. */
+    answeredSince(id, withinMs) {
+      return answered.has(id) && now() - answered.get(id) < withinMs;
     },
     /** True when the model failed within the last `withinMs`: too soon to be worth another visitor's wait. */
     failedSince(id, withinMs) {
@@ -84,6 +90,8 @@ export function createBreaker({ failures, coolDownMs, maxCoolDownMs = 15 * 60_00
 // Faults another try with the same key and model would only repeat. A model that was slow to
 // start is among them: the next model is likelier to answer soon than the same one asked again.
 const MOVE_ON = new Set(["not_found", "bad_request", "content_filter", "timeout_first_byte", "timeout_first_text", "timeout_idle", "timeout_attempt", "empty_length"]);
+// ... with one exception, made in tryKey: a model that answered minutes ago and is silent once.
+const SLOW_START = new Set(["timeout_first_byte", "timeout_first_text"]);
 
 /**
  * Tries each model in turn, with each key that is fit to use, until one answers.
@@ -117,7 +125,9 @@ export async function runWithFailover({ candidates, config, pool = createCredent
     const provider = config.providers[candidate.provider];
     // A model let back after a rest is not given the usual time to start: if it is still unwell
     // the visitor should find out in a few seconds, not in twenty.
-    const patience = probe && config.timeouts.probeMs ? { firstByteMs: Math.min(config.timeouts.firstByteMs, config.timeouts.probeMs), firstTextMs: Math.min(config.timeouts.firstTextMs, config.timeouts.probeMs) } : {};
+    const short = config.timeouts.probeMs ? { firstByteMs: Math.min(config.timeouts.firstByteMs, config.timeouts.probeMs), firstTextMs: Math.min(config.timeouts.firstTextMs, config.timeouts.probeMs) } : {};
+    let patience = probe ? short : {};
+    let askedAgain = false;
     let lean = false;
     for (let attempt = 0; attempt <= retries; attempt++) {
       if (signal?.aborted) throw Object.assign(new ProviderError("aborted", "The request was cancelled"), { attempts });
@@ -173,7 +183,7 @@ export async function runWithFailover({ candidates, config, pool = createCredent
       } catch (raw) {
         const error = raw instanceof ProviderError ? raw : new ProviderError("network", String(raw?.message || raw).slice(0, 200));
         last = error;
-        const record = { candidate: candidate.id, key: credential.id, outcome: error.kind, status: error.status, ms: now() - attemptStarted, partial: Boolean(text) };
+        const record = { candidate: candidate.id, key: credential.id, outcome: error.kind, status: error.status, ms: now() - attemptStarted, partial: Boolean(text), ...(error.detail ? { said: error.detail } : {}) };
         attempts.push(record);
         onAttempt(record);
         if (error.kind === "aborted") throw Object.assign(error, { attempts });
@@ -202,6 +212,16 @@ export async function runWithFailover({ candidates, config, pool = createCredent
         }
         // The model or the provider is at fault, not our key.
         breaker?.failure(candidate.id);
+        // A model that has just been answering and is silent this once is asked again at once, on
+        // the short leash: one stuck request is likelier than an outage, and the same model is then
+        // a better bet than a fallback. (Seen on the live site, 21 November 2026: the model that had
+        // answered less than a minute earlier said nothing for 12 seconds, and nothing else could
+        // answer, so the visitor was turned away after 25.)
+        if (SLOW_START.has(error.kind) && !askedAgain && attempt < retries && breaker?.answeredSince?.(candidate.id, config.breaker?.recentAnswerMs ?? 0) && now() + (short.firstByteMs ?? config.timeouts.firstByteMs) < deadline - margin) {
+          askedAgain = true;
+          patience = short;
+          continue;
+        }
         if (MOVE_ON.has(error.kind) || !error.retryable || attempt >= retries) return { next: "model" };
         const delay = Math.max(error.retryAfterMs ?? 0, backoffDelay(attempt, config.retry, random));
         // A provider that asks for a long wait is quicker to route around than to sit out.

@@ -35,6 +35,14 @@ import { createUsageLedger } from "./usage.js";
 const UNREACHABLE = "Waza AI can't reach its language model right now. That's a fault on our side, not yours; please try again later.";
 const TROUBLE = "Waza AI's language model is having trouble at the moment. Please try again in a moment.";
 // What the visitor is told for each kind of failure. Provider messages never reach the page.
+/** "about 40 seconds", "about a minute": a wait in words a visitor can act on. */
+export function comeBackIn(seconds) {
+  if (seconds <= 5) return "a few seconds";
+  if (seconds <= 50) return `about ${Math.ceil(seconds / 5) * 5} seconds`;
+  if (seconds <= 90) return "about a minute";
+  return `about ${Math.ceil(seconds / 60)} minutes`;
+}
+
 const FAILURES = {
   not_configured: { code: "not_configured", message: "Waza AI isn't switched on at the moment. Please try again later.", retryable: false },
   auth: { code: "upstream_unavailable", message: UNREACHABLE, retryable: false },
@@ -344,7 +352,9 @@ export function createWazaService({ config = loadConfig(), kb = knowledge(), met
         record.outcome = `error:${failure.code}`;
         record.failure = error?.kind || "internal";
         const retryAfter = error?.retryAfterMs ? Math.ceil(error.retryAfterMs / 1000) : undefined;
-        emit(frames.error({ ...failure, partial: Boolean(error?.partial), retryAfter }));
+        // A pause the provider gave a length for: say how long, since the page shows only the message.
+        const message = failure.code === "busy" && retryAfter ? `Waza AI is answering a lot of questions right now. Please try again in ${comeBackIn(retryAfter)}.` : failure.message;
+        emit(frames.error({ ...failure, message, partial: Boolean(error?.partial), retryAfter }));
         ledger.record({ outcome: "failed" });
         await keep(error?.partial && answered ? "partial" : "failed");
       }

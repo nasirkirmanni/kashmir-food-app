@@ -111,6 +111,21 @@ test("a failure of every model is an error frame with words for the visitor and 
   assert.doesNotMatch(out.raw, /sk-live|provider trace|test-key-123|You are Waza AI/);
   assert.equal(lines[0].outcome, "error:upstream_unavailable");
   assert.equal(lines[0].attempts.length, 6);
+  // The owner's log keeps what the provider said, with anything key-like taken out.
+  assert.match(lines[0].attempts[0].said, /internal provider trace/);
+  assert.doesNotMatch(JSON.stringify(lines[0]), /abc123|test-key-123/);
+});
+
+test("a visitor turned away by a pause is told how long it is", async () => {
+  const { comeBackIn } = await import("../../waza/service.js");
+  assert.deepEqual([3, 12, 40, 58, 75, 600].map(comeBackIn), ["a few seconds", "about 15 seconds", "about 40 seconds", "about a minute", "about a minute", "about 10 minutes"]);
+  const { app } = await setup(() => ({ status: 429, retryAfter: 40, message: "You exceeded your current quota, please check your plan and billing details." }), { models: "custom:only" });
+  const out = await ask(app.url, "Is rista spicy?");
+  assert.equal(out.error.code, "busy");
+  assert.equal(out.error.retryable, true);
+  assert.equal(out.error.retryAfter, 40);
+  assert.match(out.error.error, /answering a lot of questions right now\. Please try again in about 40 seconds\./);
+  assert.doesNotMatch(out.raw, /quota|billing/, "the provider's words are not the visitor's");
 });
 
 test("each kind of failure has its own message, and none is shown as an answer", async () => {
