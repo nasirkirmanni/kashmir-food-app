@@ -1,4 +1,5 @@
 import dishes from "../data/dishes.json";
+import { placePhotoFor } from "../data/restaurantPhotos";
 import { SOURCES } from "../data/srinagarRestaurants";
 import { dishEntity } from "../data/coreSevenFacts";
 import { SITE, openingText, plainText, restaurantPath } from "./srinagarRestaurants";
@@ -7,7 +8,8 @@ import { SITE, openingText, plainText, restaurantPath } from "./srinagarRestaura
  * Schema.org markup for a Srinagar directory profile (components/restaurants/RestaurantProfile.js).
  * Only what the record holds: no rating (Google's figures are a third party's, shown on the page with
  * their date), no coordinates (the research has none), hours and telephone only from the place's own
- * listing or pages. Server-only: it reads the dish catalogue for names.
+ * listing or pages, and a photograph only where the page shows one of the place itself, with its
+ * licence and credit. Server-only: it reads the dish catalogue for names.
  */
 
 const DISH_NAMES = new Map((Array.isArray(dishes) ? dishes : dishes.dishes || []).map((d) => [d.slug, d.name]));
@@ -33,6 +35,7 @@ export function restaurantSchema(place) {
   const own = (key) => SOURCES[key]?.url;
   const sameAs = place.links.map((link) => own(link.source)).filter(Boolean);
   const cuisine = place.status === "wazwan-unconfirmed" ? ["Kashmiri"] : ["Kashmiri", "Wazwan"];
+  const photo = placePhotoFor(place.slug);
   return {
     "@context": "https://schema.org",
     "@type": place.schemaType,
@@ -42,6 +45,19 @@ export function restaurantSchema(place) {
     url,
     mainEntityOfPage: url,
     description: plainText(openingText(place)),
+    ...(photo
+      ? {
+          image: {
+            "@type": "ImageObject",
+            url: `${SITE}${photo.src}`,
+            width: photo.width,
+            height: photo.height,
+            caption: photo.caption,
+            creditText: photo.credit.source ? `${photo.credit.author} / ${photo.credit.source}` : photo.credit.author,
+            ...(photo.credit.licence ? { license: photo.credit.licence.url, acquireLicensePage: photo.credit.sourceUrl } : {}),
+          },
+        }
+      : {}),
     address: {
       "@type": "PostalAddress",
       ...(place.postalAddress || {}),

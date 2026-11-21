@@ -2,6 +2,7 @@ import RestaurantDetailClient from "@/components/RestaurantDetailClient";
 import RestaurantFacts from "@/components/RestaurantFacts";
 import RestaurantProfile from "@/components/restaurants/RestaurantProfile";
 import { RESTAURANT_FACTS } from "@/data/restaurantFacts";
+import { placePhotoFor } from "@/data/restaurantPhotos";
 import { MUGHAL_DARBAR_SLUG, RESTAURANT_SLUGS, restaurantBySlug, restaurantMeta } from "@/lib/srinagarRestaurants";
 import { notFound } from "next/navigation";
 import fs from "fs";
@@ -67,6 +68,11 @@ export async function generateStaticParams() {
 
 function profileMetadata(place) {
   const { title, description, canonical } = restaurantMeta(place);
+  // The shared card shows the place's own photograph where one is licensed, else the site's image.
+  const photo = placePhotoFor(place.slug);
+  const image = photo
+    ? { url: photo.src, width: photo.width, height: photo.height, alt: photo.alt }
+    : { url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" };
   return {
     title,
     description,
@@ -76,11 +82,10 @@ function profileMetadata(place) {
       url: canonical,
       title,
       description,
-      // No photograph of the venue is licensed to the site, so the shared card uses the site's own image.
-      images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
+      images: [image],
       siteName: "Wazwan Way",
     },
-    twitter: { card: "summary_large_image", title, description, images: ["/wazwan-hero.jpg"] },
+    twitter: { card: "summary_large_image", title, description, images: [image.url] },
   };
 }
 
@@ -96,13 +101,14 @@ export async function generateMetadata({ params }) {
 
     // No brand here: the restaurants layout's title template appends " | Wazwan Way".
     const title = `${restaurant.name}${restaurant.city ? `, ${restaurant.city}` : ""}: Kashmiri Restaurant`;
-    // A venue the guide covers gets its hand-written snippet, else its sourced, dated summary.
+    // A venue the guide covers gets its hand-written snippet, else its sourced, dated summary. An
+    // older record with neither gets a line that says only what the page shows: the database's own
+    // description, rating and picture have no source, so none of them is used here.
     const facts = RESTAURANT_FACTS[restaurant.slug || params.slug];
     const description = toMetaDescription(
       facts?.snippet ||
       facts?.summary ||
-      restaurant.description ||
-      `${restaurant.name} is an authentic Kashmiri restaurant${restaurant.location ? ` located in ${restaurant.location}` : ""}. Discover the menu, ambiance, and Wazwan specialties.`
+      `${restaurant.name}${restaurant.location ? `, ${restaurant.location}` : ""}: an older Wazwan Way listing that has not been re-checked. Where the listing places it, with a link to Google Maps.`
     );
 
     const canonicalUrl = `${CANONICAL_BASE}/restaurants/${restaurant.slug || params.slug}`;
@@ -118,16 +124,14 @@ export async function generateMetadata({ params }) {
         url: canonicalUrl,
         title,
         description,
-        images: restaurant.image
-          ? [{ url: restaurant.image, width: 1200, height: 630, alt: restaurant.name }]
-          : [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way Restaurant" }],
+        images: [{ url: "/wazwan-hero.jpg", width: 1024, height: 1024, alt: "Wazwan Way" }],
         siteName: "Wazwan Way",
       },
       twitter: {
         card: "summary_large_image",
         title,
         description,
-        images: restaurant.image ? [restaurant.image] : ["/wazwan-hero.jpg"],
+        images: ["/wazwan-hero.jpg"],
       },
     };
   } catch {
@@ -140,8 +144,8 @@ export async function generateMetadata({ params }) {
       RESTAURANT_FACTS[params.slug]?.snippet ||
       RESTAURANT_FACTS[params.slug]?.summary ||
       (name
-        ? `${name} is an authentic Kashmiri restaurant. Discover the menu, ambiance, and Wazwan specialties.`
-        : "Explore authentic Kashmiri restaurants on Wazwan Way.")
+        ? `${name}: an older Wazwan Way listing that has not been re-checked. Where the listing places it, with a link to Google Maps.`
+        : "Restaurants on Wazwan Way, the guide to Kashmiri Wazwan.")
     );
     return {
       title,
@@ -166,6 +170,25 @@ export async function generateMetadata({ params }) {
       },
     };
   }
+}
+
+// What the older page prints, and nothing else: the record's rating, scores, price band, description
+// and picture have no source, so they are not sent to the browser at all.
+function listingOf(record) {
+  if (!record) return null;
+  return {
+    _id: record._id,
+    slug: record.slug,
+    name: record.name,
+    city: record.city || "",
+    location: record.location || "",
+    phoneNumber: record.phoneNumber || "",
+    openingHours: record.openingHours || "",
+    googleMapsQuery: record.googleMapsQuery || "",
+    linkedDishes: (record.linkedDishes || [])
+      .filter((dish) => dish && typeof dish === "object" && dish.name)
+      .map((dish) => ({ _id: dish._id, name: dish.name, slug: dish.slug })),
+  };
 }
 
 export default async function RestaurantDetailPage({ params }) {
@@ -193,7 +216,7 @@ export default async function RestaurantDetailPage({ params }) {
 
   return (
     <>
-      <RestaurantDetailClient initialRestaurant={restaurant} otherRestaurants={otherRestaurants} />
+      <RestaurantDetailClient initialRestaurant={listingOf(restaurant)} otherRestaurants={otherRestaurants} />
       {/* Sourced, dated facts for the venues the Srinagar guide covers, in the server HTML. */}
       <RestaurantFacts slug={restaurant?.slug || params.slug} />
     </>

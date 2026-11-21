@@ -27,7 +27,6 @@ export default function WazwanNearby({ destinationSlug }) {
     <div className={`${styles.page} ${styles.band}`}>
       <section className={`${styles.container} ${styles.section}`} aria-labelledby="wazwan-nearby">
         <div className={styles.sectionHead}>
-          <p className={styles.eyebrow}>Eat here</p>
           <h2 className={styles.h2} id="wazwan-nearby">
             {block.title}
           </h2>

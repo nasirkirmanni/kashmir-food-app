@@ -2,20 +2,55 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { withoutRemovedDishes } from "@/lib/removedDishes";
+import { MapPin } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import MapPreview from "@/components/MapPreview";
 import { endpoints, request } from "@/lib/api";
-import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
+import { withoutRemovedDishes } from "@/lib/removedDishes";
+import JsonLd from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import ImageWithSkeleton from "@/components/ImageWithSkeleton";
-import { resolveImageUrl } from "@/lib/imageUtils";
-import { useGoBack } from "@/components/BackButton";
+import styles from "@/components/restaurants/restaurants.module.css";
+
+/**
+ * A restaurant that exists only as an older database record (Clove, today): one that has not been
+ * through the research behind the Srinagar directory. The record's rating, price band, description
+ * and picture have no source we can name, so the page prints none of them. It shows the name, where
+ * the listing places it, a phone number or hours only if the record holds them, and says plainly
+ * that the rest is not verified. Places in the directory render from their research record instead
+ * (components/restaurants/RestaurantProfile.js).
+ */
+
+const DIRECTORY_PATH = "/restaurants";
+const mapsUrl = (query) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+const telHref = (phone) => `tel:${phone.replace(/[^\d+]/g, "")}`;
+
+// Only the name and where the listing places it: nothing unverified goes into structured data.
+function listingSchema(restaurant) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    name: restaurant.name,
+    url: `https://wazwanway.com/restaurants/${restaurant.slug || restaurant._id}`,
+    address: {
+      "@type": "PostalAddress",
+      ...(restaurant.location ? { streetAddress: restaurant.location } : {}),
+      addressLocality: restaurant.city || "Srinagar",
+      addressRegion: "Jammu and Kashmir",
+      addressCountry: "IN",
+    },
+  };
+}
+
+function Shell({ children }) {
+  return (
+    <div className={styles.page}>
+      <div className={`${styles.container} ${styles.profileHero}`}>{children}</div>
+    </div>
+  );
+}
 
 export default function RestaurantDetailClient({ initialRestaurant = null, otherRestaurants = [] }) {
   const params = useParams();
   const router = useRouter();
-  const goBack = useGoBack();
   const [restaurant, setRestaurant] = useState(initialRestaurant);
   const [loading, setLoading] = useState(!initialRestaurant);
   const [error, setError] = useState(null);
@@ -39,7 +74,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
       })
       .catch((err) => {
         console.error("Failed to fetch restaurant:", err);
-        setError("Failed to load restaurant details. Please try again later.");
+        setError("We could not load this restaurant. The connection may have dropped.");
         setRestaurant(null);
       })
       .finally(() => setLoading(false));
@@ -51,179 +86,223 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
 
   if (loading) {
     return (
-      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--saffron)]"></div>
-          <p className="text-[var(--saffron)] font-bold uppercase tracking-widest text-sm animate-pulse">Loading Restaurant...</p>
+      <Shell>
+        <div className={styles.loading} role="status" aria-live="polite">
+          <span className={styles.srOnly}>Loading the restaurant</span>
+          <span className={`${styles.skeleton} ${styles.skeletonTitle}`} />
+          <span className={`${styles.skeleton} ${styles.skeletonLine}`} />
+          <span className={`${styles.skeleton} ${styles.skeletonLine}`} />
+          <span className={`${styles.skeleton} ${styles.skeletonShort}`} />
         </div>
-      </div>
+      </Shell>
     );
   }
 
   if (error) {
     return (
-      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
-        <div className="text-center space-y-4">
-          <div className="text-red-400 font-bold text-xl">{error}</div>
-          <button onClick={loadRestaurant} className="rounded-full bg-white/10 px-6 py-2 text-white hover:bg-white/20 transition-colors">Try Again</button>
+      <Shell>
+        <div className={styles.empty} role="alert">
+          <p className={styles.emptyTitle}>{error}</p>
+          <p className={styles.emptyText}>Try again, or go to the directory of Srinagar restaurants.</p>
+          <div className={styles.emptyActions}>
+            <button type="button" className={styles.button} onClick={loadRestaurant}>
+              Try again
+            </button>
+            <Link href={DIRECTORY_PATH} prefetch={false} className={styles.buttonGhost}>
+              All restaurants
+            </Link>
+          </div>
         </div>
-      </div>
+      </Shell>
     );
   }
 
   if (!restaurant) {
     return (
-      <div className="wazwan-shell flex items-center justify-center min-h-[50vh]">
-        <div className="text-center space-y-4">
-          <div className="text-white/60 font-medium text-xl">Restaurant not found.</div>
-          <button onClick={goBack} className="rounded-full bg-[var(--saffron)] px-6 py-2 text-black font-bold hover:scale-105 transition-transform">Go Back</button>
+      <Shell>
+        <div className={styles.empty}>
+          <p className={styles.emptyTitle}>We have no restaurant at this address.</p>
+          <p className={styles.emptyText}>It may have been renamed or removed. The directory lists every place we have a page for.</p>
+          <div className={styles.emptyActions}>
+            <Link href={DIRECTORY_PATH} prefetch={false} className={styles.button}>
+              All restaurants
+            </Link>
+          </div>
         </div>
-      </div>
+      </Shell>
     );
   }
 
+  const where = restaurant.location || restaurant.city || "";
+  const dishes = withoutRemovedDishes(restaurant.linkedDishes || []).filter((dish) => dish?.name);
+  const mapQuery = restaurant.googleMapsQuery || restaurant.location;
+
   return (
-    <div className="wazwan-shell">
-      {/* JSON-LD Structured Data */}
-      <JsonLd data={buildRestaurantSchema(restaurant)} />
+    <div className={styles.page}>
+      <JsonLd data={listingSchema(restaurant)} />
 
-      <section className="place-hero !grid-cols-1 md:!grid-cols-[1.2fr_0.8fr]">
-        <div>
-          <div className="hidden md:block">
-            <Breadcrumbs items={[
+      <div className={`${styles.container} ${styles.profileHero}`}>
+        <div className={styles.crumbs}>
+          <Breadcrumbs
+            items={[
               { name: "Home", href: "/" },
-              { name: "Restaurants", href: "/restaurants" },
-              { name: restaurant.name, href: `/restaurants/${restaurant.slug}` },
-            ]} />
-          </div>
-          <span className="place-eyebrow">{restaurant.city}</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl">{restaurant.name}</h1>
-          <p>{restaurant.description}</p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <span className="place-badge">{restaurant.priceLevel}</span>
-            <span className="place-badge">{restaurant.rating} / 5</span>
-            {restaurant.authentic ? <span className="place-badge">Authentic</span> : null}
-          </div>
+              { name: "Restaurants", href: DIRECTORY_PATH },
+              { name: restaurant.name, href: `/restaurants/${restaurant.slug || params.slug}` },
+            ]}
+          />
+        </div>
+      </div>
 
-          <p className="restaurant-submeta mt-5">{restaurant.location}</p>
-          {restaurant.phoneNumber ? (
-            <div className="mt-4">
-              <p className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-[var(--saffron)]">
-                Contact
-              </p>
-              <a
-                href={`tel:${restaurant.phoneNumber.replace(/[^\d+]/g, "")}`}
-                className="mt-2 inline-flex text-base font-medium text-[var(--crimson-accessible)]"
-              >
-                {restaurant.phoneNumber}
-              </a>
-            </div>
-          ) : null}
-          {restaurant.openingHours ? (
-            <div className="mt-4">
-              <p className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-[var(--saffron)]">
-                Opening Hours
-              </p>
-              <p className="mt-2 text-base font-medium text-white/80">{restaurant.openingHours}</p>
-            </div>
-          ) : null}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                restaurant.googleMapsQuery || restaurant.location
-              )}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-full sm:w-auto justify-center rounded-full bg-[var(--saffron)] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition-transform hover:scale-105 shadow-[0_0_30px_rgba(212,175,55,0.2)]"
-            >
-              Open in Google Maps
-            </a>
-            {restaurant.phoneNumber ? (
-              <a
-                href={`tel:${restaurant.phoneNumber.replace(/[^\d+]/g, "")}`}
-                className="inline-flex w-full sm:w-auto justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-white transition-colors hover:bg-white/10 backdrop-blur-md"
-              >
-                Call Restaurant
+      <div className={styles.profileGrid}>
+        <header className={`${styles.container} ${styles.profileHead}`}>
+          <h1 className={styles.profileTitle}>{restaurant.name}</h1>
+          <ul className={styles.profileMeta}>
+            <li>Restaurant</li>
+            {restaurant.city ? <li>{restaurant.city}</li> : null}
+          </ul>
+          <p className={styles.rowFlags}>
+            <span className={styles.status}>Not re-checked</span>
+          </p>
+          <p className={styles.lede}>
+            This page comes from an earlier version of Wazwan Way. {restaurant.name} has not been through the research behind our Srinagar
+            directory, so we show only what the old listing gives as its name and location.
+          </p>
+          <div className={styles.actions}>
+            {mapQuery ? (
+              <a className={styles.button} href={mapsUrl(mapQuery)} target="_blank" rel="noopener noreferrer">
+                <MapPin aria-hidden="true" /> Open in Google Maps
               </a>
             ) : null}
+            <Link href={DIRECTORY_PATH} prefetch={false} className={styles.buttonGhost}>
+              The sourced directory
+            </Link>
           </div>
+        </header>
+
+        <div className={styles.profileSide}>
+          <aside className={`${styles.container} ${styles.aside}`} aria-label={`${restaurant.name} at a glance`}>
+            <dl className={styles.keyFacts}>
+              <div>
+                <dt>Listed at</dt>
+                <dd>{where || <span className={styles.notVerified}>Not verified</span>}</dd>
+              </div>
+              <div>
+                <dt>Phone</dt>
+                <dd>
+                  {restaurant.phoneNumber ? (
+                    <a href={telHref(restaurant.phoneNumber)}>{restaurant.phoneNumber}</a>
+                  ) : (
+                    <span className={styles.notVerified}>Not verified</span>
+                  )}
+                  {restaurant.phoneNumber ? <span className={styles.small}>From the old listing, not re-checked</span> : null}
+                </dd>
+              </div>
+              <div>
+                <dt>Hours</dt>
+                <dd>
+                  {restaurant.openingHours || <span className={styles.notVerified}>Not verified</span>}
+                  {restaurant.openingHours ? <span className={styles.small}>From the old listing, not re-checked</span> : null}
+                </dd>
+              </div>
+              <div>
+                <dt>Price</dt>
+                <dd>
+                  <span className={styles.notVerified}>Not verified</span>
+                </dd>
+              </div>
+              <div>
+                <dt>Checked</dt>
+                <dd>
+                  <span className={styles.notVerified}>Not re-checked</span>
+                </dd>
+              </div>
+            </dl>
+          </aside>
         </div>
 
-        <div className="rounded-[20px] border border-white/10 bg-white/5 backdrop-blur-md p-4 shadow-2xl mt-8 md:mt-0">
-          {restaurant.image ? (
-            <div className="relative h-[250px] md:h-[320px] w-full">
-              <ImageWithSkeleton src={resolveImageUrl(restaurant.image)} alt={restaurant.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="restaurant-cover object-cover rounded-[12px]" />
-            </div>
-          ) : (
-            <div className="restaurant-cover h-[250px] md:h-[320px] flex items-center justify-center bg-white/5 rounded-[12px]">
-              <svg className="w-24 h-24 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-              </svg>
-            </div>
-          )}
-        </div>
-      </section>
+        <div className={`${styles.container} ${styles.profileMain}`}>
+        <section className={styles.section} aria-labelledby="not-verified">
+          <div className={styles.sectionHead}>
+            <h2 className={styles.h2} id="not-verified">
+              What this page leaves out
+            </h2>
+            <p className={styles.text}>
+              The old listing carried a rating, a price band, a description and a picture. None of them has a source we can name, so none is
+              printed here. Nobody from Wazwan Way has phoned or visited {restaurant.name}.
+            </p>
+            <p className={styles.text}>
+              If you run {restaurant.name}, you can{" "}
+              <Link href="/list-restaurant" prefetch={false}>
+                send us its details and photographs
+              </Link>
+              , and we will check them and build a full page.
+            </p>
+          </div>
+        </section>
 
-      <section className="places-wrap pt-0">
-        <div className="grid gap-8 grid-cols-1">
-          <div className="space-y-6">
-            <article className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 shadow-2xl overflow-hidden">
-              <h2 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h2>
-              <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                {withoutRemovedDishes(restaurant.linkedDishes || []).map((dish, index) => {
-                  // Name and picture only: the catalogue's rating and price range belong to the dish,
-                  // not to this restaurant, so they are not shown here.
-                  const card = (
-                    <>
-                      <div className="relative h-[4.2rem] w-[4.2rem] shrink-0 rounded-[10px] overflow-hidden bg-black/40 border border-white/10">
-                        <ImageWithSkeleton src={resolveImageUrl(dish.image)} alt={dish.name} fill priority={index < 4} sizes="114px" quality={60} className="object-cover" />
-                      </div>
-                      <p className="flex-1 min-w-0 font-display text-[1.05rem] text-white font-medium truncate tracking-tight">{dish.name}</p>
-                    </>
-                  );
-                  const cardClass = "flex items-center gap-4 rounded-[14px] bg-white/5 backdrop-blur-md p-3 border border-white/10 shadow-lg";
-                  return dish.slug ? (
-                    <Link key={dish._id} href={`/dishes/${dish.slug}`} className={`${cardClass} transition hover:border-[var(--saffron)] hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]`}>
-                      {card}
+        {dishes.length ? (
+          <section className={styles.section} aria-labelledby="listed-dishes">
+            <div className={styles.sectionHead}>
+              <h2 className={styles.h2} id="listed-dishes">
+                Dishes the old listing named
+              </h2>
+              <p className={styles.text}>Not re-checked. Each links to the dish&apos;s own page.</p>
+            </div>
+            <ul className={styles.dishLinks}>
+              {dishes.map((dish) => (
+                <li key={dish._id || dish.slug || dish.name}>
+                  {dish.slug ? (
+                    <Link href={`/dishes/${dish.slug}`} prefetch={false} className={styles.dishLink}>
+                      <span className={styles.dishName}>{dish.name}</span>
                     </Link>
                   ) : (
-                    <div key={dish._id} className={cardClass}>
-                      {card}
-                    </div>
-                  );
-                })}
-              </div>
-            </article>
-
-
-
-            <MapPreview query={restaurant.googleMapsQuery} />
-          </div>
-
-        </div>
-      </section>
-
-      {otherRestaurants.length > 0 && (
-        <section className="places-wrap pt-0" aria-labelledby="more-restaurants-title">
-          <article className="restaurant-place-card">
-            <span className="place-eyebrow">Also on Wazwan Way</span>
-            <h2 id="more-restaurants-title" className="card-title">More Kashmiri restaurants</h2>
-            <ul className="mt-4 grid gap-3 sm:grid-cols-3">
-              {otherRestaurants.map((other) => (
-                <li key={other.slug}>
-                  <Link
-                    href={`/restaurants/${other.slug}`}
-                    className="block rounded-xl border border-[var(--border)] bg-black/40 p-4 transition-colors hover:border-[var(--saffron)]"
-                  >
-                    <span className="block font-semibold text-white">{other.name}</span>
-                    {other.city ? <span className="block text-sm text-white/60">{other.city}</span> : null}
-                  </Link>
+                    <span className={styles.dishLink}>
+                      <span className={styles.dishName}>{dish.name}</span>
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
-          </article>
-        </section>
-      )}
+          </section>
+        ) : null}
+        </div>
+      </div>
+
+      <section className={styles.closing} aria-labelledby="more-restaurants-title">
+        <div className={`${styles.container} ${styles.closingInner}`}>
+          <h2 className={styles.h2} id="more-restaurants-title">
+            Restaurants we have checked
+          </h2>
+          <ul className={styles.related}>
+            <li>
+              <Link href={DIRECTORY_PATH} prefetch={false}>
+                <span className={styles.relatedName}>Wazwan restaurants in Srinagar</span>
+                <span className={styles.relatedMeta}>The directory, street by street, every fact sourced</span>
+              </Link>
+            </li>
+            {otherRestaurants.map((other) => (
+              <li key={other.slug}>
+                <Link href={`/restaurants/${other.slug}`} prefetch={false}>
+                  <span className={styles.relatedName}>{other.name}</span>
+                  {other.city ? <span className={styles.relatedMeta}>{other.city}</span> : null}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/restaurants/best-wazwan-srinagar" prefetch={false}>
+                <span className={styles.relatedName}>Where to eat Kashmiri food in Srinagar</span>
+                <span className={styles.relatedMeta}>Bakeries, tea rooms and street food too</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/dishes" prefetch={false}>
+                <span className={styles.relatedName}>Every Wazwan dish</span>
+                <span className={styles.relatedMeta}>What each one is, and how it&apos;s made</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }
