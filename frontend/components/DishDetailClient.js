@@ -590,7 +590,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
       ) : null}
 
       {recipeModalOpen ? (
-        <DishRecipeModal dishName={dish.name} onClose={() => setRecipeModalOpen(false)} onRequireAuth={requireRecipeAuth} />
+        <DishRecipeModal dishName={dish.name} dishSlug={dish.slug} onClose={() => setRecipeModalOpen(false)} onRequireAuth={requireRecipeAuth} />
       ) : null}
 
       {authContext

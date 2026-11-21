@@ -29,6 +29,11 @@ const BACKEND_URL =
 
 export const runtime = "nodejs"; // Must be Node.js runtime, NOT edge
 export const dynamic = "force-dynamic"; // MUST NOT BE CACHED, otherwise Set-Cookie headers are stripped from cached responses
+// A Waza AI answer streams for as long as the model writes. The backend gives up after 50 seconds
+// (WAZA_TOTAL_TIMEOUT_MS); the function must outlast that or a long answer is cut in the middle.
+// 60 is the most every Vercel plan allows, with or without Fluid compute. If a stream is cut here
+// all the same, the page asks the backend for the rest of the answer (hooks/useWazaChat.js).
+export const maxDuration = 60;
 
 export async function handler(req, { params }) {
   const pathSegments = params.path || [];
@@ -76,6 +81,9 @@ export async function handler(req, { params }) {
       headers: forwardHeaders,
       body,
       redirect: "manual", // Don't follow redirects — let the browser handle them
+      // When the visitor leaves or presses stop, the backend is told too, so a model is not left
+      // writing an answer no one will read.
+      signal: req.signal,
     });
 
     // Build the response headers, critically including Set-Cookie
@@ -115,9 +123,12 @@ export async function handler(req, { params }) {
       headers: responseHeaders,
     });
   } catch (error) {
+    // The visitor went away before the backend answered: there is no one to send an error to.
+    if (req.signal?.aborted) return new Response(null, { status: 499 });
     console.error("[API Proxy] Upstream error:", error.message);
+    // The reason stays in the server log; the browser is told only that it failed.
     return new Response(
-      JSON.stringify({ error: "Backend unavailable", details: error.message }),
+      JSON.stringify({ error: "Backend unavailable", message: "The service could not be reached. Please try again in a moment." }),
       {
         status: 502,
         headers: { "Content-Type": "application/json" },

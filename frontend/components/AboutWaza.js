@@ -4,7 +4,7 @@ import Link from "next/link";
  * The server-rendered description of Waza on /waza-ai. Before this, crawlers saw only
  * "Loading Waza AI..." (the chat renders on the client, and desktop redirects to the
  * home-page popup). Everything stated here restates the chat backend's own rules
- * (backend/src/routes/chatRoutes.js SYSTEM_PROMPT_CORE) or pages that carry sources;
+ * (backend/src/waza/prompt.js RULES and backend/src/waza/retrieve.js) or pages that carry sources;
  * the example answers reuse wording from /dishes and the Srinagar restaurant guide.
  */
 
@@ -41,7 +41,7 @@ const CAN_ANSWER = [
   },
   {
     lead: "Where to eat.",
-    text: "Srinagar restaurants from the site's listings, each carrying the site's own authenticity, tourist-friendliness and luxury scores out of five.",
+    text: "Srinagar restaurants from the site's directory, each fact with the source it came from and the date it was checked. Waza gives no scores of its own.",
     href: "/restaurants",
     linkText: "Browse the restaurants",
   },

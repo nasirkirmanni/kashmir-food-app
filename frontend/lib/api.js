@@ -141,6 +141,9 @@ export const streamRequest = async (path, options = {}) => {
     } catch (e) {}
     
     const err = new Error(message);
+    // The caller decides what to tell the visitor from the status (429 is not 503).
+    err.status = response.status;
+    if (data.retryAfter) err.retryAfter = data.retryAfter;
     if (data.requiresAuth) {
       err.requiresAuth = true;
     }
@@ -270,6 +273,8 @@ export const endpoints = {
   stats: "/stats/overview",
   profile: "/users/profile",
   chat: "/chat",
+  chatCancel: "/chat/cancel",
+  chatConversation: (id) => `/chat/conversations/${id}`,
   tripQuery: "/destinations/trip-query",
   generateItinerary: "/itineraries/generate",
   claimItinerary: "/itineraries/claim",

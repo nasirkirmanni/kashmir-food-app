@@ -1,67 +1,24 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import Image from "next/image";
-import { request, streamRequest, endpoints, fetchCsrfToken } from "@/lib/api";
-import ReactMarkdown from "react-markdown";
-import React from "react";
+import { fetchCsrfToken } from "@/lib/api";
+import { useWazaChat } from "@/hooks/useWazaChat";
+import { useWazaScroll } from "@/hooks/useWazaScroll";
+import WazaThread, { WazaComposer } from "@/components/waza/WazaThread";
 
-const markdownComponents = {
-  p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }} {...props} />,
-  ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
-  ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-3 space-y-1 text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }} {...props} />,
-  li: ({ node, ...props }) => <li className="pl-0.5" {...props} />,
-  strong: ({ node, ...props }) => <strong className="font-semibold" style={{ color: "#D4A15A" }} {...props} />,
-  h1: ({ node, ...props }) => <h1 className="text-[16px] font-bold mt-4 mb-2" style={{ color: "#D4A15A" }} {...props} />,
-  h2: ({ node, ...props }) => <h2 className="text-[15px] font-bold mt-3 mb-1.5" style={{ color: "#D4A15A" }} {...props} />,
-  h3: ({ node, ...props }) => <h3 className="text-[14px] font-semibold mt-2.5 mb-1" style={{ color: "#D4A15A" }} {...props} />,
-  code: ({ node, ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-[11px] font-mono" style={{ color: "#D4A15A" }} {...props} />,
-  blockquote: ({ node, ...props }) => <blockquote className="border-l-2 pl-3 italic my-3" style={{ borderColor: "#D4A15A", color: "rgba(255,255,255,0.5)" }} {...props} />,
-};
-
-const MessageBubble = React.memo(({ msg }) => {
-  if (msg.role === "assistant" && !msg.content) return null;
-  return (
-    <div className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-      {/* AI Avatar for assistant */}
-      {msg.role === "assistant" && (
-        <div
-          className="relative mr-3 mt-1 shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[rgba(212,161,90,0.4)] text-[#D4A15A]"
-        >
-          <ChefAIIcon size={18} strokeWidth={1.5} />
-        </div>
-      )}
-      <div
-        className={`relative z-10 max-w-[82%] text-[14px] leading-relaxed ${
-          msg.role === "user" 
-            ? "px-4 py-3 rounded-[18px] rounded-tr-[4px] bg-gradient-to-br from-[var(--saffron)] to-[#B8892A] text-[#0B0B0B] shadow-[0_4px_16px_rgba(212,161,90,0.2)] font-medium" 
-            : "px-4 py-3 rounded-[18px] rounded-tl-[4px] bg-[#111111] border border-white/5 border-l-2 border-l-[var(--saffron)] text-white/90 shadow-sm"
-        }`}
-      >
-        {msg.role === "user" ? (
-          msg.content
-        ) : (
-          <div className="prose prose-invert max-w-none">
-            <ReactMarkdown components={markdownComponents}>
-              {msg.content}
-            </ReactMarkdown>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-});
+/**
+ * Waza AI on desktop: the button in the corner and the panel it opens. The conversation itself
+ * (asking, the stream, stopping, retrying, errors) is hooks/useWazaChat.js, and how it is drawn is
+ * components/waza/WazaThread.js; the phone screen (MobileWazaAI.js) uses the same two.
+ *
+ * Other parts of the site open the panel with two window events: "open-waza-ai-intro" opens it,
+ * and "open-waza-ai-prompt" opens it and asks the event's text.
+ */
 
 const SparkleIcon = ({ size = 18, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
-  </svg>
-);
-
-const SendIcon = ({ size = 18, className = "" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z" />
   </svg>
 );
 
@@ -88,20 +45,27 @@ const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
   </svg>
 );
 
+const FIRST_QUESTIONS = ["What is Wazwan?", "Where can I eat Wazwan in Srinagar?", "Is rista the same as gushtaba?"];
+
+const PanelAvatar = (
+  <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-[rgba(212,161,90,0.4)] bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] text-[#D4A15A]">
+    <ChefAIIcon size={18} strokeWidth={1.5} />
+  </div>
+);
+
 export default function WazaAI() {
   const [isOpen, setIsOpen] = useState(false);
   const [isIntroMode, setIsIntroMode] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content: "Salaam! I'm Waza AI. Ask me anything about Kashmiri Wazwan, dishes, traditions, or restaurants."
-    }
-  ]);
   const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [hasSeenWazaAI, setHasSeenWazaAI] = useState(true);
   const prefersReducedMotion = useReducedMotion();
-  const messagesEndRef = useRef(null);
+  const threadRef = useRef(null);
+  const panelRef = useRef(null);
+  const { messages, busy, send, retry, stop, reset, refresh, started } = useWazaChat({ greeting: "Salaam! I'm Waza AI. Ask me about Kashmiri Wazwan, a dish or a recipe, or where to eat in Srinagar. I answer from Wazwan Way's own pages." });
+  const sendRef = useRef(send);
+  useEffect(() => {
+    sendRef.current = send;
+  }, [send]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -124,202 +88,81 @@ export default function WazaAI() {
     }
   }, []);
 
-  const suggestedQuestions = [
-    "What is Rogan Josh?",
-    "Restaurants near me",
-    "Plan a Wazwan feast"
-  ];
-
-  const messagesRef = useRef(messages);
+  useWazaScroll({ boxRef: threadRef, messages, active: isOpen && !isIntroMode });
+  // When the panel is opened, catch up with the conversation as the server has it.
   useEffect(() => {
-    messagesRef.current = messages;
-  }, [messages]);
+    if (isOpen) refresh();
+  }, [isOpen, refresh]);
 
-  const userJustSentRef = useRef(false);
-  const isLoadingRef = useRef(isLoading);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    if (isOpen && userJustSentRef.current) {
-      scrollToBottom();
-      userJustSentRef.current = false;
-    }
-  }, [messages, isOpen]);
-
-  const handleOpenIntro = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("hasSeenWazaAI", "true");
-    }
+  const markSeen = () => {
+    if (typeof window !== "undefined") localStorage.setItem("hasSeenWazaAI", "true");
     setHasSeenWazaAI(true);
     fetchCsrfToken().catch(() => {});
+  };
+
+  const handleOpenIntro = useCallback(() => {
+    markSeen();
     setIsOpen(true);
-    setIsIntroMode(true);
-    
-    // Transition from intro image to chat after 2.5 seconds
-    setTimeout(() => {
-      setIsIntroMode(false);
-    }, 2500);
-  };
-
-  const handleSendMessage = async (text) => {
-    if (!text.trim() || isLoadingRef.current) return;
-    
-    isLoadingRef.current = true;
-    setIsLoading(true);
-    const userMessage = { role: "user", content: text };
-    userJustSentRef.current = true;
-    setMessages((prev) => [...prev, userMessage]);
-    setInputValue("");
-
-    // Ensure we have a CSRF token before proceeding to streamRequest
-    await fetchCsrfToken();
-
-    try {
-      const response = await streamRequest(endpoints.chat, {
-        method: "POST",
-        body: JSON.stringify({ messages: [...messagesRef.current, userMessage] }),
-      });
-
-
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder("utf-8");
-      let done = false;
-      let assistantMessage = "";
-      let buffer = "";
-
-      let rafId = null;
-
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-        if (value) {
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-
-          let addedContent = false;
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const dataStr = line.replace("data: ", "").trim();
-              if (dataStr === "[DONE]") continue;
-              try {
-                const parsed = JSON.parse(dataStr);
-                if (parsed.reply) {
-                  assistantMessage += parsed.reply;
-                  addedContent = true;
-                } else if (parsed.error) {
-                  assistantMessage += "\n\n*Error: " + parsed.error + "*";
-                  addedContent = true;
-                }
-              } catch (e) {
-                // Ignore invalid JSON lines
-              }
-            }
-          }
-          
-          if (addedContent) {
-            if (isLoadingRef.current) {
-              isLoadingRef.current = false;
-              setIsLoading(false);
-              setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
-            } else if (!rafId) {
-              rafId = requestAnimationFrame(() => {
-                const currentContent = assistantMessage;
-                setMessages((prev) => {
-                  const newMessages = [...prev];
-                  newMessages[newMessages.length - 1] = { 
-                    ...newMessages[newMessages.length - 1], 
-                    content: currentContent 
-                  };
-                  return newMessages;
-                });
-                rafId = null;
-              });
-            }
-          }
-        }
-      }
-      
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-      
-      // Final flush
-      if (isLoadingRef.current) {
-        isLoadingRef.current = false;
-        setIsLoading(false);
-        setMessages((prev) => [...prev, { role: "assistant", content: assistantMessage }]);
-      } else {
-        setMessages((prev) => {
-          const newMessages = [...prev];
-          newMessages[newMessages.length - 1] = { 
-            ...newMessages[newMessages.length - 1], 
-            content: assistantMessage 
-          };
-          return newMessages;
-        });
-      }
-      
-      if (!assistantMessage.trim()) {
-        assistantMessage = "I'm sorry, I don't have enough information to answer that question correctly. Is there anything else about Kashmiri food, culture, or destinations I can help you with?";
-        setMessages((prev) => {
-          const newMessages = [...prev];
-          newMessages[newMessages.length - 1] = { 
-            ...newMessages[newMessages.length - 1], 
-            content: assistantMessage 
-          };
-          return newMessages;
-        });
-      }
-    } catch (error) {
-      console.error("Waza AI Fetch Error:", error);
-      setMessages((prev) => [...prev, { role: "assistant", content: `Sorry, I'm having trouble connecting right now. (${error.message})` }]);
-    } finally {
-      isLoadingRef.current = false;
-      setIsLoading(false);
+    // The introduction is shown once; a conversation already under way opens straight to itself.
+    const fresh = sessionStorage.getItem("waza_ai_intro_shown") !== "1";
+    if (fresh) {
+      sessionStorage.setItem("waza_ai_intro_shown", "1");
+      setIsIntroMode(true);
+      setTimeout(() => setIsIntroMode(false), 1600);
     }
-  };
+  }, []);
 
-  const handleOpenPrompt = (e) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("hasSeenWazaAI", "true");
-    }
-    setHasSeenWazaAI(true);
-    fetchCsrfToken().catch(() => {});
+  const handleOpenPrompt = useCallback((e) => {
     const promptText = e.detail;
-    if (!promptText) return;
+    if (!promptText || typeof promptText !== "string") return;
+    markSeen();
     setIsOpen(true);
     setIsIntroMode(false);
-    handleSendMessage(promptText);
-  };
+    sendRef.current(promptText);
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('open-waza-ai-intro', handleOpenIntro);
-    window.addEventListener('open-waza-ai-prompt', handleOpenPrompt);
+    window.addEventListener("open-waza-ai-intro", handleOpenIntro);
+    window.addEventListener("open-waza-ai-prompt", handleOpenPrompt);
 
-    // Check sessionStorage for pending prompts from redirects
+    // A prompt handed over by a redirect (the /waza-ai page on desktop).
     const pendingPrompt = sessionStorage.getItem("waza_ai_pending_prompt");
+    let timer = null;
     if (pendingPrompt) {
       sessionStorage.removeItem("waza_ai_pending_prompt");
       fetchCsrfToken().catch(() => {});
-      // Give page transition time to stabilize
-      setTimeout(() => {
+      // Give the page transition time to settle.
+      timer = setTimeout(() => {
         setIsOpen(true);
         setIsIntroMode(false);
-        handleSendMessage(pendingPrompt);
+        sendRef.current(pendingPrompt);
       }, 500);
     }
 
     return () => {
-      window.removeEventListener('open-waza-ai-intro', handleOpenIntro);
-      window.removeEventListener('open-waza-ai-prompt', handleOpenPrompt);
+      clearTimeout(timer);
+      window.removeEventListener("open-waza-ai-intro", handleOpenIntro);
+      window.removeEventListener("open-waza-ai-prompt", handleOpenPrompt);
     };
-  }, []);
+  }, [handleOpenIntro, handleOpenPrompt]);
+
+  // Escape closes the panel; opening it puts the cursor in the box.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (event) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const focus = setTimeout(() => panelRef.current?.querySelector("input")?.focus({ preventScroll: true }), isIntroMode ? 1700 : 350);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      clearTimeout(focus);
+    };
+  }, [isOpen, isIntroMode]);
+
+  const ask = (text) => {
+    if (send(text)) setInputValue("");
+  };
 
   return (
     <>
@@ -393,6 +236,9 @@ export default function WazaAI() {
                 fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif"
               }}
               tabIndex={-1}
+              ref={panelRef}
+              role="dialog"
+              aria-label="Waza AI, Wazwan Way's food guide"
             >
               <div className="flex flex-col h-full w-full overflow-hidden bg-[#0A0A0A] rounded-[24px] ring-1 ring-inset ring-[#C8A46A]/20 md:rounded-none md:rounded-l-[32px] isolate border-none outline-none">
               {/* Subtle background pattern */}
@@ -444,6 +290,16 @@ export default function WazaAI() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] mt-0.5">Your Kashmiri Food Guide</p>
                 </div>
               </div>
+              <div className="flex items-center gap-2">
+              {started ? (
+                <button
+                  onClick={reset}
+                  className="h-8 shrink-0 rounded-full border border-white/10 px-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/50 transition-all hover:bg-white/10 hover:text-white"
+                  aria-label="Start a new conversation"
+                >
+                  New
+                </button>
+              ) : null}
               <button
                 onClick={() => setIsOpen(false)}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/40 transition-all hover:bg-white/10 hover:text-white"
@@ -453,6 +309,7 @@ export default function WazaAI() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
+              </div>
             </div>
             {/* Decorative Motif */}
             <div className="w-full overflow-hidden opacity-30 mt-1">
@@ -463,7 +320,7 @@ export default function WazaAI() {
           </div>
 
             {/* Messages Area */}
-            <div className="relative z-10 flex-1 overflow-y-auto p-5 no-scrollbar scroll-smooth flex flex-col gap-5">
+            <div ref={threadRef} className="relative z-10 flex-1 overflow-y-auto p-5 no-scrollbar flex flex-col gap-5">
               {/* Subtle watermark background */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-0 flex items-center justify-center overflow-hidden mix-blend-screen">
                 <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[120%] h-auto max-w-none text-white">
@@ -471,92 +328,29 @@ export default function WazaAI() {
                 </svg>
               </div>
 
-              {messages.map((msg, idx) => (
-                <MessageBubble key={idx} msg={msg} />
-              ))}
-              
-              {isLoading && (!messages.length || messages[messages.length - 1].role === "user" || !messages[messages.length - 1].content) && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex w-full justify-start items-center gap-3"
-                >
-                  <div
-                    className="relative shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[rgba(212,161,90,0.4)] text-[#D4A15A]"
-                  >
-                    <ChefAIIcon size={18} strokeWidth={1.5} />
-                  </div>
-                  <div className="relative z-10 flex items-center gap-2 px-5 py-3.5 rounded-[18px] rounded-tl-[4px] bg-[#111111] border border-white/5 border-l-2 border-l-[var(--saffron)] shadow-sm">
-                    <span className="flex gap-1.5 items-center h-5">
-                      <motion.span animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1 }} className="h-1.5 w-1.5 rounded-full bg-[var(--saffron)]" />
-                      <motion.span animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="h-1.5 w-1.5 rounded-full bg-[var(--saffron)]" />
-                      <motion.span animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="h-1.5 w-1.5 rounded-full bg-[var(--saffron)]" />
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-              
-              {/* Suggested Questions (only show before user sends a message) */}
-              {messages.length === 1 && !isLoading && (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {suggestedQuestions.map((q) => (
-                    <button
-                      key={q}
-                      onClick={() => handleSendMessage(q)}
-                      className="relative z-10 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-[13px] font-medium text-white/80 transition-all hover:bg-[var(--saffron)]/10 hover:border-[var(--saffron)]/40 hover:text-white"
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-              )}
-              
-              <div ref={messagesEndRef} />
+              <div className="relative z-10">
+                <WazaThread messages={messages} busy={busy} avatar={PanelAvatar} onRetry={retry} onSuggestion={ask} onNavigate={() => setIsOpen(false)} firstSuggestions={FIRST_QUESTIONS} />
+              </div>
+
             </div>
 
             {/* Input Area */}
             <div className="relative z-20 px-4 pt-2 pb-6 shrink-0 bg-transparent">
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSendMessage(inputValue);
-                }}
+              <WazaComposer
+                value={inputValue}
+                onChange={setInputValue}
+                onSend={ask}
+                onStop={stop}
+                busy={busy}
                 className="relative flex items-center w-full rounded-full bg-[#111111] border border-white/10 shadow-sm focus-within:border-[var(--saffron)]/50 focus-within:ring-1 focus-within:ring-[var(--saffron)]/30 transition-all"
-              >
-                <SparkleIcon className="absolute left-5 text-[var(--saffron)] opacity-70" size={16} />
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Message Waza AI..."
-                  disabled={isLoading}
-                  className="w-full bg-transparent py-4 pl-12 pr-14 text-[14px] text-white placeholder-white/30 outline-none"
-                  style={{
-                    caretColor: "#D4A15A"
-                  }}
-                />
-
-                <button
-                  type="submit"
-                  disabled={!inputValue.trim() || isLoading}
-                  className="absolute right-2 flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200"
-                  style={{
-                    background: inputValue.trim() && !isLoading
-                      ? "linear-gradient(135deg, #D4A15A 0%, #B8892A 100%)"
-                      : "rgba(255,255,255,0.08)",
-                    color: inputValue.trim() && !isLoading ? "#0B0B0B" : "rgba(255,255,255,0.2)",
-                    boxShadow: inputValue.trim() && !isLoading ? "0 2px 12px rgba(212,161,90,0.3)" : "none"
-                  }}
-                  aria-label="Send Message"
-                >
-                  <SendIcon size={16} />
-                </button>
-              </form>
+                inputClassName="w-full bg-transparent py-4 pl-12 pr-14 text-[14px] text-white placeholder-white/30 outline-none"
+                icon={<SparkleIcon className="absolute left-5 text-[var(--saffron)] opacity-70" size={16} />}
+              />
               <p
                 className="text-center mt-2 text-[10px]"
                 style={{ color: "rgba(255,255,255,0.25)" }}
               >
-                Waza AI can make mistakes. Consider verifying info.
+                Waza answers from Wazwan Way&apos;s pages and can still be wrong. Check anything that matters.
               </p>
             </div>
                 </motion.div>

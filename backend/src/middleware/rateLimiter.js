@@ -1,4 +1,8 @@
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+
+// An IPv6 visitor holds a whole block of addresses; counting by single address would let them step
+// round any limit. ipKeyGenerator counts by the block.
+const ipKey = (req) => ipKeyGenerator(req.ip || '');
 import RedisStore from 'rate-limit-redis';
 import { getRedisClient, isRedisHealthy } from '../config/redis.js';
 import { normalizeEmail, getAuthIpKey, getAuthAccountKey, getAuthCombinedKey } from '../utils/rateLimitKeys.js';
@@ -33,7 +37,7 @@ const createLimiter = (options) => {
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false,
     store,
-    keyGenerator: options.keyGenerator || ((req) => req.ip),
+    keyGenerator: options.keyGenerator || ipKey,
     skip: options.skip || (() => false),
     handler: standardHandler,
     message: { text: options.message, limiterType: options.name },
@@ -63,7 +67,7 @@ export const authenticatedLimiter = createLimiter({
   name: 'authenticated',
   windowMs: parseInt(process.env.RATE_LIMIT_AUTH_USER_WINDOW_MIN || 15) * 60 * 1000,
   max: parseInt(process.env.RATE_LIMIT_AUTH_USER_MAX || 1000),
-  keyGenerator: (req) => req.user?._id?.toString() || req.ip,
+  keyGenerator: (req) => req.user?._id?.toString() || ipKey(req),
   message: "Too many requests from this user, please try again later."
 });
 
@@ -72,7 +76,7 @@ export const fileUploadLimiter = createLimiter({
   name: 'file_upload',
   windowMs: parseInt(process.env.RATE_LIMIT_FILE_UPLOAD_WINDOW_MIN || 60) * 60 * 1000,
   max: parseInt(process.env.RATE_LIMIT_FILE_UPLOAD_MAX || 20),
-  keyGenerator: (req) => req.user?._id?.toString() || req.ip,
+  keyGenerator: (req) => req.user?._id?.toString() || ipKey(req),
   message: "Upload limit exceeded. Please wait before uploading more files."
 });
 
@@ -80,7 +84,7 @@ export const passwordResetLimiter = createLimiter({
   name: 'password_reset',
   windowMs: parseInt(process.env.RATE_LIMIT_PASSWORD_RESET_WINDOW_MIN || 60) * 60 * 1000,
   max: parseInt(process.env.RATE_LIMIT_PASSWORD_RESET_MAX || 3),
-  keyGenerator: (req) => req.body?.email ? normalizeEmail(req.body.email) : req.ip,
+  keyGenerator: (req) => req.body?.email ? normalizeEmail(req.body.email) : ipKey(req),
   message: "Too many password reset attempts. Please check your email or try again later."
 });
 
@@ -88,7 +92,7 @@ export const userActionLimiter = createLimiter({
   name: 'user_action',
   windowMs: parseInt(process.env.RATE_LIMIT_USER_ACTION_WINDOW_MIN || 1) * 60 * 1000,
   max: parseInt(process.env.RATE_LIMIT_USER_ACTION_MAX || 30),
-  keyGenerator: (req) => req.user?._id?.toString() || req.ip,
+  keyGenerator: (req) => req.user?._id?.toString() || ipKey(req),
   message: "You are performing actions too quickly. Please slow down."
 });
 
@@ -99,25 +103,29 @@ export const registrationLimiter = createLimiter({
   message: "Too many accounts created from this IP. Please try again later."
 });
 
-// Dynamic AI Chat Limiter based on role
-export const aiChatLimiter = (req, res, next) => {
-  const role = req.user?.role || 'guest';
-  const isAdmin = req.user?.isAdmin;
-  
-  let maxRequests = parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_GUEST || 3);
-  if (isAdmin) maxRequests = parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_ADMIN || 1000);
-  else if (role === 'premium') maxRequests = parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_PREMIUM || 50);
-  else if (role === 'agent' || role === 'user') maxRequests = parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_FREE || 10);
-  
-  const limiter = createLimiter({
-    name: 'ai_chat',
-    windowMs: parseInt(process.env.RATE_LIMIT_AI_CHAT_WINDOW_MIN || 60) * 60 * 1000,
-    max: maxRequests,
-    keyGenerator: (req) => req.user?._id?.toString() || req.ip,
-    message: "AI Chat quota exceeded. Please wait before asking more questions."
+// AI chat limiter, by role. Each tier's limiter is made once: a limiter made inside the request
+// handler starts a fresh count every time, which on the in-memory store means no limit at all.
+// Per hour by default; every figure can be set from the environment.
+const AI_CHAT_WINDOW_MS = parseInt(process.env.RATE_LIMIT_AI_CHAT_WINDOW_MIN || 60) * 60 * 1000;
+const aiChatTier = (name, max) =>
+  createLimiter({
+    name: `ai_chat_${name}`,
+    windowMs: AI_CHAT_WINDOW_MS,
+    max,
+    keyGenerator: (req) => `ai:${name}:${req.user?._id?.toString() || ipKey(req)}`,
+    message: "You've asked Waza AI a lot of questions in a short time. Please wait a little before asking more."
   });
-  
-  return limiter(req, res, next);
+const AI_CHAT_LIMITERS = {
+  admin: aiChatTier('admin', parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_ADMIN || 1000)),
+  premium: aiChatTier('premium', parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_PREMIUM || 120)),
+  free: aiChatTier('free', parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_FREE || 60)),
+  guest: aiChatTier('guest', parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_GUEST || 30))
+};
+
+export const aiChatLimiter = (req, res, next) => {
+  const role = req.user?.role;
+  const tier = req.user?.isAdmin ? 'admin' : role === 'premium' ? 'premium' : role === 'agent' || role === 'user' ? 'free' : 'guest';
+  return AI_CHAT_LIMITERS[tier](req, res, next);
 };
 
 // 5. Auth Limiter (Triple-Counter Exponential Backoff)

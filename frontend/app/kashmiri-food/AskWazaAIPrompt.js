@@ -18,7 +18,7 @@ export default function AskWazaAIPrompt({ articleTitle }) {
   return (
     <div className="my-10 border-t border-b border-white/10 py-8 flex flex-col items-center justify-center text-center">
       <h3 className="font-display text-2xl text-white mb-2">Have questions?</h3>
-      <p className="text-white/50 text-sm mb-6 max-w-md">Our AI Waza is trained on authentic Kashmiri culinary history. Ask him about ingredients, preparation, or history.</p>
+      <p className="text-white/50 text-sm mb-6 max-w-md">Waza AI answers from Wazwan Way&apos;s own pages. Ask about ingredients, preparation or history.</p>
       <button 
         onClick={handleAsk}
         className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--saffron)]/10 to-[var(--saffron)]/20 hover:from-[var(--saffron)]/30 hover:to-[var(--saffron)]/40 border border-[var(--saffron)]/30 text-[var(--saffron)] px-6 py-4 rounded-xl font-bold tracking-wider uppercase text-sm transition-all shadow-[0_0_15px_rgba(200,164,106,0.1)] hover:shadow-[0_0_25px_rgba(200,164,106,0.2)] active:scale-95"
