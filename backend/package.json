@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "seed": "node src/scripts/seed.js"
+    "seed": "node src/scripts/seed.js",
+    "test:waza": "node --test \"src/tests/waza/*.test.js\"",
+    "eval:waza": "node evals/run-offline.mjs --strict && node evals/run-offline.mjs --holdout --strict && node evals/run-offline.mjs --holdout2 --strict",
+    "check:waza": "node evals/check-providers.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.12.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

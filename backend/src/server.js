@@ -13,7 +13,7 @@ import destinationRoutes from "./routes/destinationRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
-import chatRoutes from "./routes/chatRoutes.js";
+import chatRoutes, { drainWaza } from "./routes/chatRoutes.js";
 import restaurantLeadRoutes from "./routes/restaurantLeadRoutes.js";
 import travelAgencyRoutes from "./routes/travelAgencyRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
@@ -161,8 +161,23 @@ app.use(errorHandler);
 
 connectDB()
   .then(() => {
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       console.log(`Server running on port ${port}`);
+    });
+    // A deploy or a restart sends SIGTERM and then waits a short while. Use that time to let the
+    // Waza AI answers being written finish, instead of cutting them off mid-sentence.
+    let stopping = false;
+    process.on("SIGTERM", async () => {
+      if (stopping) return;
+      stopping = true;
+      console.log("SIGTERM: finishing answers in progress before stopping");
+      server.close();
+      try {
+        const drained = await drainWaza(20_000);
+        console.log(`SIGTERM: waited for ${drained.waitedFor} answer(s), stopped ${drained.stopped}`);
+      } finally {
+        process.exit(0);
+      }
     });
   })
   .catch((error) => {
