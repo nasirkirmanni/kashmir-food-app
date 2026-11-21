@@ -7,7 +7,10 @@ import {
   RESEARCH_CHECKED,
   RESTAURANTS,
   SOURCES,
+  WAZPORA,
 } from "../data/srinagarRestaurants";
+import { placePhotoFor } from "../data/restaurantPhotos";
+import { fold, inPlace } from "./directorySearch";
 
 /**
  * Everything the restaurant directory and the profile pages derive from data/srinagarRestaurants.js:
@@ -116,6 +119,19 @@ export function typeLabel(id) {
   return TYPE_BY_ID.get(id)?.label || "";
 }
 
+// The same kinds, said of one place.
+const TYPE_OF_ONE = {
+  guides: "Named in guides and press",
+  wazwan: "Wazwan restaurant",
+  multi: "Multi-cuisine, with Wazwan",
+  hotels: "Hotel restaurant",
+  delivery: "Delivery or app listing",
+};
+
+export function kindOf(place) {
+  return TYPE_OF_ONE[place.type] || typeLabel(place.type);
+}
+
 export function evidenceOf(place) {
   return place.evidence.map((id) => ({ id, ...EVIDENCE[id] }));
 }
@@ -190,24 +206,167 @@ export const WAZWAN_NEARBY_DESTINATIONS = ["srinagar", "shalimar-bagh"];
 
 // ---------------------------------------------------------------- related places
 
-/** Up to `n` other profiles: same neighbourhood first, then the same kind of place. */
-export function relatedRestaurants(place, n = 4) {
-  const others = RESTAURANTS.filter((other) => other.slug !== place.slug);
-  const near = others.filter((other) => other.neighbourhoods.some((name) => place.neighbourhoods.includes(name)));
-  const sameType = others.filter((other) => other.type === place.type && !near.includes(other));
-  return [...near, ...sameType].slice(0, n).map((other) => ({
+/**
+ * Up to `n` other profiles of the same kind of place, away from this one's street. A profile lists
+ * its neighbours under "Where it is" (sameStreet below), so these never repeat them. Current places
+ * come first, in the research's own order.
+ */
+export function relatedRestaurants(place, n = 3) {
+  const near = new Set(sameStreet(place).map((other) => other.slug));
+  const others = RESTAURANTS.filter((other) => other.slug !== place.slug && other.type === place.type && !near.has(other.slug));
+  return [...others.filter(isCurrent), ...others.filter((other) => !isCurrent(other))].slice(0, n).map((other) => ({
     slug: other.slug,
     name: other.name,
     area: other.area,
-    reason: near.includes(other) ? `Also in ${other.neighbourhoods.find((name) => place.neighbourhoods.includes(name))}` : typeLabel(other.type),
+    reason: kindOf(other),
   }));
+}
+
+// ---------------------------------------------------------------- streets
+
+/**
+ * The directory's chapters: the two roads where most of the places are, the old city, and the rest.
+ * A place belongs to the first chapter that names one of its neighbourhoods, taking the place's own
+ * first neighbourhood first; the last chapter takes whatever is left. The old city's neighbourhoods
+ * are the ones the research itself places there: Nowhatta and Kadi Kadal (their records say "old
+ * city"), Wazpora and Rajouri Kadal (WAZPORA.intro), and Habba Kadal (the photographer's own tags on
+ * the chapter's photograph, data/restaurantPhotos.js).
+ */
+export const STREETS = [
+  { id: "residency-road", name: "Residency Road", neighbourhoods: ["Residency Road"] },
+  { id: "boulevard-road", name: "Boulevard Road", neighbourhoods: ["Boulevard Road"] },
+  { id: "old-city", name: "The old city", neighbourhoods: ["Wazpora", "Rajouri Kadal", "Nowhatta", "Kadi Kadal", "Habba Kadal"] },
+  { id: "elsewhere", name: "Elsewhere in Srinagar", neighbourhoods: null },
+];
+
+const STREET_BY_ID = new Map(STREETS.map((street) => [street.id, street]));
+const LAST_STREET = STREETS[STREETS.length - 1];
+
+export function streetOf(place) {
+  for (const name of place.neighbourhoods) {
+    const street = STREETS.find((candidate) => candidate.neighbourhoods?.includes(name));
+    if (street) return street;
+  }
+  return LAST_STREET;
+}
+
+export function streetById(id) {
+  return STREET_BY_ID.get(id) || null;
+}
+
+/** Where a chapter sits on the directory page. */
+export const streetPath = (id) => `${DIRECTORY_PATH}#${id}`;
+
+const NUMBER_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen"];
+const countWord = (n) => NUMBER_WORDS[n] || String(n);
+
+// One or two sentences on each chapter, built from the records so the counts can never drift.
+const STREET_INTROS = {
+  "residency-road": (places) =>
+    `${countWord(places.length)} places in the centre of the city, the oldest names among them: Ahdoos, which began as a bakery in 1918 [[kl25]], and two separate restaurants that share the name Mughal Darbar.`,
+  "boulevard-road": (places) =>
+    `${countWord(places.length)} places on the road that runs beside Dal Lake, where an address is given by the number of the nearest ghat.`,
+  "old-city": () => WAZPORA.intro,
+  elsewhere: (places) => {
+    const hotels = places.filter((place) => place.type === "hotels").length;
+    return `${countWord(places.length)} more, spread across the rest of the city, each under the name of its neighbourhood. ${countWord(hotels)} of them are hotel restaurants.`;
+  },
+};
+
+/** The chapters in order, each with its places and its opening lines. */
+export function streets() {
+  return STREETS.map((street) => {
+    const places = RESTAURANTS.filter((place) => streetOf(place).id === street.id);
+    return { id: street.id, name: street.name, places, intro: STREET_INTROS[street.id](places) };
+  });
+}
+
+/**
+ * A place's neighbours, for a profile's "Where it is": the others in its chapter. The last chapter
+ * is the rest of the city, so there only a shared neighbourhood counts as near.
+ */
+export function sameStreet(place) {
+  const street = streetOf(place);
+  const near = street.neighbourhoods
+    ? (other) => streetOf(other).id === street.id
+    : (other) => other.neighbourhoods.some((name) => place.neighbourhoods.includes(name));
+  return RESTAURANTS.filter((other) => other.slug !== place.slug && near(other)).map((other) => ({
+    slug: other.slug,
+    name: other.name,
+    area: other.area,
+  }));
+}
+
+/** What a profile calls its neighbours: "Also on Residency Road", "Also in the old city", "Also in Bemina". */
+export function nearbyHeading(place) {
+  const street = streetOf(place);
+  if (street.id === "old-city") return "Also in the old city";
+  if (street.neighbourhoods) return `Also ${inPlace(street.name)}`;
+  const shared = place.neighbourhoods.find((name) => RESTAURANTS.some((other) => other.slug !== place.slug && other.neighbourhoods.includes(name)));
+  return shared ? `Also ${inPlace(shared)}` : "";
+}
+
+/** The link from a profile to its chapter of the directory: "Everything on Residency Road". */
+export function streetLinkLabel(place) {
+  const street = streetOf(place);
+  if (street.id === "old-city") return "Everything in the old city";
+  return street.neighbourhoods ? `Everything ${inPlace(street.name)}` : street.name;
+}
+
+// ---------------------------------------------------------------- finding places
+
+// Search, filters and sorting live in lib/directorySearch.js, which the browser can load on its own.
+export * from "./directorySearch";
+
+/** The dishes the sources name most often across the directory, as words a visitor can search for. */
+export function namedDishes(limit = 6) {
+  const counts = new Map();
+  for (const place of RESTAURANTS) {
+    if (!isCurrent(place)) continue;
+    for (const slug of place.dishes) counts.set(slug, (counts.get(slug) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, limit)
+    .map(([slug, places]) => ({ slug, words: slug.replace(/-/g, " "), places }));
 }
 
 // ---------------------------------------------------------------- directory cards
 
-const SEARCH_EXTRA = (place) => [place.name, ...place.otherNames, place.area, ...place.neighbourhoods, place.dishesNamed, typeLabel(place.type)];
+const SEARCH_EXTRA = (place) => [
+  place.name,
+  ...place.otherNames,
+  place.area,
+  ...place.neighbourhoods,
+  streetOf(place).name,
+  place.dishesNamed,
+  ...place.dishes.map((slug) => slug.replace(/-/g, " ")),
+  typeLabel(place.type),
+  ...formatsOf(place).map((format) => format.label),
+];
 
-/** What a card shows and what the directory filters on: plain, serialisable values only. */
+// The photograph of the place itself, where one is licensed, without its credit (the profile carries that).
+function cardPhoto(slug) {
+  const photo = placePhotoFor(slug);
+  return photo ? { src: photo.src, width: photo.width, height: photo.height, alt: photo.alt, taken: photo.taken } : null;
+}
+
+// What a record says when it has nothing to give. A row says these once, in one quiet line, not as facts.
+const NOT_NAMED = /^Not (named|listed|seen)$/;
+const NOT_PRICED = /^(No (published )?prices found|Not seen)$/;
+
+/** What the research did not find for a place, as one line for its row; null when nothing is missing. */
+export function notFound(place) {
+  const missing = [];
+  if (NOT_NAMED.test(place.dishesNamed)) missing.push("no dishes named");
+  if (NOT_PRICED.test(place.price)) missing.push("no prices found");
+  if (!place.google) missing.push("no Google listing used");
+  if (!missing.length) return null;
+  const line = missing.join(", ");
+  return `${line[0].toUpperCase()}${line.slice(1)}.`;
+}
+
+/** What a row shows and what the directory filters on: plain, serialisable values only. */
 export function directoryCards() {
   return RESTAURANTS.map((place) => ({
     slug: place.slug,
@@ -215,16 +374,21 @@ export function directoryCards() {
     name: place.name,
     type: place.type,
     typeLabel: typeLabel(place.type),
+    kind: kindOf(place),
     area: place.area,
     neighbourhoods: place.neighbourhoods,
     evidence: place.evidence,
     strong: hasStrongEvidence(place),
     formats: formatsOf(place).map(({ id, label, value }) => ({ id, label, value })),
-    dishesNamed: place.dishesNamed,
-    price: place.price,
+    dishesNamed: NOT_NAMED.test(place.dishesNamed) ? null : place.dishesNamed,
+    price: NOT_PRICED.test(place.price) ? null : place.price,
+    notFound: notFound(place),
     google: place.google ? { rating: place.google.rating, reviews: place.google.reviews, perPerson: place.google.perPerson || null } : null,
     status: STATUS_LABELS[place.status] || null,
-    search: SEARCH_EXTRA(place).join(" ").toLowerCase(),
+    street: streetOf(place).id,
+    summary: place.summary,
+    photo: cardPhoto(place.slug),
+    search: fold(SEARCH_EXTRA(place).join(" ")),
   }));
 }
 
@@ -234,8 +398,6 @@ export const DIRECTORY_COUNTS = {
 };
 
 // ---------------------------------------------------------------- questions and answers
-
-const NOT_PRICED = /^(No (published )?prices found|Not seen)$/;
 
 function joinNames(names) {
   if (names.length <= 1) return names.join("");

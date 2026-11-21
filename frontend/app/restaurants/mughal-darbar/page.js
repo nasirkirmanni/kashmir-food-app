@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import JsonLd, { buildFaqSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Cited from "@/components/restaurants/Cited";
 import EvidenceBadges from "@/components/restaurants/EvidenceBadges";
+import Photograph from "@/components/restaurants/Photograph";
 import styles from "@/components/restaurants/restaurants.module.css";
+import { photosFor } from "@/data/restaurantPhotos";
 import { MUGHAL_DARBAR } from "@/data/srinagarRestaurants";
 import { MUGHAL_DARBAR_FAQ } from "@/data/srinagarRestaurantsCopy";
-import { CHECKED_LABEL, DIRECTORY_PATH, SITE, citedSources, plainText, restaurantBySlug, restaurantPath } from "@/lib/srinagarRestaurants";
+import { CHECKED_LABEL, DIRECTORY_PATH, SITE, citedSources, plainText, restaurantBySlug, restaurantPath, streetPath } from "@/lib/srinagarRestaurants";
 
 /**
  * /restaurants/mughal-darbar: two separate businesses trade as Mughal Darbar on Residency Road. This
@@ -44,6 +47,7 @@ export default function MughalDarbarPage() {
   const places = SIDES.map((side) => ({ ...side, place: restaurantBySlug(side.slug) }));
   const texts = [MUGHAL_DARBAR.intro, ...MUGHAL_DARBAR.rows.flatMap((row) => [row.upstairs, row.ground]), ...MUGHAL_DARBAR_FAQ.map((f) => f.answer)];
   const sources = citedSources(texts);
+  const photos = photosFor("mughal-darbar");
 
   const list = {
     "@context": "https://schema.org",
@@ -74,7 +78,7 @@ export default function MughalDarbarPage() {
       <JsonLd data={list} />
       <JsonLd data={buildFaqSchema(MUGHAL_DARBAR_FAQ.map((faq) => ({ question: faq.question, answer: plainText(faq.answer) })))} />
 
-      <header className={`${styles.container} ${styles.hero}`}>
+      <header className={`${styles.container} ${styles.profileHero}`}>
         <div className={styles.crumbs}>
           <Breadcrumbs
             items={[
@@ -84,11 +88,26 @@ export default function MughalDarbarPage() {
             ]}
           />
         </div>
-        <p className={styles.eyebrow}>Residency Road, Srinagar · checked {CHECKED_LABEL}</p>
-        <h1 className={styles.title}>Mughal Darbar: two restaurants, one name</h1>
+        <h1 className={`${styles.profileTitle} ${styles.profileTitleLong}`}>Mughal Darbar: two restaurants, one name</h1>
+        <ul className={styles.profileMeta}>
+          <li>
+            <Link href={streetPath("residency-road")} prefetch={false}>
+              Residency Road
+            </Link>
+            , Srinagar
+          </li>
+          <li>Checked {CHECKED_LABEL}</li>
+        </ul>
         <p className={styles.lede}>
           <Cited text={MUGHAL_DARBAR.intro} />
         </p>
+        {photos.length ? (
+          <div className={photos.length > 1 ? `${styles.photoSet} ${styles.photoSetTwo} ${styles.heroPlate}` : `${styles.photoSet} ${styles.heroPlate}`}>
+            {photos.map((photo, index) => (
+              <Photograph key={photo.src} photo={photo} priority={index === 0} sizes="(min-width: 900px) 620px, 100vw" />
+            ))}
+          </div>
+        ) : null}
       </header>
 
       <section className={`${styles.container} ${styles.section}`} aria-labelledby="which-one">
@@ -98,24 +117,22 @@ export default function MughalDarbarPage() {
           </h2>
         </div>
         <div className={styles.compare}>
-          {places.map(({ key, heading, site, place }) => (
-            <article key={key} className={styles.card} aria-labelledby={`side-${key}`}>
-              <span className={styles.cardType}>{heading}</span>
-              <h3 className={styles.cardName} id={`side-${key}`}>
-                <Link href={restaurantPath(place.slug)} prefetch={false} className={styles.cardLink}>
+          {places.map(({ key, site, place }) => (
+            <article key={key} className={styles.compareSide} aria-labelledby={`side-${key}`}>
+              <h3 className={styles.rowName} id={`side-${key}`}>
+                <Link href={restaurantPath(place.slug)} prefetch={false} className={styles.rowLink}>
                   {place.name}
                 </Link>
               </h3>
-              <p className={styles.cardArea}>{place.address}</p>
-              <EvidenceBadges evidence={place.evidence} />
-              <dl className={styles.cardFacts}>
+              <p className={styles.compareWhich}>{place.address}</p>
+              <dl className={styles.rowFacts}>
                 <div>
                   <dt>Website</dt>
                   <dd>{site}</dd>
                 </div>
                 <div>
                   <dt>Phone</dt>
-                  <dd>{place.phone || "Not verified"}</dd>
+                  <dd>{place.phone || <span className={styles.notVerified}>Not verified</span>}</dd>
                 </div>
                 <div>
                   <dt>Prices</dt>
@@ -123,15 +140,25 @@ export default function MughalDarbarPage() {
                 </div>
                 <div>
                   <dt>Google</dt>
-                  <dd>{place.google ? `${place.google.rating.toFixed(1)} from ${place.google.reviews.toLocaleString("en-IN")} reviews` : "No Srinagar listing found"}</dd>
+                  <dd className={styles.google}>
+                    {place.google ? (
+                      <>
+                        <b>{place.google.rating.toFixed(1)}</b> from {place.google.reviews.toLocaleString("en-IN")} reviews
+                      </>
+                    ) : (
+                      "No Srinagar listing found"
+                    )}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Known from</dt>
+                  <dd>
+                    <EvidenceBadges evidence={place.evidence} />
+                  </dd>
                 </div>
               </dl>
-              <div className={styles.cardFoot}>
-                <span className={styles.rating}>{place.summary.split(". ")[0]}.</span>
-                <span className={styles.more} aria-hidden="true">
-                  Profile →
-                </span>
-              </div>
+              <p className={styles.rowSummary}>{place.summary.split(". ")[0]}.</p>
+              <ArrowUpRight className={styles.rowArrow} aria-hidden="true" />
             </article>
           ))}
         </div>
@@ -144,7 +171,7 @@ export default function MughalDarbarPage() {
           </h2>
           <p className={styles.text}>What each business says about itself, and what others say about it, with the source for each line.</p>
         </div>
-        <div className={styles.tableWrap}>
+        <div className={styles.tableWrap} data-h-scroll="">
           <table className={styles.table}>
             <thead>
               <tr>
@@ -159,10 +186,10 @@ export default function MughalDarbarPage() {
               {MUGHAL_DARBAR.rows.map((row) => (
                 <tr key={row.label}>
                   <th scope="row">{row.label}</th>
-                  <td>
+                  <td className={styles.wrapCell}>
                     <Cited text={row.upstairs} />
                   </td>
-                  <td>
+                  <td className={styles.wrapCell}>
                     <Cited text={row.ground} />
                   </td>
                 </tr>
@@ -236,7 +263,7 @@ export default function MughalDarbarPage() {
           <li>
             <Link href={DIRECTORY_PATH} prefetch={false}>
               <span className={styles.relatedName}>All Wazwan restaurants in Srinagar</span>
-              <span className={styles.relatedMeta}>Search and filter the whole list</span>
+              <span className={styles.relatedMeta}>Search by name, street or dish</span>
             </Link>
           </li>
           <li>
