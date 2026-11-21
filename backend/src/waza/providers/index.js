@@ -56,6 +56,28 @@ export const PROVIDERS = {
     baseURL: "https://api.openai.com/v1",
     quotaDomain: "an OpenAI organization or project",
   },
+  // Two more that speak the OpenAI chat API. Neither has a model in the default order: a model is
+  // put there once it has been run against the question set with a real key (see the docs).
+  mistral: {
+    label: "Mistral",
+    adapter: "openai",
+    dialect: "plain",
+    keyVars: ["MISTRAL_API_KEY"],
+    keysVar: "MISTRAL_API_KEYS",
+    baseVar: "MISTRAL_BASE_URL",
+    baseURL: "https://api.mistral.ai/v1",
+    quotaDomain: "a Mistral organization (its limits are shown in its console)",
+  },
+  groq: {
+    label: "Groq",
+    adapter: "openai",
+    dialect: "plain",
+    keyVars: ["GROQ_API_KEY"],
+    keysVar: "GROQ_API_KEYS",
+    baseVar: "GROQ_BASE_URL",
+    baseURL: "https://api.groq.com/openai/v1",
+    quotaDomain: "a Groq organization: its limits apply to the organization, not to a user or key",
+  },
   // Any other endpoint that speaks the OpenAI chat API.
   custom: {
     label: "Custom endpoint",

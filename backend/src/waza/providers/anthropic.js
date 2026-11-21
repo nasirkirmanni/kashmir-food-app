@@ -10,7 +10,7 @@
  * The SDK is loaded the first time Claude is called, not when the server starts: if it could not be
  * loaded, that is a fault of this one provider, and must not stop the API from starting.
  */
-import { ProviderError, retryAfterFromHeaders } from "./errors.js";
+import { ProviderError, describe, retryAfterFromHeaders } from "./errors.js";
 
 let Anthropic = null;
 async function sdk() {
@@ -56,7 +56,7 @@ function translate(error, sawText) {
     const type = error.error?.error?.type || error.type || "";
     const where = `HTTP ${status} ${type}`.trim();
     const retryAfterMs = retryAfterFromHeaders(error.headers);
-    const options = { status, retryAfterMs, partial: sawText };
+    const options = { status, retryAfterMs, partial: sawText, detail: describe({ type, message: error.error?.error?.message || error.message }) };
     if (status === 401) return new ProviderError("auth", where, options);
     if (status === 402 || type === "billing_error") return new ProviderError("credits", where, options);
     if (status === 403) return new ProviderError("permission", where, options);

@@ -56,7 +56,14 @@ test("the default order of models follows the keys that exist; WAZA_MODELS overr
   const ids = (env) => loadConfig(env).models.map((model) => model.id);
   assert.deepEqual(ids({ OPENROUTER_API_KEY: "k" }), ["openrouter:google/gemini-3.5-flash-lite", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
   // With Google's own key, Gemini is asked directly first, and the same model through a second provider next, so one provider's outage is routed around.
-  assert.deepEqual(ids({ GEMINI_API_KEY: "g", OPENROUTER_API_KEY: "k", ANTHROPIC_API_KEY: "a" }), ["gemini:gemini-3.5-flash-lite", "openrouter:google/gemini-3.5-flash-lite", "anthropic:claude-haiku-5-5", "gemini:gemini-3.8-flash", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
+  assert.deepEqual(ids({ GEMINI_API_KEY: "g", OPENROUTER_API_KEY: "k", ANTHROPIC_API_KEY: "a" }), ["gemini:gemini-3.5-flash-lite", "gemini:gemini-3.1-flash-lite", "openrouter:google/gemini-3.5-flash-lite", "anthropic:claude-haiku-5-5", "gemini:gemini-3.6-flash", "gemini:gemini-3.8-flash", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
+  // With Google's key alone there are four models on it, each metered by Google on its own.
+  assert.deepEqual(ids({ GEMINI_API_KEY: "g" }), ["gemini:gemini-3.5-flash-lite", "gemini:gemini-3.1-flash-lite", "gemini:gemini-3.6-flash", "gemini:gemini-3.8-flash"]);
+  // Mistral and Groq are known, but have no model in the default order: one is named when it has been tried.
+  assert.deepEqual(ids({ MISTRAL_API_KEY: "m", GROQ_API_KEY: "q" }), []);
+  const named = loadConfig({ MISTRAL_API_KEY: "m", GROQ_API_KEY: "q", WAZA_MODELS: "mistral:mistral-small-latest,groq:llama-3.3-70b-versatile" });
+  assert.deepEqual(named.models.map((model) => model.id), ["mistral:mistral-small-latest", "groq:llama-3.3-70b-versatile"]);
+  assert.deepEqual([named.providers.mistral.baseURL, named.providers.groq.baseURL], ["https://api.mistral.ai/v1", "https://api.groq.com/openai/v1"]);
   assert.deepEqual(ids({ GEMINI_API_KEY: "g", WAZA_MODELS: "gemini:gemini-3.5-flash-lite@minimal,openai:some-model" }), ["gemini:gemini-3.5-flash-lite"], "a provider with no key is left out");
   assert.deepEqual(ids({}), []);
 });
@@ -168,6 +175,138 @@ test("the provider's own figure for a rate limit is respected: short waits are w
   assert.equal(long.calls.at(-2).model, "primary", "and tried again once they have passed");
 });
 
+test("when the model that answers is paused by its provider, the visitor is told to come back, and when", async () => {
+  let clock = 2_000_000;
+  // The first choice is rate-limited for 40 seconds; the fallback is the kind that never starts.
+  const server = await openai(({ model }) => (model === "primary" ? { status: 429, retryAfter: 40 } : { hang: true }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,custom:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const first = await run(config, { pool, now: () => clock });
+  assert.equal(first.error.kind, "rate_limit", "the pause is the reason, not the fallback's timeout");
+  assert.equal(first.error.retryable, true);
+  assert.ok(first.error.retryAfterMs > 39_000 && first.error.retryAfterMs <= 40_000, `come back in ${first.error.retryAfterMs} ms`);
+  // While it is paused the provider is left alone.
+  const before = server.calls.filter((call) => call.model === "primary").length;
+  clock += 5_000;
+  await run(config, { pool, now: () => clock });
+  assert.equal(server.calls.filter((call) => call.model === "primary").length, before);
+});
+
+test("a pause of a few seconds is waited out when no other model can answer", async () => {
+  const waits = [];
+  let clock = 3_000_000;
+  let limited = true;
+  const server = await openai(({ model }) => (model === "primary" ? (limited ? { status: 429, retryAfter: 6 } : { text: "After the pause, the same model." }) : { status: 401 }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,other:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k", WAZA_TOTAL_TIMEOUT_MS: "30000" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const wait = async (ms) => {
+    waits.push(ms);
+    clock += ms;
+    limited = false;
+  };
+  const { result, error } = await run(config, { pool, now: () => clock, wait });
+  assert.equal(error, undefined);
+  assert.equal(result.text, "After the pause, the same model.");
+  assert.ok(waits.some((ms) => ms >= 6_000 && ms <= 6_100), `waited ${waits} ms: what the provider asked for`);
+  assert.ok(result.attempts.some((attempt) => attempt.outcome === "waited_for_limit"));
+});
+
+test("a per-minute limit that the provider calls a quota is still a pause: waited out, not 'come back later'", async () => {
+  // What the live site met on 21 November 2026: the one model that answers is refused with a 429
+  // worded as a quota and a wait of seconds; the same model through a second provider has no
+  // credit; the larger model on the same key never starts.
+  const waits = [];
+  let clock = 4_000_000;
+  let limited = true;
+  const server = await openai(({ model }) => {
+    if (model === "light") return limited ? { status: 429, retryAfter: 6, message: "You exceeded your current quota, please check your plan and billing details." } : { text: "After the pause, the usual model." };
+    if (model === "light-elsewhere") return { status: 402, message: "Insufficient credits" };
+    return { hang: true };
+  });
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:light,openrouter:light-elsewhere,custom:large", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k", OPENROUTER_BASE_URL: server.url, OPENROUTER_API_KEY: "o", WAZA_TOTAL_TIMEOUT_MS: "30000" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const wait = async (ms) => {
+    waits.push(ms);
+    clock += ms;
+    limited = false;
+  };
+  const { result, error } = await run(config, { pool, now: () => clock, wait });
+  assert.equal(error, undefined);
+  assert.equal(result.text, "After the pause, the usual model.");
+  assert.deepEqual(result.attempts.map((attempt) => attempt.outcome), ["rate_limit", "credits", "timeout_first_byte", "waited_for_limit", "ok"]);
+  assert.ok(waits.some((ms) => ms >= 6_000 && ms <= 6_100), `waited ${waits} ms: what the provider asked for`);
+  // The log keeps what each provider said, so the next reading of it needs no guessing.
+  assert.match(result.attempts[0].said, /exceeded your current quota/);
+  assert.match(result.attempts[1].said, /Insufficient credits/);
+  // The owner's diagnostics say the same about the key.
+  const key = pool.snapshot().find((entry) => entry.provider === "openrouter");
+  assert.deepEqual([key.lastFailure.kind, key.lastFailure.status, key.lastFailure.model], ["credits", 402, "light-elsewhere"]);
+  assert.match(key.lastFailure.said, /Insufficient credits/);
+});
+
+test("a pause too long to wait out is told to the visitor as a pause, with its length", async () => {
+  let clock = 6_000_000;
+  const server = await openai(({ model }) => (model === "light" ? { status: 429, retryAfter: 58, message: "You exceeded your current quota, please check your plan and billing details." } : { hang: true }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:light,custom:large", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const { error } = await run(config, { pool, now: () => clock });
+  assert.equal(error.kind, "rate_limit", "not `quota`: the visitor would be told to come back later, for a wait under a minute");
+  assert.ok(error.retryAfterMs > 57_000 && error.retryAfterMs <= 58_000);
+});
+
+test("when a model is paused by its own limit, the next model on the same key answers at once", async () => {
+  // One key, two models. The provider counts each model's limit separately: the first is refused
+  // (a per-minute limit, 40 seconds), the second is not.
+  let clock = 7_000_000;
+  const waits = [];
+  let refusal = { status: 429, retryAfter: 40, message: "You exceeded your current quota, please check your plan and billing details." };
+  const server = await openai(({ model }) => (model === "light" ? refusal : { text: "The second light model answered." }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:light,custom:light-older", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const first = await run(config, { pool, now: () => clock, wait: async (ms) => waits.push(ms) });
+  assert.equal(first.result.text, "The second light model answered.");
+  assert.deepEqual(first.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:light", "rate_limit"], ["custom:light-older", "ok"]]);
+  assert.deepEqual(waits, [], "nobody waited: the pause is routed around");
+  // While the first is paused it is not asked; the second goes on answering with the same key.
+  clock += 10_000;
+  const before = server.calls.length;
+  const second = await run(config, { pool, now: () => clock });
+  assert.equal(second.result.candidate, "custom:light-older");
+  assert.deepEqual(server.calls.slice(before).map((call) => [call.model, keyOf(call)]), [["light-older", "k"]]);
+  // When the pause is over the first is asked again.
+  clock += 31_000;
+  refusal = { text: "The usual model is back." };
+  assert.equal((await run(config, { pool, now: () => clock })).result.text, "The usual model is back.");
+
+  // The same when a model's allowance for the day is used up: the other model carries on, and the
+  // spent one is left alone for as long as the provider says.
+  clock += 60_000;
+  refusal = { status: 429, retryAfter: 3600, message: "Quota exceeded: requests per day" };
+  const spent = await run(config, { pool, now: () => clock });
+  assert.deepEqual(spent.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:light", "quota"], ["custom:light-older", "ok"]]);
+  clock += 50 * 60_000;
+  const calls = server.calls.length;
+  assert.equal((await run(config, { pool, now: () => clock })).result.candidate, "custom:light-older");
+  assert.deepEqual(server.calls.slice(calls).map((call) => call.model), ["light-older"]);
+});
+
+test("an account with no credit can still use the provider's free models", async () => {
+  let clock = 8_000_000;
+  const server = await openai(({ model }) => (model === "vendor/paid-model" ? { status: 402, message: "Insufficient credits" } : { text: "A free model answered." }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:vendor/paid-model,custom:vendor/open-model:free", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  assert.deepEqual(config.models.map((model) => model.model), ["vendor/paid-model", "vendor/open-model:free"], "a model id may itself contain a colon");
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const first = await run(config, { pool, now: () => clock });
+  assert.deepEqual(first.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:vendor/paid-model", "credits"], ["custom:vendor/open-model:free", "ok"]]);
+  // The paid model is rested (no credit rests everything that costs money); the free one is not.
+  clock += 60_000;
+  const before = server.calls.length;
+  const second = await run(config, { pool, now: () => clock });
+  assert.equal(second.result.text, "A free model answered.");
+  assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["vendor/open-model:free"]);
+  assert.deepEqual([pool.eligible("custom", "vendor/paid-model").ready.length, pool.eligible("custom", "vendor/other-paid").ready.length, pool.eligible("custom", "vendor/open-model:free").ready.length], [0, 0, 1]);
+});
+
 test("a provider's outage is not blamed on the key", async () => {
   const server = await openai(({ model }) => (model === "primary" ? { status: 500, message: "internal" } : { text: "Second model." }));
   const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,custom:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEYS: "one=k1,two=k2" });
@@ -193,7 +332,30 @@ test("each provider's way of saying what went wrong is read the same", () => {
   const old = [{ error: { code: 429, status: "RESOURCE_EXHAUSTED", message: "Resource has been exhausted", details: [{ "@type": "type.googleapis.com/google.rpc.QuotaFailure", violations: [{ quotaId: "GenerateRequestsPerDayPerProjectPerModel-FreeTier" }] }, { "@type": "type.googleapis.com/google.rpc.RetryInfo", retryDelay: "36s" }] } }];
   const exhausted = errorFromResponse(429, old, {});
   assert.deepEqual([exhausted.kind, exhausted.retryAfterMs, exhausted.scope], ["quota", 36_000, "domain"]);
+  // The same shape for a limit counted by the minute is a pause, whatever the message calls it.
+  // (Illustrative: Google's layout for this error, not a response captured from the live site.)
+  const advice = "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.5-flash-lite\nPlease retry in 12.4s.";
+  const perMinute = errorFromResponse(429, [{ error: { code: 429, status: "RESOURCE_EXHAUSTED", message: advice, details: [{ "@type": "type.googleapis.com/google.rpc.QuotaFailure", violations: [{ quotaMetric: "generativelanguage.googleapis.com/generate_content_free_tier_requests", quotaId: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier", quotaValue: "15" }] }, { "@type": "type.googleapis.com/google.rpc.RetryInfo", retryDelay: "12s" }] } }], {});
+  assert.deepEqual([perMinute.kind, perMinute.retryAfterMs, perMinute.retryable], ["rate_limit", 12_000, true]);
+  // What is kept for the log names the limit and drops the links.
+  assert.match(perMinute.detail, /RESOURCE_EXHAUSTED/);
+  assert.match(perMinute.detail, /GenerateRequestsPerMinutePerProjectPerModel-FreeTier, limit 15/);
+  assert.match(perMinute.detail, /Quota exceeded for metric/);
+  assert.doesNotMatch(perMinute.detail, /https?:|head to/);
+  assert.ok(perMinute.detail.length <= 300);
+  // With only the message to go on: the wait it gives in words settles it.
+  const inWords = errorFromResponse(429, { error: { code: 429, message: advice } }, {});
+  assert.deepEqual([inWords.kind, inWords.retryAfterMs], ["rate_limit", 12_400]);
+  // "Quota" with no wait given, or with a long one, is still a used-up allowance.
+  assert.equal(kind(429, { error: { code: 429, message: "You exceeded your current quota, please check your plan and billing details." } }), "quota");
+  assert.equal(kind(429, { error: { code: "quota_exceeded", message: "You exceeded your current quota" } }, { "retry-after": "7200" }), "quota");
+  assert.equal(kind(429, { error: { code: "quota_exceeded", message: "You exceeded your current quota" } }, { "retry-after": "45" }), "rate_limit");
+  // A limit named by the day is never a pause, however short the wait the provider attaches (the case above).
+  assert.equal(kind(429, { error: { code: 429, message: "Quota exceeded: requests per day" } }, { "retry-after": "20" }), "quota");
+  // Google's older one-line refusal names nothing and stays a rate limit.
+  assert.equal(kind(429, { error: { code: 429, status: "RESOURCE_EXHAUSTED", message: "Resource has been exhausted (e.g. check quota)." } }), "rate_limit");
   // OpenAI
+  assert.equal(kind(429, { error: { code: "insufficient_quota", message: "You exceeded your current quota" } }, { "retry-after": "20" }), "quota");
   assert.equal(kind(429, { error: { code: "insufficient_quota", message: "You exceeded your current quota" } }), "quota");
   assert.equal(kind(401, { error: { code: "invalid_api_key" } }), "auth");
   // OpenRouter: a number for a code, and headers that say when to come back
@@ -211,6 +373,10 @@ test("nothing key-like survives into a log line", () => {
   const line = redact("401 for Bearer sk-or-v1-0123456789abcdef0123456789abcdef and key=AIzaSyA1234567890abcdefghijklmnopqrstuv, also sk-ant-api03-abcdefghijklmnop and https://x.test/v1?key=SECRETVALUE123&x=1");
   for (const secret of ["0123456789abcdef0123456789abcdef", "SyA1234567890abcdefghijklmnopqrstuv", "abcdefghijklmnop", "SECRETVALUE123"]) assert.equal(line.includes(secret), false, secret);
   assert.match(line, /sk-or-v1-…/, "enough is left to tell which kind of key it was");
+  // The provider's own words are kept for the log, so they pass through the same sieve.
+  const said = errorFromResponse(403, { error: { code: "permission_denied", message: "API key AIzaSyA1234567890abcdefghijklmnopqrstuv (sk-live-abc123) is not allowed for projects/123456789012" } }, {}).detail;
+  for (const secret of ["SyA1234567890abcdefghijklmnopqrstuv", "abc123", "123456789012"]) assert.equal(said.includes(secret), false, secret);
+  assert.match(said, /permission_denied \| API key AIza/);
 });
 
 test("a key can be checked without asking a model anything", async () => {

@@ -106,6 +106,63 @@ test("a model that never starts is timed out once and passed over, not asked aga
   assert.ok(server.calls.filter((call) => call.model === "primary").every((call) => call.closed), "the timed-out requests were closed, not left open");
 });
 
+test("a model that has just been answering and is silent once is asked again at once, before any fallback", async () => {
+  let clock = 50_000;
+  const breaker = createBreaker({ failures: 2, coolDownMs: 60_000 }, () => clock);
+  let silentFor = 0;
+  const server = await provider(({ model }) => (model === "primary" ? (silentFor-- > 0 ? { hang: true } : { text: "The usual model answered." }) : { text: "The fallback answered." }));
+  const config = testConfig(server.url, { models: "custom:primary,custom:second", env: { WAZA_PROBE_TIMEOUT_MS: "120" } });
+  // With no record of answering (a server just started), silence moves on to the fallback as before.
+  silentFor = 1;
+  const cold = await run(server, { config, breaker });
+  assert.equal(cold.result.candidate, "custom:second");
+  assert.deepEqual(server.calls.map((call) => call.model), ["primary", "second"]);
+  // It answers: now it has a record.
+  assert.equal((await run(server, { config, breaker })).result.candidate, "custom:primary");
+  // Half a minute later one request to it gets no reply. It is asked again and answers.
+  clock += 30_000;
+  silentFor = 1;
+  let before = server.calls.length;
+  const once = await run(server, { config, breaker });
+  assert.equal(once.result.text, "The usual model answered.");
+  assert.deepEqual(once.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:primary", "timeout_first_byte"], ["custom:primary", "ok"]]);
+  assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "primary"], "the fallback was not needed");
+  assert.equal(breaker.allows("custom:primary"), true);
+  // Silent twice running is an outage: the fallback answers, and the model is rested.
+  clock += 30_000;
+  silentFor = 2;
+  before = server.calls.length;
+  const started = Date.now();
+  const twice = await run(server, { config, breaker });
+  assert.equal(twice.result.candidate, "custom:second");
+  assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "primary", "second"]);
+  assert.ok(Date.now() - started < 700, `the second ask was on the short leash: ${Date.now() - started} ms in all`);
+  assert.equal(breaker.allows("custom:primary"), false);
+  // Long after its last answer, a silence is not given the benefit of the doubt.
+  const later = createBreaker({ failures: 2, coolDownMs: 60_000 }, () => clock);
+  later.success("custom:primary");
+  clock += 11 * 60_000;
+  silentFor = 1;
+  before = server.calls.length;
+  assert.equal((await run(server, { config, breaker: later })).result.candidate, "custom:second");
+  assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "second"]);
+});
+
+test("the longer the visitor has waited, the less time the next model is given to start", async () => {
+  // Three models: the first two never start, the third answers. The first gets its full time; the
+  // second, tried after the visitor has already waited that long, gets only the short leash.
+  const server = await provider(({ model }) => (model === "third" ? { text: "The third model answered." } : { hang: true }));
+  const config = testConfig(server.url, { env: { WAZA_FIRST_BYTE_TIMEOUT_MS: "600", WAZA_FIRST_TEXT_TIMEOUT_MS: "600", WAZA_PROBE_TIMEOUT_MS: "150" } });
+  const started = Date.now();
+  const { result } = await run(server, { config });
+  const took = Date.now() - started;
+  assert.equal(result.candidate, "custom:third");
+  assert.deepEqual(result.attempts.map((attempt) => attempt.outcome), ["timeout_first_byte", "timeout_first_byte", "ok"]);
+  assert.ok(result.attempts[0].ms >= 580 && result.attempts[0].ms < 800, `the first was given its full time: ${result.attempts[0].ms} ms`);
+  assert.ok(result.attempts[1].ms >= 140 && result.attempts[1].ms < 400, `the second only the short leash: ${result.attempts[1].ms} ms`);
+  assert.ok(took < 1150, `${took} ms in all, not two full waits (1200 ms)`);
+});
+
 test("a model that only sends keep-alives is given up on without a retry", async () => {
   const server = await provider(({ model }) => (model === "primary" ? { keepAliveOnly: true } : { text: "Answered by the next model." }));
   const { result } = await run(server);
@@ -205,14 +262,22 @@ test("a resting model is still asked, once, when no other model answers", async 
   assert.equal(first.error.kind, "overloaded");
   assert.equal(breaker.allows("custom:primary"), false);
   assert.equal(breaker.allows("custom:second"), false);
-  // Still down: each is asked exactly once more (no retries for a resting model), and the visitor is told.
+  // A question arriving straight after is not made to wait for the same failure: nothing is asked.
   let before = server.calls.length;
+  const atOnce = await run(server, { config, breaker });
+  assert.equal(atOnce.error.kind, "overloaded");
+  assert.equal(atOnce.error.retryable, true);
+  assert.equal(server.calls.length, before, "models that failed seconds ago are not asked again so soon");
+  // A little later, still down: each is asked exactly once more (no retries for a resting model), and the visitor is told.
+  clock += 11_000;
+  before = server.calls.length;
   const second = await run(server, { config, breaker });
   assert.equal(second.error.kind, "overloaded");
   assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "second"]);
   assert.deepEqual(second.error.attempts.map((attempt) => attempt.outcome), ["resting", "resting", "overloaded", "overloaded"]);
   // The provider comes back inside the cool-down: the next question is answered, not refused untried.
   healthy = true;
+  clock += 11_000;
   before = server.calls.length;
   const third = await run(server, { config, breaker });
   assert.equal(third.result.text, "Back again.");
@@ -274,7 +339,7 @@ test("a resting model is the last resort after the fit ones, not the first", asy
   const breaker = createBreaker({ failures: 1, coolDownMs: 60_000 });
   const script = { primary: { status: 500 }, second: { text: "from the second" } };
   const server = await provider(({ model }) => script[model]);
-  const config = testConfig(server.url, { models: "custom:primary,custom:second", env: { WAZA_RETRIES_PER_MODEL: "0" } });
+  const config = testConfig(server.url, { models: "custom:primary,custom:second", env: { WAZA_RETRIES_PER_MODEL: "0", WAZA_LAST_RESORT_GAP_MS: "0" } });
   await run(server, { config, breaker }); // rests the primary; the second answers
   script.primary = { text: "from the primary" };
   script.second = { status: 500 };

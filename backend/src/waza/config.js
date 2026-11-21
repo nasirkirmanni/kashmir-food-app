@@ -16,14 +16,23 @@ import { PROVIDERS } from "./providers/index.js";
 // Used when WAZA_MODELS is not set, for the providers that have a key. The light Gemini model
 // comes first because of what the live site showed on 21 November 2026: it answered every question
 // from the sources, in about a second, while the larger Gemini 3.8 Flash did not answer at all
-// within ten seconds. The same model through a second provider follows, so that one provider's
-// outage is routed around; then the other models. Change the order with WAZA_MODELS.
+// within ten seconds. Change the order with WAZA_MODELS.
+//
+// A second light Gemini model follows it on the same key. Google counts its limits for each model
+// separately ("Limits vary depending on the specific model being used", applied per project), so
+// when the first is paused by its per-minute limit, or has used its day's allowance, the second
+// still has its own. That is one account used as its provider meters it, not a way round a limit:
+// a second key or project for the same model would add nothing and is not what this does.
+// Then the same model through a second provider, so that one provider's outage is routed around;
+// then the larger models.
 // Model names checked on 21 November 2026 against Google's, OpenRouter's and Anthropic's lists.
 // Gemini 3 models reason before answering whether asked to or not; a low effort keeps that short.
 const DEFAULT_CHAIN = [
   "gemini:gemini-3.5-flash-lite@minimal",
+  "gemini:gemini-3.1-flash-lite@minimal",
   "openrouter:google/gemini-3.5-flash-lite@minimal",
   "anthropic:claude-haiku-5-5@low",
+  "gemini:gemini-3.6-flash@low",
   "gemini:gemini-3.8-flash@low",
   "openrouter:google/gemini-3.8-flash@low",
   "openrouter:anthropic/claude-haiku-5.5@none",
@@ -95,6 +104,9 @@ export function loadConfig(env = process.env) {
       perModel: Math.max(0, Math.floor(Number(env.WAZA_RETRIES_PER_MODEL ?? 1))),
       baseDelayMs: positive(env.WAZA_RETRY_BASE_MS, 400),
       maxDelayMs: positive(env.WAZA_RETRY_MAX_MS, 4_000),
+      // When nothing else can answer, a rate limit that clears within this long is waited out.
+      // Fifteen seconds covers the shorter of the two pauses Google gave on 21 November 2026.
+      waitForLimitMs: atLeastZero(env.WAZA_WAIT_FOR_LIMIT_MS, 15_000),
     },
     breaker: {
       // After this many failures in a row a model is rested, so a dead model does not slow every answer.
@@ -102,6 +114,10 @@ export function loadConfig(env = process.env) {
       failures: positive(env.WAZA_BREAKER_FAILURES, 2),
       coolDownMs: positive(env.WAZA_BREAKER_COOLDOWN_MS, 60_000),
       maxCoolDownMs: positive(env.WAZA_BREAKER_MAX_COOLDOWN_MS, 15 * 60_000),
+      // A resting model that failed this recently is not asked again as a last resort.
+      lastResortGapMs: atLeastZero(env.WAZA_LAST_RESORT_GAP_MS, 10_000),
+      // A model that answered within this long and is then silent once is asked again at once.
+      recentAnswerMs: atLeastZero(env.WAZA_RECENT_ANSWER_MS, 10 * 60_000),
     },
     keys: {
       // How long a key the provider rejected is set aside before it is looked at again.
