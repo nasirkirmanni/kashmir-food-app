@@ -57,7 +57,17 @@ Every provider's failures are read into one set of kinds (`providers/errors.js`)
 this key, this account, this model, this request, or the provider.
 
 **Gemini stays the primary model**, as asked. With a Gemini key it is called directly; without one,
-through OpenRouter, which is what production's single key allows today.
+through OpenRouter.
+
+**Which Gemini model goes first was decided by the live site.** The order first shipped put Gemini
+3.8 Flash ahead of Gemini 3.5 Flash-Lite. On the day of release, on production, 3.8 Flash did not
+start answering within ten to twelve seconds on any of six tries, and every answer came from
+Flash-Lite after that wait. Flash-Lite's answers, read one by one, were drawn from the sources,
+cited, and correct on the ten questions asked; it started in about a second. So Flash-Lite goes
+first and 3.8 Flash is a fallback. Why 3.8 Flash did not answer is not known from outside the server
+(the diagnostics need an admin sign-in); if it turns out to be a setting, `WAZA_MODELS` puts it back
+in front. The same release made a slow model cheap to have in the chain at all: no second try after
+a slow start, a rest that doubles, and a six-second trial on return.
 
 **Rejected.**
 - Google's native API instead of its OpenAI-compatible endpoint: more code for one provider; the

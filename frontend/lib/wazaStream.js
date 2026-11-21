@@ -86,14 +86,16 @@ export async function* readWazaStream(response) {
 export function prepareAnswer(text, sources = []) {
   const byNumber = new Map(sources.map((source) => [source.n, source]));
   let out = String(text || "");
+  // Models often put several markers in one pair of brackets, "[S1, S3]": take them apart.
+  out = out.replace(/\[\s*S\d+(?:\s*(?:,|;|&|and)\s*S?\d+)+\s*\]/gi, (group) => [...new Set(group.match(/\d+/g))].map((digits) => `[S${digits}]`).join(""));
   // "[S1][S1]" and "[S1], [S1]" say the same thing once.
   out = out.replace(/(\[S(\d+)\])(?:[\s,]*\[S\2\])+/g, "$1");
   out = out.replace(/\s*\[S(\d+)\]/g, (_, digits) => {
     const source = byNumber.get(Number(digits));
     return source ? `[${digits}](#waza-source-${digits})` : "";
   });
-  // While an answer is still arriving, a marker can be cut in half ("[S" or "[S1"): hide the stump.
-  out = out.replace(/\s*\[S\d*$/, "");
+  // While an answer is still arriving, a marker can be cut in half ("[S", "[S1", "[S1, S"): hide the stump.
+  out = out.replace(/\s*\[S[\dS,;&\s]*$/, "");
   return tablesToLists(out);
 }
 

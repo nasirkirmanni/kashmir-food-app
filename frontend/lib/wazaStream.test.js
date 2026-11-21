@@ -63,6 +63,15 @@ describe("an answer made ready for the page", () => {
     expect(prepareAnswer("With markers [S1] but no list", [])).toBe("With markers but no list");
   });
 
+  it("takes apart several markers written in one pair of brackets", () => {
+    // What the live model writes: "[S1, S2]". Each becomes its own link; one that points nowhere is dropped.
+    expect(prepareAnswer("A meatball in yakhni [S1, S2]. Shared at the trami [S2 and S9].", sources)).toBe("A meatball in yakhni[1](#waza-source-1)[2](#waza-source-2). Shared at the trami[2](#waza-source-2).");
+    expect(prepareAnswer("Served last [S1; S1, S2].", sources)).toBe("Served last[1](#waza-source-1)[2](#waza-source-2).");
+    // Half of one, while the answer is still arriving.
+    expect(prepareAnswer("It comes last [S1, S", sources)).toBe("It comes last");
+    expect(prepareAnswer("It comes last [S1, ", sources)).toBe("It comes last");
+  });
+
   it("hides half a marker while the answer is still arriving", () => {
     expect(prepareAnswer("It comes last [S", sources)).toBe("It comes last");
     expect(prepareAnswer("It comes last [S1", sources)).toBe("It comes last");
