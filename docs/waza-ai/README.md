@@ -83,14 +83,17 @@ All from environment variables on the backend (Render). None is required except 
 
 | Variable | Provider | Notes |
 |---|---|---|
-| `OPENROUTER_API_KEY` | OpenRouter | The key production already has. |
-| `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) | Google's Gemini API | Asked first when set. |
+| `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) | Google's Gemini API | Asked first when set. Four models are tried on it, each metered by Google separately. |
+| `OPENROUTER_API_KEY` | OpenRouter | The same models through a second provider. Needs credit, except for its `:free` models. |
 | `ANTHROPIC_API_KEY` | Anthropic | |
 | `OPENAI_API_KEY` | OpenAI | No default model: name one in `WAZA_MODELS`. |
+| `MISTRAL_API_KEY` | Mistral | No default model: name one in `WAZA_MODELS`. |
+| `GROQ_API_KEY` | Groq | No default model: name one in `WAZA_MODELS`. |
 | `WAZA_CUSTOM_API_KEY` + `WAZA_CUSTOM_BASE_URL` | Any OpenAI-style endpoint | |
 
 Several keys for one provider go in the plural variable (`GEMINI_API_KEYS`, `OPENROUTER_API_KEYS`,
-`ANTHROPIC_API_KEYS`, `OPENAI_API_KEYS`, `WAZA_CUSTOM_API_KEYS`), separated by commas:
+`ANTHROPIC_API_KEYS`, `OPENAI_API_KEYS`, `MISTRAL_API_KEYS`, `GROQ_API_KEYS`,
+`WAZA_CUSTOM_API_KEYS`), separated by commas:
 
 ```
 GEMINI_API_KEYS=main=<key>,main=<key>,second=<key>
@@ -116,8 +119,10 @@ with no key is skipped. Unset, the order is, for the providers that have keys:
 
 ```
 gemini:gemini-3.5-flash-lite@minimal
+gemini:gemini-3.1-flash-lite@minimal
 openrouter:google/gemini-3.5-flash-lite@minimal
 anthropic:claude-haiku-5-5@low
+gemini:gemini-3.6-flash@low
 gemini:gemini-3.8-flash@low
 openrouter:google/gemini-3.8-flash@low
 openrouter:anthropic/claude-haiku-5.5@none
@@ -127,6 +132,55 @@ The light Gemini model is first because of what the live site showed on the day 
 November 2026): it answered every question from the sources in about a second, while Gemini 3.8
 Flash did not start answering within ten seconds. Model names were checked the same day against each
 provider's own list.
+
+The second entry is a second light Gemini model on the same key. Google meters each model
+separately, so when the first is paused by its per-minute limit, or has used its allowance for the
+day, the second still has its own and answers in the same request. Gemini 3.1 Flash-Lite and Gemini
+3.6 Flash had not been run on the live site when they were added: the first days' log lines (`said`
+on a failed attempt, `route` on an answer) show whether each answers and how well.
+
+### Free allowances
+
+Waza can run on providers' free allowances, within what each provider permits. As read on 21
+November 2026:
+
+**What works**
+
+- *Several models on one Google key.* "Limits vary depending on the specific model being used", and
+  they are "applied per project, not per API key". The free tier is offered for Gemini 3.5
+  Flash-Lite, 3.1 Flash-Lite, 3.6 Flash and 3.8 Flash, among others. This needs no second account
+  and is what the default order does.
+- *One account at each of several providers.* Each provider's free allowance is its own. Put the key
+  in that provider's variable and name its model in `WAZA_MODELS`.
+- *OpenRouter's free models* (ids ending `:free`), with an OpenRouter key that has no credit: 20
+  requests a minute, and 50 a day for an account that has bought fewer than 10 credits in all (1,000
+  a day otherwise). An account with a negative balance may be refused even these.
+
+**What does not**
+
+- *A second key, project or account at the same provider.* Google counts by project and its API
+  terms say "You agree to, and will not attempt to circumvent, such limitations". OpenRouter:
+  "Making additional accounts or API keys will not affect your rate limits, as we govern capacity
+  globally." Waza treats unnamed keys of one provider as one allowance for this reason.
+
+**What a free allowance costs instead of money**
+
+- Google's free tier: content is "used to improve our products", and "human reviewers may read,
+  annotate, and process your API input and output". Google's terms: "Do not submit sensitive,
+  confidential, or personal information to the Unpaid Services", and "You may use only Paid Services
+  when making API Clients available to users in the European Economic Area, Switzerland, or the
+  United Kingdom." A site open to visitors from those places needs the paid tier, or another
+  provider for those visitors. On the paid tier content is "not used to improve our products".
+- Limits are small and "not guaranteed and actual capacity may vary". Groq's published table gives
+  its large open model 8,000 tokens a minute and 200,000 a day, which is about two of Waza's
+  questions a minute and about fifty a day. Groq's preview models "should not be used in production
+  environments".
+- Some free offers are trials: Cerebras gives a credit to use up. GitHub Models closed on 30 July
+  2026.
+- A model that has not been run against the question set may follow the rules less well. Before a
+  new model goes in the order: `npm run check:waza -- --live` (does it answer with this key), then
+  `node evals/run-online.mjs --limit 20` with `WAZA_MODELS` set to that model alone (are its answers
+  grounded and cited).
 
 ### Everything else
 
@@ -182,6 +236,10 @@ browser, and not written to logs: a key appears in logs and diagnostics as an id
 Two failures in a row rest a model for a minute. When the minute is up it gets one short try (six
 seconds to start, no retry); if it fails that, its rest doubles, up to fifteen minutes, so a model
 that stays down costs a visitor a few seconds less and less often. One answer ends the rest.
+
+Within one question, the time a further model is given to start shrinks by what the visitor has
+already waited, down to those same six seconds: silence from several fallbacks in a row does not
+add up to a minute.
 
 When every model is resting after failures, each is still asked once (a short try) before the
 visitor is turned away, unless it failed within the last ten seconds.
@@ -269,7 +327,7 @@ No test calls a real provider or a real database.
 
 ```bash
 cd backend
-npm run test:waza        # 122 tests: failover, keys, quota domains, conversations, recovery, budget
+npm run test:waza        # 125 tests: failover, keys, quota domains, conversations, recovery, budget
                          # (one more, against a real MongoDB, is skipped unless MONGODB_URI_TEST is set)
 npm run eval:waza        # how 245 questions are read and what is fetched for them (no model)
 npm run check:waza       # which models and keys the environment gives, and whether keys are accepted

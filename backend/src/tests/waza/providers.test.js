@@ -56,7 +56,14 @@ test("the default order of models follows the keys that exist; WAZA_MODELS overr
   const ids = (env) => loadConfig(env).models.map((model) => model.id);
   assert.deepEqual(ids({ OPENROUTER_API_KEY: "k" }), ["openrouter:google/gemini-3.5-flash-lite", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
   // With Google's own key, Gemini is asked directly first, and the same model through a second provider next, so one provider's outage is routed around.
-  assert.deepEqual(ids({ GEMINI_API_KEY: "g", OPENROUTER_API_KEY: "k", ANTHROPIC_API_KEY: "a" }), ["gemini:gemini-3.5-flash-lite", "openrouter:google/gemini-3.5-flash-lite", "anthropic:claude-haiku-5-5", "gemini:gemini-3.8-flash", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
+  assert.deepEqual(ids({ GEMINI_API_KEY: "g", OPENROUTER_API_KEY: "k", ANTHROPIC_API_KEY: "a" }), ["gemini:gemini-3.5-flash-lite", "gemini:gemini-3.1-flash-lite", "openrouter:google/gemini-3.5-flash-lite", "anthropic:claude-haiku-5-5", "gemini:gemini-3.6-flash", "gemini:gemini-3.8-flash", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
+  // With Google's key alone there are four models on it, each metered by Google on its own.
+  assert.deepEqual(ids({ GEMINI_API_KEY: "g" }), ["gemini:gemini-3.5-flash-lite", "gemini:gemini-3.1-flash-lite", "gemini:gemini-3.6-flash", "gemini:gemini-3.8-flash"]);
+  // Mistral and Groq are known, but have no model in the default order: one is named when it has been tried.
+  assert.deepEqual(ids({ MISTRAL_API_KEY: "m", GROQ_API_KEY: "q" }), []);
+  const named = loadConfig({ MISTRAL_API_KEY: "m", GROQ_API_KEY: "q", WAZA_MODELS: "mistral:mistral-small-latest,groq:llama-3.3-70b-versatile" });
+  assert.deepEqual(named.models.map((model) => model.id), ["mistral:mistral-small-latest", "groq:llama-3.3-70b-versatile"]);
+  assert.deepEqual([named.providers.mistral.baseURL, named.providers.groq.baseURL], ["https://api.mistral.ai/v1", "https://api.groq.com/openai/v1"]);
   assert.deepEqual(ids({ GEMINI_API_KEY: "g", WAZA_MODELS: "gemini:gemini-3.5-flash-lite@minimal,openai:some-model" }), ["gemini:gemini-3.5-flash-lite"], "a provider with no key is left out");
   assert.deepEqual(ids({}), []);
 });
@@ -245,6 +252,59 @@ test("a pause too long to wait out is told to the visitor as a pause, with its l
   const { error } = await run(config, { pool, now: () => clock });
   assert.equal(error.kind, "rate_limit", "not `quota`: the visitor would be told to come back later, for a wait under a minute");
   assert.ok(error.retryAfterMs > 57_000 && error.retryAfterMs <= 58_000);
+});
+
+test("when a model is paused by its own limit, the next model on the same key answers at once", async () => {
+  // One key, two models. The provider counts each model's limit separately: the first is refused
+  // (a per-minute limit, 40 seconds), the second is not.
+  let clock = 7_000_000;
+  const waits = [];
+  let refusal = { status: 429, retryAfter: 40, message: "You exceeded your current quota, please check your plan and billing details." };
+  const server = await openai(({ model }) => (model === "light" ? refusal : { text: "The second light model answered." }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:light,custom:light-older", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const first = await run(config, { pool, now: () => clock, wait: async (ms) => waits.push(ms) });
+  assert.equal(first.result.text, "The second light model answered.");
+  assert.deepEqual(first.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:light", "rate_limit"], ["custom:light-older", "ok"]]);
+  assert.deepEqual(waits, [], "nobody waited: the pause is routed around");
+  // While the first is paused it is not asked; the second goes on answering with the same key.
+  clock += 10_000;
+  const before = server.calls.length;
+  const second = await run(config, { pool, now: () => clock });
+  assert.equal(second.result.candidate, "custom:light-older");
+  assert.deepEqual(server.calls.slice(before).map((call) => [call.model, keyOf(call)]), [["light-older", "k"]]);
+  // When the pause is over the first is asked again.
+  clock += 31_000;
+  refusal = { text: "The usual model is back." };
+  assert.equal((await run(config, { pool, now: () => clock })).result.text, "The usual model is back.");
+
+  // The same when a model's allowance for the day is used up: the other model carries on, and the
+  // spent one is left alone for as long as the provider says.
+  clock += 60_000;
+  refusal = { status: 429, retryAfter: 3600, message: "Quota exceeded: requests per day" };
+  const spent = await run(config, { pool, now: () => clock });
+  assert.deepEqual(spent.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:light", "quota"], ["custom:light-older", "ok"]]);
+  clock += 50 * 60_000;
+  const calls = server.calls.length;
+  assert.equal((await run(config, { pool, now: () => clock })).result.candidate, "custom:light-older");
+  assert.deepEqual(server.calls.slice(calls).map((call) => call.model), ["light-older"]);
+});
+
+test("an account with no credit can still use the provider's free models", async () => {
+  let clock = 8_000_000;
+  const server = await openai(({ model }) => (model === "vendor/paid-model" ? { status: 402, message: "Insufficient credits" } : { text: "A free model answered." }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:vendor/paid-model,custom:vendor/open-model:free", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  assert.deepEqual(config.models.map((model) => model.model), ["vendor/paid-model", "vendor/open-model:free"], "a model id may itself contain a colon");
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const first = await run(config, { pool, now: () => clock });
+  assert.deepEqual(first.result.attempts.map((attempt) => [attempt.candidate, attempt.outcome]), [["custom:vendor/paid-model", "credits"], ["custom:vendor/open-model:free", "ok"]]);
+  // The paid model is rested (no credit rests everything that costs money); the free one is not.
+  clock += 60_000;
+  const before = server.calls.length;
+  const second = await run(config, { pool, now: () => clock });
+  assert.equal(second.result.text, "A free model answered.");
+  assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["vendor/open-model:free"]);
+  assert.deepEqual([pool.eligible("custom", "vendor/paid-model").ready.length, pool.eligible("custom", "vendor/other-paid").ready.length, pool.eligible("custom", "vendor/open-model:free").ready.length], [0, 0, 1]);
 });
 
 test("a provider's outage is not blamed on the key", async () => {

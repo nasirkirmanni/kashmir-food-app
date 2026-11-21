@@ -26,6 +26,9 @@ import { createHash } from "node:crypto";
 import { PROVIDERS } from "./providers/index.js";
 
 const DOMAIN_NAME = /^[A-Za-z0-9_.-]{1,40}$/;
+// OpenRouter marks a model variant that is free of charge with this ending. Such a model has its
+// own small daily allowance and does not draw on the account's credit.
+const FREE_MODEL = (model) => /:free$/i.test(String(model || ""));
 const MINUTE = 60_000;
 
 /** @returns {{ providers: Record<string, object>, credentials: { id: string, provider: string, domain: string, key: string, fingerprint: string }[] }} */
@@ -62,7 +65,7 @@ export function parseCredentials(env = process.env) {
  * Which keys are fit to use, kept up to date by what happens to each call.
  * @param {{ id: string, provider: string, domain: string, key: string, fingerprint: string }[]} credentials
  */
-export function createCredentialPool(credentials, { invalidRecheckMs = 30 * MINUTE, quotaCooldownMs = 15 * MINUTE, creditsCooldownMs = 30 * MINUTE, rateLimitCooldownMs = 5_000, maxCooldownMs = 6 * 60 * MINUTE } = {}, now = Date.now) {
+export function createCredentialPool(credentials, { invalidRecheckMs = 30 * MINUTE, quotaCooldownMs = 15 * MINUTE, creditsCooldownMs = 30 * MINUTE, rateLimitCooldownMs = 5_000, maxCooldownMs = 6 * 60 * MINUTE, costsNothing = FREE_MODEL } = {}, now = Date.now) {
   const keys = new Map(credentials.map((credential) => [credential.id, { uses: 0, failures: 0, setAsideUntil: 0, reason: null, strikes: 0, lastFailure: null }]));
   const rests = new Map(); // "provider|domain|model" or "provider|domain|*"  →  { until, kind, strikes }
   const restKey = (credential, model) => `${credential.provider}|${credential.domain}|${model}`;
@@ -73,7 +76,10 @@ export function createCredentialPool(credentials, { invalidRecheckMs = 30 * MINU
     if (own.setAsideUntil > now()) return { reason: own.reason, until: own.setAsideUntil };
     for (const scope of ["*", model]) {
       const rest = rests.get(restKey(credential, scope));
-      if (rest && rest.until > now()) return { reason: rest.kind, until: rest.until };
+      if (!rest || rest.until <= now()) continue;
+      // An account with no credit is rested for every model that costs money, and only those.
+      if (scope === "*" && rest.kind === "credits" && costsNothing(model)) continue;
+      return { reason: rest.kind, until: rest.until };
     }
     return null;
   };

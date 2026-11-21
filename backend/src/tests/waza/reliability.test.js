@@ -148,6 +148,21 @@ test("a model that has just been answering and is silent once is asked again at 
   assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "second"]);
 });
 
+test("the longer the visitor has waited, the less time the next model is given to start", async () => {
+  // Three models: the first two never start, the third answers. The first gets its full time; the
+  // second, tried after the visitor has already waited that long, gets only the short leash.
+  const server = await provider(({ model }) => (model === "third" ? { text: "The third model answered." } : { hang: true }));
+  const config = testConfig(server.url, { env: { WAZA_FIRST_BYTE_TIMEOUT_MS: "600", WAZA_FIRST_TEXT_TIMEOUT_MS: "600", WAZA_PROBE_TIMEOUT_MS: "150" } });
+  const started = Date.now();
+  const { result } = await run(server, { config });
+  const took = Date.now() - started;
+  assert.equal(result.candidate, "custom:third");
+  assert.deepEqual(result.attempts.map((attempt) => attempt.outcome), ["timeout_first_byte", "timeout_first_byte", "ok"]);
+  assert.ok(result.attempts[0].ms >= 580 && result.attempts[0].ms < 800, `the first was given its full time: ${result.attempts[0].ms} ms`);
+  assert.ok(result.attempts[1].ms >= 140 && result.attempts[1].ms < 400, `the second only the short leash: ${result.attempts[1].ms} ms`);
+  assert.ok(took < 1150, `${took} ms in all, not two full waits (1200 ms)`);
+});
+
 test("a model that only sends keep-alives is given up on without a retry", async () => {
   const server = await provider(({ model }) => (model === "primary" ? { keepAliveOnly: true } : { text: "Answered by the next model." }));
   const { result } = await run(server);

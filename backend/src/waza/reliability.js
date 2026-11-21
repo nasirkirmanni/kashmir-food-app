@@ -126,7 +126,15 @@ export async function runWithFailover({ candidates, config, pool = createCredent
     // A model let back after a rest is not given the usual time to start: if it is still unwell
     // the visitor should find out in a few seconds, not in twenty.
     const short = config.timeouts.probeMs ? { firstByteMs: Math.min(config.timeouts.firstByteMs, config.timeouts.probeMs), firstTextMs: Math.min(config.timeouts.firstTextMs, config.timeouts.probeMs) } : {};
-    let patience = probe ? short : {};
+    // The longer the visitor has already waited in this request, the less time a further model is
+    // given to start: its full time when nothing has been waited, never less than the short leash.
+    // With several fallbacks in the order, silence from each must not add up to a minute.
+    const waited = Math.max(0, now() - startedAt);
+    const shrunk = {
+      firstByteMs: Math.max(short.firstByteMs ?? config.timeouts.firstByteMs, config.timeouts.firstByteMs - waited),
+      firstTextMs: Math.max(short.firstTextMs ?? config.timeouts.firstTextMs, config.timeouts.firstTextMs - waited),
+    };
+    let patience = probe ? short : shrunk;
     let askedAgain = false;
     let lean = false;
     for (let attempt = 0; attempt <= retries; attempt++) {
