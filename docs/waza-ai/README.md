@@ -218,7 +218,7 @@ November 2026:
 | `WAZA_CACHE`, `WAZA_CACHE_TTL_MIN`, `WAZA_CACHE_MAX` | on, 360, 400 | The answer cache. |
 | `WAZA_MAX_CONCURRENT` | 24 | Answers in progress at once. |
 | `WAZA_PRICES` | | Extra or corrected list prices: `provider:model=in/out` per million tokens. |
-| `RATE_LIMIT_AI_CHAT_*` | 30 / 60 / 120 / 1000 an hour | Questions per visitor: `MAX_GUEST` (counted by browser), `MAX_FREE` (signed in), `MAX_PREMIUM`, `MAX_ADMIN` (counted by account). |
+| `RATE_LIMIT_AI_CHAT_*` | 30 / 60 / 120 / 1000 an hour | Questions per visitor: `MAX_GUEST` (counted by browser) is the one in use. `MAX_FREE`, `MAX_PREMIUM` and `MAX_ADMIN` were for signed-in accounts, which the site no longer has. |
 | `RATE_LIMIT_AI_CHAT_MAX_SHARED` | 120 an hour | All guests arriving from one address, together. See "The site's own limit on questions" below. |
 
 Keys are read from the environment and nowhere else. They are not stored in MongoDB, not sent to the
@@ -270,8 +270,9 @@ written recipes keep working throughout, because they use no model.
 
 ### The site's own limit on questions
 
-Before a question reaches Waza the API counts it (`backend/src/middleware/rateLimiter.js`). A
-signed-in visitor is counted by their account. A guest is counted by their browser: by a digest of
+Before a question reaches Waza the API counts it (`backend/src/middleware/rateLimiter.js`). Every
+visitor is a guest: the site has had no accounts since November 2026, and the figures for signed-in
+visitors remain in the code unused. A guest is counted by their browser: by a digest of
 the cookie the site gives every visitor before a first question. They are not counted by the address
 the request arrives from, because behind the site's proxy every visitor arrives from the same few
 addresses. Until 21 November 2026 guests were counted by that address, and on the live site that
