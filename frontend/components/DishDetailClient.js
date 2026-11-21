@@ -14,7 +14,7 @@ import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import DishNotes from "@/components/DishNotes";
 import { resolveContentPhoto } from "@/lib/contentImages";
 import { sanitizeDish } from "@/lib/dishContent";
-import RecipeSource from "@/components/dish/RecipeSource";
+import RecipeNote from "@/components/dish/RecipeNote";
 import { relatedReadingForDish } from "@/data/relatedReading";
 import { dishNotesFor } from "@/data/dishNotes";
 import { coreSevenStoryForDish } from "@/data/coreSevenSeries";
@@ -561,7 +561,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
                 ) : null}
               </div>
             </div>
-            <RecipeSource source={recipe.basedOn} variations={recipe.variations} />
+            <RecipeNote note={recipe.note} />
           </section>
         </div>
       ) : null}

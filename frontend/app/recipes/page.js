@@ -10,7 +10,7 @@ import styles from "./recipes.module.css";
  * /recipes: every written recipe on the site as a cookbook index — on paper, in the site's Bodoni
  * and Inter, with the Wazwan dishes in serving order and the rest of the Kashmiri kitchen after
  * them. Each card carries the figures its recipe gives (prep, cook, serves, level; the recipes added
- * from Dr Rukhsaar Sayeed's videos give few, so their cards show few) and opens the
+ * in November 2026 give few, so their cards show few) and opens the
  * recipe on the dish's own page. The list is rendered here on the server; the search box and
  * chips are the one client island (components/recipes/RecipeBrowser.js).
  */

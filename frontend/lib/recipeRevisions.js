@@ -10,12 +10,12 @@ import { recipeRevisionFor } from "../data/recipeRevisions";
 
 /**
  * What the revision gives replaces the stored recipe's fields; the rest stays. The recipe then
- * carries the date it was revised and the work it is based on (`basedOn`), which the page credits
- * and the Recipe markup names. A dish without a stored recipe, or without a revision, comes back
+ * carries the date it was revised and, where the revision has one, a note for the cook that the
+ * page shows under the recipe. A dish without a stored recipe, or without a revision, comes back
  * as it was. Applying it twice changes nothing more.
  */
 export function applyRecipeRevision(dish) {
   const revision = recipeRevisionFor(dish?.slug);
   if (!revision || !dish.recipe) return dish;
-  return { ...dish, recipe: { ...dish.recipe, ...revision.recipe, reviewedAt: revision.revised, basedOn: revision.source } };
+  return { ...dish, recipe: { ...dish.recipe, ...revision.recipe, reviewedAt: revision.revised, ...(revision.note && { note: revision.note }) } };
 }

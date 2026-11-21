@@ -1,18 +1,16 @@
 /**
- * The dishes added from Dr Rukhsaar Sayeed's recipes that have no record in the dish database:
- * who they are, in a few fields. Their pages are written in data/addedDishes.js and served by
- * lib/addedDishes.js.
+ * The dishes that have a page but no record in the dish database: who they are, in a few fields.
+ * Their pages are written in data/addedDishes.js and served by lib/addedDishes.js.
  *
  * This file is kept small on purpose. It is the only part that reaches the browser (the search box
  * and the "Dishes in this article" links read it), so nothing long belongs here.
  *
- * `name` is the name she gives the dish, in plain letters. `gloss` says what it is in English, in
- * her words or from her recipe, and is printed under the name. `kashmiriName` is a second name she
- * gives. `also` holds other spellings for the search boxes: hers, the Hindi name in her title, and
- * the spelling our own articles use.
+ * `name` is the dish's name in plain letters. `gloss` says what it is in English and is printed
+ * under the name. `kashmiriName` is a second name the dish goes by. `also` holds other spellings
+ * for the search boxes: the reference's, the Hindi name, and the spelling our own articles use.
  *
- * Categories are the catalogue's. "Street Food" holds the three kantis, which she calls snacks;
- * "Bakery" is the catalogue's name for breads.
+ * Categories are the catalogue's. "Street Food" holds the three kantis, which are snacks; "Bakery"
+ * is the catalogue's name for breads.
  */
 export const ADDED_DISH_INDEX = [
   { slug: "shabdeg", name: "Shabdeg", category: "Kashmiri Cuisine", foodType: "Non-veg", also: ["Shab deg", "Shab daig"] },
@@ -144,7 +142,7 @@ export const ADDED_DISH_INDEX = [
     also: ["Kutta hua gosht", "Kuta hua gosht", "Shredded mutton"],
   },
   { slug: "chicken-kanti", name: "Chicken Kanti", category: "Street Food", foodType: "Non-veg", also: ["Kashmiri chicken kanti", "Kanthi", "Kaanthi"] },
-  { slug: "mutton-kanti", name: "Mutton Kanti", category: "Street Food", foodType: "Non-veg", also: ["Kanthi", "Kaanthi", "Eid"] },
+  { slug: "mutton-kanti", name: "Mutton Kanti", category: "Street Food", foodType: "Non-veg", also: ["Mutton kanthi", "Kanthi", "Kaanthi"] },
   { slug: "kabab-kanti", name: "Kabab Kanti", category: "Street Food", foodType: "Non-veg", also: ["Kebab kanti", "Kebab kaanthi", "Kanthi"] },
   {
     slug: "tcher-tchot",

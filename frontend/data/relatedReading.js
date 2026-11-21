@@ -67,8 +67,8 @@ const ARTICLES_BY_DISH = {
   tosha: [BLOG.sweets],
   "walnut-halwa": [BLOG.sweets],
   sheera: [BLOG.sweets],
-  // Dishes added from Dr Rukhsaar Sayeed's recipes (data/addedDishIndex.js), where an article of
-  // ours covers the dish or the cooking it belongs to.
+  // Dishes with a page but no database record (data/addedDishIndex.js), where an article of ours
+  // covers the dish or the cooking it belongs to.
   "dagith-haakh": [BLOG.vegetarianFood],
   "tchok-wangan": [BLOG.vegetarianFood],
   teher: [BLOG.vegetarianFood],
