@@ -13,16 +13,19 @@ import { parseCredentials } from "./credentials.js";
 import { loadPrices } from "./pricing.js";
 import { PROVIDERS } from "./providers/index.js";
 
-// Used when WAZA_MODELS is not set: the best model of each provider that has a key, then the
-// cheaper ones, so that a provider's outage is routed around before quality is given up.
+// Used when WAZA_MODELS is not set, for the providers that have a key. The light Gemini model
+// comes first because of what the live site showed on 21 November 2026: it answered every question
+// from the sources, in about a second, while the larger Gemini 3.8 Flash did not answer at all
+// within ten seconds. The same model through a second provider follows, so that one provider's
+// outage is routed around; then the other models. Change the order with WAZA_MODELS.
 // Model names checked on 21 November 2026 against Google's, OpenRouter's and Anthropic's lists.
 // Gemini 3 models reason before answering whether asked to or not; a low effort keeps that short.
 const DEFAULT_CHAIN = [
-  "gemini:gemini-3.8-flash@low",
-  "openrouter:google/gemini-3.8-flash@low",
-  "anthropic:claude-haiku-5-5@low",
   "gemini:gemini-3.5-flash-lite@minimal",
   "openrouter:google/gemini-3.5-flash-lite@minimal",
+  "anthropic:claude-haiku-5-5@low",
+  "gemini:gemini-3.8-flash@low",
+  "openrouter:google/gemini-3.8-flash@low",
   "openrouter:anthropic/claude-haiku-5.5@none",
 ];
 
@@ -84,6 +87,8 @@ export function loadConfig(env = process.env) {
       // Everything, across retries and fallbacks, before the visitor is told it failed. Kept under
       // the 60 seconds the page's proxy allows a request (frontend/app/api/proxy).
       totalMs: positive(env.WAZA_TOTAL_TIMEOUT_MS, 50_000),
+      // How long a model let back after a rest is given to start answering.
+      probeMs: positive(env.WAZA_PROBE_TIMEOUT_MS, 6_000),
     },
     retry: {
       // Extra tries of the same model after a failure worth retrying.
@@ -93,8 +98,10 @@ export function loadConfig(env = process.env) {
     },
     breaker: {
       // After this many failures in a row a model is rested, so a dead model does not slow every answer.
-      failures: positive(env.WAZA_BREAKER_FAILURES, 3),
+      // The rest doubles each time the model fails on being let back, up to the maximum.
+      failures: positive(env.WAZA_BREAKER_FAILURES, 2),
       coolDownMs: positive(env.WAZA_BREAKER_COOLDOWN_MS, 60_000),
+      maxCoolDownMs: positive(env.WAZA_BREAKER_MAX_COOLDOWN_MS, 15 * 60_000),
     },
     keys: {
       // How long a key the provider rejected is set aside before it is looked at again.

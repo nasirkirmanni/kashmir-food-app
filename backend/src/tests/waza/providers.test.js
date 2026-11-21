@@ -54,9 +54,9 @@ test("keys are read from the environment, one or several, each with the account 
 
 test("the default order of models follows the keys that exist; WAZA_MODELS overrides it", () => {
   const ids = (env) => loadConfig(env).models.map((model) => model.id);
-  assert.deepEqual(ids({ OPENROUTER_API_KEY: "k" }), ["openrouter:google/gemini-3.8-flash", "openrouter:google/gemini-3.5-flash-lite", "openrouter:anthropic/claude-haiku-5.5"]);
-  // With Google's own key, Gemini is asked directly first; with more providers a provider's outage is routed around before a lesser model is used.
-  assert.deepEqual(ids({ GEMINI_API_KEY: "g", OPENROUTER_API_KEY: "k", ANTHROPIC_API_KEY: "a" }), ["gemini:gemini-3.8-flash", "openrouter:google/gemini-3.8-flash", "anthropic:claude-haiku-5-5", "gemini:gemini-3.5-flash-lite", "openrouter:google/gemini-3.5-flash-lite", "openrouter:anthropic/claude-haiku-5.5"]);
+  assert.deepEqual(ids({ OPENROUTER_API_KEY: "k" }), ["openrouter:google/gemini-3.5-flash-lite", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
+  // With Google's own key, Gemini is asked directly first, and the same model through a second provider next, so one provider's outage is routed around.
+  assert.deepEqual(ids({ GEMINI_API_KEY: "g", OPENROUTER_API_KEY: "k", ANTHROPIC_API_KEY: "a" }), ["gemini:gemini-3.5-flash-lite", "openrouter:google/gemini-3.5-flash-lite", "anthropic:claude-haiku-5-5", "gemini:gemini-3.8-flash", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
   assert.deepEqual(ids({ GEMINI_API_KEY: "g", WAZA_MODELS: "gemini:gemini-3.5-flash-lite@minimal,openai:some-model" }), ["gemini:gemini-3.5-flash-lite"], "a provider with no key is left out");
   assert.deepEqual(ids({}), []);
 });

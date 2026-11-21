@@ -115,17 +115,18 @@ To rotate a key: add the new one to the list, deploy, remove the old one, deploy
 with no key is skipped. Unset, the order is, for the providers that have keys:
 
 ```
-gemini:gemini-3.8-flash@low
-openrouter:google/gemini-3.8-flash@low
-anthropic:claude-haiku-5-5@low
 gemini:gemini-3.5-flash-lite@minimal
 openrouter:google/gemini-3.5-flash-lite@minimal
+anthropic:claude-haiku-5-5@low
+gemini:gemini-3.8-flash@low
+openrouter:google/gemini-3.8-flash@low
 openrouter:anthropic/claude-haiku-5.5@none
 ```
 
-With only `OPENROUTER_API_KEY` set (production today) that is Gemini 3.8 Flash, then Gemini 3.5
-Flash-Lite, then Claude Haiku 5.5, all through OpenRouter. Model names were checked on 21 November
-2026 against each provider's own list.
+The light Gemini model is first because of what the live site showed on the day of release (21
+November 2026): it answered every question from the sources in about a second, while Gemini 3.8
+Flash did not start answering within ten seconds. Model names were checked the same day against each
+provider's own list.
 
 ### Everything else
 
@@ -144,7 +145,9 @@ Flash-Lite, then Claude Haiku 5.5, all through OpenRouter. Model names were chec
 | `WAZA_ATTEMPT_TIMEOUT_MS` / `WAZA_TOTAL_TIMEOUT_MS` | 40000 / 50000 | One attempt / everything. |
 | `WAZA_RETRIES_PER_MODEL` | 1 | Extra tries of one model after a failure worth retrying. |
 | `WAZA_RETRY_BASE_MS` / `WAZA_RETRY_MAX_MS` | 400 / 4000 | Backoff. |
-| `WAZA_BREAKER_FAILURES` / `WAZA_BREAKER_COOLDOWN_MS` | 3 / 60000 | When a failing model is rested, and for how long. |
+| `WAZA_BREAKER_FAILURES` / `WAZA_BREAKER_COOLDOWN_MS` | 2 / 60000 | When a failing model is rested, and for how long at first. |
+| `WAZA_BREAKER_MAX_COOLDOWN_MS` | 900000 | The rest doubles each time a model fails on being let back, up to this. |
+| `WAZA_PROBE_TIMEOUT_MS` | 6000 | How long a model let back after a rest is given to start answering. |
 | `WAZA_KEY_RECHECK_MIN` | 30 | How long a rejected key is set aside. |
 | `WAZA_QUOTA_COOLDOWN_MIN` / `WAZA_CREDITS_COOLDOWN_MIN` | 15 / 30 | Rest after a quota / an empty account, when the provider gives no figure. |
 | `WAZA_CACHE`, `WAZA_CACHE_TTL_MIN`, `WAZA_CACHE_MAX` | on, 360, 400 | The answer cache. |
@@ -167,8 +170,13 @@ browser, and not written to logs: a key appears in logs and diagnostics as an id
 | 429 otherwise | a rate limit | Waited out if the provider asks for 4 seconds or less; otherwise the domain is rested for the time asked and the next route is tried. |
 | 404 | the provider does not know the model | The next model. |
 | 400 | the request was refused | Sent once more in its barest form (a provider may reject a field it does not know), then the next model. |
-| 5xx, 503, 529, timeouts, a broken or empty stream | the provider is in trouble | The same key again after a pause with jitter, then the next model. Three failures in a row rest that model for a minute. |
+| 5xx, 503, 529, a broken or empty stream | the provider is in trouble | The same key again after a pause with jitter, then the next model. |
+| no start within 12 seconds, or no text within 25 | the model is slow | The next model at once: the same model asked again is unlikely to be quicker. |
 | the stream breaks after text has reached the visitor | interrupted | Not restarted: a second answer after half of the first would be worse. Shown as interrupted, with Try again. |
+
+Two failures in a row rest a model for a minute. When the minute is up it gets one short try (six
+seconds to start, no retry); if it fails that, its rest doubles, up to fifteen minutes, so a model
+that stays down costs a visitor a few seconds less and less often. One answer ends the rest.
 
 When every model is resting after failures, each is still asked once before the visitor is turned
 away. A key the provider has rejected or rested is not asked early: that is the provider's

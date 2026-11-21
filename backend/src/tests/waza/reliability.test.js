@@ -96,13 +96,13 @@ test("a model the provider does not know moves straight to the next model", asyn
   assert.deepEqual(server.calls.map((call) => call.model), ["primary", "second"], "no retry of the failing model");
 });
 
-test("a model that never starts is timed out, retried once, then passed over", async () => {
+test("a model that never starts is timed out once and passed over, not asked again", async () => {
   const server = await provider(({ model }) => (model === "primary" ? { hang: true } : { text: "The second model answered." }));
   const started = Date.now();
   const { result } = await run(server);
   assert.equal(result.candidate, "custom:second");
-  assert.deepEqual(result.attempts.map((attempt) => attempt.outcome), ["timeout_first_byte", "timeout_first_byte", "ok"]);
-  assert.ok(Date.now() - started < 1500, "two 250 ms timeouts, not a hang");
+  assert.deepEqual(result.attempts.map((attempt) => attempt.outcome), ["timeout_first_byte", "ok"], "the next model is likelier to start soon than the same one asked again");
+  assert.ok(Date.now() - started < 900, "one 250 ms timeout, not a hang");
   assert.ok(server.calls.filter((call) => call.model === "primary").every((call) => call.closed), "the timed-out requests were closed, not left open");
 });
 
@@ -219,6 +219,55 @@ test("a resting model is still asked, once, when no other model answers", async 
   assert.equal(third.result.candidate, "custom:primary");
   assert.equal(server.calls.length - before, 1);
   assert.equal(breaker.allows("custom:primary"), true, "an answer ends the rest");
+});
+
+test("each failed return from a rest doubles the rest, up to a limit; one answer ends it", () => {
+  let clock = 0;
+  const breaker = createBreaker({ failures: 2, coolDownMs: 60_000, maxCoolDownMs: 300_000 }, () => clock);
+  breaker.failure("m");
+  assert.equal(breaker.allows("m"), true, "one failure is not a pattern");
+  breaker.failure("m");
+  assert.deepEqual([breaker.allows("m"), breaker.probing("m")], [false, false]);
+  const rests = [];
+  for (let round = 0; round < 5; round++) {
+    const from = clock;
+    while (!breaker.allows("m")) clock += 1_000;
+    rests.push(clock - from);
+    assert.equal(breaker.probing("m"), true, "back from a rest, it is on trial");
+    breaker.failure("m"); // and fails the trial
+  }
+  assert.deepEqual(rests, [60_000, 120_000, 240_000, 300_000, 300_000]);
+  // A failure in the middle of a rest (the last resort was tried) does not lengthen it.
+  clock += 10_000;
+  breaker.failure("m");
+  assert.equal(breaker.snapshot().m.restMs, 300_000);
+  breaker.success("m");
+  assert.deepEqual([breaker.allows("m"), breaker.probing("m"), breaker.snapshot().m], [true, false, undefined]);
+});
+
+test("a model let back after a rest gets one short try, so a model still down costs seconds, not the full wait", async () => {
+  let clock = 1_000;
+  const breaker = createBreaker({ failures: 1, coolDownMs: 500 }, () => clock);
+  // The primary starts answering only after 300 ms: inside the usual patience (first byte 250 ms is
+  // too short here, so give it room), outside a trial's.
+  const server = await provider(({ model }) => (model === "primary" ? { text: "Slow but there.", firstDelayMs: 300 } : { text: "The second model answered." }));
+  const config = testConfig(server.url, { models: "custom:primary,custom:second", env: { WAZA_FIRST_BYTE_TIMEOUT_MS: "1000", WAZA_FIRST_TEXT_TIMEOUT_MS: "1000", WAZA_PROBE_TIMEOUT_MS: "120" } });
+  // Healthy: the primary is given its time and answers.
+  assert.equal((await run(server, { config, breaker })).result.candidate, "custom:primary");
+  // It fails once and is rested.
+  breaker.failure("custom:primary");
+  assert.equal(breaker.allows("custom:primary"), false);
+  clock += 600;
+  // Back on trial: 300 ms is now too slow, it is tried once, and the second model answers.
+  const before = server.calls.length;
+  const started = Date.now();
+  const trial = await run(server, { config, breaker });
+  assert.equal(trial.result.candidate, "custom:second");
+  assert.match(trial.result.attempts[0].outcome, /^timeout_first_(byte|text)$/, "cut off for being slow to start");
+  assert.equal(trial.result.attempts[1].outcome, "ok");
+  assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "second"], "one try of the model on trial, no retry");
+  assert.ok(Date.now() - started < 600, `the trial cost ${Date.now() - started} ms`);
+  assert.equal(breaker.allows("custom:primary"), false, "and it is rested again, for longer");
 });
 
 test("a resting model is the last resort after the fit ones, not the first", async () => {

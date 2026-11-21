@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createCache } from "../../waza/cache.js";
 import { loadConfig, parseModels } from "../../waza/config.js";
-import { checkInput, citedSources, strayMarkers, verifyAnswer } from "../../waza/guard.js";
+import { checkInput, citedSources, markerNumbers, strayMarkers, verifyAnswer } from "../../waza/guard.js";
 import { classify } from "../../waza/intent.js";
 import { DEFAULT_INDEX_PATH, knowledge } from "../../waza/knowledge.js";
 import { plan } from "../../waza/plan.js";
@@ -135,6 +135,18 @@ test("the answer checker passes what the sources say and catches what they do no
   assert.equal(verifyAnswer("Use 3 cloves and simmer for 20 minutes; it serves 4.", grounds).ok, true);
   assert.deepEqual(strayMarkers("Yes [S1], and also [S7] and [S0].", 3), ["[S7]", "[S0]"]);
   assert.deepEqual(citedSources("First [S2], then [S1], then [S2] again and [S9].", [{}, {}, {}]), [2, 1]);
+  // Models often cite several sources in one pair of brackets; each still counts.
+  assert.deepEqual(markerNumbers("A meatball in yakhni [S1, S3, S6]. Served last [S2 and S4]; shared [S1; 5]."), [1, 3, 6, 2, 4, 1, 5]);
+  assert.deepEqual(citedSources("In yakhni [S1, S3, S6], served last [S3].", Array(6).fill({})), [1, 3, 6]);
+  assert.deepEqual(strayMarkers("In yakhni [S1, S9].", 3), ["[S9]"]);
+  assert.equal(verifyAnswer("It dates from 1918 [S1, S3], about 42 km away [S2 and S4].", grounds).ok, true, "the numbers inside a marker are not read as facts");
+  // A time written out from a range in the source is supported: "12–10 pm" says both "12 pm" and "10 pm".
+  const hours = "Ahdoos\nHours: Daily 12–10 pm (Google listing). The Chinar: 12:30–3 pm and 7:30–11 pm.";
+  assert.equal(verifyAnswer("It is open daily from 12 pm to 10 pm.", hours).ok, true);
+  assert.equal(verifyAnswer("Lunch is 12:30 pm to 3 pm and dinner 7:30 pm to 11 pm.", hours).ok, true);
+  assert.deepEqual(verifyAnswer("It opens at 11 am and closes at 10 pm.", hours).unsupported, [{ type: "time", value: "11 am" }]);
+  assert.deepEqual(verifyAnswer("It is open from 12 am.", hours).unsupported, [{ type: "time", value: "12 am" }], "the range says pm, not am");
+  assert.deepEqual(verifyAnswer("It opens at 2 pm.", hours).unsupported, [{ type: "time", value: "2 pm" }], "the 2 of 12 is not an hour of its own");
 });
 
 test("a trip plan is read as travel and given places, places to eat and things to eat", () => {
@@ -215,8 +227,8 @@ test("the cache keeps an answer for its time, forgets the oldest, and keys on th
 test("models come from the environment, and a provider without a key is left out", () => {
   assert.deepEqual(parseModels("openrouter:google/gemini-3.8-flash@low, nonsense, gemini:gemini-3.8-flash").map((model) => `${model.id}@${model.effort}`), ["openrouter:google/gemini-3.8-flash@low", "gemini:gemini-3.8-flash@undefined"]);
   assert.deepEqual(loadConfig({}).models, []);
-  assert.deepEqual(loadConfig({ OPENROUTER_API_KEY: "k" }).models.map((model) => model.id), ["openrouter:google/gemini-3.8-flash", "openrouter:google/gemini-3.5-flash-lite", "openrouter:anthropic/claude-haiku-5.5"]);
-  assert.equal(loadConfig({ OPENROUTER_API_KEY: "k", GEMINI_API_KEY: "g" }).models[0].id, "gemini:gemini-3.8-flash");
+  assert.deepEqual(loadConfig({ OPENROUTER_API_KEY: "k" }).models.map((model) => model.id), ["openrouter:google/gemini-3.5-flash-lite", "openrouter:google/gemini-3.8-flash", "openrouter:anthropic/claude-haiku-5.5"]);
+  assert.equal(loadConfig({ OPENROUTER_API_KEY: "k", GEMINI_API_KEY: "g" }).models[0].id, "gemini:gemini-3.5-flash-lite");
   assert.deepEqual(loadConfig({ OPENROUTER_API_KEY: "k", WAZA_MODELS: "gemini:gemini-3.8-flash,openrouter:x/y" }).models.map((model) => model.id), ["openrouter:x/y"]);
   assert.equal(JSON.stringify(loadConfig({ OPENROUTER_API_KEY: "secret-key-value" }).models).includes("secret-key-value"), false);
 });

@@ -35,34 +35,49 @@ export function sleep(ms, signal) {
 }
 
 /**
- * Rests a model after repeated failures, then lets a request through to see if it is back. Resting
- * only changes the order: runWithFailover still asks a resting model, once, when no other answers.
+ * Rests a model after repeated failures, then lets one request through to see if it is back. Each
+ * time a model fails that test its rest doubles (up to `maxCoolDownMs`), so a model that stays down
+ * costs a visitor a wait less and less often; one answer ends the rest for good.
+ *
+ * Resting only changes the order: runWithFailover still asks a resting model, once, when no other
+ * answers.
  */
-export function createBreaker({ failures, coolDownMs }, now = Date.now) {
-  const state = new Map(); // id -> { fails, openedAt }
+export function createBreaker({ failures, coolDownMs, maxCoolDownMs = 15 * 60_000 }, now = Date.now) {
+  const state = new Map(); // id -> { fails, openedAt, trips }
+  const restOf = (entry) => Math.min(maxCoolDownMs, coolDownMs * 2 ** Math.max(0, entry.trips - 1));
+  const rested = (entry) => now() - entry.openedAt >= restOf(entry);
   return {
     allows(id) {
       const entry = state.get(id);
-      if (!entry || entry.fails < failures) return true;
-      return now() - entry.openedAt >= coolDownMs;
+      return !entry || entry.fails < failures || rested(entry);
+    },
+    /** True for a model being let back after a rest: it gets one short try, not the usual patience. */
+    probing(id) {
+      const entry = state.get(id);
+      return Boolean(entry && entry.fails >= failures && rested(entry));
     },
     success(id) {
       state.delete(id);
     },
     failure(id) {
-      const entry = state.get(id) || { fails: 0, openedAt: 0 };
+      const entry = state.get(id) || { fails: 0, openedAt: 0, trips: 0 };
       entry.fails += 1;
-      if (entry.fails >= failures) entry.openedAt = now();
+      if (entry.fails >= failures) {
+        // The first time it is rested, and each time it fails the test after a rest, the rest grows.
+        if (entry.fails === failures || rested(entry)) entry.trips += 1;
+        entry.openedAt = now();
+      }
       state.set(id, entry);
     },
     snapshot() {
-      return Object.fromEntries([...state].map(([id, entry]) => [id, { failures: entry.fails, resting: entry.fails >= failures && now() - entry.openedAt < coolDownMs }]));
+      return Object.fromEntries([...state].map(([id, entry]) => [id, { failures: entry.fails, resting: entry.fails >= failures && !rested(entry), ...(entry.fails >= failures ? { restMs: restOf(entry) } : {}) }]));
     },
   };
 }
 
-// Faults another try with the same key and model would only repeat.
-const MOVE_ON = new Set(["not_found", "bad_request", "content_filter", "timeout_first_text", "timeout_idle", "timeout_attempt", "empty_length"]);
+// Faults another try with the same key and model would only repeat. A model that was slow to
+// start is among them: the next model is likelier to answer soon than the same one asked again.
+const MOVE_ON = new Set(["not_found", "bad_request", "content_filter", "timeout_first_byte", "timeout_first_text", "timeout_idle", "timeout_attempt", "empty_length"]);
 
 /**
  * Tries each model in turn, with each key that is fit to use, until one answers.
@@ -92,8 +107,11 @@ export async function runWithFailover({ candidates, config, pool = createCredent
    * One model with one key, with up to `retries` further tries.
    * Resolves to { answer }, or to { next: "key" } when another key might do better, or { next: "model" }.
    */
-  const tryKey = async (candidate, credential, retries) => {
+  const tryKey = async (candidate, credential, retries, probe) => {
     const provider = config.providers[candidate.provider];
+    // A model let back after a rest is not given the usual time to start: if it is still unwell
+    // the visitor should find out in a few seconds, not in twenty.
+    const patience = probe && config.timeouts.probeMs ? { firstByteMs: Math.min(config.timeouts.firstByteMs, config.timeouts.probeMs), firstTextMs: Math.min(config.timeouts.firstTextMs, config.timeouts.probeMs) } : {};
     let lean = false;
     for (let attempt = 0; attempt <= retries; attempt++) {
       if (signal?.aborted) throw Object.assign(new ProviderError("aborted", "The request was cancelled"), { attempts });
@@ -116,7 +134,7 @@ export async function runWithFailover({ candidates, config, pool = createCredent
           effort: candidate.effort,
           lean,
           signal,
-          timeouts: { ...config.timeouts, attemptMs: Math.min(config.timeouts.attemptMs, Math.max(1_000, deadline - now())) },
+          timeouts: { ...config.timeouts, ...patience, attemptMs: Math.min(config.timeouts.attemptMs, Math.max(1_000, deadline - now())) },
           fetchImpl,
         });
         let result;
@@ -189,7 +207,7 @@ export async function runWithFailover({ candidates, config, pool = createCredent
   };
 
   /** One model, with each key that is fit for it. Resolves to the answer, or null when it is time for the next model. */
-  const tryModel = async (candidate, retries) => {
+  const tryModel = async (candidate, retries, probe = false) => {
     const used = new Set();
     for (;;) {
       const { ready, blocked } = pool.eligible(candidate.provider, candidate.model);
@@ -204,7 +222,7 @@ export async function runWithFailover({ candidates, config, pool = createCredent
         return null;
       }
       used.add(credential.id);
-      const result = await tryKey(candidate, credential, retries);
+      const result = await tryKey(candidate, credential, retries, probe);
       if (result.answer) return result.answer;
       if (result.next !== "key") return null;
     }
@@ -218,7 +236,9 @@ export async function runWithFailover({ candidates, config, pool = createCredent
       attempts.push({ candidate: candidate.id, outcome: "resting" });
       continue;
     }
-    const answer = await tryModel(candidate, config.retry.perModel);
+    // Back from a rest: one short try. Otherwise the usual patience and retries.
+    const probe = Boolean(breaker?.probing?.(candidate.id));
+    const answer = await tryModel(candidate, probe ? 0 : config.retry.perModel, probe);
     if (answer) return answer;
   }
   // Nothing fit to try has answered, or nothing was fit. A resting model may be back by now, so each

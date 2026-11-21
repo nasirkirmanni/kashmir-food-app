@@ -29,6 +29,11 @@ export function checkInput(messages) {
 
 const digits = (value) => value.replace(/[^\d]/g, "");
 const FRACTIONS = { "½": ".5", "¼": ".25", "¾": ".75", "⅓": ".33", "⅔": ".67" };
+// A source marker as models write them: [S2], and also several at once, [S1, S3] or [S1 and S3].
+const MARKER = /\[\s*S\d+(?:\s*(?:,|;|&|and)\s*S?\d+)*\s*\]/gi;
+/** The source numbers an answer cites, in the order it cites them (with repeats). */
+export const markerNumbers = (text) => [...String(text || "").matchAll(MARKER)].flatMap((match) => [...match[0].matchAll(/\d+/g)].map((digits) => Number(digits[0])));
+
 const normal = (text) =>
   fold(text)
     .replace(/[½¼¾⅓⅔]/g, (mark) => FRACTIONS[mark])
@@ -48,7 +53,19 @@ const CHECKS = [
   // Phone numbers: compared on their last eight digits, however they are spaced
   { type: "phone", checked: true, pattern: /(?:\+?91[\s-]?)?(?:\d[\s-]?){9,11}\d/g, supported: (value, shown) => digits(shown).includes(digits(value).slice(-8)) },
   // Clock times: 9 am, 12:30 pm
-  { type: "time", checked: true, pattern: /\b\d{1,2}(?::\d{2})?\s?(?:am|pm|a\.m\.|p\.m\.)(?![a-z])/gi, supported: (value, shown) => shown.replace(/[\s.]/g, "").includes(value.replace(/[\s.]/g, "")) },
+  {
+    type: "time",
+    checked: true,
+    pattern: /\b\d{1,2}(?::\d{2})?\s?(?:am|pm|a\.m\.|p\.m\.)(?![a-z])/gi,
+    supported: (value, shown) => {
+      const time = value.replace(/[\s.]/g, "");
+      const flat = shown.replace(/[\s.]/g, "");
+      if (flat.includes(time)) return true;
+      // "12–10 pm" in a source supports "12 pm": the first hour of a range takes the am or pm written after the second.
+      const parts = /^(\d{1,2}(?::\d{2})?)(am|pm)$/.exec(time);
+      return Boolean(parts && new RegExp(`(?<!\\d)${parts[1]}(?:-|to)\\d{1,2}(?::\\d{2})?${parts[2]}`).test(flat));
+    },
+  },
   // Ratings: 4.2/5, 4.5 stars, 4 out of 5
   { type: "rating", checked: true, pattern: /\b\d(?:\.\d)?\s?(?:\/\s?5|out of 5|stars?)\b/gi, supported: (value, shown) => standsAlone(shown, value.match(/\d(?:\.\d)?/)[0]) },
   // Years
@@ -79,7 +96,7 @@ export function verifyAnswer(answer, grounds) {
   const unsupported = [];
   const seen = new Set();
   const claimed = new Set();
-  const text = normal(answer).replace(/\[s\d+\]/g, " ");
+  const text = normal(answer).replace(/\[\s*s\d+(?:\s*(?:,|;|&|and)\s*s?\d+)*\s*\]/g, " ");
   for (const check of CHECKS) {
     for (const found of text.matchAll(check.pattern)) {
       const value = found[0].trim();
@@ -104,17 +121,14 @@ function overlaps(a, b) {
 /** Source markers the answer uses that it was never given, e.g. [S9] when only eight sources exist. */
 export function strayMarkers(answer, sourceCount) {
   const stray = new Set();
-  for (const match of answer.matchAll(/\[S(\d+)\]/g)) if (Number(match[1]) < 1 || Number(match[1]) > sourceCount) stray.add(match[0]);
+  for (const n of markerNumbers(answer)) if (n < 1 || n > sourceCount) stray.add(`[S${n}]`);
   return [...stray];
 }
 
 /** Which of the given sources the answer actually cites, in order of first use. */
 export function citedSources(answer, sources) {
   const order = [];
-  for (const match of answer.matchAll(/\[S(\d+)\]/g)) {
-    const n = Number(match[1]);
-    if (n >= 1 && n <= sources.length && !order.includes(n)) order.push(n);
-  }
+  for (const n of markerNumbers(answer)) if (n >= 1 && n <= sources.length && !order.includes(n)) order.push(n);
   return order;
 }
 
