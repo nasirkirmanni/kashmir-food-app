@@ -18,9 +18,9 @@ export default function ItinerariesSection() {
           <div className="itin-marker">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z" stroke="currentColor" strokeWidth="1.4" /><circle cx="12" cy="9.5" r="2.4" stroke="currentColor" strokeWidth="1.4" /></svg>
           </div>
-          <h2 className="serif section-title" style={{ marginBottom: '14px' }}>Your route through<br />Kashmir, saved.</h2>
-          <p className="bleed-sub" style={{ color: 'var(--paper-dim)', margin: '0 auto 32px' }}>Save destinations, scenic drives, and curated collections as you go — we&apos;ll trace the trail for you.</p>
-          <Link href="/favorites" className="btn btn-primary">View saved items <span>→</span></Link>
+          <h2 className="serif section-title" style={{ marginBottom: '14px' }}>Your route through<br />Kashmir, mapped.</h2>
+          <p className="bleed-sub" style={{ color: 'var(--paper-dim)', margin: '0 auto 32px' }}>Ready-made trips through the valley, laid out day by day. Or answer a few questions and have one built for you.</p>
+          <Link href="/itineraries" className="btn btn-primary">See the itineraries <span>→</span></Link>
         </div>
       </div>
     </section>

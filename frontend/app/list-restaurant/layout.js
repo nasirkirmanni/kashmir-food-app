@@ -1,7 +1,7 @@
 export const metadata = {
   alternates: { canonical: "https://wazwanway.com/list-restaurant" },
   title: "List Your Kashmiri Restaurant",
-  description: "Are you a restaurant owner in Kashmir serving authentic Wazwan? List your business on Wazwan Way to reach culinary travelers.",
+  description: "Serve Wazwan or Kashmiri food? E-mail your restaurant's details and photos to hello@wazwanway.com and we'll review it for a listing on Wazwan Way.",
   openGraph: {
     type: "website",
     url: "https://wazwanway.com/list-restaurant",

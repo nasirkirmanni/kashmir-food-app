@@ -4,7 +4,6 @@ import JsonLd, { buildFaqSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Cited from "./Cited";
 import EvidenceBadges from "./EvidenceBadges";
-import RestaurantReviews from "./RestaurantReviews";
 import styles from "./restaurants.module.css";
 import { SOURCES } from "@/data/srinagarRestaurants";
 import { dishName, restaurantSchema } from "@/lib/restaurantSchema";
@@ -350,8 +349,6 @@ export default function RestaurantProfile({ place }) {
           </li>
         </ul>
       </section>
-
-      {place.dbId ? <RestaurantReviews restaurantId={place.dbId} name={place.name} /> : null}
     </div>
   );
 }

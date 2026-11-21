@@ -1,193 +1,133 @@
-"use client";
-
-import { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { endpoints, request } from "@/lib/api";
+import CopyAddress from "./CopyAddress";
+import styles from "./listRestaurant.module.css";
+
+// A restaurant is listed from an e-mail, not a form: the owner sends the details and photos below
+// to this address, and Wazwan Way reviews them. The page shows the shape of a listing with every
+// part left blank, so an owner can see what to send. Nothing here is submitted to the site.
+const ADDRESS = "hello@wazwanway.com";
+
+const PHOTOS = [
+  "The dining room or the shopfront",
+  "Your Wazwan on the table",
+  "The kitchen, or the waza at work",
+  "Your menu",
+];
+
+const DETAILS = [
+  { term: "Address", blank: "Street, landmark and area, with a Google Maps link" },
+  { term: "Phone", blank: "The number guests should call" },
+  { term: "Opening hours", blank: "The days and times you are open" },
+  { term: "Wazwan and dishes", blank: "What you serve: a trami, a thali or plates, and your main dishes" },
+  { term: "Prices", blank: "Your menu, or what a Wazwan trami or plate costs" },
+  { term: "About", blank: "Your specialities, your history, and what makes your Wazwan your own" },
+  { term: "Owner or manager", blank: "A name and a number we can reach you on" },
+];
+
+// The e-mail opens with the same blanks, ready to fill in.
+const MAIL_BODY = [
+  "Restaurant name:",
+  "Area and city:",
+  ...DETAILS.map((detail) => `${detail.term}:`),
+  "",
+  "Photos attached:",
+].join("\r\n");
+const MAILTO = `mailto:${ADDRESS}?subject=${encodeURIComponent("Restaurant listing")}&body=${encodeURIComponent(MAIL_BODY)}`;
+
+function PhotoGlyph() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <circle cx="8.5" cy="10" r="1.6" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21 16l-5-5-8 8" />
+    </svg>
+  );
+}
 
 export default function ListRestaurantPage() {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-
-  const [formData, setFormData] = useState({
-    restaurantName: "",
-    ownerName: "",
-    phoneNumber: "",
-    location: "",
-    description: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    try {
-      await request(endpoints.restaurantLeads(), {
-        method: "POST",
-        body: JSON.stringify(formData)
-      });
-      setSuccess(true);
-      setFormData({
-        restaurantName: "",
-        ownerName: "",
-        phoneNumber: "",
-        location: "",
-        description: "",
-      });
-    } catch (error) {
-      alert(error.message || "Failed to submit your listing request. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen pt-28 pb-32 px-6 page-shell flex flex-col items-center">
-      <div className="w-full max-w-2xl">
-        <div className="mb-10 text-center">
-          <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">For restaurant owners</span>
-          <h1 className="font-display text-4xl md:text-5xl text-white mb-4">List Your Restaurant</h1>
-          <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
-            Serve Wazwan or Kashmiri food? Tell us about your restaurant and we&apos;ll review it for a listing on Wazwan Way.
-          </p>
+    <div className={styles.page}>
+      <header className={`${styles.container} ${styles.hero}`}>
+        <p className={styles.eyebrow}>For restaurant owners</p>
+        <h1 className={styles.h1}>List your restaurant</h1>
+        <p className={styles.lede}>
+          Serve Wazwan or Kashmiri food? Send us your restaurant&apos;s details and photos by e-mail, and we&apos;ll review it for a
+          listing on Wazwan Way.
+        </p>
+        <div className={styles.send}>
+          <a className={styles.button} href={MAILTO}>
+            E-mail your details
+          </a>
+          <CopyAddress address={ADDRESS} />
         </div>
+      </header>
 
-        {success ? (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-green-500/10 border border-green-500/30 rounded-[32px] p-10 text-center shadow-[0_0_50px_rgba(34,197,94,0.1)] backdrop-blur-md"
-          >
-            <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h2 className="font-display text-3xl text-white mb-4">Request Submitted!</h2>
-            <p className="text-white/60 mb-8 max-w-sm mx-auto">
-              Thank you for your interest in joining Wazwan Way. Our team will review your details and contact you shortly.
-            </p>
-            <button 
-              onClick={() => setSuccess(false)}
-              className="inline-flex rounded-full bg-[var(--saffron)] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-black shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-transform hover:scale-[1.02] active:scale-95"
-            >
-              Submit Another
-            </button>
-          </motion.div>
-        ) : (
-          <motion.form 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            onSubmit={handleSubmit} 
-            className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[32px] p-6 sm:p-10 shadow-2xl"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {/* Restaurant Name */}
-              <label className="block text-left col-span-1 md:col-span-2">
-                <span className="mb-2 block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Restaurant Name *</span>
-                <input
-                  type="text"
-                  name="restaurantName"
-                  value={formData.restaurantName}
-                  onChange={handleChange}
-                  placeholder="e.g. Ahdoos Restaurant"
-                  required
-                  className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white placeholder:text-white/20 outline-none focus:border-[var(--saffron)] transition-colors shadow-inner"
-                />
-              </label>
+      <section className={`${styles.container} ${styles.section}`} aria-labelledby="what-to-send">
+        <h2 className={styles.h2} id="what-to-send">
+          What to send
+        </h2>
+        <p className={styles.text}>This is the shape of a listing. Each blank is something to send us.</p>
 
-              {/* Owner Name */}
-              <label className="block text-left">
-                <span className="mb-2 block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Owner Name *</span>
-                <input
-                  type="text"
-                  name="ownerName"
-                  value={formData.ownerName}
-                  onChange={handleChange}
-                  placeholder="Full Name"
-                  required
-                  className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white placeholder:text-white/20 outline-none focus:border-[var(--saffron)] transition-colors shadow-inner"
-                />
-              </label>
+        <div className={styles.sample}>
+          <p className={styles.sampleTag}>A listing, with the blanks to fill</p>
 
-              {/* Phone Number */}
-              <label className="block text-left">
-                <span className="mb-2 block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Contact Number *</span>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  placeholder="+91 99999 99999"
-                  required
-                  className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white placeholder:text-white/20 outline-none focus:border-[var(--saffron)] transition-colors shadow-inner"
-                />
-              </label>
+          <ul className={styles.photos} aria-label="Photos to send">
+            {PHOTOS.map((caption) => (
+              <li key={caption} className={styles.photo}>
+                <span className={styles.photoFrame}>
+                  <PhotoGlyph />
+                  <span className={styles.photoWord}>Photo</span>
+                </span>
+                <span className={styles.photoCaption}>{caption}</span>
+              </li>
+            ))}
+          </ul>
+          <p className={styles.note}>Your own photos, attached to the e-mail as JPG or PNG files.</p>
 
-              {/* Location */}
-              <label className="block text-left col-span-1 md:col-span-2">
-                <span className="mb-2 block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Location / Address *</span>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  placeholder="Residency Road, Srinagar..."
-                  required
-                  className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white placeholder:text-white/20 outline-none focus:border-[var(--saffron)] transition-colors shadow-inner"
-                />
-              </label>
+          <div className={styles.sampleHead}>
+            <p className={styles.blankName}>Your restaurant&apos;s name</p>
+            <p className={styles.blankArea}>Area and city</p>
+          </div>
 
-              {/* Description */}
-              <label className="block text-left col-span-1 md:col-span-2">
-                <span className="mb-2 block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Restaurant Description</span>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  placeholder="Tell us about your specialties, history, and what makes your Wazwan unique..."
-                  rows={4}
-                  className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white placeholder:text-white/20 outline-none focus:border-[var(--saffron)] transition-colors resize-none shadow-inner"
-                />
-              </label>
+          <dl className={styles.details}>
+            {DETAILS.map((detail) => (
+              <div key={detail.term} className={styles.detail}>
+                <dt>{detail.term}</dt>
+                <dd>{detail.blank}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
-              {/* Image Upload */}
-              <label className="block text-left col-span-1 md:col-span-2">
-                <span className="mb-2 block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)]">Restaurant Images (Optional)</span>
-                <div className="w-full rounded-2xl border border-dashed border-white/20 bg-black/20 hover:bg-black/40 px-5 py-8 flex flex-col items-center justify-center transition-colors cursor-pointer group">
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:bg-white/10 transition-colors">
-                    <svg className="w-6 h-6 text-[var(--saffron)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <span className="text-sm text-white/50 group-hover:text-white/70 transition-colors">Click to upload photos</span>
-                  <span className="text-[0.6rem] text-white/30 mt-1">JPG, PNG up to 5MB</span>
-                  <input type="file" className="hidden" multiple accept="image/*" />
-                </div>
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-full bg-[var(--saffron)] px-5 py-4 text-sm font-bold uppercase tracking-[0.2em] text-black shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100 mt-2"
-            >
-              {loading ? "Submitting Request..." : "Submit Listing"}
-            </button>
-            <p className="text-center text-[0.65rem] text-white/40 mt-4">
-              By submitting, you agree to our terms of service and privacy policy.
-            </p>
-          </motion.form>
-        )}
-      </div>
+      <section className={`${styles.container} ${styles.section}`} aria-labelledby="how-to-send">
+        <h2 className={styles.h2} id="how-to-send">
+          How to send it
+        </h2>
+        <ol className={styles.steps}>
+          {/* Each step's words sit in one element: the list item is a grid of number and words. */}
+          <li>
+            <span>Write the details above in an e-mail.</span>
+          </li>
+          <li>
+            <span>Attach your photos.</span>
+          </li>
+          <li>
+            <span>
+              Send it to <a href={MAILTO}>{ADDRESS}</a>.
+            </span>
+          </li>
+        </ol>
+        <p className={styles.text}>We&apos;ll review it for a listing on Wazwan Way.</p>
+        <div className={styles.actions}>
+          <a className={styles.button} href={MAILTO}>
+            E-mail your details
+          </a>
+          <Link className={styles.buttonGhost} href="/restaurants" prefetch={false}>
+            See the restaurants listed
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

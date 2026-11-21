@@ -6,8 +6,8 @@ import Footer from "./Footer";
 export default function ConditionalFooter() {
   const pathname = usePathname();
   
-  // Hide footer on authentication pages to keep them compact
-  const hideFooterRoutes = ["/login", "/signup", "/forgot-password", "/explore"];
+  // Explore ends with its own footer (app/explore/sections/ExploreFooter.js).
+  const hideFooterRoutes = ["/explore"];
   
   if (hideFooterRoutes.includes(pathname) || pathname.startsWith("/scenic-drives/")) {
     return null;

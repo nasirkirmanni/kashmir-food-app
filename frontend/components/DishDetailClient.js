@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { endpoints, request } from "@/lib/api";
-import { useAuth } from "@/context/AuthContext";
 import JsonLd, { buildRecipeSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { BackIcon, useGoBack } from "@/components/BackButton";
@@ -22,19 +20,6 @@ import styles from "@/components/dish/dishPage.module.css";
 
 // Only needed after a tap, so they load then rather than with the page.
 const DishRecipeModal = dynamic(() => import("@/components/dish/DishRecipeModal"), { ssr: false });
-const AuthRequiredModal = dynamic(() => import("@/components/AuthRequiredModal"), { ssr: false });
-
-function HeartIcon({ filled }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"
-      />
-    </svg>
-  );
-}
 
 function ArrowIcon() {
   return (
@@ -77,7 +62,6 @@ function useActiveSection(ids) {
 }
 
 export default function DishDetailClient({ initialDish = null, entity = null, srinagarPlaces = [] }) {
-  const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
   const [dishRecord, setDish] = useState(initialDish);
@@ -87,10 +71,6 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
   const [loading, setLoading] = useState(!initialDish);
   const [error, setError] = useState(null);
 
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveError, setSaveError] = useState(null);
-  const [authContext, setAuthContext] = useState(null);
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
 
   useEffect(() => {
@@ -118,50 +98,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.slug, router]);
 
-  useEffect(() => {
-    // A dish written in the frontend (lib/addedDishes.js) has no database id, so it can't be saved.
-    if (!user || !dish?._id) return;
-    request(endpoints.favorites)
-      .then((favs) => setIsFavorite(favs.some((f) => f.item?._id === dish._id || f.item === dish._id)))
-      .catch(console.error);
-  }, [user, dish]);
-
   const goBack = useGoBack();
-
-  const toggleFavorite = async () => {
-    if (!user) {
-      setAuthContext("favorite");
-      return;
-    }
-    setIsSaving(true);
-    setSaveError(null);
-    try {
-      await request(endpoints.favorites, {
-        method: isFavorite ? "DELETE" : "POST",
-        body: JSON.stringify({ itemId: dish._id, itemType: "dish" }),
-      });
-      setIsFavorite(!isFavorite);
-    } catch (err) {
-      console.error(err);
-      setSaveError("Couldn't update your saved dishes. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  // The sign-in prompt sits above everything, with the page held still behind it.
-  useEffect(() => {
-    if (!authContext) return undefined;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [authContext]);
-
-  const requireRecipeAuth = useCallback(() => {
-    setRecipeModalOpen(false);
-    setAuthContext("recipe");
-  }, []);
 
   const hasRecipe = dish?.recipe?.ingredients?.length > 0 && dish?.recipe?.instructions?.length > 0;
   const relatedReading = dish ? relatedReadingForDish(dish) : [];
@@ -305,29 +242,7 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
             <button type="button" className={styles.primary} onClick={openRecipe}>
               {hasRecipe ? "Go to the recipe" : "Ask Waza for a recipe"}
             </button>
-            {dish._id ? (
-              <button
-                type="button"
-                className={styles.secondary}
-                onClick={toggleFavorite}
-                disabled={isSaving}
-                aria-pressed={isFavorite}
-              >
-                <HeartIcon filled={isFavorite} />
-                {isSaving ? "Saving…" : isFavorite ? "Saved" : "Save"}
-              </button>
-            ) : null}
           </div>
-          {saveError ? (
-            <p className={styles.saveError} role="alert">
-              {saveError}
-            </p>
-          ) : null}
-          {isFavorite ? (
-            <Link href="/favorites" className={styles.savedLink}>
-              See your saved dishes
-            </Link>
-          ) : null}
 
           {story ? (
             <Link href={`/blog/${story.slug}`} className={styles.story}>
@@ -590,29 +505,8 @@ export default function DishDetailClient({ initialDish = null, entity = null, sr
       ) : null}
 
       {recipeModalOpen ? (
-        <DishRecipeModal dishName={dish.name} dishSlug={dish.slug} onClose={() => setRecipeModalOpen(false)} onRequireAuth={requireRecipeAuth} />
+        <DishRecipeModal dishName={dish.name} dishSlug={dish.slug} onClose={() => setRecipeModalOpen(false)} />
       ) : null}
-
-      {authContext
-        ? createPortal(
-        <AuthRequiredModal
-          titleLine1={authContext === "recipe" ? "Unlock Secret" : "Save Your"}
-          titleLine2={authContext === "recipe" ? "Recipes" : "Favorites"}
-          message={
-            authContext === "recipe"
-              ? "You've explored your 2 free recipes.\nSign in or create an account to unlock unlimited authentic Kashmiri recipes."
-              : "Sign in or create an account to save dishes to your favorites."
-          }
-          onClose={() => setAuthContext(null)}
-          onSuccess={() => {
-            const wasFavorite = authContext === "favorite";
-            setAuthContext(null);
-            if (wasFavorite && !isFavorite) toggleFavorite();
-          }}
-        />,
-        document.body,
-      )
-        : null}
     </div>
   );
 }

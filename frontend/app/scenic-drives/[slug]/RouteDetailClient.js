@@ -3,8 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
-import { endpoints, request } from '@/lib/api';
 import './scenic-drive-detail.css';
 
 // "path 1080w, path 1920w" from a route image's width-keyed variants
@@ -17,46 +15,6 @@ const toSrcSet = (variants) =>
 export default function RouteDetailClient({ route }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
-
-  const { user } = useAuth();
-  const [isSaved, setIsSaved] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      request(endpoints.savedRoutes).then(routes => {
-        setIsSaved(routes.includes(route.slug));
-      }).catch(console.error);
-    }
-  }, [user, route.slug]);
-
-  const toggleSave = async () => {
-    if (!user) {
-      alert("Please log in to save routes.");
-      return;
-    }
-    setIsSaving(true);
-    try {
-      if (isSaved) {
-        await request(endpoints.savedRoutes, {
-          method: "DELETE",
-          body: JSON.stringify({ slug: route.slug })
-        });
-        setIsSaved(false);
-      } else {
-        await request(endpoints.savedRoutes, {
-          method: "POST",
-          body: JSON.stringify({ slug: route.slug })
-        });
-        setIsSaved(true);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to save route.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
 
   const railRef = useRef(null);
   const readoutRef = useRef(null);
@@ -239,21 +197,8 @@ export default function RouteDetailClient({ route }) {
           />
         </div>
         <div className="hero-body">
-          <div className="hero-kicker" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <div><span className="tick"></span>{route.kicker}</div>
-            <button 
-              onClick={toggleSave} 
-              disabled={isSaving}
-              style={{
-                background: isSaved ? 'var(--saffron)' : 'transparent', 
-                border: '1px solid var(--saffron)', 
-                color: isSaved ? '#000' : 'var(--saffron)', 
-                padding: '6px 14px', borderRadius: '40px', cursor: 'pointer', fontSize: '11px', 
-                textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.3s ease'
-              }}
-            >
-              {isSaved ? "Saved" : "Save Route"}
-            </button>
+          <div className="hero-kicker">
+            <span className="tick"></span>{route.kicker}
           </div>
           <h1 className="serif">{route.title}</h1>
           <div className="hero-meta">

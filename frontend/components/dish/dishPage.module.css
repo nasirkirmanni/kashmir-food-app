@@ -163,8 +163,7 @@
   gap: 10px;
 }
 
-.primary,
-.secondary {
+.primary {
   min-height: 52px;
   border-radius: 999px;
   display: inline-flex;
@@ -175,45 +174,14 @@
   font-weight: 600;
   transition: transform 150ms var(--dp-ease), background-color 150ms var(--dp-ease), border-color 150ms var(--dp-ease),
     color 150ms var(--dp-ease);
-}
-
-.primary {
   flex: 1 1 180px;
   padding: 0 22px;
   background: var(--dp-gold);
   color: #0d0b09;
 }
 
-.secondary {
-  flex: 0 0 auto;
-  padding: 0 20px;
-  color: var(--dp-ink);
-  border: 1px solid rgba(244, 236, 223, 0.24);
-}
-
-.secondary[aria-pressed="true"] {
-  color: var(--dp-gold);
-  border-color: var(--dp-gold);
-}
-
-.primary:active,
-.secondary:active {
+.primary:active {
   transform: scale(0.98);
-}
-
-.saveError {
-  margin-top: 10px;
-  font-size: 0.875rem;
-  color: #f2a7a0;
-}
-
-.savedLink {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 0.875rem;
-  color: var(--dp-gold);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 /* The long-form story, for the seven essential dishes. */
@@ -837,10 +805,6 @@
 @media (hover: hover) and (pointer: fine) {
   .primary:hover {
     background: #d8b277;
-  }
-
-  .secondary:hover {
-    border-color: rgba(244, 236, 223, 0.5);
   }
 
   .story:hover {

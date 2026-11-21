@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
-import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { SITE_SECTIONS } from "@/lib/siteSections";
 
@@ -12,7 +11,6 @@ export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { user, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -22,12 +20,6 @@ export default function HamburgerMenu() {
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
-
-  const handleLogout = () => {
-    logout();
-    setIsOpen(false);
-    router.push("/");
-  };
 
   const handleWazaAI = () => {
     setIsOpen(false);
@@ -70,7 +62,7 @@ export default function HamburgerMenu() {
             {/* Links */}
             <div style={{ flex: 1, padding: "12px 0" }}>
               <motion.div variants={containerVars} initial="hidden" animate="show" style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                {[{ label: "Profile", href: "/profile" },{ label: "Saved Dishes", href: "/favorites" },{ label: "Recipes", href: "/recipes" },{ label: "Blog", href: "/blog" },{ label: "List Your Restaurant", href: "/list-restaurant" },{ label: "Explore Kashmir", href: "/explore" },{ label: "About Us", href: "/about" },{ label: "Contact Us", href: "/contact" },{ label: "Privacy Policy", href: "/privacy" }].map((item) => (
+                {[{ label: "Recipes", href: "/recipes" },{ label: "Blog", href: "/blog" },{ label: "List Your Restaurant", href: "/list-restaurant" },{ label: "Explore Kashmir", href: "/explore" },{ label: "About Us", href: "/about" },{ label: "Contact Us", href: "/contact" },{ label: "Privacy Policy", href: "/privacy" }].map((item) => (
                   <motion.div key={item.href} variants={itemVars}>
                     <Link href={item.href} onClick={() => setIsOpen(false)} style={{ display: "block", padding: "11px 4px", color: "var(--saffron, #C8A46A)", textDecoration: "none", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", borderBottom: "1px solid rgba(255,255,255,0.05)", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                       onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
@@ -89,14 +81,6 @@ export default function HamburgerMenu() {
                   </button>
                 </motion.div>
               </motion.div>
-            </div>
-            {/* Footer */}
-            <div style={{ padding: "12px 0", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-              {user ? (
-                <button onClick={handleLogout} style={{ width: "100%", background: "none", border: "1px solid rgba(255,80,80,0.25)", borderRadius: 8, padding: "9px 0", color: "rgba(255,100,100,0.8)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer" }}>Log Out</button>
-              ) : (
-                <Link href="/login" onClick={() => setIsOpen(false)} style={{ display: "block", textAlign: "center", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 8, padding: "9px 0", color: "var(--saffron, #C8A46A)", fontFamily: "Inter, sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>Log In</Link>
-              )}
             </div>
           </motion.div>
         </>
@@ -157,8 +141,6 @@ export default function HamburgerMenu() {
                 </motion.div>
 
                 {[
-                  { label: "Your Profile", sub: "Manage your details", href: "/profile", iconColor: "blue" },
-                  { label: "Saved Dishes", sub: "Your favorite picks", href: "/favorites", iconColor: "red" },
                   { label: "Recipes", sub: "Cook like a Waza", href: "/recipes", iconColor: "green" },
                   { label: "List Your Restaurant", sub: "Join Wazwan Way", href: "/list-restaurant", iconColor: "saffron" },
                   { label: "About Us", sub: "Our story & mission", href: "/about", iconColor: "saffron" },
@@ -199,24 +181,6 @@ export default function HamburgerMenu() {
               </motion.div>
             </div>
 
-            <div className="p-6 border-t border-white/10 bg-white/5">
-              {user ? (
-                <button
-                  onClick={handleLogout}
-                  className="flex w-full items-center justify-center gap-3 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-4 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
-                >
-                  Log Out
-                </button>
-              ) : (
-                <Link
-                  href="/login"
-                  onClick={() => setIsOpen(false)}
-                  className="flex w-full items-center justify-center gap-3 rounded-full border border-[var(--saffron)]/30 bg-[var(--saffron)]/10 px-5 py-4 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[var(--saffron)] transition-all hover:bg-[var(--saffron)]/20 active:scale-95"
-                >
-                  Log In
-                </Link>
-              )}
-            </div>
           </motion.div>
         </>
       )}

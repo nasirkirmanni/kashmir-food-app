@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { Home, MapPin, User } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
+import { Home, MapPin } from "lucide-react";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
 import { liquidGlass } from "@/lib/liquidGlass";
 
@@ -54,11 +53,8 @@ const ChefAIIcon = ({ size = 24, strokeWidth = 2, className = "" }) => (
 
 export default function MobileNav() {
   const pathname = usePathname();
-  const { user } = useAuth();
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
   const navRef = useRef(null);
-
-  const isProfileIncomplete = user && (!user.phoneNumber || !user.address);
 
   // Apple-style liquid-glass refraction on the pill (Chromium/Android WebView;
   // iOS Safari & Firefox fall back to frosted blur automatically). Tuned for a
@@ -79,15 +75,12 @@ export default function MobileNav() {
     return () => glass.destroy();
   }, []);
 
-  // NOTE: "/login" is intentionally excluded — it's an auth route rendered via
-  // the route overlay (LoginClient), not a swipeable tab screen. See
-  // MobileSwipeContainer.js for the matching exclusion.
+  // The four screens of the swipe deck (MobileSwipeContainer.js keeps the same list).
   const isSwipeableRoute = [
     "/",
     "/restaurants",
     "/waza-ai",
     "/kashmiri-food",
-    "/profile",
   ].includes(pathname);
 
   const isActiveTab = (index) => isSwipeableRoute && activeIndex === index;
@@ -193,20 +186,6 @@ export default function MobileNav() {
       >
         <BowlFoodIcon size={24} strokeWidth={isActiveTab(3) ? 2.5 : 2} />
         {isActiveTab(3) && <span className="nav-dot" />}
-      </Link>
-
-      <Link 
-        href={user ? "/profile" : "/login"} 
-        prefetch={false}
-        aria-label="Profile"
-        className={`nav-icon-pill ${isActiveTab(4) ? "active" : ""}`}
-        onClick={(e) => handleNavClick(4, e)}
-      >
-        <User size={24} strokeWidth={isActiveTab(4) ? 2.5 : 2} />
-        {isProfileIncomplete && (
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-transparent"></span>
-        )}
-        {isActiveTab(4) && <span className="nav-dot" />}
       </Link>
     </nav>
   );

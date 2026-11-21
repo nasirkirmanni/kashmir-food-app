@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import dynamic from "next/dynamic";
 import { usePathname, useSelectedLayoutSegments } from "next/navigation";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
-import { useAuth } from "@/context/AuthContext";
 
 // Swipe screens other than the current route's own page are client-only copies.
 // They mount after hydration, on mobile, and only when needed — never on the
@@ -15,24 +14,10 @@ const HomePageHero = dynamic(() => import("@/components/HomePageHero"), { ssr: f
 const RestaurantsPage = dynamic(() => import("@/components/restaurants/DirectoryScreen"), { ssr: false });
 const MobileWazaAI = dynamic(() => import("@/components/MobileWazaAI"), { ssr: false });
 const KashmiriFoodClient = dynamic(() => import("@/app/kashmiri-food/KashmiriFoodClient"), { ssr: false });
-const ProfilePage = dynamic(() => import("@/app/profile/page"), { ssr: false });
-const LoginPage = dynamic(() => import("@/app/login/page"), { ssr: false });
 
 // Screen order of the mobile swipe deck (array index = screen index).
-const TAB_ROUTES = ["/", "/restaurants", "/waza-ai", "/kashmiri-food", "/profile"];
+const TAB_ROUTES = ["/", "/restaurants", "/waza-ai", "/kashmiri-food"];
 const LAST_SCREEN = TAB_ROUTES.length - 1;
-
-// Auth routes render their own dedicated page (as the route content below), not
-// the screen-5 profile/login swipe copy. Previously "/login" was also treated as
-// a tab, which forced initialIndex=4 on direct loads of /login — mounting screen 3
-// (KashmiriFoodClient) and screen 4 (LoginPage) as hidden adjacent screens *and*
-// leaving the screen-swipe touch handlers live on what's supposed to be a static
-// auth page (dragging on /login revealed the adjacent screen).
-const AUTH_ROUTES = [
-  "/login",
-  "/signup",
-  "/forgot-password",
-];
 
 const SWIPE_TRANSITION = "transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94)";
 
@@ -49,7 +34,6 @@ function routeFromSegments(segments) {
 
 export default function MobileSwipeContainer({ children, coverDishes = [] }) {
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
-  const { user } = useAuth();
   const pathname = usePathname();
   // The URL and the rendered page can differ: a swipe updates the URL with
   // history.pushState, which Next.js reflects in usePathname() while keeping the
@@ -57,7 +41,6 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
   const childrenRoute = routeFromSegments(useSelectedLayoutSegments());
   const childrenTab = TAB_ROUTES.indexOf(childrenRoute);
   const isSwipeableRoute = TAB_ROUTES.includes(pathname);
-  const authRoute = AUTH_ROUTES.includes(pathname);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -345,12 +328,6 @@ export default function MobileSwipeContainer({ children, coverDishes = [] }) {
         return <MobileWazaAI />;
       case 3:
         return <KashmiriFoodClient />;
-      case 4:
-        // Skip on auth routes: visited screens stay mounted, so if the user swiped
-        // to this tab earlier and then navigated to /login, /signup, etc., this
-        // would still force-mount behind the route's own page.
-        if (authRoute) return null;
-        return user ? <ProfilePage /> : <LoginPage />;
       default:
         return null;
     }

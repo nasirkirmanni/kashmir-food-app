@@ -5,8 +5,6 @@ import Link from "next/link";
 import { withoutRemovedDishes } from "@/lib/removedDishes";
 import { useParams, useRouter } from "next/navigation";
 import MapPreview from "@/components/MapPreview";
-import ReviewForm from "@/components/ReviewForm";
-import ReviewList from "@/components/ReviewList";
 import { endpoints, request } from "@/lib/api";
 import JsonLd, { buildRestaurantSchema } from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -167,7 +165,7 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
       </section>
 
       <section className="places-wrap pt-0">
-        <div className="grid gap-8 grid-cols-1 lg:grid-cols-[1fr,0.95fr]">
+        <div className="grid gap-8 grid-cols-1">
           <div className="space-y-6">
             <article className="rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 shadow-2xl overflow-hidden">
               <h2 className="font-display text-[1.4rem] text-white mb-5 border-b border-white/10 pb-4">Popular Dishes Here</h2>
@@ -202,18 +200,6 @@ export default function RestaurantDetailClient({ initialRestaurant = null, other
             <MapPreview query={restaurant.googleMapsQuery} />
           </div>
 
-          <div className="space-y-6">
-            <ReviewForm restaurantId={restaurant._id} onSuccess={loadRestaurant} />
-            <div>
-              <div className="place-head mb-4">
-                <div>
-                  <span className="place-eyebrow">Traveler Reviews</span>
-                  <h2 className="text-3xl md:text-4xl">What visitors are saying</h2>
-                </div>
-              </div>
-              <ReviewList reviews={restaurant.reviews} />
-            </div>
-          </div>
         </div>
       </section>
 

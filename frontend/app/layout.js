@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, IBM_Plex_Mono, Bodoni_Moda, Hanken_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
-import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
 import { FloatingBackButton } from "@/components/BackButton";
@@ -198,22 +197,20 @@ export default function RootLayout({ children }) {
         />
         <CapacitorListeners />
         <GlobalBackground />
-        <AuthProvider>
-          <MobileNavigationProvider>
-            <div className="min-h-screen relative z-10 pb-24 md:pb-0">
-              {/* First in tab order, as the top bar's Back is on desktop. */}
-              <FloatingBackButton />
-              <Navbar />
-              <MobileSwipeContainer coverDishes={coverDishes}>
-                <main>{children}</main>
-              </MobileSwipeContainer>
-              <ConditionalFooter />
-              <WazaAI />
-              <GlobalSearchModal />
-              <MobileNav />
-            </div>
-          </MobileNavigationProvider>
-        </AuthProvider>
+        <MobileNavigationProvider>
+          <div className="min-h-screen relative z-10 pb-24 md:pb-0">
+            {/* First in tab order, as the top bar's Back is on desktop. */}
+            <FloatingBackButton />
+            <Navbar />
+            <MobileSwipeContainer coverDishes={coverDishes}>
+              <main>{children}</main>
+            </MobileSwipeContainer>
+            <ConditionalFooter />
+            <WazaAI />
+            <GlobalSearchModal />
+            <MobileNav />
+          </div>
+        </MobileNavigationProvider>
       </body>
     </html>
   );

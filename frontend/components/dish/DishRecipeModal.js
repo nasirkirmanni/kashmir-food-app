@@ -27,7 +27,7 @@ const MARKDOWN = {
  * what the site does know (backend/src/waza/direct.js): it does not make a recipe up. A failure is
  * shown as a failure, with a way to try again.
  */
-export default function DishRecipeModal({ dishName, dishSlug, onClose, onRequireAuth }) {
+export default function DishRecipeModal({ dishName, dishSlug, onClose }) {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState("");
   const [notices, setNotices] = useState([]);
@@ -80,10 +80,6 @@ export default function DishRecipeModal({ dishName, dishSlug, onClose, onRequire
         // A stream that stops without saying it is done was cut off (the older server never says so).
         if (!finished && (typed || !full.trim())) setError(full ? "The recipe was interrupted before it finished. Please try again." : "Waza AI didn't answer. Please try again.");
       } catch (err) {
-        if (err?.requiresAuth) {
-          onRequireAuth?.();
-          return;
-        }
         const failure = describeRequestFailure(err, { online: typeof navigator === "undefined" || navigator.onLine !== false });
         if (failure) setError(failure.message);
       } finally {
@@ -91,7 +87,7 @@ export default function DishRecipeModal({ dishName, dishSlug, onClose, onRequire
       }
     })();
     return () => controller.abort();
-  }, [dishName, dishSlug, attempt, onRequireAuth]);
+  }, [dishName, dishSlug, attempt]);
 
   return createPortal(
     <div className="fixed inset-0 z-[120] flex items-end sm:items-center justify-center bg-black/85" role="dialog" aria-modal="true" aria-label={`Recipe for ${dishName}`}>

@@ -78,11 +78,6 @@ const DEFAULT_PATHS = [
   "/list-agency",
   "/select-tour-partner",
   "/itinerary-builder",
-  "/login",
-  "/signup",
-  "/forgot-password",
-  "/favorites",
-  "/profile",
   "/travel-agent/login",
   "/travel-agent/signup",
 ];

@@ -94,6 +94,14 @@ const nextConfig = {
         permanent: true,
         destination: '/still-kashmir',
       },
+      // Accounts removed in November 2026: a saved itinerary was a page of its owner's account. The
+      // builder now shows a plan without one. (The account pages with fixed addresses are in
+      // seo-redirects.json.)
+      {
+        source: '/my-itineraries/:id',
+        permanent: true,
+        destination: '/itinerary-builder',
+      },
       ...seoRedirects.map(({ source, destination }) => ({ source, destination, permanent: true })),
     ];
   },

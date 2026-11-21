@@ -11,7 +11,6 @@ const routeIndexMap = {
   "/waza-ai": 2,
   "/kashmiri-food": 3,
   "/dishes": 3,
-  "/profile": 4,
 };
 
 const indexRouteMap = [
@@ -19,7 +18,6 @@ const indexRouteMap = [
   "/restaurants",
   "/waza-ai",
   "/kashmiri-food",
-  "/profile",
 ];
 
 export function MobileNavigationProvider({ children }) {

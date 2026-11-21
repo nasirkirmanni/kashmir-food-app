@@ -267,8 +267,9 @@ written recipes keep working throughout, because they use no model.
   next is given its turns from this record, in that provider's own shape. No provider's
   conversation memory is used.
 - **Whose it is.** The browser makes a random id and keeps it (localStorage). For an anonymous
-  visitor that id is the only thing that opens the conversation, so it is never put in a URL. When a
-  visitor signs in, the conversation becomes theirs and no other account can open it.
+  visitor that id is the only thing that opens the conversation, so it is never put in a URL. (The
+  site had visitor accounts until November 2026, and a signed-in visitor's conversation was tied to
+  the account. With accounts removed every visitor is anonymous.)
 - **Long conversations.** The most recent turns are sent in full. What does not fit is replaced by a
   note the application writes: the visitor's own earlier questions, newest first, and the dishes and
   places that came up. No model writes this note, so it cannot contain something that was not said.
@@ -312,11 +313,14 @@ stream, so an answer the provider itself cut off cannot be continued, only retri
   text, no key.
 - **`GET /api/chat/status`** (public): whether Waza can answer, whether conversations are kept, the
   index version.
-- **`GET /api/chat/diagnostics`** (admin sign-in): models in use, each key's state (ready, resting
+- **`GET /api/chat/diagnostics`** (admin sign-in; see the note below): models in use, each key's state (ready, resting
   and until when, invalid) by id and fingerprint, its last failure and what the provider said, the breaker, cache, answers in progress, today's
   usage and estimated cost, the last seven days, the budget, latency percentiles, failures by model.
 - **`POST /api/chat/diagnostics/check-keys`** (admin sign-in): asks each provider whether it accepts
   each key, without generating anything.
+- **Since November 2026 no one can sign in**: accounts were removed from the site and the API, so
+  the two diagnostics addresses above cannot be reached. The log lines carry the same facts (the
+  route, each failed attempt and what the provider said) and are the way to watch Waza now.
 - **Cost** is an estimate from list prices (`pricing.js`, with the date each was read). The
   provider's invoice is what is owed. An answer from a model with no listed price is counted as
   unpriced, not guessed.
@@ -369,8 +373,7 @@ Nothing here needs a new service, queue or database. MongoDB gains two collectio
    orders are safe: the new page falls back to the old request form if the backend refuses the new
    fields, and the new backend still sends the fields the old page reads.
 3. **After**: `GET https://api.wazwanway.com/api/chat/status` should say `"configured": true`. Ask
-   Waza a question on the site. Signed in as an admin, open `/api/chat/diagnostics` and run
-   `check-keys`.
+   Waza a question on the site, and read its `waza_chat` line in the server log.
 
 ### Rolling back
 
