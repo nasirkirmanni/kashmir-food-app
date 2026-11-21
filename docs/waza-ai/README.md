@@ -148,6 +148,8 @@ provider's own list.
 | `WAZA_BREAKER_FAILURES` / `WAZA_BREAKER_COOLDOWN_MS` | 2 / 60000 | When a failing model is rested, and for how long at first. |
 | `WAZA_BREAKER_MAX_COOLDOWN_MS` | 900000 | The rest doubles each time a model fails on being let back, up to this. |
 | `WAZA_PROBE_TIMEOUT_MS` | 6000 | How long a model let back after a rest is given to start answering. |
+| `WAZA_LAST_RESORT_GAP_MS` | 10000 | A resting model that failed this recently is not asked again as a last resort. |
+| `WAZA_WAIT_FOR_LIMIT_MS` | 8000 | When nothing else can answer, a rate limit that clears within this long is waited out. |
 | `WAZA_KEY_RECHECK_MIN` | 30 | How long a rejected key is set aside. |
 | `WAZA_QUOTA_COOLDOWN_MIN` / `WAZA_CREDITS_COOLDOWN_MIN` | 15 / 30 | Rest after a quota / an empty account, when the provider gives no figure. |
 | `WAZA_CACHE`, `WAZA_CACHE_TTL_MIN`, `WAZA_CACHE_MAX` | on, 360, 400 | The answer cache. |
@@ -178,8 +180,12 @@ Two failures in a row rest a model for a minute. When the minute is up it gets o
 seconds to start, no retry); if it fails that, its rest doubles, up to fifteen minutes, so a model
 that stays down costs a visitor a few seconds less and less often. One answer ends the rest.
 
-When every model is resting after failures, each is still asked once before the visitor is turned
-away. A key the provider has rejected or rested is not asked early: that is the provider's
+When every model is resting after failures, each is still asked once (a short try) before the
+visitor is turned away, unless it failed within the last ten seconds.
+
+When the model that normally answers is paused by its provider (a rate limit or a quota) and nothing
+else can answer, the visitor is told Waza is busy and when to come back, whatever a lesser fallback
+did in the meantime. If the pause ends within eight seconds, Waza waits for it and answers. A key the provider has rejected or rested is not asked early: that is the provider's
 instruction.
 
 When nothing can answer, the visitor sees one of a small set of messages (`FAILURES` in
@@ -252,7 +258,7 @@ No test calls a real provider or a real database.
 
 ```bash
 cd backend
-npm run test:waza        # 114 tests: failover, keys, quota domains, conversations, recovery, budget
+npm run test:waza        # 118 tests: failover, keys, quota domains, conversations, recovery, budget
                          # (one more, against a real MongoDB, is skipped unless MONGODB_URI_TEST is set)
 npm run eval:waza        # how 245 questions are read and what is fetched for them (no model)
 npm run check:waza       # which models and keys the environment gives, and whether keys are accepted
@@ -260,7 +266,7 @@ npm run check:waza       # which models and keys the environment gives, and whet
 
 ```bash
 cd frontend
-npm test                 # 330 tests, 26 of them for the chat and its knowledge index
+npm test                 # 331 tests, 27 of them for the chat and its knowledge index
 ```
 
 In a real browser, against a scripted stand-in for the model:

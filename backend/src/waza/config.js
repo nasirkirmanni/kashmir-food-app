@@ -95,6 +95,8 @@ export function loadConfig(env = process.env) {
       perModel: Math.max(0, Math.floor(Number(env.WAZA_RETRIES_PER_MODEL ?? 1))),
       baseDelayMs: positive(env.WAZA_RETRY_BASE_MS, 400),
       maxDelayMs: positive(env.WAZA_RETRY_MAX_MS, 4_000),
+      // When nothing else can answer, a rate limit that clears within this long is waited out.
+      waitForLimitMs: atLeastZero(env.WAZA_WAIT_FOR_LIMIT_MS, 8_000),
     },
     breaker: {
       // After this many failures in a row a model is rested, so a dead model does not slow every answer.
@@ -102,6 +104,8 @@ export function loadConfig(env = process.env) {
       failures: positive(env.WAZA_BREAKER_FAILURES, 2),
       coolDownMs: positive(env.WAZA_BREAKER_COOLDOWN_MS, 60_000),
       maxCoolDownMs: positive(env.WAZA_BREAKER_MAX_COOLDOWN_MS, 15 * 60_000),
+      // A resting model that failed this recently is not asked again as a last resort.
+      lastResortGapMs: atLeastZero(env.WAZA_LAST_RESORT_GAP_MS, 10_000),
     },
     keys: {
       // How long a key the provider rejected is set aside before it is looked at again.

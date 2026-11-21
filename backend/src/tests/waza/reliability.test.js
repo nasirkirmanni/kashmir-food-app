@@ -205,14 +205,22 @@ test("a resting model is still asked, once, when no other model answers", async 
   assert.equal(first.error.kind, "overloaded");
   assert.equal(breaker.allows("custom:primary"), false);
   assert.equal(breaker.allows("custom:second"), false);
-  // Still down: each is asked exactly once more (no retries for a resting model), and the visitor is told.
+  // A question arriving straight after is not made to wait for the same failure: nothing is asked.
   let before = server.calls.length;
+  const atOnce = await run(server, { config, breaker });
+  assert.equal(atOnce.error.kind, "overloaded");
+  assert.equal(atOnce.error.retryable, true);
+  assert.equal(server.calls.length, before, "models that failed seconds ago are not asked again so soon");
+  // A little later, still down: each is asked exactly once more (no retries for a resting model), and the visitor is told.
+  clock += 11_000;
+  before = server.calls.length;
   const second = await run(server, { config, breaker });
   assert.equal(second.error.kind, "overloaded");
   assert.deepEqual(server.calls.slice(before).map((call) => call.model), ["primary", "second"]);
   assert.deepEqual(second.error.attempts.map((attempt) => attempt.outcome), ["resting", "resting", "overloaded", "overloaded"]);
   // The provider comes back inside the cool-down: the next question is answered, not refused untried.
   healthy = true;
+  clock += 11_000;
   before = server.calls.length;
   const third = await run(server, { config, breaker });
   assert.equal(third.result.text, "Back again.");
@@ -274,7 +282,7 @@ test("a resting model is the last resort after the fit ones, not the first", asy
   const breaker = createBreaker({ failures: 1, coolDownMs: 60_000 });
   const script = { primary: { status: 500 }, second: { text: "from the second" } };
   const server = await provider(({ model }) => script[model]);
-  const config = testConfig(server.url, { models: "custom:primary,custom:second", env: { WAZA_RETRIES_PER_MODEL: "0" } });
+  const config = testConfig(server.url, { models: "custom:primary,custom:second", env: { WAZA_RETRIES_PER_MODEL: "0", WAZA_LAST_RESORT_GAP_MS: "0" } });
   await run(server, { config, breaker }); // rests the primary; the second answers
   script.primary = { text: "from the primary" };
   script.second = { status: 500 };

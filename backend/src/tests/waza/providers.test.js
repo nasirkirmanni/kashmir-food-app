@@ -168,6 +168,42 @@ test("the provider's own figure for a rate limit is respected: short waits are w
   assert.equal(long.calls.at(-2).model, "primary", "and tried again once they have passed");
 });
 
+test("when the model that answers is paused by its provider, the visitor is told to come back, and when", async () => {
+  let clock = 2_000_000;
+  // The first choice is rate-limited for 40 seconds; the fallback is the kind that never starts.
+  const server = await openai(({ model }) => (model === "primary" ? { status: 429, retryAfter: 40 } : { hang: true }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,custom:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const first = await run(config, { pool, now: () => clock });
+  assert.equal(first.error.kind, "rate_limit", "the pause is the reason, not the fallback's timeout");
+  assert.equal(first.error.retryable, true);
+  assert.ok(first.error.retryAfterMs > 39_000 && first.error.retryAfterMs <= 40_000, `come back in ${first.error.retryAfterMs} ms`);
+  // While it is paused the provider is left alone.
+  const before = server.calls.filter((call) => call.model === "primary").length;
+  clock += 5_000;
+  await run(config, { pool, now: () => clock });
+  assert.equal(server.calls.filter((call) => call.model === "primary").length, before);
+});
+
+test("a pause of a few seconds is waited out when no other model can answer", async () => {
+  const waits = [];
+  let clock = 3_000_000;
+  let limited = true;
+  const server = await openai(({ model }) => (model === "primary" ? (limited ? { status: 429, retryAfter: 6 } : { text: "After the pause, the same model." }) : { status: 401 }));
+  const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,other:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEY: "k", WAZA_TOTAL_TIMEOUT_MS: "30000" });
+  const pool = createCredentialPool(config.credentials, config.keys, () => clock);
+  const wait = async (ms) => {
+    waits.push(ms);
+    clock += ms;
+    limited = false;
+  };
+  const { result, error } = await run(config, { pool, now: () => clock, wait });
+  assert.equal(error, undefined);
+  assert.equal(result.text, "After the pause, the same model.");
+  assert.ok(waits.some((ms) => ms >= 6_000 && ms <= 6_100), `waited ${waits} ms: what the provider asked for`);
+  assert.ok(result.attempts.some((attempt) => attempt.outcome === "waited_for_limit"));
+});
+
 test("a provider's outage is not blamed on the key", async () => {
   const server = await openai(({ model }) => (model === "primary" ? { status: 500, message: "internal" } : { text: "Second model." }));
   const config = loadConfig({ ...FAST, WAZA_MODELS: "custom:primary,custom:second", WAZA_CUSTOM_BASE_URL: server.url, WAZA_CUSTOM_API_KEYS: "one=k1,two=k2" });

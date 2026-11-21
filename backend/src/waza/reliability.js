@@ -59,9 +59,15 @@ export function createBreaker({ failures, coolDownMs, maxCoolDownMs = 15 * 60_00
     success(id) {
       state.delete(id);
     },
+    /** True when the model failed within the last `withinMs`: too soon to be worth another visitor's wait. */
+    failedSince(id, withinMs) {
+      const entry = state.get(id);
+      return Boolean(entry && now() - entry.failedAt < withinMs);
+    },
     failure(id) {
-      const entry = state.get(id) || { fails: 0, openedAt: 0, trips: 0 };
+      const entry = state.get(id) || { fails: 0, openedAt: 0, trips: 0, failedAt: 0 };
       entry.fails += 1;
+      entry.failedAt = now();
       if (entry.fails >= failures) {
         // The first time it is rested, and each time it fails the test after a rest, the rest grows.
         if (entry.fails === failures || rested(entry)) entry.trips += 1;
@@ -242,15 +248,38 @@ export async function runWithFailover({ candidates, config, pool = createCredent
     if (answer) return answer;
   }
   // Nothing fit to try has answered, or nothing was fit. A resting model may be back by now, so each
-  // gets one try, time allowing: a visitor is not turned away while there is a model left unasked.
+  // gets one short try, time allowing: a visitor is not turned away while there is a model left
+  // unasked. One that failed in the last few seconds is not asked again so soon; that would only
+  // make this visitor wait for the answer the last one got.
   // (A key the provider has rested or rejected is not asked again early: that is the provider's
   // instruction, not our guess.)
   for (const candidate of resting) {
-    const answer = await tryModel(candidate, 0);
+    if (breaker.failedSince?.(candidate.id, config.breaker.lastResortGapMs ?? 10_000)) continue;
+    const answer = await tryModel(candidate, 0, true);
+    if (answer) return answer;
+  }
+
+  // Still nothing. If a model was passed over only because its provider asked for a pause, say so,
+  // and if that pause ends within a few seconds, wait for it: a short wait beats an error.
+  const paused = () =>
+    candidates
+      .map((candidate) => ({ candidate, ...pool.eligible(candidate.provider, candidate.model) }))
+      .filter((entry) => !entry.ready.length)
+      .flatMap((entry) => entry.blocked.filter((block) => block.reason === "rate_limit" || block.reason === "quota").map((block) => ({ ...block, candidate: entry.candidate })))
+      .sort((a, b) => a.until - b.until);
+  const soon = paused().find((block) => block.reason === "rate_limit");
+  const patience = config.retry.waitForLimitMs ?? 8_000;
+  if (soon && soon.until - now() <= patience && soon.until + margin < deadline) {
+    await wait(Math.max(0, soon.until - now()) + 50, signal);
+    attempts.push({ candidate: soon.candidate.id, outcome: "waited_for_limit" });
+    const answer = await tryModel(soon.candidate, 0);
     if (answer) return answer;
   }
 
   let error = last;
+  // A pause the provider asked for is the honest reason, whatever a lesser fallback then did.
+  const pause = paused()[0];
+  if (pause) error = new ProviderError(pause.reason, `Every model that could answer is paused by its provider (${pause.reason})`, { retryAfterMs: Math.max(0, pause.until - now()), retryable: pause.reason === "rate_limit" });
   if (!error && unavailable.length) {
     // Every model was passed over because no key could be used. Say which kind of trouble it is,
     // and when the first of them is due back.
@@ -260,6 +289,8 @@ export async function runWithFailover({ candidates, config, pool = createCredent
     const kind = worst.reason === "invalid" ? "auth" : worst.reason === "denied" ? "permission" : worst.reason;
     error = new ProviderError(kind, `No key can be used right now (${worst.reason})`, { retryAfterMs: Math.max(0, soonest - now()), retryable: false });
   }
+  // Every model is resting and failed too recently to be asked again: the outage goes on.
+  if (!error && resting.length) error = new ProviderError("overloaded", "Every model is resting after recent failures", { retryable: true });
   error = error || new ProviderError("not_configured", "No model is configured", { retryable: false });
   throw Object.assign(error, { attempts, exhausted: true });
 }
