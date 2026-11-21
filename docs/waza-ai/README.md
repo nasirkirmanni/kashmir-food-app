@@ -135,9 +135,17 @@ provider's own list.
 
 The second entry is a second light Gemini model on the same key. Google meters each model
 separately, so when the first is paused by its per-minute limit, or has used its allowance for the
-day, the second still has its own and answers in the same request. Gemini 3.1 Flash-Lite and Gemini
-3.6 Flash had not been run on the live site when they were added: the first days' log lines (`said`
-on a failed attempt, `route` on an answer) show whether each answers and how well.
+day, the second still has its own and answers in the same request. On the live site the same
+evening, three questions asked while Gemini 3.5 Flash-Lite was paused were answered by Gemini 3.1
+Flash-Lite, each a sound answer from the sources; one began in about a second and two in six to
+seven. That is three answers, not a measure of the model. Gemini 3.6 Flash has not yet had to answer
+there: the log lines (`said` on a failed attempt, `route` on an answer) will show when it does.
+
+Google's refusal on that key reads "GenerateRequestsPerMinutePerProjectPerModel-FreeTier, limit 15":
+the key is on the free tier, with 15 requests a minute for each model. In practice the limit was
+enforced loosely: 28 questions one after another in 46 seconds drew one refusal, which an immediate
+second ask got past; asked three at a time, the first refusal came at the twentieth question, ten
+seconds in.
 
 ### Free allowances
 
@@ -210,7 +218,8 @@ November 2026:
 | `WAZA_CACHE`, `WAZA_CACHE_TTL_MIN`, `WAZA_CACHE_MAX` | on, 360, 400 | The answer cache. |
 | `WAZA_MAX_CONCURRENT` | 24 | Answers in progress at once. |
 | `WAZA_PRICES` | | Extra or corrected list prices: `provider:model=in/out` per million tokens. |
-| `RATE_LIMIT_AI_CHAT_*` | 30 / 60 / 120 / 1000 an hour | Questions per visitor (guest, signed in, premium, admin). |
+| `RATE_LIMIT_AI_CHAT_*` | 30 / 60 / 120 / 1000 an hour | Questions per visitor: `MAX_GUEST` (counted by browser), `MAX_FREE` (signed in), `MAX_PREMIUM`, `MAX_ADMIN` (counted by account). |
+| `RATE_LIMIT_AI_CHAT_MAX_SHARED` | 120 an hour | All guests arriving from one address, together. See "The site's own limit on questions" below. |
 
 Keys are read from the environment and nowhere else. They are not stored in MongoDB, not sent to the
 browser, and not written to logs: a key appears in logs and diagnostics as an id such as
@@ -258,6 +267,30 @@ the live site was refused twice that way and the model answered again 15 and 58 
 When nothing can answer, the visitor sees one of a small set of messages (`FAILURES` in
 `service.js`), each with a code the page uses to decide whether to offer Try again. Greetings and
 written recipes keep working throughout, because they use no model.
+
+### The site's own limit on questions
+
+Before a question reaches Waza the API counts it (`backend/src/middleware/rateLimiter.js`). A
+signed-in visitor is counted by their account. A guest is counted by their browser: by a digest of
+the cookie the site gives every visitor before a first question. They are not counted by the address
+the request arrives from, because behind the site's proxy every visitor arrives from the same few
+addresses. Until 21 November 2026 guests were counted by that address, and on the live site that
+day one visitor's 60-odd questions in seven minutes used up the hourly allowance of everyone
+arriving the same way: one of the addresses in rotation was refusing every guest for the next fifty
+minutes, while another still had 21 of its 30 left.
+
+| Who is refused | When | What they are told |
+|---|---|---|
+| One guest | 30 questions in an hour from one browser | "You've asked Waza AI a lot of questions in a short time. Please wait a little before asking more." |
+| Every guest arriving from one address | 120 questions in an hour between them | "Waza AI is answering a lot of questions right now. Please try again in a little while." |
+
+Anyone can ask the site for a new cookie, so the first limit holds a visitor to a fair share and
+does not stop a script. The second is what stops a script, and it is why the count by address was
+kept. A question refused under a visitor's own allowance does not count towards it. Neither limit
+knows about the providers' limits: those are handled as the table above describes.
+
+The counts are in the server's memory (in Redis if `REDIS_URL` is set), so they start again when
+the server does.
 
 ## 5. Conversations
 
@@ -327,7 +360,8 @@ No test calls a real provider or a real database.
 
 ```bash
 cd backend
-npm run test:waza        # 125 tests: failover, keys, quota domains, conversations, recovery, budget
+npm run test:waza        # 129 tests: failover, keys, quota domains, conversations, recovery, budget,
+                         # the limit on questions
                          # (one more, against a real MongoDB, is skipped unless MONGODB_URI_TEST is set)
 npm run eval:waza        # how 245 questions are read and what is fetched for them (no model)
 npm run check:waza       # which models and keys the environment gives, and whether keys are accepted
@@ -391,6 +425,9 @@ Nothing here needs a new service, queue or database. MongoDB gains two collectio
   is overloaded or never starts, one silent request from a healthy model. Provider failures not yet
   met live are still only simulated. `check-providers.mjs --live`, `run-online.mjs` and the
   integration test above test the rest against real services.
+- Only the limit on questions tells guests apart by browser. The API's other limits (its general
+  limit, and the one on sign-in attempts) still count by the address a request arrives from, which
+  behind the site's proxy is shared by every visitor.
 - State that makes it fast (which keys are resting, the breaker, the cache, answers in progress) is
   in one process's memory. That is right for one server. With several, each would learn separately
   and a browser could reconnect to a server that does not hold its answer; shared state would be

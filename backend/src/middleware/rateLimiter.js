@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 
 // An IPv6 visitor holds a whole block of addresses; counting by single address would let them step
@@ -34,7 +35,7 @@ const createLimiter = (options) => {
   return rateLimit({
     windowMs: options.windowMs,
     max: options.max,
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    standardHeaders: options.headers ?? true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false,
     store,
     keyGenerator: options.keyGenerator || ipKey,
@@ -106,13 +107,30 @@ export const registrationLimiter = createLimiter({
 // AI chat limiter, by role. Each tier's limiter is made once: a limiter made inside the request
 // handler starts a fresh count every time, which on the in-memory store means no limit at all.
 // Per hour by default; every figure can be set from the environment.
+//
+// A signed-in visitor is counted by their account. A guest is counted by the browser they ask from,
+// not by the address the request arrives from: behind the site's proxy every visitor arrives from
+// the same few addresses, so an address tells no one apart. (Measured on the live site, 21 November
+// 2026: one visitor's 60-odd questions used up the hourly allowance those addresses held for
+// everyone.) A browser is told apart by the cookie the site hands every visitor before a first
+// question (server.js, "x-csrf-token"); a request without one is counted by its address, as before.
+//
+// Anyone can ask for a new cookie, so the count by address stays, as a ceiling for all guests
+// together: higher than one visitor's allowance, and reached only by many visitors at once or by
+// a script. A question refused under the visitor's own allowance does not count towards it.
 const AI_CHAT_WINDOW_MS = parseInt(process.env.RATE_LIMIT_AI_CHAT_WINDOW_MIN || 60) * 60 * 1000;
+const BROWSER_COOKIE = 'x-csrf-token';
+const browserKey = (req) => {
+  const cookie = req.cookies?.[BROWSER_COOKIE];
+  // The cookie itself is never the key: a key ends up in the store, and in Redis when there is one.
+  return typeof cookie === 'string' && cookie.length >= 16 ? `b:${createHash('sha256').update(cookie).digest('hex').slice(0, 32)}` : ipKey(req);
+};
 const aiChatTier = (name, max) =>
   createLimiter({
     name: `ai_chat_${name}`,
     windowMs: AI_CHAT_WINDOW_MS,
     max,
-    keyGenerator: (req) => `ai:${name}:${req.user?._id?.toString() || ipKey(req)}`,
+    keyGenerator: (req) => `ai:${name}:${req.user?._id?.toString() || browserKey(req)}`,
     message: "You've asked Waza AI a lot of questions in a short time. Please wait a little before asking more."
   });
 const AI_CHAT_LIMITERS = {
@@ -121,11 +139,22 @@ const AI_CHAT_LIMITERS = {
   free: aiChatTier('free', parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_FREE || 60)),
   guest: aiChatTier('guest', parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_GUEST || 30))
 };
+// All guests arriving from one address, together. Its headers are left off: the figures a visitor
+// is shown are those of their own allowance.
+const AI_CHAT_ALL_GUESTS = createLimiter({
+  name: 'ai_chat_all_guests',
+  windowMs: AI_CHAT_WINDOW_MS,
+  max: parseInt(process.env.RATE_LIMIT_AI_CHAT_MAX_SHARED || 120),
+  keyGenerator: (req) => `ai:all-guests:${ipKey(req)}`,
+  headers: false,
+  message: "Waza AI is answering a lot of questions right now. Please try again in a little while."
+});
 
 export const aiChatLimiter = (req, res, next) => {
   const role = req.user?.role;
   const tier = req.user?.isAdmin ? 'admin' : role === 'premium' ? 'premium' : role === 'agent' || role === 'user' ? 'free' : 'guest';
-  return AI_CHAT_LIMITERS[tier](req, res, next);
+  if (tier !== 'guest') return AI_CHAT_LIMITERS[tier](req, res, next);
+  return AI_CHAT_LIMITERS.guest(req, res, (error) => (error ? next(error) : AI_CHAT_ALL_GUESTS(req, res, next)));
 };
 
 // 5. Auth Limiter (Triple-Counter Exponential Backoff)

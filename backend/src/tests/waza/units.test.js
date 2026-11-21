@@ -260,3 +260,68 @@ test("the AI rate limit counts across requests", async () => {
   for (let i = 0; i < 5; i++) results.push((await hit()).status);
   assert.deepEqual(results, [200, 200, 200, 429, 429]);
 });
+
+// What the limiter is given by Express for one question: the address the request arrived from (behind
+// the site's proxy, the proxy's), the cookies, and the account when the visitor is signed in.
+const ask = (limiter, { ip = "203.0.113.9", browser, user } = {}) =>
+  new Promise((resolve) => {
+    const res = { headers: {}, statusCode: 200, setHeader(name, value) { this.headers[name] = value; }, getHeader(name) { return this.headers[name]; }, status(code) { this.statusCode = code; return this; }, json(body) { resolve({ status: this.statusCode, body, headers: this.headers }); }, send(body) { resolve({ status: this.statusCode, body, headers: this.headers }); } };
+    limiter({ ip, headers: {}, cookies: browser ? { "x-csrf-token": browser } : {}, user, originalUrl: "/api/chat", body: {}, app: { get: () => false } }, res, () => resolve({ status: 200, headers: res.headers }));
+  });
+const browserCookie = (name) => `${name}-`.padEnd(64, "0");
+
+test("a guest is counted by their own browser, not by the address everyone arrives from", async () => {
+  process.env.RATE_LIMIT_AI_CHAT_MAX_GUEST = "3";
+  process.env.RATE_LIMIT_AI_CHAT_MAX_SHARED = "100";
+  const { aiChatLimiter } = await import(`../../middleware/rateLimiter.js?limit=browser${Date.now()}`);
+  const first = [];
+  for (let i = 0; i < 4; i++) first.push(await ask(aiChatLimiter, { browser: browserCookie("first") }));
+  assert.deepEqual(first.map((result) => result.status), [200, 200, 200, 429]);
+  assert.match(first[3].body.message, /You've asked Waza AI a lot of questions/);
+  // A second visitor arrives from the same address, as every visitor does behind the site's proxy.
+  const second = [];
+  for (let i = 0; i < 3; i++) second.push(await ask(aiChatLimiter, { browser: browserCookie("second") }));
+  assert.deepEqual(second.map((result) => result.status), [200, 200, 200], "one visitor's questions must not use up another's allowance");
+  // What a visitor is shown is their own allowance, not the figure for everyone.
+  assert.equal(String(second[0].headers["RateLimit-Limit"]), "3");
+  assert.equal(String(second[0].headers["RateLimit-Remaining"]), "2");
+  // The key kept in the store is a digest: the cookie itself is the visitor's session token.
+  assert.equal((await ask(aiChatLimiter, { browser: browserCookie("first") })).status, 429, "the same browser is still recognised");
+});
+
+test("all guests together have a ceiling, which a refused question does not count towards", async () => {
+  process.env.RATE_LIMIT_AI_CHAT_MAX_GUEST = "3";
+  process.env.RATE_LIMIT_AI_CHAT_MAX_SHARED = "5";
+  const { aiChatLimiter } = await import(`../../middleware/rateLimiter.js?limit=ceiling${Date.now()}`);
+  const statuses = async (who, times) => {
+    const out = [];
+    for (let i = 0; i < times; i++) out.push(await ask(aiChatLimiter, who));
+    return out;
+  };
+  // The first visitor asks six times: three are answered, three refused under their own allowance.
+  assert.deepEqual((await statuses({ browser: browserCookie("one") }, 6)).map((result) => result.status), [200, 200, 200, 429, 429, 429]);
+  // Three of the five for everyone are used, not six: the second visitor still gets two answers,
+  // and is then told that Waza is busy, not that they have asked too much.
+  const second = await statuses({ browser: browserCookie("two") }, 3);
+  assert.deepEqual(second.map((result) => result.status), [200, 200, 429]);
+  assert.match(second[2].body.message, /answering a lot of questions right now/);
+  assert.doesNotMatch(second[2].body.message, /You've asked/);
+  assert.equal((await ask(aiChatLimiter, { browser: browserCookie("three") })).status, 429, "a new cookie is no way round the ceiling");
+  // Guests arriving from another address have their own ceiling ...
+  assert.equal((await ask(aiChatLimiter, { ip: "198.51.100.7", browser: browserCookie("four") })).status, 200);
+  // ... and a signed-in visitor is counted by their account alone.
+  const member = { _id: "64f000000000000000000001", role: "user" };
+  assert.deepEqual((await statuses({ user: member, browser: browserCookie("two") }, 2)).map((result) => result.status), [200, 200]);
+});
+
+test("a request without the site's cookie is counted by its address, as before", async () => {
+  process.env.RATE_LIMIT_AI_CHAT_MAX_GUEST = "2";
+  process.env.RATE_LIMIT_AI_CHAT_MAX_SHARED = "100";
+  const { aiChatLimiter } = await import(`../../middleware/rateLimiter.js?limit=address${Date.now()}`);
+  const results = [];
+  for (let i = 0; i < 3; i++) results.push((await ask(aiChatLimiter, {})).status);
+  assert.deepEqual(results, [200, 200, 429]);
+  assert.equal((await ask(aiChatLimiter, { ip: "198.51.100.7" })).status, 200);
+  // Too short to be the site's cookie: not trusted to tell a browser apart.
+  assert.equal((await ask(aiChatLimiter, { browser: "x" })).status, 429);
+});
