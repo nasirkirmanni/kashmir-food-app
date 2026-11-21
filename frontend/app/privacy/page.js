@@ -8,12 +8,12 @@ export default function PrivacyPage() {
     {
       title: "1. Information We Collect",
       icon: <Eye className="w-5 h-5 text-[var(--saffron)]" />,
-      content: "We collect information you provide directly to us when creating an account, saving favorites, posting reviews, or submitting a restaurant listing. This may include your name, email address, telephone number, restaurant details, and photos you upload."
+      content: "We collect information you provide directly to us when you contact us or send us a restaurant listing. This may include your name, email address, telephone number, restaurant details, and photos you send."
     },
     {
       title: "2. How We Use Your Information",
       icon: <Shield className="w-5 h-5 text-[var(--saffron)]" />,
-      content: "We use the collected information to personalize your culinary journey, display authentic local reviews, sync your saved dishes across devices, verify restaurant listings, and communicate important platform updates or features like Waza AI."
+      content: "We use the collected information to reply to you, and to verify and publish restaurant listings."
     },
     {
       title: "3. Location Services & Map Integrations",
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
         >
           <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">Legal Documents</span>
           <h1 className="font-display text-4xl md:text-5xl text-white mb-4">Privacy Policy</h1>
-          <p className="text-white/60 text-xs md:text-sm uppercase tracking-wider">Last Updated: June 18, 2026</p>
+          <p className="text-white/60 text-xs md:text-sm uppercase tracking-wider">Last Updated: November 22, 2026</p>
         </motion.div>
 
         {/* Content Box */}
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
 
           <div className="mt-12 pt-8 border-t border-white/10 text-center">
             <p className="text-white/40 text-xs leading-relaxed">
-              If you wish to request deletion of your account and associated favorite history, please reach out to us at <a href="mailto:privacy@wazwanway.com" className="text-[var(--saffron)] hover:underline">privacy@wazwanway.com</a>.
+              Wazwan Way no longer has user accounts. If you created one in the past and want its details deleted, or want anything else you have sent us deleted, please reach out to us at <a href="mailto:privacy@wazwanway.com" className="text-[var(--saffron)] hover:underline">privacy@wazwanway.com</a>.
             </p>
           </div>
         </motion.div>

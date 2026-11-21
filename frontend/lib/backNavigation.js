@@ -17,7 +17,6 @@ const SECTION_PARENTS = {
   destinations: "/destinations",
   itineraries: "/itineraries",
   "scenic-drives": "/scenic-drives",
-  "my-itineraries": "/profile",
   trails: "/explore",
   collections: "/explore",
 };

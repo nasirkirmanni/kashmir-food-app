@@ -34,7 +34,6 @@ export default function ExploreFooter() {
           <a href="/about" className="transition-colors duration-300 hover:text-[#C8A46A]">About</a>
           <a href="/contact" className="transition-colors duration-300 hover:text-[#C8A46A]">Contact</a>
           <a href="/privacy" className="transition-colors duration-300 hover:text-[#C8A46A]">Privacy Policy</a>
-          <a href="/login" className="transition-colors duration-300 hover:text-[#C8A46A]">Login</a>
         </div>
         <div className="border-t border-[#F5F5F0]/10 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-[0.7rem] uppercase tracking-widest text-[#F5F5F0]/70">
           <p>© 2026 Wazwan Way. All rights reserved.</p>

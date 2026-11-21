@@ -49,8 +49,7 @@ export default function TermsAndConditionsPage() {
                 As a user of Wazwan Way, you agree to:
               </p>
               <ul className="list-disc pl-5 space-y-2 text-white/70 text-sm marker:text-[var(--saffron)]">
-                <li>Provide accurate, current, and complete information during the registration process.</li>
-                <li>Maintain the security of your password and accept all risks of unauthorized access.</li>
+                <li>Provide accurate, current, and complete information in anything you send us, such as a restaurant listing.</li>
                 <li>Not use the platform for any illegal or unauthorized purpose.</li>
                 <li>Respect the cultural heritage and traditional practices represented on our platform.</li>
               </ul>

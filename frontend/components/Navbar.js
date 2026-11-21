@@ -2,47 +2,45 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import HamburgerMenu from "./HamburgerMenu";
 import { TopBarBackButton } from "./BackButton";
-import { User } from "lucide-react";
 import { SITE_SECTIONS } from "@/lib/siteSections";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
-/* Each section link appears only from the window width where the whole bar
-   still fits (measured logged out, the full row with Blog needs about 1,640px).
-   Waza AI, Login, Sign up and the Menu button are never hidden, and the Menu
-   drawer lists every section. */
+/* Each section link appears only from the window width where the whole bar still fits. Measured
+   in Chrome after Login and Sign up left the bar (research/accounts-removal/check.mjs,
+   --measure-bar): the narrowest window in which each group of links clears the logo and the
+   actions by 32px, plus 40px to spare for a font that renders wider. On the home page the groups
+   fit from 840, 1,120, 1,240 and 1,460px. Waza AI and the Menu button are never hidden, and the
+   Menu drawer lists every section. */
 const SHOW_FROM = {
-  "/how-to-experience": "hidden min-[1720px]:inline-flex",
-  "/kashmiri-food": "hidden lg:inline-flex",
+  "/how-to-experience": "hidden min-[1500px]:inline-flex",
+  "/kashmiri-food": "hidden min-[880px]:inline-flex",
   "/dishes": "inline-flex",
-  "/restaurants": "hidden lg:inline-flex",
-  [STILL_KASHMIR_HREF]: "hidden min-[1400px]:inline-flex",
-  "/itineraries": "hidden xl:inline-flex",
-  "/explore": "hidden xl:inline-flex",
-  "/blog": "hidden lg:inline-flex",
+  "/restaurants": "hidden min-[880px]:inline-flex",
+  [STILL_KASHMIR_HREF]: "hidden min-[1280px]:inline-flex",
+  "/itineraries": "hidden min-[1160px]:inline-flex",
+  "/explore": "hidden min-[1160px]:inline-flex",
+  "/blog": "hidden min-[880px]:inline-flex",
 };
 
 /* Every page but home starts the bar with Back (56px), so there each link waits for a little
-   more width: measured the same way, with Back, on /dishes. */
+   more width: measured the same way, with Back, on /dishes (900, 1,180, 1,300 and 1,560px). */
 const SHOW_FROM_WITH_BACK = {
   ...SHOW_FROM,
-  "/kashmiri-food": "hidden min-[1080px]:inline-flex",
-  "/restaurants": "hidden min-[1080px]:inline-flex",
-  [STILL_KASHMIR_HREF]: "hidden min-[1440px]:inline-flex",
-  "/itineraries": "hidden min-[1320px]:inline-flex",
-  "/explore": "hidden min-[1320px]:inline-flex",
-  "/blog": "hidden min-[1080px]:inline-flex",
+  "/how-to-experience": "hidden min-[1600px]:inline-flex",
+  "/kashmiri-food": "hidden min-[940px]:inline-flex",
+  "/restaurants": "hidden min-[940px]:inline-flex",
+  [STILL_KASHMIR_HREF]: "hidden min-[1340px]:inline-flex",
+  "/itineraries": "hidden min-[1220px]:inline-flex",
+  "/explore": "hidden min-[1220px]:inline-flex",
+  "/blog": "hidden min-[940px]:inline-flex",
 };
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isSignupPage = pathname === "/signup";
-  const isLoginPage = pathname === "/login";
-  const { user, logout } = useAuth();
   const navRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState(null);
@@ -134,7 +132,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right actions — Waza AI, Login and Sign up (or the account), Menu. Always visible. */}
+        {/* Right actions — Waza AI and the Menu. Always visible. */}
         <div className="flex items-center gap-4 lg:gap-6 shrink-0 ml-6">
           <button
             onClick={() => window.dispatchEvent(new Event('open-waza-ai-intro'))}
@@ -143,55 +141,6 @@ export default function Navbar() {
             WAZA AI
           </button>
 
-          {user ? (
-            <div className="flex items-center gap-4 lg:gap-6 text-[0.65rem] font-bold uppercase tracking-widest text-white">
-              <Link href="/profile" className="flex items-center gap-2 group transition-colors hover:text-[#C8A46A] whitespace-nowrap">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:border-[#C8A46A] transition-colors overflow-hidden shrink-0">
-                  <svg className="w-4 h-4 text-white/70 group-hover:text-[#C8A46A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                {/* The name needs the widest screens; Log Out is also in the Menu drawer. */}
-                <span className="hidden min-[1920px]:inline max-w-[8rem] truncate text-[0.65rem] font-bold uppercase tracking-widest">{user.name}</span>
-              </Link>
-              {user.role === "admin" && (
-                <Link href="/admin" className="text-[#C8A46A] hover:text-white transition-colors whitespace-nowrap">
-                  Dashboard
-                </Link>
-              )}
-              <button onClick={logout} className="hidden 2xl:inline text-white/60 hover:text-white transition-colors whitespace-nowrap">
-                Log Out
-              </button>
-            </div>
-          ) : (
-            <>
-              {isSignupPage ? (
-                <>
-                  <Link
-                    href="/login"
-                    className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
-                  >
-                    Sign In
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className={`text-[0.65rem] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${isLoginPage ? 'text-[#C8A46A]' : 'text-white hover:text-[#C8A46A]'}`}
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="rounded-full bg-[#C8A46A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform hover:scale-105 whitespace-nowrap"
-                  >
-                    Sign up
-                  </Link>
-                </>
-              )}
-            </>
-          )}
           <HamburgerMenu />
         </div>
       </div>

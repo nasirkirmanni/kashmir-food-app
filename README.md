@@ -7,7 +7,7 @@ Kashmir Food Finder is a tourism-focused full-stack web application that helps t
 - Frontend: Next.js 14, React, Tailwind CSS
 - Backend: Node.js, Express
 - Database: MongoDB with Mongoose
-- Auth: JWT-based email/password authentication
+- No visitor accounts: sign-up, sign-in, saved items and members' reviews were removed in November 2026
 
 ## Project Structure
 
@@ -100,64 +100,36 @@ This creates:
 
 - Sample Kashmiri dishes like Rogan Josh, Gushtaba, Rista, and Tabak Maaz
 - Restaurants linked to dishes
-- Sample reviews
-- An admin account
-
-### Seeded Admin Login
-
-- Email: `admin@kashmirfoodfinder.com`
-- Password: `Admin123!`
 
 ## Features
 
 - Kashmir-themed homepage with search and curated categories
 - Dish listing and detail pages with history and tourist tips
 - Restaurant discovery with filters and Google Maps integration
-- Favorites, reviews, and ratings for signed-in users
-- Admin dashboard for managing dishes and restaurants
 - Tourist trap warning and authenticity badges
 - Top 5 must-try dishes section
 
 ## API Overview
-
-### Auth
-
-- `POST /api/auth/signup`
-- `POST /api/auth/login`
-- `GET /api/auth/me`
 
 ### Dishes
 
 - `GET /api/dishes`
 - `GET /api/dishes/top`
 - `GET /api/dishes/:id`
-- `POST /api/dishes` (admin)
-- `PUT /api/dishes/:id` (admin)
-- `DELETE /api/dishes/:id` (admin)
 
 ### Restaurants
 
 - `GET /api/restaurants`
 - `GET /api/restaurants/:id`
-- `POST /api/restaurants` (admin)
-- `PUT /api/restaurants/:id` (admin)
-- `DELETE /api/restaurants/:id` (admin)
 
-### Reviews
+### Removed
 
-- `GET /api/reviews/restaurant/:restaurantId`
-- `POST /api/reviews`
-- `PUT /api/reviews/:id`
-- `DELETE /api/reviews/:id`
-
-### Users
-
-- `GET /api/users/favorites`
-- `POST /api/users/favorites`
-- `DELETE /api/users/favorites`
+Everything under `/api/auth` (except `GET /api/auth/csrf-token`), `/api/users`, `/api/reviews`,
+`/api/restaurant-leads`, `/api/travel-agencies` and `/api/upload` answers `410 Gone`
+(`backend/src/middleware/removedFeatures.js`). A restaurant is listed by e-mail:
+`/list-restaurant` says what to send to hello@wazwanway.com.
 
 ## Notes
 
 - Google Maps embed will work when `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` is provided.
 - Without a maps API key, the app falls back to a direct Google Maps search link.
-- Authentication is implemented with JWT so Firebase remains optional.

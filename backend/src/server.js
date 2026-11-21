@@ -6,17 +6,11 @@ import { doubleCsrf } from "csrf-csrf";
 import mongoSanitize from "express-mongo-sanitize";
 import { connectDB } from "./config/db.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
-import authRoutes from "./routes/authRoutes.js";
 import dishRoutes from "./routes/dishRoutes.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
 import destinationRoutes from "./routes/destinationRoutes.js";
-import reviewRoutes from "./routes/reviewRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
 import chatRoutes, { drainWaza } from "./routes/chatRoutes.js";
-import restaurantLeadRoutes from "./routes/restaurantLeadRoutes.js";
-import travelAgencyRoutes from "./routes/travelAgencyRoutes.js";
-import uploadRoutes from "./routes/uploadRoutes.js";
 import explorerRoutes from "./routes/explorerRoutes.js";
 import exploreRoutes from "./routes/exploreRoutes.js";
 import collectionRoutes from "./routes/collectionRoutes.js";
@@ -25,6 +19,7 @@ import trekRoutes from "./routes/trekRoutes.js";
 import campRoutes from "./routes/campRoutes.js";
 import itineraryRoutes from "./routes/itineraryRoutes.js";
 import { optionalAuth } from "./middleware/auth.js";
+import { REMOVED_AREAS, removedFeature } from "./middleware/removedFeatures.js";
 import { globalSafetyLimiter, publicLimiter, authenticatedLimiter } from "./middleware/rateLimiter.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -138,17 +133,15 @@ app.use(
   })
 );
 
-app.use("/api/auth", authRoutes);
+// Accounts, members' reviews, the restaurant-listing form and travel-agency listings were removed
+// in November 2026 (middleware/removedFeatures.js). GET /api/auth/csrf-token, above, still answers.
+app.use(REMOVED_AREAS, removedFeature);
+
 app.use("/api/dishes", dishRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/destinations", destinationRoutes);
-app.use("/api/reviews", reviewRoutes);
-app.use("/api/users", userRoutes);
 app.use("/api/stats", statsRoutes);
 app.use("/api/chat", chatRoutes);
-app.use("/api/restaurant-leads", restaurantLeadRoutes);
-app.use("/api/travel-agencies", travelAgencyRoutes);
-app.use("/api/upload", uploadRoutes);
 app.use("/api/explorer", explorerRoutes);
 app.use("/api/explore", exploreRoutes);
 app.use("/api/collections", collectionRoutes);

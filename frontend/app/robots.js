@@ -4,9 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        // /profile and /favorites are not blocked here: they carry a noindex robots
-        // meta tag, which crawlers can only see if they're allowed to fetch the page.
-        disallow: ["/admin", "/api/"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: "https://wazwanway.com/sitemap.xml",

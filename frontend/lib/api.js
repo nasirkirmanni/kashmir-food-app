@@ -82,20 +82,6 @@ export function invalidateCache(key) {
   }
 }
 
-let isRefreshing = false;
-let failedQueue = [];
-
-const processQueue = (error, token = null) => {
-  failedQueue.forEach((prom) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
-  });
-  failedQueue = [];
-};
-
 export const request = async (path, options = {}) => {
   const cacheable = isCacheable(path, options);
   const cacheKey = getCacheKey(path);
@@ -115,7 +101,7 @@ export const request = async (path, options = {}) => {
     await fetchCsrfToken();
   }
 
-  const promise = _doFetchWithRefresh(path, options, cacheKey, cacheable);
+  const promise = _doFetch(path, options, cacheKey, cacheable);
 
   if (cacheable) {
     _inflight.set(cacheKey, promise);
@@ -144,9 +130,6 @@ export const streamRequest = async (path, options = {}) => {
     // The caller decides what to tell the visitor from the status (429 is not 503).
     err.status = response.status;
     if (data.retryAfter) err.retryAfter = data.retryAfter;
-    if (data.requiresAuth) {
-      err.requiresAuth = true;
-    }
     throw err;
   }
   return response;
@@ -171,51 +154,8 @@ function prepareFetchOptions(options) {
   return {
     ...options,
     headers,
-    credentials: "include", // Important for sending HttpOnly cookies
+    credentials: "include", // sends the CSRF cookie the API pairs with the token above
   };
-}
-
-async function _doFetchWithRefresh(path, options, cacheKey, cacheable) {
-  try {
-    return await _doFetch(path, options, cacheKey, cacheable);
-  } catch (err) {
-    // If we get a 401 Unauthorized, attempt to refresh the token
-    if (err.status === 401 && path !== "/auth/login" && path !== "/auth/refresh") {
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-        }).then(() => _doFetch(path, options, cacheKey, cacheable));
-      }
-
-      isRefreshing = true;
-
-      try {
-        const res = await fetch(buildApiUrl("/auth/refresh"), {
-          method: "POST",
-          credentials: "include",
-          headers: csrfToken ? { "x-csrf-token": csrfToken, "Content-Type": "application/json" } : { "Content-Type": "application/json" }
-        });
-
-        if (!res.ok) {
-          throw new Error("Session expired");
-        }
-        
-        // Refresh successful, retry original request
-        processQueue(null);
-        return await _doFetch(path, options, cacheKey, cacheable);
-      } catch (refreshErr) {
-        processQueue(refreshErr);
-        // Dispatch custom event to tell AuthContext to logout
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new Event("session-expired"));
-        }
-        throw refreshErr;
-      } finally {
-        isRefreshing = false;
-      }
-    }
-    throw err;
-  }
 }
 
 async function _doFetch(path, options, cacheKey, cacheable) {
@@ -245,7 +185,7 @@ async function _doFetch(path, options, cacheKey, cacheable) {
 
 function _refreshInBackground(path, options, cacheKey) {
   if (_inflight.has(`bg:${cacheKey}`)) return;
-  const promise = _doFetchWithRefresh(path, options, cacheKey, true).catch(() => {});
+  const promise = _doFetch(path, options, cacheKey, true).catch(() => {});
   _inflight.set(`bg:${cacheKey}`, promise);
   promise.finally(() => _inflight.delete(`bg:${cacheKey}`));
 }
@@ -258,32 +198,13 @@ export const endpoints = {
   restaurant: (id) => `/restaurants/${id}`,
   destinations: (query = "") => `/destinations${query}`,
   destination: (id) => `/destinations/${id}`,
-  login: "/auth/login",
-  signup: "/auth/signup",
-  verify: "/auth/verify",
-  forgotPassword: "/auth/forgot-password",
-  verifyResetOtp: "/auth/verify-reset-otp",
-  resetPassword: "/auth/reset-password",
-  me: "/auth/me",
-  resendOtp: "/auth/resend-otp",
-  favorites: "/users/favorites",
-  savedRoutes: "/users/favorites/routes",
-  reviews: "/reviews",
-  restaurantReviews: (id) => `/reviews/restaurant/${id}`,
   stats: "/stats/overview",
-  profile: "/users/profile",
   chat: "/chat",
   chatCancel: "/chat/cancel",
   chatConversation: (id) => `/chat/conversations/${id}`,
   tripQuery: "/destinations/trip-query",
   generateItinerary: "/itineraries/generate",
-  claimItinerary: "/itineraries/claim",
-  myItineraries: "/itineraries/user/mine",
   itinerary: (idOrSlug) => `/itineraries/${idOrSlug}`,
-  restaurantLeads: (query = "") => `/restaurant-leads${query}`,
-  restaurantLead: (id) => `/restaurant-leads/${id}`,
-  logout: "/auth/logout",
-  logoutAll: "/auth/logout-all",
 };
 
 // ─── Fire and forget CSRF prefetch on app initialization ────────

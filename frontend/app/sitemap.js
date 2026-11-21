@@ -56,8 +56,8 @@ const entry = (urlPath, lastModified) => ({
 });
 
 export default async function sitemap() {
-  // /list-restaurant (a form for restaurant owners) is deliberately left out: Google had never
-  // crawled it in a month of listing, and a sign-up form is not a page to rank.
+  // /list-restaurant (for restaurant owners: what to e-mail for a listing) is deliberately left
+  // out: Google had never crawled it in a month of listing, and it is not a page to rank.
   const staticPages = [
     "",
     "/dishes",

@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ArrowRight, Sparkles, Flame } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
+import { Search, ArrowRight, Sparkles } from "lucide-react";
 import useSceneMode from "@/hooks/useSceneMode";
 import { useMobileNavigation } from "@/context/MobileNavigationContext";
 import HamburgerMenu from "@/components/HamburgerMenu";
@@ -15,7 +14,7 @@ import ImageWithSkeleton from "@/components/ImageWithSkeleton";
  * MOBILE HOME (below md) — "The Film Strip".
  * One continuous strip of full-bleed doors, every block the same anatomy:
  * photograph under a wash, gold index, mono eyebrow, Bodoni title, one line.
- * masthead → Today's Table cover → passport line → doors 01–04 → Ask Waza.
+ * masthead → Today's Table cover → doors 01–04 → Ask Waza.
  * No cards, no chips, no second scroll axis. The desktop chapters stacked
  * vertical — mobile and desktop are the same film.
  * Motion: each door's gold rule draws once as it enters the viewport
@@ -375,7 +374,6 @@ const COVER_IMAGE = "/redesign/img/door-feast.webp";
 const COVER_VIDEO = "/redesign/wazwan-cover.mp4";
 
 export default function HomePageHero({ initialDishes = [], isRoutePage = true }) {
-  const { user } = useAuth();
   const [greeting, setGreeting] = useState("Good evening");
   const [dateLine, setDateLine] = useState("Srinagar");
   const { activeIndex, setActiveIndex, isMobile } = useMobileNavigation();
@@ -515,7 +513,6 @@ export default function HomePageHero({ initialDishes = [], isRoutePage = true })
     return () => io.disconnect();
   }, []);
 
-  const userName = user && user.name ? user.name.split(" ")[0] : null;
 
   // User-curated exclusions — these photos must never enter the rotation.
   // Door 02 rotates cooked-dish photography only — no bakery/bread imagery
@@ -596,10 +593,10 @@ export default function HomePageHero({ initialDishes = [], isRoutePage = true })
                 style={{ fontFamily: "var(--font-bodoni)" }}
                 className="mt-2 block truncate text-[17px] italic leading-snug text-[#F4ECDF]"
               >
-                {greeting}{userName ? `, ${userName}` : ""}.
+                {greeting}.
               </span>
             </div>
-            {/* Two controls only — profile lives in the floating nav pill */}
+            {/* Two controls only */}
             <div className="flex shrink-0 items-center gap-2.5 pl-4">
               <button
                 onClick={() => window.dispatchEvent(new Event("open-search"))}
@@ -670,28 +667,6 @@ export default function HomePageHero({ initialDishes = [], isRoutePage = true })
             </span>
           </div>
         </Link>
-
-        {/* Passport line — signed-in only, one slim ledger row */}
-        {user && (user.dailyStreak > 0 || user.totalXP > 0) && (
-          <Link
-            href="/profile"
-            prefetch={false}
-            onClick={(e) => handleNavClick(e, 4)}
-            className="flex items-center justify-between border-t border-[rgba(200,164,106,0.16)] px-6 py-4"
-          >
-            <span className="flex items-center gap-2">
-              <Flame size={11} className="text-[#C8A46A]" strokeWidth={2} aria-hidden="true" />
-              <span className="ws-eyebrow text-[#8a8a8a]">
-                {user.dailyStreak > 0 ? `Day ${user.dailyStreak}` : ""}
-                {user.dailyStreak > 0 && user.totalXP > 0 ? " · " : ""}
-                {user.totalXP > 0 ? `${user.totalXP} XP` : ""}
-              </span>
-            </span>
-            <span className="ws-eyebrow inline-flex items-center gap-2 text-[#C8A46A]">
-              Passport <ArrowRight size={11} strokeWidth={1.75} aria-hidden="true" />
-            </span>
-          </Link>
-        )}
 
         {/* The doors */}
         <nav className="ws-doors" aria-label="Start here">

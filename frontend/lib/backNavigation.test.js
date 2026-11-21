@@ -33,7 +33,6 @@ describe("where Back goes for a visitor who arrived from another site", () => {
     expect(parentPath("/kashmiri-food/bakery/guide")).toBe("/kashmiri-food/bakery");
     expect(parentPath("/kashmiri-food/bakery")).toBe("/kashmiri-food");
     expect(parentPath("/destinations/gulmarg")).toBe("/destinations");
-    expect(parentPath("/my-itineraries/abc123")).toBe("/profile");
   });
 
   it("goes home from a top-level page, and nowhere from home", () => {
