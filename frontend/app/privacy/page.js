@@ -41,7 +41,7 @@ export default function PrivacyPage() {
         >
           <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">Legal Documents</span>
           <h1 className="font-display text-4xl md:text-5xl text-white mb-4">Privacy Policy</h1>
-          <p className="text-white/60 text-xs md:text-sm uppercase tracking-wider">Last Updated: November 21, 2026</p>
+          <p className="text-white/60 text-xs md:text-sm uppercase tracking-wider">Last Updated: November 22, 2026</p>
         </motion.div>
 
         {/* Content Box */}
