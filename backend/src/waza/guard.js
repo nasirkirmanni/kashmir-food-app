@@ -58,9 +58,11 @@ const CHECKS = [
     checked: true,
     pattern: /\b\d{1,2}(?::\d{2})?\s?(?:am|pm|a\.m\.|p\.m\.)(?![a-z])/gi,
     supported: (value, shown) => {
-      const time = value.replace(/[\s.]/g, "");
-      const flat = shown.replace(/[\s.]/g, "");
-      if (flat.includes(time)) return true;
+      // "7:00 am", "7 am" and "7am" are one time: spaces, dots and a ":00" are dropped on both sides.
+      const plain = (text) => text.replace(/[\s.]/g, "").replace(/:00(?=am|pm|-|to)/g, "");
+      const time = plain(value);
+      const flat = plain(shown);
+      if (new RegExp(`(?<![\\d:])${time}`).test(flat)) return true;
       // "12–10 pm" in a source supports "12 pm": the first hour of a range takes the am or pm written after the second.
       const parts = /^(\d{1,2}(?::\d{2})?)(am|pm)$/.exec(time);
       return Boolean(parts && new RegExp(`(?<!\\d)${parts[1]}(?:-|to)\\d{1,2}(?::\\d{2})?${parts[2]}`).test(flat));

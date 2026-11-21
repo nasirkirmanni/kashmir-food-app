@@ -147,6 +147,11 @@ test("the answer checker passes what the sources say and catches what they do no
   assert.deepEqual(verifyAnswer("It opens at 11 am and closes at 10 pm.", hours).unsupported, [{ type: "time", value: "11 am" }]);
   assert.deepEqual(verifyAnswer("It is open from 12 am.", hours).unsupported, [{ type: "time", value: "12 am" }], "the range says pm, not am");
   assert.deepEqual(verifyAnswer("It opens at 2 pm.", hours).unsupported, [{ type: "time", value: "2 pm" }], "the 2 of 12 is not an hour of its own");
+  // The same time written another way: the source's "7am" supports "7:00 am" and "7 a.m.".
+  const harissa = "The Nawakadal shop PARI visited starts serving at 7am. Lunch from 12:00–3:00 pm.";
+  assert.equal(verifyAnswer("Harissa is served from around 7:00 am.", harissa).ok, true);
+  assert.equal(verifyAnswer("Harissa is served from 7 a.m., lunch from 12 pm to 3:00 pm.", harissa).ok, true);
+  assert.deepEqual(verifyAnswer("It is served from 7:30 am, or 17 am.", harissa).unsupported.map((item) => item.value), ["7:30 am", "17 am"]);
 });
 
 test("a trip plan is read as travel and given places, places to eat and things to eat", () => {
