@@ -98,7 +98,8 @@ export default function PrivacyPage() {
                       <strong className="text-white/80">Analytics, only if you accept.</strong> If you accept, Google Analytics 4
                       counts visits and shows us which pages are read. It records the pages you open, roughly where you are
                       (country and city, worked out from your internet address, which Google Analytics does not store) and the
-                      kind of device and browser you use. It sets the cookies <code>_ga</code> and <code>_ga_…</code>, kept for
+                      kind of device and browser you use, but not what you type or choose on a page: a search or a filter is
+                      left out of the page address we send. It sets the cookies <code>_ga</code> and <code>_ga_…</code>, kept for
                       up to two years. The statistics are held by Google, which provides them to us; Google&rsquo;s advertising
                       features are switched off for this site. If you decline, Google Analytics is not loaded at all.
                     </p>

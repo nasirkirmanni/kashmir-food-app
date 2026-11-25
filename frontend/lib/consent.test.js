@@ -13,6 +13,7 @@ import {
   initialConsent,
   isAnalyticsCookie,
   necessaryStorage,
+  pageLocation,
   readConsent,
   writeConsent,
 } from "./consent";
@@ -191,11 +192,33 @@ describe("the Google tag", () => {
   });
 
   it("keeps Google's advertising features off", () => {
-    for (const setting of ["ad_storage: 'denied'", "ad_user_data: 'denied'", "ad_personalization: 'denied'"]) {
+    for (const setting of ['ad_storage: "denied"', 'ad_user_data: "denied"', 'ad_personalization: "denied"']) {
       expect(analytics).toContain(setting);
     }
     expect(analytics).toContain("allow_google_signals: false");
     expect(analytics).toContain("allow_ad_personalization_signals: false");
+  });
+
+  it("leaves page views to the site, which sends one for each page opened", () => {
+    // Given with set, before the tag loads: the tag ignores the same setting inside config.
+    expect(analytics).toMatch(/gtag\("set", \{\s*send_page_view: false,\s*page_location: pageLocation\(window\.location\.href\),/);
+    expect(analytics).not.toContain('gtag("config"');
+    expect(analytics).toContain('gtag("event", "page_view"');
+    expect(analytics).toContain("usePathname()");
+    expect(analytics).toContain("page_location: address");
+  });
+
+  it("is sent the page's address without anything typed or chosen on it", () => {
+    const sent = (href) => pageLocation(href);
+    expect(sent("https://wazwanway.com/restaurants?q=rista&format=trami&area=Wazpora&sort=name#directory")).toBe("https://wazwanway.com/restaurants");
+    expect(sent("https://wazwanway.com/waza-ai?prompt=where+should+I+eat")).toBe("https://wazwanway.com/waza-ai");
+    expect(sent("https://wazwanway.com/dishes/gushtaba#recipe")).toBe("https://wazwanway.com/dishes/gushtaba");
+    expect(sent("https://wazwanway.com/")).toBe("https://wazwanway.com/");
+    // Where a visit came from is kept; identifiers that advertising networks add to links are not.
+    expect(sent("https://wazwanway.com/blog?utm_source=newsletter&utm_medium=email&utm_campaign=winter&q=x")).toBe(
+      "https://wazwanway.com/blog?utm_source=newsletter&utm_medium=email&utm_campaign=winter"
+    );
+    expect(sent("https://wazwanway.com/?gclid=abc123&fbclid=def456&msclkid=x")).toBe("https://wazwanway.com/");
   });
 
   it("is never in the server-rendered page, and nor is the panel", async () => {

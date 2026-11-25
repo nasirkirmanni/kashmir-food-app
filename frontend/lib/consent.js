@@ -112,6 +112,21 @@ export function initialConsent(storage, nav) {
   return gpcSignal(nav) ? "denied" : null;
 }
 
+// The labels a link from a newsletter or a post carries so we can tell where a visit came from.
+const CAMPAIGN_LABEL = /^utm_(source|medium|campaign|term|content|id)$/;
+
+/**
+ * The address sent to Google Analytics for a page: the page itself, without what the visitor typed or
+ * chose there. The restaurant search, the recipe filters and Waza AI all keep such things after the
+ * question mark; none of it leaves the site. Only campaign labels (utm_...) are kept.
+ */
+export function pageLocation(href) {
+  const url = new URL(href);
+  for (const name of [...url.searchParams.keys()]) if (!CAMPAIGN_LABEL.test(name)) url.searchParams.delete(name);
+  url.hash = "";
+  return url.toString();
+}
+
 /** Google Analytics' own cookies: _ga, _ga_<stream>, and the older _gid. */
 export function isAnalyticsCookie(name) {
   return name === "_ga" || name.startsWith("_ga_") || name === "_gid";

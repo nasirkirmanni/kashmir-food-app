@@ -11,7 +11,7 @@ const seoRedirects = require('./seo-redirects.json');
 // panel and no "Cookie settings" links. It applies only to the production deployment on Vercel, so
 // previews and builds on a laptop never send visits to the real property. Setting the environment
 // variable NEXT_PUBLIC_GA_MEASUREMENT_ID overrides it anywhere, which is how the tests run.
-const SITE_GA_MEASUREMENT_ID = '';
+const SITE_GA_MEASUREMENT_ID = 'G-RQFMYLJ1Y9';
 const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? (process.env.VERCEL_ENV === 'production' ? SITE_GA_MEASUREMENT_ID : '');
 
