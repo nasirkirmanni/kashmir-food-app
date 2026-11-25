@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { SITE_SECTIONS } from "@/lib/siteSections";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
+import { GA_MEASUREMENT_ID } from "@/lib/consent";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +50,9 @@ export default function HamburgerMenu() {
           <motion.div
             initial={{ opacity: 0, y: "-10%" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "-10%" }}
+            // Leaves quickly: on a short screen a slow fade sat over whatever the chosen item opened
+            // (the cookie panel's Save button, for one) and took the next tap.
+            exit={{ opacity: 0, y: "-10%", transition: { type: "tween", duration: 0.16, ease: "easeIn" } }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="absolute top-12 right-4 z-50 w-64 max-h-[80vh] overflow-y-auto bg-[#0B0B0B]/90 backdrop-blur-3xl border border-white/10 rounded-md p-4 shadow-lg"
           >
@@ -72,6 +76,15 @@ export default function HamburgerMenu() {
                     </Link>
                   </motion.div>
                 ))}
+                {/* Phones have no footer, so the way back to the cookie choice lives here. */}
+                {GA_MEASUREMENT_ID && (
+                  <motion.div variants={itemVars}>
+                    <CookieSettingsButton
+                      onClick={() => setIsOpen(false)}
+                      style={{ display: "block", width: "100%", minHeight: 44, background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #C8A46A)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85 }}
+                    />
+                  </motion.div>
+                )}
                 <motion.div variants={itemVars}>
                   <button onClick={handleWazaAI} style={{ display: "flex", alignItems: "center", gap: 6, width: "100%", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", padding: "11px 4px", color: "var(--saffron, #C8A46A)", fontFamily: "var(--font-display, 'Cormorant Garamond', serif)", fontSize: "1rem", letterSpacing: "0.06em", textAlign: "left", opacity: 0.85, transition: "opacity 0.2s, padding-left 0.2s" }}
                     onMouseEnter={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.paddingLeft = "10px"; }}
@@ -161,6 +174,21 @@ export default function HamburgerMenu() {
                     </Link>
                   </motion.div>
                 ))}
+
+                {/* The footer carries this too, but /explore and the scenic drives have no footer. */}
+                {GA_MEASUREMENT_ID && (
+                  <motion.div variants={itemVars}>
+                    <CookieSettingsButton
+                      onClick={() => setIsOpen(false)}
+                      className="w-full flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-left text-white group"
+                    >
+                      <span>
+                        <span className="block font-display text-lg tracking-wider text-white group-hover:text-[var(--saffron)] transition-colors">Cookie settings</span>
+                        <span className="block text-[0.65rem] uppercase tracking-wider text-white/40 mt-0.5">See and change what is stored</span>
+                      </span>
+                    </CookieSettingsButton>
+                  </motion.div>
+                )}
 
                 {/* Waza AI */}
                 <motion.div variants={itemVars}>

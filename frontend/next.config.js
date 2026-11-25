@@ -6,9 +6,20 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // sitemap off them.
 const seoRedirects = require('./seo-redirects.json');
 
+// Google Analytics 4 (components/Analytics.js, lib/consent.js). SITE_GA_MEASUREMENT_ID is the live
+// site's own measurement ID ("G-XXXXXXXXXX"); while it is empty the site has no analytics, no cookie
+// panel and no "Cookie settings" links. It applies only to the production deployment on Vercel, so
+// previews and builds on a laptop never send visits to the real property. Setting the environment
+// variable NEXT_PUBLIC_GA_MEASUREMENT_ID overrides it anywhere, which is how the tests run.
+const SITE_GA_MEASUREMENT_ID = '';
+const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? (process.env.VERCEL_ENV === 'production' ? SITE_GA_MEASUREMENT_ID : '');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // What lib/consent.js reads, in the browser and on the server alike.
+  env: { NEXT_PUBLIC_GA_MEASUREMENT_ID: GA_MEASUREMENT_ID },
   async redirects() {
     return [
       // Itinerary Builder absorbs the old /custom-trip flow (permanent 308).
@@ -131,7 +142,17 @@ const nextConfig = {
             value: (() => {
               const devOrigins =
                 process.env.NODE_ENV === 'production' ? '' : ' http://localhost:5000 http://127.0.0.1:5000';
-              return `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:${devOrigins} https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${devOrigins} https://api.wazwanway.com https://kashmir-food-app-api.onrender.com https://*.tile.openstreetmap.org https://wttr.in; frame-ancestors 'none'`;
+              // Google Analytics (components/Analytics.js) is loaded only after a visitor accepts, and
+              // only when the site has a measurement ID; without one this header is unchanged. With
+              // one it allows the tag script from googletagmanager.com and the measurement requests
+              // to google-analytics.com. The tag also tries to send a copy of each hit to
+              // www.google.com/g/collect; that stays refused on purpose.
+              const analytics = Boolean(GA_MEASUREMENT_ID);
+              const tagScript = analytics ? ' https://www.googletagmanager.com' : '';
+              const tagRequests = analytics
+                ? ' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com'
+                : '';
+              return `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'${tagScript}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:${devOrigins} https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${devOrigins} https://api.wazwanway.com https://kashmir-food-app-api.onrender.com https://*.tile.openstreetmap.org https://wttr.in${tagRequests}; frame-ancestors 'none'`;
             })(),
           },
           {

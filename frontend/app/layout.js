@@ -3,6 +3,8 @@ import { Inter, Cormorant_Garamond, Playfair_Display, Fraunces, JetBrains_Mono, 
 import Navbar from "@/components/Navbar";
 import MobileNav from "@/components/MobileNav";
 import { FloatingBackButton } from "@/components/BackButton";
+import ConsentBanner from "@/components/ConsentBanner";
+import Analytics from "@/components/Analytics";
 import ConditionalFooter from "@/components/ConditionalFooter";
 import GlobalBackground from "@/components/GlobalBackground";
 import dynamic from "next/dynamic";
@@ -199,7 +201,10 @@ export default function RootLayout({ children }) {
         <GlobalBackground />
         <MobileNavigationProvider>
           <div className="min-h-screen relative z-10 pb-24 md:pb-0">
-            {/* First in tab order, as the top bar's Back is on desktop. */}
+            {/* The cookie question comes first for keyboard and screen-reader users, though it shows
+                at the bottom of the screen. */}
+            <ConsentBanner />
+            {/* Then Back, first in the page's own tab order, as the top bar's Back is on desktop. */}
             <FloatingBackButton />
             <Navbar />
             <MobileSwipeContainer coverDishes={coverDishes}>
@@ -209,6 +214,7 @@ export default function RootLayout({ children }) {
             <WazaAI />
             <GlobalSearchModal />
             <MobileNav />
+            <Analytics />
           </div>
         </MobileNavigationProvider>
       </body>
