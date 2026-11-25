@@ -30,7 +30,9 @@
 # ScrollVideoHero.js and in next.config.js together.
 set -eu
 
-MASTER="public/redesign/hero.mp4"          # 1280x720, 24 frames a second, 240 frames
+# The master is this script's input and nothing else. It is kept outside public/ so that the site
+# does not serve it: no page loads it, and it is eight times the size of the film made from it.
+MASTER="media-masters/hero.mp4"            # 1280x720, 24 frames a second, 240 frames
 OUT="public/redesign/hero-scrub-v2.mp4"
 
 ffmpeg -hide_banner -loglevel error -y -i "$MASTER" \
