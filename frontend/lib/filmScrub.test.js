@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { createRequire } from "node:module";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import { describe, expect, it } from "vitest";
 import { FILM_LOAD_MARGIN, easeToward, frameAt, frameTime, loadedEnd, playableEnd } from "./filmScrub";
 
@@ -149,6 +149,14 @@ describe("the film the page asks for", () => {
     expect(script).toContain(`OUT="public${src}"`);
     const master = script.match(/MASTER="([^"]+)"/)[1];
     expect(existsSync(join(FRONTEND, master))).toBe(true);
+  });
+
+  it("is made from a master the site does not serve", () => {
+    // Everything under public/ is sent to whoever asks for it. The master is only the encode
+    // script's input, and eight times the size of the film, so it is kept outside.
+    const master = read("scripts/encode-hero-scrub.sh").match(/MASTER="([^"]+)"/)[1];
+    const fromPublic = relative(join(FRONTEND, "public"), join(FRONTEND, master));
+    expect(fromPublic, `the way from public/ to ${master}, which has to lead out of public/`).toMatch(/^\.\./);
   });
 
   it("may be kept by browsers for a year, under exactly that name", () => {
