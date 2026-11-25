@@ -17,8 +17,11 @@ export default function TermsAndConditionsPage() {
         >
           <span className="text-[var(--saffron)] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3 block">Legal</span>
           <h1 className="font-display text-4xl md:text-5xl text-white mb-4">Terms and Conditions</h1>
+          {/* Written by hand, like the privacy policy's: the day this wording last changed and went
+              live. Change it only when the terms themselves change, and never work it out from the
+              clock, which shows every visitor today's date and differs between server and browser. */}
           <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-md mx-auto">
-            Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            Last updated: November 22, 2026
           </p>
         </motion.div>
 
