@@ -4,10 +4,14 @@ import { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import useScrollScrubVideo from "@/hooks/useScrollScrubVideo";
+import { frameAt, frameTime } from "@/lib/filmScrub";
 
 /* ─── Tunables ─── */
-const VIDEO_SRC = "/redesign/hero.mp4";
-const VIDEO_DURATION = 10.01; // seconds (measured from the source file)
+// The film is made for scrubbing by scripts/encode-hero-scrub.sh. Its name carries a version
+// because browsers are told to keep it for a year (next.config.js): a new film needs a new name.
+const VIDEO_SRC = "/redesign/hero-scrub-v2.mp4";
+const VIDEO_DURATION = 10; // seconds
+const VIDEO_FPS = 24; // frames per second, 240 frames in all
 const SCROLL_LENGTH_VH = 300; // scroll distance mapped to the full lid-lift reveal
 const STATIC_FRAME = 0.92; // frame (0..1) parked on in reduced-motion mode — lid fully open
 
@@ -26,6 +30,7 @@ export default function ScrollVideoHero() {
 
   const [canEnhance, setCanEnhance] = useState(false); // ≥768px viewport (client-detected)
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [saveData, setSaveData] = useState(false); // the browser asks sites to use less data
   const [videoReady, setVideoReady] = useState(false);
 
   // Detect viewport + motion preference on the client to avoid SSR mismatch,
@@ -36,6 +41,7 @@ export default function ScrollVideoHero() {
     const sync = () => {
       setCanEnhance(mqDesktop.matches);
       setReducedMotion(mqMotion.matches);
+      setSaveData(Boolean(navigator.connection && navigator.connection.saveData));
     };
     sync();
     mqDesktop.addEventListener("change", sync);
@@ -48,18 +54,22 @@ export default function ScrollVideoHero() {
 
   const scrub = canEnhance && !reducedMotion;
 
-  // The scrub video is ~15 MB. Fetch only its metadata on arrival and buffer the
-  // whole file once the visitor engages (scroll, wheel, key or pointer), so a
-  // bounce or a crawler render doesn't download it.
+  // The film is 1.8 MB and the scroll needs it from the first turn of the wheel, so it starts
+  // loading as soon as the hero is on a screen that scrubs it. A film fetched only at the first
+  // scroll cannot keep up with that scroll.
+  // Two visitors get a single frame's worth instead: one who asked for reduced motion (shown a
+  // still), and one whose browser asks to save data, until they scroll, press a key or touch.
   const [engaged, setEngaged] = useState(false);
+  const waitForVisitor = scrub && saveData && !engaged;
   useEffect(() => {
-    if (engaged) return undefined;
+    if (!waitForVisitor) return undefined;
     const markEngaged = () => setEngaged(true);
     const options = { capture: true, passive: true };
     const events = ["scroll", "wheel", "keydown", "pointerdown", "touchstart"];
     events.forEach((type) => window.addEventListener(type, markEngaged, options));
     return () => events.forEach((type) => window.removeEventListener(type, markEngaged, options));
-  }, [engaged]);
+  }, [waitForVisitor]);
+  const wholeFilm = scrub && !waitForVisitor;
 
   // Self-driven progress (0..1). The hook writes to it from rAF + layout reads,
   // so text choreography stays declarative without depending on scroll events.
@@ -71,6 +81,7 @@ export default function ScrollVideoHero() {
     videoRef,
     progress: scrollYProgress,
     duration: VIDEO_DURATION,
+    fps: VIDEO_FPS,
     pin: scrub,
   });
 
@@ -80,7 +91,8 @@ export default function ScrollVideoHero() {
     const v = videoRef.current;
     if (v) {
       try {
-        v.currentTime = VIDEO_DURATION * STATIC_FRAME;
+        const frame = frameAt(VIDEO_DURATION * STATIC_FRAME, VIDEO_FPS, VIDEO_DURATION * VIDEO_FPS);
+        v.currentTime = frameTime(frame, VIDEO_FPS);
       } catch {
         /* ignore */
       }
@@ -117,7 +129,7 @@ export default function ScrollVideoHero() {
             src={VIDEO_SRC}
             muted
             playsInline
-            preload={engaged ? "auto" : "metadata"}
+            preload={wholeFilm ? "auto" : "metadata"}
             aria-hidden="true"
             tabIndex={-1}
             disablePictureInPicture

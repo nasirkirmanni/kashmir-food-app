@@ -133,6 +133,14 @@ const nextConfig = {
         source: '/llms-full.txt',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
       },
+      // The homepage's opening film is scrubbed by the scroll, so it has to be on hand before the
+      // visitor moves. Its name carries a version (scripts/encode-hero-scrub.sh) and the file
+      // behind a name never changes, so a returning visitor's browser may use its copy for a year
+      // without asking. Files in public/ are otherwise re-checked on every visit.
+      {
+        source: '/redesign/hero-scrub-v2.mp4',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
       {
         source: '/(.*)',
         headers: [
