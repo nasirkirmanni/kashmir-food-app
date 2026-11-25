@@ -1,0 +1,411 @@
+/*
+ * The cookie panel (components/ConsentBanner.js): the first question, and its settings. Flat, in the
+ * site's near-black, ivory and one gold: square corners, a hairline, and one soft shadow because it
+ * floats over whatever page is behind it. It sits in a corner of the screen and never covers the page.
+ */
+
+.panel {
+  --c-ground: #15120e;
+  --c-ink: #f4ecdf;
+  --c-text: #d8d0c3;
+  --c-dim: #aaa296;
+  --c-gold: #c9a063;
+  --c-gold-bright: #dcb679;
+  --c-on-gold: #17120b;
+  --c-line: rgba(244, 236, 223, 0.14);
+  --c-line-strong: rgba(244, 236, 223, 0.3);
+  --c-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: fixed;
+  /* Over the page and the floating Back button (45), under dialogs such as the Waza chat (50). */
+  z-index: 48;
+  left: 12px;
+  right: 12px;
+  /* Phones: above the floating tab bar, and never up over the floating Back button. */
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  max-height: calc(100dvh - 160px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 160, 99, 0.5) transparent;
+  padding: 20px 18px 18px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 2px;
+  background: var(--c-ground);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+  color: var(--c-text);
+  font-family: var(--font-body), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Wide screens: the bottom-left corner, clear of the Waza button on the right. */
+@media (min-width: 768px) {
+  .panel {
+    left: 24px;
+    right: auto;
+    bottom: 24px;
+    width: min(440px, calc(100vw - 48px));
+    /* Never up under the site's fixed header. */
+    max-height: calc(100dvh - 128px);
+    padding: 24px 24px 20px;
+  }
+}
+
+/* Tablets: narrower, so it stays clear of the Waza button's label. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .panel {
+    width: 360px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    animation: rise 0.35s var(--c-ease) both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.panel ::selection {
+  background: rgba(201, 160, 99, 0.34);
+  color: var(--c-ink);
+}
+
+.title:focus {
+  outline: none;
+}
+
+.title:focus-visible,
+.panel a:focus-visible,
+.panel button:focus-visible,
+.panel summary:focus-visible {
+  outline: 2px solid var(--c-gold-bright);
+  outline-offset: 3px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display), "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  font-size: 1.625rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--c-ink);
+  text-wrap: balance;
+}
+
+.text {
+  margin: 8px 0 0;
+  max-width: 48ch;
+  text-wrap: pretty;
+}
+
+.panel a {
+  color: var(--c-gold-bright);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(201, 160, 99, 0.55);
+  text-underline-offset: 0.22em;
+}
+
+.panel a:hover {
+  color: var(--c-ink);
+  text-decoration-color: currentColor;
+}
+
+/* ---------- The first question: Manage, then Decline and Accept all at the same weight ---------- */
+
+.choices {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.choice,
+.save,
+.quiet {
+  min-height: 44px;
+  border-radius: 2px;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.choice {
+  flex: 1 1 0;
+  padding: 0 12px;
+  border: 1px solid var(--c-line-strong);
+  background: transparent;
+  color: var(--c-ink);
+  transition:
+    border-color 180ms var(--c-ease),
+    background-color 180ms var(--c-ease);
+}
+
+.quiet {
+  flex: 0 0 auto;
+  padding: 0 8px 0 0;
+  border: 0;
+  background: none;
+  color: var(--c-gold-bright);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(201, 160, 99, 0.55);
+  text-underline-offset: 0.25em;
+  transition: color 180ms var(--c-ease);
+}
+
+/* ---------- The settings: the heading and Save stay put, the list between them scrolls ---------- */
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.groups {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 16px;
+  /* Room for the scrollbar and for a focus ring at the edge. */
+  margin-right: -10px;
+  padding-right: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 160, 99, 0.5) transparent;
+  border-top: 1px solid var(--c-line);
+}
+
+.group {
+  padding: 12px 0 10px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.group:last-child {
+  border-bottom: 0;
+}
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+}
+
+.groupName {
+  margin: 0;
+  font-family: var(--font-display), "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  font-size: 1.3125rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--c-ink);
+}
+
+.always {
+  font-size: 0.8125rem;
+  color: var(--c-dim);
+}
+
+.groupText {
+  margin: 2px 0 0;
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+.note {
+  margin: 8px 0 0;
+  max-width: 46ch;
+  color: var(--c-dim);
+  text-wrap: pretty;
+}
+
+/* The switch says its state in words as well as by position and colour. */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 0 0 10px;
+  border: 0;
+  background: none;
+  color: var(--c-ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switchState {
+  min-width: 1.6em;
+  text-align: right;
+}
+
+.track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 12px;
+  background: transparent;
+  transition:
+    background-color 200ms var(--c-ease),
+    border-color 200ms var(--c-ease);
+}
+
+.thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-dim);
+  transition:
+    transform 240ms var(--c-ease),
+    background-color 200ms var(--c-ease);
+}
+
+.switch[aria-checked="true"] .track {
+  border-color: var(--c-gold);
+  background: var(--c-gold);
+}
+
+.switch[aria-checked="true"] .thumb {
+  background: var(--c-on-gold);
+  transform: translateX(20px);
+}
+
+.details {
+  margin-top: 2px;
+}
+
+.details summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  min-height: 44px;
+  list-style: none;
+  color: var(--c-gold-bright);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* A plus while the list is closed, a minus while it is open. */
+.details summary::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 11px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 11px no-repeat;
+}
+
+.details[open] summary::before {
+  background: linear-gradient(currentColor, currentColor) center / 11px 1.5px no-repeat;
+}
+
+.stored {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.stored li {
+  display: grid;
+  gap: 1px;
+}
+
+.storedName {
+  color: var(--c-ink);
+}
+
+.storedName code {
+  margin-right: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95em;
+  color: var(--c-gold-bright);
+  overflow-wrap: anywhere;
+}
+
+.storedKept {
+  color: var(--c-dim);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-line);
+}
+
+.save {
+  padding: 0 22px;
+  border: 1px solid var(--c-gold);
+  background: var(--c-gold);
+  color: var(--c-on-gold);
+  transition:
+    background-color 180ms var(--c-ease),
+    border-color 180ms var(--c-ease);
+}
+
+.foot {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .choice:hover {
+    border-color: var(--c-gold);
+    background: rgba(201, 160, 99, 0.1);
+  }
+
+  .quiet:hover {
+    color: var(--c-ink);
+  }
+
+  .save:hover {
+    border-color: var(--c-gold-bright);
+    background: var(--c-gold-bright);
+  }
+
+  .switch:hover .track {
+    border-color: var(--c-gold);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panel *,
+  .panel *::before,
+  .panel *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .panel {
+    display: none;
+  }
+}

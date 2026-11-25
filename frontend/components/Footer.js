@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
 import { STILL_KASHMIR_HREF } from "@/lib/stillKashmir";
 
 export default function Footer() {
@@ -31,6 +32,7 @@ export default function Footer() {
           <Link href="/list-restaurant" className="transition-colors duration-300 hover:text-[#C8A46A]">List Your Restaurant</Link>
           <Link href="/privacy" className="transition-colors duration-300 hover:text-[#C8A46A]">Privacy Policy</Link>
           <Link href="/terms" className="transition-colors duration-300 hover:text-[#C8A46A]">Terms</Link>
+          <CookieSettingsButton className="font-semibold uppercase tracking-[0.15em] transition-colors duration-300 hover:text-[#C8A46A]" />
         </div>
         <div className="border-t border-[#F5F5F0]/10 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-[0.7rem] uppercase tracking-widest text-[#F5F5F0]/70">
           <p>© 2026 Wazwan Way. All rights reserved.</p>
